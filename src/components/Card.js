@@ -1,21 +1,35 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import puppyPlaceholder from "../asset/puppyPlaceholder.png";
 
-const Card = () => {
+const Card = (props) => {
+  const postList = useSelector((state) => state.post.list);
+  const dogSize = postList[props.index].dogSize;
+  const dogGender = postList[props.index].dogGender;
+  const dogAge = postList[props.index].dogAge;
+  const locationCategory = postList[props.index].locationCategory;
+  const dogImage = postList[props.index].dogImage;
+  const dogName = postList[props.index].dogName;
+  const meetingTime = postList[props.index].meetingTime;
+  const completed = postList[props.index].completed;
+
   return (
     <Wrap>
       <Left>
         <div>
-          <div>가을이</div>
-          <div>7세 7개월</div>
+          <div>{dogName}</div>
+          <div>{dogAge}</div>
+          <div>{dogSize}</div>
+          <div>{dogGender}</div>
         </div>
-        <div>서울숲</div>
-        <div>2021년 10월 28일 16:30</div>
+        <div>{locationCategory}</div>
+        <div>{meetingTime}</div>
+        <div>{completed ? "마감" : "진행중"}</div>
       </Left>
 
       <div>
-        <Image src={puppyPlaceholder} />
+        <Image src={dogImage} />
       </div>
     </Wrap>
   );
@@ -36,5 +50,6 @@ const Image = styled.img`
   width: 150px;
   height: 150px;
   margin: 20px;
+  border-radius: 50%;
 `;
 export default Card;
