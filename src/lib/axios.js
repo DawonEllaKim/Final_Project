@@ -12,5 +12,9 @@ const instance = axios.create({
 });
 
 export const apis = {
-  getPostAX: () => instance.get("/posts"),
+  // 산책 상세 데이터 불러오기
+  getPostAX: () => instance.get('/posts'),
+  // 산책 등록하기
+  createPostAX:(post) =>
+    instance.post('/posts', post)
 };
