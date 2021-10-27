@@ -1,0 +1,21 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "locationCategory": "서울숲",
+      "meetingTime": "2021-10-24",
+      "dogCount": "3",
+      "wishDesc": "애는 착해요"
+    },
+    {
+      "locationCategory": "반포",
+      "meetingTime": "2021-10-06T07:30:00.000Z",
+      "dogCount": "2",
+      "wishDesc": "111",
+      "id": 2
+    }
+  ],
+  "postsWrite":[
+    
+  ]
+}
