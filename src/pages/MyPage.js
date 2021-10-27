@@ -1,100 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import Card from "../components/Card";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { history } from "../redux/configureStore";
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+
+  const postList = useSelector((state) => state.post.list);
+  console.log(postList);
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, []);
+
   return (
     <div>
-      <div>
-        WELCOME
-        <button>edit</button>
-      </div>
-      <Body>
-        <Dog>
-          <Image />
-          <OwnerInfo>
-            <div>
-              강아지 이름
-              <input />
-            </div>
-            <div>
-              성별
-              <input type="radio" />
-              <input type="radio" />
-            </div>
-            <div>
-              견종
-              <select>
-                <option>비숑</option>
-              </select>
-            </div>
-            <div>
-              나이
-              <select>
-                <option>20대</option>
-              </select>
-            </div>
-            <div>
-              중성화 여부
-              <input type="radio" />
-              <input type="radio" />
-            </div>
-            <div>
-              강아지 한줄평
-              <input />
-            </div>
-          </OwnerInfo>
-        </Dog>
-        <Owner>
-          <Image />
-          <OwnerInfo>
-            <div>
-              보호자이름
-              <input />
-            </div>
-            <div>
-              성별
-              <input type="radio" />
-              <input type="radio" />
-            </div>
-            <div>
-              나이
-              <select>
-                <option>20대</option>
-              </select>
-            </div>
-            <div>
-              산책지역
-              <input />
-            </div>
-          </OwnerInfo>
-        </Owner>
-      </Body>
-      <div>
-        <button>변경하기</button>
-      </div>
+      <div>WELCOME 코코 견주님</div>
+
+      {postList.map((post, index) => {
+        return <Card index={index} key={index} post={post} />;
+      })}
+      <button onClick={() => history.push("")}>마이 프로필</button>
     </div>
   );
 };
-
-const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const Dog = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-const Owner = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-const OwnerInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const Image = styled.img`
-  width: 100px;
-  height: 100px;
-`;
 
 export default MyPage;
