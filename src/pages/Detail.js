@@ -6,8 +6,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {actionCreators as postActions} from '../redux/modules/post';
 
 const Detail = (props) =>{
+    useEffect(()=>{
+        dispatch(postActions.getPostMD());
+    },[]);
     const dispatch = useDispatch();
-    const post_info = useSelector((state) => state.post.list)
+    const post_info = useSelector((state) => state.post?.list)||""
     console.log(post_info);
     const postId = props.match.params.id;
     console.log('파람즈 id', postId);
@@ -21,9 +24,7 @@ const Detail = (props) =>{
     const timeInfo = postInfo?.meetingTime;
     const wishInfo = postInfo?.wishDesc;
 
-    useEffect(()=>{
-        dispatch(postActions.getPostMD());
-    },[]);
+   
 
     const deletePost = () =>{
         dispatch(postActions.deletePostMD(postId));

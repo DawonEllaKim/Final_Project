@@ -8,7 +8,7 @@ import { history } from "../redux/configureStore";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.list);
+  const postList = useSelector((state) => state.post?.list)||""
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);

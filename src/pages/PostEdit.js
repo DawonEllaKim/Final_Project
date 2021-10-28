@@ -13,7 +13,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import reactDom from "react-dom";
 
 const Write = (props) => {
-    const updatePost = useSelector((state) => state.post.list);
+    const updatePost = useSelector((state) => state.post?.list)||""
     console.log(updatePost)
   const dispatch = useDispatch();
 
@@ -21,6 +21,27 @@ const Write = (props) => {
     dispatch(postActions.getUpdatePostMD(postId))
    
   },[])
+  
+  const [meetingDate, setMeetingDate] = useState();
+  const [meetingTime, setMeetingTime] = useState();
+  const timeChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingTime(e.target.value);
+    }
+    else
+    setMeetingTime(updatePost.meetingTime)
+};
+const dateChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingDate(e.target.value);
+    }
+    else
+    setMeetingDate(updatePost.meetingDate)
+};
 
 
  
@@ -36,39 +57,47 @@ const Write = (props) => {
       setLocation(updatePost.locationCategory)
   };
 
-  const date = new window.Date();
 
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(date, 30), 16)
-  );
 
 
   const [dogCount, setDogCount] = useState();
 
 
   const countChange = (e) => {
-    console.log(e.target.value);
-    setDogCount(e.target.value);
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setDogCount(e.target.value);
+    }
+    else
+    setDogCount(updatePost.dogCount)
   };
 
   const [wishDesc, setWishDesc] = useState();
 
   const descChange = (e) => {
-    setWishDesc(e.target.value);
+
+      console.log(e.target.value);
+      setWishDesc(e.target.value);
+    
+    // else
+    // setWishDesc(updatePost.wishDesc)
   };
   
+  const postId = props.match.params.id;
   const addMeeting = () => {
     const post = {
       locationCategory: location,
-      meetingTime: startDate,
+      meetingTime: meetingTime,
+      meetingDate: meetingDate,
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
 
     console.log(post);
-    dispatch(postActions.addPostMD(post));
+    dispatch(postActions.updatePostMD(postId,post));
   };
-  const postId = props.match.params.id;
+
   
   
   return (
@@ -93,7 +122,7 @@ const Write = (props) => {
               <option value="인천 인천대공원">인천 인천대공원</option>
             </select>
           </Location>
-          <Date>
+          {/* <Date>
             <Title>산책 일시</Title>
             <DatePicker
               locale={ko}
@@ -109,7 +138,10 @@ const Write = (props) => {
               dateFormat="yyyy-MM-dd hh:mm aa"
               value={startDate ? startDate : updatePost.meetingTime}
             />
-          </Date>
+          </Date> */}
+          <input type="date" value={meetingDate ? meetingDate : updatePost.meetingDate} onChange={dateChange}/>
+          <input type="time" value={meetingTime ? meetingTime : updatePost.meetingTime} onChange={timeChange}/>
+
           <Count>
             <Title>최대 인원</Title>
             <select value={dogCount? dogCount :updatePost.dogCount} onChange={countChange}>
@@ -127,7 +159,7 @@ const Write = (props) => {
           <Desc>
             <Title>소개 및 유의사항</Title>
             <Textarea
-              value={wishDesc? wishDesc: updatePost.wishDesc}
+              defaultValue={wishDesc? wishDesc: updatePost.wishDesc}
               onChange={descChange}
               placeholder="간단한 소개 및 유의사항을 적어주세요"
             >

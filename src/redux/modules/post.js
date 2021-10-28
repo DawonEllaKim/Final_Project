@@ -60,7 +60,9 @@ const updatePostMD = (postId, post) =>{
     apis
       .updatePostAX(postId,post)
       .then((res)=>{
+        console.log(res)
         dispatch(updatePost(postId, post));
+        history.push("/")
       })
       .catch((err)=>{
         console.log(err);
@@ -115,10 +117,7 @@ export default handleActions(
     }),
     [UPDATE_POST]:(state,action) =>
       produce(state,(draft)=>{
-        draft.list.locationCategory=action.payload.locationCategory;
-        draft.list.meetingTime=action.payload.meetingTime;
-        draft.list.dogCount=action.payload.dogCount;
-        draft.list.wishDesc=action.payload.wishDesc;
+       draft.list= action.payload.list;
       
       }),
     [DELETE_POST]: (state, action) =>
