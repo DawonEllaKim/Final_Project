@@ -5,16 +5,19 @@ import { apis } from "../../lib/axios";
 // action
 const GET_POST = "GET_POST";
 const ADD_POST = 'ADD_POST';
+const UPDATE_POST = 'UPDATE_POST'
 const DELETE_POST = 'DELETE_POST';
 
 // action creators
 const getPost = createAction(GET_POST, (postList) => ({ postList }));
 const addPost = createAction(ADD_POST,(post) =>({post}));
+const updatePost = createAction(UPDATE_POST,(postId, post) => ({postId, post}))
 const deletePost = createAction(DELETE_POST, (postId) =>({postId}));
 
 // initialState
 const initialState = {
   list: [],
+  post: []
 };
 
 // middleware
@@ -43,11 +46,41 @@ const addPostMD = (post) =>{
             .then((res) =>{
                 console.log(res)
                 dispatch(addPost(post));
+                window.location.replace("/")
             })
             .catch((err) =>{
                 console.log(err);
             })
     }
+}
+
+const updatePostMD = (postId, post) =>{
+  return function (dispatch, getState, {history}){
+
+    apis
+      .updatePostAX(postId,post)
+      .then((res)=>{
+        dispatch(updatePost(postId, post));
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }
+}
+
+const getUpdatePostMD = (postId) =>{
+  return function (dispatch, getState, {history}){
+      apis
+          .getUpdatePostAX(postId)
+          .then((res) =>{
+              console.log(res)
+              const post= res.data;
+              dispatch(getPost(post));
+          })
+          .catch((err) =>{
+              console.log(err);
+          })
+  }
 }
 
 const deletePostMD = (postId) =>{
@@ -59,6 +92,7 @@ const deletePostMD = (postId) =>{
           console.log('삭제 완료')
           window.alert('삭제 완료')
           dispatch(deletePost(postId));
+          history.replace("/")
         })
         .catch((err) =>{
           console.log(err);
@@ -79,6 +113,14 @@ export default handleActions(
         draft.list = action.payload.post;
         console.log(draft.list)
     }),
+    [UPDATE_POST]:(state,action) =>
+      produce(state,(draft)=>{
+        draft.list.locationCategory=action.payload.locationCategory;
+        draft.list.meetingTime=action.payload.meetingTime;
+        draft.list.dogCount=action.payload.dogCount;
+        draft.list.wishDesc=action.payload.wishDesc;
+      
+      }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft)=>{
         console.log(action.payload.postId);
@@ -94,7 +136,10 @@ const actionCreators = {
   deletePost,
   getPostMD,
   addPostMD,
-  deletePostMD
+  deletePostMD,
+  updatePost,
+  updatePostMD,
+  getUpdatePostMD
 };
 
 export { actionCreators };
