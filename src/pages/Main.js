@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Card from "../components/Card";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 const Main = () => {
@@ -18,7 +17,7 @@ const Main = () => {
   // 강아지 성별 필터
   const [dogGenderActive, setDogGenderActive] = useState(false);
   const [dogGenderSelected, setDogGenderSizeSelected] = useState("강아지 성별");
-  const dogGenderOptions = ["전체", "소형견", "여아"];
+  const dogGenderOptions = ["전체", "남아", "여아"];
 
   // 강아지 나이 필터
   const [dogAgeActive, setDogAgeActive] = useState(false);

@@ -1,46 +1,55 @@
 {
   "posts": [
     {
-      "locationCategory": "뚝섬",
-      "meetingTime": "2021-10-28T07:30:01.731Z",
-      "dogCount": "2",
-      "wishDesc": "11",
-      "id": 1
+			"id": 1,
+      "dogSize": "소형견",
+      "dogGender": "남",
+      "dogAge": "0-3세",
+			"locationCategory": "서울숲",
+			"completed": false,
+			"dogImage": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80",
+			"dogName": "코코",
+			"meetingDate": "2021-10-28",
+			"meetingTime": " 16:00",
+			"user" : {
+				"id": 1
+			}
     },
-    {
-      "locationCategory": "부산 시민 공원",
-      "meetingTime": "2021-10-06T07:00:00.000Z",
-      "dogCount": "5",
-      "wishDesc": "222",
-      "id": 2
+		{
+			"id": 2,
+      "dogSize": "대형견",
+      "dogGender": "여",
+      "dogAge": "8세 이상",
+			"locationCategory": "광안리",
+			"completed": true,
+			"dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
+			"dogName": "가을이",
+			"meetingDate": "2021-10-25",
+			"meetingTime": " 12:00",
+			"user" : {
+				"id": 2
+			}
     }
   ],
-	"users" : [
-		{
-			"ownerInfo" : 
-				{
-					"ownerName" : "김다원",
-					"ownerGender" : "여자",
-					"ownerAge" : "30대",
-					"ownerImage" : "https://images.unsplash.com/photo-1474978528675-4a50a4508dc3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-				},
-			"dogInfo" : 
-				{
-					"dogId": 1,
-					"dogGender": "남",
-					"dogName" : "쿤이",
-					"dogSize" : "중형견",
-					"dogBreed": "닥스훈트",
-					"dogAge" : "8세이상",
-					"neutral" : true,
-					"dogComment" : "사납게 짖어요",
-					"dogImage" : "https://images.unsplash.com/photo-1618265341355-d0e2d1fdf26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-				}
+	"user": {
+    "id" : "1",
+    "username": "dawon0411",
+    "password": "1234",
+		"dog": {
+			"dogGender": "여",
+			"dogName": "코코팝",
+			"dogSize": "중형견",
+			"dogBreed": "말티즈",
+			"dogAge": "4~7세",
+			"neutral": true,
+			"dogComment": "귀여워요",
+			"dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+		},
+		"owner": {
+			"ownerName": "ella",
+			"ownerGender": "여",
+			"ownerAge": "30대",
+			"ownerImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
 		}
-	],
-	"dog" : [
-		{
-			"id": 1
-		}
-	]
+	}
 }

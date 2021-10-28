@@ -13,6 +13,7 @@ const Card = (props) => {
   const dogName = postList[props.index].dogName;
   const meetingTime = postList[props.index].meetingTime;
   const completed = postList[props.index].completed;
+  // console.log(postList);
 
   return (
     <Wrap>

@@ -10,9 +10,10 @@ import SignDog from "./pages/SignDog";
 import SignOwner from "./pages/SignOwner";
 import { history } from "./redux/configureStore.js";
 import Map from "./pages/Map";
-import Write from "./pages/Write"
+import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
+
 function App() {
   return (
     <div className="App">
@@ -23,12 +24,13 @@ function App() {
         <Route exact path="/signDog" component={SignDog} />
         <Route exact path="/signOwner" component={SignOwner} />
         <Route exact path="/myPage" component={MyPage} />
-        <Route exact path="/map" component={Map}/>
-        <Route exact path="/write" component={Write}/>
+        <Route exact path="/map" component={Map} />
+        <Route exact path="/write" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
         <Route exact path="/myProfile" component={MyProfile} />
-      
       </ConnectedRouter>
-       </div>
+    </div>
+  );
+}
 
 export default App;
