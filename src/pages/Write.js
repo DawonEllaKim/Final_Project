@@ -129,8 +129,12 @@ const Right = styled.div`
   border: 1px solid green;
   box-sizing: border-box;
   width: 55%;
+  text-align: left;
+  padding-left: 10px;
 `;
-const Title = styled.div``;
+const Title = styled.div`
+  padding: 10px 0;
+`;
 const Location = styled.div``;
 const Date = styled.div``;
 const Count = styled.div``;
@@ -139,6 +143,7 @@ const Textarea = styled.textarea``;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;
+  padding: 10px 0;
 `;
 const CancleBtn = styled.button``;
 const AddBtn = styled.button``;

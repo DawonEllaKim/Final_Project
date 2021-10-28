@@ -16,5 +16,7 @@ export const apis = {
   getPostAX: () => instance.get('/posts'),
   // 산책 등록하기
   createPostAX:(post) =>
-    instance.post('/posts', post)
+    instance.post('/posts', post),
+  // 산책 약속 삭제하기
+  deletePostAX:(postId) => instance.delete(`/posts/${postId}`)
 };

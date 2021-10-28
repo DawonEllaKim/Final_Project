@@ -25,8 +25,8 @@ const Detail = (props) =>{
         dispatch(postActions.getPostMD());
     },[]);
 
-    const postDelete = () =>{
-
+    const deletePost = () =>{
+        dispatch(postActions.deletePostMD(postId));
     }
 
     return(
@@ -91,7 +91,7 @@ const Detail = (props) =>{
                 <BtnWrap>
                     <Completed>모집 마감하기</Completed>
                     <Edit>수정하기</Edit>
-                    <Delete onClick={postDelete}>삭제하기</Delete>
+                    <Delete onClick={deletePost}>삭제하기</Delete>
                     <Chatting>채팅하기</Chatting>
                 </BtnWrap>
             </Wrap>

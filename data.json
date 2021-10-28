@@ -1,43 +1,18 @@
 {
   "posts": [
     {
-<<<<<<< HEAD
-      "dogSize": "소형견",
-      "dogGender": "남아",
-      "dogAge": "0-3세",
-			"locationCategory": "서울숲",
-			"completed": false,
-			"dogImage": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80",
-			"dogName": "코코",
-			"meetingTime": "2021-10-28 16:00:00"
-    },
-		{
-      "dogSize": "대형견",
-      "dogGender": "여아",
-      "dogAge": "8세 이상",
-			"locationCategory": "광안리",
-			"completed": true,
-			"dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
-			"dogName": "가을이",
-			"meetingTime": "2021-10-29 16:00:00"
-    }
-=======
-      "id": 1,
-      "locationCategory": "서울숲",
-      "meetingTime": "2021-10-24",
-      "dogCount": "3",
-      "wishDesc": "애는 착해요"
+      "locationCategory": "뚝섬",
+      "meetingTime": "2021-10-28T07:30:01.731Z",
+      "dogCount": "2",
+      "wishDesc": "11",
+      "id": 1
     },
     {
-      "locationCategory": "반포",
-      "meetingTime": "2021-10-06T07:30:00.000Z",
-      "dogCount": "2",
-      "wishDesc": "111",
+      "locationCategory": "부산 시민 공원",
+      "meetingTime": "2021-10-06T07:00:00.000Z",
+      "dogCount": "5",
+      "wishDesc": "222",
       "id": 2
     }
-  ],
-  "postsWrite":[
-    
->>>>>>> add
   ]
 }
