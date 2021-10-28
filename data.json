@@ -26,6 +26,7 @@
     }
   ],
   "user": {
+    "id" : "1",
     "username": "hihi",
     "password": "ssssooo"
   },
