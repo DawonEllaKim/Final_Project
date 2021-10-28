@@ -1,7 +1,20 @@
 {
   "posts": [
     {
+      "locationCategory": "뚝섬",
+      "meetingDate": "2021-10-02",
+      "meetingTime": "07:20",
+      "dogCount": "5",
+      "wishDesc": "y야호sgfd",
       "id": 1
+    },
+    {
+      "locationCategory": "올림픽공원",
+      "meetingDate": "2021-10-08",
+      "meetingTime": "03:30",
+      "dogCount": "5",
+      "wishDesc": "ㅇㄴㅇㅊㅌㅇㅊㅍ",
+      "id": 2
     }
   ],
   "users": [
@@ -26,7 +39,7 @@
     }
   ],
   "user": {
-    "id" : "1",
+    "id": "1",
     "username": "hihi",
     "password": "ssssooo"
   },

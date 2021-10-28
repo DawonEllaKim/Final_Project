@@ -1,51 +1,29 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
-
 import { history } from "../redux/configureStore";
 import { useDispatch,useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import reactDom from "react-dom";
 
 const Write = (props) => {
-    const updatePost = useSelector((state) => state.post?.list)||""
-    console.log(updatePost)
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(postActions.getUpdatePostMD(postId))
-   
-  },[])
+  const postId = props.match.params.id;
+  console.log(postId)
+  const update_post = useSelector((state) => state.post.list);
   
-  const [meetingDate, setMeetingDate] = useState();
-  const [meetingTime, setMeetingTime] = useState();
-  const timeChange = (e) => {
-    if(e.target.value)
-    {
-      console.log(e.target.value);
-      setMeetingTime(e.target.value);
-    }
-    else
-    setMeetingTime(updatePost.meetingTime)
-};
-const dateChange = (e) => {
-    if(e.target.value)
-    {
-      console.log(e.target.value);
-      setMeetingDate(e.target.value);
-    }
-    else
-    setMeetingDate(updatePost.meetingDate)
-};
+  const updatePost = update_post.filter(
+    (updatePost) => updatePost.id === Number(postId)
+  )[0]
+  console.log(updatePost)
+  // console.log(updatePost[0].locationCategory)
 
-
+  // useEffect(() => {
+  //   dispatch(postActions.getUpdatePostMD(postId))
+   
+  // },[])
  
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(updatePost.locationCategory);
 
   const locationChange = (e) => {
       if(e.target.value)
@@ -56,13 +34,31 @@ const dateChange = (e) => {
       else
       setLocation(updatePost.locationCategory)
   };
+ console.log(location)
+  const [meetingDate, setMeetingDate] = useState(updatePost.meetingDate);
+  const dateChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingDate(e.target.value);
+    }
+    else
+    setMeetingDate(updatePost.meetingDate)
+};
 
+  
+  const [meetingTime, setMeetingTime] = useState(updatePost.meetingTime);
+  const timeChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingTime(e.target.value);
+    }
+    else
+    setMeetingTime(updatePost.meetingTime)
+};
 
-
-
-  const [dogCount, setDogCount] = useState();
-
-
+  const [dogCount, setDogCount] = useState(updatePost.dogCount);
   const countChange = (e) => {
     if(e.target.value)
     {
@@ -72,32 +68,28 @@ const dateChange = (e) => {
     else
     setDogCount(updatePost.dogCount)
   };
-
-  const [wishDesc, setWishDesc] = useState();
-
+  const [wishDesc, setWishDesc] = useState(updatePost.wishDesc);
   const descChange = (e) => {
 
-      console.log(e.target.value);
-      setWishDesc(e.target.value);
-    
-    // else
-    // setWishDesc(updatePost.wishDesc)
-  };
+    console.log(e.target.value);
+    setWishDesc(e.target.value);
   
-  const postId = props.match.params.id;
-  const addMeeting = () => {
+  // else
+  // setWishDesc(updatePost.wishDesc)
+};
+  
+  const updateMeeting = () => {
     const post = {
       locationCategory: location,
+      meetingDate:meetingDate,
       meetingTime: meetingTime,
-      meetingDate: meetingDate,
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
 
     console.log(post);
-    dispatch(postActions.updatePostMD(postId,post));
+    dispatch(postActions.updatePostMD(postId, post));
   };
-
   
   
   return (
@@ -109,7 +101,10 @@ const dateChange = (e) => {
         <Right>
           <Location>
             <Title>위치</Title>
-            <select value={location ? location : updatePost.locationCategory} onChange={locationChange}>
+            <select
+            // defaultValue ={location ? location : updatePost.locationCategory} 
+            value={location ? location : updatePost.locationCategory} 
+            onChange={locationChange}>
               <option value="전체">전체</option>
               <option value="반포">반포</option>
               <option value="여의도">여의도</option>
@@ -122,29 +117,23 @@ const dateChange = (e) => {
               <option value="인천 인천대공원">인천 인천대공원</option>
             </select>
           </Location>
-          {/* <Date>
+          <Date>
             <Title>산책 일시</Title>
-            <DatePicker
-              locale={ko}
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              injectTimes={[
-                setHours(setMinutes(date, 1), 0),
-                setHours(setMinutes(date, 5), 12),
-                setHours(setMinutes(date, 59), 23),
-              ]}
-              dateFormat="yyyy-MM-dd hh:mm aa"
-              value={startDate ? startDate : updatePost.meetingTime}
-            />
-          </Date> */}
-          <input type="date" value={meetingDate ? meetingDate : updatePost.meetingDate} onChange={dateChange}/>
-          <input type="time" value={meetingTime ? meetingTime : updatePost.meetingTime} onChange={timeChange}/>
-
+            <input type="date" 
+            // defaultValue ={meetingDate? meetingDate :updatePost.meetingDate} 
+            value={meetingDate? meetingDate :updatePost.meetingDate} 
+            onChange={dateChange} />
+            <input type="time" 
+            // defaultValue ={meetingTime? meetingTime :updatePost.meetingTime} 
+            value={meetingTime? meetingTime :updatePost.meetingTime} 
+            onChange={timeChange} />
+          </Date>
           <Count>
             <Title>최대 인원</Title>
-            <select value={dogCount? dogCount :updatePost.dogCount} onChange={countChange}>
+            <select 
+            // defaultValue ={dogCount? dogCount :updatePost.dogCount} 
+            value={dogCount? dogCount :updatePost.dogCount} 
+            onChange={countChange}>
               <option value="2">2마리</option>
               <option value="3">3마리</option>
               <option value="4">4마리</option>
@@ -159,7 +148,8 @@ const dateChange = (e) => {
           <Desc>
             <Title>소개 및 유의사항</Title>
             <Textarea
-              defaultValue={wishDesc? wishDesc: updatePost.wishDesc}
+            // defaultValue ={wishDesc? wishDesc: updatePost.wishDesc} 
+              value={wishDesc? wishDesc: updatePost.wishDesc}
               onChange={descChange}
               placeholder="간단한 소개 및 유의사항을 적어주세요"
             >
@@ -174,7 +164,7 @@ const dateChange = (e) => {
             >
               취소
             </CancleBtn>
-            <AddBtn onClick={addMeeting}>등록</AddBtn>
+            <AddBtn onClick={updateMeeting}>등록</AddBtn>
           </ButtonWrap>
         </Right>
       </Wrap>
