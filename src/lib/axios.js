@@ -13,4 +13,6 @@ const instance = axios.create({
 
 export const apis = {
   getPostAX: () => instance.get("/posts"),
+
+  getUserAX: () => instance.get("/users"),
 };
