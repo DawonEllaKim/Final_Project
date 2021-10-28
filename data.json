@@ -14,5 +14,33 @@
       "wishDesc": "222",
       "id": 2
     }
-  ]
+  ],
+	"users" : [
+		{
+			"ownerInfo" : 
+				{
+					"ownerName" : "김다원",
+					"ownerGender" : "여자",
+					"ownerAge" : "30대",
+					"ownerImage" : "https://images.unsplash.com/photo-1474978528675-4a50a4508dc3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+				},
+			"dogInfo" : 
+				{
+					"dogId": 1,
+					"dogGender": "남",
+					"dogName" : "쿤이",
+					"dogSize" : "중형견",
+					"dogBreed": "닥스훈트",
+					"dogAge" : "8세이상",
+					"neutral" : true,
+					"dogComment" : "사납게 짖어요",
+					"dogImage" : "https://images.unsplash.com/photo-1618265341355-d0e2d1fdf26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+				}
+		}
+	],
+	"dog" : [
+		{
+			"id": 1
+		}
+	]
 }

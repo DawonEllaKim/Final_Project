@@ -10,7 +10,8 @@ const MyPage = () => {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.list);
-  console.log(postList);
+  // console.log(postList);
+
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
@@ -22,9 +23,16 @@ const MyPage = () => {
       {postList.map((post, index) => {
         return <Card index={index} key={index} post={post} />;
       })}
-      <button onClick={() => history.push("")}>마이 프로필</button>
+      <button onClick={() => history.push("/myprofile")}>마이 프로필</button>
     </div>
   );
 };
 
 export default MyPage;
+
+// iphone 13 size
+// width :
+// Width
+// 390px
+// Height
+// 844px
