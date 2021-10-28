@@ -31,7 +31,7 @@ const Detail = (props) =>{
 
     return(
         <>
-            <Wrap>
+            <Wrap >
                 <DogWrap>
                     <DogImage></DogImage>
                     <DogInfo>
@@ -90,7 +90,7 @@ const Detail = (props) =>{
                 </DetailWrap>
                 <BtnWrap>
                     <Completed>모집 마감하기</Completed>
-                    <Edit>수정하기</Edit>
+                    <Edit onClick={()=>history.push(`/postEdit/${postId}`)}>수정하기</Edit>
                     <Delete onClick={deletePost}>삭제하기</Delete>
                     <Chatting>채팅하기</Chatting>
                 </BtnWrap>

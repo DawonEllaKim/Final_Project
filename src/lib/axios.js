@@ -17,6 +17,12 @@ export const apis = {
   getUserAX: () => instance.get("/users"),
   // 산책 등록하기
   createPostAX: (post) => instance.post("/posts", post),
+  // 산책 약속 수정하기
+  updatePostAX: (postId, post) => 
+    instance.put(`posts/${postId}`, post),
+  // 수정 전 데이터 가져오기
+  getUpdatePostAX: (postId) =>
+    instance.get(`posts/${postId}`),  
   // 산책 약속 삭제하기
   deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
 };
