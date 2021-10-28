@@ -1,32 +1,7 @@
 {
-  "posts": [ 
+  "posts": [
     {
-      "locationCategory": "부산 시민 공원",
-      "meetingTime": "2021-10-06T07:00:00.000Z",
-      "dogCount": "5",
-      "wishDesc": "222",
-      "id": 2
-    },
-    {
-      "locationCategory": "뚝섬",
-      "meetingTime": "2021-09-28T07:30:13.000Z",
-      "dogCount": "4",
-      "wishDesc": "쉽지않네요",
-      "id": 3
-    },
-    {
-      "locationCategory": "뚝섬",
-      "meetingTime": "2021-10-20T08:00:00.000Z",
-      "dogCount": "5",
-      "wishDesc": "작동이 되는 거 같아요",
-      "id": 4
-    },
-    {
-      "locationCategory": "인천 인천대공원",
-      "meetingTime": "2021-10-15T07:30:24.000Z",
-      "dogCount": "7",
-      "wishDesc": "주목하세요",
-      "id": 5
+      "id": 1
     }
   ],
   "users": [
@@ -50,9 +25,24 @@
       }
     }
   ],
-  "dog": [
-    {
-      "id": 1
-    }
-  ]
+  "user": {
+    "username": "hihi",
+    "password": "ssssooo"
+  },
+  "dog": {
+    "dogGender": "1",
+    "dogName": "sdfga",
+    "dogSize": "중형견",
+    "dogBreed": "말티즈",
+    "dogAge": "4~7세",
+    "neutral": "예",
+    "dogComment": "sfdg",
+    "dogImage": {}
+  },
+  "owner": {
+    "ownerName": "dsfdsf",
+    "ownerGender": "여",
+    "ownerAge": "30대",
+    "ownerImage": {}
+  }
 }

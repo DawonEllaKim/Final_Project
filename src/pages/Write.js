@@ -19,10 +19,13 @@ const Write = (props) => {
     console.log(e.target.value);
     setLocation(e.target.value);
   };
-  const date = new window.Date();
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(date, 30), 16)
-  );
+  // const date = new window.Date();
+  // const [startDate, setStartDate] = useState(
+  //   setHours(setMinutes(date, 30), 16)
+  // );
+
+  const [meetingDate, setMeetingDate] = useState();
+  const [meetingTime, setMeetingTime] = useState();
   const [dogCount, setDogCount] = useState("2");
   const countChange = (e) => {
     console.log(e.target.value);
@@ -35,7 +38,8 @@ const Write = (props) => {
   const addMeeting = () => {
     const post = {
       locationCategory: location,
-      meetingTime: startDate,
+      meetingDate: meetingDate,
+      meetingTime: meetingTime,
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
@@ -43,7 +47,7 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-
+  console.log(meetingDate+meetingTime)
   return (
     <>
       <Wrap>
@@ -66,7 +70,7 @@ const Write = (props) => {
               <option value="인천 인천대공원">인천 인천대공원</option>
             </select>
           </Location>
-          <Date>
+          {/* <Date>
             <Title>산책 일시</Title>
             <DatePicker
               locale={ko}
@@ -81,7 +85,9 @@ const Write = (props) => {
               ]}
               dateFormat="yyyy-MM-dd hh:mm aa"
             />
-          </Date>
+          </Date> */}
+            <input type="date" onChange={(e)=>setMeetingDate(e.target.value)}/>
+          <input type="time" onChange={(e)=>setMeetingTime(e.target.value)}/>
           <Count>
             <Title>최대 인원</Title>
             <select value={dogCount} onChange={countChange}>

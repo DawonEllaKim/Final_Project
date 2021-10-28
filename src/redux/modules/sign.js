@@ -25,7 +25,7 @@ const signUserAPI = (username,password) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://localhost:3001/user",
+            url: "http://localhost:4000/user",
             data: {
                username,
                password
@@ -51,7 +51,7 @@ const signDogAPI = (dogGender,dogName,dogSize,dogBreed,dogAge,neutral,dogComment
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://localhost:3001/dog",
+            url: "http://localhost:4000/dog",
             data: {
                 dogGender,
                 dogName,
@@ -82,7 +82,7 @@ const signOwnerAPI = (ownerName,ownerGender,ownerAge,ownerImage) => {
     return function (dispatch, getState, { history }) {
         axios({
             method: "POST",
-            url: "http://localhost:3001/owner",
+            url: "http://localhost:4000/owner",
             data: {
                 ownerName,ownerGender,ownerAge,ownerImage
             }
