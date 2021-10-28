@@ -47,7 +47,7 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-  console.log(meetingDate+meetingTime)
+  console.log(meetingDate + meetingTime);
   return (
     <>
       <Wrap>
@@ -86,8 +86,8 @@ const Write = (props) => {
               dateFormat="yyyy-MM-dd hh:mm aa"
             />
           </Date> */}
-            <input type="date" onChange={(e)=>setMeetingDate(e.target.value)}/>
-          <input type="time" onChange={(e)=>setMeetingTime(e.target.value)}/>
+          <input type="date" onChange={(e) => setMeetingDate(e.target.value)} />
+          <input type="time" onChange={(e) => setMeetingTime(e.target.value)} />
           <Count>
             <Title>최대 인원</Title>
             <select value={dogCount} onChange={countChange}>
