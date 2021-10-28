@@ -18,6 +18,7 @@ const Detail = (props) =>{
     console.log(postInfo)
 
     const categoryInfo = postInfo?.locationCategory;
+    const DateInfo = postInfo?.meetingDate;
     const timeInfo = postInfo?.meetingTime;
     const wishInfo = postInfo?.wishDesc;
 
@@ -79,7 +80,7 @@ const Detail = (props) =>{
                         </MeetingLocation>
                         <MeetingTime>
                             <Title>예약시간</Title>
-                            <span>{timeInfo} </span>
+                            <span>{DateInfo}{timeInfo} </span>
                         </MeetingTime>
                         <WishDesc>
                             <Title>소개 및 유의사항</Title>

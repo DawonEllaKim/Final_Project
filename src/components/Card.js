@@ -11,6 +11,7 @@ const Card = (props) => {
   const locationCategory = postList[props.index].locationCategory;
   const dogImage = postList[props.index].dogImage;
   const dogName = postList[props.index].dogName;
+  const meetingDate = postList[props.index].meetingDate;
   const meetingTime = postList[props.index].meetingTime;
   const completed = postList[props.index].completed;
 
@@ -24,7 +25,7 @@ const Card = (props) => {
           <div>{dogGender}</div>
         </div>
         <div>{locationCategory}</div>
-        <div>{meetingTime}</div>
+        <div>{meetingDate}{meetingTime}</div>
         <div>{completed ? "마감" : "진행중"}</div>
       </Left>
 

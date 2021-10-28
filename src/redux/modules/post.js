@@ -11,7 +11,7 @@ const DELETE_POST = 'DELETE_POST';
 // action creators
 const getPost = createAction(GET_POST, (postList) => ({ postList }));
 const addPost = createAction(ADD_POST,(post) =>({post}));
-const updatePost = createAction(UPDATE_POST,(postId, post) => ({postId, post}))
+const updatePost = createAction(UPDATE_POST,(postId) => ({postId}))
 const deletePost = createAction(DELETE_POST, (postId) =>({postId}));
 
 // initialState
@@ -54,34 +54,64 @@ const addPostMD = (post) =>{
     }
 }
 
+// const updatePostMD = (postId, post) =>{
+//   return function (dispatch, getState, {history}){
+
+//     apis
+//       .updatePostAX(postId,post)
+//       .then((res)=>{
+//         dispatch(updatePost(postId, post));
+//       })
+//       .catch((err)=>{
+//         console.log(err);
+//       })
+//   }
+// }
+
+// const getUpdatePostMD = (postId) =>{
+//   return function (dispatch, getState, {history}){
+//       apis
+//           .getUpdatePostAX(postId)
+//           .then((res) =>{
+//               console.log(res)
+//               const post= res.data;
+//               dispatch(getPost(post));
+//           })
+//           .catch((err) =>{
+//               console.log(err);
+//           })
+//   }
+// }
+
 const updatePostMD = (postId, post) =>{
-  return function (dispatch, getState, {history}){
+  return function(dispatch, getState, {history}){
 
     apis
-      .updatePostAX(postId,post)
-      .then((res)=>{
-        dispatch(updatePost(postId, post));
+      .updatePostAX(postId, post.locationCategory, post.meetingDate, post.meetingTime, post.dogCount, post.wishDesc)
+      .then((res) => {
+        console.log(res.data)
+        // dispatch(updatePost(postId, post))
+        history.push('/')
       })
-      .catch((err)=>{
+      .catch((err) =>{
         console.log(err);
       })
   }
 }
 
-const getUpdatePostMD = (postId) =>{
-  return function (dispatch, getState, {history}){
-      apis
-          .getUpdatePostAX(postId)
-          .then((res) =>{
-              console.log(res)
-              const post= res.data;
-              dispatch(getPost(post));
-          })
-          .catch((err) =>{
-              console.log(err);
-          })
-  }
-}
+// const updatePostMD = (postId, post) =>{
+//   return function (dispatch, getState, {history}) {
+//     apis
+//       .updatePostAX(postId, post)
+//       .then((res) =>{
+//         dispatch(updatePost(post));
+//         console.log('수정 완료')
+//       })
+//       .catch((err) =>{
+//         console.log(err)
+//       })
+//   }
+// }
 
 const deletePostMD = (postId) =>{
   return function (dispatch, getState, {history}){
@@ -115,11 +145,8 @@ export default handleActions(
     }),
     [UPDATE_POST]:(state,action) =>
       produce(state,(draft)=>{
-        draft.list.locationCategory=action.payload.locationCategory;
-        draft.list.meetingTime=action.payload.meetingTime;
-        draft.list.dogCount=action.payload.dogCount;
-        draft.list.wishDesc=action.payload.wishDesc;
-      
+        const index = draft.list.findIndex((post)=> post.postId === action.payload.post.postId);
+        draft.list[index] = { ...draft.list[index], ...action.payload.post}
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft)=>{
@@ -139,7 +166,7 @@ const actionCreators = {
   deletePostMD,
   updatePost,
   updatePostMD,
-  getUpdatePostMD
+  // getUpdatePostMD
 };
 
 export { actionCreators };

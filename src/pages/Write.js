@@ -1,41 +1,52 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
-
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 const Write = (props) => {
   const dispatch = useDispatch();
+  const postList = useSelector((state) => state.post.list);
+  const postId = props.match.params.postId;
+
+  console.log(postList);
+  console.log(postId);
 
   const [location, setLocation] = useState("");
   const locationChange = (e) => {
     console.log(e.target.value);
     setLocation(e.target.value);
   };
-  const date = new window.Date();
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(date, 30), 16)
-  );
+
+  const [meetingDate, setMeetingDate] = useState('');
+  const dateChange = (e) =>{
+    console.log(e.target.value);
+    setMeetingDate(e.target.value);
+  }
+  
+  const [meetingTime, setMeetingTime] = useState('');
+  const timeChange = (e) =>{
+    console.log(e.target.value);
+    setMeetingTime(e.target.value);
+  }
+
   const [dogCount, setDogCount] = useState("2");
   const countChange = (e) => {
     console.log(e.target.value);
     setDogCount(e.target.value);
   };
+
   const [wishDesc, setWishDesc] = useState("");
   const descChange = (e) => {
     setWishDesc(e.target.value);
   };
+
   const addMeeting = () => {
     const post = {
       locationCategory: location,
-      meetingTime: startDate,
+      meetingDate: meetingDate,
+      meetingTime: meetingTime,
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
@@ -68,19 +79,8 @@ const Write = (props) => {
           </Location>
           <Date>
             <Title>산책 일시</Title>
-            <DatePicker
-              locale={ko}
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              injectTimes={[
-                setHours(setMinutes(date, 1), 0),
-                setHours(setMinutes(date, 5), 12),
-                setHours(setMinutes(date, 59), 23),
-              ]}
-              dateFormat="yyyy-MM-dd hh:mm aa"
-            />
+            <input type="date" onChange={dateChange} />
+            <input type="time" onChange={timeChange} />
           </Date>
           <Count>
             <Title>최대 인원</Title>
