@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { actionCreators as DogActions } from '../redux/modules/user';
+import { actionCreators as DogActions } from '../redux/modules/sign';
 const SignDog = (props) => {
     const dispatch= useDispatch()
    

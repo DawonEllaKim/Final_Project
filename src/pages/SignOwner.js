@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { actionCreators as OwnerActions } from '../redux/modules/user';
+import { actionCreators as OwnerActions } from '../redux/modules/sign';
 const SignOwner = () => {
     const dispatch = useDispatch();
     const [imgBase64, setImgBase64] = useState(""); // 파일 base64
