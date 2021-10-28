@@ -1,6 +1,7 @@
 {
   "posts": [
     {
+
       "id": 1,
       "dogSize": "소형견",
       "dogGender": "남",
@@ -29,6 +30,7 @@
       "user": {
         "id": 2
       }
+
     }
   ],
   "users": [
@@ -76,8 +78,10 @@
     }
   ],
   "user": {
+
     "username": "aaa",
     "password": "aaa"
+
   },
   "dog": {
     "dogGender": "1",
