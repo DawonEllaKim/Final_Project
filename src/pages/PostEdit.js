@@ -10,31 +10,40 @@ import setMinutes from "date-fns/setMinutes";
 import { history } from "../redux/configureStore";
 import { useDispatch,useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import reactDom from "react-dom";
 
 const Write = (props) => {
+    const updatePost = useSelector((state) => state.post.list);
+    console.log(updatePost)
   const dispatch = useDispatch();
-  const updatePost = useSelector((state) => state.post.list);
-  const postId = props.match.params.id;
+
   useEffect(() => {
     dispatch(postActions.getUpdatePostMD(postId))
-  }, [])
+   
+  },[])
 
-  console.log(updatePost)
 
-  const [location, setLocation] = useState(updatePost.locationCategory);
+ 
+  const [location, setLocation] = useState();
 
   const locationChange = (e) => {
-    console.log(e.target.value);
-    setLocation(e.target.value);
+      if(e.target.value)
+      {
+        console.log(e.target.value);
+        setLocation(e.target.value);
+      }
+      else
+      setLocation(updatePost.locationCategory)
   };
 
   const date = new window.Date();
 
   const [startDate, setStartDate] = useState(
-    updatePost.meetingTime
+    setHours(setMinutes(date, 30), 16)
   );
 
-  const [dogCount, setDogCount] = useState(updatePost.dogCount);
+
+  const [dogCount, setDogCount] = useState();
 
 
   const countChange = (e) => {
@@ -42,7 +51,7 @@ const Write = (props) => {
     setDogCount(e.target.value);
   };
 
-  const [wishDesc, setWishDesc] = useState(updatePost.wishDesc);
+  const [wishDesc, setWishDesc] = useState();
 
   const descChange = (e) => {
     setWishDesc(e.target.value);
@@ -59,7 +68,8 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-
+  const postId = props.match.params.id;
+  
   
   return (
     <>
@@ -70,7 +80,7 @@ const Write = (props) => {
         <Right>
           <Location>
             <Title>위치</Title>
-            <select defaultValue={location} onChange={locationChange}>
+            <select value={location ? location : updatePost.locationCategory} onChange={locationChange}>
               <option value="전체">전체</option>
               <option value="반포">반포</option>
               <option value="여의도">여의도</option>
@@ -97,11 +107,12 @@ const Write = (props) => {
                 setHours(setMinutes(date, 59), 23),
               ]}
               dateFormat="yyyy-MM-dd hh:mm aa"
+              value={startDate ? startDate : updatePost.meetingTime}
             />
           </Date>
           <Count>
             <Title>최대 인원</Title>
-            <select value={dogCount} onChange={countChange}>
+            <select value={dogCount? dogCount :updatePost.dogCount} onChange={countChange}>
               <option value="2">2마리</option>
               <option value="3">3마리</option>
               <option value="4">4마리</option>
@@ -116,6 +127,7 @@ const Write = (props) => {
           <Desc>
             <Title>소개 및 유의사항</Title>
             <Textarea
+              value={wishDesc? wishDesc: updatePost.wishDesc}
               onChange={descChange}
               placeholder="간단한 소개 및 유의사항을 적어주세요"
             >
