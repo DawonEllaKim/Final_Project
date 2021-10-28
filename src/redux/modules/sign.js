@@ -20,7 +20,7 @@ const signUserAPI = (username, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/users",
+      url: "http://localhost:4000/user",
       data: {
         username,
         password,

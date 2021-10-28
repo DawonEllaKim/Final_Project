@@ -5,7 +5,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
-  console.log(useSelector((state) => state.post));
   // 편집모드인 지 아닌지?
   const [editMode, setEditMode] = useState(false);
 
@@ -26,7 +25,8 @@ const MyProfile = () => {
   };
 
   // 강아지 정보
-  const dogInfo = useSelector((state) => state.user.list?.dog) || "";
+  const dogInfo = useSelector((state) => state.user.list[0]?.dog) || "";
+  console.log(useSelector((state) => state.user));
   const dogName = dogInfo.dogName;
   const dogGender = dogInfo.dogGender;
   const dogBreed = dogInfo.dogBreed;
@@ -37,7 +37,7 @@ const MyProfile = () => {
   const dogImage = dogInfo.dogImage;
 
   // 보호자 정보
-  const ownerInfo = useSelector((state) => state.user.list?.owner) || "";
+  const ownerInfo = useSelector((state) => state.user.list[0]?.owner) || "";
   console.log(ownerInfo);
   const ownerAge = ownerInfo.ownerAge;
   const ownerGender = ownerInfo.ownerGender;

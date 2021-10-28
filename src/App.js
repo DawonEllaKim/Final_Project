@@ -13,7 +13,7 @@ import Map from "./pages/Map";
 import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
-
+import PostEdit from "./pages/PostEdit";
 function App() {
   return (
     <div className="App">
@@ -27,10 +27,10 @@ function App() {
         <Route exact path="/map" component={Map} />
         <Route exact path="/write" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
+        <Route exact path="/postEdit/:id" component={PostEdit} />
         <Route exact path="/myProfile" component={MyProfile} />
       </ConnectedRouter>
     </div>
   );
 }
-
 export default App;

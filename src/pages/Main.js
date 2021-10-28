@@ -7,8 +7,12 @@ import { history } from "../redux/configureStore";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.list);
+  const postList = useSelector((state) => state.post?.list) || "";
+  React.useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, []);
 
+  console.log(postList);
   // 강아지 크기 필터
   const [dogSizeActive, setDogSizeActive] = useState(false);
   const [dogSizeSelected, setDogSizeSelected] = useState("강아지 크기");
@@ -45,10 +49,6 @@ const Main = () => {
   const [completedActive, setCompletedActive] = useState(false);
   const [completedSelected, setCompletedSelected] = useState("마감여부");
   const completedOptions = ["전체", "마감", "진행중"];
-
-  React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
 
   return (
     <Wrap>
@@ -165,13 +165,22 @@ const Main = () => {
 
       <Body>
         {postList.map((post, index) => {
-          return <Card index={index} key={index} post={post} />;
+          return (
+            <div
+              onClick={() => history.push(`/posts/${post.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <Card index={index} key={index} post={post} />
+            </div>
+          );
         })}
       </Body>
 
       <Footer>
         <button>채팅방</button>
-        <button>산책 약속 등록 버튼</button>
+        <button onClick={() => history.push("/write")}>
+          산책 약속 등록 버튼
+        </button>
         <button onClick={() => history.push("/mypage")}>마이페이지</button>
         <button>로그아웃</button>
       </Footer>
