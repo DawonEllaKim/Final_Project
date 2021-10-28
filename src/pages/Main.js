@@ -8,7 +8,6 @@ import { history } from "../redux/configureStore";
 
 const Main = () => {
   const dispatch = useDispatch();
-
   const postList = useSelector((state) => state.post.list);
 
   // 강아지 크기 필터

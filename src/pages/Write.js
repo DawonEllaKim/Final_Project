@@ -3,17 +3,17 @@ import styled from "styled-components";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from 'date-fns/esm/locale';
+import { ko } from "date-fns/esm/locale";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 
-import {history} from '../redux/configureStore';
-import { useDispatch} from 'react-redux';
-import { actionCreators as postActions} from '../redux/modules/post';
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Write = (props) => {
   const dispatch = useDispatch();
-  
+
   const [location, setLocation] = useState("");
   const locationChange = (e) => {
     console.log(e.target.value);
@@ -28,20 +28,20 @@ const Write = (props) => {
     console.log(e.target.value);
     setDogCount(e.target.value);
   };
-  const [wishDesc, setWishDesc] = useState('');
-  const descChange = (e) =>{
-    setWishDesc(e.target.value)
-  }
+  const [wishDesc, setWishDesc] = useState("");
+  const descChange = (e) => {
+    setWishDesc(e.target.value);
+  };
   const addMeeting = () => {
     const post = {
       locationCategory: location,
-      meetingTime:startDate,
+      meetingTime: startDate,
       dogCount: dogCount,
-      wishDesc: wishDesc
+      wishDesc: wishDesc,
     };
 
     console.log(post);
-    dispatch(postActions.addPostMD(post))
+    dispatch(postActions.addPostMD(post));
   };
 
   return (
@@ -85,7 +85,7 @@ const Write = (props) => {
           <Count>
             <Title>최대 인원</Title>
             <select value={dogCount} onChange={countChange}>
-              <option value='2'>2마리</option>
+              <option value="2">2마리</option>
               <option value="3">3마리</option>
               <option value="4">4마리</option>
               <option value="5">5마리</option>
@@ -93,17 +93,26 @@ const Write = (props) => {
               <option value="7">7마리</option>
               <option value="8">8마리</option>
               <option value="9">9마리</option>
-              <option value='10'>10마리</option>
+              <option value="10">10마리</option>
             </select>
           </Count>
           <Desc>
             <Title>소개 및 유의사항</Title>
-            <Textarea onChange={descChange} placeholder='간단한 소개 및 유의사항을 적어주세요'>
-                {wishDesc}
+            <Textarea
+              onChange={descChange}
+              placeholder="간단한 소개 및 유의사항을 적어주세요"
+            >
+              {wishDesc}
             </Textarea>
           </Desc>
           <ButtonWrap>
-            <CancleBtn onClick={()=>{history.goBack()}}>취소</CancleBtn>
+            <CancleBtn
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              취소
+            </CancleBtn>
             <AddBtn onClick={addMeeting}>등록</AddBtn>
           </ButtonWrap>
         </Right>
@@ -129,8 +138,12 @@ const Right = styled.div`
   border: 1px solid green;
   box-sizing: border-box;
   width: 55%;
+  text-align: left;
+  padding-left: 10px;
 `;
-const Title = styled.div``;
+const Title = styled.div`
+  padding: 10px 0;
+`;
 const Location = styled.div``;
 const Date = styled.div``;
 const Count = styled.div``;
@@ -139,6 +152,7 @@ const Textarea = styled.textarea``;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;
+  padding: 10px 0;
 `;
 const CancleBtn = styled.button``;
 const AddBtn = styled.button``;

@@ -1,43 +1,46 @@
 {
   "posts": [
     {
-<<<<<<< HEAD
-      "dogSize": "소형견",
-      "dogGender": "남아",
-      "dogAge": "0-3세",
-			"locationCategory": "서울숲",
-			"completed": false,
-			"dogImage": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80",
-			"dogName": "코코",
-			"meetingTime": "2021-10-28 16:00:00"
-    },
-		{
-      "dogSize": "대형견",
-      "dogGender": "여아",
-      "dogAge": "8세 이상",
-			"locationCategory": "광안리",
-			"completed": true,
-			"dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
-			"dogName": "가을이",
-			"meetingTime": "2021-10-29 16:00:00"
-    }
-=======
-      "id": 1,
-      "locationCategory": "서울숲",
-      "meetingTime": "2021-10-24",
-      "dogCount": "3",
-      "wishDesc": "애는 착해요"
+      "locationCategory": "뚝섬",
+      "meetingTime": "2021-10-28T07:30:01.731Z",
+      "dogCount": "2",
+      "wishDesc": "11",
+      "id": 1
     },
     {
-      "locationCategory": "반포",
-      "meetingTime": "2021-10-06T07:30:00.000Z",
-      "dogCount": "2",
-      "wishDesc": "111",
+      "locationCategory": "부산 시민 공원",
+      "meetingTime": "2021-10-06T07:00:00.000Z",
+      "dogCount": "5",
+      "wishDesc": "222",
       "id": 2
     }
   ],
-  "postsWrite":[
-    
->>>>>>> add
-  ]
+	"users" : [
+		{
+			"ownerInfo" : 
+				{
+					"ownerName" : "김다원",
+					"ownerGender" : "여자",
+					"ownerAge" : "30대",
+					"ownerImage" : "https://images.unsplash.com/photo-1474978528675-4a50a4508dc3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+				},
+			"dogInfo" : 
+				{
+					"dogId": 1,
+					"dogGender": "남",
+					"dogName" : "쿤이",
+					"dogSize" : "중형견",
+					"dogBreed": "닥스훈트",
+					"dogAge" : "8세이상",
+					"neutral" : true,
+					"dogComment" : "사납게 짖어요",
+					"dogImage" : "https://images.unsplash.com/photo-1618265341355-d0e2d1fdf26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+				}
+		}
+	],
+	"dog" : [
+		{
+			"id": 1
+		}
+	]
 }

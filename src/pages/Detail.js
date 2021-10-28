@@ -8,11 +8,26 @@ import {actionCreators as postActions} from '../redux/modules/post';
 const Detail = (props) =>{
     const dispatch = useDispatch();
     const post_info = useSelector((state) => state.post.list)
-    console.log(post_info)
+    console.log(post_info);
+    const postId = props.match.params.id;
+    console.log('파람즈 id', postId);
+
+    const postInfo = post_info.filter(
+        (postInfo) => postInfo.id === Number(postId)
+    )[0];
+    console.log(postInfo)
+
+    const categoryInfo = postInfo?.locationCategory;
+    const timeInfo = postInfo?.meetingTime;
+    const wishInfo = postInfo?.wishDesc;
 
     useEffect(()=>{
         dispatch(postActions.getPostMD());
     },[]);
+
+    const deletePost = () =>{
+        dispatch(postActions.deletePostMD(postId));
+    }
 
     return(
         <>
@@ -60,15 +75,15 @@ const Detail = (props) =>{
                         </OwnerInfo>
                         <MeetingLocation>
                             <Title>예약장소</Title>
-                            <span></span>
+                            <span>{categoryInfo}</span>
                         </MeetingLocation>
                         <MeetingTime>
                             <Title>예약시간</Title>
-                            <span> </span>
+                            <span>{timeInfo} </span>
                         </MeetingTime>
                         <WishDesc>
                             <Title>소개 및 유의사항</Title>
-                            <p></p>
+                            <p>{wishInfo}</p>
                         </WishDesc>
                     </DetailInfo>
                     <Map></Map>
@@ -76,7 +91,7 @@ const Detail = (props) =>{
                 <BtnWrap>
                     <Completed>모집 마감하기</Completed>
                     <Edit>수정하기</Edit>
-                    <Delete>삭제하기</Delete>
+                    <Delete onClick={deletePost}>삭제하기</Delete>
                     <Chatting>채팅하기</Chatting>
                 </BtnWrap>
             </Wrap>
@@ -90,7 +105,10 @@ const Wrap = styled.div`
   max-width: 390px;
   margin: 0 auto;
 `
-const Title = styled.span``
+const Title = styled.span`
+   display: inline-block;
+   padding: 10px 0;
+`
 const DogWrap = styled.div`
   border: 1px solid blue;
   box-sizing: border-box;
@@ -102,7 +120,8 @@ const DogImage = styled.img`
   width: 50%;
 `
 const DogInfo = styled.div`
-width: 50%;
+    width: 50%;
+    text-align: left;
 `
 const DogName = styled.div``
 const DogGender = styled.div``
@@ -119,7 +138,8 @@ const DetailWrap = styled.div`
 const DetailInfo = styled.div`
   border: 1px solid blue;
   box-sizing: border-box;
-width: 50%;
+    width: 50%;
+    text-align: left;
 `
 const OwnerInfo = styled.div`
     display: flex;
@@ -141,7 +161,9 @@ const Map = styled.div`
   box-sizing: border-box;
 width: 50%;
 `
-const BtnWrap = styled.div``
+const BtnWrap = styled.div`
+    padding: 10px 0;
+`
 const Completed = styled.button``
 const Edit = styled.button``
 const Delete = styled.button``
