@@ -1,7 +1,6 @@
 {
   "posts": [
     {
-
       "id": 1,
       "dogSize": "소형견",
       "dogGender": "남",
@@ -30,7 +29,14 @@
       "user": {
         "id": 2
       }
-
+    },
+    {
+      "locationCategory": "올림픽공원",
+      "meetingDate": "2021-09-03",
+      "meetingTime": "01:24",
+      "dogCount": "7",
+      "wishDesc": "rfgdgdsf",
+      "id": 3
     }
   ],
   "users": [
@@ -78,10 +84,8 @@
     }
   ],
   "user": {
-
     "username": "aaa",
     "password": "aaa"
-
   },
   "dog": {
     "dogGender": "1",

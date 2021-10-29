@@ -182,7 +182,7 @@ const Main = () => {
           산책 약속 등록 버튼
         </button>
         <button onClick={() => history.push("/mypage")}>마이페이지</button>
-        <button>로그아웃</button>
+        <button onClick={()=>history.push("/login")}>로그아웃</button>
       </Footer>
     </Wrap>
   );
