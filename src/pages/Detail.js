@@ -20,9 +20,10 @@ const Detail = (props) => {
   )[0];
   console.log(postInfo);
 
-  const categoryInfo = postInfo?.locationCategory;
-  const timeInfo = postInfo?.meetingTime;
-  const wishInfo = postInfo?.wishDesc;
+    const categoryInfo = postInfo?.locationCategory;
+    const dateInfo = postInfo?.meetingDate;
+    const timeInfo = postInfo?.meetingTime;
+    const wishInfo = postInfo?.wishDesc;
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
@@ -78,7 +79,7 @@ const Detail = (props) => {
             </MeetingLocation>
             <MeetingTime>
               <Title>예약시간</Title>
-              <span>{timeInfo} </span>
+              <span>{dateInfo + " " + timeInfo} </span>
             </MeetingTime>
             <WishDesc>
               <Title>소개 및 유의사항</Title>
@@ -89,7 +90,7 @@ const Detail = (props) => {
         </DetailWrap>
         <BtnWrap>
           <Completed>모집 마감하기</Completed>
-          <Edit onClick={() => history.push(`/postEdit/${postId}`)}>
+          <Edit onClick={() => history.push(`/write/${postId}`)}>
             수정하기
           </Edit>
           <Delete onClick={deletePost}>삭제하기</Delete>

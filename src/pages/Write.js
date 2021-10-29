@@ -1,40 +1,57 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
-
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 const Write = (props) => {
   const dispatch = useDispatch();
+  const postList = useSelector((state) => state.post.list);
+  const postId = props.match.params.id;
+  console.log(postList);
+  console.log(postId);
 
-  const [location, setLocation] = useState("");
+  let is_edit = postId ? true: false;
+  console.log(is_edit)
+  const post = is_edit ? postList.find((p) => p.id === Number(postId)) : null;
+  console.log(post);
+
+  const [location, setLocation] = useState(post ? post.locationCategory : "");
+  const [meetingDate, setMeetingDate] = useState(post ? post.meetingDate : "");
+  const [meetingTime, setMeetingTime] = useState(post ? post.meetingTime : "");
+  const [dogCount, setDogCount] = useState(post ? post.dogCount : "");
+  const [wishDesc, setWishDesc] = useState(post ? post.wishDesc : "");
+  
   const locationChange = (e) => {
     console.log(e.target.value);
     setLocation(e.target.value);
   };
-  // const date = new window.Date();
-  // const [startDate, setStartDate] = useState(
-  //   setHours(setMinutes(date, 30), 16)
-  // );
 
-  const [meetingDate, setMeetingDate] = useState();
-  const [meetingTime, setMeetingTime] = useState();
-  const [dogCount, setDogCount] = useState("2");
   const countChange = (e) => {
     console.log(e.target.value);
     setDogCount(e.target.value);
   };
-  const [wishDesc, setWishDesc] = useState("");
+
   const descChange = (e) => {
     setWishDesc(e.target.value);
   };
+
+  // 수정
+  const updateMeeting = () =>{
+    const post = {
+      locationCategory: location,
+      meetingDate: meetingDate,
+      meetingTime: meetingTime,
+      dogCount: dogCount,
+      wishDesc: wishDesc,
+    };
+
+    console.log(post);
+    dispatch(postActions.updatePostMD(postId,post));
+  }
+
+  // 추가
   const addMeeting = () => {
     const post = {
       locationCategory: location,
@@ -47,7 +64,6 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-  console.log(meetingDate + meetingTime);
   return (
     <>
       <Wrap>
@@ -70,24 +86,11 @@ const Write = (props) => {
               <option value="인천 인천대공원">인천 인천대공원</option>
             </select>
           </Location>
-          {/* <Date>
+          <Date>
             <Title>산책 일시</Title>
-            <DatePicker
-              locale={ko}
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              injectTimes={[
-                setHours(setMinutes(date, 1), 0),
-                setHours(setMinutes(date, 5), 12),
-                setHours(setMinutes(date, 59), 23),
-              ]}
-              dateFormat="yyyy-MM-dd hh:mm aa"
-            />
-          </Date> */}
-          <input type="date" onChange={(e) => setMeetingDate(e.target.value)} />
-          <input type="time" onChange={(e) => setMeetingTime(e.target.value)} />
+            <input type="date" value={meetingDate} onChange={(e) => setMeetingDate(e.target.value)} />
+            <input type="time" value={meetingTime} onChange={(e) => setMeetingTime(e.target.value)} />
+          </Date>
           <Count>
             <Title>최대 인원</Title>
             <select value={dogCount} onChange={countChange}>
@@ -119,7 +122,11 @@ const Write = (props) => {
             >
               취소
             </CancleBtn>
-            <AddBtn onClick={addMeeting}>등록</AddBtn>
+            {is_edit ?(
+              <AddBtn onClick={updateMeeting}>수정</AddBtn>
+            ):(
+              <AddBtn onClick={addMeeting}>등록</AddBtn>
+            )}
           </ButtonWrap>
         </Right>
       </Wrap>

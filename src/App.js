@@ -26,6 +26,7 @@ function App() {
         <Route exact path="/myPage" component={MyPage} />
         <Route exact path="/map" component={Map} />
         <Route exact path="/write" component={Write} />
+        <Route exact path="/write/:id" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
         <Route exact path="/postEdit/:id" component={PostEdit} />
         <Route exact path="/myProfile" component={MyProfile} />

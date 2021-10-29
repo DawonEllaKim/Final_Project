@@ -14,7 +14,7 @@ const Write = (props) => {
   
   const updatePost = update_post.filter(
     (updatePost) => updatePost.id === Number(postId)
-  )[0]
+  )[0];
   console.log(updatePost)
   // console.log(updatePost[0].locationCategory)
 
@@ -45,7 +45,6 @@ const Write = (props) => {
     else
     setMeetingDate(updatePost.meetingDate)
 };
-
   
   const [meetingTime, setMeetingTime] = useState(updatePost.meetingTime);
   const timeChange = (e) => {
@@ -73,7 +72,6 @@ const Write = (props) => {
 
     console.log(e.target.value);
     setWishDesc(e.target.value);
-  
   // else
   // setWishDesc(updatePost.wishDesc)
 };
@@ -102,7 +100,6 @@ const Write = (props) => {
           <Location>
             <Title>위치</Title>
             <select
-            // defaultValue ={location ? location : updatePost.locationCategory} 
             value={location ? location : updatePost.locationCategory} 
             onChange={locationChange}>
               <option value="전체">전체</option>
@@ -119,19 +116,16 @@ const Write = (props) => {
           </Location>
           <Date>
             <Title>산책 일시</Title>
-            <input type="date" 
-            // defaultValue ={meetingDate? meetingDate :updatePost.meetingDate} 
+            <input type="date"  
             value={meetingDate? meetingDate :updatePost.meetingDate} 
             onChange={dateChange} />
             <input type="time" 
-            // defaultValue ={meetingTime? meetingTime :updatePost.meetingTime} 
             value={meetingTime? meetingTime :updatePost.meetingTime} 
             onChange={timeChange} />
           </Date>
           <Count>
             <Title>최대 인원</Title>
             <select 
-            // defaultValue ={dogCount? dogCount :updatePost.dogCount} 
             value={dogCount? dogCount :updatePost.dogCount} 
             onChange={countChange}>
               <option value="2">2마리</option>
