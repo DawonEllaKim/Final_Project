@@ -31,12 +31,20 @@
       }
     },
     {
-      "locationCategory": "올림픽공원",
-      "meetingDate": "2021-09-03",
-      "meetingTime": "01:24",
-      "dogCount": "7",
-      "wishDesc": "rfgdgdsf",
+      "locationCategory": "반포",
+      "meetingDate": "2021-09-28",
+      "meetingTime": "18:30",
+      "dogCount": "5",
+      "wishDesc": "되는거니?",
       "id": 3
+    },
+    {
+      "locationCategory": "여의도",
+      "meetingDate": "2021-09-29",
+      "meetingTime": "15:49",
+      "dogCount": "3",
+      "wishDesc": "222",
+      "id": 4
     }
   ],
   "users": [

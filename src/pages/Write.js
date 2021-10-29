@@ -8,29 +8,50 @@ import { actionCreators as postActions } from "../redux/modules/post";
 const Write = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
-  const postId = props.match.params.postId;
-
+  const postId = props.match.params.id;
   console.log(postList);
   console.log(postId);
 
-  const [location, setLocation] = useState("");
+  let is_edit = postId ? true: false;
+  console.log(is_edit)
+  const post = is_edit ? postList.find((p) => p.id === Number(postId)) : null;
+  console.log(post);
+
+  const [location, setLocation] = useState(post ? post.locationCategory : "");
+  const [meetingDate, setMeetingDate] = useState(post ? post.meetingDate : "");
+  const [meetingTime, setMeetingTime] = useState(post ? post.meetingTime : "");
+  const [dogCount, setDogCount] = useState(post ? post.dogCount : "");
+  const [wishDesc, setWishDesc] = useState(post ? post.wishDesc : "");
+  
   const locationChange = (e) => {
     console.log(e.target.value);
     setLocation(e.target.value);
   };
-  const [meetingDate, setMeetingDate] = useState();
-  const [meetingTime, setMeetingTime] = useState();
-  const [dogCount, setDogCount] = useState("2");
+
   const countChange = (e) => {
     console.log(e.target.value);
     setDogCount(e.target.value);
   };
 
-  const [wishDesc, setWishDesc] = useState("");
   const descChange = (e) => {
     setWishDesc(e.target.value);
   };
 
+  // 수정
+  const updateMeeting = () =>{
+    const post = {
+      locationCategory: location,
+      meetingDate: meetingDate,
+      meetingTime: meetingTime,
+      dogCount: dogCount,
+      wishDesc: wishDesc,
+    };
+
+    console.log(post);
+    dispatch(postActions.updatePostMD(postId,post));
+  }
+
+  // 추가
   const addMeeting = () => {
     const post = {
       locationCategory: location,
@@ -43,7 +64,6 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-  console.log(meetingDate + meetingTime);
   return (
     <>
       <Wrap>
@@ -68,8 +88,8 @@ const Write = (props) => {
           </Location>
           <Date>
             <Title>산책 일시</Title>
-            <input type="date" onChange={(e) => setMeetingDate(e.target.value)} />
-            <input type="time" onChange={(e) => setMeetingTime(e.target.value)} />
+            <input type="date" value={meetingDate} onChange={(e) => setMeetingDate(e.target.value)} />
+            <input type="time" value={meetingTime} onChange={(e) => setMeetingTime(e.target.value)} />
           </Date>
           <Count>
             <Title>최대 인원</Title>
@@ -102,7 +122,11 @@ const Write = (props) => {
             >
               취소
             </CancleBtn>
-            <AddBtn onClick={addMeeting}>등록</AddBtn>
+            {is_edit ?(
+              <AddBtn onClick={updateMeeting}>수정</AddBtn>
+            ):(
+              <AddBtn onClick={addMeeting}>등록</AddBtn>
+            )}
           </ButtonWrap>
         </Right>
       </Wrap>

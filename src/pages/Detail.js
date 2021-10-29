@@ -90,7 +90,7 @@ const Detail = (props) => {
         </DetailWrap>
         <BtnWrap>
           <Completed>모집 마감하기</Completed>
-          <Edit onClick={() => history.push(`/postEdit/${postId}`)}>
+          <Edit onClick={() => history.push(`/write/${postId}`)}>
             수정하기
           </Edit>
           <Delete onClick={deletePost}>삭제하기</Delete>
