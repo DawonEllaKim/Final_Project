@@ -162,7 +162,6 @@ const Main = () => {
           )}
         </Dropdown>
       </Head>
-
       <Body>
         {postList.map((post, index) => {
           return (
@@ -182,7 +181,7 @@ const Main = () => {
           산책 약속 등록 버튼
         </button>
         <button onClick={() => history.push("/mypage")}>마이페이지</button>
-        <button onClick={()=>history.push("/login")}>로그아웃</button>
+        <button onClick={() => history.push("/login")}>로그아웃</button>
       </Footer>
     </Wrap>
   );
@@ -241,6 +240,29 @@ const Body = styled.div`
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
+
+const FooterLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 270px;
+  height: 60px;
+  margin: 12px;
+  background-color: pink;
+  border-radius: 20px;
+`;
+const FooterRight = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: pink;
+  border-radius: 50%;
+`;
+
 export default Main;
