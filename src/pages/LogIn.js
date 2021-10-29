@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useHistory } from "react-router";
 const LogIn = () => {
+  const history = useHistory();
   return (
     <>
       <InputBox>
@@ -14,6 +15,7 @@ const LogIn = () => {
           <input />
         </div>
         <button>로그인하기</button>
+        <button onClick={()=>history.push("/signup")}>회원가입</button>
       </InputBox>
     </>
   );

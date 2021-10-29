@@ -14,9 +14,9 @@ const instance = axios.create({
 export const apis = {
   // 산책 메인 + 상세 데이터 불러오기
   getPostAX: () => instance.get("/posts"),
-
+   
   getUserAX: () => instance.get("/users"),
-
+  postLoginAX : (username, password) => instance.get("/users/login", username, password),
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
   updateUserAX: (user) => instance.put("/users", user),
   // 산책 등록하기
