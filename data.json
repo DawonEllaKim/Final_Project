@@ -30,13 +30,50 @@
         "id": 2
       }
     },
-    {
-      "locationCategory": "올림픽공원",
-      "meetingDate": "2021-09-03",
-      "meetingTime": "01:24",
-      "dogCount": "7",
-      "wishDesc": "rfgdgdsf",
-      "id": 3
+		{
+      "id": 3,
+      "dogSize": "중형견",
+      "dogGender": "남",
+      "dogAge": "8세이상",
+      "locationCategory": "서울숲",
+      "completed": true,
+      "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+      "dogName": "쿤이",
+      "meetingDate": "2021-10-28",
+      "meetingTime": " 16:00",
+      "user": {
+        "id": 2
+      }
+    },
+		{
+      "id": 4,
+      "dogSize": "중형견",
+      "dogGender": "남",
+      "dogAge": "8세이상",
+      "locationCategory": "서울숲",
+      "completed": true,
+      "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+      "dogName": "쿤이",
+      "meetingDate": "2021-10-28",
+      "meetingTime": " 16:00",
+      "user": {
+        "id": 2
+      }
+    },
+		{
+      "id": 5,
+      "dogSize": "중형견",
+      "dogGender": "남",
+      "dogAge": "8세이상",
+      "locationCategory": "서울숲",
+      "completed": true,
+      "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+      "dogName": "쿤이",
+      "meetingDate": "2021-10-28",
+      "meetingTime": " 16:00",
+      "user": {
+        "id": 2
+      }
     }
   ],
   "users": [
@@ -83,9 +120,14 @@
       }
     }
   ],
-  "user": {
-    "username": "dawon0411",
-    "password": "1234"
+  "user":
+	{
+    "userEmail": "dawon0411@gmail.com",
+		"userNickname": "다원",
+    "password": "1234",
+		"userGender": "여",
+		"userAge": "30대",
+    "userImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
   },
   "dog": {
     "dogGender": "여",
@@ -96,11 +138,5 @@
     "neutral": true,
     "dogComment": "귀여워요",
     "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-  },
-  "owner": {
-    "ownerName": "ella",
-    "ownerGender": "여",
-    "ownerAge": "30대",
-    "ownerImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
   }
 }

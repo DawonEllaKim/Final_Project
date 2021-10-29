@@ -176,12 +176,15 @@ const Main = () => {
       </Body>
 
       <Footer>
-        <button>채팅방</button>
-        <button onClick={() => history.push("/write")}>
-          산책 약속 등록 버튼
-        </button>
-        <button onClick={() => history.push("/mypage")}>마이페이지</button>
-        <button onClick={() => history.push("/login")}>로그아웃</button>
+        <FooterLeft>
+          <Button onClick={() => history.push("/login")}>로그아웃</Button>
+          <Button>채팅방</Button>
+          <Button onClick={() => history.push("/mypage")}>마이페이지</Button>
+        </FooterLeft>
+
+        <FooterRight>
+          <Button onClick={() => history.push("/write")}>산책 등록</Button>
+        </FooterRight>
       </Footer>
     </Wrap>
   );
@@ -222,6 +225,7 @@ const DropdownItem = styled.div`
 `;
 
 const Wrap = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -242,6 +246,8 @@ const Footer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  bottom: 46px;
 `;
 
 const FooterLeft = styled.div`
@@ -254,6 +260,12 @@ const FooterLeft = styled.div`
   margin: 12px;
   background-color: pink;
   border-radius: 20px;
+
+  width: 274px;
+  height: 60px;
+
+  background-color: black;
+  border-radius: 20px;
 `;
 const FooterRight = styled.div`
   display: flex;
@@ -261,8 +273,14 @@ const FooterRight = styled.div`
   align-items: center;
   width: 60px;
   height: 60px;
-  background-color: pink;
+  background-color: black;
   border-radius: 50%;
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  color: white;
 `;
 
 export default Main;
