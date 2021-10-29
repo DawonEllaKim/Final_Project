@@ -2,13 +2,13 @@
   "posts": [
     {
       "id": 1,
-      "dogSize": "소형견",
+      "dogSize": "중형견",
       "dogGender": "남",
-      "dogAge": "0-3세",
+      "dogAge": "8세이상",
       "locationCategory": "서울숲",
-      "completed": false,
-      "dogImage": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80",
-      "dogName": "코코",
+      "completed": true,
+      "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+      "dogName": "쿤이",
       "meetingDate": "2021-10-28",
       "meetingTime": " 16:00",
       "user": {
@@ -21,7 +21,7 @@
       "dogGender": "여",
       "dogAge": "8세 이상",
       "locationCategory": "광안리",
-      "completed": true,
+      "completed": false,
       "dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
       "dogName": "가을이",
       "meetingDate": "2021-10-25",
@@ -34,7 +34,7 @@
   "users": [
     {
       "id": 2,
-      "username": "dawon0411",
+      "username": "hello1234",
       "password": "1234",
       "dog": {
         "dogGender": "여",
@@ -59,10 +59,10 @@
       "password": "1234",
       "dog": {
         "dogGender": "여",
-        "dogName": "코코팝",
+        "dogName": "쿤이",
         "dogSize": "중형견",
-        "dogBreed": "말티즈",
-        "dogAge": "4~7세",
+        "dogBreed": "닥스훈트",
+        "dogAge": "8세이상",
         "neutral": true,
         "dogComment": "귀여워요",
         "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
@@ -76,23 +76,23 @@
     }
   ],
   "user": {
-    "username": "aaa",
-    "password": "aaa"
+    "username": "dawon0411",
+    "password": "1234"
   },
   "dog": {
-    "dogGender": "1",
-    "dogName": "ddd",
-    "dogSize": "대형견",
-    "dogBreed": "말티즈",
+    "dogGender": "여",
+    "dogName": "쿤이",
+    "dogSize": "중형견",
+    "dogBreed": "닥스훈트",
     "dogAge": "8세이상",
-    "neutral": "아니오",
-    "dogComment": "sfsdf",
-    "dogImage": null
+    "neutral": true,
+    "dogComment": "귀여워요",
+    "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
   },
   "owner": {
-    "ownerName": "sdfsd",
+    "ownerName": "ella",
     "ownerGender": "여",
     "ownerAge": "30대",
-    "ownerImage": null
+    "ownerImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
   }
 }
