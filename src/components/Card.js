@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import puppyPlaceholder from "../asset/puppyPlaceholder.png";
 
 const Card = (props) => {
   const postList = useSelector((state) => state.post.list);
@@ -25,10 +24,9 @@ const Card = (props) => {
           <div>{dogGender}</div>
         </div>
         <div>{locationCategory}</div>
-        <div>{meetingDate}{meetingTime}</div>
+        <div>{meetingDate + " " + meetingTime}</div>
         <div>{completed ? "마감" : "진행중"}</div>
       </Left>
-
       <div>
         <Image src={dogImage} />
       </div>

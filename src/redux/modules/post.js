@@ -54,40 +54,11 @@ const addPostMD = (post) =>{
     }
 }
 
-// const updatePostMD = (postId, post) =>{
-//   return function (dispatch, getState, {history}){
-
-//     apis
-//       .updatePostAX(postId,post)
-//       .then((res)=>{
-//         dispatch(updatePost(postId, post));
-//       })
-//       .catch((err)=>{
-//         console.log(err);
-//       })
-//   }
-// }
-
-// const getUpdatePostMD = (postId) =>{
-//   return function (dispatch, getState, {history}){
-//       apis
-//           .getUpdatePostAX(postId)
-//           .then((res) =>{
-//               console.log(res)
-//               const post= res.data;
-//               dispatch(getPost(post));
-//           })
-//           .catch((err) =>{
-//               console.log(err);
-//           })
-//   }
-// }
-
 const updatePostMD = (postId, post) =>{
   return function(dispatch, getState, {history}){
 
     apis
-      .updatePostAX(postId, post.locationCategory, post.meetingDate, post.meetingTime, post.dogCount, post.wishDesc)
+      .updatePostAX(postId, post)
       .then((res) => {
         console.log(res.data)
         // dispatch(updatePost(postId, post))
@@ -98,20 +69,6 @@ const updatePostMD = (postId, post) =>{
       })
   }
 }
-
-// const updatePostMD = (postId, post) =>{
-//   return function (dispatch, getState, {history}) {
-//     apis
-//       .updatePostAX(postId, post)
-//       .then((res) =>{
-//         dispatch(updatePost(post));
-//         console.log('수정 완료')
-//       })
-//       .catch((err) =>{
-//         console.log(err)
-//       })
-//   }
-// }
 
 const deletePostMD = (postId) =>{
   return function (dispatch, getState, {history}){

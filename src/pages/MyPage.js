@@ -29,10 +29,3 @@ const MyPage = () => {
 };
 
 export default MyPage;
-
-// iphone 13 size
-// width :
-// Width
-// 390px
-// Height
-// 844px

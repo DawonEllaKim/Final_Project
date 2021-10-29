@@ -23,7 +23,7 @@ const Write = (props) => {
    
   // },[])
  
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(updatePost.locationCategory);
 
   const locationChange = (e) => {
       if(e.target.value)
@@ -34,29 +34,47 @@ const Write = (props) => {
       else
       setLocation(updatePost.locationCategory)
   };
-
-  const [meetingDate, setMeetingDate] = useState('');
-  const dateChange = (e) =>{
-    console.log(e.target.value);
-    setMeetingDate(e.target.value);
-  }
+ console.log(location)
+  const [meetingDate, setMeetingDate] = useState(updatePost.meetingDate);
+  const dateChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingDate(e.target.value);
+    }
+    else
+    setMeetingDate(updatePost.meetingDate)
+};
   
-  const [meetingTime, setMeetingTime] = useState('');
-  const timeChange = (e) =>{
-    console.log(e.target.value);
-    setMeetingTime(e.target.value);
-  }
+  const [meetingTime, setMeetingTime] = useState(updatePost.meetingTime);
+  const timeChange = (e) => {
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setMeetingTime(e.target.value);
+    }
+    else
+    setMeetingTime(updatePost.meetingTime)
+};
 
-  const [dogCount, setDogCount] = useState();
+  const [dogCount, setDogCount] = useState(updatePost.dogCount);
   const countChange = (e) => {
-    console.log(e.target.value);
-    setDogCount(e.target.value);
+    if(e.target.value)
+    {
+      console.log(e.target.value);
+      setDogCount(e.target.value);
+    }
+    else
+    setDogCount(updatePost.dogCount)
   };
-
-  const [wishDesc, setWishDesc] = useState();
+  const [wishDesc, setWishDesc] = useState(updatePost.wishDesc);
   const descChange = (e) => {
+
+    console.log(e.target.value);
     setWishDesc(e.target.value);
-  };
+  // else
+  // setWishDesc(updatePost.wishDesc)
+};
   
   const updateMeeting = () => {
     const post = {

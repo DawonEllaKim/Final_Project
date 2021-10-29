@@ -18,19 +18,8 @@ const Write = (props) => {
     console.log(e.target.value);
     setLocation(e.target.value);
   };
-
-  const [meetingDate, setMeetingDate] = useState('');
-  const dateChange = (e) =>{
-    console.log(e.target.value);
-    setMeetingDate(e.target.value);
-  }
-  
-  const [meetingTime, setMeetingTime] = useState('');
-  const timeChange = (e) =>{
-    console.log(e.target.value);
-    setMeetingTime(e.target.value);
-  }
-
+  const [meetingDate, setMeetingDate] = useState();
+  const [meetingTime, setMeetingTime] = useState();
   const [dogCount, setDogCount] = useState("2");
   const countChange = (e) => {
     console.log(e.target.value);
@@ -54,7 +43,7 @@ const Write = (props) => {
     console.log(post);
     dispatch(postActions.addPostMD(post));
   };
-
+  console.log(meetingDate + meetingTime);
   return (
     <>
       <Wrap>
@@ -79,8 +68,8 @@ const Write = (props) => {
           </Location>
           <Date>
             <Title>산책 일시</Title>
-            <input type="date" onChange={dateChange} />
-            <input type="time" onChange={timeChange} />
+            <input type="date" onChange={(e) => setMeetingDate(e.target.value)} />
+            <input type="time" onChange={(e) => setMeetingTime(e.target.value)} />
           </Date>
           <Count>
             <Title>최대 인원</Title>
