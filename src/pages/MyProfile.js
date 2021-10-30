@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
@@ -264,6 +265,7 @@ const MyProfile = () => {
   ) : (
     // 일반 모드 edit === false
     <div>
+      <button onClick={() => history.goBack()}>뒤로가기(임시)</button>
       <Head>
         <h1>마이 프로필~</h1>
         <button

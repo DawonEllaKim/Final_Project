@@ -11,6 +11,7 @@ const MyPage = () => {
 
   const postList = useSelector((state) => state.post.list);
   // console.log(postList);
+  console.log(useSelector((state) => state));
 
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
@@ -19,6 +20,7 @@ const MyPage = () => {
   return (
     <div>
       <div>WELCOME 코코 견주님</div>
+      <button onClick={() => history.push("/")}>뒤로가기(임시)</button>
 
       {postList.map((post, index) => {
         return <Card index={index} key={index} post={post} />;

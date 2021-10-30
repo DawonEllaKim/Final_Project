@@ -1,180 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Card from "../components/Card";
-import { actionCreators as postActions } from "../redux/modules/post";
+
 import { history } from "../redux/configureStore";
+import { actionCreators as postActions } from "../redux/modules/post";
+
+import Card from "../components/Card";
+import DogSize from "../components/MainSideBar/Filters/DogSize";
+import DogGender from "../components/MainSideBar/Filters/DogGender";
+import DogAge from "../components/MainSideBar/Filters/DogAge";
+import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
 
 const Main = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post?.list) || "";
+
+  // 사이드 바
+  const sideBarRef = useRef();
+  const [sideBar, setSideBar] = useState(false);
+
+  const showSideBar = () => {
+    setSideBar(!sideBar);
+  };
+
+  const closeSideBar = (e) => {
+    if (sideBarRef.current === e.target) {
+      setSideBar(false);
+    }
+  };
+
+  // 게시물 불러오기
   React.useEffect(() => {
     dispatch(postActions.getPostMD());
   }, []);
 
-  console.log(postList);
-  // 강아지 크기 필터
-  const [dogSizeActive, setDogSizeActive] = useState(false);
-  const [dogSizeSelected, setDogSizeSelected] = useState("강아지 크기");
-  const dogSizeOptions = ["전체", "소형견", "중형견", "대형견"];
-
-  // 강아지 성별 필터
-  const [dogGenderActive, setDogGenderActive] = useState(false);
-  const [dogGenderSelected, setDogGenderSizeSelected] = useState("강아지 성별");
-  const dogGenderOptions = ["전체", "남아", "여아"];
-
-  // 강아지 나이 필터
-  const [dogAgeActive, setDogAgeActive] = useState(false);
-  const [dogAgeSelected, setDogAgeSelected] = useState("강아지 나이");
-  const dogAgeOptions = ["전체", "0세~3세", "4세~7세", "8세 이상"];
-
-  // 산책로 필터
-  const [locationCategoryActive, setLocationCategoryActive] = useState(false);
-  const [locationCategorySelected, setLocationCategorySelected] =
-    useState("산책로");
-  const locationCategoryOptions = [
-    "전체",
-    "반포",
-    "여의도",
-    "뚝섬",
-    "서울숲",
-    "올림픽공원",
-    "인천대공원",
-    "대구 수성못",
-    "부산 시민공원",
-    "부산 광안리",
-  ];
-
-  // 마감여부 필터
-  const [completedActive, setCompletedActive] = useState(false);
-  const [completedSelected, setCompletedSelected] = useState("마감여부");
-  const completedOptions = ["전체", "마감", "진행중"];
-
   return (
-    <Wrap>
-      {/* 필터모음 */}
+    <Wrap ref={sideBarRef} onClick={closeSideBar}>
+      {/* 메세지 + 날씨 + 로그인하기 버튼 */}
       <Head>
-        {/* 강아지크기 */}
-        <Dropdown>
-          <DropdownBtn onClick={(e) => setDogSizeActive(!dogSizeActive)}>
-            {dogSizeSelected}
-          </DropdownBtn>
-          {dogSizeActive && (
-            <DropdownContent>
-              {dogSizeOptions.map((dogSizeOption) => (
-                <DropdownItem
-                  onClick={(e) => {
-                    setDogSizeSelected(dogSizeOption);
-                    setDogSizeActive(false);
-                    console.log(dogSizeOption);
-                  }}
-                >
-                  {dogSizeOption}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
-        {/* 성별 */}
-        <Dropdown>
-          <DropdownBtn onClick={(e) => setDogGenderActive(!dogGenderActive)}>
-            {dogGenderSelected}
-          </DropdownBtn>
-          {dogGenderActive && (
-            <DropdownContent>
-              {dogGenderOptions.map((dogGenderOption) => (
-                <DropdownItem
-                  onClick={(e) => {
-                    setDogGenderSizeSelected(dogGenderOption);
-                    setDogGenderActive(false);
-                    console.log(dogGenderOption);
-                  }}
-                >
-                  {dogGenderOption}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
-        {/* 나이 */}
-        <Dropdown>
-          <DropdownBtn onClick={(e) => setDogAgeActive(!dogAgeActive)}>
-            {dogAgeSelected}
-          </DropdownBtn>
-          {dogAgeActive && (
-            <DropdownContent>
-              {dogAgeOptions.map((dogAgeOption) => (
-                <DropdownItem
-                  onClick={(e) => {
-                    setDogAgeSelected(dogAgeOption);
-                    setDogAgeActive(false);
-                    console.log(dogAgeOption);
-                  }}
-                >
-                  {dogAgeOption}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
-        {/* 산책로 */}
-        <Dropdown>
-          <DropdownBtn
-            onClick={(e) => setLocationCategoryActive(!locationCategoryActive)}
-          >
-            {locationCategorySelected}
-          </DropdownBtn>
-          {locationCategoryActive && (
-            <DropdownContent>
-              {locationCategoryOptions.map((locationCategoryOption) => (
-                <DropdownItem
-                  onClick={(e) => {
-                    setLocationCategorySelected(locationCategoryOption);
-                    setLocationCategoryActive(false);
-                    console.log(locationCategoryOption);
-                  }}
-                >
-                  {locationCategoryOption}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
-        {/* 마감여부 */}
-        <Dropdown>
-          <DropdownBtn onClick={(e) => setCompletedActive(!completedActive)}>
-            {completedSelected}
-          </DropdownBtn>
-          {completedActive && (
-            <DropdownContent>
-              {completedOptions.map((completedOption) => (
-                <DropdownItem
-                  onClick={(e) => {
-                    setCompletedSelected(completedOption);
-                    setCompletedActive(false);
-                    console.log(completedOption);
-                  }}
-                >
-                  {completedOption}
-                </DropdownItem>
-              ))}
-            </DropdownContent>
-          )}
-        </Dropdown>
+        <h1>보호자님,</h1>
+        <p>반려견을 등록해주세요</p>
+        <button>로그인하러가기</button>
       </Head>
+      {/* 게시물 필터 모음 + 사이드 바*/}
+      <SubHead>
+        <div>
+          {/* Menu */}
+          <HamburgerNav onClick={showSideBar}>menu</HamburgerNav>
+          {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
+          <SideBarNav sideBar={sideBar}>
+            <Filter onClick={showSideBar}>나가기</Filter>
+            <SubMenuWrap>
+              <DogSize />
+              <DogGender />
+              <DogAge />
+              <LocationCategory />
+            </SubMenuWrap>
+          </SideBarNav>
+        </div>
+        <p>크기</p>
+        <p>성별</p>
+        <p>위치</p>
+        <p>마감여부</p>
+      </SubHead>
+      {/* 각 게시물에 대한 카드들 */}
       <Body>
         {postList.map((post, index) => {
           return (
-            <div
-              onClick={() => history.push(`/posts/${post.id}`)}
-              style={{ cursor: "pointer" }}
-            >
+            <div onClick={() => history.push(`/posts/${post.id}`)}>
               <Card index={index} key={index} post={post} />
             </div>
           );
         })}
       </Body>
-
+      {/* 고정 버튼들 */}
       <Footer>
         <FooterLeft>
           <Button onClick={() => history.push("/login")}>로그아웃</Button>
@@ -190,40 +89,6 @@ const Main = () => {
   );
 };
 
-// 드롭다운 필터를 위한 스타일
-const Dropdown = styled.div`
-  width: 100px;
-  margin: 0 20px;
-  /* position: relative; */
-`;
-const DropdownBtn = styled.button`
-  padding: 15px 20px;
-  background-color: #fff;
-  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-  font-weight: bold;
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-  cursor: pointer;
-`;
-const DropdownContent = styled.div`
-  padding: 15px;
-  background-color: #fff;
-  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-  font-weight: 500;
-  color: #333;
-  width: 95%;
-`;
-const DropdownItem = styled.div`
-  padding: 10px;
-  cursor: pointer;
-  &:hover {
-    background-color: #e5e5e5;
-  }
-`;
-
 const Wrap = styled.div`
   position: relative;
   display: flex;
@@ -231,25 +96,131 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
+// 메세지 + 날씨 + 로그인하기 버튼
 const Head = styled.div`
+  box-sizing: border-box;
+  position: relative;
+  top: 0;
+  /* z-index: 2; */
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  width: 100%;
+  height: 264px;
+  padding: 5%;
+  background-color: pink;
+  h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 400;
+  }
+  p {
+    margin-bottom: 45px;
+  }
+  button {
+    width: 186px;
+    height: 40px;
+    margin: auto auto 15% auto;
+    border-radius: 20px;
+    border: none;
+  }
+`;
+// 게시물 필터 모음 + 사이드 바
+const SubHead = styled.div`
+  position: relative;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 76px;
+  background-color: #efefef;
+  border-radius: 14px;
+  /* z-index: 9; */
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 32px;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: #c4c4c4;
+  }
 `;
+const HamburgerNav = styled.div`
+  /* position: fixed;
+  top: 0;
+  left: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  /* margin: 50px 24px; */
+  background: #c4c4c4;
+  border-radius: 50%;
+  color: purple;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: red;
+    transition: 350ms;
+  }
+`;
+const SideBarNav = styled.div`
+  position: fixed;
+  top: 0;
+  left: ${({ sideBar }) => (sideBar ? "0" : "-100%")};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 65%;
+  height: 100vh;
+  margin-top: 44px;
+  border-radius: 0 20px 20px 0;
+  background: #c4c4c4;
+  transition: 350ms;
+  z-index: 10;
+`;
+const Filter = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 82px;
+  padding-left: 26.26px;
+  font-size: 18px;
+  font-weight: 400;
+  color: purple;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: red;
+    transition: 350ms;
+  }
+`;
+const SubMenuWrap = styled.div`
+  width: 100%;
+`;
+// 각 게시물에 대한 카드들
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+// 고정 버튼들
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  bottom: 46px;
+  bottom: 1%;
 `;
-
 const FooterLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -258,13 +229,12 @@ const FooterLeft = styled.div`
   width: 270px;
   height: 60px;
   margin: 12px;
-  background-color: pink;
   border-radius: 20px;
 
   width: 274px;
   height: 60px;
 
-  background-color: black;
+  background-color: pink;
   border-radius: 20px;
 `;
 const FooterRight = styled.div`
@@ -273,14 +243,13 @@ const FooterRight = styled.div`
   align-items: center;
   width: 60px;
   height: 60px;
-  background-color: black;
+  background-color: pink;
   border-radius: 50%;
 `;
-
 const Button = styled.button`
   background-color: transparent;
   border: none;
   color: white;
+  cursor: pointer;
 `;
-
 export default Main;

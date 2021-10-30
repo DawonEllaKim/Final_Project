@@ -16,18 +16,18 @@
       }
     },
     {
-      "id": 2,
-      "dogSize": "대형견",
-      "dogGender": "여",
-      "dogAge": "8세 이상",
+			"id": 1,
+      "dogSize": "중형견",
+      "dogGender": "남",
+      "dogAge": "8세이상",
       "locationCategory": "광안리",
-      "completed": false,
-      "dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
-      "dogName": "가을이",
+      "completed": true,
+      "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+      "dogName": "쿤이",
       "meetingDate": "2021-10-25",
-      "meetingTime": " 12:00",
+      "meetingTime": " 08:00",
       "user": {
-        "id": 2
+        "id": 1
       }
     },
 		{
@@ -121,22 +121,46 @@
     }
   ],
   "user":
-	{
-    "userEmail": "dawon0411@gmail.com",
-		"userNickname": "다원",
-    "password": "1234",
-		"userGender": "여",
-		"userAge": "30대",
-    "userImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
-  },
-  "dog": {
-    "dogGender": "여",
-    "dogName": "쿤이",
-    "dogSize": "중형견",
-    "dogBreed": "닥스훈트",
-    "dogAge": "8세이상",
-    "neutral": true,
-    "dogComment": "귀여워요",
-    "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-  }
+		{
+			"info" :
+				{
+					"userEmail": "dawon0411@gmail.com",
+					"userNickname": "다원",
+					"password": "1234",
+					"userGender": "여",
+					"userAge": "30대",
+					"userImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80",
+					"dogGender": "여",
+					"dogName": "쿤이",
+					"dogSize": "중형견",
+					"dogBreed": "닥스훈트",
+					"dogAge": "8세이상",
+					"neutral": true,
+					"dogComment": "귀여워요",
+					"dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+				},
+  		"post":
+				[{
+					"dogSize": "중형견",
+					"dogGender": "남",
+					"dogAge": "8세이상",
+					"locationCategory": "서울숲",
+					"completed": true,
+					"dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+					"dogName": "쿤이",
+					"meetingDate": "2021-10-28",
+					"meetingTime": " 16:00"
+				},
+				{
+					"dogSize": "중형견",
+					"dogGender": "남",
+					"dogAge": "8세이상",
+					"locationCategory": "광안리",
+					"completed": true,
+					"dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+					"dogName": "쿤이",
+					"meetingDate": "2021-10-25",
+					"meetingTime": " 08:00"
+				}]
+		}
 }
