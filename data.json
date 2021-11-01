@@ -81,13 +81,13 @@
     "password": "aaa"
   },
   "dog": {
-    "dogGender": "1",
-    "dogName": "ddd",
-    "dogSize": "대형견",
+    "dogGender": "여",
+    "dogName": "루비",
+    "dogSize": "소형견",
     "dogBreed": "말티즈",
-    "dogAge": "8세이상",
-    "neutral": "아니오",
-    "dogComment": "sfsdf",
+    "dogAge": "4~7세",
+    "neutral": true,
+    "dogComment": "귀엽습니다",
     "dogImage": null
   },
   "owner": {
