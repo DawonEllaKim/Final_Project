@@ -82,6 +82,8 @@ const MyProfile = () => {
     dispatch(userActions.getUserMD());
   }, []);
 
+  console.log(useSelector((state) => state));
+
   return editMode ? (
     // 편집 모드 edit === false
     <div>
