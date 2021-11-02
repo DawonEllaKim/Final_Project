@@ -81,7 +81,7 @@ const Detail = (props) => {
           <NavBar>
             <Home onClick={()=>{history.push('/')}}>홈</Home>
             <Chatting>채팅</Chatting>
-            <MyPage onClick={() =>{history.push('/myProfile')}}>My</MyPage>
+            <MyPage onClick={() =>{history.push('/myPage')}}>My</MyPage>
           </NavBar>
           <NavMap>지도</NavMap>
         </NavWrap> 

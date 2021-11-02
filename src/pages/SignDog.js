@@ -3,11 +3,33 @@ import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
+
+//jsonserver 데이터 맞추기 위한 코드
+  const signUser = useSelector((state)=>state.sign.user)
+  console.log(signUser)
+  
+  const submitDogInfo = () => {
+    let DogInfo = {
+      dog_gender,
+      dog_name,
+      dog_size,
+      dog_breed,
+      dog_age,
+      neutral,
+      dog_comment
+    }
+    Object.assign(DogInfo,signUser)
+    dispatch(
+      DogActions.signDogAPI(
+       DogInfo
+      )
+    )
+  }
 
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
@@ -268,19 +290,8 @@ const SignDog = (props) => {
         </Filter>
         <ButtonWrap>
           <Add
-            onClick={() =>
-              dispatch(
-                DogActions.signDogAPI(
-                  dog_gender,
-                  dog_name,
-                  dog_size,
-                  dog_breed,
-                  dog_age,
-                  neutral,
-                  dog_comment,
-                  imgFile
-                )
-              )
+            onClick={submitDogInfo
+              
             }
           >
             가입하기

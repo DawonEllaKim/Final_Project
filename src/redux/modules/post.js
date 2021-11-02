@@ -17,10 +17,10 @@ const deletePost = createAction(DELETE_POST, (postId) =>({postId}));
 // initialState
 const initialState = {
   list: [],
-  post: []
+
 };
 
-// middleware
+// middleware  dogGender, dogAge, dogName, meetingTime,meetingDate,wishList
 const getPostMD = () =>{
     return function(dispatch, getState, {history}){
         // console.log(postId);

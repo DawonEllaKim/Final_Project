@@ -8,32 +8,33 @@ import { BsGenderFemale } from "react-icons/bs";
 
 const Card = (props) => {
   const postList = useSelector((state) => state.post.list[props.index]);
-  // const dogSize = postList.dogSize;
-  const dogGender = postList.dogGender;
-  const dogAge = postList.dogAge;
-  // const locationCategory = postList.locationCategory;
-  const dogImage = postList.dogImage;
-  const dogName = postList.dogName;
-  const meetingTime = postList.meetingTime;
+  const dogList = props.dogList
+  
+  const dogGender = dogList.dog_gender;
+  const dogAge = dogList.dog_age;
+
+  const dogImage = dogList.dog_image;
+  const dogName = dogList.dog_name;
   const meetingDate = postList.meetingDate;
   // const completed = postList.completed;
   const wishList = postList.wishList;
-
+  console.log(dogList)
+  console.log(postList)
   return (
-    <Wrap>
+    <CardWrap>
       <img src={dogImage} />
-      <Info>
-        <Top>
+      <CardInfo>
+        <CardTop>
           <h4> {dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
           <p>{dogName + ", " + dogAge}</p>
-        </Top>
-        <Center>{wishList}</Center>
-        <Bottom>{meetingDate + " " + meetingTime + " >"}</Bottom>
-      </Info>
-    </Wrap>
+        </CardTop>
+        <CardCenter>{wishList}</CardCenter>
+        <CardBottom>{meetingDate  + " >"}</CardBottom>
+      </CardInfo>
+    </CardWrap>
   );
 };
-const Wrap = styled.div`
+const CardWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -54,7 +55,7 @@ const Wrap = styled.div`
     border-radius: 25px;
   }
 `;
-const Info = styled.div`
+const CardInfo = styled.div`
   width: 192px;
   display: flex;
   flex-direction: column;
@@ -62,7 +63,7 @@ const Info = styled.div`
   align-items: flex-start;
   padding-left: 20px;
 `;
-const Top = styled.div`
+const CardTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -76,11 +77,11 @@ const Top = styled.div`
     font-size: 16px;
   }
 `;
-const Center = styled.div`
+const CardCenter = styled.div`
   width: 100%;
   padding: 10px;
 `;
-const Bottom = styled.div`
+const CardBottom = styled.div`
   width: 100%;
   padding: 10px;
 `;

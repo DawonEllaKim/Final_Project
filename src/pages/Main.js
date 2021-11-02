@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-
+//reactIcon
+import { BsGenderMale } from "react-icons/bs";
+import { BsGenderFemale } from "react-icons/bs";
 // Redux
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import { actionCreators as signActions}  from "../redux/modules/sign"
 // Components
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
@@ -28,8 +30,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post?.list) || "";
-
+  
+  
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
@@ -43,11 +45,16 @@ const Main = () => {
       setSideBar(false);
     }
   };
-
+ 
   // 게시물 불러오기
   React.useEffect(() => {
-    dispatch(postActions.getPostMD());
+     dispatch(signActions.getDogAPI());
+     
   }, []);
+ 
+  const dogList = useSelector((state) => state.sign?.dog) || "";
+  
+  console.log(dogList)
 
   // 슬라이드 세팅
   const settings = {
@@ -115,10 +122,20 @@ const Main = () => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {postList.map((post, index) => {
+        {dogList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
-              <Card index={index} key={index} post={post} />
+              <CardWrap>
+      <img src={post.dog_image} />
+      <CardInfo>
+        <CardTop>
+          <h4> {post.dog_gender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
+          <p>{post.dog_name + ", " + post.dog_age}</p>
+        </CardTop>
+        {/* <CardCenter>{post_}</CardCenter>
+        <CardBottom>{meetingDate  + " >"}</CardBottom> */}
+      </CardInfo>
+    </CardWrap>
             </div>
           );
         })}
@@ -300,5 +317,56 @@ const Button = styled.button`
   border: none;
   color: white;
   cursor: pointer;
+`;
+const CardWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 176px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 25px;
+  background-color: #ebebeb;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  cursor: pointer;
+  img {
+    width: 152px;
+    height: 152px;
+    border-radius: 25px;
+  }
+`;
+const CardInfo = styled.div`
+  width: 192px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 20px;
+`;
+const CardTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  h4 {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  p {
+    font-size: 16px;
+  }
+`;
+const CardCenter = styled.div`
+  width: 100%;
+  padding: 10px;
+`;
+const CardBottom = styled.div`
+  width: 100%;
+  padding: 10px;
 `;
 export default Main;

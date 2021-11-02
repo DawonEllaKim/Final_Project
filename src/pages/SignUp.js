@@ -54,22 +54,26 @@ const SignUp = () => {
     console.log(newTitle);
     setUserNickname(newTitle);
   };
-  const userGenderChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    console.log(newTitle);
-    setUserGender(newTitle);
+  const userGenderChangeHandler = (name) => {
+    console.log(name)
+    setUserGender(name);
   };
-  const userAgeChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    console.log(newTitle);
-    setUserAge(newTitle);
+  const userAgeChangeHandler = (name) => {
+ 
+    console.log(name);
+    setUserAge(name);
   };
 
   
 
  const submitUserInfo = () => {
     let UserInfo = {
-      username,password,confirmPassword,userNickname,userGender,userAge,imgFile
+      user_email, 
+  password, 
+  user_nickname, 
+  user_gender, 
+  user_age, 
+  user_image:imgFile,
     }
     dispatch(UserActions.signUserAPI(UserInfo))
  }
@@ -141,7 +145,8 @@ const SignUp = () => {
                 <UserGender
                   type="radio"
                   id="b"
-                  checked={user_gender === "남"}
+                  value="남"
+                  checked={user_gender==="남"}
                   onClick={() => userGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -152,7 +157,8 @@ const SignUp = () => {
                 <UserGender
                   type="radio"
                   id="g"
-                  checked={user_gender === "여"}
+                  value="여"
+                  checked={user_gender==="여"}
                   onClick={() => userGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -217,17 +223,7 @@ const SignUp = () => {
 
         <ButtonWrap>
           <Add
-            onClick={() =>
-              dispatch(
-                UserActions.signUserAPI(
-                  user_email,
-                  password,
-                  user_nickname,
-                  user_gender,
-                  user_age,
-                  imgFile
-                )
-              )
+            onClick={submitUserInfo
             }
           >
             반려견 등록하기
