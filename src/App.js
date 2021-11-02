@@ -41,8 +41,8 @@ function App() {
         <Route exact path="/calendar" component={Calendar} />
         <Route exact path="/addRecord" component={AddRecord} />
         <Route exact path="/addDetail" component={AddDetail} />
-        <Route exact path= "/MapContainer3" component={MapContainer3} />
-        <Route exact path= "/addDate" component={AddDate} /> 
+        <Route exact path="/MapContainer3" component={MapContainer3} />
+        <Route exact path="/addDate" component={AddDate} />
       </ConnectedRouter>
     </div>
   );
