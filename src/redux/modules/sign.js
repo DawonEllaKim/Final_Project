@@ -6,33 +6,33 @@ import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
 
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
-const SET_OWNER = "SET_OWNER";
+// const SET_OWNER = "SET_OWNER";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_USER, (dog) => ({ dog }));
-const setOwner = createAction(SET_USER, (owner) => ({ owner }));
+// const setOwner = createAction(SET_USER, (owner) => ({ owner }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user)=>({user}));
 
 const initialState = {
   user: " ",
   dog: " ",
-  owner: " ",
+  // owner: " ",
   is_login: false,
 };
 
-const LogInMD = (username, password) => {
+const logInMD = (user_email, password) => {
   return function (dispatch, getState, {history}) {
     apis
-    .postLoginAX(username, password)
+    .postLoginAX(user_email, password)
     .then((res) => {
       const token = res.data.token;
       setCookie("token",token)
-      localStorage.setItem("username", username);
+      localStorage.setItem("user_email", user_email);
       dispatch(
-        setUser({username: res.data.username,
+        setUser({user_email: res.data.user_email,
         password: res.data.password,})
       )
     })
@@ -50,24 +50,31 @@ const LogInMD = (username, password) => {
 
 
 
-const signUserAPI = (username, password, userNickname, userGender, userAge, userImage) => {
+const signUserAPI = (
+  user_email, 
+  password, 
+  user_nickname, 
+  user_gender, 
+  user_age, 
+  user_image
+  ) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/user",
+      url: "http://localhost:4000/users",
       data: {
-        username,
-        password,
-        userNickname,
-        userGender,
-        userAge,
-        userImage,
+        user_email, 
+        password, 
+        user_nickname, 
+        user_gender, 
+        user_age, 
+        user_image
       },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert("회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요");
-        dispatch(setUser(username, password));
+        dispatch(setUser(user_email, password));
         history.push("/signDog");
       })
       .catch((err) => {
@@ -78,28 +85,28 @@ const signUserAPI = (username, password, userNickname, userGender, userAge, user
 };
 
 const signDogAPI = (
-  dogGender,
-  dogName,
-  dogSize,
-  dogBreed,
-  dogAge,
+  dog_gender,
+  dog_name,
+  dog_size,
+  dog_breed,
+  dog_age,
   neutral,
-  dogComment,
-  dogImage
+  dog_comment,
+  dog_image
 ) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://localhost:4000/dog",
       data: {
-        dogGender,
-        dogName,
-        dogSize,
-        dogBreed,
-        dogAge,
+        dog_gender,
+        dog_name,
+        dog_size,
+        dog_breed,
+        dog_age,
         neutral,
-        dogComment,
-        dogImage,
+        dog_comment,
+        dog_image
       },
     })
       .then((res) => {
@@ -154,10 +161,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog = action.payload.dog;
       }),
-    [SET_OWNER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.owner = action.payload.owner;
-      }),
+    // [SET_OWNER]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.owner = action.payload.owner;
+    //   }),
     [LOG_IN]: (state, action) =>
       produce(state, (draft) =>{
         draft.user = action.payload.user;
@@ -180,6 +187,6 @@ export const actionCreators = {
   signDogAPI,
   // signOwnerAPI,
   login,
-  LogInMD,
+  logInMD,
   logOut,
 };

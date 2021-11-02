@@ -11,13 +11,13 @@ const SignDog = (props) => {
 
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [dogGender, setDogGender] = useState("");
-  const [dogName, setDogName] = useState("");
-  const [dogSize, setDogSize] = useState("");
-  const [dogBreed, setDogBreed] = useState("");
-  const [dogAge, setDogAge] = useState("");
+  const [dog_gender, setDogGender] = useState("");
+  const [dog_name, setDogName] = useState("");
+  const [dog_size, setDogSize] = useState("");
+  const [dog_breed, setDogBreed] = useState("");
+  const [dog_age, setDogAge] = useState("");
   const [neutral, setNeutral] = useState("");
-  const [dogComment, setDogComment] = useState("");
+  const [dog_comment, setDogComment] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -128,7 +128,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="s"
-                  checked={dogSize === "소형견"}
+                  checked={dog_size === "소형견"}
                   onClick={() => dogSizeChangeHandler("소형견")}
                 />
               </RadioWrap>
@@ -139,7 +139,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="m"
-                  checked={dogSize === "중형견"}
+                  checked={dog_size === "중형견"}
                   onClick={() => dogSizeChangeHandler("중형견")}
                 />
               </RadioWrap>
@@ -151,7 +151,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="l"
-                  checked={dogSize === "대형견"}
+                  checked={dog_size === "대형견"}
                   onClick={() => dogSizeChangeHandler("대형견")}
                 />
               </RadioWrap>
@@ -168,7 +168,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="b"
-                  checked={dogGender === "남"}
+                  checked={dog_gender === "남"}
                   onClick={() => dogGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -180,7 +180,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="g"
-                  checked={dogGender === "여"}
+                  checked={dog_gender === "여"}
                   onClick={() => dogGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -226,7 +226,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="young"
-                  checked={dogAge === "0~3세"}
+                  checked={dog_age === "0~3세"}
                   onClick={() => dogAgeChangeHandler("0~3세")}
                 />
               </RadioWrap>
@@ -238,7 +238,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="junior"
-                  checked={dogAge === "4~7세"}
+                  checked={dog_age === "4~7세"}
                   onClick={() => dogAgeChangeHandler("4~7세")}
                 />
               </RadioWrap>
@@ -250,7 +250,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="senior"
-                  checked={dogAge === "8세 이상"}
+                  checked={dog_age === "8세 이상"}
                   onClick={() => dogAgeChangeHandler("8세 이상")}
                 />
               </RadioWrap>
@@ -271,13 +271,13 @@ const SignDog = (props) => {
             onClick={() =>
               dispatch(
                 DogActions.signDogAPI(
-                  dogGender,
-                  dogName,
-                  dogSize,
-                  dogBreed,
-                  dogAge,
+                  dog_gender,
+                  dog_name,
+                  dog_size,
+                  dog_breed,
+                  dog_age,
                   neutral,
-                  dogComment,
+                  dog_comment,
                   imgFile
                 )
               )
