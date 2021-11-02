@@ -25,7 +25,7 @@ import { GrNotification } from "react-icons/gr";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Main = () => {
+const Main = (props) => {
   const dispatch = useDispatch();
   
   
@@ -42,15 +42,27 @@ const Main = () => {
       setSideBar(false);
     }
   };
- 
+  let hi;
   // 게시물 불러오기
   React.useEffect(() => {
      dispatch(signActions.getDogAPI());
-     
+    //  dispatch(postActions.getPostMD());
   }, []);
- 
-  const dogList = useSelector((state) => state.sign?.dog) || "";
-  
+  function CheckDog() {
+    let dogList = useSelector((state) => state.sign.dog) || "";
+    if(dogList)
+    {
+      return dogList
+    }
+    else
+    while(true)
+    {  if(dogList)
+      return dogList
+    }
+  }
+  let dogList = CheckDog()
+  const postList = useSelector((state) => state.post.list);
+  console.log(postList)
   console.log(dogList)
 
   // 슬라이드 세팅
@@ -122,17 +134,7 @@ const Main = () => {
         {dogList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
-              <CardWrap>
-      <img src={post.dog_image} />
-      <CardInfo>
-        <CardTop>
-          <h4> {post.dog_gender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
-          <p>{post.dog_name + ", " + post.dog_age}</p>
-        </CardTop>
-        {/* <CardCenter>{post_}</CardCenter>
-        <CardBottom>{meetingDate  + " >"}</CardBottom> */}
-      </CardInfo>
-    </CardWrap>
+             <Card dogList={dogList[index] } postList={postList[index]} key={index}/>
             </div>
           );
         })}
@@ -255,5 +257,47 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
+
+const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 1%;
+`;
+const FooterLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 270px;
+  height: 60px;
+  margin: 12px;
+  padding: 20px;
+  border-radius: 20px;
+
+  width: 274px;
+  height: 60px;
+
+  background-color: #5c5c5c;
+  border-radius: 20px;
+`;
+const FooterRight = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: #5c5c5c;
+  border-radius: 50%;
+`;
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;
+
 
 export default Main;

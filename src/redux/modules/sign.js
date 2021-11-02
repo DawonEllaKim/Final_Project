@@ -11,7 +11,7 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
-const setDog = createAction(SET_USER, (dog) => ({ dog }));
+const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 // const setOwner = createAction(SET_USER, (owner) => ({ owner }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user)=>({user}));
@@ -94,7 +94,7 @@ const signDogAPI = (
   };
 };
 const getDogAPI = (
-  
+  hi
  ) => {
    return function (dispatch, getState, { history }) {
      axios({
@@ -152,7 +152,7 @@ export default handleActions(
       }),
     [SET_DOG]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.list;
+        draft.dog = action.payload.dog;
        
       }),
     // [SET_OWNER]: (state, action) =>

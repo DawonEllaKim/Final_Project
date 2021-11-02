@@ -7,7 +7,8 @@
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
-      "id": 4
+      "id": 4,
+      "meetingDate" : "2020-10-09"
     }
   ],
   
@@ -25,7 +26,55 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": null
+      "user_image": null,
+      "latitude": "37.5080067942221",
+      "location_address": "한강고수부지공원 체력단련장",
+      "wish_Desc": "좋은 강아지만오기!",
+      "locationCategory": "반포한강공원",
+      "id": 4,
+      "meetingDate" : "2020-10-09"
+    },
+    {
+      "dog_gender": "남",
+      "dog_name": "가을",
+      "dog_size": "중형견",
+      "dog_breed": "비글",
+      "dog_age": "4~7세",
+      "neutral": false,
+      "dog_comment": "강아지 귀요미",
+      "user_email": "kookoo",
+      "password": "4444",
+      "user_nickname": "qwerqwer",
+      "user_gender": "남",
+      "user_age": "40대",
+      "user_image": null,
+      "latitude": "37.5080067942221",
+      "location_address": "한강고수부지공원 체력단련장",
+      "wish_Desc": "바쁜 하루에 같이 산책할게요!",
+      "locationCategory": "반포한강공원",
+      "id": 4,
+      "meetingDate" : "2020-10-09"
+    },
+    {
+      "dog_gender": "여",
+      "dog_name": "노을",
+      "dog_size": "대형견",
+      "dog_breed": "비글",
+      "dog_age": "4~7세",
+      "neutral": false,
+      "dog_comment": "강아지 귀요미",
+      "user_email": "kookoo",
+      "password": "4444",
+      "user_nickname": "qwerqwer",
+      "user_gender": "남",
+      "user_age": "40대",
+      "user_image": null,
+      "latitude": "37.5080067942221",
+      "location_address": "한강고수부지공원 체력단련장",
+      "wish_Desc": "바쁜 하루에 같이 산책할게요!",
+      "locationCategory": "반포한강공원",
+      "id": 4,
+      "meetingDate" : "2020-10-09"
     }
   ],
   "users" : [
