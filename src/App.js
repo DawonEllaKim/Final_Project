@@ -14,6 +14,8 @@ import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
 import PostEdit from "./pages/PostEdit";
+import DogEdit from "./pages/DogEdit";
+import UserEdit from "./pages/UserEdit";
 import Calendar from "./pages/Calendar";
 import AddRecord from "./pages/AddRecord";
 import AddDetail from "./pages/AddDetail";
@@ -33,6 +35,8 @@ function App() {
         <Route exact path="/write/:id" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
         <Route exact path="/postEdit/:id" component={PostEdit} />
+        <Route exact path="/dogEdit" component={DogEdit} />
+        <Route exact path="/userEdit" component={UserEdit} />
         <Route exact path="/myProfile" component={MyProfile} />
         <Route exact path="/calendar" component={Calendar} />
         <Route exact path="/addRecord" component={AddRecord} />
