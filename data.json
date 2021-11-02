@@ -1,28 +1,7 @@
-{
-  "posts": [
-    {
-      "id": 1,
-      "dogSize": "중형견",
-      "dogGender": "남",
-      "dogAge": "8세이상",
-      "locationCategory": "광안리",
-      "completed": true,
-      "dogImage": "https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=662&q=80",
-      "dogName": "가을이",
-      "meetingDate": "2021-10-25",
-      "meetingTime": " 08:00",
-      "user": {
-        "id": 1
-      }
-    },
-    {
-      "locationCategory": "뚝섬",
-      "meetingDate": "2021-10-04",
-      "meetingTime": "15:51",
-      "dogCount": "4",
-      "wishDesc": "애는 착해요",
-      "id": 3
-    },
+{  
+  "posts": [ 
+   
+   
     {
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -31,70 +10,25 @@
       "id": 4
     }
   ],
-  "users": [
+  
+  "dog": [
     {
-      "id": 2,
-      "username": "dawon0411",
-      "password": "1234",
-      "dog": {
-        "dogGender": "여",
-        "dogName": "코코팝",
-        "dogSize": "중형견",
-        "dogBreed": "말티즈",
-        "dogAge": "4~7세",
-        "neutral": true,
-        "dogComment": "귀여워요",
-        "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-      },
-      "owner": {
-        "ownerName": "ella",
-        "ownerGender": "여",
-        "ownerAge": "30대",
-        "ownerImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
-      }
-    },
-    {
-      "id": 1,
-      "username": "dawon0411",
-      "password": "1234",
-      "dog": {
-        "dogGender": "여",
-        "dogName": "코코팝",
-        "dogSize": "중형견",
-        "dogBreed": "말티즈",
-        "dogAge": "4~7세",
-        "neutral": true,
-        "dogComment": "귀여워요",
-        "dogImage": "https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-      },
-      "owner": {
-        "ownerName": "ella",
-        "ownerGender": "여",
-        "ownerAge": "30대",
-        "ownerImage": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
-      }
+      "dog_gender": "남",
+      "dog_name": "쭈쭈",
+      "dog_size": "소형견",
+      "dog_breed": "비숑",
+      "dog_age": "4~7세",
+      "neutral": false,
+      "dog_comment": "울 강아지 최고",
+      "user_email": "soosoo",
+      "password": "4444",
+      "user_nickname": "qwerqwer",
+      "user_gender": "남",
+      "user_age": "20대",
+      "user_image": null
     }
   ],
-  "user": {
-    "markername": "한강고수부지공원 체력단련장",
-    "latitude": "37.5080067942221",
-    "longitude": "126.992625769219",
-    "locationCategory": "반포한강공원"
-  },
-  "dog": {
-    "dogGender": "남",
-    "dogName": "ㅇㅇ",
-    "dogSize": "소형견",
-    "dogBreed": "ㅇㅇㅇ",
-    "dogAge": "0~3세",
-    "neutral": true,
-    "dogComment": "ㅇㅇ",
-    "dogImage": null
-  },
-  "owner": {
-    "ownerName": "",
-    "ownerGender": "",
-    "ownerAge": "",
-    "ownerImage": null
-  }
+  "users" : [
+     
+  ]
 }

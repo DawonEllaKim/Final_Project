@@ -17,8 +17,8 @@ const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user)=>({user}));
 
 const initialState = {
-  user: " ",
-  dog: " ",
+  user: [],
+  dog: [],
   // owner: " ",
   is_login: false,
 };
@@ -51,30 +51,18 @@ const logInMD = (user_email, password) => {
 
 
 const signUserAPI = (
-  user_email, 
-  password, 
-  user_nickname, 
-  user_gender, 
-  user_age, 
-  user_image
+    UserInfo
   ) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://localhost:4000/users",
-      data: {
-        user_email, 
-        password, 
-        user_nickname, 
-        user_gender, 
-        user_age, 
-        user_image
-      },
+      data: UserInfo,
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert("회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요");
-        dispatch(setUser(user_email, password));
+        dispatch(setUser(UserInfo));
         history.push("/signDog");
       })
       .catch((err) => {
@@ -85,32 +73,17 @@ const signUserAPI = (
 };
 
 const signDogAPI = (
-  dog_gender,
-  dog_name,
-  dog_size,
-  dog_breed,
-  dog_age,
-  neutral,
-  dog_comment,
-  dog_image
+ DogInfo
 ) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://localhost:4000/dog",
-      data: {
-        dog_gender,
-        dog_name,
-        dog_size,
-        dog_breed,
-        dog_age,
-        neutral,
-        dog_comment,
-        dog_image
-      },
+      data: DogInfo,
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
+        dispatch(setDog(DogInfo));
         window.alert("축하합니다. 회원가입이 완료되었습니다");
         history.push("/");
       })
@@ -120,6 +93,26 @@ const signDogAPI = (
       });
   };
 };
+const getDogAPI = (
+  
+ ) => {
+   return function (dispatch, getState, { history }) {
+     axios({
+       method: "GET",
+       url: "http://localhost:4000/dog",
+   
+     })
+       .then((res) => {
+         console.log(res.data); // signup 정보 확인
+         dispatch(setDog(res.data));
+        
+       })
+       .catch((err) => {
+         console.log("getDogAPI에서 오류발생", err);
+         window.alert("오류 발생");
+       });
+   };
+ };
 
 // const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
 //   return function (dispatch, getState, { history }) {
@@ -159,7 +152,8 @@ export default handleActions(
       }),
     [SET_DOG]: (state, action) =>
       produce(state, (draft) => {
-        draft.dog = action.payload.dog;
+        draft.list = action.payload.list;
+       
       }),
     // [SET_OWNER]: (state, action) =>
     //   produce(state, (draft) => {
@@ -185,6 +179,7 @@ export default handleActions(
 export const actionCreators = {
   signUserAPI,
   signDogAPI,
+  getDogAPI,
   // signOwnerAPI,
   login,
   logInMD,

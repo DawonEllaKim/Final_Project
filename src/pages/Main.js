@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-
+//reactIcon
+import { BsGenderMale } from "react-icons/bs";
+import { BsGenderFemale } from "react-icons/bs";
 // Redux
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import { actionCreators as signActions}  from "../redux/modules/sign"
 // Components
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
@@ -25,8 +27,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post?.list) || "";
-
+  
+  
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
@@ -40,11 +42,16 @@ const Main = () => {
       setSideBar(false);
     }
   };
-
+ 
   // 게시물 불러오기
   React.useEffect(() => {
-    dispatch(postActions.getPostMD());
+     dispatch(signActions.getDogAPI());
+     
   }, []);
+ 
+  const dogList = useSelector((state) => state.sign?.dog) || "";
+  
+  console.log(dogList)
 
   // 슬라이드 세팅
   const settings = {
@@ -112,10 +119,20 @@ const Main = () => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {postList.map((post, index) => {
+        {dogList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
-              <Card index={index} key={index} post={post} />
+              <CardWrap>
+      <img src={post.dog_image} />
+      <CardInfo>
+        <CardTop>
+          <h4> {post.dog_gender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
+          <p>{post.dog_name + ", " + post.dog_age}</p>
+        </CardTop>
+        {/* <CardCenter>{post_}</CardCenter>
+        <CardBottom>{meetingDate  + " >"}</CardBottom> */}
+      </CardInfo>
+    </CardWrap>
             </div>
           );
         })}
