@@ -28,7 +28,7 @@ import { MdLocationOn } from "react-icons/md";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Main = () => {
+const Main = (props) => {
   const dispatch = useDispatch();
   
   
@@ -45,15 +45,27 @@ const Main = () => {
       setSideBar(false);
     }
   };
- 
+  let hi;
   // 게시물 불러오기
   React.useEffect(() => {
      dispatch(signActions.getDogAPI());
-     
+    //  dispatch(postActions.getPostMD());
   }, []);
- 
-  const dogList = useSelector((state) => state.sign?.dog) || "";
-  
+  function CheckDog() {
+    let dogList = useSelector((state) => state.sign.dog) || "";
+    if(dogList)
+    {
+      return dogList
+    }
+    else
+    while(true)
+    {  if(dogList)
+      return dogList
+    }
+  }
+  let dogList = CheckDog()
+  const postList = useSelector((state) => state.post.list);
+  console.log(postList)
   console.log(dogList)
 
   // 슬라이드 세팅
@@ -125,17 +137,7 @@ const Main = () => {
         {dogList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
-              <CardWrap>
-      <img src={post.dog_image} />
-      <CardInfo>
-        <CardTop>
-          <h4> {post.dog_gender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
-          <p>{post.dog_name + ", " + post.dog_age}</p>
-        </CardTop>
-        {/* <CardCenter>{post_}</CardCenter>
-        <CardBottom>{meetingDate  + " >"}</CardBottom> */}
-      </CardInfo>
-    </CardWrap>
+             <Card dogList={dogList[index] } postList={postList[index]} key={index}/>
             </div>
           );
         })}
@@ -318,55 +320,5 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-const CardWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  height: 176px;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 25px;
-  background-color: #ebebeb;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20.27px;
-  cursor: pointer;
-  img {
-    width: 152px;
-    height: 152px;
-    border-radius: 25px;
-  }
-`;
-const CardInfo = styled.div`
-  width: 192px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding-left: 20px;
-`;
-const CardTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  h4 {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-  }
-  p {
-    font-size: 16px;
-  }
-`;
-const CardCenter = styled.div`
-  width: 100%;
-  padding: 10px;
-`;
-const CardBottom = styled.div`
-  width: 100%;
-  padding: 10px;
-`;
+
 export default Main;

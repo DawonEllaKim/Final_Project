@@ -1,23 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import styled from "styled-components";
 
 // React Icons
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
-
+import { actionCreators as postActions } from "../redux/modules/post";
 const Card = (props) => {
-  const postList = useSelector((state) => state.post.list[props.index]);
+  const dispatch = useDispatch()
+  console.log(props.dogList)
+  console.log(props.postList)
+  const postList = props.postList
   const dogList = props.dogList
   
   const dogGender = dogList.dog_gender;
   const dogAge = dogList.dog_age;
 
-  const dogImage = dogList.dog_image;
+  const dogImage = "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=689&q=80"
   const dogName = dogList.dog_name;
-  const meetingDate = postList.meetingDate;
+  const meetingDate = dogList.meetingDate;
   // const completed = postList.completed;
-  const wishList = postList.wishList;
+  const wishList = dogList.wish_Desc;
   console.log(dogList)
   console.log(postList)
   return (

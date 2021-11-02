@@ -108,7 +108,7 @@ export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.postList;
+        draft.list = action.payload.list;
         console.log(draft.list)
       }),
     [ADD_POST]:(state,action) =>
