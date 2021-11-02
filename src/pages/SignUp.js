@@ -10,13 +10,13 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [username, setUsername] = useState("");
+  const [user_email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [user_nickname, setUserNickname] = useState("");
+  const [user_gender, setUserGender] = useState("");
+  const [user_age, setUserAge] = useState("");
 
-  const [userNickname, setUserNickname] = useState("");
-  const [userGender, setUserGender] = useState("");
-  const [userAge, setUserAge] = useState("");
-  const [confirmPassword,setConfirmPassword] = useState("")
   const handleChangeFile = (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -33,10 +33,10 @@ const SignUp = () => {
     }
   };
 
-  const usernameChangeHandler = (e) => {
+  const userEmailChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
-    setUsername(newTitle);
+    setUserEmail(newTitle);
   };
   const passwordChangeHandler = (e) => {
     const newTitle = e.target.value;
@@ -110,7 +110,7 @@ const SignUp = () => {
           <IdWrap>
             <UserId
               placeholder="이메일을 입력하세요. "
-              onChange={usernameChangeHandler}
+              onChange={userEmailChangeHandler}
             ></UserId>
           </IdWrap>
           <IdCheck>중복확인</IdCheck>
@@ -124,7 +124,7 @@ const SignUp = () => {
         <Filter>
           <PasswordCheck
             placeholder="패스워드 확인"
-            onChange={passwordChangeHandler}
+            onChange={confirmPasswordChangeHandler}
           ></PasswordCheck>
         </Filter>
         <Filter>
@@ -141,7 +141,7 @@ const SignUp = () => {
                 <UserGender
                   type="radio"
                   id="b"
-                  checked={userGender === "남"}
+                  checked={user_gender === "남"}
                   onClick={() => userGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -152,7 +152,7 @@ const SignUp = () => {
                 <UserGender
                   type="radio"
                   id="g"
-                  checked={userGender === "여"}
+                  checked={user_gender === "여"}
                   onClick={() => userGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -169,7 +169,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="10"
-                  checked={userAge === "10대"}
+                  checked={user_age === "10대"}
                   onClick={() => userAgeChangeHandler("10대")}
                 />
               </RadioWrap>
@@ -181,7 +181,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="20"
-                  checked={userAge === "20대"}
+                  checked={user_age === "20대"}
                   onClick={() => userAgeChangeHandler("20대")}
                 />
               </RadioWrap>
@@ -193,7 +193,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="30"
-                  checked={userAge === "30대"}
+                  checked={user_age === "30대"}
                   onClick={() => userAgeChangeHandler("30대")}
                 />
               </RadioWrap>
@@ -205,7 +205,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="40"
-                  checked={userAge === "40대 이상"}
+                  checked={user_age === "40대 이상"}
                   onClick={() => userAgeChangeHandler("40대 이상")}
                 />
               </RadioWrap>
@@ -220,11 +220,11 @@ const SignUp = () => {
             onClick={() =>
               dispatch(
                 UserActions.signUserAPI(
-                  username,
+                  user_email,
                   password,
-                  userNickname,
-                  userGender,
-                  userAge,
+                  user_nickname,
+                  user_gender,
+                  user_age,
                   imgFile
                 )
               )
