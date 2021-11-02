@@ -1,39 +1,36 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-// React Icons
+// 리액트 아이콘
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
-const Card = (props) => {
-  const postList = useSelector((state) => state.post.list[props.index]);
-  const dogList = props.dogList
-  
-  const dogGender = dogList.dog_gender;
-  const dogAge = dogList.dog_age;
+const Card = ({ post }) => {
+  const dogImage = post.dog_image;
+  const dogName = post.dog_name;
+  const dogGender = post.dog_gender;
+  const dogAge = post.dog_age;
+  const dogComment = post.dog_comment;
+  const initialMeetingDate = post.meeting_date;
 
-  const dogImage = dogList.dog_image;
-  const dogName = dogList.dog_name;
-  const meetingDate = postList.meetingDate;
-  // const completed = postList.completed;
-  const wishList = postList.wishList;
-  console.log(dogList)
-  console.log(postList)
   return (
     <CardWrap>
+      {/* 카드 왼쪽 - 이미지 */}
       <img src={dogImage} />
+
+      {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
         <CardTop>
           <h4> {dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
-        <CardCenter>{wishList}</CardCenter>
-        <CardBottom>{meetingDate  + " >"}</CardBottom>
+        <CardCenter>{dogComment}</CardCenter>
+        <CardBottom>{initialMeetingDate}</CardBottom>
       </CardInfo>
     </CardWrap>
   );
 };
+
 const CardWrap = styled.div`
   display: flex;
   flex-direction: row;

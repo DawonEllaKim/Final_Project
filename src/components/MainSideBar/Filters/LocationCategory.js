@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CSSTransition } from "react-transition-group";
+import { MdLocationOn } from "react-icons/md";
+
+import "../../../nav.css";
 
 const LocationCategory = () => {
   const [subMenu, setSubMenu] = useState(false);
@@ -31,78 +35,109 @@ const LocationCategory = () => {
   };
 
   return (
-    <Wrap>
-      <SideBarLink>
-        <SideBarLabel onClick={showSubMenu}>산책로</SideBarLabel>
-
-        <Category>
-          <div>
-            <li className="dropDown">
-              <p>도시</p>
-              <ul className="dropDownMenu">
-                {cityOptions.map((cityOptions) => (
-                  <DropdownItem
-                    onClick={(e) => {
-                      setCitySelected(cityOptions);
-                      setCityActive(false);
-                      console.log(cityOptions);
-                    }}
-                  >
-                    {cityOptions}
-                  </DropdownItem>
-                ))}
-              </ul>
-            </li>
-          </div>
-          {/* 도시 */}
-          {/* <div>
-            <DropdownBtn onClick={(e) => setCityActive(!cityActive)}>
-              {citySelected}
-            </DropdownBtn>
-            {cityActive && (
-              <DropdownContent>
-                {cityOptions.map((cityOptions) => (
-                  <DropdownItem
-                    onClick={(e) => {
-                      setCitySelected(cityOptions);
-                      setCityActive(false);
-                      console.log(cityOptions);
-                    }}
-                  >
-                    {cityOptions}
-                  </DropdownItem>
-                ))}
-              </DropdownContent>
-            )}
-          </div> */}
-          {/* 상세위치 */}
-          {/* <div>
-            <DropdownBtn
-              onClick={(e) => setDetailLocationActive(!detailLocationActive)}
-            >
-              {detailLocationSelected}
-            </DropdownBtn>
-            {detailLocationActive && (
-              <DropdownContent>
-                {detailLocationOptions.map((detailLocationOption) => (
-                  <DropdownItem
-                    onClick={(e) => {
-                      setDetailLocationSelected(detailLocationOption);
-                      setDetailLocationActive(false);
-                      console.log(detailLocationOption);
-                    }}
-                  >
-                    {detailLocationOption}
-                  </DropdownItem>
-                ))}
-              </DropdownContent>
-            )}
-          </div>*/}
-        </Category>
-      </SideBarLink>
-    </Wrap>
+    <div>
+      <Navbar>
+        <NavItem icon="위치">
+          <DropdownMenuThree />
+        </NavItem>
+      </Navbar>
+    </div>
   );
 };
+
+function Navbar(props) {
+  return (
+    <nav className="navbar">
+      <ul className="navbar-nav">{props.children}</ul>
+    </nav>
+  );
+}
+
+function NavItem(props) {
+  const [open, setOpen] = useState(false);
+  return (
+    <li className="nav-item">
+      <a className="icon-button" onClick={() => setOpen(!open)}>
+        {props.icon}
+      </a>
+      {open && props.children}
+    </li>
+  );
+}
+
+function DropdownMenuThree() {
+  const [activeMenu, setActiveMenu] = useState("main");
+  const [open, setOpen] = useState(false);
+  function DropdownItem(props) {
+    return (
+      <a
+        href="#"
+        className="menu-item"
+        onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+      >
+        <span className="icon-button">{props.leftIcon}</span>
+        {props.children}
+        <span className="icon-right">{props.rightIcon}</span>
+      </a>
+    );
+  }
+  return (
+    <div className="dropdown">
+      <CSSTransition
+        in={activeMenu === "main"}
+        unmountOnExit
+        timeout={500}
+        classNames="menu-primary"
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="top">서울</DropdownItem>
+          <DropdownItem goToMenu="bottom">부산</DropdownItem>
+          <DropdownItem goToMenu="accessory">악세서리</DropdownItem>
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === "top"}
+        unmountOnExit
+        timeout={500}
+        classNames="menu-secondary"
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main"></DropdownItem>
+          <DropdownItem>아우터</DropdownItem>
+          <DropdownItem>반팔</DropdownItem>
+          <DropdownItem>긴팔</DropdownItem>
+          <DropdownItem>셔츠</DropdownItem>
+          <DropdownItem>원피스</DropdownItem>
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === "bottom"}
+        unmountOnExit
+        timeout={500}
+        classNames="menu-secondary"
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main"></DropdownItem>
+          <DropdownItem>팬츠</DropdownItem>
+          <DropdownItem>스커트</DropdownItem>
+        </div>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === "accessory"}
+        unmountOnExit
+        timeout={500}
+        classNames="menu-secondary"
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main"></DropdownItem>
+          <DropdownItem>가방</DropdownItem>
+          <DropdownItem>신발</DropdownItem>
+          <DropdownItem>모자</DropdownItem>
+        </div>
+      </CSSTransition>
+    </div>
+  );
+}
 
 const Wrap = styled.div`
   margin-bottom: 10px;
