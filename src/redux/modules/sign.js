@@ -50,7 +50,7 @@ const LogInMD = (username, password) => {
 
 
 
-const signUserAPI = (username, password) => {
+const signUserAPI = (username, password, userNickname, userGender, userAge, userImage) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -58,11 +58,15 @@ const signUserAPI = (username, password) => {
       data: {
         username,
         password,
+        userNickname,
+        userGender,
+        userAge,
+        userImage,
       },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
-        window.alert("축하합니다");
+        window.alert("회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요");
         dispatch(setUser(username, password));
         history.push("/signDog");
       })
@@ -100,37 +104,7 @@ const signDogAPI = (
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
-        window.alert("축하합니다");
-        history.push("/signOwner");
-      })
-      .catch((err) => {
-        console.log("signupAPI에서 오류발생", err);
-        window.alert("오류 발생");
-      });
-  };
-};
-
-const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "POST",
-      url: "http://localhost:4000/owner",
-      data: {
-        ownerName,
-        ownerGender,
-        ownerAge,
-        ownerImage,
-      },
-      // headers: {
-      //     "Content-Type": "multipart/form-data; ",
-      //     accept: "application/json",
-      //     "Access-Control-Allow-Origin": "*",
-
-      // },
-    })
-      .then((res) => {
-        console.log(res); // signup 정보 확인
-        window.alert("축하합니다");
+        window.alert("축하합니다. 회원가입이 완료되었습니다");
         history.push("/");
       })
       .catch((err) => {
@@ -139,6 +113,36 @@ const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
       });
   };
 };
+
+// const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
+//   return function (dispatch, getState, { history }) {
+//     axios({
+//       method: "POST",
+//       url: "http://localhost:4000/owner",
+//       data: {
+//         ownerName,
+//         ownerGender,
+//         ownerAge,
+//         ownerImage,
+//       },
+//       // headers: {
+//       //     "Content-Type": "multipart/form-data; ",
+//       //     accept: "application/json",
+//       //     "Access-Control-Allow-Origin": "*",
+
+//       // },
+//     })
+//       .then((res) => {
+//         console.log(res); // signup 정보 확인
+//         window.alert("축하합니다");
+//         history.push("/");
+//       })
+//       .catch((err) => {
+//         console.log("signupAPI에서 오류발생", err);
+//         window.alert("오류 발생");
+//       });
+//   };
+// };
 
 export default handleActions(
   {
@@ -174,7 +178,7 @@ export default handleActions(
 export const actionCreators = {
   signUserAPI,
   signDogAPI,
-  signOwnerAPI,
+  // signOwnerAPI,
   login,
   LogInMD,
   logOut,

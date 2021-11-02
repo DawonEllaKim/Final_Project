@@ -9,7 +9,7 @@
       "id": 1
     },
     {
-			"id": 1,
+      "id": 1,
       "dogSize": "중형견",
       "dogGender": "남",
       "dogAge": "8세이상",
@@ -77,23 +77,27 @@
     }
   ],
   "user": {
-    "username": "aaa",
-    "password": "aaa"
+    "username": "aa",
+    "password": "aa",
+    "userNickname": "aa",
+    "userGender": "남",
+    "userAge": "10대",
+    "userImage": null
   },
   "dog": {
-    "dogGender": "여",
-    "dogName": "루비",
+    "dogGender": "남",
+    "dogName": "ㅇㅇ",
     "dogSize": "소형견",
-    "dogBreed": "말티즈",
-    "dogAge": "4~7세",
+    "dogBreed": "ㅇㅇㅇ",
+    "dogAge": "0~3세",
     "neutral": true,
-    "dogComment": "귀엽습니다",
+    "dogComment": "ㅇㅇ",
     "dogImage": null
   },
   "owner": {
-    "ownerName": "sdfsd",
-    "ownerGender": "여",
-    "ownerAge": "30대",
+    "ownerName": "",
+    "ownerGender": "",
+    "ownerAge": "",
     "ownerImage": null
   }
 }
