@@ -113,13 +113,14 @@ const SignDog = (props) => {
           <label for="radio1">여</label>
         </DogGender>
         <DogGender>
+         
+          <div>
           견종
-          <select name="pets" id="pet-select" onChange={dogBreedChangeHandler}>
-            <option value="">견종을 선택하세요</option>
-            <option value="비숑">비숑</option>
-            <option value="말티즈">말티즈</option>
-            <option value="푸들">푸들</option>
-          </select>
+          <DogTitleInput
+            placeholder="견종을 입력해주세요!"
+            onChange={dogBreedChangeHandler}
+          />
+        </div>
         </DogGender>
 
         <DogGender>

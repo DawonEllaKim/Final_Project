@@ -12,7 +12,7 @@ const LOG_OUT = "LOG_OUT";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_USER, (dog) => ({ dog }));
-const setOwner = createAction(SET_USER, (owner) => ({ owner }));
+
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user)=>({user}));
 
@@ -50,20 +50,17 @@ const LogInMD = (username, password) => {
 
 
 
-const signUserAPI = (username, password) => {
+const signUserAPI = (UserInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://localhost:4000/user",
-      data: {
-        username,
-        password,
-      },
+      data: UserInfo,
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert("축하합니다");
-        dispatch(setUser(username, password));
+        dispatch(setUser(UserInfo));
         history.push("/signDog");
       })
       .catch((err) => {
@@ -101,7 +98,7 @@ const signDogAPI = (
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert("축하합니다");
-        history.push("/signOwner");
+        history.push("/login");
       })
       .catch((err) => {
         console.log("signupAPI에서 오류발생", err);
@@ -110,35 +107,6 @@ const signDogAPI = (
   };
 };
 
-const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "POST",
-      url: "http://localhost:4000/owner",
-      data: {
-        ownerName,
-        ownerGender,
-        ownerAge,
-        ownerImage,
-      },
-      // headers: {
-      //     "Content-Type": "multipart/form-data; ",
-      //     accept: "application/json",
-      //     "Access-Control-Allow-Origin": "*",
-
-      // },
-    })
-      .then((res) => {
-        console.log(res); // signup 정보 확인
-        window.alert("축하합니다");
-        history.push("/");
-      })
-      .catch((err) => {
-        console.log("signupAPI에서 오류발생", err);
-        window.alert("오류 발생");
-      });
-  };
-};
 
 export default handleActions(
   {
@@ -150,10 +118,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog = action.payload.dog;
       }),
-    [SET_OWNER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.owner = action.payload.owner;
-      }),
+   
     [LOG_IN]: (state, action) =>
       produce(state, (draft) =>{
         draft.user = action.payload.user;
@@ -174,7 +139,6 @@ export default handleActions(
 export const actionCreators = {
   signUserAPI,
   signDogAPI,
-  signOwnerAPI,
   login,
   LogInMD,
   logOut,

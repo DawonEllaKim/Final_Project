@@ -34,9 +34,17 @@
       "locationCategory": "올림픽공원",
       "meetingDate": "2021-09-03",
       "meetingTime": "01:24",
-      "dogCount": "7",
-      "wishDesc": "rfgdgdsf",
+      "dogCount": "9",
+      "wishDesc": "rfgdgdsfsfvgd",
       "id": 3
+    },
+    {
+      "locationCategory": "여의도",
+      "meetingDate": "2021-10-01",
+      "meetingTime": "10:13",
+      "dogCount": "4",
+      "wishDesc": "rafsgsd",
+      "id": 4
     }
   ],
   "users": [
@@ -84,18 +92,21 @@
     }
   ],
   "user": {
-    "username": "aaa",
-    "password": "aaa"
+    "markername": "올림픽공원 P4주차장",
+    "location": [
+      "37.522089241439964",
+      "127.12678365423263"
+    ]
   },
   "dog": {
     "dogGender": "1",
-    "dogName": "ddd",
-    "dogSize": "대형견",
-    "dogBreed": "말티즈",
-    "dogAge": "8세이상",
-    "neutral": "아니오",
-    "dogComment": "sfsdf",
-    "dogImage": null
+    "dogName": "dsffgd",
+    "dogSize": "소형견",
+    "dogBreed": "비숑",
+    "dogAge": "4~7세",
+    "neutral": "예",
+    "dogComment": "우리 강아지는 귀여워요!",
+    "dogImage": {}
   },
   "owner": {
     "ownerName": "sdfsd",
