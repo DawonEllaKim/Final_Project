@@ -4,36 +4,9 @@ import { CSSTransition } from "react-transition-group";
 import { MdLocationOn } from "react-icons/md";
 
 import "../../../nav.css";
-
+import { FaBars, FaChevronLeft, FaChevronRight } from "react-icons/fa"; //목록 아이콘,<,>
+// import "./LocationCategory.css";
 const LocationCategory = () => {
-  const [subMenu, setSubMenu] = useState(false);
-
-  // 도시 필터
-  const [cityActive, setCityActive] = useState(false);
-  const [citySelected, setCitySelected] = useState("도시");
-  const cityOptions = ["전체", "서울", "인천", "대구", "부산"];
-
-  // 상세 위치 필터
-  const [detailLocationActive, setDetailLocationActive] = useState(false);
-  const [detailLocationSelected, setDetailLocationSelected] =
-    useState("상세위치");
-  const detailLocationOptions = [
-    // "전체",
-    "반포",
-    "여의도",
-    "뚝섬",
-    "서울숲",
-    "올림픽공원",
-    "인천대공원",
-    "대구 수성못",
-    "부산 시민공원",
-    "부산 광안리",
-  ];
-
-  const showSubMenu = () => {
-    setSubMenu(!subMenu);
-  };
-
   return (
     <div>
       <Navbar>

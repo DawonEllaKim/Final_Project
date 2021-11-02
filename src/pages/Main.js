@@ -13,20 +13,17 @@ import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
+import NavBar from "../components/NavBar";
 
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
-import { AiOutlineHome } from "react-icons/ai";
-import { BsChatRightDots } from "react-icons/bs";
-import { BsPerson } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
 
 // 슬라이드
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Main = () => {
+const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
 
@@ -123,27 +120,7 @@ const Main = () => {
           );
         })}
       </Body>
-
-      {/* 고정 버튼들 */}
-      <Footer>
-        <FooterLeft>
-          <Button onClick={() => history.push("/")}>
-            <AiOutlineHome style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button>
-            <BsChatRightDots style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button onClick={() => history.push("/mypage")}>
-            <BsPerson style={{ width: "20px", height: "20px" }} />
-          </Button>
-        </FooterLeft>
-
-        <FooterRight>
-          <Button onClick={() => history.push("/map2")}>
-            <MdLocationOn style={{ width: "30px", height: "50px" }} />
-          </Button>
-        </FooterRight>
-      </Footer>
+      <NavBar />
     </Wrap>
   );
 };
@@ -253,6 +230,7 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
+
 const Footer = styled.div`
   display: flex;
   flex-direction: row;

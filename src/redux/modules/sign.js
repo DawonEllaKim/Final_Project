@@ -145,7 +145,7 @@ export default handleActions(
       }),
     [SET_DOG]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.list;
+        draft.dog = action.payload.dog;
       }),
     // [SET_OWNER]: (state, action) =>
     //   produce(state, (draft) => {
