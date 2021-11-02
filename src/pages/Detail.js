@@ -95,6 +95,7 @@ const Wrap = styled.div`
   max-width: 390px;
   margin: 0 auto;
   font-size: 14px;
+  text-align:center;
 `;
 const DogImage = styled.img`
   border: 1px solid green;

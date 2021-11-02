@@ -54,14 +54,27 @@ const SignUp = () => {
     console.log(newTitle);
     setUserNickname(newTitle);
   };
-  const userGenderChangeHandler = (gender) => {
-    console.log(gender);
-    setUserGender(gender);
+  const userGenderChangeHandler = (e) => {
+    const newTitle = e.target.value;
+    console.log(newTitle);
+    setUserGender(newTitle);
   };
-  const userAgeChangeHandler = (age) => {
-    console.log(age);
-    setUserAge(age);
+  const userAgeChangeHandler = (e) => {
+    const newTitle = e.target.value;
+    console.log(newTitle);
+    setUserAge(newTitle);
   };
+
+  
+
+ const submitUserInfo = () => {
+    let UserInfo = {
+      username,password,confirmPassword,userNickname,userGender,userAge,imgFile
+    }
+    dispatch(UserActions.signUserAPI(UserInfo))
+ }
+
+  
 
   return (
     <>
@@ -235,6 +248,7 @@ const SignUp = () => {
 export default SignUp;
 
 const Wrap = styled.div`
+  text-align:center;
   max-width: 390px;
   padding: 0 20px;
   margin: 30px auto;

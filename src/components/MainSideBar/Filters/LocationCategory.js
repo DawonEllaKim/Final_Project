@@ -7,22 +7,7 @@ const LocationCategory = () => {
   // 도시 필터
   const [cityActive, setCityActive] = useState(false);
   const [citySelected, setCitySelected] = useState("도시");
-  const cityOptions = [
-    "전체",
-    "서울",
-    "인천",
-    "대구",
-    "부산",
-    // "반포",
-    // "여의도",
-    // "뚝섬",
-    // "서울숲",
-    // "올림픽공원",
-    // "인천대공원",
-    // "대구 수성못",
-    // "부산 시민공원",
-    // "부산 광안리",
-  ];
+  const cityOptions = ["전체", "서울", "인천", "대구", "부산"];
 
   // 상세 위치 필터
   const [detailLocationActive, setDetailLocationActive] = useState(false);
@@ -49,9 +34,28 @@ const LocationCategory = () => {
     <Wrap>
       <SideBarLink>
         <SideBarLabel onClick={showSubMenu}>산책로</SideBarLabel>
+
         <Category>
-          {/* 도시 */}
           <div>
+            <li className="dropDown">
+              <p>도시</p>
+              <ul className="dropDownMenu">
+                {cityOptions.map((cityOptions) => (
+                  <DropdownItem
+                    onClick={(e) => {
+                      setCitySelected(cityOptions);
+                      setCityActive(false);
+                      console.log(cityOptions);
+                    }}
+                  >
+                    {cityOptions}
+                  </DropdownItem>
+                ))}
+              </ul>
+            </li>
+          </div>
+          {/* 도시 */}
+          {/* <div>
             <DropdownBtn onClick={(e) => setCityActive(!cityActive)}>
               {citySelected}
             </DropdownBtn>
@@ -70,9 +74,9 @@ const LocationCategory = () => {
                 ))}
               </DropdownContent>
             )}
-          </div>
+          </div> */}
           {/* 상세위치 */}
-          <div>
+          {/* <div>
             <DropdownBtn
               onClick={(e) => setDetailLocationActive(!detailLocationActive)}
             >
@@ -93,7 +97,7 @@ const LocationCategory = () => {
                 ))}
               </DropdownContent>
             )}
-          </div>
+          </div>*/}
         </Category>
       </SideBarLink>
     </Wrap>
