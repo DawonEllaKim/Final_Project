@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { MdArrowBackIosNew } from "react-icons/md";
 
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
@@ -79,10 +80,22 @@ const SignDog = (props) => {
   return (
     <>
       <Wrap>
-        <LogoWrap>
-          <LogoImage></LogoImage>
-          <LogoTitle>반려견 등록하기</LogoTitle>
-        </LogoWrap>
+        <TopWrap>
+          <MdArrowBackIosNew
+            style={{
+              width: "20px",
+              height: "20px",
+              position: "absolute",
+              bottom: "10px",
+              left: "0",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              history.goBack();
+            }}
+          />
+          <TopTitle>반려견 등록하기</TopTitle>
+        </TopWrap>
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
@@ -270,7 +283,7 @@ const SignDog = (props) => {
               )
             }
           >
-            제출하기
+            가입하기
           </Add>
           <Cancle
             onClick={() => {
@@ -290,19 +303,17 @@ export default SignDog;
 const Wrap = styled.div`
   max-width: 390px;
   padding: 0 20px;
-  margin: 0 auto;
-  border: 1px solid #dbdbdb;
-  box-sizing: border-box;
+  margin: 30px auto;
   font-size: 14px;
 `;
 
-const LogoWrap = styled.div`
-  border-bottom: 1px solid #e6e6e6;
-  text-align: left;
+const TopWrap = styled.div`
+  position: relative;
   padding: 10px;
 `;
-const LogoImage = styled.img``;
-const LogoTitle = styled.div``;
+const TopTitle = styled.div`
+  font-size: 16px;
+`;
 
 const ImageWrap = styled.div`
   margin: 20px 0;
@@ -325,7 +336,7 @@ const Filter = styled.div`
   background-color: #ebebeb;
   border-radius: 10px;
   padding: 12px 24px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   text-align: left;
 `;
 const Title = styled.div`
@@ -348,11 +359,8 @@ const Label = styled.label`
 const DogName = styled.input`
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #bdbdbd;
-  box-sizing: border-box;
   background-color: #ebebeb;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 10px 0;
   &:focus {
     outline: none;
   }
@@ -361,11 +369,8 @@ const DogName = styled.input`
 const DogBreed = styled.input`
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #bdbdbd;
-  box-sizing: border-box;
   background-color: #ebebeb;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 10px 0;
   &:focus {
     outline: none;
   }
@@ -379,11 +384,8 @@ const DogAge = styled.input``;
 const DogComment = styled.input`
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #bdbdbd;
-  box-sizing: border-box;
   background-color: #ebebeb;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 10px 0;
   &:focus {
     outline: none;
   }
