@@ -15,14 +15,11 @@ import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
+import NavBar from '../components/NavBar';
 
 // React Icons
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
-import { AiOutlineHome } from "react-icons/ai";
-import { BsChatRightDots } from "react-icons/bs";
-import { BsPerson } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
 
 // 슬라이드
 import "slick-carousel/slick/slick.css";
@@ -140,27 +137,7 @@ const Main = () => {
           );
         })}
       </Body>
-
-      {/* 고정 버튼들 */}
-      <Footer>
-        <FooterLeft>
-          <Button onClick={() => history.push("/")}>
-            <AiOutlineHome style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button>
-            <BsChatRightDots style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button onClick={() => history.push("/mypage")}>
-            <BsPerson style={{ width: "20px", height: "20px" }} />
-          </Button>
-        </FooterLeft>
-
-        <FooterRight>
-          <Button onClick={() => history.push("/map2")}>
-            <MdLocationOn style={{ width: "30px", height: "50px" }} />
-          </Button>
-        </FooterRight>
-      </Footer>
+      <NavBar />
     </Wrap>
   );
 };
@@ -278,95 +255,5 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
-const Footer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  bottom: 1%;
-`;
-const FooterLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 270px;
-  height: 60px;
-  margin: 12px;
-  padding: 20px;
-  border-radius: 20px;
 
-  width: 274px;
-  height: 60px;
-
-  background-color: #5c5c5c;
-  border-radius: 20px;
-`;
-const FooterRight = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  background-color: #5c5c5c;
-  border-radius: 50%;
-`;
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-`;
-const CardWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  height: 176px;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 25px;
-  background-color: #ebebeb;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20.27px;
-  cursor: pointer;
-  img {
-    width: 152px;
-    height: 152px;
-    border-radius: 25px;
-  }
-`;
-const CardInfo = styled.div`
-  width: 192px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding-left: 20px;
-`;
-const CardTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  h4 {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-  }
-  p {
-    font-size: 16px;
-  }
-`;
-const CardCenter = styled.div`
-  width: 100%;
-  padding: 10px;
-`;
-const CardBottom = styled.div`
-  width: 100%;
-  padding: 10px;
-`;
 export default Main;

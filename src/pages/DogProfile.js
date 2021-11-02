@@ -94,7 +94,7 @@ const EditDog = (props) => {
               history.goBack();
             }}
           />
-          <TopTitle>반려견 정보 수정하기</TopTitle>
+          <TopTitle>반려견 정보</TopTitle>
         </TopWrap>
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
@@ -284,13 +284,13 @@ const EditDog = (props) => {
           >
             수정하기
           </Add>
-          <Cancle
+          {/* <Cancle
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
-          </Cancle>
+          </Cancle> */}
         </ButtonWrap>
       </Wrap>
     </>
@@ -304,6 +304,7 @@ const Wrap = styled.div`
   padding: 0 20px;
   margin: 30px auto;
   font-size: 14px;
+  text-align: center;
 `;
 
 const TopWrap = styled.div`
@@ -395,18 +396,18 @@ const ButtonWrap = styled.div`
   justify-content: space-between;
 `;
 const Add = styled.button`
-  width: 160px;
+  width: 100%;
   height: 48px;
   border: none;
   border-radius: 10px;
   background-color: #c4c4c4;
   cursor: pointer;
 `;
-const Cancle = styled.button`
-  width: 160px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-  background-color: #c4c4c4;
-  cursor: pointer;
-`;
+// const Cancle = styled.button`
+//   width: 160px;
+//   height: 48px;
+//   border: none;
+//   border-radius: 10px;
+//   background-color: #c4c4c4;
+//   cursor: pointer;
+// `;
