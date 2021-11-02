@@ -82,7 +82,7 @@ const Main = () => {
         </FooterLeft>
 
         <FooterRight>
-          <Button onClick={() => history.push("/write")}>산책 등록</Button>
+          <Button onClick={() => history.push("/map2")}>산책 등록</Button>
         </FooterRight>
       </Footer>
     </Wrap>
@@ -90,6 +90,7 @@ const Main = () => {
 };
 
 const Wrap = styled.div`
+  text-align:center;
   position: relative;
   display: flex;
   flex-direction: column;

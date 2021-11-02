@@ -1,14 +1,6 @@
 {
   "posts": [
     {
-      "locationCategory": "여의도",
-      "meetingDate": "2021-10-21",
-      "meetingTime": "17:47",
-      "dogCount": "4",
-      "wishDesc": "물지 않아요",
-      "id": 1
-    },
-    {
       "id": 1,
       "dogSize": "중형견",
       "dogGender": "남",
@@ -30,6 +22,13 @@
       "dogCount": "4",
       "wishDesc": "애는 착해요",
       "id": 3
+    },
+    {
+      "latitude": "37.5080067942221",
+      "location_address": "한강고수부지공원 체력단련장",
+      "wish_Desc": "fsdfsv",
+      "locationCategory": "반포한강공원",
+      "id": 4
     }
   ],
   "users": [
@@ -77,12 +76,10 @@
     }
   ],
   "user": {
-    "username": "aa",
-    "password": "aa",
-    "userNickname": "aa",
-    "userGender": "남",
-    "userAge": "10대",
-    "userImage": null
+    "markername": "한강고수부지공원 체력단련장",
+    "latitude": "37.5080067942221",
+    "longitude": "126.992625769219",
+    "locationCategory": "반포한강공원"
   },
   "dog": {
     "dogGender": "남",

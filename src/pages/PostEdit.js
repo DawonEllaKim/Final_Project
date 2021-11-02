@@ -19,7 +19,7 @@ const Write = (props) => {
   // console.log(updatePost[0].locationCategory)
 
   // useEffect(() => {
-  //   dispatch(postActions.getUpdatePostMD(postId))
+  //   const a = dispatch(postActions.getUpdatePostMD(postId))
    
   // },[])
  

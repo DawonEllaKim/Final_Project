@@ -46,6 +46,7 @@ const LogIn = () => {
 };
 
 const Wrap = styled.div`
+  text-align:center;
   max-width: 390px;
   font-size: 14px;
   padding: 55px;

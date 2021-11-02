@@ -301,6 +301,7 @@ const SignDog = (props) => {
 export default SignDog;
 
 const Wrap = styled.div`
+  text-align:center;
   max-width: 390px;
   padding: 0 20px;
   margin: 30px auto;

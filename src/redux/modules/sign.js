@@ -12,7 +12,7 @@ const LOG_OUT = "LOG_OUT";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_USER, (dog) => ({ dog }));
-const setOwner = createAction(SET_USER, (owner) => ({ owner }));
+
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user)=>({user}));
 
@@ -154,10 +154,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog = action.payload.dog;
       }),
-    [SET_OWNER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.owner = action.payload.owner;
-      }),
+   
     [LOG_IN]: (state, action) =>
       produce(state, (draft) =>{
         draft.user = action.payload.user;
