@@ -21,9 +21,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     },
-    {
+		{
       "meeting_date": "2021-12-20T18:05:00.000Z",
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -44,9 +45,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     },
-    {
+		{
       "meeting_date": "2021-12-20T18:05:00.000Z",
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -67,9 +69,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     },
-    {
+		{
       "meeting_date": "2021-12-20T18:05:00.000Z",
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -90,9 +93,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     },
-    {
+		{
       "meeting_date": "2021-12-20T18:05:00.000Z",
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -113,9 +117,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     },
-    {
+		{
       "meeting_date": "2021-12-20T18:05:00.000Z",
       "latitude": "37.5080067942221",
       "location_address": "한강고수부지공원 체력단련장",
@@ -136,31 +141,10 @@
       "user_nickname": "qwerqwer",
       "user_gender": "남",
       "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
-    },
-    {
-      "meeting_date": "2021-12-20T18:05:00.000Z",
-      "latitude": "37.5080067942221",
-      "location_address": "한강고수부지공원 체력단련장",
-      "wish_Desc": "fsdfsv",
-      "locationCategory": "반포한강공원",
-      "id": 4,
-      "dogId": 0,
-      "dog_gender": "남",
-      "dog_name": "쭈쭈",
-      "dog_size": "소형견",
-      "dog_breed": "비숑",
-      "dog_age": "4~7세",
-      "neutral": false,
-      "dog_comment": "울 강아지 최고",
-      "dog_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
-      "user_email": "soosoo@gmail.com",
-      "password": "4444",
-      "user_nickname": "qwerqwer",
-      "user_gender": "남",
-      "user_age": "20대",
-      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+      "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
+			"completed": false
     }
+   
   ],
   "dog": [
     {

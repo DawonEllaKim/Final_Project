@@ -44,6 +44,7 @@ const Footer = styled.div`
   position: fixed;
   bottom: 1%;
   padding: 20px;
+  z-index: 10;
 `;
 const FooterLeft = styled.div`
   display: flex;
