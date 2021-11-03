@@ -30,8 +30,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-  
-  
+    
+
+ 
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
