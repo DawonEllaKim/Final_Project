@@ -17,12 +17,13 @@ const Map2 = (props) => {
 
   const SubmitLocation = () => {
     const Info = {
-      longtitude: markerName.longtitude,
+      longitude: markerName.longitude,
       latitude: markerName.latitude,
       location_address: markerName.placename,
-      wish_Desc: wishDesc,
-      locationCategory: markerName.locationCategory,
-      meetingTime: startDate,
+      wish_desc: wishDesc,
+      location_category: markerName.locationCategory,
+      meeting_date: startDate,
+      completed:false,
     };
     dispatch(PostActions.addPostMD(Info));
   };

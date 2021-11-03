@@ -63,9 +63,9 @@ const LogIn = (props) => {
           //   method: "post",
           //   url: "/auth/sns",
           //   data: {
-          //     "id": email,
-          //     "nickname": profile.nickname,
-          //     "image" :profile.profile_image_url,
+          //     "token": token,
+          //     "user_nickname": profile.nickname,
+          //     "user_image" :profile.profile_image_url,
           //   },
           // })
           //   .then((res) => {
@@ -144,8 +144,8 @@ const Logo = styled.img`
 `
 const InputBox = styled.div`
   display: flex;
-  justify-content: left;
-  width: 280px;
+  justify-content: center;
+  width: 350x;
   background-color: #ebebeb;
   border-radius: 10px;
   padding: 10px 20px;

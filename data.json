@@ -2,8 +2,8 @@
   "posts": [
     {
       "meeting_date": "2021-12-20T18:05:00.000Z",
-			"longitude" : "37.5080067942221",
-			"latitude" : "126.992625769219",
+      "longitude": "37.5080067942221",
+      "latitude": "126.992625769219",
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
@@ -25,10 +25,10 @@
       "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
       "completed": false
     },
-		{
+    {
       "meeting_date": "2021-12-20T18:05:00.000Z",
-			"longitude" : "37.5080067942221",
-			"latitude" : "126.992625769219",
+      "longitude": "37.5080067942221",
+      "latitude": "126.992625769219",
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
@@ -50,10 +50,10 @@
       "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
       "completed": false
     },
-		{
+    {
       "meeting_date": "2021-12-20T18:05:00.000Z",
-			"longitude" : "37.5080067942221",
-			"latitude" : "126.992625769219",
+      "longitude": "37.5080067942221",
+      "latitude": "126.992625769219",
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
@@ -75,10 +75,10 @@
       "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
       "completed": false
     },
-		{
+    {
       "meeting_date": "2021-12-20T18:05:00.000Z",
-			"longitude" : "37.5080067942221",
-			"latitude" : "126.992625769219",
+      "longitude": "37.5080067942221",
+      "latitude": "126.992625769219",
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
@@ -100,10 +100,10 @@
       "user_image": "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80",
       "completed": false
     },
-		{
+    {
       "meeting_date": "2021-12-20T18:05:00.000Z",
-			"longitude" : "37.5080067942221",
-			"latitude" : "126.992625769219",
+      "longitude": "37.5080067942221",
+      "latitude": "126.992625769219",
       "location_address": "한강고수부지공원 체력단련장",
       "wish_Desc": "fsdfsv",
       "locationCategory": "반포한강공원",
@@ -196,7 +196,39 @@
     },
     {
       "id": 6
+    },
+    {
+      "dog_gender": "남",
+      "dog_name": "sdaf",
+      "dog_size": "중형견",
+      "dog_breed": "dsaf",
+      "dog_age": "0~3세",
+      "neutral": true,
+      "dog_comment": "asfgfda",
+      "id": 7
     }
   ],
-  "users": []
+  "users": [
+    {
+      "markername": "올림픽공원남2문주차장",
+      "latitude": "37.5148254073964",
+      "longitude": "127.124192413444",
+      "locationCategory": "올림픽공원",
+      "id": 1
+    },
+    {
+      "markername": "반포한강공원 자전거대여소",
+      "latitude": "37.51201828211312",
+      "longitude": "127.00186627790917",
+      "locationCategory": "반포한강공원",
+      "id": 2
+    },
+    {
+      "markername": "여의도한강공원 수영장",
+      "latitude": "37.53356530996015",
+      "longitude": "126.92074523707532",
+      "locationCategory": "여의도한강공원",
+      "id": 3
+    }
+  ]
 }

@@ -70,8 +70,8 @@ const Main = (props) => {
           <GrNotification />
         </div>
       </Head>
-
-      {/* 일러스트 슬라이드 */}
+{/* 
+      일러스트 슬라이드 */}
       <div>
         <StyledSlider {...settings}>
           <div>

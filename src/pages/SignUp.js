@@ -101,7 +101,7 @@ const SignUp = () => {
       user_nickname, 
       user_gender, 
       user_age, 
-      user_image:imgFile,
+      // user_image:imgFile,
     }
     dispatch(UserActions.signUserAPI(UserInfo))
  }
