@@ -53,9 +53,17 @@ const signUserAPI = (UserInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/users",
+      url: "http://52.78.120.187/users/signUp",
       data: UserInfo,
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      
+    },
+  
     })
+   
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert(

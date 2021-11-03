@@ -9,7 +9,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 // 지도
-import Map from "./Map";
+import Map from "../components/DetailPageMap";
 // 리액트 아이콘
 import { GrNotification } from "react-icons/gr";
 import { IoIosArrowBack } from "react-icons/io";
@@ -17,9 +17,12 @@ import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
 const Detail = (props) => {
-  const post_info = useSelector((state) => state.post?.list) || "";
+  
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, [dispatch]);
+  const post_info = useSelector((state) => state.post?.list) || "";
   // 포스트에 필요한 정보들 불러오기 준비
   const postId = props.match.params.id;
   const post = post_info.filter((post) => post.id === Number(postId))[0];
@@ -56,9 +59,6 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId));
   };
 
-  useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
 
   return (
     <>
@@ -149,7 +149,7 @@ const Detail = (props) => {
             <Line />
             {/* 지도 */}
             <MapWrap>
-              <Map />
+              <Map post={post} />
             </MapWrap>
           </DetailWrap>
         </DataWrap>
