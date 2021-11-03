@@ -112,7 +112,8 @@ const Map = () => {
 };
 
 const Wrap = styled.div`
-  width: 100%;
+  width: 350px;
+  height:400px;
   padding-bottom: 100%;
   box-sizing: border-box;
   border-radius: 20px;
