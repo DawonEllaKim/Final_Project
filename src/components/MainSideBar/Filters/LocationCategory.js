@@ -10,7 +10,6 @@ const LocationCategory = () => {
        <NavItem icon={<FaBars/>}>
          <DropdownMenuThree/>
          </NavItem>
-     
      </Navbar>
    
  
@@ -76,14 +75,14 @@ const LocationCategory = () => {
          <DropdownItem
          goToMenu="bottom"
          >
-         대구
+         부산
  
          </DropdownItem>
         
          <DropdownItem
          goToMenu="accessory"
          >
-         부산
+         대구
  
          </DropdownItem>
           </div>

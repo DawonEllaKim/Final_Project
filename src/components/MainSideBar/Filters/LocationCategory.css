@@ -28,8 +28,9 @@
     background-color: var(--bg);
     padding : 0 1rem;
     border-bottom: var(--border);
-    position:fixed;
-    width:30px;
+    /* position:fixed; */
+    position: relative;
+    width:100%;
 
     z-index:99;
   }
@@ -39,7 +40,9 @@
     height:100%;
     display:flex;
     justify-content:space-around;
-  
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   
   .nav-item{
@@ -70,9 +73,9 @@
   .dropdown {
     position:absolute;
     top:58px;
-    margin-left:50px;
+    left:0;
     width: 150px;
-    transform: translateX(-47%);
+    /* transform: translateX(-47%); */
     background-color:var(--bg);
     border: var(--border);
     border-radius: var(--border-radius);
