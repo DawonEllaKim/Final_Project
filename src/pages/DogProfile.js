@@ -1,7 +1,10 @@
+// DogProfile.js - 강아지 프로필 조회/편집 페이지
 import React, { useState } from "react";
 import styled from "styled-components";
+// 리액트 아이콘
 import { MdArrowBackIosNew } from "react-icons/md";
 
+// 리덕스
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
@@ -35,8 +38,6 @@ const EditDog = (props) => {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
-
-    console.log(event.target.files[0]);
   };
 
   const dogNameChangeHandler = (e) => {
@@ -73,7 +74,6 @@ const EditDog = (props) => {
 
   const dogCommentChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogComment(newTitle);
   };
 
@@ -297,8 +297,6 @@ const EditDog = (props) => {
   );
 };
 
-export default EditDog;
-
 const Wrap = styled.div`
   max-width: 390px;
   padding: 0 20px;
@@ -403,11 +401,5 @@ const Add = styled.button`
   background-color: #c4c4c4;
   cursor: pointer;
 `;
-// const Cancle = styled.button`
-//   width: 160px;
-//   height: 48px;
-//   border: none;
-//   border-radius: 10px;
-//   background-color: #c4c4c4;
-//   cursor: pointer;
-// `;
+
+export default EditDog;

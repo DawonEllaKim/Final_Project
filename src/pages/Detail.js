@@ -9,7 +9,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 // 지도
-import Map from "./Map";
+import Map from "../components/DetailPageMap";
 // 리액트 아이콘
 import { GrNotification } from "react-icons/gr";
 import { IoIosArrowBack } from "react-icons/io";
@@ -149,7 +149,7 @@ const Detail = (props) => {
             <Line />
             {/* 지도 */}
             <MapWrap>
-              <Map />
+              <Map post={post} />
             </MapWrap>
           </DetailWrap>
         </DataWrap>
