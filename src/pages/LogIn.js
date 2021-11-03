@@ -51,9 +51,10 @@ const LogIn = (props) => {
         success: function ({ kakao_account }) {
           //어떤 정보 넘어오는지 확인
           console.log(kakao_account);
+
           const {  profile } = kakao_account;
           localStorage.setItem("nickname",profile.nickname)
-        
+
           console.log(`responsed img: ${profile.profile_image_url}`);
           console.log(profile.nickname);
           history.push("/")

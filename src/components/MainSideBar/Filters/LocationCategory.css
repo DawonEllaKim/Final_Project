@@ -1,11 +1,8 @@
-
-  
-  
   /* 최상위 엘리먼트 가상 선택자 */
   :root{
-    --bg : #242526;
+    --bg : #ffffff;
     --bg-accent: #484a4d;
-    --text-color: #dadce1;
+    --text-color: #000000;
     --nav-size: 60px;
     --border: 1px solid #474a4d;
     --border-radius: 8px;
@@ -24,46 +21,35 @@
   }
   
   .navbar {
+    box-sizing: border-box;
     height: var(--nav-size); 
     background-color: var(--bg);
-    padding : 0 1rem;
-    border-bottom: var(--border);
-    /* position:fixed; */
-    position: relative;
+    position: relative; 
     width:100%;
 
     z-index:99;
   }
   
   .navbar-nav{
-    max-width:100%;
+    box-sizing: border-box;
+    width:100%;
     height:100%;
-    display:flex;
-    justify-content:space-around;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .nav-item{
-    width: calc(var(--nav-size)*1);
-    display: flex;
-    align-items: center;
-    
+    box-sizing: border-box;
+    width: 100%;
   
   }
   
   .icon-button {
     --button-size: calc(var(--nav-size)* 0.5);
-    width: var(--button-size*2);
-    height: var(--button-size);
-  
-  
-    padding: 5px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    text-align: left;  
+    padding: 10px;
     margin: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     transition: filter 300ms;
   }
   .icon-button:hover {
@@ -71,29 +57,21 @@
     filter: brightness(1.2);
   }
   .dropdown {
-    position:absolute;
-    top:58px;
-    left:0;
-    width: 150px;
-    /* transform: translateX(-47%); */
+    margin-top: 30px;
+    width: 100%;
     background-color:var(--bg);
-    border: var(--border);
-    border-radius: var(--border-radius);
     padding:1rem;
-    overflow:hidden;
   }
   
   .menu-item {
     height: 50px;
-    display: flex;
-    align-items: center;
     border-radius: var(--border-radius);
     justify-content:space-between;
     padding: 0.5rem;
   }
   
   .menu-item:hover {
-    background-color: #525357;
+    background-color: #ebebeb;
     cursor:pointer;
   }
   
@@ -104,9 +82,10 @@
   
   .menu {
     width: 100%;
+    display: block;
   }
   
-  .menu-primary-enter {
+  /* .menu-primary-enter {
       position: absolute;
       transform: translateX(-110%);
   }
@@ -145,4 +124,4 @@
   transform: translateX(110%);
   transition: all var(--speed) ease;
   }
- 
+  */
