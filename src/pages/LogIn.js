@@ -52,7 +52,8 @@ const LogIn = (props) => {
           //어떤 정보 넘어오는지 확인
           console.log(kakao_account);
           const {  email,profile } = kakao_account;
-          
+          localStorage.setItem("nickname", profile.nickname);
+
           console.log(email);
           console.log(`responsed img: ${profile.profile_image_url}`);
           console.log(profile.nickname);
