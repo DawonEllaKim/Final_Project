@@ -17,9 +17,12 @@ import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
 const Detail = (props) => {
-  const post_info = useSelector((state) => state.post?.list) || "";
+  
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(postActions.getPostMD());
+  }, [dispatch]);
+  const post_info = useSelector((state) => state.post?.list) || "";
   // 포스트에 필요한 정보들 불러오기 준비
   const postId = props.match.params.id;
   const post = post_info.filter((post) => post.id === Number(postId))[0];
@@ -56,9 +59,6 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId));
   };
 
-  useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
 
   return (
     <>
