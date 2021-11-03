@@ -5,6 +5,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
+import { emailCheck, passwordCheck } from '../shared/check'
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const SignUp = () => {
   const [imgFile, setImgFile] = useState(null); //파일
   const [user_email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
   const [user_nickname, setUserNickname] = useState("");
   const [user_gender, setUserGender] = useState("");
   const [user_age, setUserAge] = useState("");
@@ -67,13 +68,40 @@ const SignUp = () => {
   
 
  const submitUserInfo = () => {
+    if(!emailCheck(user_email)){
+      window.alert('잘못된 이메일 형식입니다.')
+      return;
+    }
+
+    if(!passwordCheck(password)){
+      window.alert('잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요');
+      return;
+    }
+
+    if(password !== confirm_password) {
+      window.alert('비밀번호가 일치하지 않습니다.')
+      return;
+    }
+
+    if( user_email === '' || 
+        password === '' || 
+        confirm_password === '' || 
+        user_nickname === '' || 
+        user_gender === '' || 
+        user_age === ''
+      ){
+      window.alert('입력하지 않은 값이 있습니다.')
+      return;
+    }
+
     let UserInfo = {
       user_email, 
-  password, 
-  user_nickname, 
-  user_gender, 
-  user_age, 
-  user_image:imgFile,
+      password, 
+      confirm_password,
+      user_nickname, 
+      user_gender, 
+      user_age, 
+      user_image:imgFile,
     }
     dispatch(UserActions.signUserAPI(UserInfo))
  }
@@ -113,7 +141,7 @@ const SignUp = () => {
         <UserWrap>
           <IdWrap>
             <UserId
-              placeholder="이메일을 입력하세요. "
+              placeholder="이메일 입력 "
               onChange={userEmailChangeHandler}
             ></UserId>
           </IdWrap>
@@ -121,7 +149,7 @@ const SignUp = () => {
         </UserWrap>
         <Filter>
           <Password
-            placeholder="패스워드를 입력하세요"
+            placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
             onChange={passwordChangeHandler}
           ></Password>
         </Filter>
@@ -133,7 +161,7 @@ const SignUp = () => {
         </Filter>
         <Filter>
           <Nickname
-            placeholder="닉네임을 입력하세요"
+            placeholder="닉네임 입력"
             onChange={userNicknameChangeHandler}
           ></Nickname>
         </Filter>

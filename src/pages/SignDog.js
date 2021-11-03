@@ -14,6 +14,18 @@ const SignDog = (props) => {
   console.log(signUser)
   
   const submitDogInfo = () => {
+    if( dog_gender === '' || 
+        dog_name === '' || 
+        dog_size === '' || 
+        dog_breed === '' || 
+        dog_age === '' || 
+        neutral === '' ||
+        dog_comment === ''
+      ){
+      window.alert('입력하지 않은 값이 있습니다.')
+      return;
+    }
+
     let DogInfo = {
       dog_gender,
       dog_name,
@@ -132,13 +144,13 @@ const SignDog = (props) => {
         </ImageWrap>
         <Filter>
           <DogName
-            placeholder="강아지 이름을 입력하세요. "
+            placeholder="강아지 이름 입력 "
             onChange={dogNameChangeHandler}
           ></DogName>
         </Filter>
         <Filter>
           <DogBreed
-            placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
+            placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
             onChange={dogBreedChangeHandler}
           ></DogBreed>
         </Filter>
