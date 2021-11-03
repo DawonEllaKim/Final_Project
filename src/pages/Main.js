@@ -2,27 +2,22 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-//reactIcon
-import { BsGenderMale } from "react-icons/bs";
-import { BsGenderFemale } from "react-icons/bs";
-// Redux
+
+// 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as signActions}  from "../redux/modules/sign"
-// Components
+
+// 컴포넌츠
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
+import NavBar from "../components/NavBar";
 
-// React Icons
+// 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
-import { AiOutlineHome } from "react-icons/ai";
-import { BsChatRightDots } from "react-icons/bs";
-import { BsPerson } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
 
 // 슬라이드
 import "slick-carousel/slick/slick.css";
@@ -30,9 +25,20 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-    
+  const postList = useSelector((state) => state.post.list);
 
- 
+  // 슬라이드 세팅
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+  };
+
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
@@ -46,40 +52,11 @@ const Main = (props) => {
       setSideBar(false);
     }
   };
-  let hi;
+
   // 게시물 불러오기
   React.useEffect(() => {
-     dispatch(signActions.getDogAPI());
-    //  dispatch(postActions.getPostMD());
+    dispatch(postActions.getPostMD());
   }, []);
-  function CheckDog() {
-    let dogList = useSelector((state) => state.sign.dog) || "";
-    if(dogList)
-    {
-      return dogList
-    }
-    else
-    while(true)
-    {  if(dogList)
-      return dogList
-    }
-  }
-  let dogList = CheckDog()
-  const postList = useSelector((state) => state.post.list);
-  console.log(postList)
-  console.log(dogList)
-
-  // 슬라이드 세팅
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-  };
 
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
@@ -95,7 +72,7 @@ const Main = (props) => {
       </Head>
 
       {/* 일러스트 슬라이드 */}
-      <Container>
+      <div>
         <StyledSlider {...settings}>
           <div>
             <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
@@ -107,7 +84,7 @@ const Main = (props) => {
             <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
           </div>
         </StyledSlider>
-      </Container>
+      </div>
 
       {/* 사이드 바*/}
       <div>
@@ -135,40 +112,19 @@ const Main = (props) => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {dogList.map((post, index) => {
+        {postList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
-             <Card dogList={dogList[index] } postList={postList[index]} key={index}/>
+              <Card post={post} key={index} />
             </div>
           );
         })}
       </Body>
-
-      {/* 고정 버튼들 */}
-      <Footer>
-        <FooterLeft>
-          <Button onClick={() => history.push("/")}>
-            <AiOutlineHome style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button>
-            <BsChatRightDots style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button onClick={() => history.push("/mypage")}>
-            <BsPerson style={{ width: "20px", height: "20px" }} />
-          </Button>
-        </FooterLeft>
-
-        <FooterRight>
-          <Button onClick={() => history.push("/map2")}>
-            <MdLocationOn style={{ width: "30px", height: "50px" }} />
-          </Button>
-        </FooterRight>
-      </Footer>
+      <NavBar />
     </Wrap>
   );
 };
 
-const Container = styled.div``;
 const StyledSlider = styled(Slider)`
   .slick-slide div {
     outline: none;
@@ -215,13 +171,6 @@ const Head = styled.div`
     color: #393939;
     cursor: pointer;
   }
-`;
-const Slide = styled.div`
-  width: 350px;
-  height: 220px;
-  margin-bottom: 12px;
-  border-radius: 25px;
-  background-color: #c4c4c4;
 `;
 const SideBarNav = styled.div`
   position: fixed;
@@ -281,6 +230,7 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
+
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
