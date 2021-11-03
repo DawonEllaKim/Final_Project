@@ -87,7 +87,7 @@ const Main = (props) => {
       </div>
 
       {/* 사이드 바*/}
-      <div>
+      <SideWrap>
         {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
         <SideBarNav sideBar={sideBar}>
           <BarWrap>
@@ -107,7 +107,7 @@ const Main = (props) => {
             </SubMenuWrap>
           </BarWrap>
         </SideBarNav>
-      </div>
+      </SideWrap>
 
       {/* 각 게시물에 대한 카드들 */}
       <Body>
@@ -172,6 +172,19 @@ const Head = styled.div`
     cursor: pointer;
   }
 `;
+const Slide = styled.div`
+  width: 350px;
+  height: 220px;
+  margin-bottom: 12px;
+  border-radius: 25px;
+  background-color: #c4c4c4;
+`;
+
+const SideWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow:auto;
+`
 const SideBarNav = styled.div`
   position: fixed;
   top: 0;
@@ -192,6 +205,12 @@ const BarWrap = styled.div`
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   margin-top: 44px;
+  overflow-y: scroll;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `;
 const Filter = styled.div`
   box-sizing: border-box;
@@ -216,6 +235,8 @@ const Filter = styled.div`
 `;
 const SubMenuWrap = styled.div`
   width: 100%;
+  /* border: 1px solid red;
+  box-sizing: border-box; */
 `;
 const Body = styled.div`
   display: flex;

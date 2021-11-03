@@ -1,29 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MdAlternateEmail } from 'react-icons/md'
 import { AiOutlineLock } from 'react-icons/ai'
 import kakao from '../image/kakao_login_medium_wide.png'
 
 import { history } from "../redux/configureStore";
+import { useDispatch } from 'react-redux';
+import  { actionCreators as userActions } from '../redux/modules/sign'
 
 const LogIn = () => {
-  // const history = useHistory();
-  // return (
-  //   <>
-  //     <InputBox>
-  //       <div>
-  //         <label>아이디</label>
-  //         <input />
-  //       </div>
-  //       <div>
-  //         <label>비밀번호</label>
-  //         <input />
-  //       </div>
-  //       <button>로그인하기</button>
-  //       <button onClick={()=>history.push("/signup")}>회원가입</button>
-  //     </InputBox>
-  //   </>
-  // );
+  const dispatch = useDispatch();
+  const [user_email, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const userEmailChangeHandler = (e) => {
+    console.log(e.target.value);
+    setUserEmail(e.target.value);
+  };
+  const passwordChangeHandler = (e) => {
+    console.log(e.target.value);
+    setPassword(e.target.value);
+  };
+
+  const onClickLogin = () =>{
+    if((user_email === '') | (password === '')){
+      window.alert('이메일 또는 비밀번호를 입력해주세요')
+      return;
+    }
+    dispatch(userActions.logInMD(user_email, password));
+  }
 
   return (
     <>
@@ -31,14 +36,24 @@ const LogIn = () => {
         <Logo></Logo>
         <InputBox>
           <MdAlternateEmail style={{width: '20px', height: '20px', marginTop: '8px'}}/>
-          <InputText placeholder='이메일을 입력하세요' />
+          <InputText 
+            placeholder='이메일을 입력하세요' 
+            onChange = {userEmailChangeHandler}
+            />
         </InputBox>
         <InputBox>
           <AiOutlineLock style={{width: '20px', height: '20px', marginTop: '8px'}}/>
-          <InputText placeholder='비밀번호를 입력하세요' />
+          <InputText 
+            placeholder='비밀번호를 입력하세요' 
+            onChange = {passwordChangeHandler}
+            />
         </InputBox>
-        <LoginBtn>로그인</LoginBtn>
-        <SignupBtn onClick={()=>history.push("/signup")}>회원가입 하러가기</SignupBtn>
+        <LoginBtn 
+          onClick = {onClickLogin}
+        >로그인</LoginBtn>
+        <SignupBtn 
+          onClick={()=>history.push("/signup")}
+        >회원가입 하러가기</SignupBtn>
         <KakaoLogin src={kakao} />
       </Wrap>
     </>

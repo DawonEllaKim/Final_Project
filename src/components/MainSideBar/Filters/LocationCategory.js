@@ -9,105 +9,159 @@ import { FaBars, FaChevronLeft, FaChevronRight } from "react-icons/fa"; //목록
 const LocationCategory = () => {
   return (
     <div>
-      <Navbar>
-        <NavItem icon="위치">
-          <DropdownMenuThree />
-        </NavItem>
-      </Navbar>
-    </div>
-  );
-};
-
-function Navbar(props) {
-  return (
-    <nav className="navbar">
-      <ul className="navbar-nav">{props.children}</ul>
-    </nav>
-  );
-}
-
-function NavItem(props) {
-  const [open, setOpen] = useState(false);
-  return (
-    <li className="nav-item">
-      <a className="icon-button" onClick={() => setOpen(!open)}>
-        {props.icon}
-      </a>
-      {open && props.children}
-    </li>
-  );
-}
-
-function DropdownMenuThree() {
-  const [activeMenu, setActiveMenu] = useState("main");
-  const [open, setOpen] = useState(false);
-  function DropdownItem(props) {
-    return (
-      <a
-        href="#"
-        className="menu-item"
-        onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
-      >
-        <span className="icon-button">{props.leftIcon}</span>
-        {props.children}
-        <span className="icon-right">{props.rightIcon}</span>
-      </a>
-    );
-  }
+    <Navbar>
+       <NavItem icon={<FaBars/>}>
+         <DropdownMenuThree/>
+         </NavItem>
+     </Navbar>
+   
+ 
+ 
+   </div>
+ 
+   );
+ }
+ 
+ function Navbar(props) {
+   return (
+     <nav className="navbar">
+       <ul className="navbar-nav"> 
+       {props.children}  
+       </ul>
+     </nav>
+   )
+ }
+ 
+ function NavItem(props) {
+   const [open, setOpen] = useState(false);
+   return (
+     <div className="nav-item">
+       <a className="icon-button" onMouseEnter={()=> setOpen(!open)} >
+         {props.icon}
+       </a>
+       {open && props.children}
+     </div>
+   )
+ }
+ 
+ 
+ function DropdownMenuThree() {
+   const [activeMenu, setActiveMenu] = useState('main')
+   const [open, setOpen] = useState(false);
+   function DropdownItem(props) {
+     return (
+       <a href="#" className="menu-item" onClick={() =>props.goToMenu && setActiveMenu(props.goToMenu)}>
+       
+         {props.children}
+     
+       </a>
+     )
+   }
+ 
   return (
     <div className="dropdown">
-      <CSSTransition
-        in={activeMenu === "main"}
-        unmountOnExit
-        timeout={500}
-        classNames="menu-primary"
-      >
-        <div className="menu">
-          <DropdownItem goToMenu="top">서울</DropdownItem>
-          <DropdownItem goToMenu="bottom">부산</DropdownItem>
-          <DropdownItem goToMenu="accessory">악세서리</DropdownItem>
-        </div>
-      </CSSTransition>
-      <CSSTransition
-        in={activeMenu === "top"}
-        unmountOnExit
-        timeout={500}
-        classNames="menu-secondary"
-      >
-        <div className="menu">
-          <DropdownItem goToMenu="main"></DropdownItem>
-          <DropdownItem>아우터</DropdownItem>
-          <DropdownItem>반팔</DropdownItem>
-          <DropdownItem>긴팔</DropdownItem>
-          <DropdownItem>셔츠</DropdownItem>
-          <DropdownItem>원피스</DropdownItem>
-        </div>
-      </CSSTransition>
-      <CSSTransition
-        in={activeMenu === "bottom"}
-        unmountOnExit
-        timeout={500}
-        classNames="menu-secondary"
-      >
-        <div className="menu">
-          <DropdownItem goToMenu="main"></DropdownItem>
-          <DropdownItem>팬츠</DropdownItem>
-          <DropdownItem>스커트</DropdownItem>
-        </div>
-      </CSSTransition>
-      <CSSTransition
-        in={activeMenu === "accessory"}
-        unmountOnExit
-        timeout={500}
-        classNames="menu-secondary"
-      >
-        <div className="menu">
-          <DropdownItem goToMenu="main"></DropdownItem>
-          <DropdownItem>가방</DropdownItem>
-          <DropdownItem>신발</DropdownItem>
-          <DropdownItem>모자</DropdownItem>
-        </div>
-      </CSSTransition>
+         
+ 
+         <CSSTransition in = {activeMenu === 'main'}
+         unmountOnExit
+         timeout= {500}
+         classNames="menu-primary"
+         > 
+         <div className= "menu" 
+         >
+            <DropdownItem
+         goToMenu="top"
+         >
+         서울
+  
+         </DropdownItem>
+         <DropdownItem
+         goToMenu="bottom"
+         >
+         부산
+ 
+         </DropdownItem>
+        
+         <DropdownItem
+         goToMenu="accessory"
+         >
+         대구
+ 
+         </DropdownItem>
+          </div>
+       </CSSTransition>
+ 
+       <CSSTransition in = {activeMenu === 'top'}
+         unmountOnExit
+         timeout= {500}
+         classNames="menu-secondary"
+         > 
+           <div className= "menu">
+         <DropdownItem
+           goToMenu="main"
+         >
+         
+           <FaChevronLeft/>
+         </DropdownItem>
+         <DropdownItem>
+           반포한강공원
+         </DropdownItem>
+         <DropdownItem>
+           여의도한강공원
+         </DropdownItem>
+         <DropdownItem>
+           뚝섬한강공원
+         </DropdownItem>
+         <DropdownItem>
+           서울숲
+         </DropdownItem>
+         <DropdownItem>
+           올림픽공원
+         </DropdownItem>
+         </div>
+         </CSSTransition>
+ 
+         <CSSTransition in = {activeMenu === 'bottom'}
+         unmountOnExit
+         timeout= {500}
+         classNames="menu-secondary"
+         > 
+           <div className= "menu">
+         <DropdownItem
+           goToMenu="main"
+         >
+         
+           <FaChevronLeft/>
+         </DropdownItem>
+         <DropdownItem>
+           부산시민공원
+         </DropdownItem>
+         <DropdownItem>
+           광안리해수욕장
+         </DropdownItem>
+        
+         </div>
+         </CSSTransition>
+ 
+         <CSSTransition in = {activeMenu === 'accessory'}
+         unmountOnExit
+         timeout= {500}
+         classNames="menu-secondary"
+         > 
+           <div className= "menu">
+         <DropdownItem
+           goToMenu="main"
+         >
+         
+           <FaChevronLeft/>
+         </DropdownItem>
+         <DropdownItem>
+           대구
+         </DropdownItem>
+       
+        
+         </div>
+         </CSSTransition>
     </div>
   );
 }
