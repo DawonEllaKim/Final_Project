@@ -9,33 +9,34 @@ import { actionCreators as DogActions } from "../redux/modules/sign";
 const SignDog = (props) => {
   const dispatch = useDispatch();
 
-//jsonserver 데이터 맞추기 위한 코드
-  const signUser = useSelector((state)=>state.sign.user)
-  console.log(signUser)
-  
+  //jsonserver 데이터 맞추기 위한 코드
+  const signUser = useSelector((state) => state.sign.user);
+  console.log(signUser);
+
   const submitDogInfo = () => {
-    if( dog_gender === '' || 
-        dog_name === '' || 
-        dog_size === '' || 
-        dog_breed === '' || 
-        dog_age === '' || 
-        neutral === '' ||
-        dog_comment === ''
-      ){
-      window.alert('입력하지 않은 값이 있습니다.')
+    if (
+      dog_gender === "" ||
+      dog_name === "" ||
+      dog_size === "" ||
+      dog_breed === "" ||
+      dog_age === "" ||
+      neutral === "" ||
+      dog_comment === ""
+    ) {
+      window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
-     
+
     const formData = new FormData();
-    formData.append("dog_gender",dog_gender);
-    formData.append("dog_name",dog_name);
-    formData.append("dog_size",dog_size);
-    formData.append("dog_breed",dog_breed);
-    formData.append("dog_age",dog_age);
-    formData.append("neutral",neutral);
-    formData.append("dog_comment",dog_comment);
-    formData.append("dog_image",imgFile);
-    
+    formData.append("dog_gender", dog_gender);
+    formData.append("dog_name", dog_name);
+    formData.append("dog_size", dog_size);
+    formData.append("dog_breed", dog_breed);
+    formData.append("dog_age", dog_age);
+    formData.append("neutral", neutral);
+    formData.append("dog_comment", dog_comment);
+    formData.append("dog_image", imgFile);
+
     // let DogInfo = {
     //   dog_gender,
     //   dog_name,
@@ -46,12 +47,8 @@ const SignDog = (props) => {
     //   dog_comment
     // }
     // Object.assign(DogInfo,signUser)
-    dispatch(
-      DogActions.signDogAPI(
-       formData
-      )
-    )
-  }
+    dispatch(DogActions.signDogAPI(formData));
+  };
 
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
@@ -311,13 +308,7 @@ const SignDog = (props) => {
           ></DogComment>
         </Filter>
         <ButtonWrap>
-          <Add
-            onClick={submitDogInfo
-              
-            }
-          >
-            가입하기
-          </Add>
+          <Add onClick={submitDogInfo}>가입하기</Add>
           <Cancle
             onClick={() => {
               history.goBack();
@@ -334,7 +325,7 @@ const SignDog = (props) => {
 export default SignDog;
 
 const Wrap = styled.div`
-  text-align:center;
+  text-align: center;
   max-width: 390px;
   padding: 0 20px;
   margin: 30px auto;
