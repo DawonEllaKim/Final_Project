@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 const { kakao } = window;
 
-const DetailPageMap = ({ post }) => {
+const DetailPageMap = ({post}) => {
   // 지금 포스트의 위도 경도
-  const longitude = post.longitude.toString();
-  const latitude = post.latitude.toString();
+  const longitude = post.longitude;
+  const latitude = post.latitude
 
   useEffect(() => {
     // 지도를 표시할 div

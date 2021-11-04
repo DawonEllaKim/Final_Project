@@ -20,6 +20,7 @@ import AddRecord from "./pages/AddRecord";
 import AddDetail from "./pages/AddDetail";
 import MapContainer3 from "./components/MapContainer3";
 import AddDate from "./components/AddDate";
+import MapEdit from "./pages/MapEdit";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/addDetail" component={AddDetail} />
         <Route exact path="/MapContainer3" component={MapContainer3} />
         <Route exact path="/addDate" component={AddDate} />
+        <Route exact path = "/mapEdit/:id" component={MapEdit}/>
       </ConnectedRouter>
     </div>
   );
