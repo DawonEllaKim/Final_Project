@@ -179,12 +179,11 @@ const Slide = styled.div`
   border-radius: 25px;
   background-color: #c4c4c4;
 `;
-
 const SideWrap = styled.div`
   width: 100%;
   height: 100%;
-  overflow:auto;
-`
+  overflow: auto;
+`;
 const SideBarNav = styled.div`
   position: fixed;
   top: 0;
@@ -206,9 +205,9 @@ const BarWrap = styled.div`
   border-bottom-right-radius: 20px;
   margin-top: 44px;
   overflow-y: scroll;
-  -ms-overflow-style:none;
-  scrollbar-width:none;
-  &::-webkit-scrollbar{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
     display: none;
   }
 `;
@@ -251,7 +250,6 @@ const Text = styled.p`
   font-size: 16px;
   font-weight: 700;
 `;
-
 const Footer = styled.div`
   display: flex;
   flex-direction: row;

@@ -18,7 +18,6 @@ const getUserMD = () => {
       .getUserAX()
       .then((res) => {
         const userList = res.data;
-        // console.log(userList);
         dispatch(getUser(userList));
       })
       .catch((err) => {
@@ -27,10 +26,10 @@ const getUserMD = () => {
   };
 };
 
-const updateUserMD = (user) => {
+const updateUserMD = (user_Id, user) => {
   return function (dispatch, getState, { history }) {
     apis
-      .updateUserAX(user)
+      .updateUserAX(user_Id, user)
       .then((res) => {
         dispatch(updateUser(user));
         console.log("okay");
@@ -44,12 +43,11 @@ export default handleActions(
     [GET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.userList;
-        // 관련해서 useeffect
       }),
     [UPDATE_USER]: (state, action) =>
       produce(state, (draft) => {
         const index = draft.list.findIndex(
-          (user) => user.id === action.payload.user.id
+          (user) => user.user_Id === action.payload.user_Id
         );
         draft.list[index] = { ...draft.list[index], ...action.payload.user };
       }),

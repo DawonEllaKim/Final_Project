@@ -1,6 +1,8 @@
-// DogProfile.js - 강아지 프로필 조회/편집 페이지
+// DogProfile.js - 강아지 프로필 편집 페이지
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
 // 리액트 아이콘
 import { MdArrowBackIosNew } from "react-icons/md";
 
@@ -11,6 +13,8 @@ import { actionCreators as DogActions } from "../redux/modules/sign";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
+  const post = useSelector((state) => state);
+  // console.log(post);
 
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
@@ -96,23 +100,28 @@ const EditDog = (props) => {
           />
           <TopTitle>반려견 정보</TopTitle>
         </TopWrap>
+
+        {/* 강아지 사진 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
-          <AddWrap>
-            <AddImage
-              type="file"
-              name="imgFile"
-              id="imgFile"
-              onChange={handleChangeFile}
-            ></AddImage>
-          </AddWrap>
+          {/* <AddWrap> */}
+          <AddImage
+            type="file"
+            name="imgFile"
+            id="imgFile"
+            onChange={handleChangeFile}
+          />
+          {/* </AddWrap> */}
         </ImageWrap>
+
+        {/* 강아지 이름 */}
         <Filter>
           <DogName
             placeholder="강아지 이름을 입력하세요. "
             onChange={dogNameChangeHandler}
           ></DogName>
         </Filter>
+        {/* 강아지 종 */}
         <Filter>
           <DogBreed
             placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
@@ -304,7 +313,6 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-
 const TopWrap = styled.div`
   position: relative;
   padding: 10px;
@@ -312,7 +320,6 @@ const TopWrap = styled.div`
 const TopTitle = styled.div`
   font-size: 16px;
 `;
-
 const ImageWrap = styled.div`
   margin: 20px 0;
 `;
@@ -324,8 +331,9 @@ const Preview = styled.img`
   border-radius: 20px;
   margin: 0 auto;
 `;
-const AddWrap = styled.div``;
+
 const AddImage = styled.input`
+  display: block;
   width: 180px;
   margin: 10px 0;
 `;
