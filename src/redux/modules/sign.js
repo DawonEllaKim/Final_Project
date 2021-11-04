@@ -59,11 +59,8 @@ const signUserAPI = (UserInfo) => {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-      
-    },
-  
+      },
     })
-   
       .then((res) => {
         console.log(res); // signup 정보 확인
         window.alert(
@@ -89,8 +86,7 @@ const signDogAPI = (DogInfo) => {
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        
-    },
+      },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인

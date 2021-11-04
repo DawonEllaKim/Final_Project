@@ -190,45 +190,15 @@
       "locationCategory": "반포한강공원",
       "id": 4,
       "meetingDate": "2020-10-09"
-    },
-    {
-      "id": 5
-    },
-    {
-      "id": 6
-    },
-    {
-      "dog_gender": "남",
-      "dog_name": "sdaf",
-      "dog_size": "중형견",
-      "dog_breed": "dsaf",
-      "dog_age": "0~3세",
-      "neutral": true,
-      "dog_comment": "asfgfda",
-      "id": 7
     }
   ],
   "users": [
     {
-      "markername": "올림픽공원남2문주차장",
-      "latitude": "37.5148254073964",
-      "longitude": "127.124192413444",
-      "locationCategory": "올림픽공원",
-      "id": 1
-    },
-    {
-      "markername": "반포한강공원 자전거대여소",
-      "latitude": "37.51201828211312",
-      "longitude": "127.00186627790917",
-      "locationCategory": "반포한강공원",
-      "id": 2
-    },
-    {
-      "markername": "여의도한강공원 수영장",
-      "latitude": "37.53356530996015",
-      "longitude": "126.92074523707532",
-      "locationCategory": "여의도한강공원",
-      "id": 3
-    }
+			"user_Id":0,
+			"user_nickname" : "이수창" ,
+			"user_gender" : "남",
+			"user_age" : "20대",
+			"user_image" : "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+			}
   ]
 }

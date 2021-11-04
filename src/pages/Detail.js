@@ -81,6 +81,7 @@ const Detail = (props) => {
             <GrNotification style={{ width: "20px", height: "20px" }} />
           </span>
         </Header>
+
         {/* 게시물 올린 보호자의 정보 */}
         <UserWrap>
           {/* 보호자 사진, 닉네임, 나이대, 성별 */}
@@ -103,8 +104,10 @@ const Detail = (props) => {
             {/* <Delete onClick={deletePost}>삭제</Delete> */}
           </UserRight>
         </UserWrap>
+
         {/* 강아지 사진 */}
         <DogImage src={dogImage} />
+
         {/* 산책 정보 */}
         <DataWrap>
           <DetailWrap>
@@ -129,6 +132,7 @@ const Detail = (props) => {
             </div>
             <Line />
 
+            {/* 예약 시간 */}
             <TimeWrap>
               <Title>예약 시간</Title>
               <MeetingTime>
@@ -136,17 +140,21 @@ const Detail = (props) => {
               </MeetingTime>
             </TimeWrap>
             <Line />
+
+            {/* 예약 장소 */}
             <LocationWrap>
               <Title>예약 장소</Title>
               <MeetingLocation>{location}</MeetingLocation>
             </LocationWrap>
             <Line />
+
             {/* 지도 */}
             <MapWrap>
               <Map post={post}/>
             </MapWrap>
           </DetailWrap>
         </DataWrap>
+
         {/* 고정 버튼들 */}
         <NavBar />
       </Wrap>

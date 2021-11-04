@@ -4,6 +4,9 @@ const instance = axios.create({
   // 제이슨 서버
   baseURL: "http://localhost:4000",
 
+  // 백앤드 서버
+  // baseURL: "http://52.78.120.187",
+
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
