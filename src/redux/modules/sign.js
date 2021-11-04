@@ -63,9 +63,9 @@ const signUserAPI = (UserInfo) => {
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
-        window.alert(
-          "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요"
-        );
+        // window.alert(
+        //   "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요"
+        // );
         dispatch(setUser(UserInfo));
         history.push("/signDog");
       })

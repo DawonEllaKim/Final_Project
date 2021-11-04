@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
@@ -69,7 +71,13 @@ const SignUp = () => {
 
  const submitUserInfo = () => {
     if(!emailCheck(user_email)){
-      window.alert('잘못된 이메일 형식입니다.')
+      toast.error('잘못된 이메일 형식입니다.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+        hideProgressBar:false,
+        draggable:true,
+        closeOnClick:true,            
+    });
       return;
     }
 
@@ -103,6 +111,13 @@ const SignUp = () => {
       user_age, 
       // user_image:imgFile,
     }
+    toast.success("회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      draggable:true,
+      closeOnClick:true,            
+  }
+    )
     dispatch(UserActions.signUserAPI(UserInfo))
  }
 
