@@ -34,7 +34,7 @@ const LogIn = (props) => {
   }
   
   const loginWithKakao = () =>{
-    const scope = "profile_nickname,profile_image, account_email";
+    const scope = "profile_nickname,profile_image";
     Kakao.Auth.login({
       scope,
       // success는 인증 정보를 응답(response)으로 받는다. 
@@ -44,26 +44,28 @@ const LogIn = (props) => {
         console.log(`is set?: ${window.Kakao.Auth.getAccessToken()}`);
         
         var ACCESS_TOKEN = window.Kakao.Auth.getAccessToken();
-  
+        localStorage.setItem("token",ACCESS_TOKEN);
         
         window.Kakao.API.request({
         url: "/v2/user/me",
         success: function ({ kakao_account }) {
           //어떤 정보 넘어오는지 확인
           console.log(kakao_account);
-          const {  email,profile } = kakao_account;
-          
-          console.log(email);
+
+          const {  profile } = kakao_account;
+          localStorage.setItem("nickname",profile.nickname)
+
           console.log(`responsed img: ${profile.profile_image_url}`);
           console.log(profile.nickname);
+          history.push("/")
   
           // axios({
           //   method: "post",
           //   url: "/auth/sns",
           //   data: {
-          //     "id": email,
-          //     "nickname": profile.nickname,
-          //     "image" :profile.profile_image_url,
+          //     "token": token,
+          //     "user_nickname": profile.nickname,
+          //     "user_image" :profile.profile_image_url,
           //   },
           // })
           //   .then((res) => {
@@ -142,8 +144,8 @@ const Logo = styled.img`
 `
 const InputBox = styled.div`
   display: flex;
-  justify-content: left;
-  width: 280px;
+  justify-content: center;
+  width: 350x;
   background-color: #ebebeb;
   border-radius: 10px;
   padding: 10px 20px;

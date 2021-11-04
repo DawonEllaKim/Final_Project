@@ -53,8 +53,13 @@ const signUserAPI = (UserInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/users",
+      url: "http://13.209.70.209/users/signUp",
       data: UserInfo,
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
@@ -75,8 +80,13 @@ const signDogAPI = (DogInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/dog",
+      url: "http://13.209.70.209/dogs/dog_info",
       data: DogInfo,
+      headers: {
+        "Content-Type": "multipart/form-data; ",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인

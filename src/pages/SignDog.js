@@ -25,20 +25,30 @@ const SignDog = (props) => {
       window.alert('입력하지 않은 값이 있습니다.')
       return;
     }
-
-    let DogInfo = {
-      dog_gender,
-      dog_name,
-      dog_size,
-      dog_breed,
-      dog_age,
-      neutral,
-      dog_comment
-    }
-    Object.assign(DogInfo,signUser)
+     
+    const formData = new FormData();
+    formData.append("dog_gender",dog_gender);
+    formData.append("dog_name",dog_name);
+    formData.append("dog_size",dog_size);
+    formData.append("dog_breed",dog_breed);
+    formData.append("dog_age",dog_age);
+    formData.append("neutral",neutral);
+    formData.append("dog_comment",dog_comment);
+    formData.append("dog_image",imgFile);
+    
+    // let DogInfo = {
+    //   dog_gender,
+    //   dog_name,
+    //   dog_size,
+    //   dog_breed,
+    //   dog_age,
+    //   neutral,
+    //   dog_comment
+    // }
+    // Object.assign(DogInfo,signUser)
     dispatch(
       DogActions.signDogAPI(
-       DogInfo
+       formData
       )
     )
   }

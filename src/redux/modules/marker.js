@@ -18,7 +18,7 @@ const addMarkerAX = (marker) => {
          // 생성된 마커 정보를 서버에 보냅니다. 
       axios({
       method: "POST",
-      url: "http://localhost:4000/user",
+      url: "http://localhost:4000/users",
       data:{
         markername: marker.placename,
         latitude: marker.latitude.toString(), 
