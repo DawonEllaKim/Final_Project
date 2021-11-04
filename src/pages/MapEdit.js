@@ -24,7 +24,7 @@ const MapEdit = (props) => {
  const wish_desc= post.wish_desc;
  const markerName = useSelector((state) => state.marker.marker);
 
- const [startDate, setStartDate] = useState(meeting_date); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
+ const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
  const [wishDesc, setWishDesc] = useState(wish_desc); //desc설명
  
  const editLongitude = (markerName.longitude ? markerName.longitude: post.longitude)
@@ -43,7 +43,7 @@ const MapEdit = (props) => {
       meeting_date: startDate,
       completed:false,
     };
-    dispatch(PostActions.addPostMD(Info));
+    dispatch(PostActions.updatePostMD(postId,Info));
   };
  
   const dateHandler = (date) => {
@@ -59,7 +59,8 @@ const MapEdit = (props) => {
       setWishDesc(wish_desc)
   }
   //지도 표시할 div
-
+  console.log(meeting_date)
+   console.log(startDate)
   return (
     <Frame>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
@@ -82,7 +83,7 @@ const MapEdit = (props) => {
         <Flex>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={dateHandler}
             timeInputLabel="Time:"
             dateFormat="MM/dd/yyyy h:mm aa"
             showTimeInput
@@ -91,7 +92,7 @@ const MapEdit = (props) => {
         </Flex>
         <Text1>소개/유의사항</Text1>
         <Flex>
-          <TextArea value={wishDesc ? wishDesc : wish_desc} onChange={(e) => setWishDesc(e.target.value)}></TextArea>
+          <TextArea value={wishDesc ? wishDesc : wish_desc} onChange={wishHandler}></TextArea>
         </Flex>
         <EndFlex>
           <Button onClick={editLocation}>산책 등록</Button>
