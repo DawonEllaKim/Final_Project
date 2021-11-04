@@ -20,7 +20,7 @@ export const apis = {
 
    //유저+강아지 정보 불러오기
   getUserAX: () => instance.get("/dog"),
-  postLoginAX : (username, password) => instance.post("/users/login", username, password),
+  postLoginAX : (username, password) => instance.post("/users/login", {username, password}),
 
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트

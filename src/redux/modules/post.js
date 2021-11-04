@@ -163,7 +163,7 @@ const updatePostMD = (postId, post) => {
     apis
       .updatePostAX(postId, post)
       .then((res) => {
-        dispatch(updatePost(postId));
+        // dispatch(updatePost(postId));
         console.log("수정완료");
         window.alert("수정완료");
         history.push(`/posts/${postId}`);
