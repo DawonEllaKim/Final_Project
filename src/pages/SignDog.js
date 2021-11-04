@@ -5,6 +5,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
+import { dogBreedCheck } from '../shared/check'
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -14,6 +15,11 @@ const SignDog = (props) => {
   console.log(signUser)
   
   const submitDogInfo = () => {
+    if(!dogBreedCheck(dog_breed)){
+      window.alert('강아지 종은 한글,영문 형식만 입력 가능합니다')
+      return;
+    }
+
     if( dog_gender === '' || 
         dog_name === '' || 
         dog_size === '' || 
