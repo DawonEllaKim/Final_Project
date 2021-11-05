@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getCookie} from '../shared/Cookie';
 
 const instance = axios.create({
   // 제이슨 서버
@@ -8,9 +9,9 @@ const instance = axios.create({
   // baseURL: "http://13.209.70.209",
 
   headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json",
-    // authorization:
+    // "content-type": "application/json;charset=UTF-8",
+    accept: "application/json", "Access-Control-Allow-Origin": "*", 
+    // authorization: `Bearer ${getCookie("user_login")}`,
   },
 });
 
@@ -20,8 +21,7 @@ export const apis = {
 
   //유저+강아지 정보 불러오기
   getUserAX: () => instance.get("/dog"),
-  postLoginAX: (username, password) =>
-    instance.post("/users/login", { username, password }),
+  postLoginAX : (user_email, password) => instance.post("/users/login", {user_email, password}),
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
   updateUserAX: (user) => instance.put("/users", user),

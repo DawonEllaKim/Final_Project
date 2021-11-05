@@ -163,9 +163,9 @@
   "usersme": {
     "user_Id": 0,
     "user_nickname": "이수창",
-    "user_gender": "남",
-    "user_age": "20대",
-    "user_image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=880&q=80"
+    "user_gender": "여",
+    "user_age": "40대 이상",
+    "user_image": null
   },
   "dogs": {
     "dog_id": 0,

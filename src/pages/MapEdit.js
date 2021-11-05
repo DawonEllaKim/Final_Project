@@ -6,19 +6,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
+import {FaSearch} from "react-icons/fa"
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-
+  const post = useSelector((state)=>state.post.list)
+  const map_date= new Date(post.mapedit_date)
   // useSelecotr, dispatch, 리덕스
   const postId= props.match.params.id;
   useEffect(() => {
-    dispatch(postActions.getMapMD(postId));
+    dispatch(postActions.getPostMD(postId));
     setWishDesc(wish_desc)
-    setStartDate(meeting_date)
+    setStartDate(map_date)
   }, []);
-  const post = useSelector((state)=>state.post.list)
+
  const location_address = post.location_address;
  const meeting_date = post.meeting_date;
  const wish_desc= post.wish_desc;
@@ -50,7 +51,7 @@ const MapEdit = (props) => {
     if(date)
     setStartDate(date)
     else
-    setStartDate(meeting_date)
+    setStartDate(map_date)
   }
   const wishHandler = (e) => {
       if(e.target.value)
@@ -59,22 +60,24 @@ const MapEdit = (props) => {
       setWishDesc(wish_desc)
   }
   //지도 표시할 div
-  console.log(meeting_date)
+  console.log(post.mapedit_date)
    console.log(startDate)
+   
+  
   return (
     <Frame>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
       <InputArea>
         <Text>산책로 설정</Text>
         <Text>
-          산책로를 수정하실건가요?{" "}
-          <Button
+       
+          <WalkButton
             onClick={() => {
               history.push("/MapContainer3");
             }}
-          >
-            산책로 수정
-          </Button>
+          > <FaSearch size="20"/>
+               산책로를 수정하실건가요?{" "}
+          </WalkButton>
         </Text>
 
         <Text>상세 주소: {markerName.placename?markerName.placename:location_address}</Text>
@@ -85,7 +88,7 @@ const MapEdit = (props) => {
             selected={startDate}
             onChange={dateHandler}
             timeInputLabel="Time:"
-            dateFormat="MM/dd/yyyy h:mm aa"
+         
             showTimeInput
             inline
           />
@@ -112,6 +115,14 @@ const Frame = styled.div`
 const Button = styled.button`
   cursor: pointer;
   margin: 30px;
+`;
+const WalkButton = styled.button`
+  cursor: pointer;
+  background: #FFFFFF;
+  border-radius: 14px;
+  text-align:left;
+  width:350px;
+  height:48px;
 `;
 
 const InputArea = styled.div`

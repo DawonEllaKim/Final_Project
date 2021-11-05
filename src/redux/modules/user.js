@@ -19,7 +19,7 @@ const UPDATE_DOG = "UPDATE_DOG";
 const getMypage = createAction(GET_MYPAGE, (page) => ({ page }));
 
 //유저 정보 GET,FETCH 요청
-const getUser = createAction(GET_USER, (userList) => ({ userList }));
+const getUser = createAction(GET_USER, (user) => ({ user }));
 const updateUser = createAction(UPDATE_USER, (user) => ({ user }));
 
 //강아지 정보 GET,FETCH 요청
@@ -58,7 +58,7 @@ const getUserMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/users/me`,
+      url: `http://localhost:4000/usersme`,
       data: {},
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -79,26 +79,29 @@ const getUserMD = () => {
 };
 
 const updateUserMD = (userInfo) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "PATCH",
-      url: `http://localhost:4000/users/me`,
-      data: userInfo,
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((res) => {
-        console.log(res.data); // signup 정보 확인
-        dispatch(updateUser(userInfo));
+ 
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "PATCH",
+        url: `http://localhost:4000/usersme`,
+        data: userInfo,
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       })
-      .catch((err) => {
-        console.log("updateUserMD에서 오류발생", err);
-        window.alert("오류 발생");
-      });
-  };
+        .then((res) => {
+          console.log(res.data); // signup 정보 확인
+          dispatch(updateUser(userInfo));
+          window.alert("수정 완료");
+          history.push('/myPage');
+        })
+        .catch((err) => {
+          console.log("updateUserMD에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
 };
 
 const getDogMD = () => {
