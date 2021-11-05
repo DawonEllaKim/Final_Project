@@ -45,7 +45,7 @@ const Detail = (props) => {
   const neutral = post.neutral;
   const dogBreed = post.dog_breed;
   const dogComment = post.dog_comment;
-  const location = post.locationCategory;
+  const location = post.location_category;
  
   // 산책 정보
   const meetingDate = post.meeting_date;
@@ -97,7 +97,7 @@ const Detail = (props) => {
           {/* 마감 여부, 게시물 수정, 삭제버튼 */}
           <UserRight>
             {/* 모집 마감 데이터가 불린형으로 true이면 마감 false이면 진행중 */}
-            <Completed onClick={()=>history.push(`/mapEdit/${postId}`)}>{completed ? "마감" : "진행중"}</Completed>
+            <Completed >{completed ? "마감" : "진행중"}</Completed>
             {/* <Edit onClick={() => history.push(`/write/${postId}`)}>
               수정하기
             </Edit> */}
@@ -152,7 +152,16 @@ const Detail = (props) => {
             <MapWrap>
               <Map post={post}/>
             </MapWrap>
+            <FlexButton>
+            <DeleteButton onClick={deletePost}>
+              삭제하기
+              </DeleteButton>
+            <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
+              수정하기
+              </EditButton>
+              </FlexButton>
           </DetailWrap>
+ 
         </DataWrap>
 
         {/* 고정 버튼들 */}
@@ -291,5 +300,25 @@ const MapWrap = styled.div`
   border: 1px solid #e6e6e6;
   border-radius: 20px;
 `;
+const FlexButton = styled.div
+`
+margin-top:20px;
+display:flex;
+justify-content:space-around;
+`
+const DeleteButton = styled.button
+`
+cursor:pointer;
+width: 160px;
+height: 48px;
+border-radius:10px;
+`
+const EditButton = styled.button
+`
+cursor:pointer;
+width: 160px;
+height: 48px;
+border-radius:10px;
+`
 
 export default Detail;

@@ -41,6 +41,7 @@ const getMainMD = () => {
     apis
       .getMainAX()
       .then((res) => {
+        
         const postList = res.data;
         dispatch(getMain(postList));
         console.log("정보 불러오기 완료");
@@ -77,36 +78,30 @@ const getPostMD = (postId) => {
       method: "GET",
       url: `http://localhost:4000/posts/${postId}`,
     })
-      .then((res) => {
-        res.data.longitude = res.data.longitude.toString();
-        res.data.latitude = res.data.latitude.toString();
-        const initialDate = res.data.meeting_date.split("T")[0];
-        const year = initialDate.split("-")[0];
-        const month = initialDate.split("-")[1];
-        const day = initialDate.split("-")[2];
-        const initialTime = res.data.meeting_date.split("T")[1];
-        const hour = initialTime.split(":")[0];
-        const minute = initialTime.split(":")[1];
-        res.data.meeting_date =
-          year +
-          "년 " +
-          month +
-          "월 " +
-          day +
-          "일 " +
-          hour +
-          "시 " +
-          minute +
-          "분";
-        const postList = res.data;
-        console.log(res.data);
-        dispatch(getPost(postList));
-        console.log("정보 불러오기 완료");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
-      });
+
+    .then((res) => {
+      
+      res.data.longitude=res.data.longitude.toString();
+      res.data.latitude=res.data.latitude.toString();
+      const initialDate = res.data.meeting_date.split("T")[0];
+      const year = initialDate.split("-")[0];
+      const month = initialDate.split("-")[1];
+      const day = initialDate.split("-")[2];
+      const initialTime = res.data.meeting_date.split("T")[1];
+      const hour = initialTime.split(":")[0];
+      const minute = initialTime.split(":")[1];
+      res.data.meeting_date= year + "년 " +month +"월 " +day +"일 " +hour +"시 " +minute +"분";
+      res.data.mapedit_date= year+"-"+month+"-"+day+"T"+hour+":"+minute;
+      const postList = res.data;
+      console.log(res.data)
+      dispatch(getPost(postList));
+      console.log("정보 불러오기 완료");
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log("정보 불러오기 실패");
+    });
+
   };
 };
 

@@ -158,7 +158,7 @@ const Head = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 322px;
   margin: 30px auto 24px auto;
   padding: 0 34px;
   div {
@@ -249,7 +249,7 @@ const Body = styled.div`
 const Text = styled.p`
   width: 152px;
   height: 16px;
-  margin: 32px 218px 24px 0;
+  margin: 32px 0 24px 0;
   font-size: 16px;
   font-weight: 700;
 `;

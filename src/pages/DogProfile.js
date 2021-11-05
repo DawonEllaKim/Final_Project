@@ -23,7 +23,7 @@ const EditDog = (props) => {
   const [dogBreed, setDogBreed] = useState("");
 
   const [dogSize, setDogSize] = useState();
-  console.log(dogSize);
+
 
   const [dogGender, setDogGender] = useState("");
   const [dogAge, setDogAge] = useState("");
@@ -61,6 +61,7 @@ const EditDog = (props) => {
   };
 
   const dogSizeChangeHandler = (dogSize) => {
+    console.log(dogSize)
     if (dogSize) {
       setDogSize(dogSize);
     } else {
@@ -90,13 +91,13 @@ const EditDog = (props) => {
   const dog_id = dog.dog_id;
   const update = () => {
     const dogInfo = {
-      dogGender,
-      dogName,
-      dogSize,
-      dogBreed,
-      dogAge,
-      neutral,
-      dogComment,
+      dog_gender:dogGender,
+      dog_name:dogName,
+      dog_size:dogSize,
+      dog_breed:dogBreed,
+      dog_age:dogAge,
+      neutral:neutral,
+      dogcomment:dogComment,
     };
     console.log(dogInfo);
     dispatch(DogActions.updateDogMD(dog_id, dogInfo));
@@ -104,7 +105,8 @@ const EditDog = (props) => {
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
-  }, []);
+    setDogSize(dog.dog_size)
+  }, [dog.dog_size]);
 
   return (
     <Wrap>
@@ -163,11 +165,11 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <DogSize
-                value="소형견"
+                value="가"
                 name="ss"
                 type="radio"
                 id="small"
-                defaultChecked={dogSize === "소형견"}
+                checked={dogSize=="소형견"}
                 onClick={() => dogSizeChangeHandler("소형견")}
               />
             </RadioWrap>
@@ -180,7 +182,7 @@ const EditDog = (props) => {
                 name="ss"
                 type="radio"
                 id="medium"
-                defaultChecked={dogSize === "중형견"}
+              checked={dogSize=="중형견"}
                 onClick={() => dogSizeChangeHandler("중형견")}
               />
             </RadioWrap>
@@ -194,7 +196,7 @@ const EditDog = (props) => {
                 name="ss"
                 type="radio"
                 id="large"
-                defaultChecked={dogSize === "대형견"}
+              checked={dogSize=="대형견"}
                 onClick={() => dogSizeChangeHandler("대형견")}
               />
             </RadioWrap>
