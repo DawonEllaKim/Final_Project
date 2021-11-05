@@ -15,10 +15,10 @@ const DELETE_POST = "DELETE_POST";
 // action creators
 
 //메인 페이지 GET 요청
-const getMain = createAction(GET_MAIN,(main)=>({main}));
+const getMain = createAction(GET_MAIN, (main) => ({ main }));
 
 //산책 페이지 GET,POST,FETCH,DELETE
-const getPost = createAction(GET_POST, (list) => ({list}));
+const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
 const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
@@ -30,7 +30,6 @@ const initialState = {
 
   //산책 요청
   list: "",
-
 };
 
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
@@ -79,6 +78,7 @@ const getPostMD = (postId) => {
       method: "GET",
       url: `http://localhost:4000/posts/${postId}`,
     })
+
     .then((res) => {
       
       res.data.longitude=res.data.longitude.toString();
@@ -101,6 +101,7 @@ const getPostMD = (postId) => {
       console.log(err);
       console.log("정보 불러오기 실패");
     });
+
   };
 };
 
@@ -111,23 +112,21 @@ const getMapMD = (postId) => {
       method: "GET",
       url: `http://localhost:4000/posts/${postId}`,
     })
-    .then((res) => {
-      
-      res.data.longitude=res.data.longitude.toString();
-      res.data.latitude=res.data.latitude.toString();
-      
-      const postList = res.data;
-      console.log(res.data)
-      dispatch(getPost(postList));
-      console.log("정보 불러오기 완료");
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log("정보 불러오기 실패");
-    });
+      .then((res) => {
+        res.data.longitude = res.data.longitude.toString();
+        res.data.latitude = res.data.latitude.toString();
+
+        const postList = res.data;
+        console.log(res.data);
+        dispatch(getPost(postList));
+        console.log("정보 불러오기 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("정보 불러오기 실패");
+      });
   };
 };
-
 
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
@@ -195,20 +194,18 @@ const deletePostMD = (postId) => {
 
 // reducer
 export default handleActions(
-  {  [GET_MAIN]: (state, action) =>
-    produce(state, (draft) => {
-      draft.main = action.payload.main;
-
-    }),
+  {
+    [GET_MAIN]: (state, action) =>
+      produce(state, (draft) => {
+        draft.main = action.payload.main;
+      }),
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.list;
-
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(action.payload.list);
-
       }),
     [UPDATE_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -240,7 +237,7 @@ const actionCreators = {
   addPostMD,
   deletePostMD,
   updatePostMD,
-  
+
   getMapMD,
 };
 

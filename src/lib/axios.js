@@ -5,7 +5,7 @@ const instance = axios.create({
   baseURL: "http://localhost:4000",
 
   // 백앤드 서버
-  // baseURL: "http://52.78.120.187",
+  // baseURL: "http://13.209.70.209",
 
   headers: {
     "content-type": "application/json;charset=UTF-8",
@@ -16,16 +16,15 @@ const instance = axios.create({
 
 export const apis = {
   // 메인페이지 GET 요청
-   getMainAX: () => instance.get("/posts"),
+  getMainAX: () => instance.get("/posts"),
 
-   //유저+강아지 정보 불러오기
+  //유저+강아지 정보 불러오기
   getUserAX: () => instance.get("/dog"),
-  postLoginAX : (username, password) => instance.post("/users/login", {username, password}),
-
+  postLoginAX: (username, password) =>
+    instance.post("/users/login", { username, password }),
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
   updateUserAX: (user) => instance.put("/users", user),
-
 
   // 산책 등록하기
   createPostAX: (post) => instance.post("/posts/write", post),

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
-import { emailCheck, passwordCheck } from '../shared/check'
+import { emailCheck, passwordCheck } from "../shared/check";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -56,57 +58,70 @@ const SignUp = () => {
     setUserNickname(newTitle);
   };
   const userGenderChangeHandler = (name) => {
-    console.log(name)
+    console.log(name);
     setUserGender(name);
   };
   const userAgeChangeHandler = (name) => {
- 
     console.log(name);
     setUserAge(name);
   };
 
-  
-
- const submitUserInfo = () => {
-    if(!emailCheck(user_email)){
-      window.alert('잘못된 이메일 형식입니다.')
+  const submitUserInfo = () => {
+    if (!emailCheck(user_email)) {
+      toast.error("잘못된 이메일 형식입니다.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+        hideProgressBar: false,
+        draggable: true,
+        closeOnClick: true,
+      });
       return;
     }
 
-    if(!passwordCheck(password)){
-      window.alert('잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요');
+    if (!passwordCheck(password)) {
+      window.alert(
+        "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요"
+      );
       return;
     }
 
-    if(password !== confirm_password) {
-      window.alert('비밀번호가 일치하지 않습니다.')
+    if (password !== confirm_password) {
+      window.alert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
-    if( user_email === '' || 
-        password === '' || 
-        confirm_password === '' || 
-        user_nickname === '' || 
-        user_gender === '' || 
-        user_age === ''
-      ){
-      window.alert('입력하지 않은 값이 있습니다.')
+    if (
+      user_email === "" ||
+      password === "" ||
+      confirm_password === "" ||
+      user_nickname === "" ||
+      user_gender === "" ||
+      user_age === ""
+    ) {
+      window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
 
     let UserInfo = {
-      user_email, 
-      password, 
+      user_email,
+      password,
       confirm_password,
-      user_nickname, 
-      user_gender, 
-      user_age, 
+      user_nickname,
+      user_gender,
+      user_age,
       // user_image:imgFile,
-    }
-    dispatch(UserActions.signUserAPI(UserInfo))
- }
-
-  
+    };
+    toast.success(
+      "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
+      {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        draggable: true,
+        closeOnClick: true,
+      }
+    );
+    dispatch(UserActions.signUserAPI(UserInfo));
+  };
 
   return (
     <>
@@ -174,7 +189,7 @@ const SignUp = () => {
                   type="radio"
                   id="b"
                   value="남"
-                  checked={user_gender==="남"}
+                  checked={user_gender === "남"}
                   onClick={() => userGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -186,7 +201,7 @@ const SignUp = () => {
                   type="radio"
                   id="g"
                   value="여"
-                  checked={user_gender==="여"}
+                  checked={user_gender === "여"}
                   onClick={() => userGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -250,12 +265,7 @@ const SignUp = () => {
         </Filter>
 
         <ButtonWrap>
-          <Add
-            onClick={submitUserInfo
-            }
-          >
-            반려견 등록하기
-          </Add>
+          <Add onClick={submitUserInfo}>반려견 등록하기</Add>
           <Cancle
             onClick={() => {
               history.goBack();
@@ -272,7 +282,7 @@ const SignUp = () => {
 export default SignUp;
 
 const Wrap = styled.div`
-  text-align:center;
+  text-align: center;
   max-width: 390px;
   padding: 0 20px;
   margin: 30px auto;
