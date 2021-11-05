@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
@@ -24,9 +24,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Main = (props) => {
-  const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.list);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(postActions.getMainMD())
+  }, []);
+
+  const postList = useSelector((state) => state.post.main) 
+  console.log(postList)
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -54,9 +59,7 @@ const Main = (props) => {
   };
 
   // 게시물 불러오기
-  React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, []);
+  
 
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>

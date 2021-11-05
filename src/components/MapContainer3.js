@@ -81,7 +81,7 @@ const MapContainer3 = () => {
       // 지도에 표시되고 있는 마커를 제거합니다
       removeMarker();
 
-      for (var i = 0; i < places.length; i++) {
+      for (var i = 0; i < 2; i++) {
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
         var marker = addMarker(placePosition, i);

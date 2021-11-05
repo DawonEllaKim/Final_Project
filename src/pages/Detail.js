@@ -17,22 +17,25 @@ import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
 const Detail = (props) => {
-  
+ 
+  const postId =props.match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(postActions.getPostMD());
-  }, [dispatch]);
-  const post_info = useSelector((state) => state.post?.list) || "";
+    dispatch(postActions.getPostMD(postId));
+  }, []);
+  const post = useSelector((state) => state.post.list);
   // 포스트에 필요한 정보들 불러오기 준비
-  const postId = props.match.params.id;
-  const post = post_info.filter((post) => post.id === Number(postId))[0];
 
+   console.log(postId)
+   console.log(post)
+
+   
   // 유저 정보
   const userImage = post.user_image;
   const userNickname = post.user_nickname;
   const userAge = post.user_age;
   const userGender = post.user_gender;
-
+  console.log(userImage)
   // 강아지 정보
   const dogImage = post.dog_image;
   const dogName = post.dog_name;
@@ -43,16 +46,16 @@ const Detail = (props) => {
   const dogBreed = post.dog_breed;
   const dogComment = post.dog_comment;
   const location = post.locationCategory;
-
+ 
   // 산책 정보
   const meetingDate = post.meeting_date;
-  const initialDate = meetingDate.split("T")[0];
-  const year = initialDate.split("-")[0];
-  const month = initialDate.split("-")[1];
-  const day = initialDate.split("-")[2];
-  const initialTime = meetingDate.split("T")[1];
-  const hour = initialTime.split(":")[0];
-  const minute = initialTime.split(":")[1];
+  // const initialDate = meetingDate.split("T")[0];
+  // const year = initialDate.split("-")[0];
+  // const month = initialDate.split("-")[1];
+  // const day = initialDate.split("-")[2];
+  // const initialTime = meetingDate.split("T")[1];
+  // const hour = initialTime.split(":")[0];
+  // const minute = initialTime.split(":")[1];
   const completed = post.completed;
 
   const deletePost = () => {
@@ -94,7 +97,7 @@ const Detail = (props) => {
           {/* 마감 여부, 게시물 수정, 삭제버튼 */}
           <UserRight>
             {/* 모집 마감 데이터가 불린형으로 true이면 마감 false이면 진행중 */}
-            <Completed>{completed ? "마감" : "진행중"}</Completed>
+            <Completed onClick={()=>history.push(`/mapEdit/${postId}`)}>{completed ? "마감" : "진행중"}</Completed>
             {/* <Edit onClick={() => history.push(`/write/${postId}`)}>
               수정하기
             </Edit> */}
@@ -133,16 +136,7 @@ const Detail = (props) => {
             <TimeWrap>
               <Title>예약 시간</Title>
               <MeetingTime>
-                {year +
-                  "년 " +
-                  month +
-                  "월 " +
-                  day +
-                  "일 " +
-                  hour +
-                  "시 " +
-                  minute +
-                  "분"}
+                {meetingDate}
               </MeetingTime>
             </TimeWrap>
             <Line />
@@ -156,7 +150,7 @@ const Detail = (props) => {
 
             {/* 지도 */}
             <MapWrap>
-              <Map post={post} />
+              <Map post={post}/>
             </MapWrap>
           </DetailWrap>
         </DataWrap>

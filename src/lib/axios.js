@@ -15,21 +15,23 @@ const instance = axios.create({
 });
 
 export const apis = {
+  // 메인페이지 GET 요청
+  getMainAX: () => instance.get("/posts"),
+
   //유저+강아지 정보 불러오기
   getUserAX: () => instance.get("/dog"),
   postLoginAX: (username, password) =>
-    instance.post("/users/login", username, password),
-  // 마이 프로필에서 강아지, 보호자 정보 업데이트
-  updateUserAX: (user, user_Id) => instance.put("/users", user, user_Id),
+    instance.post("/users/login", { username, password }),
 
-  // 산책 메인 + 상세 데이터 산책정보 불러오기
-  getPostAX: () => instance.get("/posts"),
+  // 마이 프로필에서 강아지, 보호자 정보 업데이트
+  updateUserAX: (user) => instance.put("/users", user),
+
   // 산책 등록하기
   createPostAX: (post) => instance.post("/posts/write", post),
-  // 산책 약속 수정하기
-  updatePostAX: (postId, post) => instance.put(`posts/${postId}`, post),
-  // 수정 전 데이터 가져오기
-  getUpdatePostAX: (postId) => instance.get(`posts/${postId}`),
+  // 산책 수정하기
+  updatePostAX: (postId, post) => instance.put(`/posts/${postId}`, post),
+  // 산책 가져오기
+  getPostAX: (postId) => instance.get(`/posts/${postId}`),
   // 산책 약속 삭제하기
   deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
 };
