@@ -11,17 +11,19 @@ import { VerticalAlignCenter } from "@mui/icons-material";
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const post = useSelector((state)=>state.post.list)
-  const map_date= new Date(post.mapedit_date)
+  
   // useSelecotr, dispatch, 리덕스
   const postId= props.match.params.id;
-  useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-    setWishDesc(wish_desc)
-    setStartDate(map_date)
-  }, []);
+  // useEffect(() => {
+  //   dispatch(postActions.getMapMD(postId));
+    
+  // }, []);
 
+  console.log(post)
  const location_address = post.location_address;
+ const map_date= new Date(post.mapedit_date)
  const meeting_date = post.meeting_date;
  const wish_desc= post.wish_desc;
  const markerName = useSelector((state) => state.marker.marker);

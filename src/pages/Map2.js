@@ -15,7 +15,7 @@ const Map2 = (props) => {
   const [wishDesc, setWishDesc] = useState(); //desc설명
 
   console.log(startDate);
-
+  console.log(markerName)
   const SubmitLocation = () => {
     const Info = {
       longitude: markerName.longitude,

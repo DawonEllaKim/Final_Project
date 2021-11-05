@@ -26,7 +26,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
-
+  console.log(postList)
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -112,13 +112,13 @@ const Main = (props) => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {/* {postList.map((post, index) => {
+        {postList.map((post, index) => {
           return (
-            <div onClick={() => history.push(`/posts/${post.id}`)}>
+            <div onClick={() => history.push(`/posts/${post.post_id}`)}>
               <Card post={post} key={index} />
             </div>
           );
-        })} */}
+        })}
       </Body>
       <NavBar />
     </Wrap>

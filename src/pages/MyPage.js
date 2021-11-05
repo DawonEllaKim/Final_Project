@@ -73,6 +73,7 @@ const MyPage = (props) => {
               </div>
             );
           })} */}
+           <Card  post={pageList} />
         </CardWrap>
       </DataWrap>
       <NavBar />

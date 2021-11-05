@@ -39,7 +39,7 @@ const getMypageMD = () => {
       url: "http://13.209.70.209/users/mypage",
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
@@ -47,7 +47,7 @@ const getMypageMD = () => {
     })
       .then((res) => {
         console.log(res.data);
-        dispatch(getMypage(res.data));
+        dispatch(getMypage(res.data.posts[0]));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
@@ -67,12 +67,13 @@ const getUserMD = () => {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
         console.log(res.data); // user 정보 확인
 
-        dispatch(getUser(res.data));
+        dispatch(getUser(res.data.user[0]));
       })
       .catch((err) => {
         console.log("getUserMD에서 오류발생", err);
@@ -92,6 +93,7 @@ const updateUserMD = (userInfo) => {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
@@ -114,14 +116,15 @@ const getDogMD = () => {
       url: "http://13.209.70.209/dogs",
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
         // console.log(res.data); // signup 정보 확인
-        dispatch(getDog(res.data));
+        dispatch(getDog(res.data.posts[0]));
       })
       .catch((err) => {
         // console.log("getDogMD에서 오류발생", err);
@@ -137,9 +140,10 @@ const updateDogMD = (dog_id, dogInfo) => {
       url: "http://13.209.70.209/dogs",
       data: dogInfo,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
+        "Content-Type": "multipart/form-data; ",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {

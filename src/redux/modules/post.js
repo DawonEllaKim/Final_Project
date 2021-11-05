@@ -8,6 +8,7 @@ import { getCookie } from "../../shared/Cookie";
 //메인 페이지 GET 요청
 const GET_MAIN = "GET_MAIN";
 
+const GET_MAP = "GET_MAP";
 //산책 페이지 GET,POST,FETCH,DELETE
 const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
@@ -17,7 +18,7 @@ const DELETE_POST = "DELETE_POST";
 // action creators
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
-
+const getMap = createAction(GET_MAP, (map)=> ({map}))
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
@@ -28,9 +29,9 @@ const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const initialState = {
   //메인 요청
   main: [],
-
+  map: [],
   //산책 요청
-  list: "",
+  list: [],
 };
 
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
@@ -49,7 +50,7 @@ const getMainMD = () => {
       },
     })
       .then((res) => {
-        const postList = res.data;
+        const postList = res.data.posts;
         dispatch(getMain(postList));
         // console.log("정보 불러오기 완료");
       })
@@ -74,30 +75,30 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        res.data.longitude = res.data.longitude.toString();
-        res.data.latitude = res.data.latitude.toString();
-        const initialDate = res.data.meeting_date.split("T")[0];
-        const year = initialDate.split("-")[0];
-        const month = initialDate.split("-")[1];
-        const day = initialDate.split("-")[2];
-        const initialTime = res.data.meeting_date.split("T")[1];
-        const hour = initialTime.split(":")[0];
-        const minute = initialTime.split(":")[1];
-        res.data.meeting_date =
-          year +
-          "년 " +
-          month +
-          "월 " +
-          day +
-          "일 " +
-          hour +
-          "시 " +
-          minute +
-          "분";
-        res.data.mapedit_date =
-          year + "-" + month + "-" + day + "T" + hour + ":" + minute;
-        const postList = res.data;
-        // console.log(res.data);
+        // res.data.longitude = res.data.longitude.toString();
+        // res.data.latitude = res.data.latitude.toString();
+        // const initialDate = res.data.meeting_date.split("T")[0];
+        // const year = initialDate.split("-")[0];
+        // const month = initialDate.split("-")[1];
+        // const day = initialDate.split("-")[2];
+        // const initialTime = res.data.meeting_date.split("T")[1];
+        // const hour = initialTime.split(":")[0];
+        // const minute = initialTime.split(":")[1];
+        // res.data.meeting_date =
+        //   year +
+        //   "년 " +
+        //   month +
+        //   "월 " +
+        //   day +
+        //   "일 " +
+        //   hour +
+        //   "시 " +
+        //   minute +
+        //   "분";
+        // res.data.mapedit_date =
+        //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+        const postList = res.data.posts;
+        console.log(res.data);
         dispatch(getPost(postList));
         console.log("정보 불러오기 완료");
       })
@@ -123,12 +124,12 @@ const getMapMD = (postId) => {
       },
     })
       .then((res) => {
-        res.data.longitude = res.data.longitude.toString();
-        res.data.latitude = res.data.latitude.toString();
+        // res.data.longitude = res.data.longitude.toString();
+        // res.data.latitude = res.data.latitude.toString();
 
-        const postList = res.data;
+        const postList = res.data.posts;
         console.log(res.data);
-        dispatch(getPost(postList));
+        dispatch(getMap(postList));
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -140,19 +141,10 @@ const getMapMD = (postId) => {
 
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
-    axios({
-      method: "POST",
-      ulr: "http://13.209.70.209/posts/write",
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
-      },
-    })
+    apis
+      .createPostAX(post)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         dispatch(addPost(post));
         window.location.replace("/");
       })
@@ -186,7 +178,7 @@ const deletePostMD = (postId) => {
       .then((res) => {
         console.log("삭제 완료");
         window.alert("삭제 완료");
-        dispatch(deletePost(postId));
+        // dispatch(deletePost(postId));
         history.replace("/");
       })
       .catch((err) => {
@@ -201,6 +193,10 @@ export default handleActions(
     [GET_MAIN]: (state, action) =>
       produce(state, (draft) => {
         draft.main = action.payload.main;
+      }),
+      [GET_MAP]: (state, action) =>
+      produce(state, (draft) => {
+        draft.map = action.payload.map;
       }),
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
