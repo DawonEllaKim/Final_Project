@@ -42,6 +42,7 @@ const getMainMD = () => {
     apis
       .getMainAX()
       .then((res) => {
+        
         const postList = res.data;
         dispatch(getMain(postList));
         console.log("정보 불러오기 완료");
@@ -90,6 +91,7 @@ const getPostMD = (postId) => {
       const hour = initialTime.split(":")[0];
       const minute = initialTime.split(":")[1];
       res.data.meeting_date= year + "년 " +month +"월 " +day +"일 " +hour +"시 " +minute +"분";
+      res.data.mapedit_date= year+"-"+month+"-"+day+"T"+hour+":"+minute;
       const postList = res.data;
       console.log(res.data)
       dispatch(getPost(postList));

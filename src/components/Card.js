@@ -56,7 +56,7 @@ const CardInfo = styled.div`
   width: 192px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   padding-left: 20px;
 `;
@@ -75,6 +75,8 @@ const CardTop = styled.div`
   }
 `;
 const CardCenter = styled.div`
+  display:flex;
+  justify-content:flex-start;
   width: 100%;
   padding: 10px;
 `;
