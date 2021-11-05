@@ -22,6 +22,7 @@ import Message from './pages/Message';
 import MapContainer3 from "./components/MapContainer3";
 import AddDate from "./components/AddDate";
 import MapEdit from "./pages/MapEdit";
+import EditMapContainer3 from "./components/EditMapContainer";
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
         <Route exact path="/MapContainer3" component={MapContainer3} />
         <Route exact path="/addDate" component={AddDate} />
         <Route exact path = "/mapEdit/:id" component={MapEdit}/>
+        <Route exact path = "/editMapContainer3/:id" component={EditMapContainer3}/>
+        
       </ConnectedRouter>
     </div>
   );

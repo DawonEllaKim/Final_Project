@@ -207,5 +207,11 @@
         "meeting_date": "2020-12-03"
       }
     ]
+  },
+  "users": {
+    "markername": "여의도한강공원",
+    "latitude": "37.52638860108943",
+    "longitude": "126.93512931714196",
+    "locationCategory": "여의도한강공원"
   }
 }
