@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
-import {FaSearch} from "react-icons/fa"
+import {FaSearch,FaMapMarkedAlt} from "react-icons/fa"
+import { VerticalAlignCenter } from "@mui/icons-material";
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -73,16 +74,22 @@ const MapEdit = (props) => {
        
           <WalkButton
             onClick={() => {
-              history.push("/MapContainer3");
+              history.push(`/editMapContainer3/${postId}`);
             }}
-          > <FaSearch size="20"/>
-               산책로를 수정하실건가요?{" "}
+          > <FaSearch style={{}} size="20"/>
+              <div style={{marginLeft:"10px"}}>
+              산책로를 수정하실건가요?{" "}
+                </div>
+             
           </WalkButton>
         </Text>
 
-        <Text>상세 주소: {markerName.placename?markerName.placename:location_address}</Text>
+        <Text2> <CircleDiv><FaMapMarkedAlt/></CircleDiv>
+        <Address>상세 주소: <div>{markerName.placename?markerName.placename:location_address}</div>
+        </Address>
+        </Text2>
 
-        <Text1>산책 일시</Text1>
+        <Text>산책 일시</Text>
         <Flex>
           <DatePicker
             selected={startDate}
@@ -93,13 +100,13 @@ const MapEdit = (props) => {
             inline
           />
         </Flex>
-        <Text1>소개/유의사항</Text1>
+        <Text>소개/유의사항</Text>
         <Flex>
           <TextArea value={wishDesc ? wishDesc : wish_desc} onChange={wishHandler}></TextArea>
         </Flex>
         <EndFlex>
           <Button onClick={editLocation}>산책 등록</Button>
-          <Button>산책 취소</Button>
+          
         </EndFlex>
       </InputArea>
     </Frame>
@@ -114,7 +121,10 @@ const Frame = styled.div`
 `;
 const Button = styled.button`
   cursor: pointer;
-  margin: 30px;
+
+  width: 132px;
+height: 48px;
+border-radius:12px;
 `;
 const WalkButton = styled.button`
   cursor: pointer;
@@ -123,11 +133,14 @@ const WalkButton = styled.button`
   text-align:left;
   width:350px;
   height:48px;
+  display:flex;
+  align-items:center;
 `;
 
 const InputArea = styled.div`
   background: #e0e0e0;
   height: 800px;
+  padding: 0px 20px;
 `;
 
 const Text = styled.div`
@@ -159,9 +172,23 @@ const Text1 = styled.div`
   justify-content: center;
   margin-bottom: 10px;
 `;
+const Text2 = styled.div`
+  width: 100%;
+  height: 45px;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+  color: #000000;
+  margin-bottom: 10px;
+`;
 
 const Flex = styled.div`
-  width: 100%;
+  width: 350px;
   display: inline;
 
   padding-top: 10px;
@@ -186,3 +213,22 @@ const EndFlex = styled.div`
   padding: 0px 30px;
   display: inline;
 `;
+
+const CircleDiv = styled.div
+`
+display:flex;
+width:48px;
+height:48px;
+border-radius:24px;
+text-align:center;
+align-items:center;
+justify-content:center;
+background-color:white;
+`
+const Address =styled.div
+`
+margin-left:15px;
+text-align:left;
+font-size:12px;
+
+`
