@@ -33,10 +33,8 @@ const Card = ({ post }) => {
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
-        <CardBottom>
-          {/* {year}년 {month}월 {day}일 <br />
-          {hour}시 {minute}분 */}
-        </CardBottom>
+        {/* <CardBottom>{year}년 {month}월 {day}일 <br />{hour}시 {minute}분</CardBottom> */}
+        <CardBottom>{initialMeetingDate}</CardBottom>
       </CardInfo>
     </CardWrap>
   );

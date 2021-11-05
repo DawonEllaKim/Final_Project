@@ -10,17 +10,21 @@ const EditUser = (props) => {
   const dispatch = useDispatch();
 
   // 현재 접속한 유저(보호자) 정보
-  const user = useSelector((state) => state.user?.list[0]) || "";
-  const Age = user.user_age;
-  const Gender = user.user_gender;
-  const Image = user.user_image;
-  const NickName = user.user_nickname;
+  // const user = useSelector((state) => state.user?.list[0]) || "";
+  const user = useSelector((state) => state.user.user);
+  console.log(user)
+  const userAge = user.user_age;
+  const userGender = user.user_gender;
+  console.log(userGender)
+  const userImage = user.user_image;
+  const userNickName = user.user_nickname;
 
-  const [imgBase64, setImgBase64] = useState(Image); // 파일 base64
-  const [imgFile, setImgFile] = useState(null); //파일
-  const [userNickname, setUserNickname] = useState(NickName);
-  const [userGender, setUserGender] = useState(Gender);
-  const [userAge, setUserAge] = useState(Age);
+  const [imgBase64, setImgBase64] = useState(''); // 파일 base64
+  const [imgFile, setImgFile] = useState(userImage?userImage:null); //파일
+  const [user_nickname, setUserNickname] = useState(userNickName?userNickName:'');
+  const [user_gender, setUserGender] = useState('');
+  const [user_age, setUserAge] = useState('');
+
 
   const handleChangeFile = (event) => {
     // 이미지 파일
@@ -39,37 +43,48 @@ const EditUser = (props) => {
   };
 
   const userNicknameChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    console.log(newTitle);
-    setUserNickname(newTitle);
+    setUserNickname(e.target.value);
   };
   const genderChangeHandler = (gender) => {
-    console.log(gender);
-    setUserGender(gender);
+      setUserGender(gender);
   };
   const userAgeChangeHandler = (age) => {
-    console.log(age);
     setUserAge(age);
   };
 
   // 뒤로가기 버튼 - 수정 취소
   const cancel = () => {
-    if (
-      window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
-    ) {
+    // if (
+    //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
+    // ) {
       history.goBack();
-    }
-  };
-
-  // 수정하기 버튼 = 수정 완료
-  const update = () => {
-    dispatch(UserActions.updateUserMD(userGender, userAge));
+    // }
   };
 
   // 현재 접속한 보호자의 정보 불러오기
   useEffect(() => {
     dispatch(UserActions.getUserMD());
-  }, []);
+    setUserGender(userGender);
+    setUserAge(userAge);
+  }, [userGender, userAge]);  
+
+  // 수정하기 버튼 = 수정 완료
+  const update = () => {
+
+    // const formData = new FormData();
+    // formData.append('user_nickname',user_nickname);
+    // formData.append('user_gender',user_gender);
+    // formData.append('user_age',user_age);
+    // formData.append('user_image',imgFile);
+
+    const userInfo = {
+      user_nickname,
+      user_gender,
+      user_age,
+      user_image: imgFile,
+    };
+    dispatch(UserActions.updateUserMD(userInfo));
+  };
 
   return (
     <>
@@ -104,9 +119,9 @@ const EditUser = (props) => {
           {/* 보호자 닉네임 */}
           <Filter>
             <Nickname
-              placeholder="닉네임을 입력하세요"
+              placeholder='닉네임을 입력하세요'
               onChange={userNicknameChangeHandler}
-              defaultValue={NickName}
+              defaultValue={userNickName}
             />
           </Filter>
           {/* 보호자 성별 */}
@@ -117,7 +132,7 @@ const EditUser = (props) => {
                 <input
                   type="radio"
                   id="male"
-                  checked={userGender === "남"}
+                  checked={user_gender === "남"}
                   onClick={() => genderChangeHandler("남")}
                   name="gender"
                 />
@@ -127,7 +142,7 @@ const EditUser = (props) => {
                 <input
                   type="radio"
                   id="female"
-                  checked={userGender === "여"}
+                  checked={user_gender === "여"}
                   onClick={() => genderChangeHandler("여")}
                   name="gender"
                 />
@@ -145,7 +160,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="10"
-                    checked={userAge === "10대"}
+                    checked={user_age === "10대"}
                     onClick={() => userAgeChangeHandler("10대")}
                     name="age"
                   />
@@ -157,7 +172,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="20"
-                    checked={userAge === "20대"}
+                    checked={user_age === "20대"}
                     onClick={() => userAgeChangeHandler("20대")}
                     name="age"
                   />
@@ -170,7 +185,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="30"
-                    checked={userAge === "30대"}
+                    checked={user_age === "30대"}
                     onClick={() => userAgeChangeHandler("30대")}
                     name="age"
                   />
@@ -183,7 +198,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="40"
-                    checked={userAge === "40대 이상"}
+                    checked={user_age === "40대 이상"}
                     onClick={() => userAgeChangeHandler("40대 이상")}
                     name="age"
                   />
