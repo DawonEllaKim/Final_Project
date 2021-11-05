@@ -13,13 +13,13 @@ const Card = ({ post }) => {
   const dogComment = post.dog_comment;
   const initialMeetingDate = post.meeting_date;
 
-  const meetingDate = initialMeetingDate.split('T')[0];
-  const year = meetingDate.split('-')[0];
-  const month = meetingDate.split('-')[1];
-  const day = meetingDate.split('-')[2];
-  const meetingTime = initialMeetingDate.split('T')[1];
-  const hour = meetingTime.split(':')[0];
-  const minute = meetingTime.split(':')[1];
+  // const meetingDate = initialMeetingDate.split('T')[0];
+  // const year = meetingDate.split('-')[0];
+  // const month = meetingDate.split('-')[1];
+  // const day = meetingDate.split('-')[2];
+  // const meetingTime = initialMeetingDate.split('T')[1];
+  // const hour = meetingTime.split(':')[0];
+  // const minute = meetingTime.split(':')[1];
 
   return (
     <CardWrap>
@@ -33,7 +33,8 @@ const Card = ({ post }) => {
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
-        <CardBottom>{year}년 {month}월 {day}일 <br />{hour}시 {minute}분</CardBottom>
+        {/* <CardBottom>{year}년 {month}월 {day}일 <br />{hour}시 {minute}분</CardBottom> */}
+        <CardBottom>{initialMeetingDate}</CardBottom>
       </CardInfo>
     </CardWrap>
   );
