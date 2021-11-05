@@ -1,7 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import { apis } from "../../lib/axios";
 import axios from "axios";
+import { apis } from "../../lib/axios";
+import { produce } from "immer";
+import { getCookie } from "../../shared/Cookie";
+
 // action
 //메인 페이지 GET 요청
 const GET_MAIN = "GET_MAIN";
@@ -13,7 +15,6 @@ const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 
 // action creators
-
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
 
@@ -36,14 +37,68 @@ const initialState = {
 //dog_name,meeting_date
 const getMainMD = () => {
   return function (dispatch, getState, { history }) {
-    // console.log(postId);
-
-    apis
-      .getMainAX()
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/posts",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
       .then((res) => {
-        
         const postList = res.data;
         dispatch(getMain(postList));
+        // console.log("정보 불러오기 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+        // console.log("정보 불러오기 실패");
+      });
+  };
+};
+
+const getPostMD = (postId) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/posts/${postId}`,
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
+      .then((res) => {
+        res.data.longitude = res.data.longitude.toString();
+        res.data.latitude = res.data.latitude.toString();
+        const initialDate = res.data.meeting_date.split("T")[0];
+        const year = initialDate.split("-")[0];
+        const month = initialDate.split("-")[1];
+        const day = initialDate.split("-")[2];
+        const initialTime = res.data.meeting_date.split("T")[1];
+        const hour = initialTime.split(":")[0];
+        const minute = initialTime.split(":")[1];
+        res.data.meeting_date =
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 " +
+          hour +
+          "시 " +
+          minute +
+          "분";
+        res.data.mapedit_date =
+          year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+        const postList = res.data;
+        // console.log(res.data);
+        dispatch(getPost(postList));
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -53,64 +108,19 @@ const getMainMD = () => {
   };
 };
 
-//받는 데이터 dog,user,location 전부!
-// const getPostMD = (postId) => {
-//   return function (dispatch, getState, { history }) {
-//     // console.log(postId);
-
-//     apis
-//       .getPostAX(postId)
-//       .then((res) => {
-//         const postList = res.data;
-//         dispatch(getPost(postList));
-//         console.log("정보 불러오기 완료");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         console.log("정보 불러오기 실패");
-//       });
-//   };
-// };
-
-const getPostMD = (postId) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: `http://localhost:4000/posts/${postId}`,
-    })
-
-    .then((res) => {
-      
-      res.data.longitude=res.data.longitude.toString();
-      res.data.latitude=res.data.latitude.toString();
-      const initialDate = res.data.meeting_date.split("T")[0];
-      const year = initialDate.split("-")[0];
-      const month = initialDate.split("-")[1];
-      const day = initialDate.split("-")[2];
-      const initialTime = res.data.meeting_date.split("T")[1];
-      const hour = initialTime.split(":")[0];
-      const minute = initialTime.split(":")[1];
-      res.data.meeting_date= year + "년 " +month +"월 " +day +"일 " +hour +"시 " +minute +"분";
-      res.data.mapedit_date= year+"-"+month+"-"+day+"T"+hour+":"+minute;
-      const postList = res.data;
-      console.log(res.data)
-      dispatch(getPost(postList));
-      console.log("정보 불러오기 완료");
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log("정보 불러오기 실패");
-    });
-
-  };
-};
-
 //산책 수정할 때 GET으로 읽을 데이터 가져올 미들웨어
 const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/posts/${postId}`,
+      url: `http://13.209.70.209/posts/${postId}`,
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
     })
       .then((res) => {
         res.data.longitude = res.data.longitude.toString();
@@ -130,10 +140,19 @@ const getMapMD = (postId) => {
 
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
-    apis
-      .createPostAX(post)
+    axios({
+      method: "POST",
+      ulr: "http://13.209.70.209/posts/write",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(addPost(post));
         window.location.replace("/");
       })
@@ -142,22 +161,6 @@ const addPostMD = (post) => {
       });
   };
 };
-
-// const updatePostMD = (postId, post) =>{
-//   return function(dispatch, getState, {history}){
-
-//     apis
-//       .updatePostAX(postId, post)
-//       .then((res) => {
-//         console.log(res.data)
-//         // dispatch(updatePost(postId, post))
-//         history.push('/')
-//       })
-//       .catch((err) =>{
-//         console.log(err);
-//       })
-//   }
-// }
 
 const updatePostMD = (postId, post) => {
   return function (dispatch, getState, { history }) {

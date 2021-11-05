@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
@@ -24,14 +24,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Main = (props) => {
-
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(postActions.getMainMD())
-  }, []);
+  const postList = useSelector((state) => state.post.main);
 
-  const postList = useSelector((state) => state.post.main) 
-  console.log(postList)
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -59,7 +54,9 @@ const Main = (props) => {
   };
 
   // 게시물 불러오기
-  
+  useEffect(() => {
+    dispatch(postActions.getMainMD());
+  }, []);
 
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
@@ -73,8 +70,8 @@ const Main = (props) => {
           <GrNotification />
         </div>
       </Head>
-{/* 
-      일러스트 슬라이드 */}
+
+      {/* 일러스트 슬라이드 */}
       <div>
         <StyledSlider {...settings}>
           <div>
@@ -115,13 +112,13 @@ const Main = (props) => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {postList.map((post, index) => {
+        {/* {postList.map((post, index) => {
           return (
             <div onClick={() => history.push(`/posts/${post.id}`)}>
               <Card post={post} key={index} />
             </div>
           );
-        })}
+        })} */}
       </Body>
       <NavBar />
     </Wrap>
@@ -237,8 +234,6 @@ const Filter = styled.div`
 `;
 const SubMenuWrap = styled.div`
   width: 100%;
-  /* border: 1px solid red;
-  box-sizing: border-box; */
 `;
 const Body = styled.div`
   display: flex;
@@ -271,10 +266,8 @@ const FooterLeft = styled.div`
   margin: 12px;
   padding: 20px;
   border-radius: 20px;
-
   width: 274px;
   height: 60px;
-
   background-color: #5c5c5c;
   border-radius: 20px;
 `;

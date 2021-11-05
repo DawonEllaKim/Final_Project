@@ -6,20 +6,17 @@ import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
 
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
-// const SET_OWNER = "SET_OWNER";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
-// const setOwner = createAction(SET_USER, (owner) => ({ owner }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
 const initialState = {
   user: [],
   dog: [],
-  // owner: " ",
   is_login: false,
 };
 
@@ -49,24 +46,21 @@ const logInMD = (user_email, password) => {
   };
 };
 
-const signUserAPI = (UserInfo) => {
+const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://13.209.70.209/users/signUp",
-      data: UserInfo,
+      data: formData,
       headers: {
-        "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
+        // "content-type": "application/json;charset=UTF-8",
+        Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => {
         console.log(res); // signup 정보 확인
-        // window.alert(
-        //   "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요"
-        // );
-        dispatch(setUser(UserInfo));
+        dispatch(setUser(formData));
         history.push("/signDog");
       })
       .catch((err) => {
@@ -104,7 +98,7 @@ const getDogAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://localhost:4000/dog",
+      url: "http://13.209.70.209/dog",
     })
       .then((res) => {
         console.log(res.data); // signup 정보 확인
@@ -117,36 +111,6 @@ const getDogAPI = () => {
   };
 };
 
-// const signOwnerAPI = (ownerName, ownerGender, ownerAge, ownerImage) => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "POST",
-//       url: "http://localhost:4000/owner",
-//       data: {
-//         ownerName,
-//         ownerGender,
-//         ownerAge,
-//         ownerImage,
-//       },
-//       // headers: {
-//       //     "Content-Type": "multipart/form-data; ",
-//       //     accept: "application/json",
-//       //     "Access-Control-Allow-Origin": "*",
-
-//       // },
-//     })
-//       .then((res) => {
-//         console.log(res); // signup 정보 확인
-//         window.alert("축하합니다");
-//         history.push("/");
-//       })
-//       .catch((err) => {
-//         console.log("signupAPI에서 오류발생", err);
-//         window.alert("오류 발생");
-//       });
-//   };
-// };
-
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
@@ -157,10 +121,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog = action.payload.dog;
       }),
-    // [SET_OWNER]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.owner = action.payload.owner;
-    //   }),
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
@@ -182,7 +142,6 @@ export const actionCreators = {
   signUserAPI,
   signDogAPI,
   getDogAPI,
-  // signOwnerAPI,
   login,
   logInMD,
   logOut,

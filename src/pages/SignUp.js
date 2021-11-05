@@ -102,15 +102,25 @@ const SignUp = () => {
       return;
     }
 
-    let UserInfo = {
-      user_email,
-      password,
-      confirm_password,
-      user_nickname,
-      user_gender,
-      user_age,
-      // user_image:imgFile,
-    };
+    // let UserInfo = {
+    //   user_email,
+    //   password,
+    //   confirm_password,
+    //   user_nickname,
+    //   user_gender,
+    //   user_age,
+    //   // user_image: imgFile,
+    // };
+
+    const formData = new FormData();
+    formData.append("user_email", user_email);
+    formData.append("password", password);
+    formData.append("confirm_password", confirm_password);
+    formData.append("user_nickname", user_nickname);
+    formData.append("user_gender", user_gender);
+    formData.append("user_age", user_age);
+    formData.append("user_image", imgFile);
+
     toast.success(
       "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
       {
@@ -120,7 +130,7 @@ const SignUp = () => {
         closeOnClick: true,
       }
     );
-    dispatch(UserActions.signUserAPI(UserInfo));
+    dispatch(UserActions.signUserAPI(formData));
   };
 
   return (

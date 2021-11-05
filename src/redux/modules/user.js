@@ -1,6 +1,7 @@
 import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
+import { getCookie } from "../../shared/Cookie";
 
 //액션
 //마이페이지
@@ -35,12 +36,13 @@ const getMypageMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/mypage`,
+      url: "http://13.209.70.209/users/mypage",
       data: {},
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
@@ -58,12 +60,13 @@ const getUserMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/usersme`,
+      url: "http://13.209.70.209/users/me",
       data: {},
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
@@ -79,39 +82,39 @@ const getUserMD = () => {
 };
 
 const updateUserMD = (userInfo) => {
- 
-    return function (dispatch, getState, { history }) {
-      axios({
-        method: "PATCH",
-        url: `http://localhost:4000/usersme`,
-        data: userInfo,
-        headers: {
-          "content-type": "application/json;charset=UTF-8",
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "PATCH",
+      url: "http://13.209.70.209/users/me",
+      data: userInfo,
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data); // signup 정보 확인
+        dispatch(updateUser(userInfo));
+        window.alert("수정 완료");
+        history.push("/myPage");
       })
-        .then((res) => {
-          console.log(res.data); // signup 정보 확인
-          dispatch(updateUser(userInfo));
-          window.alert("수정 완료");
-          history.push('/myPage');
-        })
-        .catch((err) => {
-          console.log("updateUserMD에서 오류발생", err);
-          window.alert("오류 발생");
-        });
-    };
+      .catch((err) => {
+        console.log("updateUserMD에서 오류발생", err);
+        window.alert("오류 발생");
+      });
+  };
 };
 
 const getDogMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://localhost:4000/dogs",
+      url: "http://13.209.70.209/dogs",
       data: {},
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
       },
@@ -131,10 +134,10 @@ const updateDogMD = (dog_id, dogInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "http://localhost:4000/dogs",
+      url: "http://13.209.70.209/dogs",
       data: dogInfo,
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
       },

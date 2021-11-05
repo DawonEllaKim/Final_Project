@@ -1,17 +1,21 @@
 import axios from "axios";
-import {getCookie} from '../shared/Cookie';
+import { getCookie } from "../shared/Cookie";
 
 const instance = axios.create({
   // 제이슨 서버
-  baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
 
   // 백앤드 서버
-  // baseURL: "http://13.209.70.209",
+  baseURL: "http://13.209.70.209",
+
+  // 선희님 서버
+  // baseURL: "http://52.78.120.187",
 
   headers: {
     // "content-type": "application/json;charset=UTF-8",
-    accept: "application/json", "Access-Control-Allow-Origin": "*", 
-    // authorization: `Bearer ${getCookie("user_login")}`,
+    accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    authorization: `Bearer ${getCookie("user_login")}`,
   },
 });
 
@@ -21,7 +25,8 @@ export const apis = {
 
   //유저+강아지 정보 불러오기
   getUserAX: () => instance.get("/dog"),
-  postLoginAX : (user_email, password) => instance.post("/users/login", {user_email, password}),
+  postLoginAX: (user_email, password) =>
+    instance.post("/users/login", { user_email, password }),
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
   updateUserAX: (user) => instance.put("/users", user),
