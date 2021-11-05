@@ -137,11 +137,13 @@ const updateDogMD = (dog_id, dogInfo) => {
       },
     })
       .then((res) => {
-        console.log(res.data); // signup 정보 확인
+        // console.log(res.data); // signup 정보 확인
         dispatch(updateDog(dogInfo));
+        window.alert("반려견 정보가 수정되었습니다.");
+        history.goBack();
       })
       .catch((err) => {
-        console.log("updateDogAPI에서 오류발생", err);
+        // console.log("updateDogAPI에서 오류발생", err);
         window.alert("오류 발생");
       });
   };

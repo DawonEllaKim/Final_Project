@@ -3,108 +3,92 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-// 리액트 아이콘
-import { MdArrowBackIosNew } from "react-icons/md";
-
 // 리덕스
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/user";
+// 리액트 아이콘
+import { MdArrowBackIosNew } from "react-icons/md";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
-  const size = dog.dog_size;
-  // console.log(size);
+  const dog_id = dog.dog_id;
 
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  // 이미지
+  const [imgBase64, setImgBase64] = useState(); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [dogName, setDogName] = useState("");
-  const [dogBreed, setDogBreed] = useState("");
 
+  const [dogName, setDogName] = useState(() => dog.dog_name);
+  const [dogBreed, setDogBreed] = useState(() => dog.dog_breed);
   const [dogSize, setDogSize] = useState();
-  console.log(dogSize);
+  const [dogGender, setDogGender] = useState();
+  const [dogAge, setDogAge] = useState();
+  const [neutral, setNeutral] = useState();
+  const [dogComment, setDogComment] = useState(() => dog.dog_comment);
 
-  const [dogGender, setDogGender] = useState("");
-  const [dogAge, setDogAge] = useState("");
-  const [neutral, setNeutral] = useState("");
-  const [dogComment, setDogComment] = useState("");
-
-  const handleChangeFile = (event) => {
-    event.preventDefault();
+  const handleChangeFile = (e) => {
+    e.preventDefault();
     let reader = new FileReader();
 
     reader.onloadend = () => {
       const base64 = reader.result;
       if (base64) {
         setImgBase64(base64.toString());
-        console.log(base64);
+        // console.log(base64);
       }
     };
 
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-      setImgFile(event.target.files[0]);
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+      setImgFile(e.target.files[0]);
     }
   };
-
   const dogNameChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogName(newTitle);
   };
-
   const dogBreedChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogBreed(newTitle);
   };
-
   const dogSizeChangeHandler = (dogSize) => {
-    if (dogSize) {
-      setDogSize(dogSize);
-    } else {
-      setDogSize(dog.dog_size);
-    }
+    setDogSize(dogSize);
   };
-
-  const dogGenderChangeHandler = (gender) => {
-    console.log(gender);
-    setDogGender(gender);
+  const dogGenderChangeHandler = (dogGender) => {
+    setDogGender(dogGender);
   };
-
   const dogNeutralChangeHandler = (neutral) => {
-    console.log(neutral);
     setNeutral(neutral);
   };
-
-  const dogAgeChangeHandler = (age) => {
-    console.log(age);
-    setDogAge(age);
+  const dogAgeChangeHandler = (dogAge) => {
+    setDogAge(dogAge);
   };
-
   const dogCommentChangeHandler = (e) => {
     const newTitle = e.target.value;
     setDogComment(newTitle);
   };
-  const dog_id = dog.dog_id;
+
   const update = () => {
     const dogInfo = {
-      dogGender,
-      dogName,
-      dogSize,
-      dogBreed,
-      dogAge,
+      dog_name: dogName,
+      dog_breed: dogBreed,
+      dog_size: dogSize,
+      dog_gender: dogGender,
       neutral,
-      dogComment,
+      dog_age: dogAge,
+      dog_comment: dogComment,
     };
-    console.log(dogInfo);
     dispatch(DogActions.updateDogMD(dog_id, dogInfo));
   };
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
-  }, []);
+    setDogSize(dog.dog_size);
+    setDogGender(dog.dog_gender);
+    setNeutral(dog.neutral);
+    setDogAge(dog.dog_age);
+  }, [dog.dog_size, dog.dog_gender, dog.neutral, dog.dog_age]);
 
   return (
     <Wrap>
@@ -140,20 +124,20 @@ const EditDog = (props) => {
 
       {/* 강아지 이름 */}
       <Filter>
-        <DogName
+        <Input
           placeholder="강아지 이름을 입력하세요. "
           onChange={dogNameChangeHandler}
           defaultValue={dog.dog_name}
-        ></DogName>
+        />
       </Filter>
 
       {/* 강아지 종 */}
       <Filter>
-        <DogBreed
+        <Input
           placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
-          onChange={dogBreedChangeHandler}
           defaultValue={dog.dog_breed}
-        ></DogBreed>
+          onChange={dogBreedChangeHandler}
+        />
       </Filter>
 
       {/* 강아지 크기 */}
@@ -162,12 +146,12 @@ const EditDog = (props) => {
         <FlexWrap>
           <Flex>
             <RadioWrap>
-              <DogSize
+              <Input
                 value="소형견"
-                name="ss"
+                name="dogSize"
                 type="radio"
                 id="small"
-                defaultChecked={dogSize === "소형견"}
+                checked={dogSize === "소형견"}
                 onClick={() => dogSizeChangeHandler("소형견")}
               />
             </RadioWrap>
@@ -175,12 +159,12 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogSize
+              <Input
                 value="중형견"
-                name="ss"
+                name="dogSize"
                 type="radio"
                 id="medium"
-                defaultChecked={dogSize === "중형견"}
+                checked={dogSize === "중형견"}
                 onClick={() => dogSizeChangeHandler("중형견")}
               />
             </RadioWrap>
@@ -189,12 +173,12 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogSize
+              <Input
                 value="대형견"
-                name="ss"
+                name="dogSize"
                 type="radio"
                 id="large"
-                defaultChecked={dogSize === "대형견"}
+                checked={dogSize === "대형견"}
                 onClick={() => dogSizeChangeHandler("대형견")}
               />
             </RadioWrap>
@@ -210,11 +194,11 @@ const EditDog = (props) => {
         <FlexWrap>
           <Flex>
             <RadioWrap>
-              <DogGender
+              <Input
                 name="dogGender"
                 type="radio"
                 id="male"
-                defaultChecked={dogGender === "남"}
+                checked={dogGender === "남"}
                 onClick={() => dogGenderChangeHandler("남")}
               />
             </RadioWrap>
@@ -222,11 +206,11 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogGender
+              <Input
                 name="dogGender"
                 type="radio"
                 id="female"
-                defaultChecked={dogGender === "여"}
+                checked={dogGender === "여"}
                 onClick={() => dogGenderChangeHandler("여")}
               />
             </RadioWrap>
@@ -241,11 +225,11 @@ const EditDog = (props) => {
         <FlexWrap>
           <Flex>
             <RadioWrap>
-              <DogNeutral
+              <Input
                 name="neutral"
                 type="radio"
                 id="yes"
-                defaultChecked={dog.neutral === true}
+                checked={neutral === true}
                 onClick={() => dogNeutralChangeHandler(true)}
               />
             </RadioWrap>
@@ -253,11 +237,11 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogNeutral
+              <Input
                 name="neutral"
                 type="radio"
                 id="no"
-                defaultChecked={dog.neutral === false}
+                checked={neutral === false}
                 onClick={() => dogNeutralChangeHandler(false)}
               />
             </RadioWrap>
@@ -272,11 +256,11 @@ const EditDog = (props) => {
         <FlexWrap>
           <Flex>
             <RadioWrap>
-              <DogAge
+              <Input
                 name="dogAge"
                 type="radio"
                 id="young"
-                defaultChecked={dog.dog_age === "0~3세"}
+                checked={dogAge === "0~3세"}
                 onClick={() => dogAgeChangeHandler("0~3세")}
               />
             </RadioWrap>
@@ -284,11 +268,11 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogAge
+              <Input
                 name="dogAge"
                 type="radio"
                 id="junior"
-                defaultChecked={dog.dog_age === "4~7세"}
+                checked={dogAge === "4~7세"}
                 onClick={() => dogAgeChangeHandler("4~7세")}
               />
             </RadioWrap>
@@ -296,11 +280,11 @@ const EditDog = (props) => {
           </Flex>
           <Flex>
             <RadioWrap>
-              <DogAge
+              <Input
                 name="dogAge"
                 type="radio"
                 id="senior"
-                defaultChecked={dog.dog_age === "8세 이상"}
+                checked={dogAge === "8세 이상"}
                 onClick={() => dogAgeChangeHandler("8세 이상")}
               />
             </RadioWrap>
@@ -312,42 +296,16 @@ const EditDog = (props) => {
       {/* 강아지 한 줄 소개 */}
       <Filter>
         <Title> 한 줄 소개</Title>
-        <DogComment
+        <Input
           placeholder="ex) 우리 집 최고 애교쟁이!"
           onChange={dogCommentChangeHandler}
           defaultValue={dog.dog_comment}
-        ></DogComment>
+        />
       </Filter>
 
       {/* 수정 완료 버튼 */}
       <ButtonWrap>
-        <Add
-          onClick={
-            update
-            // 	() =>
-            //   dispatch(
-            //     DogActions.signDogAPI(
-            //       dogGender,
-            //       dogName,
-            //       dogSize,
-            //       dogBreed,
-            //       dogAge,
-            //       neutral,
-            //       dogComment,
-            //       imgFile
-            //     )
-            //   )
-          }
-        >
-          수정하기
-        </Add>
-        {/* <Cancle
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            취소하기
-          </Cancle> */}
+        <Add onClick={update}>수정하기</Add>
       </ButtonWrap>
     </Wrap>
   );
@@ -406,29 +364,7 @@ const Flex = styled.div`
 const Label = styled.label`
   padding-top: 5px;
 `;
-const DogName = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-const DogBreed = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-const DogSize = styled.input``;
-const DogGender = styled.input``;
-const DogNeutral = styled.input``;
-const DogAge = styled.input``;
-const DogComment = styled.input`
+const Input = styled.input`
   width: 100%;
   border: 0;
   background-color: #ebebeb;
