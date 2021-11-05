@@ -2,7 +2,7 @@ import React, { useState, useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import "react-datepicker/dist/react-datepicker.css";
+import "../components/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import {FaSearch,FaMapMarkedAlt} from "react-icons/fa"
@@ -60,7 +60,7 @@ const Map2 = (props) => {
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            timeInputLabel="Time:"
+            timeInputLabel="Time"
             dateFormat="MM/dd/yyyy h:mm aa"
             showTimeInput
             inline
