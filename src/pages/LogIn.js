@@ -54,14 +54,14 @@ const LogIn = (props) => {
 
           const {  profile } = kakao_account;
           localStorage.setItem("nickname",profile.nickname)
-
+         
           console.log(`responsed img: ${profile.profile_image_url}`);
           console.log(profile.nickname);
           history.push("/")
   
           // axios({
           //   method: "post",
-          //   url: "/auth/sns",
+          //   url: "/users/signUp",
           //   data: {
           //     "token": token,
           //     "user_nickname": profile.nickname,

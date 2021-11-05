@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
-        <Route exact path="/myPage" component={MyPage} />
+        <Route exact path="/mypage" component={MyPage} />
         <Route exact path="/map2" component={Map2} />
         <Route exact path="/write" component={Write} />
         <Route exact path="/write/:id" component={Write} />

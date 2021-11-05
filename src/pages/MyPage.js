@@ -5,25 +5,20 @@ import { GrNotification } from "react-icons/gr";
 import { FaDog } from "react-icons/fa";
 import { BsChatRightDots } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
-
 import Card from "../components/Card";
 import NavBar from "../components/NavBar";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 
-const MyPage = () => {
+const MyPage = (props) => {
   const dispatch = useDispatch();
 
-  const postList = useSelector((state) => state.post.list);
-  const state = useSelector((state) => state);
-  const user = state.user.list[0];
+  const pageList = useSelector((state)=>state.user.page)
+
 
   React.useEffect(() => {
-    dispatch(postActions.getPostMD());
-    dispatch(userActions.getUserMD());
+    dispatch(userActions.getMypageMD());
   }, []);
 
   return (
@@ -41,10 +36,10 @@ const MyPage = () => {
       <DogImage></DogImage>
       <DataWrap>
         <UserWrap>
-          <UserImage></UserImage>
+          <UserImage src={pageList.user_image}></UserImage>
           <UserData>
-            <Username>김효진</Username>
-            <Userdetail>30대, 여</Userdetail>
+            <Username>{pageList.user_nickname}</Username>
+            <Userdetail>{pageList.user_age},{pageList.user_gender}</Userdetail>
           </UserData>
         </UserWrap>
         <ProfileWrap>
@@ -71,13 +66,13 @@ const MyPage = () => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
-          {postList.map((post, index) => {
+          {/* {pageList.map((page, index) => {
             return (
-              <div onClick={() => history.push(`/posts/${post.id}`)}>
-                <Card index={index} key={index} post={post} />
+              <div onClick={() => history.push(`/posts/${page.post_id}`)}>
+                <Card index={index} key={index} post={page} />
               </div>
             );
-          })}
+          })} */}
         </CardWrap>
       </DataWrap>
       <NavBar />
@@ -129,6 +124,7 @@ const UserImage = styled.img`
   background-color: #ebebeb;
   box-sizing: border-box;
   border-radius: 50%;
+  src:pageList.user_image;
 `;
 const UserData = styled.div`
   text-align: left;

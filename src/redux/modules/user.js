@@ -1,61 +1,200 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../lib/axios";
+import axios from "axios";
+//액션
+//마이페이지 
+const GET_MYPAGE = "GET_MYPAGE"
 
+//유저
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 
+//강아지
+const GET_DOG = "GET_DOG";
+const UPDATE_DOG = "UPDATE_DOG";
+
+
+//액션생성함수
+//마이페이지 GET요청
+const getMypage = createAction(GET_MYPAGE,(page)=>({page}));
+
+//유저 정보 GET,FETCH 요청
 const getUser = createAction(GET_USER, (userList) => ({ userList }));
 const updateUser = createAction(UPDATE_USER, (user) => ({ user }));
 
+//강아지 정보 GET,FETCH 요청
+const getDog = createAction(GET_DOG, (dog)=>({dog}))
+const updateDog = createAction(UPDATE_DOG,(dog)=>({dog}))
 const initialState = {
-  list: [],
+  page: [],
+  user : [],
+  dog : [],
 };
+const getMypageMD = () => {
+  
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "GET",
+        url: `http://localhost:4000/mypage`,
+        data: {},
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => {
+          console.log(res.data); 
+          dispatch(getMypage(res.data));
+       
+        })
+        .catch((err) => {
+          console.log("getMypageMD에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
+};
+
 
 const getUserMD = () => {
-  return function (dispatch, getState, { history }) {
-    apis
-      .getUserAX()
-      .then((res) => {
-        const userList = res.data;
-        dispatch(getUser(userList));
+
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "GET",
+        url: `http://localhost:4000/users/me`,
+        data: {},
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+        .then((res) => {
+          console.log(res.data); // user 정보 확인
+         
+          dispatch(getUser(res.data));
+    
+        })
+        .catch((err) => {
+          console.log("getUserMD에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
 };
 
-const updateUserMD = (user_Id, user) => {
-  return function (dispatch, getState, { history }) {
-    apis
-      .updateUserAX(user_Id, user)
-      .then((res) => {
-        dispatch(updateUser(user));
-        console.log("okay");
+const updateUserMD = (userInfo) => {
+ 
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "PATCH",
+        url: `http://localhost:4000/users/me`,
+        data: userInfo,
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       })
-      .catch((err) => console.log(err));
-  };
+        .then((res) => {
+          console.log(res.data); // signup 정보 확인
+          dispatch(updateUser(userInfo));
+         
+        })
+        .catch((err) => {
+          console.log("updateUserMD에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
 };
+
+
+const getDogMD = (dog_id) => {
+
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "GET",
+        url: `http://localhost:4000/dogs/${dog_id}`,
+        data: {},
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => {
+          console.log(res.data); // signup 정보 확인
+          dispatch(getDog(res.data));
+        
+        })
+        .catch((err) => {
+          console.log("getDogMD에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
+};
+
+
+const updateDogMD = (dog_id, dogInfo) => {
+
+    return function (dispatch, getState, { history }) {
+      axios({
+        method: "PATCH",
+        url: `http://localhost:4000/dogs/${dog_id}`,
+        data: dogInfo,
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => {
+          console.log(res.data); // signup 정보 확인
+          dispatch(updateDog(dogInfo));
+      
+        })
+        .catch((err) => {
+          console.log("updateDogAPI에서 오류발생", err);
+          window.alert("오류 발생");
+        });
+    };
+};
+
 
 export default handleActions(
-  {
+  {  [GET_MYPAGE]: (state, action) =>
+    produce(state, (draft) => {
+      draft.page = action.payload.page;
+    }),
     [GET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.userList;
+        draft.user = action.payload.user;
       }),
     [UPDATE_USER]: (state, action) =>
       produce(state, (draft) => {
-        const index = draft.list.findIndex(
-          (user) => user.user_Id === action.payload.user_Id
-        );
-        draft.list[index] = { ...draft.list[index], ...action.payload.user };
+        
+        draft.user = { ...draft.user, ...action.payload.user };
+      }),
+      [GET_DOG]: (state, action) =>
+      produce(state, (draft) => {
+        draft.dog = action.payload.dog;
+      }),
+    [UPDATE_DOG]: (state, action) =>
+      produce(state, (draft) => {
+        
+        draft.dog = { ...draft.dog, ...action.payload.dog};
       }),
   },
   initialState
 );
 
 const actionCreators = {
+  getMypage,
+  getMypageMD,
+  getDog,
+  getDogMD,
+  updateDog,
+  updateDogMD,
   getUser,
   getUserMD,
   updateUser,
