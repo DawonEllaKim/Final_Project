@@ -75,8 +75,8 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        res.data.posts.longitude = res.data.posts.longitude.toString();
-        res.data.posts.latitude = res.data.posts.latitude.toString();
+        res.data.posts.longitude = Number(res.data.posts.longitude);
+        res.data.posts.latitude = Number(res.data.posts.latitude);
         const initialDate = res.data.posts.meeting_date.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];

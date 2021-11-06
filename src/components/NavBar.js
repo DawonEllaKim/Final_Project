@@ -52,12 +52,11 @@ const FooterLeft = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 270px;
-  height: 60px;
+  height: 15px;
   padding: 20px;
   border-radius: 20px;
 
-  width: 274px;
-  height: 60px;
+
 
   background-color: #5c5c5c;
   border-radius: 20px;
