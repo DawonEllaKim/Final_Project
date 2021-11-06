@@ -34,7 +34,7 @@ export const apis = {
   // 산책 등록하기
   createPostAX: (post) => instance.post("/posts/write", post),
   // 산책 수정하기
-  updatePostAX: (postId, post) => instance.put(`/posts/${postId}`, post),
+  updatePostAX: (postId, post) => instance.patch(`/posts/${postId}`, post),
   // 산책 가져오기
   getPostAX: (postId) => instance.get(`/posts/${postId}`),
   // 산책 약속 삭제하기

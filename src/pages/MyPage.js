@@ -17,9 +17,6 @@ const MyPage = (props) => {
   const pageList = useSelector((state) => state.user.page);
   console.log(pageList);
 
-  const user = pageList[0];
-  console.log(user);
-
   useEffect(() => {
     dispatch(userActions.getMypageMD());
   }, []);
@@ -39,11 +36,11 @@ const MyPage = (props) => {
       <DogImage></DogImage>
       <DataWrap>
         <UserWrap>
-          <UserImage src={user.user_image}></UserImage>
+          <UserImage src={pageList.user_image}></UserImage>
           <UserData>
-            <Username>{user.user_nickname}</Username>
+            <Username>{pageList.user_nickname}</Username>
             <Userdetail>
-              {user.user_age},{user.user_gender}
+              {pageList.user_age},{pageList.user_gender}
             </Userdetail>
           </UserData>
         </UserWrap>
@@ -71,13 +68,7 @@ const MyPage = (props) => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
-          {pageList.map((page, index) => {
-            return (
-              <div onClick={() => history.push(`/posts/${page.post_id}`)}>
-                <Card index={index} key={index} post={page} />
-              </div>
-            );
-          })}
+          <Card post={pageList} />
         </CardWrap>
       </DataWrap>
       <NavBar />

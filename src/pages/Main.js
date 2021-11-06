@@ -27,7 +27,6 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
   console.log(postList);
-
   // 슬라이드 세팅
   const settings = {
     dots: true,

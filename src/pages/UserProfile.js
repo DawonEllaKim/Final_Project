@@ -71,19 +71,19 @@ const EditUser = (props) => {
   // 수정하기 버튼 = 수정 완료
   const update = () => {
 
-    // const formData = new FormData();
-    // formData.append('user_nickname',user_nickname);
-    // formData.append('user_gender',user_gender);
-    // formData.append('user_age',user_age);
-    // formData.append('user_image',imgFile);
+    const formData = new FormData();
+    formData.append('user_nickname',user_nickname);
+    formData.append('user_gender',user_gender);
+    formData.append('user_age',user_age);
+    formData.append('user_image',imgFile);
 
-    const userInfo = {
-      user_nickname,
-      user_gender,
-      user_age,
-      user_image: imgFile,
-    };
-    dispatch(UserActions.updateUserMD(userInfo));
+    // const userInfo = {
+    //   user_nickname,
+    //   user_gender,
+    //   user_age,
+    //   user_image: imgFile,
+    // };
+    dispatch(UserActions.updateUserMD(formData));
   };
 
   return (

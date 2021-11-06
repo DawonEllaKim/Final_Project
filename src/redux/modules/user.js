@@ -39,7 +39,7 @@ const getMypageMD = () => {
       url: "http://13.209.70.209/users/mypage",
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
@@ -47,7 +47,7 @@ const getMypageMD = () => {
     })
       .then((res) => {
         console.log(res.data);
-        dispatch(getMypage(res.data.posts));
+        dispatch(getMypage(res.data.posts[0]));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
@@ -67,12 +67,13 @@ const getUserMD = () => {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
         console.log(res.data); // user 정보 확인
 
-        dispatch(getUser(res.data));
+        dispatch(getUser(res.data.user[0]));
       })
       .catch((err) => {
         console.log("getUserMD에서 오류발생", err);
@@ -92,6 +93,7 @@ const updateUserMD = (userInfo) => {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
@@ -114,15 +116,15 @@ const getDogMD = () => {
       url: "http://13.209.70.209/dogs",
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
+        "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
         // console.log(res.data); // signup 정보 확인
-        dispatch(getDog(res.data));
+        dispatch(getDog(res.data.posts[0]));
       })
       .catch((err) => {
         // console.log("getDogMD에서 오류발생", err);
@@ -131,26 +133,27 @@ const getDogMD = () => {
   };
 };
 
-const updateDogMD = (dog_id, dogInfo) => {
+const updateDogMD = (dog_id, formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
       url: "http://13.209.70.209/dogs",
-      data: dogInfo,
+      data: formData,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
+        "Content-Type": "multipart/form-data; ",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
-        // console.log(res.data); // signup 정보 확인
-        dispatch(updateDog(dogInfo));
+        console.log(res.data); // signup 정보 확인
+        dispatch(updateDog(formData));
         window.alert("반려견 정보가 수정되었습니다.");
         history.goBack();
       })
       .catch((err) => {
-        // console.log("updateDogAPI에서 오류발생", err);
+        console.log("updateDogAPI에서 오류발생", err);
         window.alert("오류 발생");
       });
   };

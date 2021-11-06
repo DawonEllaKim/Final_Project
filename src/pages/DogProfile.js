@@ -13,6 +13,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
+  console.log(dog);
   const dog_id = dog.dog_id;
 
   // 이미지
@@ -70,16 +71,25 @@ const EditDog = (props) => {
   };
 
   const update = () => {
-    const dogInfo = {
-      dog_name: dogName,
-      dog_breed: dogBreed,
-      dog_size: dogSize,
-      dog_gender: dogGender,
-      neutral,
-      dog_age: dogAge,
-      dog_comment: dogComment,
-    };
-    dispatch(DogActions.updateDogMD(dog_id, dogInfo));
+    const formData = new FormData();
+    formData.append("dog_name", dogName);
+    formData.append("dog_breed", dogBreed);
+    formData.append("dog_size", dogSize);
+    formData.append("dog_gender", dogGender);
+    formData.append("neutral", neutral);
+    formData.append("dog_age", dogAge);
+    formData.append("dog_comment", dogComment);
+    formData.append("dog_image", imgFile);
+    // const dogInfo = {
+    //   dog_name: dogName,
+    //   dog_breed: dogBreed,
+    //   dog_size: dogSize,
+    //   dog_gender: dogGender,
+    //   neutral,
+    //   dog_age: dogAge,
+    //   dog_comment: dogComment,
+    // };
+    dispatch(DogActions.updateDogMD(dog_id, formData));
   };
 
   useEffect(() => {
@@ -229,8 +239,8 @@ const EditDog = (props) => {
                 name="neutral"
                 type="radio"
                 id="yes"
-                checked={neutral === true}
-                onClick={() => dogNeutralChangeHandler(true)}
+                checked={neutral === "true"}
+                onClick={() => dogNeutralChangeHandler("true")}
               />
             </RadioWrap>
             <Label for="yes">Y</Label>
@@ -241,8 +251,8 @@ const EditDog = (props) => {
                 name="neutral"
                 type="radio"
                 id="no"
-                checked={neutral === false}
-                onClick={() => dogNeutralChangeHandler(false)}
+                checked={neutral === "false"}
+                onClick={() => dogNeutralChangeHandler("false")}
               />
             </RadioWrap>
             <Label for="no">N</Label>
