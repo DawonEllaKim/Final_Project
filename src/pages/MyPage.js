@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { GrNotification } from "react-icons/gr";
@@ -14,10 +14,13 @@ import { history } from "../redux/configureStore";
 const MyPage = (props) => {
   const dispatch = useDispatch();
 
-  const pageList = useSelector((state)=>state.user.page)
+  const pageList = useSelector((state) => state.user.page);
+  console.log(pageList);
 
+  const user = pageList[0];
+  console.log(user);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(userActions.getMypageMD());
   }, []);
 
@@ -36,10 +39,12 @@ const MyPage = (props) => {
       <DogImage></DogImage>
       <DataWrap>
         <UserWrap>
-          <UserImage src={pageList.user_image}></UserImage>
+          <UserImage src={user.user_image}></UserImage>
           <UserData>
-            <Username>{pageList.user_nickname}</Username>
-            <Userdetail>{pageList.user_age},{pageList.user_gender}</Userdetail>
+            <Username>{user.user_nickname}</Username>
+            <Userdetail>
+              {user.user_age},{user.user_gender}
+            </Userdetail>
           </UserData>
         </UserWrap>
         <ProfileWrap>
@@ -66,13 +71,13 @@ const MyPage = (props) => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
-          {/* {pageList.map((page, index) => {
+          {pageList.map((page, index) => {
             return (
               <div onClick={() => history.push(`/posts/${page.post_id}`)}>
                 <Card index={index} key={index} post={page} />
               </div>
             );
-          })} */}
+          })}
         </CardWrap>
       </DataWrap>
       <NavBar />
@@ -124,7 +129,7 @@ const UserImage = styled.img`
   background-color: #ebebeb;
   box-sizing: border-box;
   border-radius: 50%;
-  src:pageList.user_image;
+  /* src:pageList.user_image; */
 `;
 const UserData = styled.div`
   text-align: left;

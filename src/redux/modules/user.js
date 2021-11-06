@@ -47,7 +47,7 @@ const getMypageMD = () => {
     })
       .then((res) => {
         console.log(res.data);
-        dispatch(getMypage(res.data));
+        dispatch(getMypage(res.data.posts));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
@@ -117,6 +117,7 @@ const getDogMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {

@@ -6,34 +6,47 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
-import {FaSearch,FaMapMarkedAlt} from "react-icons/fa"
+import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
 import { VerticalAlignCenter } from "@mui/icons-material";
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const post = useSelector((state)=>state.post.list)
-  const map_date= new Date(post.mapedit_date)
+  const post = useSelector((state) => state.post.list);
+  const map_date = new Date(post.mapedit_date);
   // useSelecotr, dispatch, 리덕스
-  const postId= props.match.params.id;
+  const postId = props.match.params.id;
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
-    setWishDesc(wish_desc)
-    setStartDate(map_date)
+    setWishDesc(wish_desc);
+    setStartDate(map_date);
   }, []);
 
- const location_address = post.location_address;
- const meeting_date = post.meeting_date;
- const wish_desc= post.wish_desc;
- const markerName = useSelector((state) => state.marker.marker);
+  const location_address = post.location_address;
+  const meeting_date = post.meeting_date;
+  const wish_desc = post.wish_desc;
+  const markerName = useSelector((state) => state.marker.marker);
 
- const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
- const [wishDesc, setWishDesc] = useState(wish_desc); //desc설명
- 
- const editLongitude = (markerName.longitude ? markerName.longitude: post.longitude)
- const editLatitude = (markerName.latitude ? markerName.latitude: post.latitude)
- const editLocationaddress = (markerName.placename ? markerName.placename: post.location_address)
- const editLocationCategory = (markerName.locationCategory ? markerName.locationCategory : post.location_category)
- console.log(editLongitude,editLatitude,editLocationaddress,editLocationCategory)
+  const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
+  const [wishDesc, setWishDesc] = useState(wish_desc); //desc설명
+
+  const editLongitude = markerName.longitude
+    ? markerName.longitude
+    : post.longitude;
+  const editLatitude = markerName.latitude
+    ? markerName.latitude
+    : post.latitude;
+  const editLocationaddress = markerName.placename
+    ? markerName.placename
+    : post.location_address;
+  const editLocationCategory = markerName.locationCategory
+    ? markerName.locationCategory
+    : post.location_category;
+  console.log(
+    editLongitude,
+    editLatitude,
+    editLocationaddress,
+    editLocationCategory
+  );
 
   const editLocation = () => {
     const Info = {
@@ -43,50 +56,51 @@ const MapEdit = (props) => {
       wish_desc: wishDesc,
       location_category: editLocationCategory,
       meeting_date: startDate,
-      completed:false,
+      completed: false,
     };
-    dispatch(PostActions.updatePostMD(postId,Info));
+    dispatch(PostActions.updatePostMD(postId, Info));
   };
- 
+
   const dateHandler = (date) => {
-    if(date)
-    setStartDate(date)
-    else
-    setStartDate(map_date)
-  }
+    if (date) setStartDate(date);
+    else setStartDate(map_date);
+  };
   const wishHandler = (e) => {
-      if(e.target.value)
-      setWishDesc(e.target.value)
-      else
-      setWishDesc(wish_desc)
-  }
+    if (e.target.value) setWishDesc(e.target.value);
+    else setWishDesc(wish_desc);
+  };
   //지도 표시할 div
-  console.log(post.mapedit_date)
-   console.log(startDate)
-   
-  
+  console.log(post.mapedit_date);
+  console.log(startDate);
+
   return (
     <Frame>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
       <InputArea>
         <Text>산책로 설정</Text>
         <Text>
-       
           <WalkButton
             onClick={() => {
               history.push(`/editMapContainer3/${postId}`);
             }}
-          > <FaSearch style={{}} size="20"/>
-              <div style={{marginLeft:"10px"}}>
-              산책로를 수정하실건가요?{" "}
-                </div>
-             
+          >
+            {" "}
+            <FaSearch style={{}} size="20" />
+            <div style={{ marginLeft: "10px" }}>산책로를 수정하실건가요? </div>
           </WalkButton>
         </Text>
 
-        <Text2> <CircleDiv><FaMapMarkedAlt/></CircleDiv>
-        <Address>상세 주소: <div>{markerName.placename?markerName.placename:location_address}</div>
-        </Address>
+        <Text2>
+          {" "}
+          <CircleDiv>
+            <FaMapMarkedAlt />
+          </CircleDiv>
+          <Address>
+            상세 주소:{" "}
+            <div>
+              {markerName.placename ? markerName.placename : location_address}
+            </div>
+          </Address>
         </Text2>
 
         <Text>산책 일시</Text>
@@ -95,18 +109,19 @@ const MapEdit = (props) => {
             selected={startDate}
             onChange={dateHandler}
             timeInputLabel="Time:"
-         
             showTimeInput
             inline
           />
         </Flex>
         <Text>소개/유의사항</Text>
         <Flex>
-          <TextArea value={wishDesc ? wishDesc : wish_desc} onChange={wishHandler}></TextArea>
+          <TextArea
+            value={wishDesc ? wishDesc : wish_desc}
+            onChange={wishHandler}
+          ></TextArea>
         </Flex>
         <EndFlex>
           <Button onClick={editLocation}>산책 등록</Button>
-          
         </EndFlex>
       </InputArea>
     </Frame>
@@ -123,18 +138,18 @@ const Button = styled.button`
   cursor: pointer;
 
   width: 132px;
-height: 48px;
-border-radius:12px;
+  height: 48px;
+  border-radius: 12px;
 `;
 const WalkButton = styled.button`
   cursor: pointer;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 14px;
-  text-align:left;
-  width:350px;
-  height:48px;
-  display:flex;
-  align-items:center;
+  text-align: left;
+  width: 350px;
+  height: 48px;
+  display: flex;
+  align-items: center;
 `;
 
 const InputArea = styled.div`
@@ -214,21 +229,18 @@ const EndFlex = styled.div`
   display: inline;
 `;
 
-const CircleDiv = styled.div
-`
-display:flex;
-width:48px;
-height:48px;
-border-radius:24px;
-text-align:center;
-align-items:center;
-justify-content:center;
-background-color:white;
-`
-const Address =styled.div
-`
-margin-left:15px;
-text-align:left;
-font-size:12px;
-
-`
+const CircleDiv = styled.div`
+  display: flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+const Address = styled.div`
+  margin-left: 15px;
+  text-align: left;
+  font-size: 12px;
+`;

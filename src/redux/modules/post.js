@@ -49,7 +49,8 @@ const getMainMD = () => {
       },
     })
       .then((res) => {
-        const postList = res.data;
+        const postList = res.data.posts;
+        console.log(postList);
         dispatch(getMain(postList));
         // console.log("정보 불러오기 완료");
       })
@@ -70,20 +71,20 @@ const getPostMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        // authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
-        res.data.longitude = res.data.longitude.toString();
-        res.data.latitude = res.data.latitude.toString();
-        const initialDate = res.data.meeting_date.split("T")[0];
+        res.data.posts.longitude = res.data.posts.longitude.toString();
+        res.data.posts.latitude = res.data.posts.latitude.toString();
+        const initialDate = res.data.posts.meeting_date.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
         const day = initialDate.split("-")[2];
-        const initialTime = res.data.meeting_date.split("T")[1];
+        const initialTime = res.data.posts.meeting_date.split("T")[1];
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];
-        res.data.meeting_date =
+        res.data.posts.meeting_date =
           year +
           "년 " +
           month +
@@ -94,10 +95,10 @@ const getPostMD = (postId) => {
           "시 " +
           minute +
           "분";
-        res.data.mapedit_date =
+        res.data.posts.mapedit_date =
           year + "-" + month + "-" + day + "T" + hour + ":" + minute;
-        const postList = res.data;
-        // console.log(res.data);
+        const postList = res.data.posts;
+        console.log(postList);
         dispatch(getPost(postList));
         console.log("정보 불러오기 완료");
       })
