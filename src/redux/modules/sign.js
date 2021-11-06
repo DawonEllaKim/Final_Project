@@ -22,8 +22,16 @@ const initialState = {
 
 const logInMD = (user_email, password) => {
   return function (dispatch, getState, { history }) {
-    apis
-      .postLoginAX(user_email, password)
+    axios({
+      method: "POST",
+      url: "http://13.209.70.209/users/login",
+      data: { user_email, password },
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
       .then((res) => {
         const token = res.data.token;
         setCookie("token", token);
@@ -54,8 +62,9 @@ const signUserAPI = (formData) => {
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
-        Accept: "application/json",
+        accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
@@ -77,9 +86,10 @@ const signDogAPI = (DogInfo) => {
       url: "http://13.209.70.209/dogs/dog_info",
       data: DogInfo,
       headers: {
-        "Content-Type": "multipart/form-data; ",
+        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
@@ -99,6 +109,12 @@ const getDogAPI = () => {
     axios({
       method: "GET",
       url: "http://13.209.70.209/dog",
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
     })
       .then((res) => {
         console.log(res.data); // signup 정보 확인

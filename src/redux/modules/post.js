@@ -76,26 +76,26 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        // res.data.longitude = res.data.longitude.toString();
-        // res.data.latitude = res.data.latitude.toString();
-        // const initialDate = res.data.meeting_date.split("T")[0];
-        // const year = initialDate.split("-")[0];
-        // const month = initialDate.split("-")[1];
-        // const day = initialDate.split("-")[2];
-        // const initialTime = res.data.meeting_date.split("T")[1];
+        res.data.posts.longitude = res.data.posts.longitude.toString();
+        res.data.posts.latitude = res.data.posts.latitude.toString();
+        const initialDate = res.data.posts.meeting_date.split("T")[0];
+        const year = initialDate.split("-")[0];
+        const month = initialDate.split("-")[1];
+        const day = initialDate.split("-")[2];
+        const initialTime = res.data.posts.meeting_date.split("T")[1];
         // const hour = initialTime.split(":")[0];
         // const minute = initialTime.split(":")[1];
-        // res.data.meeting_date =
-        //   year +
-        //   "년 " +
-        //   month +
-        //   "월 " +
-        //   day +
-        //   "일 " +
-        //   hour +
-        //   "시 " +
-        //   minute +
-        //   "분";
+        res.data.posts.meeting_date =
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 " 
+          // hour +
+          // "시 " +
+          // minute +
+          // "분";
         // res.data.mapedit_date =
         //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
         const postList = res.data.posts;
@@ -125,11 +125,31 @@ const getMapMD = (postId) => {
       },
     })
       .then((res) => {
-        // res.data.longitude = res.data.longitude.toString();
-        // res.data.latitude = res.data.latitude.toString();
+        res.data.posts.longitude = res.data.posts.longitude.toString();
+        res.data.posts.latitude = res.data.posts.latitude.toString();
+        const initialDate = res.data.posts.meeting_date.split("T")[0];
+        const year = initialDate.split("-")[0];
+        const month = initialDate.split("-")[1];
+        const day = initialDate.split("-")[2];
+        const initialTime = res.data.posts.meeting_date.split("T")[1];
+        const hour = initialTime.split(":")[0];
+        const minute = initialTime.split(":")[1];
+        res.data.posts.meeting_date =
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 " +
+          hour +
+          "시 " +
+          minute +
+          "분";
+        res.data.posts.mapedit_date =
+          year + "-" + month + "-" + day + "T" + hour + ":" + minute;
 
         const postList = res.data.posts;
-        console.log(res.data);
+        console.log(postList);
         dispatch(getMap(postList));
         console.log("정보 불러오기 완료");
       })
