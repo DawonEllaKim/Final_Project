@@ -13,9 +13,7 @@ import { history } from "../redux/configureStore";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
-
   const pageList = useSelector((state) => state.user.page);
-  console.log(pageList);
 
   useEffect(() => {
     dispatch(userActions.getMypageMD());

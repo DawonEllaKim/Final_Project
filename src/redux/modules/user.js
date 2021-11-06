@@ -46,8 +46,8 @@ const getMypageMD = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
-        dispatch(getMypage(res.data.posts[0]));
+        console.log(res.data.posts);
+        dispatch(getMypage(res.data.posts));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
