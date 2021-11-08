@@ -7,100 +7,133 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/user";
 
 const EditUser = (props) => {
-  const dispatch = useDispatch();
 
-  // 현재 접속한 유저(보호자) 정보
-  // const user = useSelector((state) => state.user?.list[0]) || "";
-  const user = useSelector((state) => state.user.user);
-  console.log(user)
-  const userAge = user.user_age;
-  const userGender = user.user_gender;
-  console.log(userGender)
-  const userImage = user.user_image;
-  const userNickName = user.user_nickname;
-
-
-
-
-  const [imgBase64, setImgBase64] = useState(userImage); // 파일 base64
-  const [imgFile, setImgFile] = useState(); //파일
-  const [user_nickname, setUserNickname] = useState(userNickName?userNickName:'');
-  const [user_gender, setUserGender] = useState('');
-  const [user_age, setUserAge] = useState('');
-
-
-  const handleChangeFile = (event) => {
-    // 이미지 파일
-    event.preventDefault();
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setImgBase64(base64.toString());
-      }
-    };
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-      setImgFile(event.target.files[0]);
-    }
-    // else
-    // reader.readAsDataURL(userImage);
-    //   setImgFile(userImage)
-    
-  };
-
-  const userNicknameChangeHandler = (e) => {
-    setUserNickname(e.target.value);
-  };
-  const genderChangeHandler = (gender) => {
-      setUserGender(gender);
-  };
-  const userAgeChangeHandler = (age) => {
-    setUserAge(age);
-  };
-
-  // 뒤로가기 버튼 - 수정 취소
-  const cancel = () => {
-    // if (
-    //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
-    // ) {
-      history.goBack();
-    // }
-  };
-
-  // 현재 접속한 보호자의 정보 불러오기
-  useEffect(() => {
-    dispatch(UserActions.getUserMD());
-    setUserNickname(userNickName)
-    setUserGender(userGender)
-    setUserAge(userAge);
-    setImgBase64(userImage)
-    setImgFile(userImage)
-  }, [userGender, userAge,userImage,userNickName]);  
-
-  // 수정하기 버튼 = 수정 완료
-  console.log(imgFile,user.user_image)
-  const update = () => {
-    console.log(imgFile)
-    const image  = imgFile ? imgFile : user.user_image
-    console.log(image)
-    const formData = new FormData();
-    formData.append('user_nickname',user_nickname);
-    formData.append('user_gender',user_gender);
-    formData.append('user_age',user_age);
-    formData.append('user_image',image);
-    
+    const dispatch = useDispatch();
   
-    console.log(user_nickname,user_gender,user_age,imgFile)
-    // const userInfo = {
-    //   user_nickname,
-    //   user_gender,
-    //   user_age,
-    //   user_image: imgFile,
-    // };
-    dispatch(UserActions.updateUserMD(formData));
-  };
+    // 현재 접속한 유저(보호자) 정보
+    // const user = useSelector((state) => state.user?.list[0]) || "";
+    const user = useSelector((state) => state.user.user);
+    console.log(user);
+    const userAge = user.user_age;
+    const userGender = user.user_gender;
+    console.log(userGender);
+    const userImage = user.user_image;
+    const userNickName = user.user_nickname;
+  
+    const [imgBase64, setImgBase64] = useState(userImage); // 파일 base64
+    const [imgFile, setImgFile] = useState(); //파일
+    const [user_nickname, setUserNickname] = useState(
+      userNickName ? userNickName : ""
+    );
+    const [user_gender, setUserGender] = useState("");
+    const [user_age, setUserAge] = useState("");
+  
+    const handleChangeFile = (event) => {
+      // 이미지 파일
+      event.preventDefault();
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result;
+        if (base64) {
+          setImgBase64(base64.toString());
+        }
+      };
+      if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+        setImgFile(event.target.files[0]);
+      }
+      // else
+      // reader.readAsDataURL(userImage);
+      //   setImgFile(userImage)
+    };
+  
+    const userNicknameChangeHandler = (e) => {
+      setUserNickname(e.target.value);
+    };
+    const genderChangeHandler = (gender) => {
+      setUserGender(gender);
+    };
+    const userAgeChangeHandler = (age) => {
+      setUserAge(age);
+    };
+  
+    // 뒤로가기 버튼 - 수정 취소
+    const cancel = () => {
+      // if (
+      //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
+      // ) {
+      history.goBack();
+      // }
+    };
+  
+    // 현재 접속한 보호자의 정보 불러오기
+    useEffect(() => {
+      dispatch(UserActions.getUserMD());
+      setUserNickname(userNickName);
+      setUserGender(userGender);
+      setUserAge(userAge);
+      setImgBase64(userImage);
+      setImgFile(userImage);
+    }, [userGender, userAge, userImage, userNickName]);
+  
+    // 수정하기 버튼 = 수정 완료
+    console.log(imgFile, user.user_image);
+    const update = () => {
+      console.log(imgFile);
+      const image = imgFile ? imgFile : user.user_image;
+      console.log(image);
+      const formData = new FormData();
+      formData.append("user_nickname", user_nickname);
+      formData.append("user_gender", user_gender);
+      formData.append("user_age", user_age);
+      formData.append("user_image", encodeURI(image));
+  
+      console.log(user_nickname, user_gender, user_age, imgFile);
+      // const userInfo = {
+      //   user_nickname,
+      //   user_gender,
+      //   user_age,
+      //   user_image: imgFile,
+      // };
+      dispatch(UserActions.updateUserMD(formData));
+    };
+  
+  // const dataURLToBlob = (dataURL) => {
+  //   const BASE64_MARKER = ';base64,'
+  
+  //   // base64로 인코딩 되어있지 않을 경우
+  //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
+  //     const parts = dataURL.split(',')
+  //     console.log(parts)
+  //     const contentType = parts[0].split('.')[4]
+  //     console.log(contentType)
+  //     const raw = parts[0]
+  //     console.log(raw)
+  //     return new Blob([raw], {
+  //       type: "",
+  //     })
+  //   }
+  //   // base64로 인코딩 된 이진데이터일 경우
+  //   const parts = dataURL.split(BASE64_MARKER)
+  //   const contentType = parts[0].split(':')[1]
+  //   const raw = window.atob(parts[1])
+  //   console.log(contentType)
+  //   // atob()는 Base64를 디코딩하는 메서드
+  //   const rawLength = raw.length
+  //   // 부호 없는 1byte 정수 배열을 생성
+  //   const uInt8Array = new Uint8Array(rawLength) // 길이만 지정된 배열
+  //   let i = 0
+  //   while (i < rawLength) {
+  //     uInt8Array[i] = raw.charCodeAt(i)
+  //     i++
+  //   }
+  //   return new Blob([uInt8Array], {
+  //     type: contentType,
+  //   })
+  // }
+  
 
+  
   return (
     <>
       <Wrap>

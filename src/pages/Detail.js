@@ -20,8 +20,9 @@ const { kakao } = window;
 const Detail = (props) => {
   
   const is_loading = useSelector((state) => state.post.is_loading)
+   
+  const get_id = localStorage.getItem("user_id")
   
-
   const postId =props.match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -199,14 +200,18 @@ const Detail = (props) => {
             <MapWrap>
               <Map id="map"/>
             </MapWrap>
-            <FlexButton>
-            <DeleteButton onClick={deletePost}>
-              삭제하기
-              </DeleteButton>
-            <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
-           수정하기
-              </EditButton>
-              </FlexButton>
+            {  get_id==post.user_id&&
+                <FlexButton>
+             
+                <DeleteButton onClick={deletePost}>
+                  삭제하기
+                  </DeleteButton>
+                <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
+               수정하기
+                  </EditButton>
+                  </FlexButton>
+            }
+         
           </DetailWrap>
  
         </DataWrap>

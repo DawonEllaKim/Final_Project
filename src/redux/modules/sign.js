@@ -11,18 +11,21 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const CHECK_DOG = "CHEKC_DOG";
 const LOADING = "LOADING";
+const GET_ID = "GET_ID"
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const checkDog = createAction(CHECK_DOG, (check_dog) => ({ check_dog }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
-
+const getId  = createAction(GET_ID,(get_id) => ({get_id}) )
 const initialState = {
   user: [],
   dog: [],
   check_dog: false,
   is_loading: true,
+  get_id: [],
+  is_login: false,
 };
 
 const logInMD = (user_email, password) => {
@@ -41,19 +44,35 @@ const logInMD = (user_email, password) => {
         const token = res.data.token;
         setCookie("token", token);
         localStorage.setItem("user_email", user_email);
-        dispatch(
-          setUser({
-            user_email: res.data.user_email,
-            password: res.data.password,
-          })
-        );
         dispatch(checkDogAPI());
-        dispatch(UserActions.getDogMD());
+        dispatch(UserActions.getUserMD());
         history.push("/check")
       })
       .catch((err) => {
         window.alert("로그인 오류");
         console.log(err);
+      });
+  };
+};
+const getIdAPI = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/users/giveUserId",
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data); // signup 정보 확인
+        dispatch(getId(res.data));
+      })
+      .catch((err) => {
+        console.log("getIDDog", err);
+        window.alert("오류 발생");
       });
   };
 };
@@ -156,34 +175,17 @@ const signDogAPI = (formData) => {
   };
 };
 
-const getDogAPI = () => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: "http://13.209.70.209/dog",
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
-      },
-    })
-      .then((res) => {
-        console.log(res.data); // signup 정보 확인
-        dispatch(setDog(res.data));
-      })
-      .catch((err) => {
-        console.log("getDogAPI에서 오류발생", err);
-        window.alert("오류 발생");
-      });
-  };
-};
+
 
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
+      }),
+    [GET_ID]: (state, action) =>
+      produce(state, (draft) => {
+        draft.get_id = action.payload.get_id;
       }),
     [SET_DOG]: (state, action) =>
       produce(state, (draft) => {
@@ -198,8 +200,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = null;
         draft.is_login = false;
-        localStorage.removeItem("username");
+        localStorage.removeItem("user_email");
+        localStorage.removeItem("date");
+        localStorage.removeItem("user_id");
         deleteCookie("token");
+        
       }),
     [CHECK_DOG]: (state, action) =>
       produce(state, (draft) => {
@@ -222,4 +227,5 @@ export const actionCreators = {
   logOut,
   signDupAPI,
   checkDogAPI,
+  getIdAPI,
 };

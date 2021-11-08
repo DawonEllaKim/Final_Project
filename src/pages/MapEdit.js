@@ -21,13 +21,14 @@ const MapEdit = (props) => {
   const [startDate, setStartDate] = useState(new Date(newDate)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
 
   const [wishDesc, setWishDesc] = useState(); //desc설명
+  const wish_desc = post.wish_desc;
   // useSelector, dispatch, 리덕스
   const postId = props.match.params.id;
   useEffect(() => {
     dispatch(postActions.getMapMD(postId));
-    setWishDesc(post.wish_desc);
+    setWishDesc(wish_desc);
     
-  }, []);
+  }, [wish_desc]);
   
   console.log(post);
   // const Zapmap = new Date("2021-05-22");
@@ -126,7 +127,7 @@ const MapEdit = (props) => {
         </Flex>
         <Text>소개/유의사항</Text>
         <Flex>
-          <TextArea value={wishDesc? wishDesc : post.wish_desc} onChange={wishHandler}></TextArea>
+          <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
         </Flex>
         <EndFlex>
           <Button onClick={editLocation}>산책 등록</Button>

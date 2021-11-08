@@ -75,7 +75,7 @@ const Main = (props) => {
 
       {/* 일러스트 슬라이드 */}
       <div>
-        <StyledSlider {...settings}>
+        {/* <StyledSlider {...settings}>
           <div>
             <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
           </div>
@@ -85,7 +85,7 @@ const Main = (props) => {
           <div>
             <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
           </div>
-        </StyledSlider>
+        </StyledSlider> */}
       </div>
 
       {/* 사이드 바*/}
