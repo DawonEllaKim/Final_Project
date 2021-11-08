@@ -2,31 +2,34 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+
 // 컴포넌츠
 import NavBar from "../components/NavBar";
+
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 
-// 지도
+import Button from "../elements/Button";
 
 // 리액트 아이콘
-import { GrNotification } from "react-icons/gr";
-import { IoIosArrowBack } from "react-icons/io";
-import { BsGenderMale } from "react-icons/bs";
-import { BsGenderFemale } from "react-icons/bs";
-const { kakao } = window;
-const Detail = (props) => {
- 
+import notification from "../image/Notification.png";
+import backward from "../image/backward.png";
 
-  const postId =props.match.params.id;
+const { kakao } = window;
+
+const Detail = (props) => {
+  const postId = props.match.params.id;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
   }, []);
+
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;
+
   useEffect(() => {
     // 지도를 표시할 div
     var mapContainer = document.getElementById("map"),
@@ -63,21 +66,13 @@ const Detail = (props) => {
     infowindow.open(map, marker);
   }, [latitude, longitude]);
 
-
-
-
-  
-  // 포스트에 필요한 정보들 불러오기 준비
-
-   console.log(postId)
-   console.log(post)
-
   // 유저 정보
   const userImage = post.user_image;
   const userNickname = post.user_nickname;
   const userAge = post.user_age;
   const userGender = post.user_gender;
-  console.log(userImage)
+  console.log(userImage);
+
   // 강아지 정보
   const dogImage = post.dog_image;
   const dogName = post.dog_name;
@@ -88,22 +83,16 @@ const Detail = (props) => {
   const dogBreed = post.dog_breed;
   const dogComment = post.dog_comment;
   const location = post.location_category;
-  console.log(post.latitude,post.longitude)
+  console.log(post.latitude, post.longitude);
+
   // 산책 정보
   const meetingDate = post.meeting_date;
-  // const initialDate = meetingDate.split("T")[0];
-  // const year = initialDate.split("-")[0];
-  // const month = initialDate.split("-")[1];
-  // const day = initialDate.split("-")[2];
-  // const initialTime = meetingDate.split("T")[1];
-  // const hour = initialTime.split(":")[0];
-  // const minute = initialTime.split(":")[1];
   const completed = post.completed;
+  console.log(post);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
-
 
   return (
     <>
@@ -111,17 +100,17 @@ const Detail = (props) => {
       <Wrap>
         {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
         <Header>
-          <span
+          <Button
             onClick={() => {
               history.goBack();
             }}
           >
-            <IoIosArrowBack style={{ width: "20px", height: "20px" }} />
-          </span>
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
           <p>상세 페이지</p>
-          <span>
-            <GrNotification style={{ width: "20px", height: "20px" }} />
-          </span>
+          <Button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </Button>
         </Header>
 
         {/* 게시물 올린 보호자의 정보 */}
@@ -131,15 +120,16 @@ const Detail = (props) => {
             <UserImage src={userImage} />
             <UserData>
               <span>{userNickname}</span>
-              <p>
+              <span style={{ color: " #5f5f5f" }}>
                 {userAge}, {userGender}
-              </p>
+              </span>
             </UserData>
           </UserLeft>
+
           {/* 마감 여부, 게시물 수정, 삭제버튼 */}
           <UserRight>
             {/* 모집 마감 데이터가 불린형으로 true이면 마감 false이면 진행중 */}
-            <Completed >{completed ? "마감" : "진행중"}</Completed>
+            <button>{completed ? "마감" : "진행중"}</button>
             {/* <Edit onClick={() => history.push(`/write/${postId}`)}>
               수정하기
             </Edit> */}
@@ -151,60 +141,62 @@ const Detail = (props) => {
         <DogImage src={dogImage} />
 
         {/* 산책 정보 */}
-        <DataWrap>
-          <DetailWrap>
-            {/* 강아지 정보 */}
-            <div>
-              {/* 강아지 이름, 강아지 나이, 강아지 소개 */}
-              <DogInfo>
-                <span>
-                  {dogName}, {dogAge}
-                </span>
-                <p>{dogComment}</p>
-              </DogInfo>
-              {/* 강아지 카테고리 모음 */}
-              <DogCategory>
-                <div>{dogSize}</div>
-                <div>
-                  {dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}
-                </div>
-                <div>{neutral === true ? "중성화O" : "중성화X"}</div>
-                <div>{dogBreed}</div>
-              </DogCategory>
-            </div>
-            <Line />
 
-            {/* 예약 시간 */}
-            <TimeWrap>
-              <Title>예약 시간</Title>
-              <MeetingTime>
-                {meetingDate}
-              </MeetingTime>
-            </TimeWrap>
-            <Line />
+        <DetailWrap>
+          {/* 강아지 정보 */}
+          <DogWrap>
+            {/* 강아지 이름, 강아지 나이, 강아지 소개 */}
+            <DogInfo>
+              <span>
+                {dogName} / {dogAge}
+              </span>
+              <span
+                style={{
+                  color: "#5c5c5c",
+                  fontWeight: "normal",
+                  marginBottom: "12px",
+                }}
+              >
+                {dogBreed}
+              </span>
+            </DogInfo>
+            {/* 강아지 카테고리 모음 */}
+            <DogCategory>
+              <div>{dogSize}</div>
+              <div>{dogGender === "남" ? "남아" : "여아"}</div>
+              <div>{neutral === true ? "중성화O" : "중성화X"}</div>
+            </DogCategory>
+            <Comment>{dogComment}</Comment>
+          </DogWrap>
+          <Line />
 
-            {/* 예약 장소 */}
-            <LocationWrap>
-              <Title>예약 장소</Title>
-              <MeetingLocation>{location}</MeetingLocation>
-            </LocationWrap>
-            <Line />
+          {/* 예약 시간 */}
+          <TimeWrap>
+            <Title>예약 시간</Title>
+            <MeetingTime>{meetingDate}</MeetingTime>
+          </TimeWrap>
+          <Line />
 
-            {/* 지도 */}
-            <MapWrap>
-              <Map id="map"/>
-            </MapWrap>
-            <FlexButton>
-            <DeleteButton onClick={deletePost}>
-              삭제하기
-              </DeleteButton>
-            <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
+          {/* 예약 장소 */}
+          <LocationWrap>
+            <Title>예약 장소</Title>
+            <MeetingLocation>{location}</MeetingLocation>
+          </LocationWrap>
+          <Line />
+
+          {/* 지도 */}
+          <MapWrap>
+            <Map id="map" />
+          </MapWrap>
+
+          {/* 버튼 */}
+          <FlexButton>
+            <button onClick={deletePost}>삭제하기</button>
+            <button onClick={() => history.push(`/mapEdit/${postId}`)}>
               수정하기
-              </EditButton>
-              </FlexButton>
-          </DetailWrap>
- 
-        </DataWrap>
+            </button>
+          </FlexButton>
+        </DetailWrap>
 
         {/* 고정 버튼들 */}
         <NavBar />
@@ -215,66 +207,193 @@ const Detail = (props) => {
 };
 
 const Wrap = styled.div`
+  box-sizing: border-box;
+
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   max-width: 390px;
-  margin: 0 auto;
+  margin: auto;
+  padding: 0 20px;
+
   font-size: 14px;
   text-align: center;
 `;
+
 const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 29px 33px 31px 39px;
-  span {
-    cursor: pointer;
-  }
+  width: 350px;
+  height: 52px;
+  margin-bottom: 18px;
+  font-size: 18px;
 `;
-const DataWrap = styled.div`
-  position: relative;
-  top: -100px;
-  left: 0;
-  width: 100%;
-`;
+
 const UserWrap = styled.div`
-  position: relative;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
+  align-items: center;
+  width: 350px;
+  height: 48px;
+  margin-bottom: 13px;
 `;
+
 const UserLeft = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
 `;
+
 const UserImage = styled.img`
-  position: relative;
+  /* position: relative; */
   width: 48px;
   height: 48px;
-  margin-right: 15.5px;
+  margin-right: 17px;
   border-radius: 50%;
 `;
+
 const UserData = styled.div`
-  position: relative;
+  /* position: relative; */
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   font-size: 16px;
-  z-index: -1;
-  p {
-    color: #5f5f5f;
-  }
+  color: #000;
 `;
+
 const UserRight = styled.div`
   width: 76px;
   height: 40px;
   padding: 11px;
+  button {
+    width: 76px;
+    height: 40px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 20px;
+    font-size: 14px;
+  }
 `;
-const Completed = styled.button`
-  width: 76px;
-  height: 40px;
-  padding: 11px;
-  border: none;
+
+const DogImage = styled.img`
+  /* position: relative; */
+  width: 352px;
+  height: 230px;
+  margin-bottom: 34px;
+  border-radius: 20px;
+  z-index: 10;
+`;
+
+const DetailWrap = styled.div``;
+
+const DogWrap = styled.div`
+  width: 100%;
+  height: 160px;
+`;
+const DogInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  font-size: 16px;
+  color: #000;
+
+  span {
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+`;
+
+const DogCategory = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 218px;
+  height: 32px;
+  margin: 0 auto 38px auto;
+
+  div {
+    width: 68px;
+    height: 32px;
+    margin-right: 7px;
+    line-height: 32px;
+
+    background-color: #9de8df;
+    border: 2px solid #000;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+`;
+
+const Comment = styled.div`
+  font-size: 16px;
+`;
+
+const Line = styled.hr`
+  /* display: block; */
+  width: 88px;
+  border: 0.25px solid #000;
+  margin: 26px auto;
+`;
+const Title = styled.div`
+  margin-bottom: 8px;
+`;
+const TimeWrap = styled.div`
+  font-size: 16px;
+`;
+const MeetingTime = styled.div`
+  font-size: 16px;
+`;
+const LocationWrap = styled.div`
+  font-size: 16px;
+`;
+const MeetingLocation = styled.div``;
+
+const MapWrap = styled.div``;
+
+const FlexButton = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  height: 52px;
+  margin: 30px auto 130px auto;
+
+  button {
+    width: 160px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 2px solid #000;
+    box-shadow: 0 4px 0px #000;
+    cursor: pointer;
+  }
+`;
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 160px;
+  height: 48px;
+  border-radius: 10px;
+`;
+const EditButton = styled.button`
+  cursor: pointer;
+  width: 160px;
+  height: 48px;
+  border-radius: 10px;
+`;
+const Map = styled.div`
+  width: 350px;
+  height: 207px;
   border-radius: 20px;
 `;
 const Edit = styled.button`
@@ -291,79 +410,5 @@ const Delete = styled.button`
   border: none;
   border-radius: 20px;
   cursor: pointer;
-`;
-const DogImage = styled.img`
-  position: relative;
-  width: 341px;
-  height: 230px;
-  z-index: 10;
-`;
-const DetailWrap = styled.div`
-  background-color: #ebebeb;
-  border-radius: 30px 30px 0 0;
-  padding: 20px 20px 140px 20px;
-  z-index: -10;
-`;
-const DogDesc = styled.div``;
-const DogInfo = styled.div`
-  margin: 108px 0 27px 0;
-  font-size: 16px;
-  span {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-`;
-const DogCategory = styled.div`
-  display: flex;
-  justify-content: space-around;
-  div {
-    width: 63px;
-    height: 32px;
-    line-height: 32px;
-    background-color: #c4c4c4;
-    border-radius: 20px;
-    font-size: 14px;
-  }
-`;
-const Line = styled.span`
-  display: block;
-  width: 80px;
-  border: 1px solid #dbdbdb;
-  margin: 20px auto;
-`;
-const Title = styled.div`
-  margin-bottom: 8px;
-`;
-const TimeWrap = styled.div``;
-const MeetingTime = styled.div``;
-const LocationWrap = styled.div``;
-const MeetingLocation = styled.div``;
-const MapWrap = styled.div`
-  border: 1px solid #e6e6e6;
-  border-radius: 20px;
-`;
-const FlexButton = styled.div
-`
-margin-top:20px;
-display:flex;
-justify-content:space-around;
-`
-const DeleteButton = styled.button
-`
-cursor:pointer;
-width: 160px;
-height: 48px;
-border-radius:10px;
-`
-const EditButton = styled.button
-`
-cursor:pointer;
-width: 160px;
-height: 48px;
-border-radius:10px;
-`
-const Map = styled.div`
-  width: 100%;
-  height: 600px;
 `;
 export default Detail;
