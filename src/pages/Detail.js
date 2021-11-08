@@ -90,6 +90,7 @@ const Detail = (props) => {
   const completed = post.completed;
   console.log(post);
 
+  console.log(postId);
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
@@ -222,7 +223,6 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-
 const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -233,7 +233,6 @@ const Header = styled.div`
   margin: 46px auto 18px auto;
   font-size: 18px;
 `;
-
 const UserWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -243,7 +242,6 @@ const UserWrap = styled.div`
   height: 48px;
   margin-bottom: 13px;
 `;
-
 const UserLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -251,7 +249,6 @@ const UserLeft = styled.div`
   align-items: center;
   height: 48px;
 `;
-
 const UserImage = styled.img`
   /* position: relative; */
   width: 48px;
@@ -259,7 +256,6 @@ const UserImage = styled.img`
   margin-right: 17px;
   border-radius: 50%;
 `;
-
 const UserData = styled.div`
   /* position: relative; */
 
@@ -270,7 +266,6 @@ const UserData = styled.div`
   font-size: 16px;
   color: #000;
 `;
-
 const UserRight = styled.div`
   width: 76px;
   height: 40px;
@@ -284,7 +279,6 @@ const UserRight = styled.div`
     font-size: 14px;
   }
 `;
-
 const DogImage = styled.img`
   /* position: relative; */
   width: 352px;
@@ -293,7 +287,6 @@ const DogImage = styled.img`
   border-radius: 20px;
   z-index: 10;
 `;
-
 const DetailWrap = styled.div``;
 
 const DogWrap = styled.div`
@@ -313,7 +306,6 @@ const DogInfo = styled.div`
     font-weight: bold;
   }
 `;
-
 const DogCategory = styled.div`
   display: flex;
   flex-direction: row;
@@ -335,11 +327,9 @@ const DogCategory = styled.div`
     font-size: 14px;
   }
 `;
-
 const Comment = styled.div`
   font-size: 16px;
 `;
-
 const Line = styled.hr`
   /* display: block; */
   width: 88px;
