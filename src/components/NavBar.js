@@ -1,80 +1,108 @@
 import React from "react";
 import styled from "styled-components";
-
-import { AiOutlineHome } from "react-icons/ai";
-import { BsChatRightDots } from "react-icons/bs";
-import { BsPerson } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
-
 import { history } from "../redux/configureStore";
+
+// 아이콘
+import home from "../image/home.png";
+import chat from "../image/chat.png";
+import myPage from "../image/myPage.png";
+import addBtn from "../image/addBtn.png";
 
 const NavBar = (props) => {
   return (
     <>
-      <Footer>
-        <FooterLeft>
+      <Nav>
+        <NavLeft>
           <Button onClick={() => history.push("/")}>
-            <AiOutlineHome style={{ width: "20px", height: "20px" }} />
+            <img src={home} style={{ width: "20px", height: "20px" }} />
           </Button>
           <Button>
-            <BsChatRightDots style={{ width: "20px", height: "20px" }} />
+            <img src={chat} style={{ width: "20px", height: "20px" }} />
           </Button>
           <Button onClick={() => history.push("/mypage")}>
-            <BsPerson style={{ width: "20px", height: "20px" }} />
+            <img src={myPage} style={{ width: "20px", height: "20px" }} />
           </Button>
-        </FooterLeft>
+        </NavLeft>
 
-        <FooterRight>
+        <NavRight>
           <Button onClick={() => history.push("/map2")}>
-            <MdLocationOn style={{ width: "30px", height: "50px" }} />
+            <img src={addBtn} style={{ width: "60px", height: "60px" }} />
           </Button>
-        </FooterRight>
-      </Footer>
+        </NavRight>
+      </Nav>
+      <Bar>
+        <div />
+      </Bar>
     </>
   );
 };
 
-const Footer = styled.div`
+const Nav = styled.div`
   box-sizing: border-box;
-  width: 390px;
+  position: fixed;
+  bottom: 46px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  bottom: 1%;
-  padding: 20px;
+  width: 390 px;
+  height: 64px;
+  padding: 21px;
   z-index: 5;
 `;
-const FooterLeft = styled.div`
+
+const NavLeft = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 270px;
-  height: 15px;
-  padding: 20px;
+  width: 276px;
+  height: 60px;
+  margin-right: 12px;
+  padding: 6px 30px;
+  background-color: #fff;
   border-radius: 20px;
-
-
-
-  background-color: #5c5c5c;
-  border-radius: 20px;
+  border: 2px solid #000;
+  box-shadow: 0 4px 0px #000;
 `;
-const FooterRight = styled.div`
+
+const NavRight = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 60px;
   height: 60px;
-  background-color: #5c5c5c;
+  background-color: #000;
   border-radius: 50%;
+  box-shadow: 0 4px 0px #000;
 `;
+
 const Button = styled.button`
   background-color: transparent;
   border: none;
   color: white;
   cursor: pointer;
+`;
+
+const Bar = styled.div`
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: bottom;
+  width: 390px;
+  height: 36px;
+  background-color: #fff;
+
+  div {
+    width: 134px;
+    height: 5px;
+    margin-top: 23px;
+    background-color: #000;
+    border-radius: 100px;
+  }
 `;
 
 export default NavBar;
