@@ -20,31 +20,6 @@ const initialState = {
   is_login: false,
 };
 
-const signUserAPI = (formData) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "POST",
-      url: "http://13.209.70.209/users/signUp",
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data; ",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
-      },
-    })
-      .then((res) => {
-        console.log(res); // signup 정보 확인
-        dispatch(setUser(formData));
-        history.push("/signDog");
-      })
-      .catch((err) => {
-        console.log("signupAPI에서 오류발생", err);
-        window.alert("오류 발생");
-      });
-  };
-};
-
 const logInMD = (user_email, password) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -102,6 +77,7 @@ const signUserAPI = (formData) => {
       });
   };
 };
+
 const signDupAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -127,7 +103,7 @@ const signDupAPI = (formData) => {
   };
 };
 
-const signDogAPI = (DogInfo) => {
+const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -152,6 +128,7 @@ const signDogAPI = (DogInfo) => {
       });
   };
 };
+
 const getDogAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({

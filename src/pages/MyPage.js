@@ -13,7 +13,9 @@ import { history } from "../redux/configureStore";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
-  const pageList = useSelector((state) => state.user.page);
+  const pageList = useSelector((state) => state.post.list);
+  console.log(pageList);
+  const userInfo = useSelector((state) => state.user.page);
 
   useEffect(() => {
     dispatch(userActions.getMypageMD());
@@ -34,11 +36,11 @@ const MyPage = (props) => {
       <DogImage></DogImage>
       <DataWrap>
         <UserWrap>
-          <UserImage src={pageList.user_image}></UserImage>
+          <UserImage src={userInfo.user_image}></UserImage>
           <UserData>
-            <Username>{pageList.user_nickname}</Username>
+            <Username>{userInfo.user_nickname}</Username>
             <Userdetail>
-              {pageList.user_age},{pageList.user_gender}
+              {userInfo.user_age},{userInfo.user_gender}
             </Userdetail>
           </UserData>
         </UserWrap>
@@ -66,7 +68,15 @@ const MyPage = (props) => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
-          <Card post={pageList} />
+          {pageList.length === 0 ? (
+            <NoCard>등록된 산책 목록이 없습니다.</NoCard>
+          ) : (
+            <div>
+              {pageList.map((post, index) => {
+                <Card post={post} key={index} />;
+              })}
+            </div>
+          )}
         </CardWrap>
       </DataWrap>
       <NavBar />
@@ -74,6 +84,15 @@ const MyPage = (props) => {
   );
 };
 
+const NoCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
+`;
 const Wrap = styled.div`
   position: relative;
   max-width: 390px;

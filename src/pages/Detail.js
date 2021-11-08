@@ -19,8 +19,6 @@ const { kakao } = window;
 const Detail = (props) => {
   const postId = props.match.params.id;
   const dispatch = useDispatch();
-
-  const postId = props.match.params.id;
   console.log(postId);
 
   const post = useSelector((state) => state.post.list);

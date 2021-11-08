@@ -86,16 +86,11 @@ const getPostMD = (postId) => {
         // const hour = initialTime.split(":")[0];
         // const minute = initialTime.split(":")[1];
         res.data.posts.meeting_date =
-          year +
-          "년 " +
-          month +
-          "월 " +
-          day +
-          "일 " 
-          // hour +
-          // "시 " +
-          // minute +
-          // "분";
+          year + "년 " + month + "월 " + day + "일 ";
+        // hour +
+        // "시 " +
+        // minute +
+        // "분";
         // res.data.mapedit_date =
         //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
         const postList = res.data.posts;
@@ -162,8 +157,17 @@ const getMapMD = (postId) => {
 
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
-    apis
-      .createPostAX(post)
+    axios({
+      method: "POST",
+      url: "http://13.209.70.209/posts/write",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
       .then((res) => {
         console.log(res);
         dispatch(addPost(post));

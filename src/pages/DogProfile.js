@@ -13,20 +13,25 @@ import { MdArrowBackIosNew } from "react-icons/md";
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
-  console.log(dog);
   const dog_id = dog.dog_id;
+  console.log(dog.dog_image);
+  const endocoding = window.btoa("dd");
+  const decodedString = window.atob(endocoding);
+  console.log(decodedString);
 
   // 이미지
-  const [imgBase64, setImgBase64] = useState(); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(dog.dog_image && dog.dog_image); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
 
-  const [dogName, setDogName] = useState(() => dog.dog_name);
-  const [dogBreed, setDogBreed] = useState(() => dog.dog_breed);
+  const [dogName, setDogName] = useState(dog.dog_name ? dog.dog_name : "");
+  const [dogBreed, setDogBreed] = useState(dog.dog_breed ? dog.dog_breed : "");
   const [dogSize, setDogSize] = useState();
   const [dogGender, setDogGender] = useState();
   const [dogAge, setDogAge] = useState();
   const [neutral, setNeutral] = useState();
-  const [dogComment, setDogComment] = useState(() => dog.dog_comment);
+  const [dogComment, setDogComment] = useState(
+    dog.dog_comment ? dog.dog_comment : ""
+  );
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -36,7 +41,6 @@ const EditDog = (props) => {
       const base64 = reader.result;
       if (base64) {
         setImgBase64(base64.toString());
-        // console.log(base64);
       }
     };
 
@@ -46,12 +50,10 @@ const EditDog = (props) => {
     }
   };
   const dogNameChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    setDogName(newTitle);
+    setDogName(e.target.value);
   };
   const dogBreedChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    setDogBreed(newTitle);
+    setDogBreed(e.target.value);
   };
   const dogSizeChangeHandler = (dogSize) => {
     setDogSize(dogSize);
@@ -66,8 +68,7 @@ const EditDog = (props) => {
     setDogAge(dogAge);
   };
   const dogCommentChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    setDogComment(newTitle);
+    setDogComment(e.target.value);
   };
 
   const update = () => {
@@ -80,25 +81,29 @@ const EditDog = (props) => {
     formData.append("dog_age", dogAge);
     formData.append("dog_comment", dogComment);
     formData.append("dog_image", imgFile);
-    // const dogInfo = {
-    //   dog_name: dogName,
-    //   dog_breed: dogBreed,
-    //   dog_size: dogSize,
-    //   dog_gender: dogGender,
-    //   neutral,
-    //   dog_age: dogAge,
-    //   dog_comment: dogComment,
-    // };
     dispatch(DogActions.updateDogMD(dog_id, formData));
   };
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
+    setImgBase64(dog.dog_image);
+    setDogName(dog.dog_name);
+    setDogBreed(dog.dog_breed);
     setDogSize(dog.dog_size);
     setDogGender(dog.dog_gender);
     setNeutral(dog.neutral);
     setDogAge(dog.dog_age);
-  }, [dog.dog_size, dog.dog_gender, dog.neutral, dog.dog_age]);
+    setDogComment(dog.dog_comment);
+  }, [
+    dog.dog_image,
+    dog.dog_name,
+    dog.dog_breed,
+    dog.dog_size,
+    dog.dog_gender,
+    dog.neutral,
+    dog.dog_age,
+    dog.dog_comment,
+  ]);
 
   return (
     <Wrap>
@@ -122,14 +127,12 @@ const EditDog = (props) => {
       {/* 강아지 사진 */}
       <ImageWrap>
         <Preview src={imgBase64}></Preview>
-        {/* <AddWrap> */}
         <AddImage
           type="file"
           name="imgFile"
           id="imgFile"
           onChange={handleChangeFile}
         />
-        {/* </AddWrap> */}
       </ImageWrap>
 
       {/* 강아지 이름 */}

@@ -71,8 +71,7 @@ const getUserMD = () => {
       },
     })
       .then((res) => {
-        console.log(res.data); // user 정보 확인
-
+        console.log(res.data.user); // user 정보 확인
         dispatch(getUser(res.data.user[0]));
       })
       .catch((err) => {
