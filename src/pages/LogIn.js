@@ -8,6 +8,8 @@ import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
 
+import logo from "../image/logo.png";
+
 import { KAKAO_AUTH_URL } from "../components/OAuth";
 // const { Kakao } = window;
 
@@ -17,11 +19,11 @@ const LogIn = (props) => {
   const [password, setPassword] = useState("");
 
   const userEmailChangeHandler = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setUserEmail(e.target.value);
   };
   const passwordChangeHandler = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setPassword(e.target.value);
   };
 
@@ -70,12 +72,10 @@ const LogIn = (props) => {
   //   });
   // };
 
-  // const loginWithKakao = () => {};
-
   return (
     <>
       <Wrap>
-        <Logo></Logo>
+        <Logo src={logo} />
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -118,26 +118,25 @@ const Wrap = styled.div`
   margin: 0 auto;
 `;
 const Logo = styled.img`
-  width: 120px;
-  height: 120px;
-  border: 1px solid blue;
-  box-sizing: border-box;
-  margin: 50px auto;
+  width: 132px;
+  height: 196px;
+  margin: 50px auto 46px auto;
 `;
 const InputBox = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
-  width: 350x;
-  background-color: #ebebeb;
-  border-radius: 10px;
+  width: 280x;
+  height: 60px;
   padding: 10px 20px;
-  margin-top: 16px;
+  margin-bottom: 16px;
+  border: 2px solid #000;
+  border-radius: 14px;
 `;
 
 const InputText = styled.input`
   width: 100%;
   border: 0;
-  background-color: #ebebeb;
   padding: 10px 0;
   margin-left: 16px;
   &:focus {
@@ -145,24 +144,32 @@ const InputText = styled.input`
   }
 `;
 const LoginBtn = styled.button`
-  display: block;
+  box-sizing: border-box;
   width: 100%;
-  border: none;
-  background-color: #c4c4c4;
-  border-radius: 24px;
   padding: 12px;
-  margin: 32px 0;
+  margin: 24px auto 34px auto;
+  background-color: #ff5656;
+  border: 2px solid #000;
+  border-radius: 24px;
+  font-size: 16px;
+  box-shadow: 0 4px 0px #000;
   cursor: pointer;
 `;
 const SignupBtn = styled.button`
+  margin-bottom: 38px;
+  font-size: 14px;
+
   border: none;
   background-color: transparent;
   cursor: pointer;
 `;
 const KakaoLogin = styled.img`
   width: 100%;
-  margin: 36px 0;
+  margin: auto;
   cursor: pointer;
+  border: 2px solid #000;
+  border-radius: 12px;
+  box-shadow: 0 4px 0px #000;
 `;
 
 export default LogIn;
