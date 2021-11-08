@@ -9,6 +9,9 @@ import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
 
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+
 const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
@@ -102,16 +105,6 @@ const SignUp = () => {
       return;
     }
 
-    // let UserInfo = {
-    //   user_email,
-    //   password,
-    //   confirm_password,
-    //   user_nickname,
-    //   user_gender,
-    //   user_age,
-    //   // user_image: imgFile,
-    // };
-
     const formData = new FormData();
     formData.append("user_email", user_email);
     formData.append("password", password);
@@ -136,22 +129,19 @@ const SignUp = () => {
   return (
     <>
       <Wrap>
-        <TopWrap>
-          <MdArrowBackIosNew
-            style={{
-              width: "20px",
-              height: "20px",
-              position: "absolute",
-              bottom: "10px",
-              left: "0",
-              cursor: "pointer",
-            }}
+        {/* 뒤로가기 버튼 + 회원가입 텍스트 */}
+        <Header>
+          <Button
             onClick={() => {
               history.goBack();
             }}
-          />
-          <TopTitle>회원가입</TopTitle>
-        </TopWrap>
+          >
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
+          <p style={{ marginRight: "150px" }}>회원가입</p>
+        </Header>
+
+        {/* 유저 사진 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
@@ -160,39 +150,41 @@ const SignUp = () => {
               name="imgFile"
               id="imgFile"
               onChange={handleChangeFile}
-            ></AddImage>
+            />
           </AddWrap>
         </ImageWrap>
+
         <UserWrap>
-          <IdWrap>
-            <UserId
+          <Input style={{ width: "241px" }}>
+            <InputText
               placeholder="이메일 입력 "
               onChange={userEmailChangeHandler}
-            ></UserId>
-          </IdWrap>
+            />
+          </Input>
           <IdCheck onClick={() => dispatch(UserActions.signDupAPI(user_email))}>
             중복확인
           </IdCheck>
         </UserWrap>
-        <Filter>
-          <Password
+        <Input>
+          <InputText
             placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
             onChange={passwordChangeHandler}
-          ></Password>
-        </Filter>
-        <Filter>
-          <PasswordCheck
+          />
+        </Input>
+        <Input>
+          <InputText
             placeholder="패스워드 확인"
             onChange={confirmPasswordChangeHandler}
-          ></PasswordCheck>
-        </Filter>
-        <Filter>
-          <Nickname
+          />
+        </Input>
+
+        <Input>
+          <InputText
             placeholder="닉네임 입력"
             onChange={userNicknameChangeHandler}
-          ></Nickname>
-        </Filter>
-        <Filter>
+          />
+        </Input>
+        <Input>
           <Title>성별</Title>
           <FlexWrap>
             <Flex>
@@ -220,9 +212,9 @@ const SignUp = () => {
               <Label htmlFor="g">여</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
+        </Input>
 
-        <Filter>
+        <Input>
           <Title>나이대</Title>
           <FlexWrap>
             <Flex>
@@ -274,24 +266,22 @@ const SignUp = () => {
               <Label htmlFor="40">40대 이상</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
+        </Input>
 
         <ButtonWrap>
-          <Add onClick={submitUserInfo}>반려견 등록하기</Add>
-          <Cancle
+          <button onClick={submitUserInfo}>반려견 등록하기</button>
+          <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
-          </Cancle>
+          </button>
         </ButtonWrap>
       </Wrap>
     </>
   );
 };
-
-export default SignUp;
 
 const Wrap = styled.div`
   text-align: center;
@@ -301,24 +291,27 @@ const Wrap = styled.div`
   font-size: 14px;
 `;
 
-const TopWrap = styled.div`
-  position: relative;
-  padding: 10px;
-`;
-const TopTitle = styled.div`
-  font-size: 16px;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+  height: 52px;
+  margin-bottom: 18px;
+  font-size: 18px;
 `;
 
 const ImageWrap = styled.div`
   margin: 20px 0;
 `;
 const Preview = styled.img`
+  box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 1px solid #e6e6e6;
-  box-sizing: border-box;
-  border-radius: 20px;
-  margin: 0 auto;
+  border: 2px solid #000;
+  border-radius: 14px;
+  margin: auto;
 `;
 const AddWrap = styled.div``;
 const AddImage = styled.input`
@@ -330,39 +323,43 @@ const UserWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const IdWrap = styled.div`
-  width: 240px;
-  background-color: #ebebeb;
-  border-radius: 10px;
-  padding: 12px 24px;
-  margin-bottom: 20px;
-  text-align: left;
-`;
-const UserId = styled.input`
+// const Input = styled.div`
+//   width: 240px;
+//   background-color: #ebebeb;
+//   border-radius: 10px;
+//   padding: 12px 24px;
+//   margin-bottom: 20px;
+//   text-align: left;
+// `;
+const InputText = styled.input`
   width: 100%;
   border: 0;
-  background-color: #ebebeb;
+
   padding: 10px 0;
   &:focus {
     outline: none;
   }
 `;
 const IdCheck = styled.button`
-  width: 80px;
-  height: 59px;
-  border: none;
-  background-color: #c4c4c4;
-  border-radius: 10px;
+  box-sizing: border-box;
+  width: 81px;
+  height: 60px;
+  border: 2px solid #000;
+  background-color: #9de8df;
+  border-radius: 14px;
   cursor: pointer;
 `;
 
-const Filter = styled.div`
-  background-color: #ebebeb;
-  border-radius: 10px;
+const Input = styled.div`
+  box-sizing: border-box;
   padding: 12px 24px;
+  border: 2px solid #000;
+  border-radius: 15px;
   margin-bottom: 20px;
   text-align: left;
+  font-size: 16px;
 `;
+
 const Title = styled.div`
   margin-bottom: 15px;
 `;
@@ -389,25 +386,6 @@ const Password = styled.input`
     outline: none;
   }
 `;
-const PasswordCheck = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Nickname = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
 
 const UserGender = styled.input``;
 const UserAge = styled.input``;
@@ -415,20 +393,14 @@ const UserAge = styled.input``;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  button {
+    width: 160px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 2px solid #000;
+    box-shadow: 0 4px 0px #000;
+    cursor: pointer;
+  }
 `;
-const Add = styled.button`
-  width: 160px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-  background-color: #c4c4c4;
-  cursor: pointer;
-`;
-const Cancle = styled.button`
-  width: 160px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-  background-color: #c4c4c4;
-  cursor: pointer;
-`;
+export default SignUp;
