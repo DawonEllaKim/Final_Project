@@ -3,21 +3,26 @@ import { produce } from "immer";
 import axios from "axios";
 import { apis } from "../../lib/axios";
 import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
-
+import { useDispatch } from "react-redux";
+import { actionCreators as UserActions } from "./user";
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
-
+const CHECK_DOG = "CHEKC_DOG";
+const LOADING = "LOADING";
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
+const checkDog = createAction(CHECK_DOG, (check_dog) => ({ check_dog }));
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   user: [],
   dog: [],
-  is_login: false,
+  check_dog: false,
+  is_loading: true,
 };
 
 const logInMD = (user_email, password) => {
@@ -42,6 +47,8 @@ const logInMD = (user_email, password) => {
             password: res.data.password,
           })
         );
+        dispatch(checkDogAPI());
+        dispatch(UserActions.getDogMD());
       })
       .then(() => {
         window.alert("로그인됨");
@@ -69,7 +76,7 @@ const signUserAPI = (formData) => {
       .then((res) => {
         console.log(res); // signup 정보 확인
         dispatch(setUser(formData));
-        history.push("/signDog");
+        history.push("/login");
       })
       .catch((err) => {
         console.log("signupAPI에서 오류발생", err);
@@ -77,7 +84,29 @@ const signUserAPI = (formData) => {
       });
   };
 };
-
+const checkDogAPI = (formData) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/users/dog_exist",
+      data: {},
+      headers: {
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("user_login")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data); // signup 정보 확인
+        // localStorage.setItem("dog",res.data)
+        dispatch(checkDog(res.data));
+        dispatch(loading(false));
+      })
+      .catch((err) => {
+        console.log("checkDog에서 오류발생", err);
+      });
+  };
+};
 const signDupAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -119,6 +148,7 @@ const signDogAPI = (formData) => {
       .then((res) => {
         console.log(res); // signup 정보 확인
         dispatch(setDog(formData));
+        dispatch(UserActions.getDogMD());
         window.alert("축하합니다. 회원가입이 완료되었습니다");
         history.push("/");
       })
@@ -174,6 +204,14 @@ export default handleActions(
         localStorage.removeItem("username");
         deleteCookie("token");
       }),
+    [CHECK_DOG]: (state, action) =>
+      produce(state, (draft) => {
+        draft.check_dog = action.payload.check_dog;
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      }),
   },
 
   initialState
@@ -182,9 +220,9 @@ export default handleActions(
 export const actionCreators = {
   signUserAPI,
   signDogAPI,
-  getDogAPI,
   login,
   logInMD,
   logOut,
   signDupAPI,
+  checkDogAPI,
 };

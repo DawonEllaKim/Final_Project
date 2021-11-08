@@ -68,12 +68,17 @@ const MyPage = (props) => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
+
           {pageList.length === 0 ? (
             <NoCard>등록된 산책 목록이 없습니다.</NoCard>
           ) : (
             <div>
-              {pageList.map((post, index) => {
-                <Card post={post} key={index} />;
+              {pageList.map((page, index) => {
+                return (
+                  <div onClick={() => history.push(`/posts/${page.post_id}`)}>
+                    <Card index={index} key={index} post={page} />
+                  </div>
+                );
               })}
             </div>
           )}

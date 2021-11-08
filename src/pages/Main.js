@@ -6,7 +6,7 @@ import Slider from "react-slick";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import { actionCreators as UserActions } from "../redux/modules/user";
 // 컴포넌츠
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
@@ -26,7 +26,9 @@ import "slick-carousel/slick/slick-theme.css";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
-  console.log(postList);
+  const dog = useSelector((state) => state.user.dog);
+  console.log(dog);
+  // console.log(postList)
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -56,6 +58,7 @@ const Main = (props) => {
   // 게시물 불러오기
   useEffect(() => {
     dispatch(postActions.getMainMD());
+    dispatch(UserActions.getDogMD());
   }, []);
 
   return (
