@@ -108,14 +108,7 @@ const EditUser = (props) => {
         {/* 뒤로가기 버튼 + 회원정보 텍스트  */}
         <TopWrap>
           <Button _onClick={() => history.goBack()}>
-            <img
-              src={backward}
-              style={{
-                width: "36px",
-                height: "44px",
-                transform: "translateX(-2px)",
-              }}
-            />
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
           </Button>
           <TopTitle>회원 정보 수정</TopTitle>
           <Button>

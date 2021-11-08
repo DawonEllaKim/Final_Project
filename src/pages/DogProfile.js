@@ -114,18 +114,11 @@ const EditDog = (props) => {
     <Wrap>
       <TopWrap>
         <Button _onClick={() => history.goBack()}>
-          <img
-            src={backward}
-            style={{
-              width: "36px",
-              height: "44px",
-              transform: "translateX(-2px)",
-            }}
-          />
+          <img src={backward} style={{ width: "10px", height: "18px" }} />
         </Button>
         <TopTitle>반려견 정보 수정</TopTitle>
         <Button>
-          <img src={notification} style={{ paddingTop: "4px" }} />
+          <img src={notification} style={{ width: "24px", height: "24px" }} />
         </Button>
       </TopWrap>
 
