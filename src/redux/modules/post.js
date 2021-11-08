@@ -18,7 +18,7 @@ const DELETE_POST = "DELETE_POST";
 // action creators
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
-const getMap = createAction(GET_MAP, (map) => ({ map }));
+const getMap = createAction(GET_MAP, (map)=> ({map}))
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
@@ -51,7 +51,6 @@ const getMainMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        console.log(postList);
         dispatch(getMain(postList));
         // console.log("정보 불러오기 완료");
       })
@@ -72,7 +71,7 @@ const getPostMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("user_login")}`,
       },
     })
       .then((res) => {
@@ -86,11 +85,16 @@ const getPostMD = (postId) => {
         // const hour = initialTime.split(":")[0];
         // const minute = initialTime.split(":")[1];
         res.data.posts.meeting_date =
-          year + "년 " + month + "월 " + day + "일 ";
-        // hour +
-        // "시 " +
-        // minute +
-        // "분";
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 " 
+          // hour +
+          // "시 " +
+          // minute +
+          // "분";
         // res.data.mapedit_date =
         //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
         const postList = res.data.posts;
@@ -157,17 +161,8 @@ const getMapMD = (postId) => {
 
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
-    axios({
-      method: "POST",
-      url: "http://13.209.70.209/posts/write",
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
-      },
-    })
+    apis
+      .createPostAX(post)
       .then((res) => {
         console.log(res);
         dispatch(addPost(post));
@@ -219,7 +214,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.main = action.payload.main;
       }),
-    [GET_MAP]: (state, action) =>
+      [GET_MAP]: (state, action) =>
       produce(state, (draft) => {
         draft.map = action.payload.map;
       }),

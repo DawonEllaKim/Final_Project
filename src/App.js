@@ -29,7 +29,8 @@ function App() {
   return (
     <div className="App">
       <ConnectedRouter history={history}>
-        <Route exact path="/" component={CheckMain} />
+        <Route exact path="/" component={Main} />
+        <Route exact path="/check" component={CheckMain} />
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />

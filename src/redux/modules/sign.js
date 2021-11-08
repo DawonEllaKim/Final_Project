@@ -52,7 +52,7 @@ const logInMD = (user_email, password) => {
       })
       .then(() => {
         window.alert("로그인됨");
-        history.push("/");
+        history.push("/check");
       })
       .catch((err) => {
         window.alert("로그인 오류");

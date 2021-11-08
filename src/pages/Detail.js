@@ -17,10 +17,13 @@ import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 const { kakao } = window;
 const Detail = (props) => {
-  const postId = props.match.params.id;
-  const dispatch = useDispatch();
-  console.log(postId);
+ 
 
+  const postId =props.match.params.id;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(postActions.getPostMD(postId));
+  }, []);
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;
@@ -60,19 +63,21 @@ const Detail = (props) => {
     infowindow.open(map, marker);
   }, [latitude, longitude]);
 
+
+
+
+  
   // 포스트에 필요한 정보들 불러오기 준비
 
-  // 포스트에 필요한 정보들 불러오기 준비
-  console.log(useSelector((state) => state));
-  console.log(post);
+   console.log(postId)
+   console.log(post)
 
   // 유저 정보
   const userImage = post.user_image;
   const userNickname = post.user_nickname;
   const userAge = post.user_age;
   const userGender = post.user_gender;
-  console.log(userImage);
-
+  console.log(userImage)
   // 강아지 정보
   const dogImage = post.dog_image;
   const dogName = post.dog_name;
@@ -83,21 +88,26 @@ const Detail = (props) => {
   const dogBreed = post.dog_breed;
   const dogComment = post.dog_comment;
   const location = post.location_category;
-  console.log(post.latitude, post.longitude);
+  console.log(post.latitude,post.longitude)
   // 산책 정보
   const meetingDate = post.meeting_date;
+  // const initialDate = meetingDate.split("T")[0];
+  // const year = initialDate.split("-")[0];
+  // const month = initialDate.split("-")[1];
+  // const day = initialDate.split("-")[2];
+  // const initialTime = meetingDate.split("T")[1];
+  // const hour = initialTime.split(":")[0];
+  // const minute = initialTime.split(":")[1];
   const completed = post.completed;
-
-  useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-  }, []);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
 
+
   return (
     <>
+      {/* {post_info && ( */}
       <Wrap>
         {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
         <Header>
@@ -129,7 +139,7 @@ const Detail = (props) => {
           {/* 마감 여부, 게시물 수정, 삭제버튼 */}
           <UserRight>
             {/* 모집 마감 데이터가 불린형으로 true이면 마감 false이면 진행중 */}
-            <Completed>{completed ? "마감" : "진행중"}</Completed>
+            <Completed >{completed ? "마감" : "진행중"}</Completed>
             {/* <Edit onClick={() => history.push(`/write/${postId}`)}>
               수정하기
             </Edit> */}
@@ -167,7 +177,9 @@ const Detail = (props) => {
             {/* 예약 시간 */}
             <TimeWrap>
               <Title>예약 시간</Title>
-              <MeetingTime>{meetingDate}</MeetingTime>
+              <MeetingTime>
+                {meetingDate}
+              </MeetingTime>
             </TimeWrap>
             <Line />
 
@@ -180,22 +192,24 @@ const Detail = (props) => {
 
             {/* 지도 */}
             <MapWrap>
-              <Map id="map" />
+              <Map id="map"/>
             </MapWrap>
             <FlexButton>
-              <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
-              <EditButton
-                onClick={() => history.push(`/mapEdit/${post.post_id}`)}
-              >
-                수정하기
+            <DeleteButton onClick={deletePost}>
+              삭제하기
+              </DeleteButton>
+            <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
+              수정하기
               </EditButton>
-            </FlexButton>
+              </FlexButton>
           </DetailWrap>
+ 
         </DataWrap>
 
         {/* 고정 버튼들 */}
         <NavBar />
       </Wrap>
+      {/* )} */}
     </>
   );
 };
@@ -328,23 +342,26 @@ const MapWrap = styled.div`
   border: 1px solid #e6e6e6;
   border-radius: 20px;
 `;
-const FlexButton = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-`;
-const DeleteButton = styled.button`
-  cursor: pointer;
-  width: 160px;
-  height: 48px;
-  border-radius: 10px;
-`;
-const EditButton = styled.button`
-  cursor: pointer;
-  width: 160px;
-  height: 48px;
-  border-radius: 10px;
-`;
+const FlexButton = styled.div
+`
+margin-top:20px;
+display:flex;
+justify-content:space-around;
+`
+const DeleteButton = styled.button
+`
+cursor:pointer;
+width: 160px;
+height: 48px;
+border-radius:10px;
+`
+const EditButton = styled.button
+`
+cursor:pointer;
+width: 160px;
+height: 48px;
+border-radius:10px;
+`
 const Map = styled.div`
   width: 100%;
   height: 600px;
