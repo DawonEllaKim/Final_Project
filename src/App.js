@@ -23,12 +23,13 @@ import MapContainer3 from "./components/MapContainer3";
 import AddDate from "./components/AddDate";
 import MapEdit from "./pages/MapEdit";
 import EditMapContainer3 from "./components/EditMapContainer";
+import CheckMain from "./pages/CheckMain";
 
 function App() {
   return (
     <div className="App">
       <ConnectedRouter history={history}>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={CheckMain} />
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
@@ -49,7 +50,7 @@ function App() {
         <Route exact path="/addDate" component={AddDate} />
         <Route exact path = "/mapEdit/:id" component={MapEdit}/>
         <Route exact path = "/editMapContainer3/:id" component={EditMapContainer3}/>
-        
+  
       </ConnectedRouter>
     </div>
   );

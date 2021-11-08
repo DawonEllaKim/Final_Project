@@ -66,14 +66,14 @@ const MyPage = (props) => {
         </ProfileWrap>
         <CardWrap>
           <List>산책 목록</List>
-          {/* {pageList.map((page, index) => {
+          {pageList.map((page, index) => {
             return (
               <div onClick={() => history.push(`/posts/${page.post_id}`)}>
                 <Card index={index} key={index} post={page} />
               </div>
             );
-          })} */}
-           <Card  post={pageList} />
+          })}
+           {/* <Card  post={pageList} /> */}
         </CardWrap>
       </DataWrap>
       <NavBar />

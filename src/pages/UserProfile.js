@@ -18,8 +18,11 @@ const EditUser = (props) => {
   console.log(userGender)
   const userImage = user.user_image;
   const userNickName = user.user_nickname;
-  const user_image = user.user_image;
-  const [imgBase64, setImgBase64] = useState(user_image); // 파일 base64
+
+
+
+
+  const [imgBase64, setImgBase64] = useState(userImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [user_nickname, setUserNickname] = useState(userNickName?userNickName:'');
   const [user_gender, setUserGender] = useState('');
@@ -40,9 +43,9 @@ const EditUser = (props) => {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
-    else
-    reader.readAsDataURL(user_image);
-      setImgFile(user_image)
+    // else
+    // reader.readAsDataURL(userImage);
+    //   setImgFile(userImage)
     
   };
 
@@ -68,21 +71,27 @@ const EditUser = (props) => {
   // 현재 접속한 보호자의 정보 불러오기
   useEffect(() => {
     dispatch(UserActions.getUserMD());
-    setUserGender(userGender);
+    setUserNickname(userNickName)
+    setUserGender(userGender)
     setUserAge(userAge);
-    setImgBase64(user_image)
-    setImgFile(user_image)
-  }, [userGender, userAge,user_image]);  
-  console.log(imgFile)
+    setImgBase64(userImage)
+    setImgFile(userImage)
+  }, [userGender, userAge,userImage,userNickName]);  
+
   // 수정하기 버튼 = 수정 완료
+  console.log(imgFile,user.user_image)
   const update = () => {
     console.log(imgFile)
+    const image  = imgFile ? imgFile : user.user_image
+    console.log(image)
     const formData = new FormData();
     formData.append('user_nickname',user_nickname);
     formData.append('user_gender',user_gender);
     formData.append('user_age',user_age);
-    formData.append('user_image',imgFile);
-
+    formData.append('user_image',image);
+    
+  
+    console.log(user_nickname,user_gender,user_age,imgFile)
     // const userInfo = {
     //   user_nickname,
     //   user_gender,

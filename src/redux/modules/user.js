@@ -29,7 +29,7 @@ const updateDog = createAction(UPDATE_DOG, (dog) => ({ dog }));
 const initialState = {
   page: [],
   user: [],
-  dog: [],
+  dog: "",
 };
 
 const getMypageMD = () => {
@@ -47,7 +47,7 @@ const getMypageMD = () => {
     })
       .then((res) => {
         console.log(res.data);
-        dispatch(getMypage(res.data.posts[0]));
+        dispatch(getMypage(res.data.posts));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
@@ -125,6 +125,9 @@ const getDogMD = () => {
       .then((res) => {
         // console.log(res.data); // signup 정보 확인
         dispatch(getDog(res.data.posts[0]));
+        console.log(res.data.posts)
+        // if(res.data.posts.length)
+        // localStorage.setItem("dog",true)
       })
       .catch((err) => {
         // console.log("getDogMD에서 오류발생", err);
