@@ -6,6 +6,7 @@ import "../components/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
+import NavBar from "../components/NavBar";
 
 // 버튼 이미지
 import Button from "../elements/Button";
@@ -94,6 +95,7 @@ const Map2 = (props) => {
           <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
           <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
+      <NavBar />
     </Frame>
   );
 };
