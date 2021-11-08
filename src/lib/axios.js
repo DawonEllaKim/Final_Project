@@ -15,7 +15,7 @@ const instance = axios.create({
     // "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
     "Access-Control-Allow-Origin": "*",
-    authorization: `Bearer ${getCookie("user_login")}`,
+    authorization: `Bearer ${getCookie("token")}`,
   },
 });
 

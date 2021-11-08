@@ -7,7 +7,7 @@ import NavBar from "../components/NavBar";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import Spinner from '../shared/Spinner'
 // 지도
 
 // 리액트 아이콘
@@ -15,15 +15,18 @@ import { GrNotification } from "react-icons/gr";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
+import MapEdit from "./MapEdit";
 const { kakao } = window;
 const Detail = (props) => {
- 
+  
+  const is_loading = useSelector((state) => state.post.is_loading)
+  
 
   const postId =props.match.params.id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
-  }, []);
+  }, [postId]);
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;
@@ -104,7 +107,9 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId));
   };
 
-
+  if(is_loading) {
+    return <Spinner/>
+  }
   return (
     <>
       {/* {post_info && ( */}
@@ -199,7 +204,7 @@ const Detail = (props) => {
               삭제하기
               </DeleteButton>
             <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
-              수정하기
+           수정하기
               </EditButton>
               </FlexButton>
           </DetailWrap>

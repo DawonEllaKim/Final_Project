@@ -49,10 +49,7 @@ const logInMD = (user_email, password) => {
         );
         dispatch(checkDogAPI());
         dispatch(UserActions.getDogMD());
-      })
-      .then(() => {
-        window.alert("로그인됨");
-        history.push("/check");
+        history.push("/check")
       })
       .catch((err) => {
         window.alert("로그인 오류");
