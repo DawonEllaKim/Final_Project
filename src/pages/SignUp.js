@@ -305,6 +305,7 @@ const Header = styled.div`
 const ImageWrap = styled.div`
   margin: 20px 0;
 `;
+
 const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;

@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
 import { dogBreedCheck } from "../shared/check";
 
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+
 const SignDog = (props) => {
   const dispatch = useDispatch();
 
@@ -43,16 +46,6 @@ const SignDog = (props) => {
     formData.append("dog_comment", dog_comment);
     formData.append("dog_image", imgFile);
 
-    // let DogInfo = {
-    //   dog_gender,
-    //   dog_name,
-    //   dog_size,
-    //   dog_breed,
-    //   dog_age,
-    //   neutral,
-    //   dog_comment
-    // }
-    // Object.assign(DogInfo,signUser)
     dispatch(DogActions.signDogAPI(formData));
   };
 
@@ -127,22 +120,17 @@ const SignDog = (props) => {
   return (
     <>
       <Wrap>
-        <TopWrap>
-          <MdArrowBackIosNew
-            style={{
-              width: "20px",
-              height: "20px",
-              position: "absolute",
-              bottom: "10px",
-              left: "0",
-              cursor: "pointer",
-            }}
+        <Header>
+          <Button
             onClick={() => {
               history.goBack();
             }}
-          />
-          <TopTitle>반려견 등록하기</TopTitle>
-        </TopWrap>
+          >
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
+          <p style={{ marginRight: "150px" }}>회원가입</p>
+        </Header>
+
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
@@ -155,19 +143,19 @@ const SignDog = (props) => {
             {/* <AddBtn>이미지 등록하기</AddBtn> */}
           </AddWrap>
         </ImageWrap>
-        <Filter>
-          <DogName
+        <Input>
+          <InputText
             placeholder="강아지 이름 입력 "
             onChange={dogNameChangeHandler}
-          ></DogName>
-        </Filter>
-        <Filter>
-          <DogBreed
+          ></InputText>
+        </Input>
+        <Input>
+          <InputText
             placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
             onChange={dogBreedChangeHandler}
-          ></DogBreed>
-        </Filter>
-        <Filter>
+          ></InputText>
+        </Input>
+        <Input>
           <Title>크기</Title>
           <FlexWrap>
             <Flex>
@@ -206,8 +194,8 @@ const SignDog = (props) => {
               <Label htmlFor="l">대형견</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
-        <Filter>
+        </Input>
+        <Input>
           <Title>성별</Title>
           <FlexWrap>
             <Flex>
@@ -235,8 +223,8 @@ const SignDog = (props) => {
               <Label htmlFor="g">여</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
-        <Filter>
+        </Input>
+        <Input>
           <Title>중성화 여부</Title>
           <FlexWrap>
             <Flex>
@@ -264,8 +252,8 @@ const SignDog = (props) => {
               <Label htmlFor="no">N</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
-        <Filter>
+        </Input>
+        <Input>
           <Title>나이대</Title>
           <FlexWrap>
             <Flex>
@@ -305,30 +293,28 @@ const SignDog = (props) => {
               <Label htmlFor="senior">8세 이상</Label>
             </Flex>
           </FlexWrap>
-        </Filter>
-        <Filter>
+        </Input>
+        <Input>
           <Title> 한 줄 소개</Title>
-          <DogComment
+          <InputText
             placeholder="ex) 우리 집 최고 애교쟁이!"
             onChange={dogCommentChangeHandler}
-          ></DogComment>
-        </Filter>
+          ></InputText>
+        </Input>
         <ButtonWrap>
-          <Add onClick={submitDogInfo}>가입하기</Add>
-          <Cancle
+          <button onClick={submitDogInfo}>가입하기</button>
+          <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
-          </Cancle>
+          </button>
         </ButtonWrap>
       </Wrap>
     </>
   );
 };
-
-export default SignDog;
 
 const Wrap = styled.div`
   text-align: center;
@@ -338,10 +324,26 @@ const Wrap = styled.div`
   font-size: 14px;
 `;
 
-const TopWrap = styled.div`
-  position: relative;
-  padding: 10px;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+  height: 52px;
+  margin-bottom: 18px;
+  font-size: 18px;
 `;
+const Input = styled.div`
+  box-sizing: border-box;
+  padding: 12px 24px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 16px;
+`;
+
 const TopTitle = styled.div`
   font-size: 16px;
 `;
@@ -350,25 +352,26 @@ const ImageWrap = styled.div`
   margin: 20px 0;
 `;
 const Preview = styled.img`
+  box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 1px solid #e6e6e6;
-  box-sizing: border-box;
-  border-radius: 20px;
-  margin: 0 auto;
+  border: 2px solid #000;
+  border-radius: 14px;
+  margin: auto;
+`;
+const InputText = styled.input`
+  width: 100%;
+  border: 0;
+
+  padding: 10px 0;
+  &:focus {
+    outline: none;
+  }
 `;
 const AddWrap = styled.div``;
 const AddImage = styled.input`
   width: 180px;
   margin: 10px 0;
-`;
-
-const Filter = styled.div`
-  background-color: #ebebeb;
-  border-radius: 10px;
-  padding: 12px 24px;
-  margin-bottom: 20px;
-  text-align: left;
 `;
 const Title = styled.div`
   margin-bottom: 15px;
@@ -387,58 +390,22 @@ const Label = styled.label`
   padding-top: 5px;
 `;
 
-const DogName = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const DogBreed = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-
 const DogSize = styled.input``;
 const DogGender = styled.input``;
 const DogNeutral = styled.input``;
 const DogAge = styled.input``;
 
-const DogComment = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  button {
+    width: 160px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 2px solid #000;
+    box-shadow: 0 4px 0px #000;
+    cursor: pointer;
+  }
 `;
-const Add = styled.button`
-  width: 160px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-  background-color: #c4c4c4;
-  cursor: pointer;
-`;
-const Cancle = styled.button`
-  width: 160px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-  background-color: #c4c4c4;
-  cursor: pointer;
-`;
+export default SignDog;
