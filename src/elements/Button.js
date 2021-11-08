@@ -25,15 +25,17 @@ Button.defaultProps ={
 
 const CircleBtn = styled.button`
     width: 48px;
+    height: 48px;
     background-color: #fff;
     border: 2px solid black;
     box-sizing: border-box;
     border-radius: 50%;
     font-size: ${props => (props.size?props.size:'')};
     font-weight: 600;
-    box-shadow: 0px 2px black;
+    box-shadow: 0px 4px black;
     padding: ${props => props.padding};
     margin: ${props => props.margin};
+    cursor: pointer;
 ` 
 
 export default Button;
