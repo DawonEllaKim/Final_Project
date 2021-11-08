@@ -18,12 +18,14 @@ import UserProfile from "./pages/UserProfile";
 import Calendar from "./pages/Calendar";
 import AddRecord from "./pages/AddRecord";
 import AddDetail from "./pages/AddDetail";
-import Message from './pages/Message';
+import Message from "./pages/Message";
 import MapContainer3 from "./components/MapContainer3";
 import AddDate from "./components/AddDate";
 import MapEdit from "./pages/MapEdit";
 import EditMapContainer3 from "./components/EditMapContainer";
 import CheckMain from "./pages/CheckMain";
+import KakaoSignUp from "./pages/KakaoSignUp";
+import KakaoSignDog from "./pages/KakaoSignDog";
 
 function App() {
   return (
@@ -48,9 +50,14 @@ function App() {
         <Route exact path="/message" component={Message} />
         <Route exact path="/MapContainer3" component={MapContainer3} />
         <Route exact path="/addDate" component={AddDate} />
-        <Route exact path = "/mapEdit/:id" component={MapEdit}/>
-        <Route exact path = "/editMapContainer3/:id" component={EditMapContainer3}/>
-  
+        <Route exact path="/mapEdit/:id" component={MapEdit} />
+        <Route
+          exact
+          path="/editMapContainer3/:id"
+          component={EditMapContainer3}
+        />
+        <Route exact path="/kakaosignup" component={KakaoSignUp} />
+        <Route exact path="/kakaosigndog" component={KakaoSignDog} />
       </ConnectedRouter>
     </div>
   );
