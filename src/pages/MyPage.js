@@ -13,7 +13,7 @@ import { history } from "../redux/configureStore";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
-  const pageList = useSelector((state) => state.user.page)
+  const pageList = useSelector((state) => state.user.page);
   console.log(pageList);
   const userInfo = useSelector((state) => state.user.user);
   console.log(userInfo);
@@ -70,7 +70,7 @@ const MyPage = (props) => {
         <CardWrap>
           <List>산책 목록</List>
 
-          {pageList.length === 0 ? (
+          {pageList.length === 1 ? (
             <NoCard>등록된 산책 목록이 없습니다.</NoCard>
           ) : (
             <div>
