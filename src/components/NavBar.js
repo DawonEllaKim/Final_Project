@@ -95,6 +95,7 @@ const Bar = styled.div`
   width: 390px;
   height: 36px;
   background-color: #fff;
+  z-index: 10px;
 
   div {
     width: 134px;
