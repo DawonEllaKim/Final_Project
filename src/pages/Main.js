@@ -23,6 +23,8 @@ import { GrNotification } from "react-icons/gr";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import caution1 from "../image/caution1.png";
+
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
@@ -57,7 +59,6 @@ const Main = (props) => {
   // 게시물 불러오기
   useEffect(() => {
     dispatch(postActions.getMainMD());
-   
   }, []);
 
   return (
@@ -74,10 +75,19 @@ const Main = (props) => {
       </Head>
 
       {/* 일러스트 슬라이드 */}
-      <div>
+      <div
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          history.push("/caution1");
+        }}
+      >
         <StyledSlider {...settings}>
-          <div>
-            <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+          <div style={{ backgroundColor: "pink" }}>
+            <img src={caution1} />
+            <SlideRight>
+              <h3>1. 목줄착용</h3>
+              <p>목줄 착용은 선택이 아닌 필수입니다</p>
+            </SlideRight>
           </div>
           <div>
             <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
@@ -128,13 +138,38 @@ const Main = (props) => {
 };
 
 const StyledSlider = styled(Slider)`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 350px;
+  height: 215px;
+  padding: 37px 16px;
+  border: 2px solid #000;
+
   .slick-slide div {
     outline: none;
   }
-  width: 350px;
-  height: 220px;
+
   margin-bottom: 12px;
   border-radius: 25px;
+
+  img {
+    width: 144px;
+    height: 144px;
+    border-radius: 50%;
+  }
+  h1 {
+  }
+`;
+
+const SlideRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Img = styled.img`
   width: 350px;

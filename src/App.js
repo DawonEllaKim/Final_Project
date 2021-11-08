@@ -26,6 +26,9 @@ import EditMapContainer3 from "./components/EditMapContainer";
 import CheckMain from "./pages/CheckMain";
 import KakaoSignUp from "./pages/KakaoSignUp";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
+import Caution1 from "./pages/Caution1";
+import Caution2 from "./pages/Caution2";
+import Caution3 from "./pages/Caution3";
 
 function App() {
   return (
@@ -63,6 +66,9 @@ function App() {
           path="/oauth/kakao/callback"
           component={OAuth2RedirectHandler}
         />
+        <Route exact path="/caution1" component={Caution1} />
+        <Route exact path="/caution2" component={Caution2} />
+        <Route exact path="/caution3" component={Caution3} />
       </ConnectedRouter>
     </div>
   );
