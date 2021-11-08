@@ -6,14 +6,16 @@ const { kakao } = window;
 
 const DetailPageMap = ({post}) => {
   // 지금 포스트의 위도 경도
+  const latitude = post.latitude;
   const longitude = post.longitude;
-  const latitude = post.latitude
 
+  console.log(latitude)
+  console.log(longitude)
   useEffect(() => {
     // 지도를 표시할 div
     var mapContainer = document.getElementById("map"),
       mapOption = {
-        center: new kakao.maps.LatLng(longitude, latitude), // 지도를 열면 보이는 중심 좌표
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도를 열면 보이는 중심 좌표
         level: 3, // 지도 확대 레벨
       };
 

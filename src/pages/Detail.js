@@ -9,20 +9,60 @@ import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 // 지도
-import Map from "../components/DetailPageMap";
+
 // 리액트 아이콘
 import { GrNotification } from "react-icons/gr";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
-
+const { kakao } = window;
 const Detail = (props) => {
+  const postId = props.match.params.id;
   const dispatch = useDispatch();
 
   const postId = props.match.params.id;
   console.log(postId);
 
   const post = useSelector((state) => state.post.list);
+  const latitude = post.latitude;
+  const longitude = post.longitude;
+  useEffect(() => {
+    // 지도를 표시할 div
+    var mapContainer = document.getElementById("map"),
+      mapOption = {
+        center: new kakao.maps.LatLng(latitude, longitude), // 지도를 열면 보이는 중심 좌표
+        level: 3, // 지도 확대 레벨
+      };
+
+    // 지도 생성
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 마커 생성
+    var marker = new kakao.maps.Marker({
+      position: new kakao.maps.LatLng(latitude, longitude), // 마커 위치
+    });
+
+    // 마커가 지도 위에 표시되도록 설정
+    marker.setMap(map);
+
+    // 상세 위치명이 들어 있는 인포윈도우
+    var iwContent =
+        '<div style="padding:5px; width:200px; line-height: 30px; border-radius: 20px">' +
+        post.location_address +
+        "</div>",
+      iwPosition = new kakao.maps.LatLng(longitude, latitude); //인포윈도우 표시 위치입니다
+
+    // 인포윈도우 생성
+    var infowindow = new kakao.maps.InfoWindow({
+      position: iwPosition,
+      content: iwContent,
+    });
+
+    // 마커 위에 인포윈도우를 표시
+    infowindow.open(map, marker);
+  }, [latitude, longitude]);
+
+  // 포스트에 필요한 정보들 불러오기 준비
 
   // 포스트에 필요한 정보들 불러오기 준비
   console.log(useSelector((state) => state));
@@ -45,7 +85,7 @@ const Detail = (props) => {
   const dogBreed = post.dog_breed;
   const dogComment = post.dog_comment;
   const location = post.location_category;
-
+  console.log(post.latitude, post.longitude);
   // 산책 정보
   const meetingDate = post.meeting_date;
   const completed = post.completed;
@@ -142,7 +182,7 @@ const Detail = (props) => {
 
             {/* 지도 */}
             <MapWrap>
-              <Map post={post} />
+              <Map id="map" />
             </MapWrap>
             <FlexButton>
               <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
@@ -307,5 +347,8 @@ const EditButton = styled.button`
   height: 48px;
   border-radius: 10px;
 `;
-
+const Map = styled.div`
+  width: 100%;
+  height: 600px;
+`;
 export default Detail;

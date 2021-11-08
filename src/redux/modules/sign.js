@@ -79,7 +79,55 @@ const logInMD = (user_email, password) => {
   };
 };
 
-const signDogAPI = (formData) => {
+const signUserAPI = (formData) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "POST",
+      url: "http://13.209.70.209/users/signUp",
+      data: formData,
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => {
+        console.log(res); // signup 정보 확인
+        dispatch(setUser(formData));
+        history.push("/signDog");
+      })
+      .catch((err) => {
+        console.log("signupAPI에서 오류발생", err);
+        window.alert("오류 발생");
+      });
+  };
+};
+const signDupAPI = (formData) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "POST",
+      url: "http://13.209.70.209/users/checkDup",
+      data: formData,
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => {
+        console.log(res); // signup 정보 확인
+        // dispatch(setUser(formData));
+        // history.push("/signDog");
+        window.alert("정상적인 이메일입니다");
+      })
+      .catch((err) => {
+        console.log("중복입니다", err);
+        window.alert("이메일중복입니다");
+      });
+  };
+};
+
+const signDogAPI = (DogInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -161,4 +209,5 @@ export const actionCreators = {
   login,
   logInMD,
   logOut,
+  signDupAPI,
 };

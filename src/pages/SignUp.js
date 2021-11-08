@@ -170,7 +170,7 @@ const SignUp = () => {
               onChange={userEmailChangeHandler}
             ></UserId>
           </IdWrap>
-          <IdCheck>중복확인</IdCheck>
+          <IdCheck onClick={()=>dispatch(UserActions.signDupAPI(user_email))}>중복확인</IdCheck>
         </UserWrap>
         <Filter>
           <Password

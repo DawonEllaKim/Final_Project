@@ -18,9 +18,9 @@ const EditUser = (props) => {
   console.log(userGender)
   const userImage = user.user_image;
   const userNickName = user.user_nickname;
-
-  const [imgBase64, setImgBase64] = useState(''); // 파일 base64
-  const [imgFile, setImgFile] = useState(userImage?userImage:null); //파일
+  const user_image = user.user_image;
+  const [imgBase64, setImgBase64] = useState(user_image); // 파일 base64
+  const [imgFile, setImgFile] = useState(); //파일
   const [user_nickname, setUserNickname] = useState(userNickName?userNickName:'');
   const [user_gender, setUserGender] = useState('');
   const [user_age, setUserAge] = useState('');
@@ -40,6 +40,10 @@ const EditUser = (props) => {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
+    else
+    reader.readAsDataURL(user_image);
+      setImgFile(user_image)
+    
   };
 
   const userNicknameChangeHandler = (e) => {
@@ -66,11 +70,13 @@ const EditUser = (props) => {
     dispatch(UserActions.getUserMD());
     setUserGender(userGender);
     setUserAge(userAge);
-  }, [userGender, userAge]);  
-
+    setImgBase64(user_image)
+    setImgFile(user_image)
+  }, [userGender, userAge,user_image]);  
+  console.log(imgFile)
   // 수정하기 버튼 = 수정 완료
   const update = () => {
-
+    console.log(imgFile)
     const formData = new FormData();
     formData.append('user_nickname',user_nickname);
     formData.append('user_gender',user_gender);
@@ -110,6 +116,7 @@ const EditUser = (props) => {
             type="file"
             name="imgFile"
             id="imgFile"
+         
             onChange={handleChangeFile}
           />
         </ImageWrap>
