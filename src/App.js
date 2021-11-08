@@ -25,7 +25,7 @@ import MapEdit from "./pages/MapEdit";
 import EditMapContainer3 from "./components/EditMapContainer";
 import CheckMain from "./pages/CheckMain";
 import KakaoSignUp from "./pages/KakaoSignUp";
-import KakaoSignDog from "./pages/KakaoSignDog";
+import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 
 function App() {
   return (
@@ -57,7 +57,11 @@ function App() {
           component={EditMapContainer3}
         />
         <Route exact path="/kakaosignup" component={KakaoSignUp} />
-        <Route exact path="/kakaosigndog" component={KakaoSignDog} />
+        <Route
+          exact
+          path="/oauth/kakao/callback"
+          component={OAuth2RedirectHandler}
+        />
       </ConnectedRouter>
     </div>
   );

@@ -5,12 +5,14 @@ import { apis } from "../../lib/axios";
 import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "./user";
+
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const CHECK_DOG = "CHEKC_DOG";
 const LOADING = "LOADING";
+
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 const login = createAction(LOG_IN, (user) => ({ user }));
@@ -60,7 +62,6 @@ const logInMD = (user_email, password) => {
       });
   };
 };
-
 const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -131,7 +132,6 @@ const signDupAPI = (formData) => {
       });
   };
 };
-
 const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -158,7 +158,6 @@ const signDogAPI = (formData) => {
       });
   };
 };
-
 const getDogAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({

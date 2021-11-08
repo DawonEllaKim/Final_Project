@@ -1,26 +1,71 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
-import { actionCreators as UserActions } from "../redux/modules/sign";
-import { emailCheck, passwordCheck } from "../shared/check";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as kakaoActions } from "../redux/modules/kakao";
+import { dogBreedCheck } from "../shared/check";
 
-// 이미지, 닉네임, 토큰
-// 나이 성별
-const KakaoSignUp = () => {
+const KakaoSignUp = (props) => {
   const dispatch = useDispatch();
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
-  const [imgFile, setImgFile] = useState(null); //파일
-  const [user_email, setUserEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm_password, setConfirmPassword] = useState("");
-  const [user_nickname, setUserNickname] = useState("");
+
+  //jsonserver 데이터 맞추기 위한 코드
+  const signUser = useSelector((state) => state.sign.user);
+  console.log(signUser);
+
   const [user_gender, setUserGender] = useState("");
   const [user_age, setUserAge] = useState("");
+  const userGenderChangeHandler = (name) => {
+    console.log(name);
+    setUserGender(name);
+  };
+  const userAgeChangeHandler = (name) => {
+    console.log(name);
+    setUserAge(name);
+  };
+  const submitDogInfo = () => {
+    if (!dogBreedCheck(dog_breed)) {
+      window.alert("강아지 종은 한글,영문 형식만 입력 가능합니다");
+      return;
+    }
+
+    if (
+      dog_gender === "" ||
+      dog_name === "" ||
+      dog_size === "" ||
+      dog_breed === "" ||
+      dog_age === "" ||
+      neutral === "" ||
+      dog_comment === ""
+    ) {
+      window.alert("입력하지 않은 값이 있습니다.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("dog_gender", dog_gender);
+    formData.append("dog_name", dog_name);
+    formData.append("dog_size", dog_size);
+    formData.append("dog_breed", dog_breed);
+    formData.append("dog_age", dog_age);
+    formData.append("neutral", neutral);
+    formData.append("dog_comment", dog_comment);
+    formData.append("dog_image", imgFile);
+
+    dispatch(kakaoActions.kakaoUser(user_gender, user_age));
+    dispatch(kakaoActions.kakaoDog(formData));
+  };
+
+  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgFile, setImgFile] = useState(null); //파일
+  const [dog_gender, setDogGender] = useState("");
+  const [dog_name, setDogName] = useState("");
+  const [dog_size, setDogSize] = useState("");
+  const [dog_breed, setDogBreed] = useState("");
+  const [dog_age, setDogAge] = useState("");
+  const [neutral, setNeutral] = useState("");
+  const [dog_comment, setDogComment] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -30,109 +75,54 @@ const KakaoSignUp = () => {
       const base64 = reader.result;
       if (base64) {
         setImgBase64(base64.toString());
+        console.log(base64);
       }
     };
+
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
+
+    console.log(event.target.files[0]);
   };
 
-  const userEmailChangeHandler = (e) => {
+  const dogNameChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
-    setUserEmail(newTitle);
+    setDogName(newTitle);
   };
-  const passwordChangeHandler = (e) => {
+
+  const dogBreedChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
-    setPassword(newTitle);
+    setDogBreed(newTitle);
   };
-  const confirmPasswordChangeHandler = (e) => {
+
+  const dogSizeChangeHandler = (size) => {
+    console.log(size);
+    setDogSize(size);
+  };
+
+  const dogGenderChangeHandler = (gender) => {
+    console.log(gender);
+    setDogGender(gender);
+  };
+
+  const dogNeutralChangeHandler = (neutral) => {
+    console.log(neutral);
+    setNeutral(neutral);
+  };
+
+  const dogAgeChangeHandler = (age) => {
+    console.log(age);
+    setDogAge(age);
+  };
+
+  const dogCommentChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
-    setConfirmPassword(newTitle);
-  };
-
-  const userNicknameChangeHandler = (e) => {
-    const newTitle = e.target.value;
-    console.log(newTitle);
-    setUserNickname(newTitle);
-  };
-  const userGenderChangeHandler = (name) => {
-    console.log(name);
-    setUserGender(name);
-  };
-  const userAgeChangeHandler = (name) => {
-    console.log(name);
-    setUserAge(name);
-  };
-
-  const submitUserInfo = () => {
-    if (!emailCheck(user_email)) {
-      toast.error("잘못된 이메일 형식입니다.", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
-        hideProgressBar: false,
-        draggable: true,
-        closeOnClick: true,
-      });
-      return;
-    }
-
-    if (!passwordCheck(password)) {
-      window.alert(
-        "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요"
-      );
-      return;
-    }
-
-    if (password !== confirm_password) {
-      window.alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
-    if (
-      user_email === "" ||
-      password === "" ||
-      confirm_password === "" ||
-      user_nickname === "" ||
-      user_gender === "" ||
-      user_age === ""
-    ) {
-      window.alert("입력하지 않은 값이 있습니다.");
-      return;
-    }
-
-    // let UserInfo = {
-    //   user_email,
-    //   password,
-    //   confirm_password,
-    //   user_nickname,
-    //   user_gender,
-    //   user_age,
-    //   // user_image: imgFile,
-    // };
-
-    const formData = new FormData();
-    formData.append("user_email", user_email);
-    formData.append("password", password);
-    formData.append("confirm_password", confirm_password);
-    formData.append("user_nickname", user_nickname);
-    formData.append("user_gender", user_gender);
-    formData.append("user_age", user_age);
-    formData.append("user_image", imgFile);
-
-    toast.success(
-      "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
-      {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        draggable: true,
-        closeOnClick: true,
-      }
-    );
-    dispatch(UserActions.signUserAPI(formData));
+    setDogComment(newTitle);
   };
 
   return (
@@ -152,48 +142,10 @@ const KakaoSignUp = () => {
               history.goBack();
             }}
           />
-          <TopTitle>회원가입</TopTitle>
+          <TopTitle>회원 가입</TopTitle>
         </TopWrap>
-        <ImageWrap>
-          <Preview src={imgBase64}></Preview>
-          <AddWrap>
-            <AddImage
-              type="file"
-              name="imgFile"
-              id="imgFile"
-              onChange={handleChangeFile}
-            ></AddImage>
-          </AddWrap>
-        </ImageWrap>
-        <UserWrap>
-          <IdWrap>
-            <UserId
-              placeholder="이메일 입력 "
-              onChange={userEmailChangeHandler}
-            ></UserId>
-          </IdWrap>
-          <IdCheck onClick={() => dispatch(UserActions.signDupAPI(user_email))}>
-            중복확인
-          </IdCheck>
-        </UserWrap>
-        <Filter>
-          <Password
-            placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
-            onChange={passwordChangeHandler}
-          ></Password>
-        </Filter>
-        <Filter>
-          <PasswordCheck
-            placeholder="패스워드 확인"
-            onChange={confirmPasswordChangeHandler}
-          ></PasswordCheck>
-        </Filter>
-        <Filter>
-          <Nickname
-            placeholder="닉네임 입력"
-            onChange={userNicknameChangeHandler}
-          ></Nickname>
-        </Filter>
+        <hr />
+        <TopTitle>유저 정보</TopTitle>
         <Filter>
           <Title>성별</Title>
           <FlexWrap>
@@ -277,9 +229,181 @@ const KakaoSignUp = () => {
             </Flex>
           </FlexWrap>
         </Filter>
+        <hr />
 
+        <TopTitle>강아지 정보</TopTitle>
+        <ImageWrap>
+          <Preview src={imgBase64}></Preview>
+          <AddWrap>
+            <AddImage
+              type="file"
+              name="imgFile"
+              id="imgFile"
+              onChange={handleChangeFile}
+            ></AddImage>
+            {/* <AddBtn>이미지 등록하기</AddBtn> */}
+          </AddWrap>
+        </ImageWrap>
+        <Filter>
+          <DogName
+            placeholder="강아지 이름 입력 "
+            onChange={dogNameChangeHandler}
+          ></DogName>
+        </Filter>
+        <Filter>
+          <DogBreed
+            placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
+            onChange={dogBreedChangeHandler}
+          ></DogBreed>
+        </Filter>
+        <Filter>
+          <Title>크기</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <DogSize
+                  type="radio"
+                  id="s"
+                  checked={dog_size === "소형견"}
+                  onClick={() => dogSizeChangeHandler("소형견")}
+                />
+              </RadioWrap>
+              <Label htmlFor="s">소형견</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogSize
+                  type="radio"
+                  id="m"
+                  checked={dog_size === "중형견"}
+                  onClick={() => dogSizeChangeHandler("중형견")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="m">중형견</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogSize
+                  type="radio"
+                  id="l"
+                  checked={dog_size === "대형견"}
+                  onClick={() => dogSizeChangeHandler("대형견")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="l">대형견</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
+        <Filter>
+          <Title>성별</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <DogGender
+                  type="radio"
+                  id="b"
+                  checked={dog_gender === "남"}
+                  onClick={() => dogGenderChangeHandler("남")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="b">남</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogGender
+                  type="radio"
+                  id="g"
+                  checked={dog_gender === "여"}
+                  onClick={() => dogGenderChangeHandler("여")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="g">여</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
+        <Filter>
+          <Title>중성화 여부</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <DogNeutral
+                  type="radio"
+                  id="yes"
+                  checked={neutral === true}
+                  onClick={() => dogNeutralChangeHandler(true)}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="yes">Y</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogNeutral
+                  type="radio"
+                  id="no"
+                  checked={neutral === false}
+                  onClick={() => dogNeutralChangeHandler(false)}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="no">N</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
+        <Filter>
+          <Title>나이대</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <DogAge
+                  type="radio"
+                  id="young"
+                  checked={dog_age === "0~3세"}
+                  onClick={() => dogAgeChangeHandler("0~3세")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="young">0~3세</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogAge
+                  type="radio"
+                  id="junior"
+                  checked={dog_age === "4~7세"}
+                  onClick={() => dogAgeChangeHandler("4~7세")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="junior">4~7세</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <DogAge
+                  type="radio"
+                  id="senior"
+                  checked={dog_age === "8세 이상"}
+                  onClick={() => dogAgeChangeHandler("8세 이상")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="senior">8세 이상</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
+        <Filter>
+          <Title> 한 줄 소개</Title>
+          <DogComment
+            placeholder="ex) 우리 집 최고 애교쟁이!"
+            onChange={dogCommentChangeHandler}
+          ></DogComment>
+        </Filter>
         <ButtonWrap>
-          <Add onClick={submitUserInfo}>반려견 등록하기</Add>
+          <Add onClick={submitDogInfo}>가입하기</Add>
           <Cancle
             onClick={() => {
               history.goBack();
@@ -328,36 +452,6 @@ const AddImage = styled.input`
   margin: 10px 0;
 `;
 
-const UserWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const IdWrap = styled.div`
-  width: 240px;
-  background-color: #ebebeb;
-  border-radius: 10px;
-  padding: 12px 24px;
-  margin-bottom: 20px;
-  text-align: left;
-`;
-const UserId = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-const IdCheck = styled.button`
-  width: 80px;
-  height: 59px;
-  border: none;
-  background-color: #c4c4c4;
-  border-radius: 10px;
-  cursor: pointer;
-`;
-
 const Filter = styled.div`
   background-color: #ebebeb;
   border-radius: 10px;
@@ -382,16 +476,7 @@ const Label = styled.label`
   padding-top: 5px;
 `;
 
-const Password = styled.input`
-  width: 100%;
-  border: 0;
-  background-color: #ebebeb;
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
-`;
-const PasswordCheck = styled.input`
+const DogName = styled.input`
   width: 100%;
   border: 0;
   background-color: #ebebeb;
@@ -401,7 +486,7 @@ const PasswordCheck = styled.input`
   }
 `;
 
-const Nickname = styled.input`
+const DogBreed = styled.input`
   width: 100%;
   border: 0;
   background-color: #ebebeb;
@@ -411,8 +496,20 @@ const Nickname = styled.input`
   }
 `;
 
-const UserGender = styled.input``;
-const UserAge = styled.input``;
+const DogSize = styled.input``;
+const DogGender = styled.input``;
+const DogNeutral = styled.input``;
+const DogAge = styled.input``;
+
+const DogComment = styled.input`
+  width: 100%;
+  border: 0;
+  background-color: #ebebeb;
+  padding: 10px 0;
+  &:focus {
+    outline: none;
+  }
+`;
 
 const ButtonWrap = styled.div`
   display: flex;
@@ -434,3 +531,5 @@ const Cancle = styled.button`
   background-color: #c4c4c4;
   cursor: pointer;
 `;
+const UserGender = styled.input``;
+const UserAge = styled.input``;
