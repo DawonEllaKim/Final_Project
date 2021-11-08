@@ -4,19 +4,26 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as DogActions } from "../redux/modules/sign";
+import { actionCreators as kakaoActions } from "../redux/modules/kakao";
 import { dogBreedCheck } from "../shared/check";
 
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
-
-const SignDog = (props) => {
+const KakaoSignUp = (props) => {
   const dispatch = useDispatch();
 
   //jsonserver 데이터 맞추기 위한 코드
   const signUser = useSelector((state) => state.sign.user);
   console.log(signUser);
 
+  const [user_gender, setUserGender] = useState("");
+  const [user_age, setUserAge] = useState("");
+  const userGenderChangeHandler = (name) => {
+    console.log(name);
+    setUserGender(name);
+  };
+  const userAgeChangeHandler = (name) => {
+    console.log(name);
+    setUserAge(name);
+  };
   const submitDogInfo = () => {
     if (!dogBreedCheck(dog_breed)) {
       window.alert("강아지 종은 한글,영문 형식만 입력 가능합니다");
@@ -46,7 +53,8 @@ const SignDog = (props) => {
     formData.append("dog_comment", dog_comment);
     formData.append("dog_image", imgFile);
 
-    dispatch(DogActions.signDogAPI(formData));
+    dispatch(kakaoActions.kakaoUser(user_gender, user_age));
+    dispatch(kakaoActions.kakaoDog(formData));
   };
 
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
@@ -120,17 +128,110 @@ const SignDog = (props) => {
   return (
     <>
       <Wrap>
-        <Header>
-          <Button
+        <TopWrap>
+          <MdArrowBackIosNew
+            style={{
+              width: "20px",
+              height: "20px",
+              position: "absolute",
+              bottom: "10px",
+              left: "0",
+              cursor: "pointer",
+            }}
             onClick={() => {
               history.goBack();
             }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p style={{ marginRight: "150px" }}>회원가입</p>
-        </Header>
+          />
+          <TopTitle>회원 가입</TopTitle>
+        </TopWrap>
+        <hr />
+        <TopTitle>유저 정보</TopTitle>
+        <Filter>
+          <Title>성별</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <UserGender
+                  type="radio"
+                  id="b"
+                  value="남"
+                  checked={user_gender === "남"}
+                  onClick={() => userGenderChangeHandler("남")}
+                />
+              </RadioWrap>
+              <Label htmlFor="b">남</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <UserGender
+                  type="radio"
+                  id="g"
+                  value="여"
+                  checked={user_gender === "여"}
+                  onClick={() => userGenderChangeHandler("여")}
+                />
+              </RadioWrap>
+              <Label htmlFor="g">여</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
 
+        <Filter>
+          <Title>나이대</Title>
+          <FlexWrap>
+            <Flex>
+              <RadioWrap>
+                <UserAge
+                  type="radio"
+                  id="10"
+                  checked={user_age === "10대"}
+                  onClick={() => userAgeChangeHandler("10대")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="10">10대</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <UserAge
+                  type="radio"
+                  id="20"
+                  checked={user_age === "20대"}
+                  onClick={() => userAgeChangeHandler("20대")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="20">20대</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <UserAge
+                  type="radio"
+                  id="30"
+                  checked={user_age === "30대"}
+                  onClick={() => userAgeChangeHandler("30대")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="30">30대</Label>
+            </Flex>
+            <Flex>
+              <RadioWrap>
+                <UserAge
+                  type="radio"
+                  id="40"
+                  checked={user_age === "40대 이상"}
+                  onClick={() => userAgeChangeHandler("40대 이상")}
+                />
+              </RadioWrap>
+
+              <Label htmlFor="40">40대 이상</Label>
+            </Flex>
+          </FlexWrap>
+        </Filter>
+        <hr />
+
+        <TopTitle>강아지 정보</TopTitle>
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
@@ -143,19 +244,19 @@ const SignDog = (props) => {
             {/* <AddBtn>이미지 등록하기</AddBtn> */}
           </AddWrap>
         </ImageWrap>
-        <Input>
-          <InputText
+        <Filter>
+          <DogName
             placeholder="강아지 이름 입력 "
             onChange={dogNameChangeHandler}
-          ></InputText>
-        </Input>
-        <Input>
-          <InputText
+          ></DogName>
+        </Filter>
+        <Filter>
+          <DogBreed
             placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
             onChange={dogBreedChangeHandler}
-          ></InputText>
-        </Input>
-        <Input>
+          ></DogBreed>
+        </Filter>
+        <Filter>
           <Title>크기</Title>
           <FlexWrap>
             <Flex>
@@ -194,8 +295,8 @@ const SignDog = (props) => {
               <Label htmlFor="l">대형견</Label>
             </Flex>
           </FlexWrap>
-        </Input>
-        <Input>
+        </Filter>
+        <Filter>
           <Title>성별</Title>
           <FlexWrap>
             <Flex>
@@ -223,8 +324,8 @@ const SignDog = (props) => {
               <Label htmlFor="g">여</Label>
             </Flex>
           </FlexWrap>
-        </Input>
-        <Input>
+        </Filter>
+        <Filter>
           <Title>중성화 여부</Title>
           <FlexWrap>
             <Flex>
@@ -252,8 +353,8 @@ const SignDog = (props) => {
               <Label htmlFor="no">N</Label>
             </Flex>
           </FlexWrap>
-        </Input>
-        <Input>
+        </Filter>
+        <Filter>
           <Title>나이대</Title>
           <FlexWrap>
             <Flex>
@@ -293,28 +394,30 @@ const SignDog = (props) => {
               <Label htmlFor="senior">8세 이상</Label>
             </Flex>
           </FlexWrap>
-        </Input>
-        <Input>
+        </Filter>
+        <Filter>
           <Title> 한 줄 소개</Title>
-          <InputText
+          <DogComment
             placeholder="ex) 우리 집 최고 애교쟁이!"
             onChange={dogCommentChangeHandler}
-          ></InputText>
-        </Input>
+          ></DogComment>
+        </Filter>
         <ButtonWrap>
-          <button onClick={submitDogInfo}>가입하기</button>
-          <button
+          <Add onClick={submitDogInfo}>가입하기</Add>
+          <Cancle
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
-          </button>
+          </Cancle>
         </ButtonWrap>
       </Wrap>
     </>
   );
 };
+
+export default KakaoSignUp;
 
 const Wrap = styled.div`
   text-align: center;
@@ -324,26 +427,10 @@ const Wrap = styled.div`
   font-size: 14px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin-bottom: 18px;
-  font-size: 18px;
+const TopWrap = styled.div`
+  position: relative;
+  padding: 10px;
 `;
-const Input = styled.div`
-  box-sizing: border-box;
-  padding: 12px 24px;
-  border: 2px solid #000;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  text-align: left;
-  font-size: 16px;
-`;
-
 const TopTitle = styled.div`
   font-size: 16px;
 `;
@@ -352,26 +439,25 @@ const ImageWrap = styled.div`
   margin: 20px 0;
 `;
 const Preview = styled.img`
-  box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 2px solid #000;
-  border-radius: 14px;
-  margin: auto;
-`;
-const InputText = styled.input`
-  width: 100%;
-  border: 0;
-
-  padding: 10px 0;
-  &:focus {
-    outline: none;
-  }
+  border: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin: 0 auto;
 `;
 const AddWrap = styled.div``;
 const AddImage = styled.input`
   width: 180px;
   margin: 10px 0;
+`;
+
+const Filter = styled.div`
+  background-color: #ebebeb;
+  border-radius: 10px;
+  padding: 12px 24px;
+  margin-bottom: 20px;
+  text-align: left;
 `;
 const Title = styled.div`
   margin-bottom: 15px;
@@ -390,22 +476,60 @@ const Label = styled.label`
   padding-top: 5px;
 `;
 
+const DogName = styled.input`
+  width: 100%;
+  border: 0;
+  background-color: #ebebeb;
+  padding: 10px 0;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const DogBreed = styled.input`
+  width: 100%;
+  border: 0;
+  background-color: #ebebeb;
+  padding: 10px 0;
+  &:focus {
+    outline: none;
+  }
+`;
+
 const DogSize = styled.input``;
 const DogGender = styled.input``;
 const DogNeutral = styled.input``;
 const DogAge = styled.input``;
 
+const DogComment = styled.input`
+  width: 100%;
+  border: 0;
+  background-color: #ebebeb;
+  padding: 10px 0;
+  &:focus {
+    outline: none;
+  }
+`;
+
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  button {
-    width: 160px;
-    height: 48px;
-    background-color: #fff;
-    border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
-    cursor: pointer;
-  }
 `;
-export default SignDog;
+const Add = styled.button`
+  width: 160px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  cursor: pointer;
+`;
+const Cancle = styled.button`
+  width: 160px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  cursor: pointer;
+`;
+const UserGender = styled.input``;
+const UserAge = styled.input``;

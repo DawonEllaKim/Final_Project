@@ -5,6 +5,7 @@ import { apis } from "../../lib/axios";
 import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "./user";
+
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
 const LOG_IN = "LOG_IN";
@@ -147,7 +148,6 @@ const signDupAPI = (formData) => {
       });
   };
 };
-
 const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({

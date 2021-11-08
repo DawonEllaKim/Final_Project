@@ -6,6 +6,11 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/user";
 
+// 버튼 이미지
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+import notification from "../image/Notification.png";
+
 const EditUser = (props) => {
 
     const dispatch = useDispatch();
@@ -138,18 +143,15 @@ const EditUser = (props) => {
     <>
       <Wrap>
         {/* 뒤로가기 버튼 + 회원정보 텍스트  */}
-        <Top>
-          <div>
-            <MdArrowBackIosNew
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-              onClick={cancel}
-            />
-          </div>
-          <p>회원 정보</p>
-        </Top>
+        <TopWrap>
+          <Button _onClick={() => history.goBack()}>
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
+          <TopTitle>회원 정보 수정</TopTitle>
+          <Button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </Button>
+        </TopWrap>
 
         {/* 보호자 이미지 */}
         <ImageWrap>
@@ -158,7 +160,6 @@ const EditUser = (props) => {
             type="file"
             name="imgFile"
             id="imgFile"
-         
             onChange={handleChangeFile}
           />
         </ImageWrap>
@@ -168,7 +169,7 @@ const EditUser = (props) => {
           {/* 보호자 닉네임 */}
           <Filter>
             <Nickname
-              placeholder='닉네임을 입력하세요'
+              placeholder="닉네임을 입력하세요"
               onChange={userNicknameChangeHandler}
               defaultValue={userNickName}
             />
@@ -275,18 +276,16 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-const Top = styled.div`
+const TopWrap = styled.div`
+  box-sizing: border-box;
   position: relative;
   padding: 10px;
-  div {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    cursor: pointer;
-  }
-  p {
-    font-size: 16px;
-  }
+  display: flex;
+  justify-content: space-between;
+`;
+const TopTitle = styled.div`
+  font-size: 18px;
+  line-height: 52px;
 `;
 const ImageWrap = styled.div`
   display: flex;
@@ -298,7 +297,7 @@ const ImageWrap = styled.div`
 const Preview = styled.img`
   width: 120px;
   height: 120px;
-  border: 1px solid #e6e6e6;
+  border: 2px solid black;
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
@@ -309,7 +308,7 @@ const AddImage = styled.input`
 `;
 const Body = styled.div``;
 const Filter = styled.div`
-  background-color: #ebebeb;
+  border: 2px solid black;
   border-radius: 10px;
   padding: 12px 24px;
   margin-bottom: 20px;
@@ -334,7 +333,6 @@ const Label = styled.label`
 const Nickname = styled.input`
   width: 100%;
   border: 0;
-  background-color: #ebebeb;
   padding: 10px 0;
   &:focus {
     outline: none;
@@ -348,9 +346,11 @@ const Footer = styled.div`
 const Add = styled.button`
   width: 100%;
   height: 48px;
-  border: none;
+  font-size: 16px;
+  border: 2px solid black;
   border-radius: 10px;
-  background-color: #c4c4c4;
+  background-color: transparent;
+  box-shadow: 0px 4px black;
   cursor: pointer;
 `;
 

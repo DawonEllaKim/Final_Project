@@ -15,7 +15,7 @@ import {FiLogOut,FiMail} from "react-icons/fi";
 import DogCard from "../components/DogCard"
 const MyPage = (props) => {
   const dispatch = useDispatch();
-  const pageList = useSelector((state) => state.user.page)
+  const pageList = useSelector((state) => state.user.page);
   console.log(pageList);
   const userInfo = useSelector((state) => state.user.list);
   console.log(userInfo);

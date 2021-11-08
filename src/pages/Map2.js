@@ -5,7 +5,16 @@ import { useHistory } from "react-router";
 import "../components/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
-import {FaSearch,FaMapMarkedAlt} from "react-icons/fa"
+import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
+import NavBar from "../components/NavBar";
+
+// 버튼 이미지
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+import notification from "../image/Notification.png";
+import search from "../image/search.png";
+import map from "../image/map.png";
+
 const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -15,7 +24,7 @@ const Map2 = (props) => {
   const [wishDesc, setWishDesc] = useState(); //desc설명
 
   console.log(startDate);
-  console.log(markerName)
+  console.log(markerName);
   const SubmitLocation = () => {
     const Info = {
       longitude: markerName.longitude,
@@ -24,7 +33,7 @@ const Map2 = (props) => {
       wish_desc: wishDesc,
       location_category: markerName.locationCategory,
       meeting_date: startDate,
-      completed:false,
+      completed: false,
     };
     dispatch(PostActions.addPostMD(Info));
   };
@@ -35,115 +44,104 @@ const Map2 = (props) => {
     <Frame>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
       <InputArea>
-        <Text>산책로 설정</Text>
-        <Text>
-       
-       <WalkButton
-         onClick={() => {
-           history.push("/MapContainer3");
-         }}
-       > <FaSearch style={{}} size="20"/>
-           <div style={{marginLeft:"10px"}}>
-           산책로를 수정하실건가요?{" "}
-             </div>
-          
-       </WalkButton>
-     </Text>
+        <TopWrap>
+          <Button _onClick={() => history.goBack()}>
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
+          <TopTitle>산책등록</TopTitle>
+          <Button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </Button>
+        </TopWrap>
 
-     <Text2> <CircleDiv><FaMapMarkedAlt/></CircleDiv>
-        <Address>상세 주소: <div>{markerName.placename}</div>
-        </Address>
-        </Text2>
+        <SearchWrap>
+          <WalkButton
+            onClick={() => {
+              history.push("/MapContainer3");
+            }}
+          >
+            <img src={search} style={{ marginLeft: "4px" }} />
+            <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
+          </WalkButton>
+        </SearchWrap>
 
-        <Text1>산책 일시</Text1>
-        <Flex>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            timeInputLabel="Time"
-            dateFormat="MM/dd/yyyy h:mm aa"
-            showTimeInput
-            inline
-          />
-        </Flex>
-        <Text1>소개/유의사항</Text1>
-        <Flex>
-          <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
-        </Flex>
-        <EndFlex>
-          <Button onClick={SubmitLocation}>산책 등록</Button>
-  
-        </EndFlex>
+        <AdressWrap>
+          <CircleDiv>
+            <img src={map} />
+          </CircleDiv>
+          <Address>
+            상세 주소
+            <Detail>{markerName.placename}</Detail>
+          </Address>
+        </AdressWrap>
+
+        <Title>산책 일시</Title>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          timeInputLabel="Time"
+          dateFormat="MM/dd/yyyy h:mm aa"
+          showTimeInput
+          inline
+        />
+        <Title>소개/유의사항</Title>
+        <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
+        <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
+      <NavBar />
     </Frame>
   );
 };
 
 export default Map2;
+
 const Frame = styled.div`
   max-width: 390px;
   margin: 0 auto;
   text-align: center;
-`;
-const Button = styled.button`
-  cursor: pointer;
-
-  width: 132px;
-height: 48px;
-border-radius:12px;
-`;
-const WalkButton = styled.button`
-  cursor: pointer;
-  background: #FFFFFF; 
-  border-radius: 14px;
-  text-align:left;
-  width:350px;
-  height:48px;
-  display:flex;
-  align-items:center;
+  box-sizing: border-box;
 `;
 
 const InputArea = styled.div`
-  background: #e0e0e0;
-  height: 800px;
-  padding: 0px 20px;
+  padding: 40px 20px;
+  box-sizing: border-box;
 `;
 
-const Text = styled.div`
-  width: 100%;
-  height: 45px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  color: #000000;
-  margin-bottom: 10px;
-`;
-const Text1 = styled.div`
-  width: 390px;
-  height: 35px;
+const TopWrap = styled.div`
+  box-sizing: border-box;
   position: relative;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 26px;
   display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
 `;
-const Text2 = styled.div`
+const TopTitle = styled.div`
+  font-size: 18px;
+  line-height: 52px;
+`;
+
+const SearchWrap = styled.div`
   width: 100%;
   height: 45px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+`;
+
+const WalkButton = styled.button`
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 14px;
+  text-align: left;
+  width: 350px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+`;
+
+const AdressWrap = styled.div`
+  width: 100%;
+  height: 45px;
   font-size: 18px;
   display: flex;
   align-items: center;
@@ -153,48 +151,52 @@ const Text2 = styled.div`
   margin-bottom: 10px;
 `;
 
-const Flex = styled.div`
-  width: 350px;
-  display: inline;
+const CircleDiv = styled.div`
+  display: flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+`;
+const Address = styled.div`
+  margin-left: 15px;
+  text-align: left;
+  font-size: 12px;
+`;
+const Detail = styled.div`
+  padding-top: 4px;
+`;
 
-  padding-top: 10px;
+const Title = styled.div`
+  box-sizing: border-box;
+  height: 35px;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 40px 0 20px 0;
 `;
 
 const TextArea = styled.textarea`
-  width: 313px;
+  width: 100%;
   height: 138px;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
   font-size: 14px;
   line-height: 20px;
+  border: 2px solid black;
   border-radius: 14px;
   color: #5f5f5f;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
 `;
 
-const EndFlex = styled.div`
-  padding: 0px 30px;
-  display: inline;
+const AddButton = styled.button`
+  cursor: pointer;
+  width: 164px;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  box-shadow: 0px 4px black;
 `;
-
-const CircleDiv = styled.div
-`
-display:flex;
-width:48px;
-height:48px;
-border-radius:24px;
-text-align:center;
-align-items:center;
-justify-content:center;
-background-color:white;
-`
-const Address =styled.div
-`
-margin-left:15px;
-text-align:left;
-font-size:12px;
-
-`

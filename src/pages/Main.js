@@ -15,13 +15,25 @@ import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
 import NavBar from "../components/NavBar";
 
+// 버튼 이미지
+import Button from "../elements/Button";
+import filter from "../image/filter.png";
+import notification from "../image/Notification.png";
+
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
 
+// 로그인 이미지
+import logo from "../image/loginLogo.png";
+import login from "../image/login.png";
+import loginText from "../image/loginText.png";
+
 // 슬라이드
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import caution1 from "../image/caution1.png";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -57,36 +69,52 @@ const Main = (props) => {
   // 게시물 불러오기
   useEffect(() => {
     dispatch(postActions.getMainMD());
-   
   }, []);
 
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       {/* 필터 + 산책할개 + 알람 */}
       <Head>
-        <div onClick={showSideBar}>
-          <AiOutlineFilter />
-        </div>
+        <Button _onClick={showSideBar}>
+          <img src={filter} style={{ paddingTop: "4px" }} />
+        </Button>
         <p>산책할개</p>
-        <div>
-          <GrNotification />
-        </div>
+        <Button>
+          <img src={notification} style={{ width: "24px", height: "24px" }} />
+        </Button>
       </Head>
 
       {/* 일러스트 슬라이드 */}
-      <div>
-        {/* <StyledSlider {...settings}>
-          <div>
-            <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-          </div>
-          <div>
-            <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-          </div>
-          <div>
-            <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-          </div>
-        </StyledSlider> */}
-      </div>
+      <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+        <div onClick={() => history.push("/login")}>
+          <LoginImg>
+            <Logo src={logo} />
+            <Login src={login} />
+            <LoginText src={loginText} />
+          </LoginImg>
+        </div>
+        {/* <div
+          onClick={() => {
+            history.push("/caution1");
+          }}
+        >
+          <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+        </div>
+        <div
+          onClick={() => {
+            history.push("/caution1");
+          }}
+        >
+          <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+        </div>
+        <div
+          onClick={() => {
+            history.push("/caution1");
+          }}
+        >
+          <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+        </div> */}
+      </StyledSlider>
 
       {/* 사이드 바*/}
       <SideWrap>
@@ -127,21 +155,6 @@ const Main = (props) => {
   );
 };
 
-const StyledSlider = styled(Slider)`
-  .slick-slide div {
-    outline: none;
-  }
-  width: 350px;
-  height: 220px;
-  margin-bottom: 12px;
-  border-radius: 25px;
-`;
-const Img = styled.img`
-  width: 350px;
-  height: 220px;
-  background-size: cover;
-  border-radius: 25px;
-`;
 const Wrap = styled.div`
   text-align: center;
   position: relative;
@@ -151,15 +164,18 @@ const Wrap = styled.div`
   align-items: center;
   width: 390px;
   margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
 `;
+
 const Head = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 322px;
-  margin: 30px auto 24px auto;
-  padding: 0 34px;
+  width: 100%;
+  margin-bottom: 12px;
   div {
     width: 20px;
     height: 20px;
@@ -174,6 +190,51 @@ const Head = styled.div`
     cursor: pointer;
   }
 `;
+
+const StyledSlider = styled(Slider)`
+  .slick-slide div {
+    outline: none;
+  }
+  width: 350px;
+  height: 220px;
+  margin-bottom: 12px;
+  border-radius: 25px;
+  border: 2px solid black;
+  box-sizing: border-box;
+`;
+const LoginImg = styled.div`
+  position: relative;
+  width: 350px;
+  height: 220px;
+  border-radius: 25px;
+  cursor: pointer;
+`;
+const Logo = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+const Login = styled.img`
+  position: absolute;
+  top: 58.5%;
+  left: 33%;
+  z-index: 3;
+`;
+const LoginText = styled.img`
+  position: absolute;
+  top: 68%;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const Img = styled.img`
+  width: 350px;
+  height: 220px;
+  background-size: cover;
+  border-radius: 25px;
+`;
+
 const Slide = styled.div`
   width: 350px;
   height: 220px;
@@ -242,6 +303,7 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 `;
 const Text = styled.p`
   width: 152px;
@@ -249,44 +311,6 @@ const Text = styled.p`
   margin: 32px 0 24px 0;
   font-size: 16px;
   font-weight: 700;
-`;
-const Footer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  bottom: 1%;
-`;
-const FooterLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 270px;
-  height: 60px;
-  margin: 12px;
-  padding: 20px;
-  border-radius: 20px;
-  width: 274px;
-  height: 60px;
-  background-color: #5c5c5c;
-  border-radius: 20px;
-`;
-const FooterRight = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  background-color: #5c5c5c;
-  border-radius: 50%;
-`;
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
 `;
 
 export default Main;
