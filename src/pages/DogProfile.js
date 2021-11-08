@@ -10,6 +10,11 @@ import { actionCreators as DogActions } from "../redux/modules/user";
 // 리액트 아이콘
 import { MdArrowBackIosNew } from "react-icons/md";
 
+// 버튼 이미지
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+import notification from "../image/Notification.png";
+
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
@@ -108,20 +113,20 @@ const EditDog = (props) => {
   return (
     <Wrap>
       <TopWrap>
-        <MdArrowBackIosNew
-          style={{
-            width: "20px",
-            height: "20px",
-            position: "absolute",
-            bottom: "10px",
-            left: "0",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
-        <TopTitle>반려견 정보</TopTitle>
+        <Button _onClick={() => history.goBack()}>
+          <img
+            src={backward}
+            style={{
+              width: "36px",
+              height: "44px",
+              transform: "translateX(-2px)",
+            }}
+          />
+        </Button>
+        <TopTitle>반려견 정보 수정</TopTitle>
+        <Button>
+          <img src={notification} style={{ paddingTop: "4px" }} />
+        </Button>
       </TopWrap>
 
       {/* 강아지 사진 */}
@@ -332,11 +337,15 @@ const Wrap = styled.div`
   text-align: center;
 `;
 const TopWrap = styled.div`
+  box-sizing: border-box;
   position: relative;
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 const TopTitle = styled.div`
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 52px;
 `;
 const ImageWrap = styled.div`
   margin: 20px 0;
@@ -344,7 +353,7 @@ const ImageWrap = styled.div`
 const Preview = styled.img`
   width: 120px;
   height: 120px;
-  border: 1px solid #e6e6e6;
+  border: 2px solid black;
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
@@ -352,10 +361,10 @@ const Preview = styled.img`
 const AddImage = styled.input`
   display: block;
   width: 180px;
-  margin: 10px 0;
+  margin: 10px 0 0 110px;
 `;
 const Filter = styled.div`
-  background-color: #ebebeb;
+  border: 2px solid black;
   border-radius: 10px;
   padding: 12px 24px;
   margin-bottom: 20px;
@@ -380,7 +389,6 @@ const Label = styled.label`
 const Input = styled.input`
   width: 100%;
   border: 0;
-  background-color: #ebebeb;
   padding: 10px 0;
   &:focus {
     outline: none;
@@ -393,9 +401,11 @@ const ButtonWrap = styled.div`
 const Add = styled.button`
   width: 100%;
   height: 48px;
-  border: none;
+  font-size: 16px;
+  border: 2px solid black;
   border-radius: 10px;
-  background-color: #c4c4c4;
+  background-color: transparent;
+  box-shadow: 0px 4px black;
   cursor: pointer;
 `;
 

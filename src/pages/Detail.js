@@ -230,7 +230,7 @@ const Header = styled.div`
   align-items: center;
   width: 350px;
   height: 52px;
-  margin-bottom: 18px;
+  margin: 46px auto 18px auto;
   font-size: 18px;
 `;
 
