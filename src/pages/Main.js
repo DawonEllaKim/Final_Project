@@ -26,8 +26,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
-  const dog = useSelector((state) => state.user.dog);
-  console.log(dog);
+
   // console.log(postList)
   // 슬라이드 세팅
   const settings = {
@@ -58,7 +57,7 @@ const Main = (props) => {
   // 게시물 불러오기
   useEffect(() => {
     dispatch(postActions.getMainMD());
-    dispatch(UserActions.getDogMD());
+   
   }, []);
 
   return (
