@@ -13,6 +13,15 @@ const Card = ({ post }) => {
   const dogComment = post.dog_comment;
   const initialMeetingDate = post.meeting_date;
 
+  const MeetingDate = initialMeetingDate.split('T')[0];
+  const year = MeetingDate.split('-')[0];
+  const month = MeetingDate.split('-')[1];
+  const day = MeetingDate.split('-')[2];
+  const MeetingTime = initialMeetingDate.split('T')[1];
+  console.log(MeetingTime)
+  // const hour = MeetingTime.split(":")[0];
+  // const minute = MeetingTime.split(":")[1];
+
   return (
     <CardWrap>
       {/* 카드 왼쪽 - 이미지 */}
@@ -25,64 +34,82 @@ const Card = ({ post }) => {
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
-        <CardBottom>{initialMeetingDate}</CardBottom>
+        <CardBottom>{year}. {month}. {day} {}:{}</CardBottom>
       </CardInfo>
     </CardWrap>
   );
 };
 
 const CardWrap = styled.div`
+  border: 2px solid black;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 350px;
   height: 176px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
   padding: 12px;
   border-radius: 25px;
-  background-color: #ebebeb;
   font-size: 14px;
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
+  box-shadow: 0px 3px black;
   img {
     width: 152px;
     height: 152px;
     border-radius: 25px;
+    margin-right: 16px;
   }
 `;
 const CardInfo = styled.div`
-  width: 192px;
+  box-sizing: border-box;
+  width: 158px;
+  height: 152px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 20px;
 `;
 const CardTop = styled.div`
+  padding-top: 8px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  font-weight: 600;
   h4 {
     width: 20px;
     height: 20px;
-    margin-right: 5px;
+    padding: 0;
+    margin:0 8px 0 0;
+    font-weight: 600;
   }
   p {
+    padding: 0;
+    margin:0;
     font-size: 16px;
   }
 `;
 const CardCenter = styled.div`
   display: flex;
   justify-content: flex-start;
+  font-size: 14px;
   width: 100%;
-  padding: 10px;
+  padding-top: 12px;
 `;
 const CardBottom = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+  padding: 10px 0;
 `;
 
 export default Card;
