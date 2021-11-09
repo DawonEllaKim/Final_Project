@@ -177,7 +177,8 @@ const TopWrap = styled.div`
   margin-top:20px;
 `;
 const TopTitle = styled.div`
-  font-size: 16px;
+font-weight: 700;
+    font-size: 24px;
 `;
 
 const DogImage = styled.img`
@@ -192,23 +193,10 @@ const DogImage = styled.img`
   
 `;
 const DataWrap = styled.div`
-  padding: 0 20px;
+  padding: 0px 20px 100px 20px;
+
 `;
-const UserWrap = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: left;
-`;
-const UserImage = styled.img`
-  position: absolute;
-  top: -30px;
-  width: 80px;
-  height: 80px;
-  background-color: #ebebeb;
-  box-sizing: border-box;
-  border-radius: 50%;
-  /* src:pageList.user_image; */
-`;
+
 
 
 const ProfileWrap = styled.div`
@@ -220,8 +208,9 @@ const ProfileWrap = styled.div`
   margin: 28px 0;
 `;
 const Title = styled.div`
-font-weight: bold;
-font-size: 16px;
+
+font-size: 16px;font-weight: 700;
+f
 &:hover {
   color:red;
   border-bottom: 3px solid red;
@@ -244,6 +233,8 @@ const CardWrap = styled.div`
 `;
 const List = styled.div`
   margin-bottom: 20px;
+  font-weight: 700;
+    font-size: 16px;
 `;
 
 export default MyPage;

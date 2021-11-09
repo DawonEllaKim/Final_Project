@@ -45,7 +45,7 @@ const CardWrap = styled.div`
   width: 350px;
 
   margin-bottom: 12px;
-
+  box-shadow: 0px 3px black;
   border-radius: 25px;
   background-color: #ebebeb;
   font-size: 14px;
@@ -58,6 +58,7 @@ const CardWrap = styled.div`
     height: 152px;
     border-radius: 25px;
   }
+  border: 2px solid black;
 `;
 const CardInfo = styled.div`
   width: 192px;

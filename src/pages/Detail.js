@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
 
 // 리덕스
-import { history } from "../redux/configureStore";
+import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
 import Spinner from '../shared/Spinner'
 import Button from "../elements/Button";
@@ -19,7 +19,7 @@ import backward from "../image/backward.png";
 import MapEdit from "./MapEdit";
 const { kakao } = window;
 const Detail = (props) => {
-  
+   const history = useHistory();
   const is_loading = useSelector((state) => state.post.is_loading)
    
   const get_id = localStorage.getItem("user_id")
@@ -108,8 +108,8 @@ const Detail = (props) => {
         {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
         <Header>
           <Button
-            onClick={() => {
-              history.goBack();
+            _onClick={() => {
+              history.goBack()
             }}
           >
             <img src={backward} style={{ width: "10px", height: "18px" }} />

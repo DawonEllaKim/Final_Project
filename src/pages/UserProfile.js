@@ -91,7 +91,7 @@ const EditUser = (props) => {
       formData.append("user_nickname", user_nickname);
       formData.append("user_gender", user_gender);
       formData.append("user_age", user_age);
-      formData.append("user_image", encodeURI(image));
+      formData.append("user_image", imgFile);
   
       console.log(user_nickname, user_gender, user_age, imgFile);
       // const userInfo = {
