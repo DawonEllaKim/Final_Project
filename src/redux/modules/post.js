@@ -14,7 +14,7 @@ const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
-
+const LOADING = "LOADING";
 // action creators
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
@@ -24,7 +24,7 @@ const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
 const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
-
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 // initialState
 const initialState = {
   //메인 요청
@@ -32,6 +32,7 @@ const initialState = {
   map: [],
   //산책 요청
   list: [],
+  is_loading: true,
 };
 
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
@@ -52,6 +53,7 @@ const getMainMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMain(postList));
+        dispatch(loading(false));
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -71,12 +73,13 @@ const getPostMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
         res.data.posts.longitude = Number(res.data.posts.longitude);
         res.data.posts.latitude = Number(res.data.posts.latitude);
+        localStorage.setItem("date",res.data.posts.meeting_date)
         const initialDate = res.data.posts.meeting_date.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
@@ -100,6 +103,7 @@ const getPostMD = (postId) => {
         const postList = res.data.posts;
         console.log(res.data);
         dispatch(getPost(postList));
+        dispatch(loading(false));
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -150,6 +154,7 @@ const getMapMD = (postId) => {
         const postList = res.data.posts;
         console.log(postList);
         dispatch(getMap(postList));
+        dispatch(loading(false));
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -182,7 +187,8 @@ const updatePostMD = (postId, post) => {
         // dispatch(updatePost(postId));
         console.log("수정완료");
         window.alert("수정완료");
-        history.push(`/posts/${postId}`);
+        dispatch(updatePost(post))
+        // history.push(`/posts/${postId}`);
       })
       .catch((err) => {
         console.log(err);
@@ -228,10 +234,8 @@ export default handleActions(
       }),
     [UPDATE_POST]: (state, action) =>
       produce(state, (draft) => {
-        const index = draft.list.findIndex(
-          (post) => post.postId === action.payload.post.postId
-        );
-        draft.list[index] = { ...draft.list[index], ...action.payload.post };
+        
+        draft.list = { ...draft.list, ...action.payload.post };
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -239,6 +243,10 @@ export default handleActions(
         draft.list = draft.list.filter(
           (post) => post.id !== action.payload.postId
         );
+      }),
+      [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState

@@ -7,39 +7,39 @@ import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
-import {
-  SentimentSatisfiedAltTwoTone,
-  VerticalAlignCenter,
-} from "@mui/icons-material";
+
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const post = useSelector((state) => state.post.map);
+  // const meetingdate = useSelector((state) => state.post.list);
+  // console.log(meetingdate)
+  const newDate = localStorage.getItem("date")
+  console.log(newDate)
 
-  const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
+  const [startDate, setStartDate] = useState(new Date(newDate)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
 
-  const map_date = new Date(post.mapedit_date);
-
+  const [wishDesc, setWishDesc] = useState(); //desc설명
+  const wish_desc = post.wish_desc;
   // useSelector, dispatch, 리덕스
   const postId = props.match.params.id;
   useEffect(() => {
     dispatch(postActions.getMapMD(postId));
-    setWishDesc(post.wish_desc);
-    setStartDate(new Date(post.mapedit_date));
-  }, []);
-
+    setWishDesc(wish_desc);
+    
+  }, [wish_desc]);
+  
   console.log(post);
-  const Zapmap = new Date("2021-05-22");
+  // const Zapmap = new Date("2021-05-22");
 
   const location_address = post.location_address;
   console.log(post.mapedit_date);
 
-  const wish_desc = post.wish_desc;
-  const [wishDesc, setWishDesc] = useState(wish_desc); //desc설명
+
   const markerName = useSelector((state) => state.marker.marker);
 
-  console.log(map_date);
+
 
   const editLongitude = markerName.longitude
     ? markerName.longitude
@@ -60,6 +60,18 @@ const MapEdit = (props) => {
     editLocationCategory
   );
 
+
+  const dateHandler = (date) => {
+ setStartDate(date)
+  };
+  const wishHandler = (e) => {
+    setWishDesc(e.target.value);
+    console.log(e.target.value);
+  };
+  //지도 표시할 div
+  console.log(post.mapedit_date);
+  console.log(startDate);
+  
   const editLocation = () => {
     const Info = {
       longitude: editLongitude,
@@ -72,18 +84,6 @@ const MapEdit = (props) => {
     };
     dispatch(PostActions.updatePostMD(postId, Info));
   };
-
-  const dateHandler = (date) => {
-    if (date) setStartDate(date);
-    else setStartDate(map_date);
-  };
-  const wishHandler = (e) => {
-    setWishDesc(e.target.value);
-    console.log(e.target.value);
-  };
-  //지도 표시할 div
-  console.log(post.mapedit_date);
-  console.log(startDate);
 
   return (
     <Frame>
@@ -127,7 +127,7 @@ const MapEdit = (props) => {
         </Flex>
         <Text>소개/유의사항</Text>
         <Flex>
-          <TextArea value={wishDesc} onChange={wishHandler}></TextArea>
+          <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
         </Flex>
         <EndFlex>
           <Button onClick={editLocation}>산책 등록</Button>

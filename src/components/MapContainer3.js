@@ -12,7 +12,7 @@ import { history } from "../redux/configureStore";
 
 // 버튼 이미지
 import Button from "../elements/Button";
-import back from "../image/back.png";
+import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 import map from "../image/map.png";
 
@@ -224,7 +224,7 @@ const MapContainer3 = () => {
       <TopWrap>
         <Button _onClick={() => history.goBack()}>
           <img
-            src={back}
+            src={backward}
             style={{
               width: "36px",
               height: "44px",
@@ -234,7 +234,7 @@ const MapContainer3 = () => {
         </Button>
         <TopTitle>산책로 설정</TopTitle>
         <Button>
-          <img src={notification} style={{ paddingTop: "4px" }} />
+          <img src={notification} style={{ width: "24px", height: "24px" }} />
         </Button>
       </TopWrap>
 

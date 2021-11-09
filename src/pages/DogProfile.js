@@ -19,10 +19,10 @@ const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
   const dog_id = dog.dog_id;
-  console.log(dog.dog_image);
-  const endocoding = window.btoa("dd");
-  const decodedString = window.atob(endocoding);
-  console.log(decodedString);
+  // console.log(dog.dog_image);
+  // const endocoding = window.btoa("dd");
+  // const decodedString = window.atob(endocoding);
+  // console.log(decodedString);
 
   // 이미지
   const [imgBase64, setImgBase64] = useState(dog.dog_image && dog.dog_image); // 파일 base64
@@ -91,6 +91,7 @@ const EditDog = (props) => {
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
+    setImgFile(dog.dog_image)
     setImgBase64(dog.dog_image);
     setDogName(dog.dog_name);
     setDogBreed(dog.dog_breed);
@@ -109,7 +110,7 @@ const EditDog = (props) => {
     dog.dog_age,
     dog.dog_comment,
   ]);
-
+  console.log(imgFile)
   return (
     <Wrap>
       <TopWrap>

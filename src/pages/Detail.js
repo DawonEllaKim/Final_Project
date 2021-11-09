@@ -7,25 +7,29 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../components/NavBar";
 
 // 리덕스
-import { history } from "../redux/configureStore";
+import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import Spinner from "../shared/Spinner";
 import Button from "../elements/Button";
 
 // 리액트 아이콘
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 
+import MapEdit from "./MapEdit";
 const { kakao } = window;
-
 const Detail = (props) => {
+  const history = useHistory();
+  const is_loading = useSelector((state) => state.post.is_loading);
+
+  const get_id = localStorage.getItem("user_id");
+
   const postId = props.match.params.id;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
-  }, []);
-
+  }, [postId]);
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;
@@ -95,6 +99,9 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId));
   };
 
+  if (is_loading) {
+    return <Spinner />;
+  }
   return (
     <>
       {/* {post_info && ( */}
@@ -102,7 +109,7 @@ const Detail = (props) => {
         {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
         <Header>
           <Button
-            onClick={() => {
+            _onClick={() => {
               history.goBack();
             }}
           >
@@ -191,12 +198,14 @@ const Detail = (props) => {
           </MapWrap>
 
           {/* 버튼 */}
-          <FlexButton>
-            <button onClick={deletePost}>삭제하기</button>
-            <button onClick={() => history.push(`/mapEdit/${postId}`)}>
-              수정하기
-            </button>
-          </FlexButton>
+          {get_id == post.user_id && (
+            <FlexButton>
+              <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
+              <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
+                수정하기
+              </EditButton>
+            </FlexButton>
+          )}
         </DetailWrap>
 
         {/* 고정 버튼들 */}
