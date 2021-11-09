@@ -6,6 +6,16 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import MarkerModal from "../components/MarkerModal";
+import NavBar from "../components/NavBar";
+
+import { history } from "../redux/configureStore";
+
+// 버튼 이미지
+import Button from "../elements/Button";
+import back from "../image/back.png";
+import notification from "../image/Notification.png";
+import map from "../image/map.png";
+
 const { kakao } = window;
 const MapContainer3 = () => {
   const [check, setCheck] = useState();
@@ -211,6 +221,23 @@ const MapContainer3 = () => {
   };
   return (
     <Crapper>
+      <TopWrap>
+        <Button _onClick={() => history.goBack()}>
+          <img
+            src={back}
+            style={{
+              width: "36px",
+              height: "44px",
+              transform: "translateX(-2px)",
+            }}
+          />
+        </Button>
+        <TopTitle>산책로 설정</TopTitle>
+        <Button>
+          <img src={notification} style={{ paddingTop: "4px" }} />
+        </Button>
+      </TopWrap>
+
       <div
         id="map"
         style={{
@@ -269,6 +296,7 @@ const MapContainer3 = () => {
 
       <div id="placesList"></div>
       {/* <div id="pagination"></div> */}
+      <NavBar />
     </Crapper>
   );
 };
@@ -277,6 +305,19 @@ const Crapper = styled.div`
   margin: 0 auto;
   width: 390px;
   height: 600px;
+  box-sizing: border-box;
+`;
+
+const TopWrap = styled.div`
+  box-sizing: border-box;
+  position: relative;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+`;
+const TopTitle = styled.div`
+  font-size: 18px;
+  line-height: 52px;
 `;
 
 export default MapContainer3;
