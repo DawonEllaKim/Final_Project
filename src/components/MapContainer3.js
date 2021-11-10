@@ -12,7 +12,7 @@ import { history } from "../redux/configureStore";
 
 // 버튼 이미지
 import Button from "../elements/Button";
-import back from "../image/back.png";
+import back from "../image/backward.png";
 import notification from "../image/Notification.png";
 import map from "../image/map.png";
 
@@ -226,15 +226,15 @@ const MapContainer3 = () => {
           <img
             src={back}
             style={{
-              width: "36px",
-              height: "44px",
-              transform: "translateX(-2px)",
+              width: "10px",
+              height: "18px",
+              
             }}
           />
         </Button>
         <TopTitle>산책로 설정</TopTitle>
         <Button>
-          <img src={notification} style={{ paddingTop: "4px" }} />
+          <img src={notification} style={{ width: "24px", height: "24px" }} />
         </Button>
       </TopWrap>
 

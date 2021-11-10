@@ -94,7 +94,8 @@ const updateUserMD = (userInfo) => {
         userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
+        // accept: "application/json",
+        "Content-Type": "application/octet-stream",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("user_login")}`,
         "Content-Type": "multipart/form-data; ",

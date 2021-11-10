@@ -9,6 +9,7 @@ import MyPage from "./pages/MyPage";
 import SignDog from "./pages/SignDog";
 import { history } from "./redux/configureStore.js";
 import Map2 from "./pages/Map2";
+import Map from "./pages/Map";
 import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
@@ -29,7 +30,9 @@ import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 import Caution1 from "./pages/Caution1";
 import Caution2 from "./pages/Caution2";
 import Caution3 from "./pages/Caution3";
-
+import FindLocation from "./components/FindLocation";
+import Road from "./pages/Road";
+import MapPractice from "./pages/MapPractice";
 function App() {
   return (
     <div className="App">
@@ -69,6 +72,10 @@ function App() {
         <Route exact path="/caution1" component={Caution1} />
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
+        <Route exact path ="/findLocation" component= {FindLocation}/>
+        <Route exact path="/map" component = {Map}/>
+        <Route exact path="/road" component = {Road} />
+        <Route exact path="/mapPractice" component={MapPractice} />
       </ConnectedRouter>
     </div>
   );

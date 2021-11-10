@@ -106,16 +106,16 @@ const SignUp = () => {
     }
 
     const formData = new FormData();
-    formData.append("user_email", user_email);
+    formData.append("userEmail", user_email);
     formData.append("password", password);
-    formData.append("confirm_password", confirm_password);
-    formData.append("user_nickname", user_nickname);
-    formData.append("user_gender", user_gender);
-    formData.append("user_age", user_age);
-    formData.append("user_image", imgFile);
+    formData.append("confirmPassword", confirm_password);
+    formData.append("userNickname", user_nickname);
+    formData.append("userGender", user_gender);
+    formData.append("userAge", user_age);
+    formData.append("userImage", imgFile);
 
     toast.success(
-      "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
+      "회원 정보 등록이 완료되었습니다!",
       {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
@@ -269,7 +269,7 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>반려견 등록하기</button>
+          <button onClick={submitUserInfo}>회원가입</button>
           <button
             onClick={() => {
               history.goBack();
