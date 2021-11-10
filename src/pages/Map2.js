@@ -29,10 +29,10 @@ const Map2 = (props) => {
     const Info = {
       longitude: markerName.longitude,
       latitude: markerName.latitude,
-      location_address: markerName.placename,
-      wish_desc: wishDesc,
-      location_category: markerName.locationCategory,
-      meeting_date: startDate,
+      locationAddress: markerName.placename,
+      wishDesc: wishDesc,
+      locationCategory: markerName.locationCategory,
+      meetingDate: startDate,
       completed: false,
     };
     dispatch(PostActions.addPostMD(Info));
@@ -100,11 +100,13 @@ const Frame = styled.div`
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
+  padding-bottom:100px;
 `;
 
 const InputArea = styled.div`
   padding: 40px 20px;
   box-sizing: border-box;
+  
 `;
 
 const TopWrap = styled.div`

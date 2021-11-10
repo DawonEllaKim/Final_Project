@@ -73,26 +73,26 @@ const Detail = (props) => {
   }, [latitude, longitude]);
 
   // 유저 정보
-  const userImage = post.user_image;
-  const userNickname = post.user_nickname;
-  const userAge = post.user_age;
-  const userGender = post.user_gender;
+  const userImage = post.userImage;
+  const userNickname = post.userNickname;
+  const userAge = post.userAge;
+  const userGender = post.userGender;
   console.log(userImage);
 
   // 강아지 정보
-  const dogImage = post.dog_image;
-  const dogName = post.dog_name;
-  const dogAge = post.dog_age;
-  const dogSize = post.dog_size;
-  const dogGender = post.dog_gender;
+  const dogImage = post.dogImage;
+  const dogName = post.dogName;
+  const dogAge = post.dogAge;
+  const dogSize = post.dogSize;
+  const dogGender = post.dogGender;
   const neutral = post.neutral;
-  const dogBreed = post.dog_breed;
-  const dogComment = post.dog_comment;
-  const location = post.location_category;
+  const dogBreed = post.dogBreed;
+  const dogComment = post.dogComment;
+  const location = post.locationCategory;
   console.log(post.latitude, post.longitude);
 
   // 산책 정보
-  const meetingDate = post.meeting_date;
+  const meetingDate = post.meetingDate;
   const completed = post.completed;
   console.log(post);
 

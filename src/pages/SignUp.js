@@ -122,15 +122,12 @@ const SignUp = () => {
     formData.append("userAge", user_age);
     formData.append("userImage", imgFile);
 
-    toast.success(
-      "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
-      {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        draggable: true,
-        closeOnClick: true,
-      }
-    );
+    toast.success("회원 정보 등록이 완료되었습니다!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      draggable: true,
+      closeOnClick: true,
+    });
     dispatch(UserActions.signUserAPI(formData));
   };
 
@@ -287,7 +284,7 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>반려견 등록하기</button>
+          <button onClick={submitUserInfo}>회원가입</button>
           <button
             onClick={() => {
               history.goBack();

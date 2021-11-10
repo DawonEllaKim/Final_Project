@@ -135,6 +135,91 @@ const EditUser = (props) => {
   //     type: contentType,
   //   })
   // }
+  // else
+  // reader.readAsDataURL(userImage);
+  //   setImgFile(userImage)
+  // };
+
+  // const userNicknameChangeHandler = (e) => {
+  //   setUserNickname(e.target.value);
+  // };
+  // const genderChangeHandler = (gender) => {
+  //   setUserGender(gender);
+  // };
+  // const userAgeChangeHandler = (age) => {
+  //   setUserAge(age);
+  // };
+
+  // // 뒤로가기 버튼 - 수정 취소
+  // const cancel = () => {
+  //   // if (
+  //   //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
+  //   // ) {
+  //   history.goBack();
+  //   // }
+  // };
+
+  // // 현재 접속한 보호자의 정보 불러오기
+  // useEffect(() => {
+  //   dispatch(UserActions.getUserMD());
+  //   setUserNickname(userNickName);
+  //   setUserGender(userGender);
+  //   setUserAge(userAge);
+  //   setImgBase64(userImage);
+  //   setImgFile(userImage);
+  // }, [userGender, userAge, userImage, userNickName]);
+
+  // // 수정하기 버튼 = 수정 완료
+  // console.log(imgFile, user.user_image);
+  // const update = () => {
+  //   console.log(imgFile);
+  //   const image = imgFile ? imgFile : user.user_image;
+  //   console.log(image);
+  //   const formData = new FormData();
+  //   formData.append("userNickname", user_nickname);
+  //   formData.append("userGender", user_gender);
+  //   formData.append("userAge", user_age);
+  //   formData.append("userImage", " ");
+
+  //   console.log(user_nickname, user_gender, user_age, imgFile);
+  //   // const userInfo = {
+  //   //   user_nickname,
+  //   //   user_gender,
+  //   //   user_age,
+  //   //   user_image: imgFile,
+  //   // };
+  //   dispatch(UserActions.updateUserMD(formData));
+  // };
+
+  // const dataURLToBlob = dataURL => {
+  //   const BASE64_MARKER = ";base64,";
+
+  //   // base64로 인코딩 되어있지 않을 경우
+  //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
+  //     const parts = dataURL.split(",");
+  //     const contentType = parts[0].split(":")[1];
+  //     const raw = parts[1];
+  //     return new Blob([raw], {
+  //       type: contentType
+  //     });
+  //   }
+  //   // base64로 인코딩 된 이진데이터일 경우
+  //   const parts = dataURL.split(BASE64_MARKER);
+  //   const contentType = parts[0].split(":")[1];
+  //   const raw = window.atob(parts[1]);
+  //   // atob()는 Base64를 디코딩하는 메서드
+  //   const rawLength = raw.length;
+  //   // 부호 없는 1byte 정수 배열을 생성
+  //   const uInt8Array = new Uint8Array(rawLength); // 길이만 지정된 배열
+  //   let i = 0;
+  //   while (i < rawLength) {
+  //     uInt8Array[i] = raw.charCodeAt(i);
+  //     i++;
+  //   }
+  //   return new Blob([uInt8Array], {
+  //     type: contentType
+  //   });
+  // };
 
   return (
     <>

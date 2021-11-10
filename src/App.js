@@ -11,6 +11,7 @@ import MyPage from "./pages/MyPage";
 import SignDog from "./pages/SignDog";
 import { history } from "./redux/configureStore.js";
 import Map2 from "./pages/Map2";
+import Map from "./pages/Map";
 import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
@@ -36,6 +37,9 @@ import DogStaDetail from "./pages/DogStaDetail";
 import DogStaEdit from "./components/MyPage/DogStaEdit";
 import DogStaGram from "./pages/DogStaGram";
 
+import FindLocation from "./components/FindLocation";
+import Road from "./pages/Road";
+import MapPractice from "./pages/MapPractice";
 function App() {
   return (
     <div className="App">
@@ -79,6 +83,10 @@ function App() {
         <Route exact path="/dogstadetail/:id" component={DogStaDetail} />
         <Route exact path="/dogstaedit/:id" component={DogStaEdit} />
         <Route exact path="/dogstagram" component={DogStaGram} />
+        <Route exact path="/findLocation" component={FindLocation} />
+        <Route exact path="/map" component={Map} />
+        <Route exact path="/road" component={Road} />
+        <Route exact path="/mapPractice" component={MapPractice} />
       </ConnectedRouter>
     </div>
   );
