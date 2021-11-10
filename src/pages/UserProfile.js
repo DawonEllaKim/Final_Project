@@ -88,11 +88,11 @@ const EditUser = (props) => {
       const image = imgFile ? imgFile : user.user_image;
       console.log(image);
       const formData = new FormData();
-      formData.append("user_nickname", user_nickname);
-      formData.append("user_gender", user_gender);
-      formData.append("user_age", user_age);
-      formData.append("user_image", imgFile);
-  
+      formData.append("userNickname", user_nickname);
+      formData.append("userGender", user_gender);
+      formData.append("userAge", user_age);
+      formData.append("userImage", " ");
+   
       console.log(user_nickname, user_gender, user_age, imgFile);
       // const userInfo = {
       //   user_nickname,
@@ -103,40 +103,35 @@ const EditUser = (props) => {
       dispatch(UserActions.updateUserMD(formData));
     };
   
-  // const dataURLToBlob = (dataURL) => {
-  //   const BASE64_MARKER = ';base64,'
-  
-  //   // base64로 인코딩 되어있지 않을 경우
-  //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
-  //     const parts = dataURL.split(',')
-  //     console.log(parts)
-  //     const contentType = parts[0].split('.')[4]
-  //     console.log(contentType)
-  //     const raw = parts[0]
-  //     console.log(raw)
-  //     return new Blob([raw], {
-  //       type: "",
-  //     })
-  //   }
-  //   // base64로 인코딩 된 이진데이터일 경우
-  //   const parts = dataURL.split(BASE64_MARKER)
-  //   const contentType = parts[0].split(':')[1]
-  //   const raw = window.atob(parts[1])
-  //   console.log(contentType)
-  //   // atob()는 Base64를 디코딩하는 메서드
-  //   const rawLength = raw.length
-  //   // 부호 없는 1byte 정수 배열을 생성
-  //   const uInt8Array = new Uint8Array(rawLength) // 길이만 지정된 배열
-  //   let i = 0
-  //   while (i < rawLength) {
-  //     uInt8Array[i] = raw.charCodeAt(i)
-  //     i++
-  //   }
-  //   return new Blob([uInt8Array], {
-  //     type: contentType,
-  //   })
-  // }
-  
+    // const dataURLToBlob = dataURL => {
+    //   const BASE64_MARKER = ";base64,";
+    
+    //   // base64로 인코딩 되어있지 않을 경우
+    //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
+    //     const parts = dataURL.split(",");
+    //     const contentType = parts[0].split(":")[1];
+    //     const raw = parts[1];
+    //     return new Blob([raw], {
+    //       type: contentType
+    //     });
+    //   }
+    //   // base64로 인코딩 된 이진데이터일 경우
+    //   const parts = dataURL.split(BASE64_MARKER);
+    //   const contentType = parts[0].split(":")[1];
+    //   const raw = window.atob(parts[1]);
+    //   // atob()는 Base64를 디코딩하는 메서드
+    //   const rawLength = raw.length;
+    //   // 부호 없는 1byte 정수 배열을 생성 
+    //   const uInt8Array = new Uint8Array(rawLength); // 길이만 지정된 배열
+    //   let i = 0;
+    //   while (i < rawLength) {
+    //     uInt8Array[i] = raw.charCodeAt(i);
+    //     i++;
+    //   }
+    //   return new Blob([uInt8Array], {
+    //     type: contentType
+    //   });
+    // };
 
   
   return (
