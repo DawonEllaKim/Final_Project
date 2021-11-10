@@ -18,7 +18,7 @@ const UPDATE_DOG = "UPDATE_DOG";
 //액션생성함수
 //마이페이지 GET요청
 const getMypage = createAction(GET_MYPAGE, (page) => ({ page }));
-const getList = createAction(GET_LIST,(list)=>({list}))
+const getList = createAction(GET_LIST, (list) => ({ list }));
 //유저 정보  GET,FETCH 요청
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const updateUser = createAction(UPDATE_USER, (user) => ({ user }));
@@ -43,7 +43,7 @@ const getMypageMD = () => {
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
@@ -68,15 +68,15 @@ const getUserMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
       .then((res) => {
         console.log(res.data.user); // user 정보 확인
-        localStorage.setItem ("image",res.data.user[0].user_image)
-        localStorage.setItem("user_id",res.data.user[0].user_id)
-         dispatch(getUser(res.data.user[0]))
+        localStorage.setItem("image", res.data.user[0].userImage);
+        localStorage.setItem("userId", res.data.user[0].userId);
+        dispatch(getUser(res.data.user[0]));
       })
       .catch((err) => {
         console.log("getUserMD에서 오류발생", err);
@@ -90,13 +90,12 @@ const updateUserMD = (userInfo) => {
     axios({
       method: "PATCH",
       url: "http://13.209.70.209/users/me",
-      data: 
-        userInfo,
+      data: userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -122,7 +121,7 @@ const getDogMD = () => {
       headers: {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -150,7 +149,7 @@ const updateDogMD = (dog_id, formData) => {
         accept: "application/json",
         "Content-Type": "multipart/form-data; ",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
@@ -176,11 +175,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
-      [GET_LIST]: (state, action) =>
+    [GET_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.list;
       }),
-     
     [UPDATE_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = { ...draft.user, ...action.payload.user };

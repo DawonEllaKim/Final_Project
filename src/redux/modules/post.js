@@ -18,7 +18,7 @@ const LOADING = "LOADING";
 // action creators
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
-const getMap = createAction(GET_MAP, (map)=> ({map}))
+const getMap = createAction(GET_MAP, (map) => ({ map }));
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
@@ -79,7 +79,7 @@ const getPostMD = (postId) => {
       .then((res) => {
         res.data.posts.longitude = Number(res.data.posts.longitude);
         res.data.posts.latitude = Number(res.data.posts.latitude);
-        localStorage.setItem("date",res.data.posts.meeting_date)
+        localStorage.setItem("date", res.data.posts.meeting_date);
         const initialDate = res.data.posts.meeting_date.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
@@ -88,16 +88,11 @@ const getPostMD = (postId) => {
         // const hour = initialTime.split(":")[0];
         // const minute = initialTime.split(":")[1];
         res.data.posts.meeting_date =
-          year +
-          "년 " +
-          month +
-          "월 " +
-          day +
-          "일 " 
-          // hour +
-          // "시 " +
-          // minute +
-          // "분";
+          year + "년 " + month + "월 " + day + "일 ";
+        // hour +
+        // "시 " +
+        // minute +
+        // "분";
         // res.data.mapedit_date =
         //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
         const postList = res.data.posts;
@@ -187,7 +182,7 @@ const updatePostMD = (postId, post) => {
         // dispatch(updatePost(postId));
         console.log("수정완료");
         window.alert("수정완료");
-        dispatch(updatePost(post))
+        dispatch(updatePost(post));
         // history.push(`/posts/${postId}`);
       })
       .catch((err) => {
@@ -220,7 +215,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.main = action.payload.main;
       }),
-      [GET_MAP]: (state, action) =>
+    [GET_MAP]: (state, action) =>
       produce(state, (draft) => {
         draft.map = action.payload.map;
       }),
@@ -234,7 +229,6 @@ export default handleActions(
       }),
     [UPDATE_POST]: (state, action) =>
       produce(state, (draft) => {
-        
         draft.list = { ...draft.list, ...action.payload.post };
       }),
     [DELETE_POST]: (state, action) =>
@@ -244,7 +238,7 @@ export default handleActions(
           (post) => post.id !== action.payload.postId
         );
       }),
-      [LOADING]: (state, action) =>
+    [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),

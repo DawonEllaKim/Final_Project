@@ -6,19 +6,19 @@ import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
 const Card = ({ post }) => {
-  const dogImage = post.dog_image;
-  const dogName = post.dog_name;
-  const dogGender = post.dog_gender;
-  const dogAge = post.dog_age;
-  const dogComment = post.dog_comment;
-  const initialMeetingDate = post.meeting_date;
+  const dogImage = post.dogImage;
+  const dogName = post.dogName;
+  const dogGender = post.dogGender;
+  const dogAge = post.dogAge;
+  const dogComment = post.dogComment;
+  const initialMeetingDate = post.meetingDate;
 
-  const MeetingDate = initialMeetingDate.split('T')[0];
-  const year = MeetingDate.split('-')[0];
-  const month = MeetingDate.split('-')[1];
-  const day = MeetingDate.split('-')[2];
-  const MeetingTime = initialMeetingDate.split('T')[1];
-  console.log(MeetingTime)
+  const MeetingDate = initialMeetingDate.split("T")[0];
+  const year = MeetingDate.split("-")[0];
+  const month = MeetingDate.split("-")[1];
+  const day = MeetingDate.split("-")[2];
+  const MeetingTime = initialMeetingDate.split("T")[1];
+  console.log(MeetingTime);
   // const hour = MeetingTime.split(":")[0];
   // const minute = MeetingTime.split(":")[1];
 
@@ -34,7 +34,9 @@ const Card = ({ post }) => {
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
-        <CardBottom>{year}. {month}. {day} {}:{}</CardBottom>
+        <CardBottom>
+          {year}. {month}. {day} {}:{}
+        </CardBottom>
       </CardInfo>
     </CardWrap>
   );
@@ -86,12 +88,12 @@ const CardTop = styled.div`
     width: 20px;
     height: 20px;
     padding: 0;
-    margin:0 8px 0 0;
+    margin: 0 8px 0 0;
     font-weight: 600;
   }
   p {
     padding: 0;
-    margin:0;
+    margin: 0;
     font-size: 16px;
   }
 `;

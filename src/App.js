@@ -1,6 +1,8 @@
 import "./App.css";
 import { Route } from "react-router";
 
+import PrivateRoute from "./shared/PrivateRoute";
+
 import { ConnectedRouter } from "connected-react-router";
 import Main from "./pages/Main";
 import LogIn from "./pages/LogIn";
@@ -29,6 +31,10 @@ import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 import Caution1 from "./pages/Caution1";
 import Caution2 from "./pages/Caution2";
 import Caution3 from "./pages/Caution3";
+import DogStaWrite from "./pages/DogStaWrite";
+import DogStaDetail from "./pages/DogStaDetail";
+import DogStaEdit from "./components/MyPage/DogStaEdit";
+import DogStaGram from "./pages/DogStaGram";
 
 function App() {
   return (
@@ -39,7 +45,7 @@ function App() {
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
-        <Route exact path="/mypage" component={MyPage} />
+        <Route exact path="/mypage/:userId" component={MyPage} />
         <Route exact path="/map2" component={Map2} />
         <Route exact path="/write" component={Write} />
         <Route exact path="/write/:id" component={Write} />
@@ -69,6 +75,10 @@ function App() {
         <Route exact path="/caution1" component={Caution1} />
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
+        <Route exact path="/dogstawrite" component={DogStaWrite} />
+        <Route exact path="/dogstadetail/:id" component={DogStaDetail} />
+        <Route exact path="/dogstaedit/:id" component={DogStaEdit} />
+        <Route exact path="/dogstagram" component={DogStaGram} />
       </ConnectedRouter>
     </div>
   );

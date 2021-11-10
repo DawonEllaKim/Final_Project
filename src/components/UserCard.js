@@ -14,19 +14,18 @@ const UserCard = ({ post }) => {
   const history = useHistory();
 
   return (
-    <CardWrap onClick={() => {
+    <CardWrap
+      onClick={() => {
         history.push("/userProfile");
-      }}>
+      }}
+    >
       {/* 카드 왼쪽 - 이미지 */}
       <img src={userImage} />
 
       {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
         <CardTop>
-       
           <p>{userName + "/ " + userAge}</p>
-          
-       
         </CardTop>
         <p>{userGender}</p>
       </CardInfo>
@@ -49,7 +48,7 @@ const CardWrap = styled.div`
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
-  font-size:16px;
+  font-size: 16px;
   img {
     width: 152px;
     height: 152px;

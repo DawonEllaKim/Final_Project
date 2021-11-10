@@ -6,7 +6,8 @@ import Slider from "react-slick";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as UserActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 // 컴포넌츠
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
@@ -38,8 +39,10 @@ import caution1 from "../image/caution1.png";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
+  const userInfo = useSelector((state) => state.user.list);
 
-  // console.log(postList)
+  console.log(userInfo);
+
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -52,8 +55,9 @@ const Main = (props) => {
     pauseOnHover: true,
   };
 
-  const user_id = localStorage.getItem("user_id");
-  console.log(user_id);
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
@@ -70,6 +74,7 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
+    dispatch(userActions.getMypageMD());
     dispatch(postActions.getMainMD());
   }, []);
 
@@ -88,7 +93,7 @@ const Main = (props) => {
 
       {/* 일러스트 슬라이드 */}
 
-      {!user_id ? (
+      {!userId ? (
         <StyledSlider {...settings} style={{ cursor: "pointer" }}>
           <div onClick={() => history.push("/login")}>
             <LoginImg>

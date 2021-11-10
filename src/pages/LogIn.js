@@ -15,7 +15,7 @@ import { KAKAO_AUTH_URL } from "../components/OAuth";
 
 const LogIn = (props) => {
   const dispatch = useDispatch();
-  const [user_email, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const userEmailChangeHandler = (e) => {
@@ -28,11 +28,11 @@ const LogIn = (props) => {
   };
 
   const onClickLogin = () => {
-    if ((user_email === "") | (password === "")) {
+    if ((userEmail === "") | (password === "")) {
       window.alert("이메일 또는 비밀번호를 입력해주세요");
       return;
     }
-    dispatch(userActions.logInMD(user_email, password));
+    dispatch(userActions.logInMD(userEmail, password));
   };
 
   // const loginWithKakao = () => {

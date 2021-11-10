@@ -13,25 +13,25 @@ const DogCard = ({ post }) => {
   const dogComment = post.dog_comment;
   const initialMeetingDate = post.meeting_date;
   const dogBreed = post.dog_breed;
-  const neutral = post.neutral
+  const neutral = post.neutral;
   const history = useHistory();
   return (
-    <CardWrap onClick={() => {
+    <CardWrap
+      onClick={() => {
         history.push("/dogProfile");
-      }}>
+      }}
+    >
       {/* 카드 왼쪽 - 이미지 */}
       <img src={dogImage} />
 
       {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
+        <CardCenter>{dogBreed}</CardCenter>
         <CardCenter>
-      
-          {dogBreed}
-        
+          {" "}
+          {dogGender}/{dogAge}
         </CardCenter>
-        <CardCenter> {dogGender}/{dogAge}</CardCenter>
-        <CardCenter>중성화여부/{neutral==true?"유":"무"}</CardCenter>
-       
+        <CardCenter>중성화여부/{neutral == true ? "유" : "무"}</CardCenter>
       </CardInfo>
     </CardWrap>
   );
@@ -52,7 +52,7 @@ const CardWrap = styled.div`
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
-  font-size:16px;
+  font-size: 16px;
   img {
     width: 152px;
     height: 152px;

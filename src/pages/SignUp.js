@@ -20,6 +20,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [user_nickname, setUserNickname] = useState("");
+  const [user_location, setUserLocation] = useState("");
   const [user_gender, setUserGender] = useState("");
   const [user_age, setUserAge] = useState("");
 
@@ -60,6 +61,11 @@ const SignUp = () => {
     console.log(newTitle);
     setUserNickname(newTitle);
   };
+  const userLocationChangeHandler = (e) => {
+    const newTitle = e.target.value;
+    console.log(newTitle);
+    setUserLocation(newTitle);
+  };
   const userGenderChangeHandler = (name) => {
     console.log(name);
     setUserGender(name);
@@ -98,6 +104,7 @@ const SignUp = () => {
       password === "" ||
       confirm_password === "" ||
       user_nickname === "" ||
+      user_location === "" ||
       user_gender === "" ||
       user_age === ""
     ) {
@@ -106,13 +113,14 @@ const SignUp = () => {
     }
 
     const formData = new FormData();
-    formData.append("user_email", user_email);
+    formData.append("userEmail", user_email);
     formData.append("password", password);
-    formData.append("confirm_password", confirm_password);
-    formData.append("user_nickname", user_nickname);
-    formData.append("user_gender", user_gender);
-    formData.append("user_age", user_age);
-    formData.append("user_image", imgFile);
+    formData.append("confirmPassword", confirm_password);
+    formData.append("userNickname", user_nickname);
+    formData.append("userLocation", user_location);
+    formData.append("userGender", user_gender);
+    formData.append("userAge", user_age);
+    formData.append("userImage", imgFile);
 
     toast.success(
       "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
@@ -165,12 +173,14 @@ const SignUp = () => {
             중복확인
           </IdCheck>
         </UserWrap>
+
         <Input>
           <InputText
             placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
             onChange={passwordChangeHandler}
           />
         </Input>
+
         <Input>
           <InputText
             placeholder="패스워드 확인"
@@ -184,6 +194,14 @@ const SignUp = () => {
             onChange={userNicknameChangeHandler}
           />
         </Input>
+
+        <Input>
+          <InputText
+            placeholder="거주지 입력"
+            onChange={userLocationChangeHandler}
+          />
+        </Input>
+
         <Input>
           <Title>성별</Title>
           <FlexWrap>

@@ -18,6 +18,7 @@ import backward from "../image/backward.png";
 
 import MapEdit from "./MapEdit";
 const { kakao } = window;
+
 const Detail = (props) => {
   const history = useHistory();
   const is_loading = useSelector((state) => state.post.is_loading);
@@ -30,6 +31,7 @@ const Detail = (props) => {
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
   }, [postId]);
+
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;

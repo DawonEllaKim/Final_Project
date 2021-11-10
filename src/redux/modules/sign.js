@@ -12,14 +12,14 @@ const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const CHECK_DOG = "CHEKC_DOG";
 const LOADING = "LOADING";
-const GET_ID = "GET_ID"
+const GET_ID = "GET_ID";
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 const login = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const checkDog = createAction(CHECK_DOG, (check_dog) => ({ check_dog }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
-const getId  = createAction(GET_ID,(get_id) => ({get_id}) )
+const getId = createAction(GET_ID, (get_id) => ({ get_id }));
 const initialState = {
   user: [],
   dog: [],
@@ -29,12 +29,12 @@ const initialState = {
   is_login: false,
 };
 
-const logInMD = (user_email, password) => {
+const logInMD = (userEmail, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: "http://13.209.70.209/users/login",
-      data: { user_email, password },
+      data: { userEmail, password },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -44,10 +44,10 @@ const logInMD = (user_email, password) => {
       .then((res) => {
         const token = res.data.token;
         setCookie("token", token);
-        localStorage.setItem("user_email", user_email);
+        localStorage.setItem("userEmail", userEmail);
         dispatch(checkDogAPI());
         dispatch(UserActions.getUserMD());
-        history.push("/check")
+        history.push("/check");
       })
       .catch((err) => {
         window.alert("로그인 오류");
@@ -105,12 +105,12 @@ const checkDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/users/dog_exist",
+      url: "http://13.209.70.209/users/dogExist",
       data: {},
       headers: {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
@@ -152,7 +152,7 @@ const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/dogs/dog_info",
+      url: "http://13.209.70.209/dogs/dogInfo",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -174,8 +174,6 @@ const signDogAPI = (formData) => {
       });
   };
 };
-
-
 
 export default handleActions(
   {
@@ -204,7 +202,6 @@ export default handleActions(
         localStorage.removeItem("date");
         localStorage.removeItem("user_id");
         deleteCookie("token");
-        
       }),
     [CHECK_DOG]: (state, action) =>
       produce(state, (draft) => {

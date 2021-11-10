@@ -1,240 +1,266 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MdArrowBackIosNew } from "react-icons/md";
-import { GrNotification } from "react-icons/gr";
-
-import Card from "../components/Card";
-import UserCard from "../components/UserCard";
-import NavBar from "../components/NavBar";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as signActions } from "../redux/modules/sign";
 import { useHistory } from "react-router";
 
-import {FiLogOut,FiMail} from "react-icons/fi";
-import DogCard from "../components/DogCard"
+// 컴포넌츠
+import GaeStaCard from "../components/MyPage/GaeStaCard";
+import DogCard from "../components/MyPage/DogCard";
+import ListCard from "../components/MyPage/ListCard";
+import NavBar from "../components/NavBar";
+
+// 리덕스
+import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as signActions } from "../redux/modules/sign";
+
+// 아이콘
+import { FiLogOut } from "react-icons/fi";
+import notification from "../image/Notification.png";
+import backward from "../image/backward.png";
+import dog from "../image/dog.png";
+import myPage from "../image/myPage.png";
+import chat from "../image/chat.png";
+
+// 로그인 이미지
+import logo from "../image/loginLogo.png";
+import login from "../image/login.png";
+import loginText from "../image/loginText.png";
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
-  const pageList = useSelector((state) => state.user.page);
-  console.log(pageList);
-  const userInfo = useSelector((state) => state.user.list);
-  console.log(userInfo);
   const history = useHistory();
-  const [check,setCheck] = useState(true);
+
+  const [check, setCheck] = useState("sta");
+
+  const pageList = useSelector((state) => state.user.page);
+  const userInfo = useSelector((state) => state.user.list);
+  const is_login = localStorage.getItem("user_id");
+
+  const logout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      dispatch(signActions.logOut());
+      history.replace("/");
+    } else {
+      console.log("로그인 유지");
+    }
+  };
+
   useEffect(() => {
     dispatch(userActions.getMypageMD());
   }, []);
 
-  const siteLogout = () => {
-    if (window.confirm('로그아웃 하시겠습니까?')) {
-      dispatch(signActions.logOut());
-      history.replace('/');
-    } else {
-      console.log('로그인 유지');
-    }
-  };
-
   return (
-    <Wrap>
-      <TopWrap>
-        <MdArrowBackIosNew
-          style={{ width: "24px", height: "24px", cursor: "pointer" }}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
-        <TopTitle>마이페이지</TopTitle>
-        <GrNotification style={{ width: "24px", height: "24px" }} />
-      </TopWrap>
-      <DogImage src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"></DogImage>
-      <DataWrap>
-   
-       <FlexBetween>
-       <DogProfile
-            onClick={siteLogout}
-          >
-            <CircleButton >
-          <FiLogOut size="30" />
-        </CircleButton>
-            <Title>로그아웃</Title>
-          </DogProfile>
-          <DogProfile
+    <div>
+      {/* {is_login ? ( */}
+      <Wrap>
+        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+        <Header>
+          <button
             onClick={() => {
-              history.push("/dogProfile");
+              history.goBack();
             }}
           >
-            <CircleButton >
-            <FiMail size="30" />
-        </CircleButton>
-            <Title>쪽지</Title>
-          </DogProfile>
-         </FlexBetween>
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </button>
+          <p>{userInfo.user_nickname}님의 페이지</p>
+          <button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </button>
+        </Header>
 
-         {/* 등록정보,산책목로 */}
-        <ProfileWrap>
-          
-          <DogProfile
+        {/* 유저 정보 */}
+        <UserInfo>
+          {/* 유저 사진 */}
+          <img src={userInfo.user_image} />
+
+          {/* 유저 닉네임 + 유저 주소 */}
+          <div>
+            <span>{userInfo.user_nickname}</span>
+            <span>서울시 양천구 목동</span>
+          </div>
+
+          {/* 로그아웃 버튼 */}
+          <LogOut onClick={logout}>
+            <FiLogOut size="16" />
+            <span>로그아웃</span>
+          </LogOut>
+        </UserInfo>
+
+        {/* 다른 페이지로 이동 버튼들 */}
+        <Buttons>
+          <div
             onClick={() => {
-              setCheck(true)
+              setCheck("sta");
             }}
           >
-    
-            <Title>등록정보</Title>
-          </DogProfile>
-        
-          <UserProfile
-            onClick={() => {
-              setCheck(false)
-            }}
-          >
-           
-            <Title>산책목록</Title>
-          </UserProfile>
-        </ProfileWrap>
-        {
-          check
-          ?
-          <CardWrap>
-           <List >보호자 정보</List>
-          <UserCard post={userInfo}/>
-          <List>반려견 정보</List>
-          <DogCard post={userInfo}/>
-          </CardWrap>
-           :
-         <CardWrap>
-            {pageList.length === 1 ? (
-            <NoCard>등록된 산책 목록이 없습니다.</NoCard>
-          ) : (
             <div>
-              {pageList.map((page, index) => {
-                if(index>0)
-                return (
-                  
-                  <div onClick={() => history.push(`/posts/${page.post_id}`)}>
-                    <Card index={index} key={index} post={page} />
-                  </div>
-                );
-              })}
+              <img src={dog} />
+              <span>개스타그램</span>
             </div>
-          )}
-           </CardWrap>
-        }
-       
-         
-        
-      </DataWrap>
-      <NavBar />
-    </Wrap>
+          </div>
+          <div
+            onClick={() => {
+              setCheck("dog");
+            }}
+          >
+            <img src={chat} onClick={() => history.push("/mypage")} />
+            <span>등록정보</span>
+          </div>
+          <div
+            onClick={() => {
+              setCheck("list");
+            }}
+          >
+            <img src={myPage} />
+            <span>산책 목록</span>
+          </div>
+        </Buttons>
+
+        {/* 상황 마다 바뀔 카드들 */}
+        <div>
+          {check === "sta" && <GaeStaCard />}
+          {check === "dog" && <DogCard post={userInfo} />}
+          {check === "list" && <ListCard post={pageList} />}
+        </div>
+        <NavBar />
+      </Wrap>
+      {/* ) : (
+        <Wrap>
+          <div onClick={() => history.push("/login")}>
+            <LoginImg>
+              <Logo src={logo} />
+              <Login src={login} />
+              <LoginText src={loginText} />
+            </LoginImg>
+          </div>
+        </Wrap>
+      )} */}
+    </div>
   );
 };
 
-const NoCard = styled.div`
+const LoginImg = styled.div`
+  position: relative;
+  width: 350px;
+  height: 220px;
+  border-radius: 25px;
+  cursor: pointer;
+`;
+const Logo = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+const Login = styled.img`
+  position: absolute;
+  top: 58.5%;
+  left: 33%;
+  z-index: 3;
+`;
+const LoginText = styled.img`
+  position: absolute;
+  top: 68%;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const Wrap = styled.div`
+  box-sizing: border-box;
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 60px;
-  border-radius: 20px;
-`;
-const Wrap = styled.div`
-  position: relative;
+
   max-width: 390px;
+  margin: auto;
+
   font-size: 14px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
 `;
-
-const FlexBetween = styled.div
-`
-display: flex;
-justify-content: space-around;
-align-items:center;
-
-`
-const CircleButton = styled.button
-`
-cursor:pointer;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 8px;
-border-radius:50%;
-width: 60px;
-height: 60px;
-margin-bottom:5px;
-`
-const TopWrap = styled.div`
-
-
+const Header = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items:center;
-  width: 390px;
-  margin-top:20px;
+  align-items: center;
+
+  width: 350px;
+  height: 52px;
+  margin: 10px auto 18px auto;
+  font-size: 18px;
+
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `;
-const TopTitle = styled.div`
-font-weight: 700;
-    font-size: 24px;
-`;
-
-const DogImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 200px;
-  padding: 0;
-  margin: 20px 0px;
-  border-radius:18px;
-  
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  
-`;
-const DataWrap = styled.div`
-  padding: 0px 20px 100px 20px;
-
-`;
-
-
-
-const ProfileWrap = styled.div`
+const UserInfo = styled.div`
   display: flex;
-  justify-content: space-around;
-  border-top: 1px solid #c4c4c4;
- 
-  padding: 22px 0;
-  margin: 28px 0;
-`;
-const Title = styled.div`
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
 
-font-size: 16px;font-weight: 700;
-f
-&:hover {
-  color:red;
-  border-bottom: 3px solid red;
-}
-`;
-const DogProfile = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-align:center;
-`;
+  width: 350px;
+  height: 108px;
+  margin-bottom: 22px;
+  border-top: 0.25px solid #b9b8b8;
+  border-bottom: 0.25px solid #b9b8b8;
 
-const UserProfile = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-`;
-const CardWrap = styled.div`
-  text-align: left;
-`;
-const List = styled.div`
-  margin-bottom: 20px;
-  font-weight: 700;
+  img {
+    width: 80px;
+    height: 80px;
+    margin-right: 14.5px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-right: 60px;
+  }
+
+  span {
+    margin-bottom: 7px;
     font-size: 16px;
+    color: #5f5f5f;
+  }
+`;
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 297px;
+  height: 51px;
+  margin: 0 auto 11px auto;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 8px;
+  }
+`;
+const LogOut = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 export default MyPage;
