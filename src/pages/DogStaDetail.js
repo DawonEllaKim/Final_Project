@@ -20,7 +20,12 @@ const DogStaDetail = (props) => {
   const history = useHistory();
 
   const postId = props.match.params.id;
+
   const post = useSelector((state) => state.dogsta.eachList);
+  const userId = localStorage.getItem("userId");
+
+  console.log(useSelector((state) => state));
+  console.log(postId, post);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
@@ -36,7 +41,7 @@ const DogStaDetail = (props) => {
       <Header>
         <button
           onClick={() => {
-            history.goBack();
+            history.push(`/mypage/${userId}`);
           }}
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />

@@ -9,9 +9,11 @@ import { actionCreators as postActions } from "../../redux/modules/dogsta";
 const GaeStaCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const userId = localStorage.getItem("userId");
 
-  // const postList = useSelector((state) => state.dogsta.mainList);
-  const userId = localStorage.getItem("user_id");
+  const postList = useSelector((state) => state.dogsta.eachList);
+  console.log(postList);
+
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
   }, []);
@@ -29,13 +31,15 @@ const GaeStaCard = (props) => {
 
       {/* 게시물 */}
       <Posts>
-        {/* {postList.map((post, index) => {
+        {postList.map((post, index) => {
           return (
-            <div onClick={() => history.push(`/dogstadetail/${post.id}`)}>
+            <div
+              onClick={() => history.push(`/dogstadetail/${post.dogPostId}`)}
+            >
               <img post={post} key={index} src={post.dogPostImage} />
             </div>
           );
-        })} */}
+        })}
       </Posts>
     </Wrap>
   );

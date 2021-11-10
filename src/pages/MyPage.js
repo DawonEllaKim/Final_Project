@@ -34,7 +34,7 @@ const MyPage = (props) => {
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
-  const is_login = localStorage.getItem("user_id");
+  const is_login = localStorage.getItem("userId");
 
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -51,80 +51,83 @@ const MyPage = (props) => {
 
   return (
     <div>
-      {/* {is_login ? ( */}
-      <Wrap>
-        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-        <Header>
-          <button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </button>
-          <p>{userInfo.user_nickname}님의 페이지</p>
-          <button>
-            <img src={notification} style={{ width: "24px", height: "24px" }} />
-          </button>
-        </Header>
+      {is_login ? (
+        <Wrap>
+          {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+          <Header>
+            <button
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              <img src={backward} style={{ width: "10px", height: "18px" }} />
+            </button>
+            <p>{userInfo.userNickname}님의 페이지</p>
+            <button>
+              <img
+                src={notification}
+                style={{ width: "24px", height: "24px" }}
+              />
+            </button>
+          </Header>
 
-        {/* 유저 정보 */}
-        <UserInfo>
-          {/* 유저 사진 */}
-          <img src={userInfo.user_image} />
+          {/* 유저 정보 */}
+          <UserInfo>
+            {/* 유저 사진 */}
+            <img src={userInfo.userImage} />
 
-          {/* 유저 닉네임 + 유저 주소 */}
-          <div>
-            <span>{userInfo.user_nickname}</span>
-            <span>서울시 양천구 목동</span>
-          </div>
-
-          {/* 로그아웃 버튼 */}
-          <LogOut onClick={logout}>
-            <FiLogOut size="16" />
-            <span>로그아웃</span>
-          </LogOut>
-        </UserInfo>
-
-        {/* 다른 페이지로 이동 버튼들 */}
-        <Buttons>
-          <div
-            onClick={() => {
-              setCheck("sta");
-            }}
-          >
+            {/* 유저 닉네임 + 유저 주소 */}
             <div>
-              <img src={dog} />
-              <span>개스타그램</span>
+              <span>{userInfo.userNickname}</span>
+              <span>서울시 양천구 목동</span>
             </div>
-          </div>
-          <div
-            onClick={() => {
-              setCheck("dog");
-            }}
-          >
-            <img src={chat} onClick={() => history.push("/mypage")} />
-            <span>등록정보</span>
-          </div>
-          <div
-            onClick={() => {
-              setCheck("list");
-            }}
-          >
-            <img src={myPage} />
-            <span>산책 목록</span>
-          </div>
-        </Buttons>
 
-        {/* 상황 마다 바뀔 카드들 */}
-        <div>
-          {check === "sta" && <GaeStaCard />}
-          {check === "dog" && <DogCard post={userInfo} />}
-          {check === "list" && <ListCard post={pageList} />}
-        </div>
-        <NavBar />
-      </Wrap>
-      {/* ) : (
+            {/* 로그아웃 버튼 */}
+            <LogOut onClick={logout}>
+              <FiLogOut size="16" />
+              <span>로그아웃</span>
+            </LogOut>
+          </UserInfo>
+
+          {/* 다른 페이지로 이동 버튼들 */}
+          <Buttons>
+            <div
+              onClick={() => {
+                setCheck("sta");
+              }}
+            >
+              <div>
+                <img src={dog} />
+                <span>개스타그램</span>
+              </div>
+            </div>
+            <div
+              onClick={() => {
+                setCheck("dog");
+              }}
+            >
+              <img src={chat} onClick={() => history.push("/mypage")} />
+              <span>등록정보</span>
+            </div>
+            <div
+              onClick={() => {
+                setCheck("list");
+              }}
+            >
+              <img src={myPage} />
+              <span>산책 목록</span>
+            </div>
+          </Buttons>
+
+          {/* 상황 마다 바뀔 카드들 */}
+          <div>
+            {check === "sta" && <GaeStaCard />}
+            {check === "dog" && <DogCard post={userInfo} />}
+            {check === "list" && <ListCard post={pageList} />}
+          </div>
+          <NavBar />
+        </Wrap>
+      ) : (
         <Wrap>
           <div onClick={() => history.push("/login")}>
             <LoginImg>
@@ -134,7 +137,7 @@ const MyPage = (props) => {
             </LoginImg>
           </div>
         </Wrap>
-      )} */}
+      )}
     </div>
   );
 };

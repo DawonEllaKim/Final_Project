@@ -35,11 +35,13 @@ const DogStaGram = (props) => {
       <Posts>
         {postList.map((post, index) => {
           return (
-            <div onClick={() => history.push(`/dogstadetail/${post.id}`)}>
+            <div
+              onClick={() => history.push(`/dogstadetail/${post.dogPostId}`)}
+            >
               <div post={post} key={index}>
                 <img src={post.dogPostImage} />
-                <p>User Name</p>
-                <p>Date</p>
+                <p>{post.userNickname}</p>
+                <p>{post.createdAt}</p>
               </div>
             </div>
           );

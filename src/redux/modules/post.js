@@ -47,7 +47,7 @@ const getMainMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
@@ -119,7 +119,7 @@ const getMapMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {

@@ -10,7 +10,7 @@ import myPage from "../image/myPage.png";
 import addBtn from "../image/addBtn.png";
 
 const NavBar = (props) => {
-  const userId = localStorage.getItem("user_id");
+  const userId = localStorage.getItem("userId");
 
   return (
     <>

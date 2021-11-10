@@ -2,6 +2,7 @@ import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import post from "./post";
+import { getCookie } from "../../shared/Cookie";
 
 // 개스타그램
 const ADD_POST = "ADD_POST"; // 포스트 작성
@@ -23,19 +24,21 @@ const initialState = {
   eachList: [],
 };
 
-const addPostMD = (post) => {
+const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/dogsta/write",
-      data: post,
+      url: "http://13.209.70.209/dogsta/write",
+      data: formData,
       headers: {
-        Accept: "application/json",
-        // "Content-Type": "multipart/form-data; ",
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
-        dispatch(addPost(post));
+        dispatch(addPost(formData));
         console.log("포스트 성공", res);
         // history.push("/mypage");
       })
@@ -49,12 +52,13 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://localhost:4000/dogsta",
+      url: "http://13.209.70.209/dogsta",
       data: {},
       headers: {},
     })
       .then((res) => {
-        const postList = res.data;
+        const postList = res.data.posts;
+        console.log(postList);
         dispatch(getAllPost(postList));
         // console.log("개스타그램 메인 게시물 불러오기 완료", postList);
       })
@@ -68,13 +72,13 @@ const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/dogsta/${userId}`,
+      url: `http://13.209.70.209/dogsta/${userId}`,
       data: {},
       headers: {},
     })
       .then((res) => {
-        const postList = res.data;
-        // console.log(postList);
+        const postList = res.data.posts;
+        console.log(postList);
         dispatch(getPost(postList));
         // console.log("포스트 하나를 불러왔습니다", res);
       })
@@ -88,7 +92,7 @@ const getPostMD = (userId, postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/dogsta/${userId}/${postId}`,
+      url: `http://13.209.70.209/dogsta/${userId}/${postId}`,
       data: {},
       headers: {},
     })
@@ -108,9 +112,14 @@ const editPostMD = (postId, post) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://localhost:4000/dogsta/${postId}`,
+      url: `http://13.209.70.209/dogsta/${postId}`,
       data: post,
-      headers: { Accept: "application/json" },
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
     })
       .then((res) => {
         dispatch(editPost(post));
@@ -126,12 +135,18 @@ const deletePostMD = (postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "DELETE",
-      url: `http://localhost:4000/dogsta/${postId}`,
+      url: `http://13.209.70.209/dogsta/${postId}`,
       data: {},
-      headers: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
     })
       .then((res) => {
         console.log("삭제 성공");
+        window.alert("삭제 성공");
         history.goBack();
       })
       .catch((err) => {

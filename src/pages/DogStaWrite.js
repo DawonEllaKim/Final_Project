@@ -17,6 +17,8 @@ const DogStaWrite = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const userId = localStorage.getItem("userId");
+
   const [imgBase64, setImgBase64] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
@@ -53,22 +55,21 @@ const DogStaWrite = (props) => {
   };
 
   const addPost = () => {
-    if (
-      // imgBase64 === "" ||
-      dogPostDesc === ""
-    ) {
+    if (imgBase64 === "" || dogPostDesc === "") {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
 
-    const post = {
-      dogPostDesc: dogPostDesc,
-    };
-    // const formData = new FormData();
-    // formData.append("dogPostImage", imgFile);
-    // formData.append("dogPostDesc", dogPostDesc);
-    console.log(post);
-    dispatch(postActions.addPostMD(post));
+    // const post = {
+    //   dogPostDesc: dogPostDesc,
+    // };
+    // console.log(post);
+
+    const formData = new FormData();
+    formData.append("dogPostImage", imgFile);
+    formData.append("dogPostDesc", dogPostDesc);
+
+    dispatch(postActions.addPostMD(formData));
   };
 
   return (
@@ -77,7 +78,7 @@ const DogStaWrite = (props) => {
       <Header>
         <button
           onClick={() => {
-            history.goBack();
+            history.push(`/mypage/${userId}`);
           }}
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />

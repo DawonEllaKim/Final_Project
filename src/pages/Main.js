@@ -40,8 +40,7 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
   const userInfo = useSelector((state) => state.user.list);
-
-  console.log(userInfo);
+  console.log(postList, userInfo);
 
   // 슬라이드 세팅
   const settings = {
@@ -157,7 +156,7 @@ const Main = (props) => {
         <Text>같이 산책하실래요?</Text>
         {postList.map((post, index) => {
           return (
-            <div onClick={() => history.push(`/posts/${post.post_id}`)}>
+            <div onClick={() => history.push(`/posts/${post.postId}`)}>
               <Card post={post} key={index} />
             </div>
           );
