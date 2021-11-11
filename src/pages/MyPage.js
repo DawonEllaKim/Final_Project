@@ -18,7 +18,7 @@ import { FiLogOut } from "react-icons/fi";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 import dog from "../image/dog.png";
-import myPage from "../image/mypage.png";
+import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
 
 // 로그인 이미지
@@ -34,8 +34,14 @@ const MyPage = (props) => {
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
+
+  const currentPageUserId = props.match.params.userId;
+  console.log(currentPageUserId);
+  console.log(props);
+
   const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
+  console.log(pageList);
 
   console.log(userInfo);
 
@@ -49,7 +55,7 @@ const MyPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getMypageMD(userId));
+    dispatch(userActions.getMypageMD(currentPageUserId));
   }, []);
 
   return (
@@ -82,14 +88,18 @@ const MyPage = (props) => {
             {/* 유저 닉네임 + 유저 주소 */}
             <div>
               <span>{userInfo.userNickname}</span>
-              <span>서울시 양천구 목동</span>
+              <span>{userInfo.userLocation}</span>
             </div>
 
             {/* 로그아웃 버튼 */}
-            <LogOut onClick={logout}>
-              <FiLogOut size="16" />
-              <span>로그아웃</span>
-            </LogOut>
+            {currentPageUserId === userId ? (
+              <LogOut onClick={logout}>
+                <FiLogOut size="16" />
+                <span>로그아웃</span>
+              </LogOut>
+            ) : (
+              <button>{userInfo.userNickname}님에게 쪽지보내기</button>
+            )}
           </UserInfo>
 
           {/* 다른 페이지로 이동 버튼들 */}
@@ -124,7 +134,7 @@ const MyPage = (props) => {
 
           {/* 상황 마다 바뀔 카드들 */}
           <div>
-            {check === "sta" && <GaeStaCard />}
+            {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
             {check === "dog" && <DogCard post={userInfo} />}
             {check === "list" && <ListCard post={pageList} />}
           </div>

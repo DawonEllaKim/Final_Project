@@ -9,10 +9,10 @@ import { actionCreators as postActions } from "../../redux/modules/dogsta";
 const GaeStaCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const userId = localStorage.getItem("userId");
 
+  // 현재 페이지의 유저아이디
+  const userId = props.userId;
   const postList = useSelector((state) => state.dogsta.eachList);
-  console.log(postList);
 
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));

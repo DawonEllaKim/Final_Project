@@ -96,7 +96,7 @@ function App() {
         <Route exact path="/map" component={Map} />
         <Route exact path="/road" component={Road} />
         <Route exact path="/mapPractice" component={MapPractice} />
-        <Route exact path = "/weather" component={Weather}/>
+        <Route exact path="/weather" component={Weather} />
       </ConnectedRouter>
     </div>
   );
