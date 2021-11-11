@@ -4,19 +4,21 @@ import { TextField } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import {useDispatch} from "react-redux"
 import {actionCreators as markerActions} from "../redux/modules/marker"
+import CheckMain from '../pages/CheckMain';
 const MarkerModal = (props) => {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState();
-    const selectTitle = (e) => {
-        console.log(e.target.value)
-        setTitle(e.target.value)
-    }
+    const distance = props.distance;
+    const road = props.road;
+    const check = props.check;
     const addMarker= () => {
         let marker = {
-            latitude : props.latitude,
-            longitude : props.longitude,
-            placename: props.placename,
-            locationCategory: props.locationCategory,
+          distance: distance.distance,
+          time: distance.time,
+          startPoint: distance.start,
+          endPoint: distance.end,
+          roadName: distance.name,
+          locationCategory: check,
+          walkId: distance.walkId
         }
         dispatch(markerActions.addMarkerAX(marker))
         props.close()
@@ -32,7 +34,9 @@ const MarkerModal = (props) => {
                             </ModalExitBtn> 
                             <ModalHeader>산책로로 설정하겠습니까?</ModalHeader> 
                             <ModalInput> 
-                               {props.placename}
+                               출발지:{distance.start}
+                               <br/>
+                               신첵로:{distance.name}
                                 </ModalInput> 
                                 <ModalButtonContainer> 
                                     <ModalSubmitBtn onClick={addMarker}> 산책로 등록 </ModalSubmitBtn> 

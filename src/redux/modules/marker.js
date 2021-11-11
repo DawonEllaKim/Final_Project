@@ -25,12 +25,7 @@ const addMarkerAX = (marker) => {
     axios({
       method: "POST",
       url: "http://localhost:4000/users",
-      data: {
-        markername: marker.placename,
-        latitude: marker.latitude.toString(),
-        longitude: marker.longitude.toString(),
-        locationCategory: marker.locationCategory,
-      },
+      data: marker,
     }).then(() => {
       // 서버에서 마커 오브젝트 id와 boardcount를 보냅니다.
 
@@ -111,7 +106,7 @@ export default handleActions(
     [ADD_MARKER]: (state, action) =>
       produce(state, (draft) => {
         draft.marker = action.payload.marker;
-        draft.distance = action.payload.distance;
+
       }),
     [ADD_ROAD]: (state, action) =>
       produce(state, (draft) => {

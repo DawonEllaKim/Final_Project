@@ -212,7 +212,12 @@
     "markername": "반포한강시민공원",
     "latitude": "37.5097007912995",
     "longitude": "126.994629809971",
-    "locationCategory": "반포한강공원"
+    "locationCategory": "반포한강공원",
+    "distance": "4100M",
+    "time": "1시간10분",
+    "startPoint": "올림픽공원역",
+    "roadName": "산책로C",
+    "locationCategory": "올림픽공원"
   },
   "Road": [
     {
