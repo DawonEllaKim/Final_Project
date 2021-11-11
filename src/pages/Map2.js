@@ -7,13 +7,18 @@ import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
 import NavBar from "../components/NavBar";
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 // 버튼 이미지
 import Button from "../elements/Button";
 import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 import search from "../image/search.png";
 import map from "../image/map.png";
+import { distance1 } from "../components/MarkerList/DistanceList";
 
 const Map2 = (props) => {
   const history = useHistory();
@@ -22,18 +27,30 @@ const Map2 = (props) => {
 
   const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
   const [wishDesc, setWishDesc] = useState(); //desc설명
+  const [dogCount, setDogCount] = React.useState('');
 
+  const handleChange = (event) => {
+    setDogCount(event.target.value);
+  };
+
+  
   console.log(startDate);
   console.log(markerName);
   const SubmitLocation = () => {
     const Info = {
-      longitude: markerName.longitude,
-      latitude: markerName.latitude,
-      location_address: markerName.placename,
-      wish_desc: wishDesc,
-      location_category: markerName.locationCategory,
-      meeting_date: startDate,
+      totalDistance: markerName.totalDistance,
+      totalTime : markerName.totalTime,
+      routeColor: markerName.routeColor,
+      routeName : markerName.routeName,
+      startLocationAddress: markerName.startLocationAddress,
+      endLocationAddress: markerName.endLocationAddress,
+      locationAddress: markerName.placename,
+      locationCategory: markerName.locationCategory,
+      coordinate: markerName.coordinate,
+      wishDesc: wishDesc,
+      meetingDate: startDate,
       completed: false,
+      dogCount: dogCount,
     };
     dispatch(PostActions.addPostMD(Info));
   };
@@ -57,7 +74,7 @@ const Map2 = (props) => {
         <SearchWrap>
           <WalkButton
             onClick={() => {
-              history.push("/MapContainer3");
+              history.push("/MapPractice");
             }}
           >
             <img src={search} style={{ marginLeft: "4px" }} />
@@ -71,7 +88,8 @@ const Map2 = (props) => {
           </CircleDiv>
           <Address>
             상세 주소
-            <Detail>{markerName.placename}</Detail>
+            <Detail>{markerName.locationCategory}</Detail>
+            <Detail>{markerName.routeName}</Detail>
           </Address>
         </AdressWrap>
 
@@ -84,6 +102,26 @@ const Map2 = (props) => {
           showTimeInput
           inline
         />
+         <Title>
+        <Box sx={{ minWidth: 120}}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={dogCount}
+          label="마리 수"
+          onChange={handleChange}
+        >
+          <MenuItem value={2}>2마리</MenuItem>
+          <MenuItem value={3}>3마리</MenuItem>
+          <MenuItem value={4}>4마리</MenuItem>
+          <MenuItem value={5}>5마리</MenuItem>
+          <MenuItem value={6}>6마리</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+    </Title>
         <Title>소개/유의사항</Title>
         <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
         <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
@@ -100,11 +138,15 @@ const Frame = styled.div`
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
+  padding-bottom:100px;
+ 
+  justify-content:center;
 `;
 
 const InputArea = styled.div`
   padding: 40px 20px;
   box-sizing: border-box;
+  
 `;
 
 const TopWrap = styled.div`

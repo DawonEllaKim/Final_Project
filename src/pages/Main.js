@@ -2,11 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-
+import Weather from "../components/Weather"
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as UserActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 // 컴포넌츠
 import Card from "../components/Card";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
@@ -38,8 +39,9 @@ import caution1 from "../image/caution1.png";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
+  const userInfo = useSelector((state) => state.user.list);
+  console.log(postList, userInfo);
 
-  // console.log(postList)
   // 슬라이드 세팅
   const settings = {
     dots: true,
@@ -51,9 +53,10 @@ const Main = (props) => {
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
-  
-  const user_id = localStorage.getItem("user_id")
-  console.log(user_id)
+
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
@@ -70,6 +73,7 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
+  
     dispatch(postActions.getMainMD());
   }, []);
 
@@ -87,42 +91,43 @@ const Main = (props) => {
       </Head>
 
       {/* 일러스트 슬라이드 */}
-   
-        {  !user_id   ?
-           <StyledSlider {...settings} style={{ cursor: "pointer" }}>
-        <div onClick={() => history.push("/login")}>
-          <LoginImg>
-            <Logo src={logo} />
-            <Login src={login} />
-            <LoginText src={loginText} />
-          </LoginImg>
-        </div>
+
+      {!userId ? (
+        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+          <div onClick={() => history.push("/login")}>
+            <LoginImg>
+              <Logo src={logo} />
+              <Login src={login} />
+              <LoginText src={loginText} />
+            </LoginImg>
+          </div>
         </StyledSlider>
-        : <StyledSlider {...settings} style={{ cursor: "pointer" }}>
-        <div
-          onClick={() => {
-            history.push("/caution1");
-          }}
-        >
-          <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-        </div>
-        <div
-          onClick={() => {
-            history.push("/caution1");
-          }}
-        >
-          <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-        </div>
-        <div
-          onClick={() => {
-            history.push("/caution1");
-          }}
-        >
-          <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-        </div>
-         </StyledSlider>
-}
-     
+      ) : (
+        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+          <Weather/>
+          <div
+            onClick={() => {
+              history.push("/caution1");
+            }}
+          >
+            <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+          </div>
+          <div
+            onClick={() => {
+              history.push("/caution1");
+            }}
+          >
+            <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+          </div>
+          <div
+            onClick={() => {
+              history.push("/caution1");
+            }}
+          >
+            <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+          </div>
+        </StyledSlider>
+      )}
 
       {/* 사이드 바*/}
       <SideWrap>
@@ -152,7 +157,7 @@ const Main = (props) => {
         <Text>같이 산책하실래요?</Text>
         {postList.map((post, index) => {
           return (
-            <div onClick={() => history.push(`/posts/${post.post_id}`)}>
+            <div onClick={() => history.push(`/posts/${post.postId}`)}>
               <Card post={post} key={index} />
             </div>
           );
@@ -312,7 +317,7 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 `;
 const Text = styled.p`
   width: 152px;

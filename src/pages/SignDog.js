@@ -37,14 +37,14 @@ const SignDog = (props) => {
     }
 
     const formData = new FormData();
-    formData.append("dog_gender", dog_gender);
-    formData.append("dog_name", dog_name);
-    formData.append("dog_size", dog_size);
-    formData.append("dog_breed", dog_breed);
-    formData.append("dog_age", dog_age);
+    formData.append("dogGender", dog_gender);
+    formData.append("dogName", dog_name);
+    formData.append("dogSize", dog_size);
+    formData.append("dogBreed", dog_breed);
+    formData.append("dogAge", dog_age);
     formData.append("neutral", neutral);
-    formData.append("dog_comment", dog_comment);
-    formData.append("dog_image", imgFile);
+    formData.append("dogComment", dog_comment);
+    formData.append("dogImage", imgFile);
 
     dispatch(DogActions.signDogAPI(formData));
   };

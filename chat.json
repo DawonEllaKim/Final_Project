@@ -1,0 +1,62 @@
+{
+	"chat":[
+    {
+      "id":1,
+      "room":[
+        {
+          "roomNum":1,
+          "sender":"abc",
+          "text" : "hi, i'm abc",
+          "createdAt":"2021-11-10 23:00",
+          "updatedAt":"2021-11-10 23:14"
+        },
+        {
+          "roomNum":1,
+          "text" : "hi, i'm 123",
+          "sender":"123",
+          "createdAt":"2021-11-10 23:00",
+          "updatedAt":"2021-11-10 23:14"
+        }
+      ]
+    },
+    {
+      "id":2,
+      "room":[
+        {
+          "roomNum":2,
+          "sender":"abc",
+          "text" : "안녕하세요",
+          "createdAt":"2021-11-10 23:00",
+          "updatedAt":"2021-11-10 23:14"
+        },
+        {
+          "roomNum":2,
+          "text" : "산책 신청합니다",
+          "sender":"456",
+          "createdAt":"2021-11-10 23:00",
+          "updatedAt":"2021-11-10 23:14"
+        }
+      ]
+    }
+	],
+  "chatuser":[
+    {
+    "members":{
+      "me":"abc",
+      "other":"123"
+    },
+    "id":1,
+    "createdAt":"2021-11-10 23:00",
+    "updatedAt":"2021-11-10 23:14"
+  },
+  {
+    "members":{
+      "me":"abc",
+      "other":"456"
+    },
+    "id":2,
+    "createdAt":"2021-11-10 23:00",
+    "updatedAt":"2021-11-10 23:14"
+  }
+	]
+}

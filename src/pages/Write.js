@@ -11,9 +11,10 @@ const Write = (props) => {
   const postId = props.match.params.id;
   console.log(postList);
   console.log(postId);
+  console.log(props.match.params);
 
-  let is_edit = postId ? true: false;
-  console.log(is_edit)
+  let is_edit = postId ? true : false;
+  console.log(is_edit);
   const post = is_edit ? postList.find((p) => p.id === Number(postId)) : null;
   console.log(post);
 
@@ -22,7 +23,7 @@ const Write = (props) => {
   const [meetingTime, setMeetingTime] = useState(post ? post.meetingTime : "");
   const [dogCount, setDogCount] = useState(post ? post.dogCount : "");
   const [wishDesc, setWishDesc] = useState(post ? post.wishDesc : "");
-  
+
   const locationChange = (e) => {
     console.log(e.target.value);
     setLocation(e.target.value);
@@ -38,7 +39,7 @@ const Write = (props) => {
   };
 
   // 수정
-  const updateMeeting = () =>{
+  const updateMeeting = () => {
     const post = {
       locationCategory: location,
       meetingDate: meetingDate,
@@ -48,8 +49,8 @@ const Write = (props) => {
     };
 
     console.log(post);
-    dispatch(postActions.updatePostMD(postId,post));
-  }
+    dispatch(postActions.updatePostMD(postId, post));
+  };
 
   // 추가
   const addMeeting = () => {
@@ -88,8 +89,16 @@ const Write = (props) => {
           </Location>
           <Date>
             <Title>산책 일시</Title>
-            <input type="date" value={meetingDate} onChange={(e) => setMeetingDate(e.target.value)} />
-            <input type="time" value={meetingTime} onChange={(e) => setMeetingTime(e.target.value)} />
+            <input
+              type="date"
+              value={meetingDate}
+              onChange={(e) => setMeetingDate(e.target.value)}
+            />
+            <input
+              type="time"
+              value={meetingTime}
+              onChange={(e) => setMeetingTime(e.target.value)}
+            />
           </Date>
           <Count>
             <Title>최대 인원</Title>
@@ -122,9 +131,9 @@ const Write = (props) => {
             >
               취소
             </CancleBtn>
-            {is_edit ?(
+            {is_edit ? (
               <AddBtn onClick={updateMeeting}>수정</AddBtn>
-            ):(
+            ) : (
               <AddBtn onClick={addMeeting}>등록</AddBtn>
             )}
           </ButtonWrap>

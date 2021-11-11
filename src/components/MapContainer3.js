@@ -226,15 +226,14 @@ const MapContainer3 = () => {
           <img
             src={backward}
             style={{
-              width: "36px",
-              height: "44px",
-              transform: "translateX(-2px)",
+              width: "10px",
+              height: "18px",
             }}
           />
         </Button>
         <TopTitle>산책로 설정</TopTitle>
         <Button>
-          <img src={notification} style={{ paddingTop: "4px" }} />
+          <img src={notification} style={{ width: "24px", height: "24px" }} />
         </Button>
       </TopWrap>
 

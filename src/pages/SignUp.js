@@ -16,10 +16,11 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [user_email, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [user_nickname, setUserNickname] = useState("");
+  const [user_location, setUserLocation] = useState("");
   const [user_gender, setUserGender] = useState("");
   const [user_age, setUserAge] = useState("");
 
@@ -60,6 +61,11 @@ const SignUp = () => {
     console.log(newTitle);
     setUserNickname(newTitle);
   };
+  const userLocationChangeHandler = (e) => {
+    const newTitle = e.target.value;
+    console.log(newTitle);
+    setUserLocation(newTitle);
+  };
   const userGenderChangeHandler = (name) => {
     console.log(name);
     setUserGender(name);
@@ -70,7 +76,7 @@ const SignUp = () => {
   };
 
   const submitUserInfo = () => {
-    if (!emailCheck(user_email)) {
+    if (!emailCheck(userEmail)) {
       toast.error("잘못된 이메일 형식입니다.", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
@@ -94,10 +100,11 @@ const SignUp = () => {
     }
 
     if (
-      user_email === "" ||
+      userEmail === "" ||
       password === "" ||
       confirm_password === "" ||
       user_nickname === "" ||
+      user_location === "" ||
       user_gender === "" ||
       user_age === ""
     ) {
@@ -106,23 +113,21 @@ const SignUp = () => {
     }
 
     const formData = new FormData();
-    formData.append("user_email", user_email);
+    formData.append("userEmail", userEmail);
     formData.append("password", password);
-    formData.append("confirm_password", confirm_password);
-    formData.append("user_nickname", user_nickname);
-    formData.append("user_gender", user_gender);
-    formData.append("user_age", user_age);
-    formData.append("user_image", imgFile);
+    formData.append("confirmPassword", confirm_password);
+    formData.append("userNickname", user_nickname);
+    formData.append("userLocation", user_location);
+    formData.append("userGender", user_gender);
+    formData.append("userAge", user_age);
+    formData.append("userImage", imgFile);
 
-    toast.success(
-      "회원 정보 등록이 완료되었습니다. \n강아지 정보를 입력해주세요",
-      {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        draggable: true,
-        closeOnClick: true,
-      }
-    );
+    toast.success("회원 정보 등록이 완료되었습니다!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      draggable: true,
+      closeOnClick: true,
+    });
     dispatch(UserActions.signUserAPI(formData));
   };
 
@@ -161,16 +166,23 @@ const SignUp = () => {
               onChange={userEmailChangeHandler}
             />
           </Input>
-          <IdCheck onClick={() => dispatch(UserActions.signDupAPI(user_email))}>
+          <IdCheck
+            onClick={() => {
+              dispatch(UserActions.signDupAPI(userEmail));
+              console.log("아이디 중복 확인 중");
+            }}
+          >
             중복확인
           </IdCheck>
         </UserWrap>
+
         <Input>
           <InputText
             placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
             onChange={passwordChangeHandler}
           />
         </Input>
+
         <Input>
           <InputText
             placeholder="패스워드 확인"
@@ -184,6 +196,14 @@ const SignUp = () => {
             onChange={userNicknameChangeHandler}
           />
         </Input>
+
+        <Input>
+          <InputText
+            placeholder="거주지 입력"
+            onChange={userLocationChangeHandler}
+          />
+        </Input>
+
         <Input>
           <Title>성별</Title>
           <FlexWrap>
@@ -269,7 +289,7 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>반려견 등록하기</button>
+          <button onClick={submitUserInfo}>회원가입</button>
           <button
             onClick={() => {
               history.goBack();
