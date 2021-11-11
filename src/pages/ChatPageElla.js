@@ -37,7 +37,9 @@ const ChatPage = (props) => {
   // const [room, setRoom] = useState("");
   const chat = useSelector((state) => state);
   const name = sender;
-  const roomName = sender + receiver;
+  const room = [sender, receiver].sort();
+  console.log(room);
+  const roomName = room[0] +'-' +room[1]
   console.log(roomName);
 
   // const [socketIo,setSocketIo] = useState(null);
