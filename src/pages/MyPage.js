@@ -8,6 +8,7 @@ import GaeStaCard from "../components/MyPage/GaeStaCard";
 import DogCard from "../components/MyPage/DogCard";
 import ListCard from "../components/MyPage/ListCard";
 import NavBar from "../components/NavBar";
+import Chat from "../components/Chat";
 
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -18,13 +19,17 @@ import { FiLogOut } from "react-icons/fi";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 import dog from "../image/dog.png";
-import myPage from "../image/myPage.png";
+import myPage from "../image/mypage.png";
 import chat from "../image/chat.png";
 
 // 로그인 이미지
 import logo from "../image/loginLogo.png";
 import login from "../image/login.png";
 import loginText from "../image/loginText.png";
+
+// socket
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -44,7 +49,27 @@ const MyPage = (props) => {
   console.log(pageList);
 
   console.log(userInfo);
+  console.log(userId);
 
+  // 채팅 방 유저 아이디
+  const room = [currentPageUserId, userId].sort();
+  console.log(room);
+  // 채팅방 주소 만들기
+  const setRoom = room[0] +'-' + room[1];
+  console.log(setRoom);
+
+  const [showChat, setShowChat] = useState(false);
+
+  // socket
+
+  const joinRoom = () =>{
+    socket.emit('join_room', setRoom)
+    // history.push(`/chat/${setRoom}`)
+    setShowChat(true);
+  }
+
+
+  // 로그아웃
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       dispatch(signActions.logOut());
@@ -61,6 +86,7 @@ const MyPage = (props) => {
   return (
     <div>
       {is_login ? (
+        !showChat ? (
         <Wrap>
           {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
           <Header>
@@ -98,7 +124,9 @@ const MyPage = (props) => {
                 <span>로그아웃</span>
               </LogOut>
             ) : (
-              <button>{userInfo.userNickname}님에게 쪽지보내기</button>
+              <button onClick = {joinRoom}>
+                {userInfo.userNickname}님에게 쪽지보내기
+                </button>
             )}
           </UserInfo>
 
@@ -140,6 +168,9 @@ const MyPage = (props) => {
           </div>
           <NavBar />
         </Wrap>
+        ) : (
+          <Chat socket={socket} name={currentPageUserId} room={room} />
+        )
       ) : (
         <Wrap>
           <div onClick={() => history.push("/login")}>
