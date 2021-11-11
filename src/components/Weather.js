@@ -20,28 +20,28 @@ function Weather({ setCold }) {
   // 날짜 가져오기
   const dateBuilder = (d) => {
     let months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
+      "1월",
+      "2월",
+      "3월",
+      "4월",
+      "5월",
+      "6월",
+      "7월",
+      "8월",
+      "9월",
+      "10월",
+      "11월",
+      "12월",
     ];
     // sunday 먼저..!!
-    let days = ["Sun", "Mon", "Tue", "Wed", "Tur", "Fri", "Sat"];
+    let days = ["알", "월", "화", "수", "목", "금", "토"];
 
     let day = days[d.getDay()];
     let month = months[d.getMonth()];
     let year = d.getFullYear();
     let date = d.getDate();
 
-    return `${day} ${date} ${month} ${year}`;
+    return `${year}년 ${month} ${date}일 ${day} `;
   };
 
   const city = "Seoul";
@@ -68,57 +68,62 @@ function Weather({ setCold }) {
       weather.id === 800 ? 0 : (parseInt(weather.id) / 100).toFixed(0);
     switch (iconId) {
       case "0":
-        return <TiWeatherSunny size="6rem" color="red" />;
+        return <TiWeatherSunny size="50" color="red" />;
       case "2":
-        return <TiWeatherStormy size="6rem" color="black" />;
+        return <TiWeatherStormy size="50" color="black" />;
       case "3":
-        return <TiWeatherShower size="6rem" color="blue" />;
+        return <TiWeatherShower size="50" color="blue" />;
       case "5":
-        return <TiWeatherDownpour size="6rem" color="navy" />;
+        return <TiWeatherDownpour size="50" color="navy" />;
       case "6":
-        return <TiWeatherSnow size="6rem" color="white" />;
+        return <TiWeatherSnow size="50" color="white" />;
       case "7":
-        return <BsCloudFog size="6rem" color="white" />;
+        return <BsCloudFog size="50" color="white" />;
       case "8":
-        return <TiWeatherCloudy size="6rem" color="white" />;
+        return <TiWeatherCloudy size="50" color="white" />;
     }
   };
   return (
     <Wrapper>
-      <div className="locationBox">
-        <Location>Seoul City, KOREA</Location>
-        <DateDiv>-- {dateBuilder(new Date())} -- </DateDiv>
-      </div>
-
-      <div className="weatherBox">
-        <Temperature>{c.toFixed(2)}℃</Temperature>
-        <WeatherDiv>{weather.main}</WeatherDiv>
-        {selectIcon()}
-      </div>
+      <Temperature>{c.toFixed(0)}℃</Temperature>
+      <InfoWrapper>
+        <Location>서울</Location>
+        <DateDiv> {dateBuilder(new Date())} </DateDiv>
+   
+       
+        <WeatherDiv>{weather.main} {selectIcon()}</WeatherDiv>
+      
+      </InfoWrapper>
     </Wrapper>
   );
 }
 export default Weather;
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 390px;
+  height: 220px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: burlywood;
   
+  align-items: center;
+  justify-content: flex-start;
+  gap:20px;
+  background-color: lightblue;
+  text-align:center;
+  border-radius:15px;
+  box-sizing:border-box;
 `;
+const InfoWrapper = styled.div
+`
+text-align:left;
+`
 const Location = styled.div`
   color: white;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 0.5rem;
-  padding: 2rem;
-  margin-bottom: 1rem;
+
+  
   font-size: 30px;
   font-weight: 500;
   text-shadow: 2px 2px rgba(30, 50, 50, 0.5);
+  margin-bottom:10px;
 `;
 
 const DateDiv = styled.div`
@@ -129,14 +134,17 @@ const DateDiv = styled.div`
 
 const Temperature = styled.div`
   color: white;
-  font-size: 50px;
-  margin-top: 1rem;
+  font-size: 80px;
+
+  padding-left:40px;
 `;
 
 const WeatherDiv = styled.div`
   color: white;
   font-size: 20px;
-  margin-top: 2rem;
+  text-align:center;
+  display:flex;
+  align-items:center;
 `;
 
 const WeatherIcon = styled.div``;

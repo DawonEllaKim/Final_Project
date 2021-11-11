@@ -24,9 +24,9 @@ const MapPractice = React.memo(() => {
     const closeModal = () => {
         setModal(false);
       };
-    const [distance,setDistance] = useState(distance1)
-    const [walk,setWalk] = useState(list1);
-    const [road,setRoad] = useState();
+    const [distance,setDistance] = useState(distance1) //디스턴스정보
+    const [walk,setWalk] = useState(list1);  //산책로 좌표정보
+    const [road,setRoad] = useState();   //산책로이름
     const roadHandler = (name) => {    
       if(name==="list1")
       {
@@ -47,7 +47,7 @@ const MapPractice = React.memo(() => {
       setRoad(name)   
     } 
     console.log(distance)
-    const [check, setCheck] = useState();
+    const [check, setCheck] = useState();  //locationcategory
     const [start, setStart] = useState(
         {
           "La": 126.976826700157,
@@ -461,6 +461,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
             road={road}
             distance={distance}
             check={check}
+            walk={walk}
           />
         ) : null}
             </div>

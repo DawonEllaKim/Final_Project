@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-
+import Weather from "../components/Weather"
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -73,7 +73,7 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
-    dispatch(userActions.getMypageMD());
+  
     dispatch(postActions.getMainMD());
   }, []);
 
@@ -104,6 +104,7 @@ const Main = (props) => {
         </StyledSlider>
       ) : (
         <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+          <Weather/>
           <div
             onClick={() => {
               history.push("/caution1");

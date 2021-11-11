@@ -18,6 +18,7 @@ import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 import search from "../image/search.png";
 import map from "../image/map.png";
+import { distance1 } from "../components/MarkerList/DistanceList";
 
 const Map2 = (props) => {
   const history = useHistory();
@@ -37,14 +38,18 @@ const Map2 = (props) => {
   console.log(markerName);
   const SubmitLocation = () => {
     const Info = {
-      longitude: markerName.longitude,
-      latitude: markerName.latitude,
+      totalDistance: markerName.totalDistance,
+      totalTime : markerName.totalTime,
+      routeColor: markerName.routeColor,
+      routeName : markerName.routeName,
+      startLocationAddress: markerName.startLocationAddress,
+      endLocationAddress: markerName.endLocationAddress,
       locationAddress: markerName.placename,
-      wishDesc: wishDesc,
       locationCategory: markerName.locationCategory,
+      coordinate: markerName.coordinate,
+      wishDesc: wishDesc,
       meetingDate: startDate,
       completed: false,
-      walkId: markerName.walkId,
       dogCount: dogCount,
     };
     dispatch(PostActions.addPostMD(Info));
@@ -84,7 +89,7 @@ const Map2 = (props) => {
           <Address>
             상세 주소
             <Detail>{markerName.locationCategory}</Detail>
-            <Detail>{markerName.roadName}</Detail>
+            <Detail>{markerName.routeName}</Detail>
           </Address>
         </AdressWrap>
 
@@ -98,7 +103,7 @@ const Map2 = (props) => {
           inline
         />
          <Title>
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ minWidth: 120}}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
         <Select
@@ -134,6 +139,8 @@ const Frame = styled.div`
   text-align: center;
   box-sizing: border-box;
   padding-bottom:100px;
+ 
+  justify-content:center;
 `;
 
 const InputArea = styled.div`
