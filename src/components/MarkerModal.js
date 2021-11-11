@@ -5,20 +5,23 @@ import { Close } from '@mui/icons-material';
 import {useDispatch} from "react-redux"
 import {actionCreators as markerActions} from "../redux/modules/marker"
 import CheckMain from '../pages/CheckMain';
+import { FaWalking } from 'react-icons/fa';
 const MarkerModal = (props) => {
     const dispatch = useDispatch();
     const distance = props.distance;
     const road = props.road;
     const check = props.check;
+    const walk = props.walk;
     const addMarker= () => {
         let marker = {
-          distance: distance.distance,
-          time: distance.time,
-          startPoint: distance.start,
-          endPoint: distance.end,
-          roadName: distance.name,
+          totalDistance: distance.distance,
+          totalTime: distance.time,
+          startLocationAddress: distance.start,
+          endLocationAddress: distance.last,
           locationCategory: check,
-          walkId: distance.walkId
+          routeColor: distance.color,
+          routeName: distance.name,
+          cooridnate: walk,
         }
         dispatch(markerActions.addMarkerAX(marker))
         props.close()
