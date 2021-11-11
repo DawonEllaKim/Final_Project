@@ -30,6 +30,10 @@ import Caution1 from "./pages/Caution1";
 import Caution2 from "./pages/Caution2";
 import Caution3 from "./pages/Caution3";
 
+import ChatPage from './pages/ChatPage';
+import Join from './components/Join';
+import Chat from './components/Chat';
+
 function App() {
   return (
     <div className="App">
@@ -69,6 +73,9 @@ function App() {
         <Route exact path="/caution1" component={Caution1} />
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
+        <Route exact path="/chatPage" component={ChatPage} />
+        <Route exact path="/join" component={Join} />
+        <Route exact path="/chat" component={Chat} />
       </ConnectedRouter>
     </div>
   );
