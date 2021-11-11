@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { GrNotification } from "react-icons/gr";
-import { getCookie } from "../../shared/Cookie";
+// import { getCookie } from "../../shared/Cookie";
 
 import ChatList from "../components/ChatList";
 import Chat from "../components/Chat";
@@ -11,25 +11,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { history } from "../redux/configureStore";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:3001", {
-  auth:{token:`Bearer ${getCookie("user_login")}`}
-});
-// const socket = io.connect("http://localhost:3001");
+// const socket = io.connect("http://localhost:3001", {
+//   auth:{token:`Bearer ${getCookie("user_login")}`}
+// });
+const socket = io.connect("http://localhost:3001");
 
 const ChatPage = (props) => {
   const dispatch = useDispatch();
 
-  const userId = localStorage.getItem('user_id')
-  console.log(userId)
+  const userId = localStorage.getItem("user_id");
+  console.log(userId);
 
   const chatList = useSelector((state) => state.user.user);
   // const name = useSelector((state) => state.user.user);
   // const room = useSelector((state) => state.user.user);
   // console.log(name);
   // console.log(room);
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const chat = useSelector((state) =>state);
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
+  const chat = useSelector((state) => state);
 
   // const [socketIo,setSocketIo] = useState(null);
   const [showChat, setShowChat] = useState(false);
@@ -55,32 +55,30 @@ const ChatPage = (props) => {
   return (
     <div>
       {/* {!showChat ? ( */}
-        <Wrap>
-          <TopWrap>
-            <MdArrowBackIosNew
-              style={{ width: "24px", height: "24px", cursor: "pointer" }}
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-            <TopTitle>메시지 보관함</TopTitle>
-            <GrNotification style={{ width: "24px", height: "24px" }} />
-          </TopWrap>
+      <Wrap>
+        <TopWrap>
+          <MdArrowBackIosNew
+            style={{ width: "24px", height: "24px", cursor: "pointer" }}
+            onClick={() => {
+              history.goBack();
+            }}
+          />
+          <TopTitle>메시지 보관함</TopTitle>
+          <GrNotification style={{ width: "24px", height: "24px" }} />
+        </TopWrap>
 
-          <BottomWrap>
-            {chatList.map((list,index) =>{
-              return (
-                <div onClick = {joinRoom}>
-                  <ChatList list={list} key={index} />
-                </div>
-              )
-            })}
-          </BottomWrap>
-        </Wrap>
+        <BottomWrap>
+          {chatList.map((list, index) => {
+            return (
+              <div onClick={joinRoom}>
+                <ChatList list={list} key={index} />
+              </div>
+            );
+          })}
+        </BottomWrap>
+      </Wrap>
       {/* ) : ( */}
-        <Chat 
-          socket={socket} 
-          name={name} room={room} />
+      <Chat socket={socket} name={name} room={room} />
       {/* )} */}
     </div>
   );
