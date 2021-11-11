@@ -80,6 +80,7 @@ const getPostMD = (postId) => {
       .then((res) => {
     
         localStorage.setItem("date", res.data.posts[0].meetingDate);
+        localStorage.setItem("dogCount", res.data.posts[0].dogCount);
         const initialDate = res.data.posts[0].meetingDate.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
@@ -194,6 +195,7 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
+        localStorage.setItem("date", post.meetingDate);
         console.log("수정완료");
         window.alert("수정완료");
         dispatch(updatePost(post));

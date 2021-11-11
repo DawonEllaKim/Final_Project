@@ -1,24 +1,27 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import { TextField } from '@mui/material';
-import { Close } from '@mui/icons-material';
+
+import { Close, ContactsTwoTone } from '@mui/icons-material';
 import {useDispatch} from "react-redux"
 import {actionCreators as markerActions} from "../redux/modules/marker"
+
 const EditMarkerModal = (props) => {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState();
-    const selectTitle = (e) => {
-        console.log(e.target.value)
-        setTitle(e.target.value)
-    }
-   const editId = props.editId;
+    const distance = props.distance;
+
+    const check = props.check;
+    const walk = props.walk;
+    const editId = props.editId;
     const editMarker= () => {
-        let marker = {
-            latitude : props.latitude,
-            longitude : props.longitude,
-            placename: props.placename,
-            locationCategory: props.locationCategory,
-            
+         const marker = {
+          totalDistance: distance.distance,
+          totalTime: distance.time,
+          startLocationAddress: distance.start,
+          endLocationAddress: distance.last,
+          locationCategory: check,
+          routeColor: distance.color,
+          routeName: distance.name,
+          cooridnate: walk,
         }
         dispatch(markerActions.editMarkerAX(marker,editId))
         props.close()
@@ -34,7 +37,9 @@ const EditMarkerModal = (props) => {
                             </ModalExitBtn> 
                             <ModalHeader>산책로로 설정하겠습니까?</ModalHeader> 
                             <ModalInput> 
-                               {props.placename}
+                               출발지:{distance.start}
+                               <br/>
+                               신첵로:{distance.name}
                                 </ModalInput> 
                                 <ModalButtonContainer> 
                                     <ModalSubmitBtn onClick={editMarker}> 산책로 등록 </ModalSubmitBtn> 

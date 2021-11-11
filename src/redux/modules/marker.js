@@ -1,20 +1,22 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { getCookie } from "../../shared/Cookie";
 
 const ADD_MARKER = "ADD_MARKER";
+const EDIT_MARKER ="EDIT_MARKER"
 const ADD_ROAD = "ADD_ROAD";
 const ADD_DISTANCE ="ADD_DISTANCE";
 //액션함수
 const addMarker = createAction(ADD_MARKER, (marker) => ({ marker }));
 const addRoad = createAction(ADD_ROAD, (road)=>({road}))
 const addDistance = createAction(ADD_DISTANCE,(distance)=>({distance}))
+const editMarker = createAction(ADD_DISTANCE,(list)=>({list}))
 //새로운 marker 정보를 redux store에 저장
 
 const initialState = {
   marker: [],
-  distance: []
+  distance: [],
+  list : [],
 };
 const addMarkerAX = (marker) => {
   return function (dispatch, getState, { history }) {
@@ -85,12 +87,7 @@ const editMarkerAX = (marker, editId) => {
     axios({
       method: "POST",
       url: "http://localhost:4000/users",
-      data: {
-        markername: marker.placename,
-        latitude: marker.latitude.toString(),
-        longitude: marker.longitude.toString(),
-        locationCategory: marker.locationCategory,
-      },
+      data: marker,
     }).then(() => {
       // 서버에서 마커 오브젝트 id와 boardcount를 보냅니다.
 
@@ -106,6 +103,11 @@ export default handleActions(
     [ADD_MARKER]: (state, action) =>
       produce(state, (draft) => {
         draft.marker = action.payload.marker;
+
+      }),
+      [EDIT_MARKER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.list;
 
       }),
     [ADD_ROAD]: (state, action) =>
@@ -127,4 +129,5 @@ export const actionCreators = {
   addMarkerAX,
   editMarkerAX,
   getRoadAX,
+  editMarker,
 };

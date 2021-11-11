@@ -7,59 +7,85 @@ import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
 
   const post = useSelector((state) => state.post.list);
+  const count = post.dogCount
   const wish = post.wishDesc
+  
   // const meetingdate = useSelector((state) => state.post.list);
   // console.log(meetingdate)
   const newDate = localStorage.getItem("date")
+  const newCount = localStorage.getItem("dogCount")
   console.log(newDate)
 
   const [startDate, setStartDate] = useState(new Date(newDate)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
 
   const [wishDesc, setWishDesc] = useState(); //desc설명
-
+  const [dogCount, setDogCount] = useState(newCount);
  
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
     setWishDesc(wish)
-  }, [wish]);
-  // useSelector, dispatch, 리덕스
+    setDogCount(Number(count))
+  }, [wish,count]);
+
   const postId = props.match.params.id;
-  
-  
+   
+  const locationCategory =post.locationCategory
+  const routeName = post.routeName
   console.log(post);
-  // const Zapmap = new Date("2021-05-22");
-
-  const location_address = post.location_address;
-  console.log(post.mapedit_date);
-
-
-  const markerName = useSelector((state) => state.marker.marker);
 
 
 
-  const editLongitude = markerName.longitude
-    ? markerName.longitude
-    : post.longitude;
-  const editLatitude = markerName.latitude
-    ? markerName.latitude
-    : post.latitude;
-  const editLocationaddress = markerName.placename
-    ? markerName.placename
-    : post.location_address;
+
+
+  let markerName = useSelector((state) => state.marker.marker);
+  console.log(markerName)
+
+  const handleChange = (event) => {
+    setDogCount(event.target.value);
+  };
+
+  console.log(dogCount)
+
   const editLocationCategory = markerName.locationCategory
     ? markerName.locationCategory
-    : post.location_category;
+    : post.locationCategory;
+    const editTotalDistance = markerName.totalDistance
+    ? markerName.totalDistance
+    : post.totalDistance;
+    const editTotalTime = markerName.totalTime
+    ? markerName.totalTime
+    : post.totalTime;
+    const editRouteColor = markerName.routeColor
+    ? markerName.routeColor
+    : post.routeColor;
+    const editRouteName = markerName.routeName
+    ? markerName.routeName
+    : post.routeName;
+    const editStartLocationAddress = markerName.startLocationAddress
+    ? markerName.startLocationAddress
+    : post.startLocationAddress;
+    const editEndLocationAddress = markerName.endLocationAddress
+    ? markerName.endLocationAddress
+    : post.endLocationAddress;
+
   console.log(
-    editLongitude,
-    editLatitude,
-    editLocationaddress,
+    editTotalTime,
+    editTotalDistance,
+    editRouteName,
+    editRouteColor,
+    editStartLocationAddress,
+    editEndLocationAddress,
     editLocationCategory
   );
 
@@ -77,14 +103,20 @@ const MapEdit = (props) => {
   
   const editLocation = () => {
     const Info = {
-      longitude: editLongitude,
-      latitude: editLatitude,
-      locationAddress: editLocationaddress,
-      wishDesc: wishDesc,
+      
+     totalDistance: editTotalDistance,
+     totalTime: editTotalTime,
+     routeColor :editRouteColor,
+     routeName : editRouteName,
+     startLocationAddress: editStartLocationAddress,
+     endLocationAddress: editEndLocationAddress,
       locationCategory: editLocationCategory,
+      wishDesc: wishDesc,
       meetingDate: startDate,
       completed: false,
+      dogCount: dogCount,
     };
+    console.log(Info)
     dispatch(PostActions.updatePostMD(postId, Info));
   };
 
@@ -113,7 +145,9 @@ const MapEdit = (props) => {
           <Address>
             상세 주소:{" "}
             <div>
-              {markerName.placename ? markerName.placename : location_address}
+              {markerName.locationCategory ? markerName.locationCategory : locationCategory}
+              <br/>
+              {markerName.routeName ? markerName.routeName : routeName}
             </div>
           </Address>
         </Text2>
@@ -128,12 +162,32 @@ const MapEdit = (props) => {
             inline
           />
         </Flex>
+        <Title>
+        <Box sx={{ minWidth: 120}}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          defaultValue={dogCount}
+          label="마리 수"
+          onChange={handleChange}
+        >
+          <MenuItem value={2}>2마리</MenuItem>
+          <MenuItem value={3}>3마리</MenuItem>
+          <MenuItem value={4}>4마리</MenuItem>
+          <MenuItem value={5}>5마리</MenuItem>
+          <MenuItem value={6}>6마리</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+    </Title>
         <Text>소개/유의사항</Text>
         <Flex>
           <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
         </Flex>
         <EndFlex>
-          <Button onClick={editLocation}>산책 등록</Button>
+          <Button onClick={editLocation}>산책 수정</Button>
         </EndFlex>
       </InputArea>
     </Frame>
@@ -255,4 +309,11 @@ const Address = styled.div`
   margin-left: 15px;
   text-align: left;
   font-size: 12px;
+`;
+const Title = styled.div`
+  box-sizing: border-box;
+  height: 35px;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 40px 0 20px 0;
 `;
