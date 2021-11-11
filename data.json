@@ -209,9 +209,10 @@
     ]
   },
   "users": {
-    "markername": "올림픽공원",
-    "latitude": "37.5205340628851",
-    "longitude": "127.120812783275",
+    "distance": "4100M",
+    "time": "1시간10분",
+    "startPoint": "올림픽공원역",
+    "roadName": "산책로C",
     "locationCategory": "올림픽공원"
   },
   "Road": [

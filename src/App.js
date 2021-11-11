@@ -33,6 +33,7 @@ import Caution3 from "./pages/Caution3";
 import FindLocation from "./components/FindLocation";
 import Road from "./pages/Road";
 import MapPractice from "./pages/MapPractice";
+import Weather from "./components/Weather";
 function App() {
   return (
     <div className="App">
@@ -76,6 +77,7 @@ function App() {
         <Route exact path="/map" component = {Map}/>
         <Route exact path="/road" component = {Road} />
         <Route exact path="/mapPractice" component={MapPractice} />
+        <Route exact path = "/weather" component={Weather}/>
       </ConnectedRouter>
     </div>
   );
