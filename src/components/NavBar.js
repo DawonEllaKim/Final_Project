@@ -1,34 +1,59 @@
-import React from "react";
+import React, { useSelector } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
 // 아이콘
+import walk from "../image/walk.png";
 import home from "../image/home.png";
-import chat from "../image/chat.png";
+import dog from "../image/dog.png";
 import myPage from "../image/mypage.png";
 import addBtn from "../image/addBtn.png";
 
 const NavBar = (props) => {
+  const userId = localStorage.getItem("userId");
+
   return (
     <>
       <Nav>
-        <NavLeft>
-          <Button onClick={() => history.push("/")}>
+        <Box>
+          {/* 산책 목록 버튼 */}
+          <Button
+            onClick={() => history.push("/")}
+            style={{ marginRight: "36px" }}
+          >
+            <img src={walk} style={{ width: "20px", height: "20px" }} />
+          </Button>
+
+          {/* 홈 버튼 */}
+          <Button
+            onClick={() => history.push("/")}
+            style={{ marginRight: "109px" }}
+          >
             <img src={home} style={{ width: "20px", height: "20px" }} />
           </Button>
-          <Button>
-            <img src={chat} style={{ width: "20px", height: "20px" }} />
+
+          {/* 개스타그램 버튼 */}
+          <Button
+            onClick={() => {
+              history.push("/dogstagram");
+            }}
+          >
+            <img
+              src={dog}
+              style={{ width: "24px", height: "24px", marginRight: "36px" }}
+            />
           </Button>
-          <Button onClick={() => history.push("/mypage")}>
+
+          {/* 마이페이지 버튼 */}
+          <Button onClick={() => history.push(`/mypage/${userId}`)}>
             <img src={myPage} style={{ width: "20px", height: "20px" }} />
           </Button>
-        </NavLeft>
+        </Box>
 
-        <NavRight>
-          <Button onClick={() => history.push("/map2")}>
-            <img src={addBtn} style={{ width: "60px", height: "60px" }} />
-          </Button>
-        </NavRight>
+        {/* 산책 등록 버튼 */}
+        <HomeBtn onClick={() => history.push("/map2")}>
+          <img src={addBtn} style={{ width: "70px", height: "70px" }} />
+        </HomeBtn>
       </Nav>
       <Bar>
         <div />
@@ -40,7 +65,7 @@ const NavBar = (props) => {
 const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
-  bottom: 46px;
+  bottom: 30px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -50,14 +75,15 @@ const Nav = styled.div`
   padding: 21px;
   z-index: 5;
 `;
-
-const NavLeft = styled.div`
+const Box = styled.div`
   box-sizing: border-box;
+  position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 276px;
+  width: 100%;
   height: 60px;
   margin-right: 12px;
   padding: 6px 30px;
@@ -66,25 +92,22 @@ const NavLeft = styled.div`
   border: 2px solid #000;
   box-shadow: 0 4px 0px #000;
 `;
-
-const NavRight = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  background-color: #000;
-  border-radius: 50%;
-  box-shadow: 0 4px 0px #000;
+const HomeBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  transform: translateX(-50%);
 `;
-
 const Button = styled.button`
   background-color: transparent;
   border: none;
   color: white;
   cursor: pointer;
 `;
-
 const Bar = styled.div`
   position: fixed;
   bottom: 0;

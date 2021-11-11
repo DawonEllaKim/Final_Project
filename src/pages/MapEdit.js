@@ -76,10 +76,10 @@ const MapEdit = (props) => {
     const Info = {
       longitude: editLongitude,
       latitude: editLatitude,
-      location_address: editLocationaddress,
-      wish_desc: wishDesc,
-      location_category: editLocationCategory,
-      meeting_date: startDate,
+      locationAddress: editLocationaddress,
+      wishDesc: wishDesc,
+      locationCategory: editLocationCategory,
+      meetingDate: startDate,
       completed: false,
     };
     dispatch(PostActions.updatePostMD(postId, Info));

@@ -1,53 +1,26 @@
 import React from "react";
-import { makeStyles } from '@mui/styles';
-import { CircularProgress } from "@mui/material";
+import styled from "styled-components";
+import spinner from "../image/spinner.gif";
 
-
-//로딩스피너 만들기
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: "relative",
-    flexGrow: 1,
-  },
-  top: {
-    color: "#ffc149",
-    animationDuration: "680ms",
-  },
-  circle: {
-    strokeLinecap: "round",
-  },
-}));
-
-function FacebookCircularProgress(props) {
-  const classes = useStyles();
-
+const Spinner = () => {
   return (
-    <div className={classes.root}>
-      <CircularProgress
-        variant="indeterminate"
-        disableShrink
-        className={classes.top}
-        classes={{
-          circle: classes.circle,
-        }}
-        size={40}
-        thickness={4}
-        {...props}
-      />
-    </div>
+    <Wrap>
+      <img src={spinner} />
+      <h4>왈왈! 보호자님, 조금만 기다려주세요!</h4>
+    </Wrap>
   );
-}
+};
 
-export default function CircularIndeterminate() {
-  const classes = useStyles();
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 390px;
+  margin: 0 auto;
+  h4 {
+    margin-top: -100px;
+  }
+`;
 
-  return (
-    <div>
-      <div className={classes.root}>
-        <FacebookCircularProgress />
-      </div>
-      <h4>조금만 기다려주세요!</h4>
-    </div>
-  );
-}
+export default Spinner;

@@ -1,6 +1,8 @@
 import "./App.css";
 import { Route } from "react-router";
 
+import PrivateRoute from "./shared/PrivateRoute";
+
 import { ConnectedRouter } from "connected-react-router";
 import Main from "./pages/Main";
 import LogIn from "./pages/LogIn";
@@ -9,6 +11,7 @@ import MyPage from "./pages/MyPage";
 import SignDog from "./pages/SignDog";
 import { history } from "./redux/configureStore.js";
 import Map2 from "./pages/Map2";
+import Map from "./pages/Map";
 import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import MyProfile from "./pages/MyProfile";
@@ -29,10 +32,19 @@ import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 import Caution1 from "./pages/Caution1";
 import Caution2 from "./pages/Caution2";
 import Caution3 from "./pages/Caution3";
+import DogStaWrite from "./pages/DogStaWrite";
+import DogStaDetail from "./pages/DogStaDetail";
+import DogStaEdit from "./components/MyPage/DogStaEdit";
+import DogStaGram from "./pages/DogStaGram";
 
 import ChatPage from './pages/ChatPage';
 import Join from './components/Join';
 import Chat from './components/Chat';
+
+import FindLocation from "./components/FindLocation";
+import Road from "./pages/Road";
+import MapPractice from "./pages/MapPractice";
+import Weather from "./components/Weather";
 
 function App() {
   return (
@@ -43,7 +55,7 @@ function App() {
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
-        <Route exact path="/mypage" component={MyPage} />
+        <Route exact path="/mypage/:userId" component={MyPage} />
         <Route exact path="/map2" component={Map2} />
         <Route exact path="/write" component={Write} />
         <Route exact path="/write/:id" component={Write} />
@@ -76,6 +88,15 @@ function App() {
         <Route exact path="/chatPage" component={ChatPage} />
         <Route exact path="/join" component={Join} />
         <Route exact path="/chat" component={Chat} />
+        <Route exact path="/dogstawrite" component={DogStaWrite} />
+        <Route exact path="/dogstadetail/:id/:id" component={DogStaDetail} />
+        <Route exact path="/dogstaedit/:id" component={DogStaEdit} />
+        <Route exact path="/dogstagram" component={DogStaGram} />
+        <Route exact path="/findLocation" component={FindLocation} />
+        <Route exact path="/map" component={Map} />
+        <Route exact path="/road" component={Road} />
+        <Route exact path="/mapPractice" component={MapPractice} />
+        <Route exact path = "/weather" component={Weather}/>
       </ConnectedRouter>
     </div>
   );

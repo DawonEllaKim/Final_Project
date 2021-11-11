@@ -9,7 +9,7 @@ import NavBar from "../components/NavBar";
 // 리덕스
 import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
-import Spinner from '../shared/Spinner'
+import Spinner from "../shared/Spinner";
 import Button from "../elements/Button";
 
 // 리액트 아이콘
@@ -18,18 +18,20 @@ import backward from "../image/backward.png";
 
 import MapEdit from "./MapEdit";
 const { kakao } = window;
+
 const Detail = (props) => {
-   const history = useHistory();
-  const is_loading = useSelector((state) => state.post.is_loading)
-   
-  const get_id = localStorage.getItem("user_id")
-  
-  const postId =props.match.params.id;
+  const history = useHistory();
+  const is_loading = useSelector((state) => state.post.is_loading);
+
+  const get_id = localStorage.getItem("user_id");
+
+  const postId = props.match.params.id;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
   }, [postId]);
+
   const post = useSelector((state) => state.post.list);
   const latitude = post.latitude;
   const longitude = post.longitude;
@@ -71,35 +73,36 @@ const Detail = (props) => {
   }, [latitude, longitude]);
 
   // 유저 정보
-  const userImage = post.user_image;
-  const userNickname = post.user_nickname;
-  const userAge = post.user_age;
-  const userGender = post.user_gender;
+  const userImage = post.userImage;
+  const userNickname = post.userNickname;
+  const userAge = post.userAge;
+  const userGender = post.userGender;
   console.log(userImage);
 
   // 강아지 정보
-  const dogImage = post.dog_image;
-  const dogName = post.dog_name;
-  const dogAge = post.dog_age;
-  const dogSize = post.dog_size;
-  const dogGender = post.dog_gender;
+  const dogImage = post.dogImage;
+  const dogName = post.dogName;
+  const dogAge = post.dogAge;
+  const dogSize = post.dogSize;
+  const dogGender = post.dogGender;
   const neutral = post.neutral;
-  const dogBreed = post.dog_breed;
-  const dogComment = post.dog_comment;
-  const location = post.location_category;
+  const dogBreed = post.dogBreed;
+  const dogComment = post.dogComment;
+  const location = post.locationCategory;
   console.log(post.latitude, post.longitude);
 
   // 산책 정보
-  const meetingDate = post.meeting_date;
+  const meetingDate = post.meetingDate;
   const completed = post.completed;
   console.log(post);
 
+  console.log(postId);
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
 
-  if(is_loading) {
-    return <Spinner/>
+  if (is_loading) {
+    return <Spinner />;
   }
   return (
     <>
@@ -109,7 +112,7 @@ const Detail = (props) => {
         <Header>
           <Button
             _onClick={() => {
-              history.goBack()
+              history.goBack();
             }}
           >
             <img src={backward} style={{ width: "10px", height: "18px" }} />
@@ -197,17 +200,14 @@ const Detail = (props) => {
           </MapWrap>
 
           {/* 버튼 */}
-          {  get_id==post.user_id&&
-                <FlexButton>
-             
-                <DeleteButton onClick={deletePost}>
-                  삭제하기
-                  </DeleteButton>
-                <EditButton onClick={()=>history.push(`/mapEdit/${postId}`)}>
-               수정하기
-                  </EditButton>
-                  </FlexButton>
-            }
+          {get_id == post.user_id && (
+            <FlexButton>
+              <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
+              <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
+                수정하기
+              </EditButton>
+            </FlexButton>
+          )}
         </DetailWrap>
 
         {/* 고정 버튼들 */}
@@ -234,7 +234,6 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-
 const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -245,7 +244,6 @@ const Header = styled.div`
   margin: 46px auto 18px auto;
   font-size: 18px;
 `;
-
 const UserWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -255,7 +253,6 @@ const UserWrap = styled.div`
   height: 48px;
   margin-bottom: 13px;
 `;
-
 const UserLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -263,7 +260,6 @@ const UserLeft = styled.div`
   align-items: center;
   height: 48px;
 `;
-
 const UserImage = styled.img`
   /* position: relative; */
   width: 48px;
@@ -271,7 +267,6 @@ const UserImage = styled.img`
   margin-right: 17px;
   border-radius: 50%;
 `;
-
 const UserData = styled.div`
   /* position: relative; */
 
@@ -282,7 +277,6 @@ const UserData = styled.div`
   font-size: 16px;
   color: #000;
 `;
-
 const UserRight = styled.div`
   width: 76px;
   height: 40px;
@@ -296,7 +290,6 @@ const UserRight = styled.div`
     font-size: 14px;
   }
 `;
-
 const DogImage = styled.img`
   /* position: relative; */
   width: 352px;
@@ -305,7 +298,6 @@ const DogImage = styled.img`
   border-radius: 20px;
   z-index: 10;
 `;
-
 const DetailWrap = styled.div``;
 
 const DogWrap = styled.div`
@@ -325,7 +317,6 @@ const DogInfo = styled.div`
     font-weight: bold;
   }
 `;
-
 const DogCategory = styled.div`
   display: flex;
   flex-direction: row;
@@ -347,11 +338,9 @@ const DogCategory = styled.div`
     font-size: 14px;
   }
 `;
-
 const Comment = styled.div`
   font-size: 16px;
 `;
-
 const Line = styled.hr`
   /* display: block; */
   width: 88px;
