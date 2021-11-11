@@ -49,16 +49,19 @@ function Weather({ setCold }) {
   const [weather, setWeather] = useState("");
 
   // 날씨 가져오기
-  axios.get(url).then((responseData) => {
-    const data = responseData.data;
-    setWeather({
-        id: data.weather[0].id,
-        temperature: data.main.temp,
-        main: data.weather[0].main,
-        loading: false,
-      });
-     console.log(data)
-  });
+  React.useEffect(() => {
+    axios.get(url).then((responseData) => {
+      const data = responseData.data;
+      setWeather({
+          id: data.weather[0].id,
+          temperature: data.main.temp,
+          main: data.weather[0].main,
+          loading: false,
+        });
+       console.log(data)
+    });
+  }, [])
+ 
   
   let c = weather.temperature - 273.15;
 //   setCold(c < 15 ? true : false);

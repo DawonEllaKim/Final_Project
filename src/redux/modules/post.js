@@ -3,7 +3,8 @@ import axios from "axios";
 import { apis } from "../../lib/axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
-
+import { list1,list2,list3 } from "../../components/MarkerList/RoadList";
+import { hangang,seoul,olympic } from "../../components/MarkerList/ParkList";
 // action
 //메인 페이지 GET 요청
 const GET_MAIN = "GET_MAIN";
@@ -77,28 +78,41 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        res.data.posts.longitude = Number(res.data.posts.longitude);
-        res.data.posts.latitude = Number(res.data.posts.latitude);
-        localStorage.setItem("date", res.data.posts.meeting_date);
-        const initialDate = res.data.posts.meeting_date.split("T")[0];
+    
+        localStorage.setItem("date", res.data.posts[0].meetingDate);
+        const initialDate = res.data.posts[0].meetingDate.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
         const day = initialDate.split("-")[2];
-        const initialTime = res.data.posts.meeting_date.split("T")[1];
-        // const hour = initialTime.split(":")[0];
-        // const minute = initialTime.split(":")[1];
-        res.data.posts.meeting_date =
-          year + "년 " + month + "월 " + day + "일 ";
-        // hour +
-        // "시 " +
-        // minute +
-        // "분";
-        // res.data.mapedit_date =
-        //   year + "-" + month + "-" + day + "T" + hour + ":" + minute;
-        const postList = res.data.posts;
+        const initialTime = res.data.posts[0].meetingDate.split("T")[1];
+        const hour = initialTime.split(":")[0];
+        const minute = initialTime.split(":")[1];
+        res.data.posts[0].meetingDate =
+          year + "년 " + month + "월 " + day + "일 "+
+        hour +
+        "시 " +
+        minute +
+        "분";
+         
+
+        if(res.data.posts[0].routeName=="산책로A"&&res.data.posts[0].locationCategory=="올림픽공원")
+          res.data.posts[0].walk = list1;
+        if(res.data.posts[0].routeName=="산책로B"&&res.data.posts[0].locationCategory=="올림픽공원")
+          res.data.posts[0].walk = list2;
+        if(res.data.posts[0].routeName=="산책로C"&&res.data.posts[0].locationCategory=="올림픽공원")
+          res.data.posts[0].walk = list3;
+        
+
+        if(res.data.posts[0].locationCategory=="올림픽공원")
+          res.data.posts[0].start = olympic;
+        if(res.data.posts[0].locationCategory=="서울숲")
+         res.data.posts[0].start = seoul;
+         if(res.data.posts[0].locationCategory=="반포한강공원")
+         res.data.posts[0].start= hangang[0]
+        const postList = res.data.posts[0];
         console.log(res.data);
         dispatch(getPost(postList));
-        dispatch(loading(false));
+
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -165,7 +179,7 @@ const addPostMD = (post) => {
       .createPostAX(post)
       .then((res) => {
         console.log(res);
-        dispatch(addPost(post));
+        // dispatch(addPost(post));
         window.location.replace("/");
       })
       .catch((err) => {

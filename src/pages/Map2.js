@@ -44,14 +44,13 @@ const Map2 = (props) => {
       routeName : markerName.routeName,
       startLocationAddress: markerName.startLocationAddress,
       endLocationAddress: markerName.endLocationAddress,
-      locationAddress: markerName.placename,
-      locationCategory: markerName.locationCategory,
-      coordinate: markerName.coordinate,
-      wishDesc: wishDesc,
-      meetingDate: startDate,
-      completed: false,
+      locationCategory: markerName.locationCategory,     
+      wishDesc: wishDesc,  
       dogCount: dogCount,
+      meetingDate: startDate,
+
     };
+    console.log(Info)
     dispatch(PostActions.addPostMD(Info));
   };
 

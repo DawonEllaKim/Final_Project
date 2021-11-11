@@ -1,8 +1,16 @@
 // Detail.js - 각 산책 게시물에 대한 상세페이지
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-
+import { toilet,trash,water,dog } from "../components/MarkerList/MarkerList";
+import { polygon1,polygon2,polygon3 } from "../components/MarkerList/PolygonList";
+import { olympic,seoul,hangang } from "../components/MarkerList/ParkList";
+//산책로리스트
+import BlackMarker from '../image/toilet.png'
+import trashMarker from '../image/trash.png'
+import waterMarker from '../image/water.png'
+import dogMarker from '../image/dog.png'
+import { list1,list2,list3 } from "../components/MarkerList/RoadList";
 // 컴포넌츠
 import NavBar from "../components/NavBar";
 
@@ -16,11 +24,17 @@ import Button from "../elements/Button";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 
-import MapEdit from "./MapEdit";
+
 const { kakao } = window;
 
 const Detail = (props) => {
   const history = useHistory();
+  const post = useSelector((state) => state.post.list);
+  const [walk,setWalk] = useState(post.walk? post.walk:list1);
+  const [start,setStart] = useState(post.start? post.start :olympic);
+  useEffect(()=>{
+    dispatch(postActions.getPostMD(postId));
+  },[])
   const is_loading = useSelector((state) => state.post.is_loading);
 
   const get_id = localStorage.getItem("user_id");
@@ -28,49 +42,12 @@ const Detail = (props) => {
   const postId = props.match.params.id;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-  }, [postId]);
 
-  const post = useSelector((state) => state.post.list);
-  const latitude = post.latitude;
-  const longitude = post.longitude;
 
-  useEffect(() => {
-    // 지도를 표시할 div
-    var mapContainer = document.getElementById("map"),
-      mapOption = {
-        center: new kakao.maps.LatLng(latitude, longitude), // 지도를 열면 보이는 중심 좌표
-        level: 3, // 지도 확대 레벨
-      };
 
-    // 지도 생성
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+ 
+   
 
-    // 마커 생성
-    var marker = new kakao.maps.Marker({
-      position: new kakao.maps.LatLng(latitude, longitude), // 마커 위치
-    });
-
-    // 마커가 지도 위에 표시되도록 설정
-    marker.setMap(map);
-
-    // 상세 위치명이 들어 있는 인포윈도우
-    var iwContent =
-        '<div style="padding:5px; width:200px; line-height: 30px; border-radius: 20px">' +
-        post.location_address +
-        "</div>",
-      iwPosition = new kakao.maps.LatLng(longitude, latitude); //인포윈도우 표시 위치입니다
-
-    // 인포윈도우 생성
-    var infowindow = new kakao.maps.InfoWindow({
-      position: iwPosition,
-      content: iwContent,
-    });
-
-    // 마커 위에 인포윈도우를 표시
-    infowindow.open(map, marker);
-  }, [latitude, longitude]);
 
   // 유저 정보
   const userImage = post.userImage;
@@ -89,21 +66,284 @@ const Detail = (props) => {
   const dogBreed = post.dogBreed;
   const dogComment = post.dogComment;
   const location = post.locationCategory;
-  console.log(post.latitude, post.longitude);
-
+  
   // 산책 정보
   const meetingDate = post.meetingDate;
   const completed = post.completed;
-  console.log(post);
+  const locationCategory = post.locationCategory;
+
+  //산책로 찾기
+
+ 
+
+
+
 
   console.log(postId);
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
 
-  if (is_loading) {
-    return <Spinner />;
-  }
+
+  
+//  const walk = post.walk;
+//  const start = post.start;
+     
+     
+  useEffect(() => {
+ 
+    let dott=   [
+    ];
+    for(let i=0;i<walk.length;i++)
+    {
+       dott[i]= new kakao.maps.LatLng(walk[i].Ma,walk[i].La)
+    }
+
+    let polygonPath1 = [ ];
+
+    for (let i=0;i<polygon2.length;i++)
+    {
+        polygonPath1[i]= new kakao.maps.LatLng(polygon2[i].Ma,polygon2[i].La)
+    }
+
+    let polygonPath2 = [ ];
+
+    for (let i=0;i<polygon1.length;i++)
+    {
+        polygonPath2[i]= new kakao.maps.LatLng(polygon1[i].Ma,polygon1[i].La)
+    }
+    
+    let polygonPath3 = [ ];
+
+    for (let i=0;i<polygon3.length;i++)
+    {
+        polygonPath3[i]= new kakao.maps.LatLng(polygon3[i].Ma,polygon3[i].La)
+    }
+
+    console.log(dott)
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };
+
+ 
+
+    
+var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
+var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다  
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// new kakao.maps.Marker({
+//     map: map, // 마커를 표시할 지도
+//     position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La), // 마커를 표시할 위치
+//     // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+
+    
+// });
+// new kakao.maps.Marker({
+//     map: map, // 마커를 표시할 지도
+//     position: new kakao.maps.LatLng(walk[walk.length-1].Ma,walk[walk.length-1].La), // 마커를 표시할 위치
+//     // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+
+    
+// });
+//쓰레기통
+var imageSrc = trashMarker; 
+
+for (let i = 0; i < trash.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(20, 20); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+    // 마커를 생성합니다
+    const marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(trash[i].Ma,trash[i].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+    var iwContent = '<div style="font-size:3px;">쓰레기통:쓰레기는 쓰레기통에!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
+          // 마커 위에 인포윈도우를 표시합니다
+          infowindow.open(map, marker);  
+    });
+    kakao.maps.event.addListener(marker, 'mouseout', function() {
+        // 마커 위에 인포윈도우를 표시합니다
+        infowindow.close(map, marker);  
+    });
+}
+
+var imageSrc2 = waterMarker;
+ 
+for (let i = 0; i < water.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize2 = new kakao.maps.Size(20, 20); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
+    
+    // 마커를 생성합니다
+    const marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(water[i].Ma,water[i].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+
+    var iwContent2 = '<div style="font-size:3px;">식수대:강아지에게 물을 주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+var infowindow2 = new kakao.maps.InfoWindow({
+content : iwContent2,
+removable : iwRemoveable
+});
+
+// 마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+  // 마커 위에 인포윈도우를 표시합니다
+  infowindow2.open(map, marker);  
+});
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+// 마커 위에 인포윈도우를 표시합니다
+infowindow2.close(map, marker);  
+});
+}
+
+var imageSrc3 = BlackMarker;
+ 
+for (let i = 0; i < toilet.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize3 = new kakao.maps.Size(20, 20); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3); 
+    
+    // 마커를 생성합니다
+    const marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(toilet[i].Ma,toilet[i].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+
+    var iwContent3 = '<div style="font-size:3px;">화장실: 강아지의 발을 닦아주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+var infowindow3 = new kakao.maps.InfoWindow({
+    content : iwContent3,
+    removable : iwRemoveable
+});
+
+// 마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+      // 마커 위에 인포윈도우를 표시합니다
+      infowindow3.open(map, marker);  
+});
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+    // 마커 위에 인포윈도우를 표시합니다
+    infowindow3.close(map, marker);  
+});
+}
+
+var imageSrc4 = dogMarker;
+ 
+for (let i = 0; i < dog.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize4 = new kakao.maps.Size(20, 20); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4); 
+    
+    // 마커를 생성합니다
+    const marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(dog[i].Ma,dog[i].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+        
+    });
+    var iwContent4 = '<div style="font-size:3px;">들판:강아지가 달리게 목줄을 풀어주세요! </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+var infowindow4 = new kakao.maps.InfoWindow({
+    content : iwContent4,
+    removable : iwRemoveable
+});
+
+// 마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+      // 마커 위에 인포윈도우를 표시합니다
+      infowindow4.open(map, marker);  
+});
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+    // 마커 위에 인포윈도우를 표시합니다
+    infowindow4.close(map, marker);  
+});
+}
+
+
+
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+
+clickLine = new kakao.maps.Polyline({
+    map: map, // 선을 표시할 지도입니다 
+    path:[dott],   
+      // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+    strokeWeight: 3, // 선의 두께입니다 
+    strokeColor: "red", // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
+});
+ new kakao.maps.Polygon({
+    path:polygonPath1, // 그려질 다각형의 좌표 배열입니다
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: '#39DE2A', // 선의 색깔입니다
+    strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'longdash', // 선의 스타일입니다
+    fillColor: '#A2FF99', // 채우기 색깔입니다
+    fillOpacity: 0.7, // 채우기 불투명도 입니다
+    map:map
+});
+new kakao.maps.Polygon({
+    path:polygonPath2, // 그려질 다각형의 좌표 배열입니다
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: '#39DE2A', // 선의 색깔입니다
+    strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'longdash', // 선의 스타일입니다
+    fillColor: '#A2FF99', // 채우기 색깔입니다
+    fillOpacity: 0.7, // 채우기 불투명도 입니다
+    map:map
+});
+ new kakao.maps.Polygon({
+    path:polygonPath3, // 그려질 다각형의 좌표 배열입니다
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: '#39DE2A', // 선의 색깔입니다
+    strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'longdash', // 선의 스타일입니다
+    fillColor: '#A2FF99', // 채우기 색깔입니다
+    fillOpacity: 0.7, // 채우기 불투명도 입니다
+    map:map
+});
+    
+}, [walk,start])
   return (
     <>
       {/* {post_info && ( */}
@@ -191,12 +431,13 @@ const Detail = (props) => {
           <LocationWrap>
             <Title>예약 장소</Title>
             <MeetingLocation>{location}</MeetingLocation>
+            <MeetingLocation>{post.routeName}</MeetingLocation>
           </LocationWrap>
           <Line />
 
           {/* 지도 */}
-          <MapWrap>
-            <Map id="map" />
+          <MapWrap id="map">
+        
           </MapWrap>
 
           {/* 버튼 */}
@@ -361,7 +602,12 @@ const LocationWrap = styled.div`
 `;
 const MeetingLocation = styled.div``;
 
-const MapWrap = styled.div``;
+const MapWrap = styled.div`
+width: 350px;
+height:500px;
+box-sizing: border-box;
+border-radius: 20px;
+`;
 
 const FlexButton = styled.div`
   display: flex;
