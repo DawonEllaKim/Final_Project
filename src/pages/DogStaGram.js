@@ -14,6 +14,7 @@ const DogStaGram = (props) => {
   const history = useHistory();
 
   const postList = useSelector((state) => state.dogsta.mainList);
+  console.log(postList);
 
   useEffect(() => {
     dispatch(postActions.getAllPostMD());
@@ -35,12 +36,22 @@ const DogStaGram = (props) => {
       <Posts>
         {postList.map((post, index) => {
           return (
-            <div
-              onClick={() => history.push(`/dogstadetail/${post.dogPostId}`)}
-            >
+            <div>
               <div post={post} key={index}>
-                <img src={post.dogPostImage} />
-                <p>{post.userNickname}</p>
+                <img
+                  src={post.dogPostImage}
+                  onClick={() =>
+                    history.push(`/dogstadetail/${post.dogPostId}`)
+                  }
+                />
+                <button
+                  post={post}
+                  onClick={() => {
+                    history.push(`/mypage/${post.userId}`);
+                  }}
+                >
+                  {post.userNickname}
+                </button>
                 <p>{post.createdAt}</p>
               </div>
             </div>

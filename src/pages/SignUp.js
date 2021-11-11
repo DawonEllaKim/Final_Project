@@ -16,7 +16,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [user_email, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [user_nickname, setUserNickname] = useState("");
@@ -76,7 +76,7 @@ const SignUp = () => {
   };
 
   const submitUserInfo = () => {
-    if (!emailCheck(user_email)) {
+    if (!emailCheck(userEmail)) {
       toast.error("잘못된 이메일 형식입니다.", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
@@ -100,7 +100,7 @@ const SignUp = () => {
     }
 
     if (
-      user_email === "" ||
+      userEmail === "" ||
       password === "" ||
       confirm_password === "" ||
       user_nickname === "" ||
@@ -113,7 +113,7 @@ const SignUp = () => {
     }
 
     const formData = new FormData();
-    formData.append("userEmail", user_email);
+    formData.append("userEmail", userEmail);
     formData.append("password", password);
     formData.append("confirmPassword", confirm_password);
     formData.append("userNickname", user_nickname);
@@ -166,7 +166,12 @@ const SignUp = () => {
               onChange={userEmailChangeHandler}
             />
           </Input>
-          <IdCheck onClick={() => dispatch(UserActions.signDupAPI(user_email))}>
+          <IdCheck
+            onClick={() => {
+              dispatch(UserActions.signDupAPI(userEmail));
+              console.log("아이디 중복 확인 중");
+            }}
+          >
             중복확인
           </IdCheck>
         </UserWrap>
