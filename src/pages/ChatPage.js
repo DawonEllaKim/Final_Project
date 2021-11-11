@@ -9,11 +9,15 @@ import Chat from "../components/Chat";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
+
 import { history } from "../redux/configureStore";
 import io from "socket.io-client";
+
 // const socket = io.connect("http://localhost:3001", {
 //   auth:{token:`Bearer ${getCookie("user_login")}`}
 // });
+
+// 서버와 연결 시작
 const socket = io.connect("http://localhost:3001");
 
 const ChatPage = (props) => {
@@ -54,45 +58,46 @@ const ChatPage = (props) => {
 
   return (
     <div>
-      {!showChat ? (
-        <Wrap>
-          <TopWrap>
-            <MdArrowBackIosNew
-              style={{ width: "24px", height: "24px", cursor: "pointer" }}
-              onClick={() => {
-                history.goBack();
-              }}
-            />
-            <TopTitle>메시지 보관함</TopTitle>
-            <GrNotification style={{ width: "24px", height: "24px" }} />
-          </TopWrap>
+      {/* {!showChat ? ( */}
+      <Wrap>
+        {/* 뒤로가기 버튼 + 타이틀 */}
+        <TopWrap>
+          <MdArrowBackIosNew
+            style={{ width: "24px", height: "24px", cursor: "pointer" }}
+            onClick={() => {
+              history.goBack();
+            }}
+          />
+          <TopTitle>메시지 보관함</TopTitle>
+          <GrNotification style={{ width: "24px", height: "24px" }} />
+        </TopWrap>
 
-          <div>
-            <Header>Join</Header>
-            <Input
-              placeholder="name"
-              onChange={(e) => setName(e.target.value)}
-            ></Input>
-            <Input
-              placeholder="room"
-              onChange={(e) => setRoom(e.target.value)}
-            ></Input>
-            <Btn onClick={joinRoom}>JOIN</Btn>
-          </div>
+        <div>
+          <Header>Join</Header>
+          <Input
+            placeholder="name"
+            onChange={(e) => setName(e.target.value)}
+          ></Input>
+          <Input
+            placeholder="room"
+            onChange={(e) => setRoom(e.target.value)}
+          ></Input>
+          <Btn onClick={joinRoom}>JOIN</Btn>
+        </div>
 
-          <BottomWrap>
-            {chatList.map((list, index) => {
-              return (
-                <div onClick={joinRoom}>
-                  <ChatList list={list} key={index} />
-                </div>
-              );
-            })}
-          </BottomWrap>
-        </Wrap>
-      ) : (
-        <Chat socket={socket} name={name} room={room} />
-      )}
+        <BottomWrap>
+          {chatList.map((list, index) => {
+            return (
+              <div onClick={joinRoom}>
+                <ChatList list={list} key={index} />
+              </div>
+            );
+          })}
+        </BottomWrap>
+      </Wrap>
+      {/* ) : ( */}
+      <Chat socket={socket} name={name} room={room} />
+      {/* )} */}
     </div>
   );
 };
@@ -114,7 +119,6 @@ const TopTitle = styled.div`
   font-size: 24px;
 `;
 const BottomWrap = styled.div``;
-
 const Header = styled.div``;
 const Input = styled.input``;
 const Btn = styled.button``;

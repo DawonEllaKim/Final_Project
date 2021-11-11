@@ -25,12 +25,15 @@ import chat from "../image/chat.png";
 import logo from "../image/loginLogo.png";
 import login from "../image/login.png";
 import loginText from "../image/loginText.png";
+import ChatPageElla from "./ChatPageElla";
+import { current } from "immer";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [check, setCheck] = useState("sta");
+  const [chatMode, setChatMode] = useState(false);
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
@@ -98,7 +101,39 @@ const MyPage = (props) => {
                 <span>로그아웃</span>
               </LogOut>
             ) : (
-              <button>{userInfo.userNickname}님에게 쪽지보내기</button>
+              <div>
+                <button
+                  onClick={() => {
+                    console.log(
+                      "지금 페이지 유저 ID",
+                      currentPageUserId,
+                      "지금 로그인 유저 ID",
+                      userId
+                    );
+                    // history.push("/chatPageElla");
+                    setChatMode(true);
+                  }}
+                >
+                  {userInfo.userNickname}님에게 쪽지보내기
+                </button>
+                {chatMode === true ? (
+                  <CHAT>
+                    <ChatPageElla
+                      currentPageUserId={currentPageUserId}
+                      userId={userId}
+                    />
+                    <button
+                      onClick={() => {
+                        setChatMode(false);
+                      }}
+                    >
+                      close
+                    </button>
+                  </CHAT>
+                ) : (
+                  ""
+                )}
+              </div>
             )}
           </UserInfo>
 
@@ -154,6 +189,15 @@ const MyPage = (props) => {
     </div>
   );
 };
+
+const CHAT = styled.div`
+  width: 80vw;
+  height: 80vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+`;
 
 const LoginImg = styled.div`
   position: relative;

@@ -38,6 +38,7 @@ import DogStaEdit from "./components/MyPage/DogStaEdit";
 import DogStaGram from "./pages/DogStaGram";
 
 import ChatPage from "./pages/ChatPage";
+import ChatPageElla from "./pages/ChatPageElla";
 import Join from "./components/Join";
 import Chat from "./components/Chat";
 
@@ -85,6 +86,7 @@ function App() {
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
         <Route exact path="/chatPage" component={ChatPage} />
+        <Route exact path="/chatPageElla" component={ChatPageElla} />
         <Route exact path="/join" component={Join} />
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/dogstawrite" component={DogStaWrite} />
