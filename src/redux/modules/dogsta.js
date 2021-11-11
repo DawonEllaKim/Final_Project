@@ -34,7 +34,7 @@ const addPostMD = (formData) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("token")}`,
+        authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
