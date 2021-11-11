@@ -81,7 +81,7 @@ function App() {
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
         <Route exact path="/dogstawrite" component={DogStaWrite} />
-        <Route exact path="/dogstadetail/:id" component={DogStaDetail} />
+        <Route exact path="/dogstadetail/:id/:id" component={DogStaDetail} />
         <Route exact path="/dogstaedit/:id" component={DogStaEdit} />
         <Route exact path="/dogstagram" component={DogStaGram} />
         <Route exact path="/findLocation" component={FindLocation} />

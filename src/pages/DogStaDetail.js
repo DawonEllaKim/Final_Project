@@ -10,6 +10,7 @@ import NavBar from "../components/NavBar";
 
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/dogsta";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // 아이콘들
 import notification from "../image/Notification.png";
@@ -24,16 +25,17 @@ const DogStaDetail = (props) => {
   const post = useSelector((state) => state.dogsta.eachList);
   const userId = localStorage.getItem("userId");
 
-  console.log(useSelector((state) => state));
-  console.log(postId, post);
+  const userInfo = useSelector((state) => state.user.list);
+  console.log(userInfo);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
 
   useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-  }, [postId]);
+    dispatch(userActions.getMypageMD(userId));
+    dispatch(postActions.getPostMD(userId, postId));
+  }, [userId, postId]);
 
   return (
     <Wrap>
@@ -46,7 +48,7 @@ const DogStaDetail = (props) => {
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />
         </button>
-        <p>Dawon님의 페이지</p>
+        <p>{userInfo.userNickname}님의 페이지</p>
         <button>
           <img src={notification} style={{ width: "24px", height: "24px" }} />
         </button>
@@ -54,10 +56,10 @@ const DogStaDetail = (props) => {
 
       {/* 유저 정보 */}
       <UserInfo>
-        <img />
+        <img src={userInfo.userImage} />
         <div>
-          <span>Dawon0411</span>
-          <span>서울시 양천구 목동</span>
+          <span>{userInfo.userNickname}</span>
+          <span>{userInfo.userLocation}</span>
         </div>
       </UserInfo>
 
