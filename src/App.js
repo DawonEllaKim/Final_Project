@@ -46,6 +46,7 @@ import FindLocation from "./components/FindLocation";
 import Road from "./pages/Road";
 import MapPractice from "./pages/MapPractice";
 import Weather from "./components/Weather";
+
 function App() {
   return (
     <div className="App">
@@ -88,7 +89,7 @@ function App() {
         <Route exact path="/chatPage" component={ChatPage} />
         <Route exact path="/chatPageElla" component={ChatPageElla} />
         <Route exact path="/join" component={Join} />
-        <Route exact path="/chat" component={Chat} />
+        <Route exact path="/chat/:id" component={Chat} />
         <Route exact path="/dogstawrite" component={DogStaWrite} />
         <Route exact path="/dogstadetail/:id/:id" component={DogStaDetail} />
         <Route exact path="/dogstaedit/:id" component={DogStaEdit} />

@@ -8,6 +8,7 @@ import GaeStaCard from "../components/MyPage/GaeStaCard";
 import DogCard from "../components/MyPage/DogCard";
 import ListCard from "../components/MyPage/ListCard";
 import NavBar from "../components/NavBar";
+import Chat from "../components/Chat";
 
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -28,6 +29,10 @@ import loginText from "../image/loginText.png";
 import ChatPageElla from "./ChatPageElla";
 import { current } from "immer";
 
+// socket
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -47,7 +52,26 @@ const MyPage = (props) => {
   console.log(pageList);
 
   console.log(userInfo);
+  console.log(userId);
 
+  // 채팅 방 유저 아이디
+  const room = [currentPageUserId, userId].sort();
+  console.log(room);
+  // 채팅방 주소 만들기
+  const setRoom = room[0] + "-" + room[1];
+  console.log(setRoom);
+
+  const [showChat, setShowChat] = useState(false);
+
+  // socket
+
+  const joinRoom = () => {
+    socket.emit("join_room", setRoom);
+    // history.push(`/chat/${setRoom}`)
+    setShowChat(true);
+  };
+
+  // 로그아웃
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       dispatch(signActions.logOut());
@@ -64,117 +88,121 @@ const MyPage = (props) => {
   return (
     <div>
       {is_login ? (
-        <Wrap>
-          {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-          <Header>
-            <button
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              <img src={backward} style={{ width: "10px", height: "18px" }} />
-            </button>
-            <p>{userInfo.userNickname}님의 페이지</p>
-            <button>
-              <img
-                src={notification}
-                style={{ width: "24px", height: "24px" }}
-              />
-            </button>
-          </Header>
+        !showChat ? (
+          <Wrap>
+            {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+            <Header>
+              <button
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <img src={backward} style={{ width: "10px", height: "18px" }} />
+              </button>
+              <p>{userInfo.userNickname}님의 페이지</p>
+              <button>
+                <img
+                  src={notification}
+                  style={{ width: "24px", height: "24px" }}
+                />
+              </button>
+            </Header>
 
-          {/* 유저 정보 */}
-          <UserInfo>
-            {/* 유저 사진 */}
-            <img src={userInfo.userImage} />
+            {/* 유저 정보 */}
+            <UserInfo>
+              {/* 유저 사진 */}
+              <img src={userInfo.userImage} />
 
-            {/* 유저 닉네임 + 유저 주소 */}
+              {/* 유저 닉네임 + 유저 주소 */}
+              <div>
+                <span>{userInfo.userNickname}</span>
+                <span>{userInfo.userLocation}</span>
+              </div>
+
+              {/* 로그아웃 버튼 */}
+              {currentPageUserId === userId ? (
+                <LogOut onClick={logout}>
+                  <FiLogOut size="16" />
+                  <span>로그아웃</span>
+                </LogOut>
+              ) : (
+                <div>
+                  <button
+                    onClick={() => {
+                      console.log(
+                        "지금 페이지 유저 ID",
+                        currentPageUserId,
+                        "지금 로그인 유저 ID",
+                        userId
+                      );
+                      // history.push("/chatPageElla");
+                      setChatMode(true);
+                    }}
+                  >
+                    {userInfo.userNickname}님에게 쪽지보내기
+                  </button>
+                  {chatMode === true ? (
+                    <CHAT>
+                      <ChatPageElla
+                        currentPageUserId={currentPageUserId}
+                        userId={userId}
+                      />
+                      <button
+                        onClick={() => {
+                          setChatMode(false);
+                        }}
+                      >
+                        close
+                      </button>
+                    </CHAT>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              )}
+            </UserInfo>
+
+            {/* 다른 페이지로 이동 버튼들 */}
+            <Buttons>
+              <div
+                onClick={() => {
+                  setCheck("sta");
+                }}
+              >
+                <div>
+                  <img src={dog} />
+                  <span>개스타그램</span>
+                </div>
+              </div>
+              <div
+                onClick={() => {
+                  setCheck("dog");
+                }}
+              >
+                <img src={chat} onClick={() => history.push("/mypage")} />
+                <span>등록정보</span>
+              </div>
+              <div
+                onClick={() => {
+                  setCheck("list");
+                }}
+              >
+                <img src={myPage} />
+                <span>산책 목록</span>
+              </div>
+            </Buttons>
+
+            {/* 상황 마다 바뀔 카드들 */}
             <div>
-              <span>{userInfo.userNickname}</span>
-              <span>{userInfo.userLocation}</span>
+              {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
+              {check === "dog" && <DogCard post={userInfo} />}
+              {check === "list" && <ListCard post={pageList} />}
             </div>
-
-            {/* 로그아웃 버튼 */}
-            {currentPageUserId === userId ? (
-              <LogOut onClick={logout}>
-                <FiLogOut size="16" />
-                <span>로그아웃</span>
-              </LogOut>
-            ) : (
-              <div>
-                <button
-                  onClick={() => {
-                    console.log(
-                      "지금 페이지 유저 ID",
-                      currentPageUserId,
-                      "지금 로그인 유저 ID",
-                      userId
-                    );
-                    // history.push("/chatPageElla");
-                    setChatMode(true);
-                  }}
-                >
-                  {userInfo.userNickname}님에게 쪽지보내기
-                </button>
-                {chatMode === true ? (
-                  <CHAT>
-                    <ChatPageElla
-                      currentPageUserId={currentPageUserId}
-                      userId={userId}
-                    />
-                    <button
-                      onClick={() => {
-                        setChatMode(false);
-                      }}
-                    >
-                      close
-                    </button>
-                  </CHAT>
-                ) : (
-                  ""
-                )}
-              </div>
-            )}
-          </UserInfo>
-
-          {/* 다른 페이지로 이동 버튼들 */}
-          <Buttons>
-            <div
-              onClick={() => {
-                setCheck("sta");
-              }}
-            >
-              <div>
-                <img src={dog} />
-                <span>개스타그램</span>
-              </div>
-            </div>
-            <div
-              onClick={() => {
-                setCheck("dog");
-              }}
-            >
-              <img src={chat} onClick={() => history.push("/mypage")} />
-              <span>등록정보</span>
-            </div>
-            <div
-              onClick={() => {
-                setCheck("list");
-              }}
-            >
-              <img src={myPage} />
-              <span>산책 목록</span>
-            </div>
-          </Buttons>
-
-          {/* 상황 마다 바뀔 카드들 */}
-          <div>
-            {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
-            {check === "dog" && <DogCard post={userInfo} />}
-            {check === "list" && <ListCard post={pageList} />}
-          </div>
-          <NavBar />
-        </Wrap>
+            <NavBar />
+          </Wrap>
+        ) : (
+          <Chat socket={socket} name={currentPageUserId} room={room} />
+        )
       ) : (
         <Wrap>
           <div onClick={() => history.push("/login")}>
