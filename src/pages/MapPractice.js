@@ -13,27 +13,40 @@ import { distance1,distance2,distance3 } from '../components/MarkerList/Distance
 import { list1,list2,list3 } from '../components/MarkerList/RoadList';
 import { polygon1,polygon2,polygon3 } from '../components/MarkerList/PolygonList';
 import { trash, water,toilet, dog } from '../components/MarkerList/MarkerList';
+import MarkerModal from "../components/MarkerModal";
+import { GrDescend } from 'react-icons/gr';
 const { kakao } = window;
 const MapPractice = React.memo(() => {
    
     // const dispatch =useDispatch();
+    const [is_modal,setModal] = useState(false)
+    
+    const closeModal = () => {
+        setModal(false);
+      };
+    const [distance,setDistance] = useState(distance1)
     const [walk,setWalk] = useState(list1);
     const [road,setRoad] = useState();
     const roadHandler = (name) => {    
       if(name==="list1")
       {
           setWalk(list1)
+          setDistance(distance1)
       }
       if(name==="list2")
       {
           setWalk(list2)
+          setDistance(distance2)
       }
       if(name==="list3")
       {
           setWalk(list3)
+          setDistance(distance3)
+          
       }
       setRoad(name)   
     } 
+    console.log(distance)
     const [check, setCheck] = useState();
     const [start, setStart] = useState(
         {
@@ -134,11 +147,28 @@ const MapPractice = React.memo(() => {
             center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
         };
-        const distance =3710;
+
+     
+
+        
     var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
     var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다  
     var map = new kakao.maps.Map(mapContainer, mapOption); 
     
+    new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+ 
+        
+    });
+    new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(walk[walk.length-1].Ma,walk[walk.length-1].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+ 
+        
+    });
     //쓰레기통
     var imageSrc = trashMarker; 
 
@@ -290,26 +320,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     }
 
 
-    var walkkTime = distance / 67 | 0;
-    var walkHour = '', walkMin = '';
 
-
-
-    if (walkkTime > 60) {
-        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
-    }
-    walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
-    var content = '<ul class="dotOverlay distanceInfo">';
-    content += '    <li>';
-    content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
-    content += '    </li>';
-    content += '    <li>';
-    content += '        <span class="label">도보</span>' + walkHour + walkMin;
-    content += '    </li>';
-    // content += '    <li>';
-    // content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
-    // content += '    </li>';
-    content += '</ul>'
   
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
     
@@ -318,7 +329,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
         path:[dott],   
           // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
         strokeWeight: 3, // 선의 두께입니다 
-        strokeColor: '#db4040', // 선의 색깔입니다
+        strokeColor: distance.color, // 선의 색깔입니다
         strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
         strokeStyle: 'solid' // 선의 스타일입니다
     });
@@ -352,17 +363,10 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
         fillOpacity: 0.7, // 채우기 불투명도 입니다
         map:map
     });
-    distanceOverlay = new kakao.maps.CustomOverlay({
-        map: map, // 커스텀오버레이를 표시할 지도입니다
-        content: content,  // 커스텀오버레이에 표시할 내용입니다
-        position: dott[list2.length-1], // 커스텀오버레이를 표시할 위치입니다.
-        xAnchor: 0,
-        yAnchor: 0,
-        zIndex: 3  
-    });      
-    }, [start,kakao,check,walk])
+        
+    }, [start,kakao,check,walk,distance])
     return (
-        <div style={{width:"390px"}}>
+        <Crap>
              <form onsubmit="searchPlaces(); return false;">
                 <Box sx={{ minWidth: 300 }}>
                   <FormControl sx={{ width: 350 }}>
@@ -450,15 +454,28 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                    종점:{distance3.last}
                     </div>
             }
-            <button>산책로 등록</button>
+            <button onClick={()=>setModal(true)} >산책로 등록</button>
+            {is_modal ? (
+          <MarkerModal
+            close={closeModal}
+            road={road}
+            distance={distance}
+            check={check}
+          />
+        ) : null}
             </div>
                } 
                
 
             <Wrap id="map"></Wrap>
-        </div>
+            </Crap>
     )
 })
+const Crap = styled.div
+`
+width: 390px;
+margin: 0 auto;
+`
 const Wrap = styled.div`
   width: 350px;
   height:500px;
