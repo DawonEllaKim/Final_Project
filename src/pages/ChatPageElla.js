@@ -19,7 +19,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 // });
 
 // 서버와 연결 시작
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:3000");
 
 const ChatPage = (props) => {
   const dispatch = useDispatch();
@@ -37,7 +37,8 @@ const ChatPage = (props) => {
   // const [room, setRoom] = useState("");
   const chat = useSelector((state) => state);
   const name = sender;
-  const roomName = sender + receiver;
+  const room = [sender, receiver].sort();
+  const roomName = room[0] + "-" + room[1];
   console.log(roomName);
 
   // const [socketIo,setSocketIo] = useState(null);
