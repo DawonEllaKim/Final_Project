@@ -198,9 +198,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = null;
         draft.is_login = false;
-        localStorage.removeItem("user_email");
+        localStorage.removeItem("userEmail");
         localStorage.removeItem("date");
-        localStorage.removeItem("user_id");
+        localStorage.removeItem("userId");
         deleteCookie("token");
       }),
     [CHECK_DOG]: (state, action) =>

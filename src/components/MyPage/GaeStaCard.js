@@ -34,7 +34,9 @@ const GaeStaCard = (props) => {
         {postList.map((post, index) => {
           return (
             <div
-              onClick={() => history.push(`/dogstadetail/${post.dogPostId}`)}
+              onClick={() =>
+                history.push(`/dogstadetail/${userId}/${post.dogPostId}`)
+              }
             >
               <img post={post} key={index} src={post.dogPostImage} />
             </div>

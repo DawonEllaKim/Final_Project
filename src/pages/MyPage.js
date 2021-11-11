@@ -35,6 +35,9 @@ const MyPage = (props) => {
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
   const is_login = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
+
+  console.log(userInfo);
 
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -46,7 +49,7 @@ const MyPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getMypageMD());
+    dispatch(userActions.getMypageMD(userId));
   }, []);
 
   return (

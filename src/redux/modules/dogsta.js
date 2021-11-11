@@ -34,7 +34,7 @@ const addPostMD = (formData) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -88,17 +88,17 @@ const getMyPostMD = (userId) => {
   };
 };
 
-const getPostMD = (userId, postId) => {
+const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/dogsta/${userId}/${postId}`,
+      url: `http://13.209.70.209/dogsta/${userId}/${dogPostId}`,
       data: {},
       headers: {},
     })
       .then((res) => {
-        const postList = res.data;
-        // console.log(postList);
+        const postList = res.data.posts[0];
+        console.log(postList);
         dispatch(getPost(postList));
         // console.log("포스트 하나를 불러왔습니다", res);
       })
