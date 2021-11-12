@@ -13,13 +13,16 @@ import { actionCreators as postActions } from "../redux/modules/dogsta";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 
+// 이미지 기본값
+import defaultDog from '../image/default_dog.png'
+
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const userId = localStorage.getItem("userId");
 
-  const [imgBase64, setImgBase64] = useState("");
+  const [imgBase64, setImgBase64] = useState(defaultDog?defaultDog:"");
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
 
@@ -92,11 +95,23 @@ const DogStaWrite = (props) => {
 
       {/* 게시물 작성 부분 */}
       <Write>
-        <div>
+        <div> 
           <img src={imgBase64} />
-          <input type="file" name="imageFile" onChange={imageChange} />
+          <label for='input-file'>
+            사진 업로드
+          </label>
+          <input 
+            type="file"
+            id='input-file' 
+            name="imageFile" 
+            onChange={imageChange} 
+          />
         </div>
-        <textarea onChange={dogPostDescChange} style={{ height: "100px" }} />
+        <textarea 
+          placeholder={'강아지와의 일상을 기록하세요'}
+          onChange={dogPostDescChange} 
+          style={{ height: "100px", padding:'10px', boxSizing:'border-box' }} 
+        />
       </Write>
 
       {/* 글 작성 버튼들 */}
@@ -189,13 +204,26 @@ const Write = styled.div`
   img {
     width: 100%;
     height: 250px;
+<<<<<<< HEAD
     object-fit: cover;
+=======
+    border: 1px solid #ebebeb;
+  }
+
+  label {
+    padding: 5px 10px;
+    border: 1px solid black;
+    margin: 20px 0;
+    border-radius: 4px;
+    cursor:pointer;
+>>>>>>> fix
   }
 
   input {
     width: 100%;
     /* margin: auto; */
     margin-bottom: 50px;
+    display: none;
   }
 
   textarea {

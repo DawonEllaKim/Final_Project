@@ -137,13 +137,15 @@ const SignDog = (props) => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
+            <UploadLabel for='imgFile'>
+              사진 업로드
+            </UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
               id="imgFile"
               onChange={handleChangeFile}
             ></AddImage>
-            {/* <AddBtn>이미지 등록하기</AddBtn> */}
           </AddWrap>
         </ImageWrap>
         <Input>
@@ -373,9 +375,16 @@ const InputText = styled.input`
   }
 `;
 const AddWrap = styled.div``;
+const UploadLabel = styled.label`
+  border-bottom: 1px solid black;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+`;
 const AddImage = styled.input`
-  width: 180px;
-  margin: 10px 0;
+  /* width: 180px;
+  margin: 10px 0; */
+  display: none;
 `;
 const Title = styled.div`
   margin-bottom: 15px;

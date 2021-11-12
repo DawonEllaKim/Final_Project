@@ -13,12 +13,12 @@ const Card = ({ post }) => {
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
 
-  const MeetingDate = initialMeetingDate.split("T")[0];
-  const year = MeetingDate.split("-")[0];
-  const month = MeetingDate.split("-")[1];
-  const day = MeetingDate.split("-")[2];
-  const MeetingTime = initialMeetingDate.split("T")[1];
-  console.log(MeetingTime);
+  // const MeetingDate = initialMeetingDate.split("T")[0];
+  // const year = MeetingDate.split("-")[0];
+  // const month = MeetingDate.split("-")[1];
+  // const day = MeetingDate.split("-")[2];
+  // const MeetingTime = initialMeetingDate.split("T")[1];
+  // console.log(MeetingTime);
   // const hour = MeetingTime.split(":")[0];
   // const minute = MeetingTime.split(":")[1];
 
@@ -35,7 +35,8 @@ const Card = ({ post }) => {
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
         <CardBottom>
-          {year}. {month}. {day} {}:{}
+          {/* {year}. {month}. {day} {}:{} */}
+          {initialMeetingDate}
         </CardBottom>
       </CardInfo>
     </CardWrap>
