@@ -14,8 +14,11 @@ import backward from "../image/backward.png";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(
+    "https://cdn.dribbble.com/users/304574/screenshots/6222816/male-user-placeholder.png"
+  ); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
+
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
@@ -34,6 +37,7 @@ const SignUp = () => {
         setImgBase64(base64.toString());
       }
     };
+
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
@@ -333,6 +337,7 @@ const Preview = styled.img`
   border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
+  object-fit: cover;
 `;
 const AddWrap = styled.div``;
 const AddImage = styled.input`
