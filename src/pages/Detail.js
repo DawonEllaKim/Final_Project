@@ -10,14 +10,15 @@ import {
 } from "../components/MarkerList/PolygonList";
 import { olympic, seoul, hangang } from "../components/MarkerList/ParkList";
 //산책로리스트
-import BlackMarker from "../image/toilet.png";
-import trashMarker from "../image/trash.png";
-import waterMarker from "../image/water.png";
-import dogMarker from "../image/dog.png";
+import BlackMarker from "../image/toil.png";
+import trashMarker from "../image/tra.png";
+import waterMarker from "../image/water-tap.png";
+import dogMarker from "../image/DogRun.png";
 import { list1, list2, list3 } from "../components/MarkerList/RoadList";
 // 컴포넌츠
 import NavBar from "../components/NavBar";
-
+import startMarker from "../image/end.png"
+import endMarker from "../image/start.png"
 // 리덕스
 import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -66,7 +67,8 @@ const Detail = (props) => {
   const dogBreed = post.dogBreed;
   const dogComment = post.dogComment;
   const location = post.locationCategory;
-
+  const dogCo = post.dogCount
+  const wishDesc = post.wishDesc
   // 산책 정보
   const meetingDate = post.meetingDate;
   const completed = post.completed;
@@ -117,38 +119,50 @@ const Detail = (props) => {
     var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
-    let sp = new kakao.maps.Marker({
-      map: map, // 마커를 표시할 지도
-      position: new kakao.maps.LatLng(walk[0].Ma, walk[0].La), // 마커를 표시할 위치
-      // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    var imageSrc5 = startMarker; 
+    var imageSize5 = new kakao.maps.Size(30, 30); 
+        
+    // 마커 이미지를 생성합니다    
+    var markerImage5 = new kakao.maps.MarkerImage(imageSrc5, imageSize5); 
+   let sp =new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La),
+        image : markerImage5// 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    
+        
     });
-    var iwContent = `<div style="padding:5px;">출발점 ${post.startLocationAddress} <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+    var iwContent = `<div style="padding:5px;">출발점 :${post.startLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-      position: iwPosition,
-      content: iwContent,
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent 
+});
+  
+// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+var imageSrc6 = endMarker; 
+    var imageSize6 = new kakao.maps.Size(30, 30); 
+        
+    // 마커 이미지를 생성합니다    
+    var markerImage6 = new kakao.maps.MarkerImage(imageSrc6, imageSize6); 
+
+   let lp= new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: new kakao.maps.LatLng(walk[walk.length-1].Ma,walk[walk.length-1].La), // 마커를 표시할 위치
+        // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+       image: markerImage6
+        
     });
+    var iwContent2 = `<div style="padding:5px;">종점 :${post.endLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition2 = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 
-    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+// 인포윈도우를 생성합니다1
+var infowindow2 = new kakao.maps.InfoWindow({
 
-    let lp = new kakao.maps.Marker({
-      map: map, // 마커를 표시할 지도
-      position: new kakao.maps.LatLng(
-        walk[walk.length - 1].Ma,
-        walk[walk.length - 1].La
-      ), // 마커를 표시할 위치
-      // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-    });
-    var iwContent2 = `<div style="padding:5px;">종점:${post.endLocationAddress} <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" 
-style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      iwPosition2 = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
-
-    // 인포윈도우를 생성합니다1
-    var infowindow2 = new kakao.maps.InfoWindow({
-      content: iwContent2,
-    });
+    content : iwContent2 
+});
     kakao.maps.event.addListener(
       lp,
       "mouseover",
@@ -178,7 +192,7 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
 
     for (let i = 0; i < trash.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(20, 20);
+      var imageSize = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
@@ -213,7 +227,7 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
 
     for (let i = 0; i < water.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize2 = new kakao.maps.Size(20, 20);
+      var imageSize2 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2);
@@ -251,7 +265,7 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
 
     for (let i = 0; i < toilet.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize3 = new kakao.maps.Size(20, 20);
+      var imageSize3 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3);
@@ -289,7 +303,7 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
 
     for (let i = 0; i < dog.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize4 = new kakao.maps.Size(20, 20);
+      var imageSize4 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4);
@@ -396,14 +410,11 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
             </UserData>
           </UserLeft>
 
-          {/* 마감 여부, 게시물 수정, 삭제버튼 */}
+      
           <UserRight>
-            {/* 모집 마감 데이터가 불린형으로 true이면 마감 false이면 진행중 */}
+         
             <button>{completed ? "마감" : "진행중"}</button>
-            {/* <Edit onClick={() => history.push(`/write/${postId}`)}>
-              수정하기
-            </Edit> */}
-            {/* <Delete onClick={deletePost}>삭제</Delete> */}
+      
           </UserRight>
         </UserWrap>
 
@@ -435,6 +446,7 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
               <div>{dogSize}</div>
               <div>{dogGender === "남" ? "남아" : "여아"}</div>
               <div>{neutral === true ? "중성화O" : "중성화X"}</div>
+              <div>{dogCo}</div>
             </DogCategory>
             <Comment>{dogComment}</Comment>
           </DogWrap>
@@ -454,7 +466,11 @@ style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kaka
             <MeetingLocation>{post.routeName}</MeetingLocation>
           </LocationWrap>
           <Line />
-
+          <LocationWrap>
+            <Title>소개/유의사항</Title>
+            <MeetingLocation>{wishDesc}</MeetingLocation>
+          </LocationWrap>
+           <Line/>
           {/* 지도 */}
           <MapWrap id="map"></MapWrap>
 
@@ -540,12 +556,14 @@ const UserData = styled.div`
 const UserRight = styled.div`
   width: 76px;
   height: 40px;
-  padding: 11px;
+  
+  display:flex;
+  align-items:center;
   button {
     width: 76px;
     height: 40px;
-    background-color: #fff;
-    border: 2px solid #000;
+    background-color: #FF5656;
+    border: 1px gray ;
     border-radius: 20px;
     font-size: 14px;
   }
@@ -583,18 +601,20 @@ const DogCategory = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 218px;
+  width: 350px;
   height: 32px;
   margin: 0 auto 38px auto;
 
   div {
-    width: 68px;
+    width: 90px;
     height: 32px;
     margin-right: 7px;
     line-height: 32px;
-
+    display:flex;
+    align-items:center;
+    justify-content:center;
     background-color: #9de8df;
-    border: 2px solid #000;
+    border: 1px gray;
     border-radius: 20px;
     font-size: 14px;
   }
@@ -604,12 +624,14 @@ const Comment = styled.div`
 `;
 const Line = styled.hr`
   /* display: block; */
-  width: 88px;
-  border: 0.25px solid #000;
+  width: 350px;
+  border: 0.25px solid lightGray;
   margin: 26px auto;
+  
 `;
 const Title = styled.div`
   margin-bottom: 8px;
+  color: #868e96;
 `;
 const TimeWrap = styled.div`
   font-size: 16px;
@@ -641,8 +663,8 @@ const FlexButton = styled.div`
     height: 48px;
     background-color: #fff;
     border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
+    border: 1px ;
+    box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   }
 `;
@@ -651,12 +673,14 @@ const DeleteButton = styled.button`
   width: 160px;
   height: 48px;
   border-radius: 10px;
+  border: 1px gray;
 `;
 const EditButton = styled.button`
   cursor: pointer;
   width: 160px;
   height: 48px;
   border-radius: 10px;
+  border: 1px gray;
 `;
 const Map = styled.div`
   width: 350px;
