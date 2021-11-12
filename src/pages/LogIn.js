@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
 
 import logo from "../image/logo.png";
+import backward from "../image/backward.png";
+import Button from "../elements/Button";
 
 import { KAKAO_AUTH_URL } from "../components/OAuth";
 // const { Kakao } = window;
@@ -74,6 +76,17 @@ const LogIn = (props) => {
 
   return (
     <>
+      <Head>
+        <Button>
+          <img
+            src={backward}
+            onClick={() => {
+              history.push("/");
+            }}
+          />
+        </Button>
+      </Head>
+
       <Wrap>
         <Logo src={logo} />
         <InputBox>
@@ -109,6 +122,18 @@ const LogIn = (props) => {
     </>
   );
 };
+
+const Head = styled.div`
+  position: fixed;
+  top: 70px;
+  left: 70px;
+  width: 390px;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
 
 const Wrap = styled.div`
   text-align: center;
