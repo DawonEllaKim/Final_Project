@@ -2,6 +2,7 @@ import "./App.css";
 import { Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
+import PrivateRoute from "./shared/PrivateRoute";
 
 //  로그인/회원가입
 import LogIn from "./pages/LogIn";
@@ -77,17 +78,17 @@ function App() {
         <Route exact path="/caution3" component={Caution3} />
 
         {/* 산책 게시물 조회/등록/수정 페이지 */}
-        <Route exact path="/write/:id" component={Write} />
+        <PrivateRoute exact path="/write/:id" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
-        <Route exact path="/postEdit/:id" component={PostEdit} />
-        <Route exact path="/addDate" component={AddDate} />
+        <PrivateRoute exact path="/postEdit/:id" component={PostEdit} />
+        <PrivateRoute exact path="/addDate" component={AddDate} />
 
         {/* 지도 */}
-        <Route exact path="/map2" component={Map2} />
-        <Route exact path="/write" component={Write} />
-        <Route exact path="/mapEdit/:id" component={MapEdit} />
-        <Route exact path="/MapContainer3" component={MapContainer3} />
-        <Route
+        <PrivateRoute exact path="/map2" component={Map2} />
+        <PrivateRoute exact path="/write" component={Write} />
+        <PrivateRoute exact path="/mapEdit/:id" component={MapEdit} />
+        <PrivateRoute exact path="/MapContainer3" component={MapContainer3} />
+        <PrivateRoute
           exact
           path="/editMapContainer3/:id"
           component={EditMapContainer3}
@@ -98,10 +99,10 @@ function App() {
         <Route exact path="/mapPractice" component={MapPractice} />
 
         {/* 마이페이지 */}
-        <Route exact path="/mypage/:userId" component={MyPage} />
-        <Route exact path="/dogProfile" component={DogProfile} />
-        <Route exact path="/userProfile" component={UserProfile} />
-        <Route exact path="/myProfile" component={MyProfile} />
+        <PrivateRoute exact path="/mypage/:userId" component={MyPage} />
+        <PrivateRoute exact path="/dogProfile" component={DogProfile} />
+        <PrivateRoute exact path="/userProfile" component={UserProfile} />
+        <PrivateRoute exact path="/myProfile" component={MyProfile} />
 
         {/* 개스타그램 */}
         <Route exact path="/dogstagram" component={DogStaGram} />
@@ -110,8 +111,12 @@ function App() {
           path="/dogstadetail/:userId/:dogPostId"
           component={DogStaDetail}
         />
-        <Route exact path="/dogstawrite" component={DogStaWrite} />
-        <Route exact path="/dogstaedit/:dogPostId" component={DogStaEdit} />
+        <PrivateRoute exact path="/dogstawrite" component={DogStaWrite} />
+        <PrivateRoute
+          exact
+          path="/dogstaedit/:dogPostId"
+          component={DogStaEdit}
+        />
 
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />
