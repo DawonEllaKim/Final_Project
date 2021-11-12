@@ -91,7 +91,7 @@ const EditDog = (props) => {
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
-    setImgFile(dog.dog_image)
+    setImgFile(dog.dog_image);
     setImgBase64(dog.dog_image);
     setDogName(dog.dog_name);
     setDogBreed(dog.dog_breed);
@@ -110,7 +110,7 @@ const EditDog = (props) => {
     dog.dog_age,
     dog.dog_comment,
   ]);
-  console.log(imgFile)
+  console.log(imgFile);
   return (
     <Wrap>
       <TopWrap>
@@ -351,6 +351,7 @@ const Preview = styled.img`
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
+  object-fit: cover;
 `;
 const AddImage = styled.input`
   display: block;

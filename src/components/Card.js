@@ -59,11 +59,13 @@ const CardWrap = styled.div`
   line-height: 20.27px;
   cursor: pointer;
   box-shadow: 0px 3px black;
+
   img {
     width: 152px;
     height: 152px;
     border-radius: 25px;
     margin-right: 16px;
+    object-fit: cover;
   }
 `;
 const CardInfo = styled.div`

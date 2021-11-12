@@ -220,6 +220,7 @@ const LoginImg = styled.div`
   height: 220px;
   border-radius: 25px;
   cursor: pointer;
+  object-fit: cover;
 `;
 const Logo = styled.img`
   position: absolute;
@@ -232,12 +233,15 @@ const Login = styled.img`
   top: 58.5%;
   left: 33%;
   z-index: 3;
+  object-fit: cover;
+  object-fit: cover;
 `;
 const LoginText = styled.img`
   position: absolute;
   top: 68%;
   left: 50%;
   transform: translateX(-50%);
+  object-fit: cover;
 `;
 
 const Img = styled.img`
@@ -245,6 +249,7 @@ const Img = styled.img`
   height: 220px;
   background-size: cover;
   border-radius: 25px;
+  object-fit: cover;
 `;
 
 const Slide = styled.div`

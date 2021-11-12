@@ -52,6 +52,7 @@ const MyPage = (props) => {
   };
 
   const currentPageUserId = props.match.params.userId;
+  // console.log(currentPageUserId, dogInfo);
 
   const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
@@ -146,12 +147,16 @@ const MyPage = (props) => {
           <div>
             {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
             {check === "dog" && (
-              <DogCard dogInfo={dogInfo} userId={currentPageUserId} />
+              <DogCard
+                // dogInfo={dogInfo}
+                userId={currentPageUserId}
+              />
             )}
             {check === "list" && (
               <ListCard post={pageList} userId={currentPageUserId} />
             )}
           </div>
+
           <NavBar />
         </Wrap>
       ) : (
@@ -175,6 +180,7 @@ const LoginImg = styled.div`
   height: 220px;
   border-radius: 25px;
   cursor: pointer;
+  object-fit: cover;
 `;
 const Logo = styled.img`
   position: absolute;
@@ -194,7 +200,6 @@ const LoginText = styled.img`
   left: 50%;
   transform: translateX(-50%);
 `;
-
 const Wrap = styled.div`
   box-sizing: border-box;
 
@@ -280,6 +285,7 @@ const Buttons = styled.div`
     width: 24px;
     height: 24px;
     margin-bottom: 8px;
+    object-fit: cover;
   }
 `;
 const LogOut = styled.button`

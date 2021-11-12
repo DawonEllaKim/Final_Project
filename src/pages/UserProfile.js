@@ -383,6 +383,7 @@ const Preview = styled.img`
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
+  object-fit: cover;
 `;
 const AddImage = styled.input`
   width: 180px;

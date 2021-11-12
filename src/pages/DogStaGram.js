@@ -88,9 +88,9 @@ const Posts = styled.div`
     width: 100%;
     height: 390px;
 
-    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    object-fit: cover;
   }
 `;
 

@@ -53,6 +53,7 @@ const CardWrap = styled.div`
     width: 152px;
     height: 152px;
     border-radius: 25px;
+    object-fit: cover;
   }
   border: 2px solid black;
 `;

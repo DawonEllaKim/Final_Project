@@ -153,6 +153,7 @@ const UserInfo = styled.div`
     margin-right: 14.5px;
     border: 1px solid black;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   div {
@@ -178,6 +179,7 @@ const Write = styled.div`
 
   img {
     width: 100%;
+    object-fit: cover;
   }
 
   div {

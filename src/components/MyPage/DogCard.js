@@ -15,9 +15,9 @@ const DogCard = ({ dogInfo, currentPageUserId }) => {
   const dispatch = useDispatch();
 
   console.log(dogInfo);
-  // useEffect(() => {
-  //   dispatch(userActions.getMypageMD(currentPageUserId));
-  // }, []);
+  useEffect(() => {
+    dispatch(userActions.getMypageMD(currentPageUserId));
+  }, []);
 
   return (
     <Wrap>
@@ -79,6 +79,7 @@ const CardWrap = styled.div`
     width: 152px;
     height: 152px;
     border-radius: 25px;
+    object-fit: cover;
   }
   border: 2px solid black;
 `;

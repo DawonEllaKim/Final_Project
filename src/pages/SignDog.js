@@ -11,7 +11,7 @@ import Button from "../elements/Button";
 import backward from "../image/backward.png";
 
 // 강아지 이미지 기본 값
-import defaultDog from '../image/default_dog.png'
+import defaultDog from "../image/default_dog.png";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const SignDog = (props) => {
     dispatch(DogActions.signDogAPI(formData));
   };
 
-  const [imgBase64, setImgBase64] = useState(defaultDog?defaultDog:""); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
   const [dogGender, setDogGender] = useState("");
   const [dogName, setDogName] = useState("");
@@ -361,6 +361,7 @@ const Preview = styled.img`
   border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
+  object-fit: cover;
 `;
 const InputText = styled.input`
   width: 100%;
