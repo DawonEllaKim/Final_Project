@@ -90,11 +90,15 @@ function Weather({ setCold }) {
     <Wrapper>
       <Temperature>{c.toFixed(0)}℃</Temperature>
       <InfoWrapper>
-        <Location>서울</Location>
+        <Location>서울시</Location>
         <DateDiv> {dateBuilder(new Date())} </DateDiv>
    
-       
-        <WeatherDiv>{weather.main} {selectIcon()}</WeatherDiv>
+        <WeatherDiv>
+          {weather.main}
+          <WeatherIcon> 
+            {selectIcon()}
+          </WeatherIcon>
+          </WeatherDiv>
       
       </InfoWrapper>
     </Wrapper>
@@ -103,43 +107,40 @@ function Weather({ setCold }) {
 export default Weather;
 
 const Wrapper = styled.div`
-  width: 390px;
-  height: 220px;
+  width: 350px;
+  height: 172px;
   display: flex;
   
   align-items: center;
   justify-content: flex-start;
   gap:20px;
-  background-color: lightblue;
+  background-color: #86D3FF;
   text-align:center;
   border-radius:15px;
   box-sizing:border-box;
 `;
-const InfoWrapper = styled.div
-`
-text-align:left;
+
+const Temperature = styled.div`
+  color: white;
+  font-size: 44px;
+  padding:0 16px 0 24px;
+`;
+
+const InfoWrapper = styled.div`
+  box-sizing: border-box;
+  text-align:left;
 `
 const Location = styled.div`
-  color: white;
-
-  
-  font-size: 30px;
+  color: #444;
+  font-size: 20px;
   font-weight: 500;
-  text-shadow: 2px 2px rgba(30, 50, 50, 0.5);
   margin-bottom:10px;
 `;
 
 const DateDiv = styled.div`
-  color: white;
+  color: #444;
   font-size: 15px;
   font-style: italic;
-`;
-
-const Temperature = styled.div`
-  color: white;
-  font-size: 80px;
-
-  padding-left:40px;
 `;
 
 const WeatherDiv = styled.div`
@@ -150,4 +151,7 @@ const WeatherDiv = styled.div`
   align-items:center;
 `;
 
-const WeatherIcon = styled.div``;
+const WeatherIcon = styled.div`
+  font-size: 16px;
+  margin: 4px 0 0 16px;
+`;

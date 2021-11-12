@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
 import { dogBreedCheck } from "../shared/check";
 
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
+import TopBar from '../components/TopBar';
 
 // 강아지 이미지 기본 값
 import defaultDog from "../image/default_dog.png";
@@ -123,16 +122,7 @@ const SignDog = (props) => {
   return (
     <>
       <Wrap>
-        <Header>
-          <Button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p style={{ marginRight: "150px" }}>회원가입</p>
-        </Header>
+        <TopBar only_left>반려견 등록</TopBar>
 
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
@@ -299,22 +289,16 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Input>
-          <Title> 한 줄 소개</Title>
+        <Input style={{backgroundColor: '#FAF7CE'}}>
+          <Title> 강아지 한 줄 소개</Title>
           <InputText
             placeholder="ex) 우리 집 최고 애교쟁이!"
             onChange={dogCommentChangeHandler}
+            style={{backgroundColor: '#FAF7CE'}}
           ></InputText>
         </Input>
         <ButtonWrap>
-          <button onClick={submitDogInfo}>가입하기</button>
-          <button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            취소하기
-          </button>
+          <button onClick={submitDogInfo}>등록하기</button>
         </ButtonWrap>
       </Wrap>
     </>
@@ -329,29 +313,18 @@ const Wrap = styled.div`
   font-size: 14px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin-bottom: 18px;
-  font-size: 18px;
-`;
 const Input = styled.div`
   box-sizing: border-box;
   padding: 12px 24px;
-  border: 2px solid #000;
   border-radius: 15px;
   margin-bottom: 20px;
   text-align: left;
   font-size: 16px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  color:#888;
 `;
 
-const TopTitle = styled.div`
-  font-size: 16px;
-`;
+
 
 const ImageWrap = styled.div`
   margin: 20px 0;
@@ -360,10 +333,10 @@ const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
   object-fit: cover;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const InputText = styled.input`
   width: 100%;
@@ -400,7 +373,8 @@ const Flex = styled.div`
   text-align: center;
 `;
 const Label = styled.label`
-  padding-top: 5px;
+  padding-top: 4px;
+  font-size: 14px;
 `;
 
 const DogSize = styled.input``;
@@ -409,15 +383,13 @@ const DogNeutral = styled.input``;
 const DogAge = styled.input``;
 
 const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
   button {
     width: 160px;
     height: 48px;
     background-color: #fff;
     border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
+    border: none;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   }
 `;

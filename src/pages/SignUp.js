@@ -10,8 +10,6 @@ import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
 
 import TopBar from '../components/TopBar';
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
 
 // 유저 이미지 기본값
 import defaultUser from "../image/default_user.jpg";
@@ -288,14 +286,19 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>회원 정보 등록</button>
-          <button
+        <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
           </button>
+          <button 
+            onClick={submitUserInfo}
+            style={{backgroundColor:'#ff5656'}}
+            >
+              회원 정보 등록
+            </button>
         </ButtonWrap>
       </Wrap>
     </>
@@ -305,20 +308,9 @@ const SignUp = () => {
 const Wrap = styled.div`
   text-align: center;
   max-width: 390px;
+  box-sizing: border-box;
   padding: 0 20px;
-  margin: 0 auto;
   font-size: 14px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin-bottom: 18px;
-  font-size: 18px;
 `;
 
 const ImageWrap = styled.div`
@@ -329,16 +321,15 @@ const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
   object-fit: cover;
-  object-fit: cover;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
   border-bottom: 1px solid black;
-  padding: 5px;
+  padding: 10px 5px 5px 5px;
   margin: 10px;
   cursor: pointer;
 `;
@@ -351,14 +342,6 @@ const UserWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-// const Input = styled.div`
-//   width: 240px;
-//   background-color: #ebebeb;
-//   border-radius: 10px;
-//   padding: 12px 24px;
-//   margin-bottom: 20px;
-//   text-align: left;
-// `;
 const InputText = styled.input`
   width: 100%;
   border: 0;
@@ -372,7 +355,7 @@ const IdCheck = styled.button`
   box-sizing: border-box;
   width: 81px;
   height: 60px;
-  border: 2px solid #000;
+  border: none;
   background-color: #9de8df;
   border-radius: 14px;
   cursor: pointer;
@@ -381,11 +364,13 @@ const IdCheck = styled.button`
 const Input = styled.div`
   box-sizing: border-box;
   padding: 12px 24px;
-  border: 2px solid #000;
-  border-radius: 15px;
+  border-radius: 14px;
   margin-bottom: 20px;
   text-align: left;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
+  color: #888;
+
 `;
 
 const Title = styled.div`
@@ -395,14 +380,17 @@ const FlexWrap = styled.div`
   display: flex;
   justify-content: space-around;
 `;
-const RadioWrap = styled.div``;
+const RadioWrap = styled.div`
+  font-size: 16px;
+`;
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
 `;
 const Label = styled.label`
-  padding-top: 5px;
+  padding-top: 4px;
+  font-size: 14px;
 `;
 
 const Password = styled.input`
@@ -421,13 +409,14 @@ const UserAge = styled.input``;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 40px 0;
   button {
     width: 160px;
     height: 48px;
     background-color: #fff;
+    border: none;
     border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   }
 `;
