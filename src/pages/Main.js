@@ -14,12 +14,11 @@ import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
+import MainDogsta from '../components/MainDogsta'
 import NavBar from "../components/NavBar";
 
-// 버튼 이미지
-import Button from "../elements/Button";
-import filter from "../image/filter.png";
-import notification from "../image/Notification.png";
+// 상단바
+import TopBar from '../components/TopBar';
 
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
@@ -38,6 +37,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Spinner from '../shared/Spinner'
 
 import caution1 from "../image/caution1.png";
+import caution2 from "../image/caution2.png";
+import caution3 from "../image/caution3.png";
+import dogsta from "../redux/modules/dogsta";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -55,7 +57,7 @@ const Main = (props) => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
@@ -88,16 +90,7 @@ const Main = (props) => {
   
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
-      {/* 필터 + 산책할개 + 알람 */}
-      <Head>
-        <Button _onClick={showSideBar}>
-          <img src={filter} style={{ paddingTop: "4px" }} />
-        </Button>
-        <p>산책할개</p>
-        <Button>
-          <img src={notification} style={{ width: "24px", height: "24px" }} />
-        </Button>
-      </Head>
+      <TopBar> 산책할개 </TopBar>
 
       {/* 일러스트 슬라이드 */}
 
@@ -123,14 +116,14 @@ const Main = (props) => {
           </div>
           <div
             onClick={() => {
-              history.push("/caution1");
+              history.push("/caution2");
             }}
           >
             <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
           </div>
           <div
             onClick={() => {
-              history.push("/caution1");
+              history.push("/caution3");
             }}
           >
             <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
@@ -161,6 +154,16 @@ const Main = (props) => {
         </SideBarNav>
       </SideWrap>
 
+      {/* 개스타그램 모음 */}
+      <Body>
+            <Text>오늘의 개스타</Text>
+            <Dogsta>
+              <MainDogsta />
+              <MainDogsta />
+              <MainDogsta />
+            </Dogsta>
+      </Body>
+
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
@@ -180,37 +183,15 @@ const Main = (props) => {
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   width: 390px;
-  margin: auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 0 20px ;
+  border: 1px solid blue;
   box-sizing: border-box;
-`;
-
-const Head = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 12px;
-  div {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  p {
-    width: 150px;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 35px;
-    color: #393939;
-    cursor: pointer;
-  }
 `;
 
 const StyledSlider = styled(Slider)`
@@ -218,16 +199,17 @@ const StyledSlider = styled(Slider)`
     outline: none;
   }
   width: 350px;
-  height: 220px;
+  height: 172px;
   margin-bottom: 12px;
   border-radius: 25px;
-  border: 2px solid black;
   box-sizing: border-box;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+
 `;
 const LoginImg = styled.div`
   position: relative;
   width: 350px;
-  height: 220px;
+  height: 100%;
   border-radius: 25px;
   cursor: pointer;
   object-fit: cover;
@@ -256,7 +238,7 @@ const LoginText = styled.img`
 
 const Img = styled.img`
   width: 350px;
-  height: 220px;
+  height: 172px;
   background-size: cover;
   border-radius: 25px;
   object-fit: cover;
@@ -325,18 +307,29 @@ const Filter = styled.div`
 const SubMenuWrap = styled.div`
   width: 100%;
 `;
+
+const DogStaWrap = styled.div`
+
+`
+const Dogsta = styled.div`
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+`
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin-bottom: 50px;
+  margin: 24px 0;
+  border-top: 1px solid #c4c4c4;
 `;
 const Text = styled.p`
   width: 152px;
   height: 16px;
-  margin: 32px 0 24px 0;
+  margin: 12px 0 24px 0;
   font-size: 16px;
   font-weight: 700;
 `;
