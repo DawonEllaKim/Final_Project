@@ -16,20 +16,22 @@ const NavBar = (props) => {
     <>
       <Nav>
         <Box>
-          {/* 산책 목록 버튼 */}
-          <Button
-            onClick={() => history.push("/")}
-            style={{ marginRight: "36px" }}
-          >
-            <img src={walk} style={{ width: "20px", height: "20px" }} />
-          </Button>
-
           {/* 홈 버튼 */}
           <Button
             onClick={() => history.push("/")}
-            style={{ marginRight: "109px" }}
+            style={{ marginRight: "28px"}}
           >
             <img src={home} style={{ width: "20px", height: "20px" }} />
+            <Text>홈</Text>
+          </Button>
+
+          {/* 산책 목록 버튼 */}
+          <Button
+            onClick={() => history.push("/")}
+            style={{ marginRight: "100px" }}
+          >
+            <img src={walk} style={{ width: "20px", height: "20px" }} />
+            <Text>산책가자</Text>
           </Button>
 
           {/* 개스타그램 버튼 */}
@@ -37,27 +39,30 @@ const NavBar = (props) => {
             onClick={() => {
               history.push("/dogstagram");
             }}
+            style={{ marginRight: "28px" }}
           >
             <img
               src={dog}
-              style={{ width: "24px", height: "24px", marginRight: "36px" }}
+              style={{ width: "22px", height: "22px"}}
             />
+            <Text>개스타</Text>
           </Button>
 
           {/* 마이페이지 버튼 */}
-          <Button onClick={() => history.push(`/mypage/${userId}`)}>
+          <Button 
+            onClick={() => history.push(`/mypage/${userId}`)}
+          >
             <img src={myPage} style={{ width: "20px", height: "20px" }} />
+            <Text>My</Text>
           </Button>
         </Box>
 
         {/* 산책 등록 버튼 */}
         <HomeBtn onClick={() => history.push("/map2")}>
-          <img src={addBtn} style={{ width: "70px", height: "70px" }} />
+          <img src={addBtn} style={{ width: "58px", height: "58px" }} />
+          <Text>산책등록</Text>
         </HomeBtn>
       </Nav>
-      <Bar>
-        <div />
-      </Bar>
     </>
   );
 };
@@ -65,14 +70,13 @@ const NavBar = (props) => {
 const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
-  bottom: 30px;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 390 px;
+  width: 350px;
   height: 64px;
-  padding: 21px;
   z-index: 5;
 `;
 const Box = styled.div`
@@ -81,52 +85,43 @@ const Box = styled.div`
 
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: left;
   align-items: center;
   width: 100%;
   height: 60px;
-  margin-right: 12px;
   padding: 6px 30px;
   background-color: #fff;
   border-radius: 20px;
   border: 2px solid #000;
   box-shadow: 0 4px 0px #000;
 `;
-const HomeBtn = styled.button`
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  left: 50%;
-  top: -10px;
-  transform: translateX(-50%);
-`;
 const Button = styled.button`
   background-color: transparent;
   border: none;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 `;
-const Bar = styled.div`
-  position: fixed;
-  bottom: 0;
+const HomeBtn = styled.button`
+  background-color: transparent;
+  border: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: bottom;
-  width: 390px;
-  height: 36px;
-  background-color: #fff;
-  z-index: 10px;
-
-  div {
-    width: 134px;
-    height: 5px;
-    margin-top: 23px;
-    background-color: #000;
-    border-radius: 100px;
-  }
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: -26px;
+  transform: translateX(-50%);
 `;
+
+const Text = styled.div`
+  font-size:12px;
+  padding-top: 4px;
+  ;
+`
 
 export default NavBar;
