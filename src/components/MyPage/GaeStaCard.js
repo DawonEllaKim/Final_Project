@@ -66,8 +66,8 @@ const GaeStaCard = (props) => {
                       <span style={{ marginRight: "45px" }}>
                         {post.userNickname}
                       </span>
-                      {/* <img src={emptyHeart} />
-                      <span>12</span> */}
+                      <img src={emptyHeart} />
+                      <span>12</span>
                     </div>
                   </Text>
                 </Card>
@@ -97,11 +97,11 @@ const Posts = styled.div`
 
   img {
     width: 100%;
-    /* height: 130px; */
+    height: 150px;
 
     background-position: center;
     background-repeat: no-repeat;
-    /* object-fit: cover; */
+    object-fit: cover;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
   }

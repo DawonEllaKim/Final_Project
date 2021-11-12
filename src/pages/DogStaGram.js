@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../components/NavBar"; // 컴포넌츠
 import { actionCreators as postActions } from "../redux/modules/dogsta"; // 액션 불러오기
 
+import TopBar from "../components/TopBar";
+import dog from "../image/dog.png";
+
 const DogStaGram = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,79 +21,162 @@ const DogStaGram = (props) => {
   }, []);
 
   return (
-    <Wrap>
-      <h1>현재 디자인 중</h1>
+    <Overall>
+      <TopBar>
+        <img
+          src={dog}
+          style={{ width: "24px", height: "24px", margin: "-4px 10px" }}
+        />
+        <span>개스타그램</span>
+      </TopBar>
+      <Top>
+        <Category>
+          <span style={{ borderBottom: "4px solid red" }}>추천</span>
+          <span>최신</span>
+        </Category>
+        <AddBtn
+          onClick={() => {
+            history.push("/dogstawrite");
+          }}
+        >
+          게시물 추가하기
+        </AddBtn>
+      </Top>
+      <Wrap>
+        {/* 게시물 */}
+        <Posts>
+          {postList.map((post, index) => {
+            return (
+              <div>
+                <Card post={post} key={index}>
+                  <img
+                    src={post.dogPostImage}
+                    onClick={() =>
+                      history.push(
+                        `/dogstadetail/${post.userId}}/${post.dogPostId}`
+                      )
+                    }
+                  />
 
-      {/* 임시 - ADD 버튼 */}
-      <button
-        onClick={() => {
-          history.push("/dogstawrite");
-        }}
-      >
-        ADD
-      </button>
+                  <Text>
+                    <p>{post.dogPostDesc}</p>
 
-      {/* 게시물 */}
-      <Posts>
-        {postList.map((post, index) => {
-          return (
-            <div>
-              <div post={post} key={index}>
-                <img
-                  src={post.dogPostImage}
-                  onClick={() =>
-                    history.push(
-                      `/dogstadetail/${post.userId}}/${post.dogPostId}`
-                    )
-                  }
-                />
-                <button
-                  post={post}
-                  onClick={() => {
-                    history.push(`/mypage/${post.userId}`);
-                  }}
-                >
-                  {post.userNickname}
-                </button>
-                <p>{post.createdAt}</p>
+                    <div
+                      post={post}
+                      onClick={() => {
+                        history.push(`/mypage/${post.userId}`);
+                      }}
+                    >
+                      <img src={post.userImage} />
+                      <span style={{ marginRight: "45px" }}>
+                        {post.userNickname}
+                      </span>
+                      {/* <img src={emptyHeart} />
+                      <span>12</span> */}
+                    </div>
+                  </Text>
+                </Card>
               </div>
-            </div>
-          );
-        })}
-      </Posts>
+            );
+          })}
+        </Posts>
 
-      {/* 하단 고정 버튼  */}
-      <NavBar />
-    </Wrap>
+        {/* 하단 고정 버튼  */}
+        <NavBar />
+      </Wrap>
+    </Overall>
   );
 };
 
+const Overall = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  margin: auto;
+  margin-bottom: 150px;
+`;
+const Top = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 40px 32px 40px;
+`;
+const Category = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  width: 110px;
+  /* margin: auto; */
+
+  /* border: 1px solid black; */
+`;
 const Wrap = styled.div`
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  width: 390px;
-  /* padding: 0 20px; */
-  margin: 100px auto;
-
-  border-top: 1px solid #c4c4c4;
+`;
+const AddBtn = styled.button`
+  border: none;
+  background-color: #fff;
+  width: 100px;
+  cursor: pointer;
+  font-size: 15px;
 `;
 const Posts = styled.div`
-  width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 168px 168px;
+  /* grid-template-rows: 300px 300px; */
+  gap: 20px 20px;
 
   cursor: pointer;
 
   img {
     width: 100%;
-    height: 390px;
+    height: 150px;
 
     background-position: center;
     background-repeat: no-repeat;
     object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+`;
+const Card = styled.div`
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+`;
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 3px 7px;
+  margin: 4px;
+  p {
+    margin-bottom: 20px;
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+
+    height: 20px;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 4px;
   }
 `;
 
