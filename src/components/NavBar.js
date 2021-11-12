@@ -65,16 +65,16 @@ const NavBar = (props) => {
 const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 350 px;
   height: 64px;
-  text-align:center;
+  text-align: center;
   z-index: 5;
-  padding:20px;
+  padding: 20px;
 `;
 const Box = styled.div`
   box-sizing: border-box;
@@ -125,7 +125,7 @@ const Bar = styled.div`
     width: 134px;
     height: 5px;
     margin-top: 23px;
-    background-color: #000;
+    background-color: #fff;
     border-radius: 100px;
   }
 `;
