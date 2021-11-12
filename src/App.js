@@ -83,7 +83,7 @@ function App() {
 
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
-        <Route exact path="/posts/:id" component={Detail} />
+        <PrivateRoute exact path="/posts/:id" component={Detail} />
         <PrivateRoute exact path="/postEdit/:id" component={PostEdit} />
         <PrivateRoute exact path="/addDate" component={AddDate} />
 
@@ -110,7 +110,7 @@ function App() {
 
         {/* 개스타그램 */}
         <Route exact path="/dogstagram" component={DogStaGram} />
-        <Route
+        <PrivateRoute
           exact
           path="/dogstadetail/:userId/:dogPostId"
           component={DogStaDetail}

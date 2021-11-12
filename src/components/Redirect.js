@@ -7,7 +7,7 @@ const Redirect = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push("/login");
-    }, 1500);
+    }, 1700);
   }, []);
 
   return (

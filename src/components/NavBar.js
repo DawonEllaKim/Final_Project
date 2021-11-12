@@ -19,7 +19,7 @@ const NavBar = (props) => {
           {/* 홈 버튼 */}
           <Button
             onClick={() => history.push("/")}
-            style={{ marginRight: "28px"}}
+            style={{ marginRight: "28px" }}
           >
             <img src={home} style={{ width: "20px", height: "20px" }} />
             <Text>홈</Text>
@@ -41,17 +41,12 @@ const NavBar = (props) => {
             }}
             style={{ marginRight: "28px" }}
           >
-            <img
-              src={dog}
-              style={{ width: "22px", height: "22px"}}
-            />
+            <img src={dog} style={{ width: "22px", height: "22px" }} />
             <Text>개스타</Text>
           </Button>
 
           {/* 마이페이지 버튼 */}
-          <Button 
-            onClick={() => history.push(`/mypage/${userId}`)}
-          >
+          <Button onClick={() => history.push(`/mypage/${userId}`)}>
             <img src={myPage} style={{ width: "20px", height: "20px" }} />
             <Text>My</Text>
           </Button>
@@ -78,7 +73,7 @@ const Nav = styled.div`
   width: 350px;
   height: 64px;
   z-index: 5;
-  padding: 20px;
+  /* padding: 20px; */
 `;
 const Box = styled.div`
   box-sizing: border-box;
@@ -120,9 +115,8 @@ const HomeBtn = styled.button`
 `;
 
 const Text = styled.div`
-  font-size:12px;
-  padding-top: 4px;
-  ;
-`
+  font-size: 12px;
+  padding-top: 4px; ;
+`;
 
 export default NavBar;
