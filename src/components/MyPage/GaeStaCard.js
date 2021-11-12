@@ -85,9 +85,9 @@ const Wrap = styled.div`
 `;
 const Posts = styled.div`
   display: grid;
-  grid-template-columns: 160px 160px;
+  grid-template-columns: 168px 168px;
   /* grid-template-rows: 130px 130px; */
-  gap: 20px 30px;
+  gap: 20px 20px;
 
   width: 100%;
   /* height: 100%; */

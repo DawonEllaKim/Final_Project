@@ -152,6 +152,7 @@ const Posts = styled.div`
 const Card = styled.div`
   border-radius: 20px;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+  padding-bottom: 10px;
 `;
 const Text = styled.div`
   display: flex;
