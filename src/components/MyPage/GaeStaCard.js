@@ -13,7 +13,7 @@ const GaeStaCard = (props) => {
   const userId = props.userId; // 현재 페이지의 유저아이디
   const postList = useSelector((state) => state.dogsta.eachList); //현재 페이지 유저의 모든 개스타그램 게시물
   // console.log("유저아이디", userId, "포스트리스트", postList);
-
+  console.log(postList)
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
   }, []);
@@ -21,7 +21,7 @@ const GaeStaCard = (props) => {
   return (
     <Wrap>
       {/* 게시물 */}
-      {postList.length === 0 ? (
+      {!postList ? (
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
 

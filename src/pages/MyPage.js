@@ -5,7 +5,8 @@ import { useHistory } from "react-router";
 
 // 컴포넌츠
 import GaeStaCard from "../components/MyPage/GaeStaCard";
-import DogCard from "../components/MyPage/DogCard";
+import DogCard from "../components/DogCard";
+import UserCard from "../components/UserCard";
 import ListCard from "../components/MyPage/ListCard";
 import NavBar from "../components/NavBar";
 import Chat from "../components/Chat";
@@ -19,7 +20,7 @@ import { FiLogOut } from "react-icons/fi";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 import dog from "../image/dog.png";
-import myPage from "../image/myPage.png";
+import myPage from "../image/mypage.png";
 import chat from "../image/chat.png";
 
 // 로그인 이미지
@@ -33,27 +34,17 @@ const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [check, setCheck] = useState("sta");
+  const [check, setCheck] = useState();
   const [chatMode, setChatMode] = useState(false);
 
-  const pageList = useSelector((state) => state.user.page);
-  const userInfo = useSelector((state) => state.user.list);
 
-  const dogInfo = {
-    _dogAge: userInfo.dogAge,
-    _dogBreed: userInfo.dogBreed,
-    _dogComment: userInfo.dogComment,
-    _dogGender: userInfo.dogGender,
-    _dogId: userInfo.dogId,
-    _dogImage: userInfo.dogImage,
-    _dogName: userInfo.dogName,
-    _dogSize: userInfo.dogSize,
-    _neutral: userInfo.neutral,
-  };
+  const userInfo = useSelector((state) => state.user.list);
+   console.log(userInfo)
+ 
 
   const currentPageUserId = props.match.params.userId;
   // console.log(currentPageUserId, dogInfo);
-
+  console.log(currentPageUserId)
   const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
 
@@ -69,6 +60,7 @@ const MyPage = (props) => {
 
   useEffect(() => {
     dispatch(userActions.getMypageMD(currentPageUserId));
+    setCheck("sta")
   }, []);
 
   return (
@@ -130,7 +122,7 @@ const MyPage = (props) => {
                 setCheck("dog");
               }}
             >
-              <img src={chat} onClick={() => history.push("/mypage")} />
+              <img src={chat}  />
               <span>등록정보</span>
             </div>
             <div
@@ -142,20 +134,29 @@ const MyPage = (props) => {
               <span>산책 목록</span>
             </div>
           </Buttons>
-
+          {
+           check==="sta"&& <GaeStaCard userId={currentPageUserId} />
+          }
+         
           {/* 상황 마다 바뀔 카드들 */}
-          <div>
-            {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
+           <div>
+            
             {check === "dog" && (
+              <div>
               <DogCard
-                // dogInfo={dogInfo}
+                post ={userInfo}
                 userId={currentPageUserId}
               />
+              <UserCard
+              post ={userInfo}
+              userId={currentPageUserId}
+            />
+            </div>
             )}
             {check === "list" && (
-              <ListCard post={pageList} userId={currentPageUserId} />
+              <ListCard post={userInfo} userId={currentPageUserId} />
             )}
-          </div>
+          </div> 
 
           <NavBar />
         </Wrap>

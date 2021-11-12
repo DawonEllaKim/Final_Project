@@ -64,9 +64,9 @@ const DogStaEdit = (props) => {
     dogPostDesc: dogPostDesc,
   };
 
-  useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-  }, [postId]);
+  // useEffect(() => {
+  //   dispatch(postActions.getPostMD(postId));
+  // }, [postId]);
 
   return (
     <Wrap>

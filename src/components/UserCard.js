@@ -5,11 +5,12 @@ import styled from "styled-components";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 import { useHistory } from "react-router";
-const UserCard = ({ post }) => {
-  const userImage = post.user_image;
-  const userName = post.user_nickname;
-  const userGender = post.user_gender;
-  const userAge = post.user_age;
+const UserCard = (props) => {
+  const post = props.post
+  const userImage = post.userImage;
+  const userName = post.userNickname;
+  const userGender = post.userGender;
+  const userAge = post.userAge;
 
   const history = useHistory();
 

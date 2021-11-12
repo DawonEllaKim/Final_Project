@@ -33,14 +33,15 @@ const { kakao } = window;
 const Detail = (props) => {
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
-  console.log(post.walk);
-  const [walk, setWalk] = useState(post.walk ? post.walk : list1);
-  const [start, setStart] = useState(post.start ? post.start : olympic);
+
+
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
-  }, [post.walk, post.start]);
+  }, []);
+  const [walk, setWalk] = useState(post.walk ? post.walk : list1);
+  const [start, setStart] = useState(post.start ? post.start : olympic);
   const is_loading = useSelector((state) => state.post.is_loading);
 
   const get_id = localStorage.getItem("userId");
