@@ -190,6 +190,7 @@ const getMyPostMD = (userId) => {
     })
       .then((res) => {
         const postList = res.data.posts;
+
         dispatch(getMyPost(postList));
         console.log("정보 불러오기 완료", postList);
       })

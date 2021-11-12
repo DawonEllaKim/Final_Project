@@ -71,9 +71,15 @@ const MyPage = (props) => {
             <UserImg src={userInfo.userImage} />
 
             {/* 편집모드 */}
-            <Edit>
-              <img src={edit} />
-            </Edit>
+            {currentPageUserId === userId && (
+              <Edit
+                onClick={() => {
+                  history.push("/userProfile");
+                }}
+              >
+                <img src={edit} />
+              </Edit>
+            )}
           </UserInfoLeft>
 
           <UserRight>
@@ -213,6 +219,7 @@ const Edit = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
+  cursor: pointer;
 
   display: flex;
   flex-direction: row;

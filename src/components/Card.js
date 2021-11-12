@@ -17,14 +17,15 @@ const Card = ({ post }) => {
 
   console.log(post);
 
-  // const MeetingDate = initialMeetingDate.split("T")[0];
-  // const year = MeetingDate.split("-")[0];
-  // const month = MeetingDate.split("-")[1];
-  // const day = MeetingDate.split("-")[2];
-  // const MeetingTime = initialMeetingDate.split("T")[1];
-  // console.log(MeetingTime);
-  // const hour = MeetingTime.split(":")[0];
-  // const minute = MeetingTime.split(":")[1];
+  const MeetingDate = initialMeetingDate.split("T")[0];
+  const year = MeetingDate.split("-")[0];
+  const month = MeetingDate.split("-")[1];
+  const day = MeetingDate.split("-")[2];
+  const MeetingTime = initialMeetingDate.split("T")[1];
+  const hour = MeetingTime.split(":")[0];
+  const minute = MeetingTime.split(":")[1];
+
+  console.log(MeetingTime, MeetingDate, year, month, day, hour, minute);
 
   return (
     <CardWrap>
@@ -43,10 +44,13 @@ const Card = ({ post }) => {
           </h4>
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
-        <CardCenter>{dogComment}</CardCenter>
+        <CardCenter>
+          <p>장소: 서울숲</p>
+          <p>크기: {post.dogSize}</p>
+          <p>{dogComment}</p>
+        </CardCenter>
         <CardBottom>
-          {/* {year}. {month}. {day} {}:{} */}
-          {initialMeetingDate}
+          {year}. {month}. {day} {hour}시 {minute}분
         </CardBottom>
       </CardInfo>
     </CardWrap>
@@ -60,7 +64,6 @@ const CardWrap = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 152px;
 
   margin-bottom: 24px;
   border-radius: 25px;
@@ -118,7 +121,10 @@ const CardTop = styled.div`
 `;
 const CardCenter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  align-content: center;
+
   font-size: 14px;
   width: 100%;
   padding-top: 12px;

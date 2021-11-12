@@ -66,8 +66,8 @@ const GaeStaCard = (props) => {
                       <span style={{ marginRight: "45px" }}>
                         {post.userNickname}
                       </span>
-                      <img src={emptyHeart} />
-                      <span>12</span>
+                      {/* <img src={emptyHeart} />
+                      <span>12</span> */}
                     </div>
                   </Text>
                 </Card>
