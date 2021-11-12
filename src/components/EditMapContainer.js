@@ -10,6 +10,10 @@ import trashMarker from '../image/trash.png'
 import waterMarker from '../image/water.png'
 import dogMarker from '../image/dog.png'
 import { distance1,distance2,distance3 } from '../components/MarkerList/DistanceList';
+import { seoulDistance1, seoulDistance2, seoulDistance3 } from '../components/MarkerList/SeoulDistance';
+import { hangang1,hangang2,hangang3 } from '../components/MarkerList/HangangList';
+import { seoul1,seoul2,seoul3 } from '../components/MarkerList/SeoulList';
+import { Han1,Han2,Han3 } from '../components/MarkerList/HangangDistance';
 import { list1,list2,list3 } from '../components/MarkerList/RoadList';
 import { polygon1,polygon2,polygon3 } from '../components/MarkerList/PolygonList';
 import { trash, water,toilet, dog } from '../components/MarkerList/MarkerList';
@@ -17,10 +21,11 @@ import EditMarkerModal from "../components/EditMarkerModal";
 import { GrDescend } from 'react-icons/gr';
 const { kakao } = window;
 const EditMapContainer = React.memo((props) => {
-    const editId = props.match.params.id
+   
     // const dispatch =useDispatch();
     const [is_modal,setModal] = useState(false)
-    
+    const editId = props.match.params.id
+    console.log(editId)
     const closeModal = () => {
         setModal(false);
       };
@@ -42,6 +47,37 @@ const EditMapContainer = React.memo((props) => {
       {
           setWalk(list3)
           setDistance(distance3)
+          
+      }  if(name==="seoul1")
+      {
+          setWalk(seoul1)
+          setDistance(seoulDistance1)
+      }
+      if(name==="seoul2")
+      {
+          setWalk(seoul2)
+          setDistance(seoulDistance2)
+      }
+      if(name==="seoul3")
+      {
+          setWalk(seoul3)
+          setDistance(seoulDistance3)
+          
+      }
+      if(name==="hangang1")
+      {
+          setWalk(hangang1)
+          setDistance(Han1)
+      }
+      if(name==="hangang2")
+      {
+          setWalk(hangang2)
+          setDistance(Han2)
+      }
+      if(name==="hangang3")
+      {
+          setWalk(hangang3)
+          setDistance(Han3)
           
       }
       setRoad(name)   
@@ -155,20 +191,56 @@ const EditMapContainer = React.memo((props) => {
     var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다  
     var map = new kakao.maps.Map(mapContainer, mapOption); 
     
-    new kakao.maps.Marker({
+   let sp =new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La), // 마커를 표시할 위치
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
- 
+    
         
     });
-    new kakao.maps.Marker({
+    var iwContent = `<div style="padding:5px;">출발점 :${distance.start}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent 
+});
+  
+// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+
+
+   let lp= new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: new kakao.maps.LatLng(walk[walk.length-1].Ma,walk[walk.length-1].La), // 마커를 표시할 위치
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
  
         
     });
+    var iwContent2 = `<div style="padding:5px;">종점 :${distance.last}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition2 = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+// 인포윈도우를 생성합니다1
+var infowindow2 = new kakao.maps.InfoWindow({
+
+    content : iwContent2 
+});
+kakao.maps.event.addListener(lp,'mouseover',makeOverListener(map, lp,infowindow2)); 
+kakao.maps.event.addListener(lp,'mouseout',makeOutListener(infowindow2)); 
+kakao.maps.event.addListener(sp,'mouseover',makeOverListener(map, sp,infowindow)); 
+kakao.maps.event.addListener(sp,'mouseout',makeOutListener(infowindow)); 
+function makeOverListener(map, marker, infowindow) {
+  return function() {
+      infowindow.open(map, marker);
+  };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+  return function() {
+      infowindow.close();
+  };
+}
     //쓰레기통
     var imageSrc = trashMarker; 
 
@@ -223,23 +295,23 @@ const EditMapContainer = React.memo((props) => {
             image : markerImage // 마커 이미지 
         });
 
-        var iwContent = '<div style="font-size:3px;">식수대:강아지에게 물을 주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwContent2 = '<div style="font-size:3px;">식수대:강아지에게 물을 주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
 // 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({
-    content : iwContent,
+var infowindow2 = new kakao.maps.InfoWindow({
+    content : iwContent2,
     removable : iwRemoveable
 });
 
 // 마커에 클릭이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseover', function() {
       // 마커 위에 인포윈도우를 표시합니다
-      infowindow.open(map, marker);  
+      infowindow2.open(map, marker);  
 });
 kakao.maps.event.addListener(marker, 'mouseout', function() {
     // 마커 위에 인포윈도우를 표시합니다
-    infowindow.close(map, marker);  
+    infowindow2.close(map, marker);  
 });
     }
    
@@ -261,23 +333,23 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
             image : markerImage // 마커 이미지 
         });
 
-        var iwContent = '<div style="font-size:3px;">화장실: 강아지의 발을 닦아주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwContent3 = '<div style="font-size:3px;">화장실: 강아지의 발을 닦아주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
     
     // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
+    var infowindow3 = new kakao.maps.InfoWindow({
+        content : iwContent3,
         removable : iwRemoveable
     });
     
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'mouseover', function() {
           // 마커 위에 인포윈도우를 표시합니다
-          infowindow.open(map, marker);  
+          infowindow3.open(map, marker);  
     });
     kakao.maps.event.addListener(marker, 'mouseout', function() {
         // 마커 위에 인포윈도우를 표시합니다
-        infowindow.close(map, marker);  
+        infowindow3.close(map, marker);  
     });
     }
     
@@ -299,23 +371,23 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
             image : markerImage // 마커 이미지 
             
         });
-        var iwContent = '<div style="font-size:3px;">들판:강아지가 달리게 목줄을 풀어주세요! </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwContent4 = '<div style="font-size:3px;">들판:강아지가 달리게 목줄을 풀어주세요! </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
     
     // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
+    var infowindow4 = new kakao.maps.InfoWindow({
+        content : iwContent4,
         removable : iwRemoveable
     });
     
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'mouseover', function() {
           // 마커 위에 인포윈도우를 표시합니다
-          infowindow.open(map, marker);  
+          infowindow4.open(map, marker);  
     });
     kakao.maps.event.addListener(marker, 'mouseout', function() {
         // 마커 위에 인포윈도우를 표시합니다
-        infowindow.close(map, marker);  
+        infowindow4.close(map, marker);  
     });
     }
 
@@ -392,27 +464,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                 check=="올림픽공원"&&
                 
                 <div>
-                     <form onsubmit="searchPlaces(); return false;">
-                <Box sx={{ minWidth: 300 }}>
-                  <FormControl sx={{ width: 350 }}>
-                    <NativeSelect
-                      sx={{ width: 350 }}
-                      defaultValue=""
-                      value={check}
-                      onChange={checkHandler}
-                      inputProps={{
-                        name: "age",
-                        id: "uncontrolled-native",
-                      }}
-                    >
-                      <option value="">산책 시간은 ??</option>
-                      <option value="서울숲">30분</option>
-                      <option value="올림픽공원">1시간</option>
-                      <option value="반포한강공원">1시간 30분 이상</option>
-                    </NativeSelect>
-                  </FormControl>
-                </Box>
-                </form>
+                     
                 <form>
             <label>산책로A</label>
             <input type="radio" name="산책로A" value="list1" checked={road==="list1"} onClick={()=>roadHandler("list1")} />
@@ -452,6 +504,125 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                    시작점:{distance3.start}
                    <br/>
                    종점:{distance3.last}
+                    </div>
+            }
+            <button onClick={()=>setModal(true)} >산책로 등록</button>
+            {is_modal ? (
+          <EditMarkerModal
+            close={closeModal}
+            road={road}
+            distance={distance}
+            check={check}
+            walk={walk}
+            editId={editId}
+          />
+        ) : null}
+            </div>
+               } 
+
+{ 
+                check=="서울숲"&&
+                
+                <div>
+                     
+                <form>
+            <label>산책로A</label>
+            <input type="radio" name="산책로A" value="seoul1" checked={road==="seoul1"} onClick={()=>roadHandler("seoul1")} />
+            <label>산책로B</label>
+            <input type="radio" name="산책로B" value="seoul2" checked={road==="seoul2"} onClick={()=>roadHandler("seoul2")} />
+            <label>산책로C</label>
+            <input type="radio" name="산책로C" value="seoul3" checked={road==="seoul3"} onClick={()=>roadHandler("seoul3")} />
+             </form>
+              {
+                road=="seoul1" && <div>
+                    거리:{seoulDistance1.distance}
+                    <br/>
+                   시간:{seoulDistance1.time}
+                   <br/>
+                   시작점:{seoulDistance1.start}
+                   <br/>
+                   종점:{seoulDistance1.last}
+                    </div>
+            }
+             {
+                road=="seoul2" && <div>
+                    거리:{seoulDistance2.distance}
+                    <br/>
+                   시간:{seoulDistance2.time}
+                   <br/>
+                   시작점:{seoulDistance2.start}
+                   <br/>
+                   종점:{seoulDistance2.last}
+                    </div>
+            }
+             {
+                road=="seoul3" && <div>
+                    거리:{seoulDistance3.distance}
+                    <br/>
+                   시간:{seoulDistance3.time}
+                   <br/>
+                   시작점:{seoulDistance3.start}
+                   <br/>
+                   종점:{seoulDistance3.last}
+                    </div>
+            }
+            <button onClick={()=>setModal(true)} >산책로 등록</button>
+            {is_modal ? (
+          <EditMarkerModal
+            close={closeModal}
+            road={road}
+            distance={distance}
+            check={check}
+            walk={walk}
+            editId={editId}
+          />
+        ) : null}
+            </div>
+               } 
+               { 
+                check=="반포한강공원"&&
+                
+                <div>
+                     
+                <form>
+            <label>산책로A</label>
+            <input type="radio" name="산책로A" value="hangang1" checked={road==="hangang1"} onClick={()=>roadHandler("hangang1")} />
+            <label>산책로B</label>
+            <input type="radio" name="산책로B" value="hangang2" checked={road==="hangang2"} onClick={()=>roadHandler("hangang2")} />
+            <label>산책로C</label>
+            <input type="radio" name="산책로C" value="hangang3" checked={road==="hangang3"} onClick={()=>roadHandler("hangang3")} />
+             </form>
+              {
+                road=="hangang1" && <div>
+                    거리:{Han1.distance}
+                    <br/>
+                   시간:{Han1.time}
+                   <br/>
+                   시작점:{Han1.start}
+                   <br/>
+                   종점:{Han1.last}
+                    </div>
+            }
+             {
+                road=="hangang2" && <div>
+                    거리:{Han2.distance}
+                    <br/>
+                   시간:{Han2.time}
+                   <br/>
+                   시작점:{Han2.start}
+                   <br/>
+                   종점:{Han2.last}
+                    </div>
+            }
+             {
+                road=="hangang3" && <div>
+                    거리:{Han3.distance}
+                    <br/>
+                   시간:{Han3.time}
+                   <br/>
+                   시작점:{Han3.start}
+                   <br/>
+                   종점:{Han3.last}
                     </div>
             }
             <button onClick={()=>setModal(true)} >산책로 등록</button>

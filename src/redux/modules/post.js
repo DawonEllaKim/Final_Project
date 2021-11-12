@@ -4,6 +4,8 @@ import { apis } from "../../lib/axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
 import { list1,list2,list3 } from "../../components/MarkerList/RoadList";
+import { seoul1,seoul2,seoul3 } from "../../components/MarkerList/SeoulList";
+import { hangang1,hangang2,hangang3 } from "../../components/MarkerList/HangangList";
 import { hangang,seoul,olympic } from "../../components/MarkerList/ParkList";
 // action
 //메인 페이지 GET 요청
@@ -102,6 +104,18 @@ const getPostMD = (postId) => {
           res.data.posts[0].walk = list2;
         if(res.data.posts[0].routeName=="산책로C"&&res.data.posts[0].locationCategory=="올림픽공원")
           res.data.posts[0].walk = list3;
+          if(res.data.posts[0].routeName=="산책로A"&&res.data.posts[0].locationCategory=="서울숲")
+          res.data.posts[0].walk = seoul1;
+        if(res.data.posts[0].routeName=="산책로B"&&res.data.posts[0].locationCategory=="서울숲")
+          res.data.posts[0].walk = seoul2;
+        if(res.data.posts[0].routeName=="산책로C"&&res.data.posts[0].locationCategory=="서울숲")
+          res.data.posts[0].walk = seoul3;
+          if(res.data.posts[0].routeName=="산책로A"&&res.data.posts[0].locationCategory=="반포한강공원")
+          res.data.posts[0].walk = hangang1;
+        if(res.data.posts[0].routeName=="산책로B"&&res.data.posts[0].locationCategory=="반포한강공원")
+          res.data.posts[0].walk = hangang2;
+        if(res.data.posts[0].routeName=="산책로C"&&res.data.posts[0].locationCategory=="반포한강공원")
+          res.data.posts[0].walk = hangang3;
         
 
         if(res.data.posts[0].locationCategory=="올림픽공원")
@@ -195,11 +209,11 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-        localStorage.setItem("date", post.meetingDate);
+      
         console.log("수정완료");
         window.alert("수정완료");
         dispatch(updatePost(post));
-        // history.push(`/posts/${postId}`);
+        history.push(`/posts/${postId}`);
       })
       .catch((err) => {
         console.log(err);
