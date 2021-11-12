@@ -79,6 +79,7 @@ const MyPage = (props) => {
           <UserInfoLeft>
             {/* 유저 사진 */}
             <UserImg src={userInfo.userImage} />
+
             {/* 편집모드 */}
             <Edit>
               <img src={edit} />
@@ -88,8 +89,8 @@ const MyPage = (props) => {
           <UserRight>
             {/* 유저 닉네임 + 유저 주소 */}
             <div>
-              <span>{userInfo.userNickname}</span>
-              <span>{userInfo.userLocation}</span>
+              <span style={{ fontWeight: "400" }}>{userInfo.userNickname}</span>
+              <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
             </div>
 
             {/* 로그아웃 버튼 */}
@@ -277,6 +278,8 @@ const LogOut = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  color: #5f5f5f;
 `;
 
 export default MyPage;
