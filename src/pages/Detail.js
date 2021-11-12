@@ -39,7 +39,7 @@ const Detail = (props) => {
     dispatch(postActions.getPostMD(postId));
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
-  }, []);
+  }, [post.walk,post.start]);
   const [walk, setWalk] = useState(post.walk ? post.walk : list1);
   const [start, setStart] = useState(post.start ? post.start : olympic);
   const is_loading = useSelector((state) => state.post.is_loading);
@@ -55,7 +55,7 @@ const Detail = (props) => {
   const userAge = post.userAge;
   const userGender = post.userGender;
   console.log(userImage);
-
+  console.log(walk)
   // 강아지 정보
   const dogImage = post.dogImage;
   const dogName = post.dogName;

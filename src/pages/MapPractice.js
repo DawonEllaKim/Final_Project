@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { actionCreators as markerAction } from '../redux/modules/marker';
-import BlackMarker from '../image/toilet.png'
-import trashMarker from '../image/trash.png'
-import waterMarker from '../image/water.png'
-import dogMarker from '../image/dog.png'
+import BlackMarker from '../image/toil.png'
+import trashMarker from '../image/tra.png'
+import waterMarker from '../image/water-tap.png'
+import dogMarker from '../image/DogRun.png'
 import { distance1,distance2,distance3 } from '../components/MarkerList/DistanceList';
 import { seoulDistance1, seoulDistance2, seoulDistance3 } from '../components/MarkerList/SeoulDistance';
 import { hangang1,hangang2,hangang3 } from '../components/MarkerList/HangangList';
@@ -17,8 +17,14 @@ import { Han1,Han2,Han3 } from '../components/MarkerList/HangangDistance';
 import { list1,list2,list3 } from '../components/MarkerList/RoadList';
 import { polygon1,polygon2,polygon3 } from '../components/MarkerList/PolygonList';
 import { trash, water,toilet, dog } from '../components/MarkerList/MarkerList';
+import detailAddress from "../image/detailAddress.png";
+import detailFilter from "../image/detailFilter.png";
+import startMarker from "../image/end.png"
+import endMarker from "../image/start.png"
 import MarkerModal from "../components/MarkerModal";
 import { GrDescend } from 'react-icons/gr';
+import { NoEncryption } from '@mui/icons-material';
+import map from "../image/map.png";
 const { kakao } = window;
 const MapPractice = React.memo(() => {
    
@@ -190,9 +196,15 @@ const MapPractice = React.memo(() => {
     var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다  
     var map = new kakao.maps.Map(mapContainer, mapOption); 
     
+    var imageSrc5 = startMarker; 
+    var imageSize5 = new kakao.maps.Size(30, 30); 
+        
+    // 마커 이미지를 생성합니다    
+    var markerImage5 = new kakao.maps.MarkerImage(imageSrc5, imageSize5); 
    let sp =new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La), // 마커를 표시할 위치
+        position: new kakao.maps.LatLng(walk[0].Ma,walk[0].La),
+        image : markerImage5// 마커를 표시할 위치
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
     
         
@@ -207,13 +219,17 @@ var infowindow = new kakao.maps.InfoWindow({
 });
   
 // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-
+var imageSrc6 = endMarker; 
+    var imageSize6 = new kakao.maps.Size(30, 30); 
+        
+    // 마커 이미지를 생성합니다    
+    var markerImage6 = new kakao.maps.MarkerImage(imageSrc6, imageSize6); 
 
    let lp= new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: new kakao.maps.LatLng(walk[walk.length-1].Ma,walk[walk.length-1].La), // 마커를 표시할 위치
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
- 
+       image: markerImage6
         
     });
     var iwContent2 = `<div style="padding:5px;">종점 :${distance.last}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -246,7 +262,7 @@ function makeOutListener(infowindow) {
     for (let i = 0; i < trash.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new kakao.maps.Size(20, 20); 
+        var imageSize = new kakao.maps.Size(14, 14); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
@@ -281,7 +297,7 @@ function makeOutListener(infowindow) {
     for (let i = 0; i < water.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize2 = new kakao.maps.Size(20, 20); 
+        var imageSize2 = new kakao.maps.Size(14, 14); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
@@ -319,7 +335,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     for (let i = 0; i < toilet.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize3 = new kakao.maps.Size(20, 20); 
+        var imageSize3 = new kakao.maps.Size(14, 14); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3); 
@@ -357,7 +373,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     for (let i = 0; i < dog.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize4 = new kakao.maps.Size(20, 20); 
+        var imageSize4 = new kakao.maps.Size(14, 14); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4); 
@@ -438,17 +454,25 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     }, [start,kakao,check,walk,distance])
     return (
         <Crap>
-             <form onsubmit="searchPlaces(); return false;">
-                <Box sx={{ minWidth: 300 }}>
-                  <FormControl sx={{ width: 350 }}>
+             <form onsubmit="searchPlaces(); return false;"  style={{
+                        display:"flex", justifyContent:"space-around", width:"390px", marginBottom:"15px"
+                      }}>
+                <IconDiv>
+                    <img style={{width:"15px", height:"15px", textAlign:"center",alignItems:"center", display:"flex", paddingTop:"8px"}} src={map} />
+                  </IconDiv>
+                <MapBox sx={{  }}>
+                  <FormControl sx={{width:285}}>
                     <NativeSelect
-                      sx={{ width: 350 }}
+                      sx={{  }}
                       defaultValue=""
                       value={check}
                       onChange={checkHandler}
                       inputProps={{
                         name: "age",
                         id: "uncontrolled-native",
+                      }}
+                      style={{
+                        display:"flex", justifyContent:"center"
                       }}
                     >
                       <option value="">어디서 산책하실건가요?</option>
@@ -457,55 +481,100 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                       <option value="반포한강공원">반포 한강공원</option>
                     </NativeSelect>
                   </FormControl>
-                </Box>
+                </MapBox>
                 </form>
                { 
                 check=="올림픽공원"&&
                 
-                <div>
+                <div >
                      
-                <form>
-            <label>산책로A</label>
-            <input type="radio" name="산책로A" value="list1" checked={road==="list1"} onClick={()=>roadHandler("list1")} />
-            <label>산책로B</label>
-            <input type="radio" name="산책로B" value="list2" checked={road==="list2"} onClick={()=>roadHandler("list2")} />
-            <label>산책로C</label>
-            <input type="radio" name="산책로C" value="list3" checked={road==="list3"} onClick={()=>roadHandler("list3")} />
-             </form>
+                <WalkArea>
+         
+            <WalkBtn  name="산책로A" value="list1" checked={road==="list1"} onClick={()=>roadHandler("list1")} >
+              산책로A
+            </WalkBtn>
+            <WalkBtn name="산책로B" value="list2" checked={road==="list2"} onClick={()=>roadHandler("list2")} >
+              산책로B
+             </WalkBtn>
+            <WalkBtn  name="산책로C" value="list3" checked={road==="list3"} onClick={()=>roadHandler("list3")} >
+              산책로C
+              </WalkBtn>
+             </WalkArea>
               {
-                road=="list1" && <div>
-                    거리:{distance1.distance}
-                    <br/>
-                   시간:{distance1.time}
-                   <br/>
-                   시작점:{distance1.start}
-                   <br/>
-                   종점:{distance1.last}
-                    </div>
+                road=="list1" &&
+                <div style={{display:"flex", justifyContent:"center"}}>
+                <AdressWrap>
+          <CircleDiv>
+            <img src={detailAddress} />
+          </CircleDiv>
+          <Address>
+       
+            <Detail>출발:{" "}{distance1.start}</Detail>
+            <Detail>도착:{" "}{distance1.last}</Detail>
+          </Address>
+        </AdressWrap>
+
+        <AdressWrap>
+          <CircleDiv>
+            <img src={detailFilter} />
+          </CircleDiv>
+          <Address>
+           
+            <Detail>거리:{" "}{distance1.distance}</Detail>
+            <Detail>시간:{" "}{distance1.time}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
             }
              {
-                road=="list2" && <div>
-                    거리:{distance2.distance}
-                    <br/>
-                   시간:{distance2.time}
-                   <br/>
-                   시작점:{distance2.start}
-                   <br/>
-                   종점:{distance2.last}
-                    </div>
+                road=="list2" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{distance2.start}</Detail>
+                  <Detail>도착:{" "}{distance2.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{distance2.distance}</Detail>
+                  <Detail>시간:{" "}{distance2.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
             }
              {
-                road=="list3" && <div>
-                    거리:{distance3.distance}
-                    <br/>
-                   시간:{distance3.time}
-                   <br/>
-                   시작점:{distance3.start}
-                   <br/>
-                   종점:{distance3.last}
-                    </div>
+                road=="list3" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{distance3.start}</Detail>
+                  <Detail>도착:{" "}{distance3.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{distance3.distance}</Detail>
+                  <Detail>시간:{" "}{distance3.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
             }
-            <button onClick={()=>setModal(true)} >산책로 등록</button>
+       
             {is_modal ? (
           <MarkerModal
             close={closeModal}
@@ -521,50 +590,96 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
 { 
                 check=="서울숲"&&
                 
-                <div>
+                <div >
                      
-                <form>
-            <label>산책로A</label>
-            <input type="radio" name="산책로A" value="seoul1" checked={road==="seoul1"} onClick={()=>roadHandler("seoul1")} />
-            <label>산책로B</label>
-            <input type="radio" name="산책로B" value="seoul2" checked={road==="seoul2"} onClick={()=>roadHandler("seoul2")} />
-            <label>산책로C</label>
-            <input type="radio" name="산책로C" value="seoul3" checked={road==="seoul3"} onClick={()=>roadHandler("seoul3")} />
-             </form>
+                <WalkArea>
+         
+            <WalkBtn  name="산책로A" value="seoul1" checked={road==="seoul1"} onClick={()=>roadHandler("seoul1")} >
+              산책로A
+            </WalkBtn>
+            <WalkBtn name="산책로B" value="seoul2" checked={road==="seoul2"} onClick={()=>roadHandler("seoul2")} >
+              산책로B
+             </WalkBtn>
+            <WalkBtn name="산책로C" value="seoul3" checked={road==="seoul3"} onClick={()=>roadHandler("seoul3")} >
+              산책로C
+              </WalkBtn>
+             </WalkArea>
               {
-                road=="seoul1" && <div>
-                    거리:{seoulDistance1.distance}
-                    <br/>
-                   시간:{seoulDistance1.time}
-                   <br/>
-                   시작점:{seoulDistance1.start}
-                   <br/>
-                   종점:{seoulDistance1.last}
-                    </div>
+                road=="seoul1" &&
+                <div style={{display:"flex", justifyContent:"center"}}>
+                <AdressWrap>
+          <CircleDiv>
+            <img src={detailAddress} />
+          </CircleDiv>
+          <Address>
+       
+            <Detail>출발:{" "}{seoulDistance1.start}</Detail>
+            <Detail>도착:{" "}{seoulDistance1.last}</Detail>
+          </Address>
+        </AdressWrap>
+
+        <AdressWrap>
+          <CircleDiv>
+            <img src={detailFilter} />
+          </CircleDiv>
+          <Address>
+           
+            <Detail>거리:{" "}{seoulDistance1.distance}</Detail>
+            <Detail>시간:{" "}{seoulDistance1.time}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
             }
              {
-                road=="seoul2" && <div>
-                    거리:{seoulDistance2.distance}
-                    <br/>
-                   시간:{seoulDistance2.time}
-                   <br/>
-                   시작점:{seoulDistance2.start}
-                   <br/>
-                   종점:{seoulDistance2.last}
-                    </div>
+                road=="seoul2" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{seoulDistance2.start}</Detail>
+                  <Detail>도착:{" "}{seoulDistance2.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{seoulDistance2.distance}</Detail>
+                  <Detail>시간:{" "}{seoulDistance2.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
             }
              {
-                road=="seoul3" && <div>
-                    거리:{seoulDistance3.distance}
-                    <br/>
-                   시간:{seoulDistance3.time}
-                   <br/>
-                   시작점:{seoulDistance3.start}
-                   <br/>
-                   종점:{seoulDistance3.last}
-                    </div>
+                road=="seoul3" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{seoulDistance3.start}</Detail>
+                  <Detail>도착:{" "}{seoulDistance3.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{seoulDistance3.distance}</Detail>
+                  <Detail>시간:{" "}{seoulDistance3.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
+                   
             }
-            <button onClick={()=>setModal(true)} >산책로 등록</button>
+    
             {is_modal ? (
           <MarkerModal
             close={closeModal}
@@ -579,50 +694,95 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                { 
                 check=="반포한강공원"&&
                 
-                <div>
+                <div >
                      
-                <form>
-            <label>산책로A</label>
-            <input type="radio" name="산책로A" value="hangang1" checked={road==="hangang1"} onClick={()=>roadHandler("hangang1")} />
-            <label>산책로B</label>
-            <input type="radio" name="산책로B" value="hangang2" checked={road==="hangang2"} onClick={()=>roadHandler("hangang2")} />
-            <label>산책로C</label>
-            <input type="radio" name="산책로C" value="hangang3" checked={road==="hangang3"} onClick={()=>roadHandler("hangang3")} />
-             </form>
+                <WalkArea>
+         
+            <WalkBtn  name="산책로A" value="hangang1" checked={road==="hangang1"} onClick={()=>roadHandler("hangang1")} >
+              산책로A
+            </WalkBtn>
+            <WalkBtn name="산책로B" value="hangang2" checked={road==="hangang2"} onClick={()=>roadHandler("hangang2")} >
+              산책로B
+             </WalkBtn>
+            <WalkBtn name="산책로C" value="hangang3" checked={road==="hangang3"} onClick={()=>roadHandler("hangang3")} >
+              산책로C
+              </WalkBtn>
+             </WalkArea>
               {
-                road=="hangang1" && <div>
-                    거리:{Han1.distance}
-                    <br/>
-                   시간:{Han1.time}
-                   <br/>
-                   시작점:{Han1.start}
-                   <br/>
-                   종점:{Han1.last}
-                    </div>
+                road=="hangang1" &&
+                <div style={{display:"flex", justifyContent:"center"}}>
+                <AdressWrap>
+          <CircleDiv>
+            <img src={detailAddress} />
+          </CircleDiv>
+          <Address>
+       
+            <Detail>출발:{" "}{Han1.start}</Detail>
+            <Detail>도착:{" "}{Han1.last}</Detail>
+          </Address>
+        </AdressWrap>
+
+        <AdressWrap>
+          <CircleDiv>
+            <img src={detailFilter} />
+          </CircleDiv>
+          <Address>
+           
+            <Detail>거리:{" "}{Han1.distance}</Detail>
+            <Detail>시간:{" "}{Han1.time}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
             }
              {
-                road=="hangang2" && <div>
-                    거리:{Han2.distance}
-                    <br/>
-                   시간:{Han2.time}
-                   <br/>
-                   시작점:{Han2.start}
-                   <br/>
-                   종점:{Han2.last}
-                    </div>
+                road=="hangang2" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{Han2.start}</Detail>
+                  <Detail>도착:{" "}{Han2.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{Han2.distance}</Detail>
+                  <Detail>시간:{" "}{Han2.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
             }
              {
-                road=="hangang3" && <div>
-                    거리:{Han3.distance}
-                    <br/>
-                   시간:{Han3.time}
-                   <br/>
-                   시작점:{Han3.start}
-                   <br/>
-                   종점:{Han3.last}
-                    </div>
+                road=="hangang3" &&  <div style={{display:"flex", justifyContent:"center"}}><AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+             
+                  <Detail>출발:{" "}{Han3.start}</Detail>
+                  <Detail>도착:{" "}{Han3.last}</Detail>
+                </Address>
+              </AdressWrap>
+      
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                 
+                  <Detail>총{" "}{Han3.distance}</Detail>
+                  <Detail>시간:{" "}{Han3.time}</Detail>
+                </Address>
+              </AdressWrap>
+              </div>
             }
-            <button onClick={()=>setModal(true)} >산책로 등록</button>
+        
             {is_modal ? (
           <MarkerModal
             close={closeModal}
@@ -637,19 +797,82 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                
 
             <Wrap id="map"></Wrap>
+            <Flex2>
+            <SubmitBtn onClick={()=>setModal(true)} >산책로 등록</SubmitBtn>
+            </Flex2>
             </Crap>
     )
 })
+const Flex2 = styled.div
+`
+display:flex;
+justify-content:center;
+margin:20px 0px;
+
+`
+const SubmitBtn = styled.button
+`
+width: 350px;
+height: 48px;
+background: #C4C4C4;
+border-radius: 10px;
+cursor:pointer;
+
+`
+const WalkArea = styled.div
+`
+display:flex;
+justify-content: space-between;
+
+`
+const WalkBtn = styled.div
+`
+width:100px;
+height: 48px;
+border-radius:24px;
+background-color:#F3F#F3;
+box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+border: 1px gray;
+display:flex;
+justify-content:center;
+align-items:center;
+&:hover{
+  background-color:
+  #9DE8DF;
+  cursor:pointer;
+}
+`
+const IconDiv = styled.div
+`
+width: 48px;
+border: 2px solid;
+display:flex;
+justify-content:center;
+border-radius:14px;
+margin-right:15px;
+`
+const MapBox = styled(Box)
+`
+border: 2px solid #000000;
+box-sizing: border-box;
+border-radius: 14px;
+box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+width: 285px;
+
+border: 1px solid;
+
+`
 const Crap = styled.div
 `
 width: 390px;
 margin: 0 auto;
 `
 const Wrap = styled.div`
-  width: 350px;
+  width: 390px;
   height:500px;
   box-sizing: border-box;
   border-radius: 20px;
+  margin-top:10px;
 `;
 const Filter = styled.div`
   border: 2px solid black;
@@ -677,3 +900,33 @@ const FlexWrap = styled.div`
 const UserAge = styled.input``;
 export default MapPractice
 
+const AdressWrap = styled.div`
+  width: 100%;
+  height: 45px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: #000000;
+  margin: 20px 0px;
+`;
+
+const CircleDiv = styled.div`
+  display: flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+`;
+const Address = styled.div`
+  margin-left: 15px;
+  text-align: left;
+  font-size: 12px;
+`;
+const Detail = styled.div`
+  padding-top: 4px;
+`;

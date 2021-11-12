@@ -70,10 +70,11 @@ const Nav = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 390 px;
+  width: 350 px;
   height: 64px;
-  padding: 21px;
+  text-align:center;
   z-index: 5;
+  padding:20px;
 `;
 const Box = styled.div`
   box-sizing: border-box;
@@ -83,9 +84,9 @@ const Box = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 350px;
   height: 60px;
-  margin-right: 12px;
+
   padding: 6px 30px;
   background-color: #fff;
   border-radius: 20px;
