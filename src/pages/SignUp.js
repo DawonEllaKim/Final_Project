@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
 
+import TopBar from '../components/TopBar';
 import Button from "../elements/Button";
 import backward from "../image/backward.png";
 
@@ -141,24 +142,13 @@ const SignUp = () => {
     <>
       <Wrap>
         {/* 뒤로가기 버튼 + 회원가입 텍스트 */}
-        <Header>
-          <Button
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p style={{ marginRight: "150px" }}>회원가입</p>
-        </Header>
+        <TopBar only_left>회원가입</TopBar>
 
         {/* 유저 사진 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for='imgFile'>
-              사진 업로드
-            </UploadLabel>
+            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -316,7 +306,7 @@ const Wrap = styled.div`
   text-align: center;
   max-width: 390px;
   padding: 0 20px;
-  margin: 30px auto;
+  margin: 0 auto;
   font-size: 14px;
 `;
 

@@ -34,6 +34,9 @@ import loginText from "../image/loginText.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// 스피너
+import Spinner from '../shared/Spinner'
+
 import caution1 from "../image/caution1.png";
 
 const Main = (props) => {
@@ -41,6 +44,9 @@ const Main = (props) => {
   const postList = useSelector((state) => state.post.main);
   const userInfo = useSelector((state) => state.user.list);
   console.log(postList, userInfo);
+
+  // 스피너
+  const is_loading = useSelector((state) => state.sign.is_loading)
 
   // 슬라이드 세팅
   const settings = {
@@ -76,6 +82,10 @@ const Main = (props) => {
     dispatch(postActions.getMainMD());
   }, []);
 
+  if(is_loading) {
+    return <Spinner />;
+  }
+  
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       {/* 필터 + 산책할개 + 알람 */}

@@ -2,11 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { text, _onClick, padding, margin, children } = props;
+  const { text, _onClick, padding, margin, children, position, top, left, right } = props;
 
   const styles = {
     padding,
     margin,
+    position,
+    top,
+    left,
+    right
   };
   return (
     <>
@@ -23,6 +27,10 @@ Button.defaultProps = {
   padding: false,
   margin: false,
   children: null,
+  position: false,
+  top: false,
+  left: false,
+  right: false
 };
 
 const CircleBtn = styled.button`
@@ -37,6 +45,10 @@ const CircleBtn = styled.button`
   box-shadow: 0px 4px black;
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
+  position: ${(props) => props.position};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
   cursor: pointer;
 `;
 

@@ -6,7 +6,7 @@ import { history } from "../redux/configureStore";
 import walk from "../image/walk.png";
 import home from "../image/home.png";
 import dog from "../image/dog.png";
-import myPage from "../image/mypage.png";
+import myPage from "../image/myPage.png";
 import addBtn from "../image/addBtn.png";
 
 const NavBar = (props) => {
