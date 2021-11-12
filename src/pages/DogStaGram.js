@@ -40,8 +40,12 @@ const DogStaGram = (props) => {
               <div post={post} key={index}>
                 <img
                   src={post.dogPostImage}
-                  onClick={() =>
-                    history.push(`/dogstadetail/${post.dogPostId}`)
+                  onClick={
+                    () => {}
+                    // history.push(`/dogstadetail/${post.dogPostId}`)
+                    // history.push(
+                    //   `/dogstadetail/${post.userId}/${post.dogPostId}`
+                    // )
                   }
                 />
                 <button

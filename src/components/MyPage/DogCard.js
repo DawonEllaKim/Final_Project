@@ -74,6 +74,7 @@ const CardWrap = styled.div`
   line-height: 20.27px;
   cursor: pointer;
   font-size: 16px;
+
   img {
     width: 152px;
     height: 152px;

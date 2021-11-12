@@ -69,6 +69,7 @@ const DogStaWrite = (props) => {
     formData.append("dogPostImage", imgFile);
     formData.append("dogPostDesc", dogPostDesc);
 
+    history.goBack();
     dispatch(postActions.addPostMD(formData));
   };
 
@@ -78,25 +79,16 @@ const DogStaWrite = (props) => {
       <Header>
         <button
           onClick={() => {
-            history.push(`/mypage/${userId}`);
+            history.goBack();
           }}
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />
         </button>
-        <p>Dawon님의 페이지</p>
+        <p>새 게시물</p>
         <button>
           <img src={notification} style={{ width: "24px", height: "24px" }} />
         </button>
       </Header>
-
-      {/* 유저 정보 */}
-      {/* <UserInfo>
-        <img />
-        <div>
-          <span>Dawon0411</span>
-          <span>서울시 양천구 목동</span>
-        </div>
-      </UserInfo> */}
 
       {/* 게시물 작성 부분 */}
       <Write>
@@ -122,7 +114,7 @@ const DogStaWrite = (props) => {
 const Wrap = styled.div`
   box-sizing: border-box;
   width: 390px;
-  margin: auto;
+  margin: auto auto 200px auto;
   padding: 20px 0;
 
   display: flex;

@@ -38,7 +38,7 @@ const addPostMD = (formData) => {
       },
     })
       .then((res) => {
-        dispatch(addPost(formData));
+        // dispatch(addPost(formData));
         console.log("포스트 성공", res);
         // history.push("/mypage");
       })

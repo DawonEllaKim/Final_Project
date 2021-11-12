@@ -26,7 +26,6 @@ const DogStaDetail = (props) => {
   const userId = localStorage.getItem("userId");
 
   const userInfo = useSelector((state) => state.user.list);
-  console.log(userInfo);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
