@@ -458,7 +458,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
                         display:"flex", justifyContent:"space-around", width:"390px", marginBottom:"15px"
                       }}>
                 <IconDiv>
-                    <img style={{width:"15px", height:"15px", textAlign:"center",alignItems:"center", display:"flex", paddingTop:"8px"}} src={map} />
+                    <img style={{width:"20px", height:"25px", textAlign:"center",alignItems:"center", display:"flex"}} src={map} />
                   </IconDiv>
                 <MapBox sx={{  }}>
                   <FormControl sx={{width:285}}>
@@ -582,6 +582,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
             distance={distance}
             check={check}
             walk={walk}
+            
           />
         ) : null}
             </div>

@@ -12,6 +12,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from "../elements/Button";
+import backward from "../image/backward.png";
+import notification from "../image/Notification.png";
+import search from "../image/search.png";
+import detailAddress from "../image/detailAddress.png";
+import detailFilter from "../image/detailFilter.png";
+import NavBar from "../components/NavBar";
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -127,36 +134,53 @@ const MapEdit = (props) => {
     <Frame>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
       <InputArea>
-        <Text>산책로 설정</Text>
-        <Text>
+      <TopWrap>
+          <Button _onClick={() => history.goBack()}>
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </Button>
+          <TopTitle>산책등록</TopTitle>
+          <Button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </Button>
+        </TopWrap>
+
+        <SearchWrap>
           <WalkButton
             onClick={() => {
               history.push(`/editMapContainer3/${postId}`);
             }}
           >
-            {" "}
-            <FaSearch style={{}} size="20" />
-            <div style={{ marginLeft: "10px" }}>산책로를 수정하실건가요? </div>
+            <img src={search} style={{ marginLeft: "4px" }} />
+            <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
           </WalkButton>
-        </Text>
+        </SearchWrap>
 
-        <Text2>
-          {" "}
+        <div>
+        <AdressWrap>
           <CircleDiv>
-            <FaMapMarkedAlt />
+            <img src={detailAddress} />
           </CircleDiv>
           <Address>
-            상세 주소:{" "}
-            <div>
-              {markerName.locationCategory ? markerName.locationCategory : locationCategory}
-              <br/>
-              {markerName.routeName ? markerName.routeName : routeName}
-            </div>
+       
+            <Detail>{markerName.locationCategory?markerName.locationCategory:post.locationCategory}</Detail>
+            <Detail>{markerName.routeName?markerName.routeName:post.routeName}</Detail>
           </Address>
-        </Text2>
+        </AdressWrap>
 
-        <Text>산책 일시</Text>
-        <Flex>
+        <AdressWrap>
+          <CircleDiv>
+            <img src={detailFilter} />
+          </CircleDiv>
+          <Address>
+           
+            <Detail>총{" "}{markerName.totalDistance?markerName.totalDistance:post.totalDistance}</Detail>
+            <Detail>시간:{" "}{markerName.totalTime?markerName.totalTime:post.totalTime}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
+
+        <Title>산책 일시</Title>
+     
           <DatePicker
             selected={startDate}
             onChange={dateHandler}
@@ -164,7 +188,7 @@ const MapEdit = (props) => {
             showTimeInput
             inline
           />
-        </Flex>
+        
         <Title>
         <CustomBox sx={{ minWidth: 120}}>
       <CustomFormControl fullWidth>
@@ -185,19 +209,28 @@ const MapEdit = (props) => {
       </CustomFormControl>
     </CustomBox>
     </Title>
-        <Text>소개/유의사항</Text>
-        <Flex>
+        <Title1>소개/유의사항</Title1>
+       
           <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
-        </Flex>
-        <EndFlex>
-          <Button onClick={editLocation}>산책 수정</Button>
-        </EndFlex>
+    
+       
+          <AddButton onClick={editLocation}>산책 수정</AddButton>
+   
       </InputArea>
+      <NavBar/>
     </Frame>
   );
 };
 
 export default MapEdit;
+const Title1 = styled.div
+`
+box-sizing: border-box;
+  height: 35px;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 80px 0 20px 0;
+`
 const CustomSelect =styled(Select)
 `
 border: 2px solid black;
@@ -223,14 +256,39 @@ const Frame = styled.div`
   max-width: 390px;
   margin: 0 auto;
   text-align: center;
+  box-sizing: border-box;
+  padding-bottom:100px;
+ 
+  justify-content:center;
 `;
-const Button = styled.button`
-  cursor: pointer;
 
-  width: 132px;
-  height: 48px;
-  border-radius: 12px;
+const InputArea = styled.div`
+  padding: 40px 20px;
+  box-sizing: border-box;
+  
 `;
+
+const TopWrap = styled.div`
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+`;
+const TopTitle = styled.div`
+  font-size: 18px;
+  line-height: 52px;
+`;
+
+const SearchWrap = styled.div`
+  width: 100%;
+  height: 45px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+`;
+
 const WalkButton = styled.button`
   cursor: pointer;
   background: #ffffff;
@@ -240,100 +298,41 @@ const WalkButton = styled.button`
   height: 48px;
   display: flex;
   align-items: center;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px gray;
 `;
 
-const InputArea = styled.div`
-  background: #e0e0e0;
-  height: 800px;
-  padding: 0px 20px;
-`;
-
-const Text = styled.div`
+const AdressWrap = styled.div`
   width: 100%;
   height: 45px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  color: #000000;
-  margin-bottom: 10px;
-`;
-const Text1 = styled.div`
-  width: 390px;
-  height: 35px;
-  position: relative;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 26px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin-bottom: 10px;
-`;
-const Text2 = styled.div`
-  width: 100%;
-  height: 45px;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
   font-size: 18px;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: flex-start;
   color: #000000;
-  margin-bottom: 10px;
-`;
-
-const Flex = styled.div`
-  width: 350px;
-  display: inline;
-
-  padding-top: 10px;
-`;
-
-const TextArea = styled.textarea`
-  width: 313px;
-  height: 138px;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 20px;
-  border-radius: 14px;
-  color: #5f5f5f;
-  padding: 10px;
-  margin-bottom: 15px;
-`;
-
-const EndFlex = styled.div`
-  padding: 0px 30px;
-  display: inline;
+  margin: 40px 0px;
 `;
 
 const CircleDiv = styled.div`
   display: flex;
   width: 48px;
   height: 48px;
-  border-radius: 24px;
+  border-radius: 50%;
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: white;
+
 `;
 const Address = styled.div`
   margin-left: 15px;
   text-align: left;
   font-size: 12px;
 `;
+const Detail = styled.div`
+  padding-top: 4px;
+`;
+
 const Title = styled.div`
   box-sizing: border-box;
   height: 35px;
@@ -341,3 +340,30 @@ const Title = styled.div`
   line-height: 26px;
   margin: 40px 0 20px 0;
 `;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 138px;
+  font-size: 14px;
+  line-height: 20px;
+  border:1px  gray;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  color: #5f5f5f;
+  padding: 10px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  background-color:#F9F5C2;
+`;
+
+const AddButton = styled.button`
+  cursor: pointer;
+  width: 164px;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border:1px  gray;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+`;
+
