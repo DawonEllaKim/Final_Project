@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 import { useHistory } from "react-router";
+
 const UserCard = (props) => {
-  const post = props.post
+  const post = props.post;
   const userImage = post.userImage;
   const userName = post.userNickname;
   const userGender = post.userGender;
@@ -39,24 +40,29 @@ const CardWrap = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 350px;
 
-  margin-bottom: 12px;
-  box-shadow: 0px 3px black;
+  width: 100%;
+  height: 152px;
+
+  margin-bottom: 24px;
+
   border-radius: 25px;
-  background-color: #ebebeb;
+  background-color: #fff;
+  color: #747474;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
-  font-size: 16px;
+
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+
   img {
     width: 152px;
     height: 152px;
     border-radius: 25px;
     object-fit: cover;
   }
-  border: 2px solid black;
 `;
 const CardInfo = styled.div`
   width: 192px;

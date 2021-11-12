@@ -10,6 +10,7 @@ const ListCard = ({ post, userId }) => {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.myList);
+  console.log(useSelector((state) => state));
 
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
@@ -17,8 +18,6 @@ const ListCard = ({ post, userId }) => {
 
   return (
     <Wrap>
-      <Title>산책목록</Title>
-
       {/* 해당 페이지 소유자가 등록된 산책이 없다면 삼항연산자로 문구 보여주기 */}
       <CardWrap>
         {postList.length === 0 ? (
@@ -40,8 +39,7 @@ const ListCard = ({ post, userId }) => {
 };
 
 const Wrap = styled.div`
-  width: 350px;
-  border-top: 1px solid #c4c4c4;
+  width: 100%;
 `;
 const Title = styled.div`
   margin: 20px;

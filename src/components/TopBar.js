@@ -69,7 +69,7 @@ const Left = styled.div`
   box-sizing: border-box;
   line-height: 52px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   margin: 36px 0;
   text-align: center;
 `;
@@ -80,7 +80,7 @@ const Both = styled.div`
   box-sizing: border-box;
   line-height: 52px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   margin: 36px 0;
   text-align: center;
 `;

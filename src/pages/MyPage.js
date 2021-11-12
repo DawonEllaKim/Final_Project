@@ -17,8 +17,8 @@ import { actionCreators as signActions } from "../redux/modules/sign";
 
 // 아이콘
 import { FiLogOut } from "react-icons/fi";
-import notification from "../image/Notification.png";
-import backward from "../image/backward.png";
+import redHeart from "../image/redHeart.png";
+import grayHeart from "../image/grayHeart.png";
 import dog from "../image/dog.png";
 import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
@@ -61,21 +61,8 @@ const MyPage = (props) => {
   return (
     <div>
       <Wrap>
-        <TopBar>누구누구님의 페이지</TopBar>
+        <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
         {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-        {/* <Header>
-          <button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </button>
-          <p>{userInfo.userNickname}님의 페이지</p>
-          <button>
-            <img src={notification} style={{ width: "24px", height: "24px" }} />
-          </button>
-        </Header> */}
 
         {/* 유저 정보 */}
         <UserInfo>
@@ -106,6 +93,21 @@ const MyPage = (props) => {
           </UserRight>
         </UserInfo>
 
+        {/* 별점/리뷰 */}
+        <Review>
+          <ReviewLeft>
+            <div>
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={grayHeart} />
+            </div>
+            <p>4.5/5</p>
+          </ReviewLeft>
+          <ReviewRight>리뷰보기</ReviewRight>
+        </Review>
+
         {/* 다른 페이지로 이동 버튼들 */}
         <Buttons>
           <div
@@ -114,7 +116,7 @@ const MyPage = (props) => {
             }}
           >
             <div>
-              <img src={dog} />
+              <img src={dog} style={{ width: "24px", height: "21px" }} />
               <span>개스타그램</span>
             </div>
           </div>
@@ -123,7 +125,7 @@ const MyPage = (props) => {
               setCheck("dog");
             }}
           >
-            <img src={chat} />
+            <img src={chat} style={{ width: "20px", height: "16px" }} />
             <span>등록정보</span>
           </div>
           <div
@@ -131,25 +133,26 @@ const MyPage = (props) => {
               setCheck("list");
             }}
           >
-            <img src={myPage} />
+            <img src={myPage} style={{ width: "16px", height: "20px" }} />
             <span>산책 목록</span>
           </div>
         </Buttons>
-        {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
 
         {/* 상황 마다 바뀔 카드들 */}
-        <div>
+        <Cards>
+          {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
           {check === "dog" && (
             <div>
-              <DogCard post={userInfo} userId={currentPageUserId} />
               <UserCard post={userInfo} userId={currentPageUserId} />
+              <DogCard post={userInfo} userId={currentPageUserId} />
             </div>
           )}
           {check === "list" && (
             <ListCard post={userInfo} userId={currentPageUserId} />
           )}
-        </div>
+        </Cards>
 
+        {/* 고정 버튼 */}
         <NavBar />
       </Wrap>
     </div>
@@ -163,23 +166,6 @@ const Wrap = styled.div`
   align-items: center;
   padding: 0 20px;
 `;
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  height: 52px;
-  margin: 10px auto 18px auto;
-  font-size: 18px;
-
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
 const UserInfo = styled.div`
   position: relative;
 
@@ -191,9 +177,7 @@ const UserInfo = styled.div`
   width: 100%;
   height: 88px;
 
-  margin-bottom: 22px;
-  border-top: 0.25px solid #b9b8b8;
-  border-bottom: 0.25px solid #b9b8b8;
+  margin-bottom: 24px;
 `;
 const UserInfoLeft = styled.div`
   position: relative;
@@ -202,9 +186,7 @@ const UserInfoLeft = styled.div`
   height: 88px;
 
   margin-right: 16px;
-  border: 1px solid black;
 `;
-
 const UserRight = styled.div`
   width: 100%;
   display: flex;
@@ -221,10 +203,11 @@ const UserRight = styled.div`
 const UserImg = styled.img`
   width: 83px;
   height: 83px;
+  padding: 2px;
 
   margin-right: 14.5px;
-  border: 1px solid black;
   border-radius: 50%;
+  object-fit: cover;
 `;
 const Edit = styled.div`
   position: absolute;
@@ -253,9 +236,10 @@ const Buttons = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 297px;
-  height: 51px;
-  margin: 0 auto 11px auto;
+
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
 
   div {
     display: flex;
@@ -269,7 +253,10 @@ const Buttons = styled.div`
     width: 24px;
     height: 24px;
     margin-bottom: 8px;
-    object-fit: cover;
+  }
+
+  span {
+    font-size: 14px;
   }
 `;
 const LogOut = styled.button`
@@ -283,6 +270,52 @@ const LogOut = styled.button`
   cursor: pointer;
 
   color: #5f5f5f;
+`;
+const Review = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 66px;
+  width: 100%;
+  margin-bottom: 22px;
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+`;
+const ReviewLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    color: #5f5f5f;
+  }
+
+  img {
+    width: 20px;
+    height: 18px;
+    margin-right: 2px;
+  }
+
+  p {
+    color: #5f5f5f;
+  }
+`;
+const ReviewRight = styled.div`
+  color: #5f5f5f;
+`;
+const Cards = styled.div`
+  width: 100%;
+  margin: 24px 0 200px 0;
+  padding-top: 24px;
+  border-top: 1px solid #c4c4c4;
 `;
 
 export default MyPage;
