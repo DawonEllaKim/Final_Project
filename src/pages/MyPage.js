@@ -38,26 +38,12 @@ const MyPage = (props) => {
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
+  console.log(useSelector((state) => state));
 
   const currentPageUserId = props.match.params.userId;
-  console.log(currentPageUserId);
-  console.log(props);
 
   const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
-  console.log(pageList);
-
-  console.log(userInfo);
-  console.log(userId);
-
-  // 채팅 방 유저 아이디
-  const room = [currentPageUserId, userId].sort();
-  console.log(room);
-  // 채팅방 주소 만들기
-  const setRoom = room[0] + "-" + room[1];
-  console.log(setRoom);
-
-  const [showChat, setShowChat] = useState(false);
 
   // 로그아웃
   const logout = () => {
@@ -107,45 +93,11 @@ const MyPage = (props) => {
             </div>
 
             {/* 로그아웃 버튼 */}
-            {currentPageUserId === userId ? (
+            {currentPageUserId === userId && (
               <LogOut onClick={logout}>
                 <FiLogOut size="16" />
                 <span>로그아웃</span>
               </LogOut>
-            ) : (
-              <div>
-                <button
-                  onClick={() => {
-                    console.log(
-                      "지금 페이지 유저 ID",
-                      currentPageUserId,
-                      "지금 로그인 유저 ID",
-                      userId
-                    );
-                    // history.push("/chatPageElla");
-                    setChatMode(true);
-                  }}
-                >
-                  {userInfo.userNickname}님에게 쪽지보내기
-                </button>
-                {chatMode === true ? (
-                  <CHAT>
-                    <ChatPageElla
-                      currentPageUserId={currentPageUserId}
-                      userId={userId}
-                    />
-                    <button
-                      onClick={() => {
-                        setChatMode(false);
-                      }}
-                    >
-                      close
-                    </button>
-                  </CHAT>
-                ) : (
-                  ""
-                )}
-              </div>
             )}
           </UserInfo>
 
@@ -183,7 +135,9 @@ const MyPage = (props) => {
           <div>
             {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
             {check === "dog" && <DogCard post={userInfo} />}
-            {check === "list" && <ListCard post={pageList} />}
+            {check === "list" && (
+              <ListCard post={pageList} userId={currentPageUserId} />
+            )}
           </div>
           <NavBar />
         </Wrap>

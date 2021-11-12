@@ -3,36 +3,42 @@ import axios from "axios";
 import { apis } from "../../lib/axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
-import { list1,list2,list3 } from "../../components/MarkerList/RoadList";
-import { hangang,seoul,olympic } from "../../components/MarkerList/ParkList";
-// action
-//메인 페이지 GET 요청
-const GET_MAIN = "GET_MAIN";
+import { list1, list2, list3 } from "../../components/MarkerList/RoadList";
+import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
+
+// 액션
+const GET_MAIN = "GET_MAIN"; // 모든 게시물 조회
+const GET_POST = "GET_POST"; // 특정 게시물 조회
+const GET_MY_POST = "GET_MY_POST"; // 내 게시물 조회
 
 const GET_MAP = "GET_MAP";
 //산책 페이지 GET,POST,FETCH,DELETE
-const GET_POST = "GET_POST";
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
-// action creators
+
+// 액션 생성 함수
 //메인 페이지 GET 요청
 const getMain = createAction(GET_MAIN, (main) => ({ main }));
+const getPost = createAction(GET_POST, (list) => ({ list }));
+const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
+
 const getMap = createAction(GET_MAP, (map) => ({ map }));
 //산책 페이지 GET,POST,FETCH,DELETE
-const getPost = createAction(GET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (list) => ({ list }));
 const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 // initialState
 const initialState = {
-  //메인 요청
   main: [],
-  map: [],
-  //산책 요청
+  myList: [],
   list: [],
+
+  map: [],
+
   is_loading: true,
 };
 
@@ -78,7 +84,6 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-    
         localStorage.setItem("date", res.data.posts[0].meetingDate);
         localStorage.setItem("dogCount", res.data.posts[0].dogCount);
         const initialDate = res.data.posts[0].meetingDate.split("T")[0];
@@ -89,27 +94,39 @@ const getPostMD = (postId) => {
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];
         res.data.posts[0].meetingDate =
-          year + "년 " + month + "월 " + day + "일 "+
-        hour +
-        "시 " +
-        minute +
-        "분";
-         
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 " +
+          hour +
+          "시 " +
+          minute +
+          "분";
 
-        if(res.data.posts[0].routeName=="산책로A"&&res.data.posts[0].locationCategory=="올림픽공원")
+        if (
+          res.data.posts[0].routeName == "산책로A" &&
+          res.data.posts[0].locationCategory == "올림픽공원"
+        )
           res.data.posts[0].walk = list1;
-        if(res.data.posts[0].routeName=="산책로B"&&res.data.posts[0].locationCategory=="올림픽공원")
+        if (
+          res.data.posts[0].routeName == "산책로B" &&
+          res.data.posts[0].locationCategory == "올림픽공원"
+        )
           res.data.posts[0].walk = list2;
-        if(res.data.posts[0].routeName=="산책로C"&&res.data.posts[0].locationCategory=="올림픽공원")
+        if (
+          res.data.posts[0].routeName == "산책로C" &&
+          res.data.posts[0].locationCategory == "올림픽공원"
+        )
           res.data.posts[0].walk = list3;
-        
 
-        if(res.data.posts[0].locationCategory=="올림픽공원")
+        if (res.data.posts[0].locationCategory == "올림픽공원")
           res.data.posts[0].start = olympic;
-        if(res.data.posts[0].locationCategory=="서울숲")
-         res.data.posts[0].start = seoul;
-         if(res.data.posts[0].locationCategory=="반포한강공원")
-         res.data.posts[0].start= hangang[0]
+        if (res.data.posts[0].locationCategory == "서울숲")
+          res.data.posts[0].start = seoul;
+        if (res.data.posts[0].locationCategory == "반포한강공원")
+          res.data.posts[0].start = hangang[0];
         const postList = res.data.posts[0];
         console.log(res.data);
         dispatch(getPost(postList));
@@ -119,6 +136,30 @@ const getPostMD = (postId) => {
       .catch((err) => {
         console.log(err);
         console.log("정보 불러오기 실패");
+      });
+  };
+};
+
+const getMyPostMD = (userId) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/mypage/myPost/${userId}`,
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getMyPost(postList));
+        console.log("정보 불러오기 완료", postList);
+      })
+      .catch((err) => {
+        console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -231,13 +272,17 @@ export default handleActions(
       produce(state, (draft) => {
         draft.main = action.payload.main;
       }),
-    [GET_MAP]: (state, action) =>
+    [GET_MY_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.map = action.payload.map;
+        draft.myList = action.payload.myList;
       }),
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.list;
+      }),
+    [GET_MAP]: (state, action) =>
+      produce(state, (draft) => {
+        draft.map = action.payload.map;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -265,12 +310,14 @@ export default handleActions(
 const actionCreators = {
   getMain,
   getPost,
+  getMyPost,
   addPost,
   updatePost,
   deletePost,
 
   getMainMD,
   getPostMD,
+  getMyPostMD,
   addPostMD,
   deletePostMD,
   updatePostMD,
