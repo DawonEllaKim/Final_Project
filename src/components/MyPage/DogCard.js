@@ -10,39 +10,40 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 
-const DogCard = ({ post }) => {
+const DogCard = ({ dogInfo, currentPageUserId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userActions.getMypageMD());
-  }, []);
+  console.log(dogInfo);
+  // useEffect(() => {
+  //   dispatch(userActions.getMypageMD(currentPageUserId));
+  // }, []);
 
   return (
     <Wrap>
       <Title>반려견 정보</Title>
-      <CardWrap
-        onClick={() => {
-          history.push("/dogProfile");
-        }}
-      >
-        {/* 카드 왼쪽 - 이미지 */}
-        {/* <img src={post.dog_image} /> */}
+      {/* <CardWrap
+      // onClick={() => {
+      //   history.push("/dogProfile");
+      // }}
+      > */}
+      {/* 카드 왼쪽 - 이미지 */}
+      {/* <img src={dogInfo.dogImage} /> */}
 
-        {/* 카드 오른쪽 - 약속 정보*/}
-        {/* <CardInfo>
-          <CardCenter>
-            {post.dog_name}/{post.dog_breed}
-          </CardCenter>
-          <CardCenter>
-            {post.dog_gender === "남" ? <BsGenderMale /> : <BsGenderFemale />}/
-            {post.dog_age}
-          </CardCenter>
-          <CardCenter>
-            중성화여부/{post.neutral == true ? "유" : "무"}
-          </CardCenter>
-        </CardInfo> */}
-      </CardWrap>
+      {/* 카드 오른쪽 - 약속 정보*/}
+      <CardInfo>
+        {/* <CardCenter>
+          {dogInfo.dogName}/{dogInfo.dogBreed}
+        </CardCenter>
+        <CardCenter>
+          {dogInfo.dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}/
+          {dogInfo.dogAge}
+        </CardCenter>
+        <CardCenter>
+          중성화여부/{dogInfo.neutral == true ? "유" : "무"}
+        </CardCenter> */}
+      </CardInfo>
+      {/* </CardWrap> */}
     </Wrap>
   );
 };

@@ -56,15 +56,17 @@ function App() {
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
+
         <Route exact path="/mypage/:userId" component={MyPage} />
+        <Route exact path="/dogProfile" component={DogProfile} />
+        <Route exact path="/userProfile" component={UserProfile} />
+        <Route exact path="/myProfile" component={MyProfile} />
+
         <Route exact path="/map2" component={Map2} />
         <Route exact path="/write" component={Write} />
         <Route exact path="/write/:id" component={Write} />
         <Route exact path="/posts/:id" component={Detail} />
         <Route exact path="/postEdit/:id" component={PostEdit} />
-        <Route exact path="/dogProfile" component={DogProfile} />
-        <Route exact path="/userProfile" component={UserProfile} />
-        <Route exact path="/myProfile" component={MyProfile} />
         <Route exact path="/calendar" component={Calendar} />
         <Route exact path="/addRecord" component={AddRecord} />
         <Route exact path="/addDetail" component={AddDetail} />
@@ -77,6 +79,7 @@ function App() {
           path="/editMapContainer3/:id"
           component={EditMapContainer3}
         />
+
         <Route exact path="/kakaosignup" component={KakaoSignUp} />
         <Route
           exact

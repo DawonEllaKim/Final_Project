@@ -38,7 +38,18 @@ const MyPage = (props) => {
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
-  console.log(useSelector((state) => state));
+
+  const dogInfo = {
+    _dogAge: userInfo.dogAge,
+    _dogBreed: userInfo.dogBreed,
+    _dogComment: userInfo.dogComment,
+    _dogGender: userInfo.dogGender,
+    _dogId: userInfo.dogId,
+    _dogImage: userInfo.dogImage,
+    _dogName: userInfo.dogName,
+    _dogSize: userInfo.dogSize,
+    _neutral: userInfo.neutral,
+  };
 
   const currentPageUserId = props.match.params.userId;
 
@@ -134,7 +145,9 @@ const MyPage = (props) => {
           {/* 상황 마다 바뀔 카드들 */}
           <div>
             {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
-            {check === "dog" && <DogCard post={userInfo} />}
+            {check === "dog" && (
+              <DogCard dogInfo={dogInfo} userId={currentPageUserId} />
+            )}
             {check === "list" && (
               <ListCard post={pageList} userId={currentPageUserId} />
             )}
@@ -155,15 +168,6 @@ const MyPage = (props) => {
     </div>
   );
 };
-
-const CHAT = styled.div`
-  width: 80vw;
-  height: 80vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: white;
-`;
 
 const LoginImg = styled.div`
   position: relative;
