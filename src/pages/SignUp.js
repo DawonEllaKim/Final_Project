@@ -12,20 +12,21 @@ import { emailCheck, passwordCheck } from "../shared/check";
 import Button from "../elements/Button";
 import backward from "../image/backward.png";
 
+// 유저 이미지 기본값
+import defaultUser from "../image/default_user.jpg";
+
 const SignUp = () => {
   const dispatch = useDispatch();
-  const [imgBase64, setImgBase64] = useState(
-    "https://cdn.dribbble.com/users/304574/screenshots/6222816/male-user-placeholder.png"
-  ); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(defaultUser ? defaultUser : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
 
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm_password, setConfirmPassword] = useState("");
-  const [user_nickname, setUserNickname] = useState("");
-  const [user_location, setUserLocation] = useState("");
-  const [user_gender, setUserGender] = useState("");
-  const [user_age, setUserAge] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [userLocation, setUserLocation] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [userAge, setUserAge] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -49,6 +50,7 @@ const SignUp = () => {
     console.log(newTitle);
     setUserEmail(newTitle);
   };
+
   const passwordChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
@@ -98,7 +100,7 @@ const SignUp = () => {
       return;
     }
 
-    if (password !== confirm_password) {
+    if (password !== confirmPassword) {
       window.alert("비밀번호가 일치하지 않습니다.");
       return;
     }
@@ -106,11 +108,11 @@ const SignUp = () => {
     if (
       userEmail === "" ||
       password === "" ||
-      confirm_password === "" ||
-      user_nickname === "" ||
-      user_location === "" ||
-      user_gender === "" ||
-      user_age === ""
+      confirmPassword === "" ||
+      userNickname === "" ||
+      userLocation === "" ||
+      userGender === "" ||
+      userAge === ""
     ) {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
@@ -119,11 +121,11 @@ const SignUp = () => {
     const formData = new FormData();
     formData.append("userEmail", userEmail);
     formData.append("password", password);
-    formData.append("confirmPassword", confirm_password);
-    formData.append("userNickname", user_nickname);
-    formData.append("userLocation", user_location);
-    formData.append("userGender", user_gender);
-    formData.append("userAge", user_age);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("userNickname", userNickname);
+    formData.append("userLocation", userLocation);
+    formData.append("userGender", userGender);
+    formData.append("userAge", userAge);
     formData.append("userImage", imgFile);
 
     toast.success("회원 정보 등록이 완료되었습니다!", {
@@ -142,7 +144,7 @@ const SignUp = () => {
         <Header>
           <Button
             onClick={() => {
-              history.goBack();
+              history.push("/");
             }}
           >
             <img src={backward} style={{ width: "10px", height: "18px" }} />
@@ -203,7 +205,7 @@ const SignUp = () => {
 
         <Input>
           <InputText
-            placeholder="거주지 입력"
+            placeholder="거주지 입력 (시/구/동 까지)"
             onChange={userLocationChangeHandler}
           />
         </Input>
@@ -217,7 +219,7 @@ const SignUp = () => {
                   type="radio"
                   id="b"
                   value="남"
-                  checked={user_gender === "남"}
+                  checked={userGender === "남"}
                   onClick={() => userGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -229,7 +231,7 @@ const SignUp = () => {
                   type="radio"
                   id="g"
                   value="여"
-                  checked={user_gender === "여"}
+                  checked={userGender === "여"}
                   onClick={() => userGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -246,7 +248,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="10"
-                  checked={user_age === "10대"}
+                  checked={userAge === "10대"}
                   onClick={() => userAgeChangeHandler("10대")}
                 />
               </RadioWrap>
@@ -258,7 +260,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="20"
-                  checked={user_age === "20대"}
+                  checked={userAge === "20대"}
                   onClick={() => userAgeChangeHandler("20대")}
                 />
               </RadioWrap>
@@ -270,7 +272,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="30"
-                  checked={user_age === "30대"}
+                  checked={userAge === "30대"}
                   onClick={() => userAgeChangeHandler("30대")}
                 />
               </RadioWrap>
@@ -282,7 +284,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="40"
-                  checked={user_age === "40대 이상"}
+                  checked={userAge === "40대 이상"}
                   onClick={() => userAgeChangeHandler("40대 이상")}
                 />
               </RadioWrap>
@@ -293,7 +295,7 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>회원가입</button>
+          <button onClick={submitUserInfo}>회원 정보 등록</button>
           <button
             onClick={() => {
               history.goBack();
