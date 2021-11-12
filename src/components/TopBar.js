@@ -7,13 +7,9 @@ import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 
 const TopBar = (props) => {
-  const { text, children, margin, width, padding, only_left } = props;
+  const { text, children, padding, only_left } = props;
 
-  const styles = {
-    padding,
-    margin,
-    width,
-  };
+  const styles = { padding };
 
   if (only_left) {
     return (
@@ -25,7 +21,7 @@ const TopBar = (props) => {
             }}
             position="absolute"
             top="0"
-            left="20px"
+            left="0"
           >
             <img src={backward} style={{ width: "10px", height: "18px" }} />
           </Button>
@@ -43,12 +39,12 @@ const TopBar = (props) => {
           }}
           position="absolute"
           top="0"
-          left="20px"
+          left="0"
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />
         </Button>
         {text ? text : children}
-        <Button position="absolute" top="0" right="20px">
+        <Button position="absolute" top="0" right="0">
           <img src={notification} style={{ width: "24px", height: "24px" }} />
         </Button>
       </Both>
@@ -64,25 +60,28 @@ TopBar.defaultProps = {
 
 const Left = styled.div`
   position: relative;
-  width: 390px;
+  width: 100%;
   height: 52px;
   box-sizing: border-box;
   line-height: 52px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   margin: 36px 0;
   text-align: center;
+  padding: ${(props) => props.padding};
+
 `;
 const Both = styled.div`
   position: relative;
-  width: 390px;
+  width: 100%;
   height: 52px;
   box-sizing: border-box;
   line-height: 52px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   margin: 36px 0;
   text-align: center;
+  padding: ${(props) => props.padding};
 `;
 
 export default TopBar;
