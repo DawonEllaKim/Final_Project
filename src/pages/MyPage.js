@@ -31,6 +31,9 @@ import { current } from "immer";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userActions.getMypageMD(currentPageUserId));
+  }, []);
   const history = useHistory();
 
   const [check, setCheck] = useState("sta");
@@ -38,7 +41,8 @@ const MyPage = (props) => {
 
   const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
-
+  console.log(userInfo)
+  console.log(pageList)
   const dogInfo = {
     _dogAge: userInfo.dogAge,
     _dogBreed: userInfo.dogBreed,
@@ -66,9 +70,7 @@ const MyPage = (props) => {
     }
   };
 
-  useEffect(() => {
-    dispatch(userActions.getMypageMD(currentPageUserId));
-  }, []);
+ 
 
   return (
     <div>

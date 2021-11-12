@@ -37,7 +37,7 @@ const getMypageMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/mypage/myInfo/${userId}`,
+      url: `http://13.209.70.209/mypage//${userId}`,
       data: {},
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -48,9 +48,9 @@ const getMypageMD = (userId) => {
     })
       .then((res) => {
         const userInfo = res.data.posts[0];
-
+        const data = res.data
         dispatch(getList(userInfo));
-        dispatch(getMypage(userInfo));
+        dispatch(getMypage(data));
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);

@@ -5,15 +5,15 @@ import styled from "styled-components";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
 import { useHistory } from "react-router";
-const DogCard = ({ post }) => {
-  const dogImage = post.dog_image;
-  const dogName = post.dog_name;
-  const dogGender = post.dog_gender;
-  const dogAge = post.dog_age;
-  const dogComment = post.dog_comment;
-  const initialMeetingDate = post.meeting_date;
-  const dogBreed = post.dog_breed;
-  const neutral = post.neutral;
+const DogCard = (props) => {
+  const dogImage = props.dogInfo._dogImage;
+  const dogName = props.dogInfo._dogName;
+  const dogGender = props.dogInfo._dogGender;
+  const dogAge = props.dogInfo._dogAge;
+  const dogComment = post._dogComment;
+  const initialMeetingDate = post._meetingDate;
+  const dogBreed = props.dogInfo._dogBreed;
+  const neutral = props.dogInfo._neutral;
   const history = useHistory();
   return (
     <CardWrap

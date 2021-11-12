@@ -18,6 +18,8 @@ import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 import search from "../image/search.png";
 import map from "../image/map.png";
+import detailAddress from "../image/detailAddress.png"
+import address from "../image/detailFilter.png"
 import { distance1 } from "../components/MarkerList/DistanceList";
 import { styles } from "@mui/styles";
 const Map2 = (props) => {
@@ -80,10 +82,10 @@ const Map2 = (props) => {
             <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
           </WalkButton>
         </SearchWrap>
-
+{markerName.locationCategory &&<div>
         <AdressWrap>
           <CircleDiv>
-            <img src={map} />
+            <img src={detailAddress} />
           </CircleDiv>
           <Address>
             상세 주소
@@ -91,7 +93,19 @@ const Map2 = (props) => {
             <Detail>{markerName.routeName}</Detail>
           </Address>
         </AdressWrap>
-
+       
+        <AdressWrap>
+          <CircleDiv>
+            <img src={address} />
+          </CircleDiv>
+          <Address>
+            상세 주소
+            <Detail>{markerName.locationCategory}</Detail>
+            <Detail>{markerName.routeName}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
+}
         <Title>산책 일시</Title>
         <DatePicker
           selected={startDate}
@@ -112,7 +126,7 @@ const Map2 = (props) => {
           label="마리 수"
           onChange={handleChange}
         >
-          <MenuItem value={2}>2마리</MenuItem>
+          <CustomMenuItem value={2}>2마리</CustomMenuItem>
           <MenuItem value={3}>3마리</MenuItem>
           <MenuItem value={4}>4마리</MenuItem>
           <MenuItem value={5}>5마리</MenuItem>
@@ -134,26 +148,29 @@ export default Map2;
 const CustomSelect =styled(Select)
 `
 border: 2px solid black;
-  border-radius: 14px;
+  border-radius: 100px;
   display:flex;
-  align-items: center;
-  text-align:center;
+
+
 `
 const CustomInputLabel = styled(InputLabel)
 `
-display:flex;
-align-items: center;
+
 `;
 const CustomFormControl = styled(FormControl)
 `
 
+`
+const CustomMenuItem = styled(MenuItem)
+`
+border-radius:20px;
 `
 const CustomBox = styled(Box)
 `
 
 `
 const Frame = styled.div`
-  max-width: 390px;
+  width: 390px;
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
@@ -163,7 +180,7 @@ const Frame = styled.div`
 `;
 
 const InputArea = styled.div`
-  padding: 40px 20px;
+  padding: 40px 0px;
   box-sizing: border-box;
   
 `;
@@ -209,7 +226,7 @@ const AdressWrap = styled.div`
   text-align: center;
   justify-content: flex-start;
   color: #000000;
-  margin-bottom: 10px;
+  margin: 30px 0px;
 `;
 
 const CircleDiv = styled.div`
