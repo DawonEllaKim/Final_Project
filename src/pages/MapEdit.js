@@ -20,15 +20,16 @@ const MapEdit = (props) => {
   const post = useSelector((state) => state.post.list);
   const count = post.dogCount
   const wish = post.wishDesc
-  
+  const moment = require('moment');
+
   // const meetingdate = useSelector((state) => state.post.list);
   // console.log(meetingdate)
   const newDate = localStorage.getItem("date")
   const newCount = localStorage.getItem("dogCount")
   console.log(newDate)
 
-  const [startDate, setStartDate] = useState(new Date(newDate)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
-
+  const [startDate, setStartDate] = useState(new Date(moment(newDate).subtract(9,'h')._d)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
+  console.log(new Date(startDate))
   const [wishDesc, setWishDesc] = useState(); //desc설명
   const [dogCount, setDogCount] = useState(newCount);
  
@@ -43,6 +44,7 @@ const MapEdit = (props) => {
   const locationCategory =post.locationCategory
   const routeName = post.routeName
   console.log(post);
+  
 
 
 
@@ -99,9 +101,10 @@ const MapEdit = (props) => {
   };
   //지도 표시할 div
   console.log(post.mapedit_date);
-  console.log(startDate);
+  console.log(moment(startDate).subtract(9,'hours')._d);
   
   const editLocation = () => {
+
     const Info = {
       
      totalDistance: editTotalDistance,
@@ -112,7 +115,7 @@ const MapEdit = (props) => {
      endLocationAddress: editEndLocationAddress,
       locationCategory: editLocationCategory,
       wishDesc: wishDesc,
-      meetingDate: startDate,
+      meetingDate: moment(startDate).add(9,'h')._d,
       completed: false,
       dogCount: dogCount,
     };
@@ -163,13 +166,13 @@ const MapEdit = (props) => {
           />
         </Flex>
         <Title>
-        <Box sx={{ minWidth: 120}}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
-        <Select
+        <CustomBox sx={{ minWidth: 120}}>
+      <CustomFormControl fullWidth>
+        <CustomInputLabel id="demo-simple-select-label">마리 수</CustomInputLabel>
+        <CustomSelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          defaultValue={dogCount}
+          value={dogCount}
           label="마리 수"
           onChange={handleChange}
         >
@@ -178,9 +181,9 @@ const MapEdit = (props) => {
           <MenuItem value={4}>4마리</MenuItem>
           <MenuItem value={5}>5마리</MenuItem>
           <MenuItem value={6}>6마리</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+        </CustomSelect>
+      </CustomFormControl>
+    </CustomBox>
     </Title>
         <Text>소개/유의사항</Text>
         <Flex>
@@ -195,6 +198,27 @@ const MapEdit = (props) => {
 };
 
 export default MapEdit;
+const CustomSelect =styled(Select)
+`
+border: 2px solid black;
+  border-radius: 14px;
+  display:flex;
+  align-items: center;
+  text-align:center;
+`
+const CustomInputLabel = styled(InputLabel)
+`
+display:flex;
+align-items: center;
+`;
+const CustomFormControl = styled(FormControl)
+`
+
+`
+const CustomBox = styled(Box)
+`
+
+`
 const Frame = styled.div`
   max-width: 390px;
   margin: 0 auto;

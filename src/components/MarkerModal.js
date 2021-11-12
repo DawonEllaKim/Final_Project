@@ -22,10 +22,12 @@ const MarkerModal = (props) => {
           routeName: distance.name,
           cooridnate: walk,
         }
+        console.log(marker)
         dispatch(markerActions.addMarkerAX(marker))
+        
         props.close()
     }
-    console.log(props.latitude,props.longitude,props.placename)
+  
     return (
         
             <React.Fragment>

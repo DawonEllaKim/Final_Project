@@ -19,7 +19,7 @@ import notification from "../image/Notification.png";
 import search from "../image/search.png";
 import map from "../image/map.png";
 import { distance1 } from "../components/MarkerList/DistanceList";
-
+import { styles } from "@mui/styles";
 const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Map2 = (props) => {
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
-
+  const moment = require('moment');
   
   console.log(startDate);
   console.log(markerName);
@@ -47,7 +47,7 @@ const Map2 = (props) => {
       locationCategory: markerName.locationCategory,     
       wishDesc: wishDesc,  
       dogCount: dogCount,
-      meetingDate: startDate,
+      meetingDate:moment(startDate).add(9,'h')._d,
 
     };
     console.log(Info)
@@ -102,10 +102,10 @@ const Map2 = (props) => {
           inline
         />
          <Title>
-        <Box sx={{ minWidth: 120}}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
-        <Select
+        <CustomBox sx={{ minWidth: 120}}>
+      <CustomFormControl fullWidth>
+        <CustomInputLabel id="demo-simple-select-label">마리 수</CustomInputLabel>
+        <CustomSelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={dogCount}
@@ -117,12 +117,12 @@ const Map2 = (props) => {
           <MenuItem value={4}>4마리</MenuItem>
           <MenuItem value={5}>5마리</MenuItem>
           <MenuItem value={6}>6마리</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+        </CustomSelect>
+      </CustomFormControl>
+    </CustomBox>
     </Title>
         <Title>소개/유의사항</Title>
-        <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
+        <TextArea placeholder="산책에 관한 글을 작성해주세요~" onChange={(e) => setWishDesc(e.target.value)}></TextArea>
         <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
       <NavBar />
@@ -131,7 +131,27 @@ const Map2 = (props) => {
 };
 
 export default Map2;
+const CustomSelect =styled(Select)
+`
+border: 2px solid black;
+  border-radius: 14px;
+  display:flex;
+  align-items: center;
+  text-align:center;
+`
+const CustomInputLabel = styled(InputLabel)
+`
+display:flex;
+align-items: center;
+`;
+const CustomFormControl = styled(FormControl)
+`
 
+`
+const CustomBox = styled(Box)
+`
+
+`
 const Frame = styled.div`
   max-width: 390px;
   margin: 0 auto;

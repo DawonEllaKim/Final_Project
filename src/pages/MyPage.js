@@ -19,7 +19,7 @@ import { FiLogOut } from "react-icons/fi";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 import dog from "../image/dog.png";
-import myPage from "../image/myPage.png";
+import myPage from "../image/mypage.png";
 import chat from "../image/chat.png";
 
 // 로그인 이미지
