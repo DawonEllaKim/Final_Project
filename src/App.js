@@ -104,7 +104,7 @@ function App() {
         <Route exact path="/myProfile" component={MyProfile} />
 
         {/* 개스타그램 */}
-        <Route exact p ath="/dogstagram" component={DogStaGram} />
+        <Route exact path="/dogstagram" component={DogStaGram} />
         <Route
           exact
           path="/dogstadetail/:userId/:dogPostId"

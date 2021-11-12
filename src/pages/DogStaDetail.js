@@ -1,5 +1,3 @@
-// 유저 정보 받아오기
-
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
@@ -20,21 +18,29 @@ const DogStaDetail = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postId = props.match.params.id;
+  const postId = props.match.params.dogPostId;
+  const currentPostUserId = props.match.params.userId;
+  console.log(
+    "포스트 아이디",
+    postId,
+    "현재 게시물 유저 아이디",
+    currentPostUserId
+  );
 
   const post = useSelector((state) => state.dogsta.eachList);
-  const userId = localStorage.getItem("userId");
+  console.log("현재 포스트의 정보", post);
 
-  const userInfo = useSelector((state) => state.user.list);
+  // const userId = localStorage.getItem("userId");
+  // const userInfo = useSelector((state) => state.user.list);
+
+  useEffect(() => {
+    // dispatch(userActions.getMypageMD(userId));
+    dispatch(postActions.getPostMD(currentPostUserId, postId));
+  }, [currentPostUserId, postId]);
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
-
-  useEffect(() => {
-    dispatch(userActions.getMypageMD(userId));
-    dispatch(postActions.getPostMD(userId, postId));
-  }, [userId, postId]);
 
   return (
     <Wrap>
@@ -42,12 +48,12 @@ const DogStaDetail = (props) => {
       <Header>
         <button
           onClick={() => {
-            history.push(`/mypage/${userId}`);
+            history.goBack();
           }}
         >
           <img src={backward} style={{ width: "10px", height: "18px" }} />
         </button>
-        <p>{userInfo.userNickname}님의 페이지</p>
+        <p>{post.userNickname}님의 페이지</p>
         <button>
           <img src={notification} style={{ width: "24px", height: "24px" }} />
         </button>
@@ -55,10 +61,10 @@ const DogStaDetail = (props) => {
 
       {/* 유저 정보 */}
       <UserInfo>
-        <img src={userInfo.userImage} />
+        <img src={post.userImage} />
         <div>
-          <span>{userInfo.userNickname}</span>
-          <span>{userInfo.userLocation}</span>
+          <span>{post.userNickname}</span>
+          <span>{post.userLocation}</span>
         </div>
       </UserInfo>
 
