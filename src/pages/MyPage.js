@@ -22,6 +22,7 @@ import backward from "../image/backward.png";
 import dog from "../image/dog.png";
 import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
+import edit from "../image/edit.png";
 
 // 로그인 이미지
 import logo from "../image/loginLogo.png";
@@ -30,22 +31,14 @@ import loginText from "../image/loginText.png";
 import ChatPageElla from "./ChatPageElla";
 import { current } from "immer";
 
-import TopHead from "../elements/TopHead";
-
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [check, setCheck] = useState();
-  const [chatMode, setChatMode] = useState(false);
 
   const userInfo = useSelector((state) => state.user.list);
-  console.log(userInfo);
-
   const currentPageUserId = props.match.params.userId;
-  // console.log(currentPageUserId, dogInfo);
-  console.log(currentPageUserId);
-  const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
 
   // 로그아웃
@@ -65,32 +58,34 @@ const MyPage = (props) => {
 
   return (
     <div>
-      <TopHead></TopHead>
-      {is_login ? (
-        <Wrap>
-          {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-          <Header>
-            <button
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              <img src={backward} style={{ width: "10px", height: "18px" }} />
-            </button>
-            <p>{userInfo.userNickname}님의 페이지</p>
-            <button>
-              <img
-                src={notification}
-                style={{ width: "24px", height: "24px" }}
-              />
-            </button>
-          </Header>
+      <Wrap>
+        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+        <Header>
+          <button
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <img src={backward} style={{ width: "10px", height: "18px" }} />
+          </button>
+          <p>{userInfo.userNickname}님의 페이지</p>
+          <button>
+            <img src={notification} style={{ width: "24px", height: "24px" }} />
+          </button>
+        </Header>
 
-          {/* 유저 정보 */}
-          <UserInfo>
+        {/* 유저 정보 */}
+        <UserInfo>
+          <UserInfoLeft>
             {/* 유저 사진 */}
-            <img src={userInfo.userImage} />
+            <UserImg src={userInfo.userImage} />
+            {/* 편집모드 */}
+            <Edit>
+              <img src={edit} />
+            </Edit>
+          </UserInfoLeft>
 
+          <UserRight>
             {/* 유저 닉네임 + 유저 주소 */}
             <div>
               <span>{userInfo.userNickname}</span>
@@ -104,107 +99,65 @@ const MyPage = (props) => {
                 <span>로그아웃</span>
               </LogOut>
             )}
-          </UserInfo>
+          </UserRight>
+        </UserInfo>
 
-          {/* 다른 페이지로 이동 버튼들 */}
-          <Buttons>
-            <div
-              onClick={() => {
-                setCheck("sta");
-              }}
-            >
-              <div>
-                <img src={dog} />
-                <span>개스타그램</span>
-              </div>
+        {/* 다른 페이지로 이동 버튼들 */}
+        <Buttons>
+          <div
+            onClick={() => {
+              setCheck("sta");
+            }}
+          >
+            <div>
+              <img src={dog} />
+              <span>개스타그램</span>
             </div>
-            <div
-              onClick={() => {
-                setCheck("dog");
-              }}
-            >
-              <img src={chat} />
-              <span>등록정보</span>
-            </div>
-            <div
-              onClick={() => {
-                setCheck("list");
-              }}
-            >
-              <img src={myPage} />
-              <span>산책 목록</span>
-            </div>
-          </Buttons>
-          {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
-
-          {/* 상황 마다 바뀔 카드들 */}
-          <div>
-            {check === "dog" && (
-              <div>
-                <DogCard post={userInfo} userId={currentPageUserId} />
-                <UserCard post={userInfo} userId={currentPageUserId} />
-              </div>
-            )}
-            {check === "list" && (
-              <ListCard post={userInfo} userId={currentPageUserId} />
-            )}
           </div>
-
-          <NavBar />
-        </Wrap>
-      ) : (
-        <Wrap>
-          <div onClick={() => history.push("/login")}>
-            <LoginImg>
-              <Logo src={logo} />
-              <Login src={login} />
-              <LoginText src={loginText} />
-            </LoginImg>
+          <div
+            onClick={() => {
+              setCheck("dog");
+            }}
+          >
+            <img src={chat} />
+            <span>등록정보</span>
           </div>
-        </Wrap>
-      )}
+          <div
+            onClick={() => {
+              setCheck("list");
+            }}
+          >
+            <img src={myPage} />
+            <span>산책 목록</span>
+          </div>
+        </Buttons>
+        {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
+
+        {/* 상황 마다 바뀔 카드들 */}
+        <div>
+          {check === "dog" && (
+            <div>
+              <DogCard post={userInfo} userId={currentPageUserId} />
+              <UserCard post={userInfo} userId={currentPageUserId} />
+            </div>
+          )}
+          {check === "list" && (
+            <ListCard post={userInfo} userId={currentPageUserId} />
+          )}
+        </div>
+
+        <NavBar />
+      </Wrap>
     </div>
   );
 };
 
-const LoginImg = styled.div`
-  position: relative;
-  width: 350px;
-  height: 220px;
-  border-radius: 25px;
-  cursor: pointer;
-  object-fit: cover;
-`;
-const Logo = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-const Login = styled.img`
-  position: absolute;
-  top: 58.5%;
-  left: 33%;
-  z-index: 3;
-`;
-const LoginText = styled.img`
-  position: absolute;
-  top: 68%;
-  left: 50%;
-  transform: translateX(-50%);
-`;
 const Wrap = styled.div`
-  box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  max-width: 390px;
-  margin: auto;
-
-  font-size: 14px;
+  padding: 0 20px;
 `;
 const Header = styled.div`
   display: flex;
@@ -212,7 +165,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 350px;
+  width: 100%;
   height: 52px;
   margin: 10px auto 18px auto;
   font-size: 18px;
@@ -224,37 +177,71 @@ const Header = styled.div`
   }
 `;
 const UserInfo = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
 
-  width: 350px;
-  height: 108px;
+  width: 100%;
+  height: 88px;
+
   margin-bottom: 22px;
   border-top: 0.25px solid #b9b8b8;
   border-bottom: 0.25px solid #b9b8b8;
+`;
+const UserInfoLeft = styled.div`
+  position: relative;
 
-  img {
-    width: 80px;
-    height: 80px;
-    margin-right: 14.5px;
-    border: 1px solid black;
-    border-radius: 50%;
-  }
+  width: 91px;
+  height: 88px;
 
+  margin-right: 16px;
+  border: 1px solid black;
+`;
+
+const UserRight = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    margin-right: 60px;
+    align-items: center;
   }
+`;
+const UserImg = styled.img`
+  width: 83px;
+  height: 83px;
 
-  span {
-    margin-bottom: 7px;
-    font-size: 16px;
-    color: #5f5f5f;
+  margin-right: 14.5px;
+  border: 1px solid black;
+  border-radius: 50%;
+`;
+const Edit = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: #fff;
+
+  img {
+    width: 22px;
+    height: 22px;
   }
 `;
 const Buttons = styled.div`
