@@ -204,9 +204,7 @@ const Write = styled.div`
   img {
     width: 100%;
     height: 250px;
-<<<<<<< HEAD
     object-fit: cover;
-=======
     border: 1px solid #ebebeb;
   }
 
@@ -216,7 +214,6 @@ const Write = styled.div`
     margin: 20px 0;
     border-radius: 4px;
     cursor:pointer;
->>>>>>> fix
   }
 
   input {

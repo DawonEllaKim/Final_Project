@@ -31,6 +31,8 @@ import loginText from "../image/loginText.png";
 import ChatPageElla from "./ChatPageElla";
 import { current } from "immer";
 
+import TopBar from "../components/TopBar";
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -59,8 +61,9 @@ const MyPage = (props) => {
   return (
     <div>
       <Wrap>
+        <TopBar>누구누구님의 페이지</TopBar>
         {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-        <Header>
+        {/* <Header>
           <button
             onClick={() => {
               history.goBack();
@@ -72,7 +75,7 @@ const MyPage = (props) => {
           <button>
             <img src={notification} style={{ width: "24px", height: "24px" }} />
           </button>
-        </Header>
+        </Header> */}
 
         {/* 유저 정보 */}
         <UserInfo>
