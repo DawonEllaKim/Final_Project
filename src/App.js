@@ -47,6 +47,8 @@ import DogStaDetail from "./pages/DogStaDetail";
 import DogStaEdit from "./components/MyPage/DogStaEdit";
 import DogStaGram from "./pages/DogStaGram";
 
+import GlobalStyle from "./GlobalStyle";
+
 // 진행중
 // import Calendar from "./pages/Calendar";
 // import Message from "./pages/Message";
@@ -61,6 +63,8 @@ import DogStaGram from "./pages/DogStaGram";
 function App() {
   return (
     <div className="App">
+      <GlobalStyle />
+
       <ConnectedRouter history={history}>
         {/* 로그인/회원가입 */}
         <Route exact path="/logIn" component={LogIn} />

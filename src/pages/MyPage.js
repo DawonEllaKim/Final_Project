@@ -20,7 +20,7 @@ import { FiLogOut } from "react-icons/fi";
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 import dog from "../image/dog.png";
-import myPage from "../image/mypage.png";
+import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
 
 // 로그인 이미지
@@ -30,6 +30,8 @@ import loginText from "../image/loginText.png";
 import ChatPageElla from "./ChatPageElla";
 import { current } from "immer";
 
+import TopHead from "../elements/TopHead";
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -37,14 +39,12 @@ const MyPage = (props) => {
   const [check, setCheck] = useState();
   const [chatMode, setChatMode] = useState(false);
 
-
   const userInfo = useSelector((state) => state.user.list);
-   console.log(userInfo)
- 
+  console.log(userInfo);
 
   const currentPageUserId = props.match.params.userId;
   // console.log(currentPageUserId, dogInfo);
-  console.log(currentPageUserId)
+  console.log(currentPageUserId);
   const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
 
@@ -60,11 +60,12 @@ const MyPage = (props) => {
 
   useEffect(() => {
     dispatch(userActions.getMypageMD(currentPageUserId));
-    setCheck("sta")
+    setCheck("sta");
   }, []);
 
   return (
     <div>
+      <TopHead></TopHead>
       {is_login ? (
         <Wrap>
           {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
@@ -122,7 +123,7 @@ const MyPage = (props) => {
                 setCheck("dog");
               }}
             >
-              <img src={chat}  />
+              <img src={chat} />
               <span>등록정보</span>
             </div>
             <div
@@ -134,29 +135,20 @@ const MyPage = (props) => {
               <span>산책 목록</span>
             </div>
           </Buttons>
-          {
-           check==="sta"&& <GaeStaCard userId={currentPageUserId} />
-          }
-         
+          {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
+
           {/* 상황 마다 바뀔 카드들 */}
-           <div>
-            
+          <div>
             {check === "dog" && (
               <div>
-              <DogCard
-                post ={userInfo}
-                userId={currentPageUserId}
-              />
-              <UserCard
-              post ={userInfo}
-              userId={currentPageUserId}
-            />
-            </div>
+                <DogCard post={userInfo} userId={currentPageUserId} />
+                <UserCard post={userInfo} userId={currentPageUserId} />
+              </div>
             )}
             {check === "list" && (
               <ListCard post={userInfo} userId={currentPageUserId} />
             )}
-          </div> 
+          </div>
 
           <NavBar />
         </Wrap>

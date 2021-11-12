@@ -156,9 +156,7 @@ const SignUp = () => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for='imgFile'>
-              사진 업로드
-            </UploadLabel>
+            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
