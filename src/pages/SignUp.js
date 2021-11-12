@@ -156,6 +156,9 @@ const SignUp = () => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
+            <UploadLabel for='imgFile'>
+              사진 업로드
+            </UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -342,11 +345,17 @@ const Preview = styled.img`
   object-fit: cover;
 `;
 const AddWrap = styled.div``;
-const AddImage = styled.input`
-  width: 180px;
-  margin: 10px 0;
+const UploadLabel = styled.label`
+  border-bottom: 1px solid black;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
 `;
-
+const AddImage = styled.input`
+  /* width: 180px;
+  margin: 10px 0; */
+  display: none;
+`;
 const UserWrap = styled.div`
   display: flex;
   justify-content: space-between;
