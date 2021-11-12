@@ -4,6 +4,8 @@ import styled from "styled-components";
 // 리액트 아이콘
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
+import male from "../image/male.png";
+import female from "../image/female.png";
 
 const Card = ({ post }) => {
   const dogImage = post.dogImage;
@@ -12,6 +14,8 @@ const Card = ({ post }) => {
   const dogAge = post.dogAge;
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
+
+  console.log(post);
 
   // const MeetingDate = initialMeetingDate.split("T")[0];
   // const year = MeetingDate.split("-")[0];
@@ -25,12 +29,18 @@ const Card = ({ post }) => {
   return (
     <CardWrap>
       {/* 카드 왼쪽 - 이미지 */}
-      <img src={dogImage} />
+      <img src={dogImage} sty />
 
       {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
         <CardTop>
-          <h4> {dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
+          <h4>
+            {dogGender === "남" ? (
+              <img src={male} style={{ width: "20px", height: "20px" }} />
+            ) : (
+              <img src={female} style={{ width: "20px", height: "20px" }} />
+            )}
+          </h4>
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>{dogComment}</CardCenter>
@@ -44,28 +54,30 @@ const Card = ({ post }) => {
 };
 
 const CardWrap = styled.div`
-  border: 2px solid black;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  width: 350px;
-  height: 176px;
-  margin-bottom: 30px;
-  padding: 12px;
+
+  width: 100%;
+  height: 152px;
+
+  margin-bottom: 24px;
   border-radius: 25px;
+  background-color: #fff;
+  color: #747474;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
-  box-shadow: 0px 3px black;
+
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
 
   img {
     width: 152px;
     height: 152px;
     border-radius: 25px;
-    margin-right: 16px;
     object-fit: cover;
   }
 `;
@@ -78,6 +90,7 @@ const CardInfo = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-left: 20px;
 `;
 const CardTop = styled.div`
   padding-top: 8px;
@@ -87,6 +100,7 @@ const CardTop = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: 600;
+  margin-top: 13px;
   h4 {
     width: 20px;
     height: 20px;
@@ -98,6 +112,8 @@ const CardTop = styled.div`
     padding: 0;
     margin: 0;
     font-size: 16px;
+    color: black;
+    font-weight: 400;
   }
 `;
 const CardCenter = styled.div`
