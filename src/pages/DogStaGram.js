@@ -3,18 +3,15 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-// 컴포넌츠
-import NavBar from "../components/NavBar";
-
-// 액션 불러오기
-import { actionCreators as postActions } from "../redux/modules/dogsta";
+import NavBar from "../components/NavBar"; // 컴포넌츠
+import { actionCreators as postActions } from "../redux/modules/dogsta"; // 액션 불러오기
 
 const DogStaGram = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const postList = useSelector((state) => state.dogsta.mainList);
-  console.log(postList);
+  // console.log("모든 개스타그램 포스트리스트", postList);
 
   useEffect(() => {
     dispatch(postActions.getAllPostMD());
@@ -32,6 +29,7 @@ const DogStaGram = (props) => {
       >
         ADD
       </button>
+
       {/* 게시물 */}
       <Posts>
         {postList.map((post, index) => {
@@ -41,7 +39,9 @@ const DogStaGram = (props) => {
                 <img
                   src={post.dogPostImage}
                   onClick={() =>
-                    history.push(`/dogstadetail/${post.dogPostId}`)
+                    history.push(
+                      `/dogstadetail/${post.userId}}/${post.dogPostId}`
+                    )
                   }
                 />
                 <button
@@ -59,7 +59,7 @@ const DogStaGram = (props) => {
         })}
       </Posts>
 
-      {/* 고정 버튼들  */}
+      {/* 하단 고정 버튼  */}
       <NavBar />
     </Wrap>
   );

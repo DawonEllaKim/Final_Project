@@ -10,9 +10,9 @@ const GaeStaCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // 현재 페이지의 유저아이디
-  const userId = props.userId;
-  const postList = useSelector((state) => state.dogsta.eachList);
+  const userId = props.userId; // 현재 페이지의 유저아이디
+  const postList = useSelector((state) => state.dogsta.eachList); //현재 페이지 유저의 모든 개스타그램 게시물
+  // console.log("유저아이디", userId, "포스트리스트", postList);
 
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
@@ -20,29 +20,47 @@ const GaeStaCard = (props) => {
 
   return (
     <Wrap>
-      {/* 임시 - ADD 버튼 */}
-      <button
-        onClick={() => {
-          history.push("/dogstawrite");
-        }}
-      >
-        ADD
-      </button>
-
       {/* 게시물 */}
-      <Posts>
-        {postList.map((post, index) => {
-          return (
-            <div
-              onClick={() =>
-                history.push(`/dogstadetail/${userId}/${post.dogPostId}`)
-              }
+      {postList.length === 0 ? (
+        <>
+          <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
+
+          {/* 임시 - ADD 버튼 */}
+          <button
+            onClick={() => {
+              history.push("/dogstawrite");
+            }}
+          >
+            ADD
+          </button>
+        </>
+      ) : (
+        <Posts>
+          <>
+            {/* 임시 - ADD 버튼 */}
+            <button
+              onClick={() => {
+                history.push("/dogstawrite");
+              }}
             >
-              <img post={post} key={index} src={post.dogPostImage} />
-            </div>
-          );
-        })}
-      </Posts>
+              ADD
+            </button>
+
+            {postList.map((post, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() =>
+                    history.push(`/dogstadetail/${userId}/${post.dogPostId}`)
+                  }
+                >
+                  <img src={post.dogPostImage} />
+                </div>
+              );
+            })}
+          </>
+        </Posts>
+      )}
     </Wrap>
   );
 };
@@ -71,6 +89,15 @@ const Posts = styled.div`
     background-position: center;
     background-repeat: no-repeat;
   }
+`;
+const NoCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
 `;
 
 export default GaeStaCard;

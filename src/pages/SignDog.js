@@ -10,6 +10,9 @@ import { dogBreedCheck } from "../shared/check";
 import Button from "../elements/Button";
 import backward from "../image/backward.png";
 
+// 강아지 이미지 기본 값
+import defaultDog from '../image/default_dog.png'
+
 const SignDog = (props) => {
   const dispatch = useDispatch();
 
@@ -18,46 +21,46 @@ const SignDog = (props) => {
   console.log(signUser);
 
   const submitDogInfo = () => {
-    if (!dogBreedCheck(dog_breed)) {
+    if (!dogBreedCheck(dogBreed)) {
       window.alert("강아지 종은 한글,영문 형식만 입력 가능합니다");
       return;
     }
 
     if (
-      dog_gender === "" ||
-      dog_name === "" ||
-      dog_size === "" ||
-      dog_breed === "" ||
-      dog_age === "" ||
+      dogGender === "" ||
+      dogName === "" ||
+      dogSize === "" ||
+      dogBreed === "" ||
+      dogAge === "" ||
       neutral === "" ||
-      dog_comment === ""
+      dogComment === ""
     ) {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("dogGender", dog_gender);
-    formData.append("dogName", dog_name);
-    formData.append("dogSize", dog_size);
-    formData.append("dogBreed", dog_breed);
-    formData.append("dogAge", dog_age);
+    formData.append("dogGender", dogGender);
+    formData.append("dogName", dogName);
+    formData.append("dogSize", dogSize);
+    formData.append("dogBreed", dogBreed);
+    formData.append("dogAge", dogAge);
     formData.append("neutral", neutral);
-    formData.append("dogComment", dog_comment);
+    formData.append("dogComment", dogComment);
     formData.append("dogImage", imgFile);
 
     dispatch(DogActions.signDogAPI(formData));
   };
 
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(defaultDog?defaultDog:""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [dog_gender, setDogGender] = useState("");
-  const [dog_name, setDogName] = useState("");
-  const [dog_size, setDogSize] = useState("");
-  const [dog_breed, setDogBreed] = useState("");
-  const [dog_age, setDogAge] = useState("");
+  const [dogGender, setDogGender] = useState("");
+  const [dogName, setDogName] = useState("");
+  const [dogSize, setDogSize] = useState("");
+  const [dogBreed, setDogBreed] = useState("");
+  const [dogAge, setDogAge] = useState("");
   const [neutral, setNeutral] = useState("");
-  const [dog_comment, setDogComment] = useState("");
+  const [dogComment, setDogComment] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -163,7 +166,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="s"
-                  checked={dog_size === "소형견"}
+                  checked={dogSize === "소형견"}
                   onClick={() => dogSizeChangeHandler("소형견")}
                 />
               </RadioWrap>
@@ -174,7 +177,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="m"
-                  checked={dog_size === "중형견"}
+                  checked={dogSize === "중형견"}
                   onClick={() => dogSizeChangeHandler("중형견")}
                 />
               </RadioWrap>
@@ -186,7 +189,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="l"
-                  checked={dog_size === "대형견"}
+                  checked={dogSize === "대형견"}
                   onClick={() => dogSizeChangeHandler("대형견")}
                 />
               </RadioWrap>
@@ -203,7 +206,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="b"
-                  checked={dog_gender === "남"}
+                  checked={dogGender === "남"}
                   onClick={() => dogGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -215,7 +218,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="g"
-                  checked={dog_gender === "여"}
+                  checked={dogGender === "여"}
                   onClick={() => dogGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -261,7 +264,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="young"
-                  checked={dog_age === "0~3세"}
+                  checked={dogAge === "0~3세"}
                   onClick={() => dogAgeChangeHandler("0~3세")}
                 />
               </RadioWrap>
@@ -273,7 +276,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="junior"
-                  checked={dog_age === "4~7세"}
+                  checked={dogAge === "4~7세"}
                   onClick={() => dogAgeChangeHandler("4~7세")}
                 />
               </RadioWrap>
@@ -285,7 +288,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="senior"
-                  checked={dog_age === "8세 이상"}
+                  checked={dogAge === "8세 이상"}
                   onClick={() => dogAgeChangeHandler("8세 이상")}
                 />
               </RadioWrap>
