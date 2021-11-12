@@ -78,7 +78,6 @@ const Nav = styled.div`
   width: 350px;
   height: 64px;
   z-index: 5;
-  padding: 20px;
 `;
 const Box = styled.div`
   box-sizing: border-box;

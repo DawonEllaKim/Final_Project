@@ -40,6 +40,7 @@ import caution1 from "../image/caution1.png";
 import caution2 from "../image/caution2.png";
 import caution3 from "../image/caution3.png";
 import dogsta from "../redux/modules/dogsta";
+import { FaBullseye } from "react-icons/fa";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -51,11 +52,21 @@ const Main = (props) => {
   const is_loading = useSelector((state) => state.sign.is_loading)
 
   // 슬라이드 세팅
-  const settings = {
+  const topSettings = {
     dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+  };
+  const bottomSettings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 4000,
@@ -95,7 +106,7 @@ const Main = (props) => {
       {/* 일러스트 슬라이드 */}
 
       {!userId ? (
-        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
           <div onClick={() => history.push("/login")}>
             <LoginImg>
               <Logo src={logo} />
@@ -105,7 +116,7 @@ const Main = (props) => {
           </div>
         </StyledSlider>
       ) : (
-        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
           <Weather />
           <div
             onClick={() => {
@@ -132,9 +143,9 @@ const Main = (props) => {
       )}
 
       {/* 사이드 바*/}
-      <SideWrap>
+      {/* <SideWrap> */}
         {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
-        <SideBarNav sideBar={sideBar}>
+        {/* <SideBarNav sideBar={sideBar}>
           <BarWrap>
             <Filter onClick={showSideBar}>
               <AiOutlineFilter
@@ -152,16 +163,19 @@ const Main = (props) => {
             </SubMenuWrap>
           </BarWrap>
         </SideBarNav>
-      </SideWrap>
+      </SideWrap> */}
 
       {/* 개스타그램 모음 */}
       <Body>
             <Text>오늘의 개스타</Text>
-            <Dogsta>
+            <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
               <MainDogsta />
               <MainDogsta />
               <MainDogsta />
-            </Dogsta>
+              <MainDogsta />
+              <MainDogsta />
+              <MainDogsta />
+            </DogstaSlide>
       </Body>
 
       {/* 각 게시물에 대한 카드들 */}
@@ -183,14 +197,9 @@ const Main = (props) => {
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   width: 390px;
   margin: 0 auto;
-  padding: 0 20px ;
-  border: 1px solid blue;
+  padding: 0 20px  60px 20px;
   box-sizing: border-box;
 `;
 
@@ -308,13 +317,12 @@ const SubMenuWrap = styled.div`
   width: 100%;
 `;
 
-const DogStaWrap = styled.div`
-
-`
-const Dogsta = styled.div`
+const DogstaSlide = styled(Slider)`
   display: flex;
   justify-content: left;
   gap: 10px;
+  width: 350px;
+  height: 80px;
 `
 
 const Body = styled.div`
@@ -323,7 +331,7 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 24px 0;
+  margin: 28px 0;
   border-top: 1px solid #c4c4c4;
 `;
 const Text = styled.p`

@@ -37,16 +37,16 @@ const Card = ({ post }) => {
         <CardTop>
           <h4>
             {dogGender === "남" ? (
-              <img src={male} style={{ width: "20px", height: "20px" }} />
+              <img src={male} style={{ width: "16px", height: "16px", borderRadius:'0' }} />
             ) : (
-              <img src={female} style={{ width: "20px", height: "20px" }} />
+              <img src={female} style={{ width: "16px", height: "16px", borderRadius:'0' }} />
             )}
           </h4>
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>
-          <p>장소: 서울숲</p>
-          <p>크기: {post.dogSize}</p>
+          <p>장소 : 서울숲</p>
+          <p>크기 : {post.dogSize}</p>
           <p>{dogComment}</p>
         </CardCenter>
         <CardBottom>
@@ -75,7 +75,7 @@ const CardWrap = styled.div`
   line-height: 20.27px;
   cursor: pointer;
 
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 
   img {
     width: 152px;
@@ -93,10 +93,9 @@ const CardInfo = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 20px;
+  margin-left: 16px;
 `;
 const CardTop = styled.div`
-  padding-top: 8px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -105,8 +104,8 @@ const CardTop = styled.div`
   font-weight: 600;
   margin-top: 13px;
   h4 {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     padding: 0;
     margin: 0 8px 0 0;
     font-weight: 600;
@@ -123,11 +122,11 @@ const CardCenter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-content: center;
-
+  align-items: flex-start;
   font-size: 14px;
+  line-height: 1.7;
   width: 100%;
-  padding-top: 12px;
+  padding-top: 8px;
 `;
 const CardBottom = styled.div`
   position: absolute;
