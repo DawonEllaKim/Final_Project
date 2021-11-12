@@ -502,7 +502,7 @@ const Wrap = styled.div`
   align-items: center;
 
   max-width: 390px;
-  margin: auto;
+  margin: 0 0 90px 0;
   padding: 0 20px;
 
   font-size: 14px;

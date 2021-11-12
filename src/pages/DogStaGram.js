@@ -94,7 +94,7 @@ const Overall = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: center;
-
+  padding: 0 20px;
   margin: auto;
   margin-bottom: 150px;
 `;

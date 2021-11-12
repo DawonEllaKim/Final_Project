@@ -14,15 +14,16 @@ import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
-import MainDogsta from '../components/MainDogsta'
+import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
 
 // 상단바
-import TopBar from '../components/TopBar';
+import TopBar from "../components/TopBar";
 
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
+import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // 액션 불러오기
 
 // 로그인 이미지
 import logo from "../image/loginLogo.png";
@@ -34,7 +35,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // 스피너
-import Spinner from '../shared/Spinner'
+import Spinner from "../shared/Spinner";
 
 import caution1 from "../image/caution1.png";
 import caution2 from "../image/caution2.png";
@@ -48,8 +49,10 @@ const Main = (props) => {
   const userInfo = useSelector((state) => state.user.list);
   console.log(postList, userInfo);
 
+  const dogStaPostList = useSelector((state) => state.dogsta.mainList);
+
   // 스피너
-  const is_loading = useSelector((state) => state.sign.is_loading)
+  const is_loading = useSelector((state) => state.sign.is_loading);
 
   // 슬라이드 세팅
   const topSettings = {
@@ -66,7 +69,7 @@ const Main = (props) => {
     dots: false,
     infinite: true,
     speed: 1000,
-    slidesToShow: 4,
+    slidesToShow: 3.5,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 4000,
@@ -93,12 +96,13 @@ const Main = (props) => {
   // 게시물 불러오기
   useEffect(() => {
     dispatch(postActions.getMainMD());
+    dispatch(dogStaActions.getAllPostMD());
   }, []);
 
-  if(is_loading) {
+  if (is_loading) {
     return <Spinner />;
   }
-  
+
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       <TopBar> 산책할개 </TopBar>
@@ -144,8 +148,8 @@ const Main = (props) => {
 
       {/* 사이드 바*/}
       {/* <SideWrap> */}
-        {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
-        {/* <SideBarNav sideBar={sideBar}>
+      {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
+      {/* <SideBarNav sideBar={sideBar}>
           <BarWrap>
             <Filter onClick={showSideBar}>
               <AiOutlineFilter
@@ -167,15 +171,16 @@ const Main = (props) => {
 
       {/* 개스타그램 모음 */}
       <Body>
-            <Text>오늘의 개스타</Text>
-            <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
-              <MainDogsta />
-              <MainDogsta />
-              <MainDogsta />
-              <MainDogsta />
-              <MainDogsta />
-              <MainDogsta />
-            </DogstaSlide>
+        <Text>오늘의 개스타</Text>
+        <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
+          {dogStaPostList.map((post, index) => {
+            return (
+              <div>
+                <MainDogsta post={post} key={index} />
+              </div>
+            );
+          })}
+        </DogstaSlide>
       </Body>
 
       {/* 각 게시물에 대한 카드들 */}
@@ -199,7 +204,7 @@ const Wrap = styled.div`
   position: relative;
   width: 390px;
   margin: 0 auto;
-  padding: 0 20px  60px 20px;
+  padding: 0 20px 60px 20px;
   box-sizing: border-box;
 `;
 
@@ -207,13 +212,13 @@ const StyledSlider = styled(Slider)`
   .slick-slide div {
     outline: none;
   }
+
   width: 350px;
   height: 172px;
   margin-bottom: 12px;
   border-radius: 25px;
   box-sizing: border-box;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-
 `;
 const LoginImg = styled.div`
   position: relative;
@@ -320,10 +325,14 @@ const SubMenuWrap = styled.div`
 const DogstaSlide = styled(Slider)`
   display: flex;
   justify-content: left;
-  gap: 10px;
-  width: 350px;
+  /* gap: 20px; */
+  width: 320px;
   height: 80px;
-`
+  .slick-prev:before,
+  .slick-next:before {
+    color: gray;
+  }
+`;
 
 const Body = styled.div`
   display: flex;

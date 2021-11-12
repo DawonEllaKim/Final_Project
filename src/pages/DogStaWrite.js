@@ -14,7 +14,8 @@ import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
 
 // 이미지 기본값
-import defaultDog from '../image/default_dog.png'
+import defaultDog from "../image/default_dog.png";
+import TopBar from "../components/TopBar";
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const DogStaWrite = (props) => {
 
   const userId = localStorage.getItem("userId");
 
-  const [imgBase64, setImgBase64] = useState(defaultDog?defaultDog:"");
+  const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : "");
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
 
@@ -78,47 +79,32 @@ const DogStaWrite = (props) => {
 
   return (
     <Wrap>
-      {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-      <Header>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <img src={backward} style={{ width: "10px", height: "18px" }} />
-        </button>
-        <p>새 게시물</p>
-        <button>
-          <img src={notification} style={{ width: "24px", height: "24px" }} />
-        </button>
-      </Header>
+      <TopBar>새 게시물</TopBar>
 
       {/* 게시물 작성 부분 */}
       <Write>
-        <div> 
+        <div>
           <img src={imgBase64} />
-          <label for='input-file'>
-            사진 업로드
-          </label>
-          <input 
+          <label for="input-file">사진 업로드</label>
+          <input
             type="file"
-            id='input-file' 
-            name="imageFile" 
-            onChange={imageChange} 
+            id="input-file"
+            name="imageFile"
+            onChange={imageChange}
           />
         </div>
-        <textarea 
-          placeholder={'강아지와의 일상을 기록하세요'}
-          onChange={dogPostDescChange} 
-          style={{ height: "100px", padding:'10px', boxSizing:'border-box' }} 
+        <textarea
+          placeholder={"강아지와의 일상을 기록하세요"}
+          onChange={dogPostDescChange}
+          style={{ height: "100px", padding: "10px", boxSizing: "border-box" }}
         />
       </Write>
 
       {/* 글 작성 버튼들 */}
-      <div>
-        <button onClick={cancelPost}>취소하기</button>
-        <button onClick={addPost}>작성하기</button>
-      </div>
+      <FlexButton>
+        <CancelBtn onClick={cancelPost}>취소하기</CancelBtn>
+        <AddBtn onClick={addPost}>작성하기</AddBtn>
+      </FlexButton>
 
       {/* 고정 네비게이션 바 */}
       <NavBar />
@@ -126,16 +112,47 @@ const DogStaWrite = (props) => {
   );
 };
 
+const AddBtn = styled.button`
+  cursor: pointer;
+  width: 160px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px gray;
+`;
+const CancelBtn = styled.button`
+  cursor: pointer;
+  width: 160px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px gray;
+`;
+const FlexButton = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  height: 52px;
+  margin: 30px auto 130px auto;
+
+  button {
+    width: 160px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 1px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }
+`;
 const Wrap = styled.div`
   box-sizing: border-box;
   width: 390px;
-  margin: auto auto 200px auto;
-  padding: 20px 0;
+  margin: auto auto 10px auto;
+  padding: 0 20px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 `;
 const Header = styled.div`
   display: flex;
@@ -213,7 +230,7 @@ const Write = styled.div`
     border: 1px solid black;
     margin: 20px 0;
     border-radius: 4px;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   input {
