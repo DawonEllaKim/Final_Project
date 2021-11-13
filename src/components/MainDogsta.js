@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from "../redux/configureStore";
 
 function MainDogsta({ post }) {
   return (
     <div>
-      <Dogsta src={post.dogPostImage}></Dogsta>
+      <Dogsta
+        onClick={() =>
+          history.push(`/dogstadetail/${post.userId}}/${post.dogPostId}`)
+        }
+        style={{ cursor: "pointer" }}
+        src={post.dogPostImage}
+      ></Dogsta>
     </div>
   );
 }

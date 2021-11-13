@@ -47,9 +47,9 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.main);
   const userInfo = useSelector((state) => state.user.list);
-  console.log(postList, userInfo);
 
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
+  console.log(dogStaPostList);
 
   // 스피너
   const is_loading = useSelector((state) => state.sign.is_loading);
@@ -72,7 +72,7 @@ const Main = (props) => {
     slidesToShow: 3.5,
     slidesToScroll: 1,
     autoplay: false,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 1000,
     pauseOnHover: true,
   };
 
@@ -331,6 +331,9 @@ const DogstaSlide = styled(Slider)`
   .slick-prev:before,
   .slick-next:before {
     color: gray;
+  }
+  div {
+    width: 100%;
   }
 `;
 

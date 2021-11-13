@@ -16,24 +16,25 @@ import TopBar from "../components/TopBar";
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
-  const dog_id = dog.dog_id;
-  // console.log(dog.dog_image);
+  console.log(dog);
+  const dogId = dog.dogId;
+  // console.log(dog.dogImage);
   // const endocoding = window.btoa("dd");
   // const decodedString = window.atob(endocoding);
   // console.log(decodedString);
 
   // 이미지
-  const [imgBase64, setImgBase64] = useState(dog.dog_image && dog.dog_image); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(dog.dogImage && dog.dogImage); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
 
-  const [dogName, setDogName] = useState(dog.dog_name ? dog.dog_name : "");
-  const [dogBreed, setDogBreed] = useState(dog.dog_breed ? dog.dog_breed : "");
+  const [dogName, setDogName] = useState(dog.dogName ? dog.dogName : "");
+  const [dogBreed, setDogBreed] = useState(dog.dogBreed ? dog.dogBreed : "");
   const [dogSize, setDogSize] = useState();
   const [dogGender, setDogGender] = useState();
   const [dogAge, setDogAge] = useState();
   const [neutral, setNeutral] = useState();
   const [dogComment, setDogComment] = useState(
-    dog.dog_comment ? dog.dog_comment : ""
+    dog.dogComment ? dog.dogComment : ""
   );
 
   const handleChangeFile = (e) => {
@@ -76,39 +77,40 @@ const EditDog = (props) => {
 
   const update = () => {
     const formData = new FormData();
-    formData.append("dog_name", dogName);
-    formData.append("dog_breed", dogBreed);
-    formData.append("dog_size", dogSize);
-    formData.append("dog_gender", dogGender);
+    formData.append("dogName", dogName);
+    formData.append("dogBreed", dogBreed);
+    formData.append("dogSize", dogSize);
+    formData.append("dogGender", dogGender);
     formData.append("neutral", neutral);
-    formData.append("dog_age", dogAge);
-    formData.append("dog_comment", dogComment);
-    formData.append("dog_image", imgFile);
-    dispatch(DogActions.updateDogMD(dog_id, formData));
+    formData.append("dogAge", dogAge);
+    formData.append("dogComment", dogComment);
+    formData.append("dogImage", imgFile);
+    dispatch(DogActions.updateDogMD(dogId, formData));
   };
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
-    setImgFile(dog.dog_image);
-    setImgBase64(dog.dog_image);
-    setDogName(dog.dog_name);
-    setDogBreed(dog.dog_breed);
-    setDogSize(dog.dog_size);
-    setDogGender(dog.dog_gender);
+    setImgFile(dog.dogImage);
+    setImgBase64(dog.dogImage);
+    setDogName(dog.dogName);
+    setDogBreed(dog.dogBreed);
+    setDogSize(dog.dogSize);
+    setDogGender(dog.dogGender);
     setNeutral(dog.neutral);
-    setDogAge(dog.dog_age);
-    setDogComment(dog.dog_comment);
+    setDogAge(dog.dogAge);
+    setDogComment(dog.dogComment);
   }, [
-    dog.dog_image,
-    dog.dog_name,
-    dog.dog_breed,
-    dog.dog_size,
-    dog.dog_gender,
+    dog.dogImage,
+    dog.dogName,
+    dog.dogBreed,
+    dog.dogSize,
+    dog.dogGender,
     dog.neutral,
-    dog.dog_age,
-    dog.dog_comment,
+    dog.dogAge,
+    dog.dogComment,
   ]);
   console.log(imgFile);
+
   return (
     <Wrap>
       <TopBar only_left> 반려견 정보 수정</TopBar>
@@ -130,7 +132,7 @@ const EditDog = (props) => {
         <Input
           placeholder="강아지 이름을 입력하세요. "
           onChange={dogNameChangeHandler}
-          defaultValue={dog.dog_name}
+          defaultValue={dog.dogName}
         />
       </Filter>
 
@@ -138,7 +140,7 @@ const EditDog = (props) => {
       <Filter>
         <Input
           placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
-          defaultValue={dog.dog_breed}
+          defaultValue={dog.dogBreed}
           onChange={dogBreedChangeHandler}
         />
       </Filter>
@@ -302,7 +304,7 @@ const EditDog = (props) => {
         <Input
           placeholder="ex) 우리 집 최고 애교쟁이!"
           onChange={dogCommentChangeHandler}
-          defaultValue={dog.dog_comment}
+          defaultValue={dog.dogComment}
         />
       </Filter>
 

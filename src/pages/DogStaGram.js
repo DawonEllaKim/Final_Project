@@ -135,7 +135,7 @@ const Posts = styled.div`
   grid-template-columns: 168px 168px;
   /* grid-template-rows: 300px 300px; */
   gap: 20px 20px;
-
+  width: 100%;
   cursor: pointer;
 
   img {
