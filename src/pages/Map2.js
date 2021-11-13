@@ -139,12 +139,20 @@ const Map2 = (props) => {
         <TextArea placeholder="산책에 관한 글을 작성해주세요~" onChange={(e) => setWishDesc(e.target.value)}></TextArea>
         <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
+      <NavArea>
       <NavBar />
+      </NavArea>
     </Frame>
   );
 };
 
 export default Map2;
+const NavArea = styled.div
+`
+width:390px;
+display:flex;
+justify-content:center;
+`
 const Title1 = styled.div
 `
 box-sizing: border-box;

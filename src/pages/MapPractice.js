@@ -183,6 +183,8 @@ const MapPractice = React.memo(() => {
         }
   
         console.log(dott)
+
+        
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
@@ -262,7 +264,7 @@ function makeOutListener(infowindow) {
     for (let i = 0; i < trash.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new kakao.maps.Size(14, 14); 
+        var imageSize = new kakao.maps.Size(20, 20); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
@@ -297,7 +299,7 @@ function makeOutListener(infowindow) {
     for (let i = 0; i < water.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize2 = new kakao.maps.Size(14, 14); 
+        var imageSize2 = new kakao.maps.Size(20, 20); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2); 
@@ -335,7 +337,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     for (let i = 0; i < toilet.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize3 = new kakao.maps.Size(14, 14); 
+        var imageSize3 = new kakao.maps.Size(20, 20); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3); 
@@ -373,7 +375,7 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     for (let i = 0; i < dog.length; i ++) {
     
         // 마커 이미지의 이미지 크기 입니다
-        var imageSize4 = new kakao.maps.Size(14, 14); 
+        var imageSize4 = new kakao.maps.Size(20, 20); 
         
         // 마커 이미지를 생성합니다    
         var markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4); 
