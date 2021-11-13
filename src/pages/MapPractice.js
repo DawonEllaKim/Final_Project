@@ -842,7 +842,7 @@ const WalkBtn = styled.div`
   width: 100px;
   height: 48px;
   border-radius: 24px;
-  background-color: #F3F#F3;
+  background-color: #f3f3f3;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px gray;
   display: flex;
