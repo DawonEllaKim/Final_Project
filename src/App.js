@@ -42,10 +42,10 @@ import DogProfile from "./pages/DogProfile";
 import UserProfile from "./pages/UserProfile";
 
 // 개스타그램
-import DogStaWrite from "./pages/DogStaWrite";
-import DogStaDetail from "./pages/DogStaDetail";
+import DogStaWrite from "./pages/DogStaGram/DogStaWrite";
+import DogStaDetail from "./pages/DogStaGram/DogStaDetail";
 import DogStaEdit from "./components/MyPage/DogStaEdit";
-import DogStaGram from "./pages/DogStaGram";
+import DogStaMain from "./pages/DogStaGram/DogStaMain";
 
 import GlobalStyle from "./GlobalStyle";
 
@@ -109,13 +109,13 @@ function App() {
         <PrivateRoute exact path="/myProfile" component={MyProfile} />
 
         {/* 개스타그램 */}
-        <Route exact path="/dogstagram" component={DogStaGram} />
+        <Route exact path="/dogStaMain" component={DogStaMain} />
         <PrivateRoute
           exact
-          path="/dogstadetail/:userId/:dogPostId"
+          path="/dogStaDetail/:userId/:dogPostId"
           component={DogStaDetail}
         />
-        <PrivateRoute exact path="/dogstawrite" component={DogStaWrite} />
+        <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
         <PrivateRoute
           exact
           path="/dogstaedit/:dogPostId"

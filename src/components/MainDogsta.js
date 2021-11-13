@@ -7,7 +7,7 @@ function MainDogsta({ post }) {
     <div>
       <Dogsta
         onClick={() =>
-          history.push(`/dogstadetail/${post.userId}}/${post.dogPostId}`)
+          history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
         }
         style={{ cursor: "pointer" }}
         src={post.dogPostImage}

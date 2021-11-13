@@ -6,16 +6,12 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
-import NavBar from "../components/NavBar";
-import { actionCreators as postActions } from "../redux/modules/dogsta";
-
-// 아이콘들
-import notification from "../image/Notification.png";
-import backward from "../image/backward.png";
+import NavBar from "../../components/NavBar";
+import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
 // 이미지 기본값
-import defaultDog from "../image/default_dog.png";
-import TopBar from "../components/TopBar";
+import defaultDog from "../../image/default_dog.png";
+import TopBar from "../../components/TopBar";
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();

@@ -30,13 +30,12 @@ const GaeStaCard = (props) => {
           <FlexButton>
             <DeleteButton
               onClick={() => {
-                history.push("/dogstawrite");
+                history.push("/dogStaWrite");
               }}
             >
               게시물 작성하기
             </DeleteButton>
           </FlexButton>
-          {/* 임시 - ADD 버튼 */}
         </>
       ) : (
         <Posts>
@@ -44,7 +43,7 @@ const GaeStaCard = (props) => {
             {/* 임시 - ADD 버튼 */}
             {/* <button
               onClick={() => {
-                history.push("/dogstawrite");
+                history.push("/dogStaWrite");
               }}
             >
               ADD
@@ -55,7 +54,7 @@ const GaeStaCard = (props) => {
                 <Card
                   key={index}
                   onClick={() =>
-                    history.push(`/dogstadetail/${userId}/${post.dogPostId}`)
+                    history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
                   }
                 >
                   <img src={post.dogPostImage} />

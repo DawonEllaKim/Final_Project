@@ -1,27 +1,83 @@
+// dogsta.js - 개스타그램 게시물 GET,POST,PATCH,DELETE 액션들
 import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
-import post from "./post";
 import { getCookie } from "../../shared/Cookie";
 
-// 개스타그램
-const ADD_POST = "ADD_POST"; // 포스트 작성
-const GET_ALL_POST = "GET_ALL_POST"; // 모든 포스트 불러오기
-const GET_MY_POST = "GET_MY_POST"; // 포스트 하나 불러오기
-const GET_DOGPOST = "GET_DOGPOST"; // 포스트 하나 불러오기
-const EDIT_POST = "EDIT_POST"; // 포스트 수정
-const DELETE_POST = "DELETE_POST"; //포스트 삭제
+const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든 게시물 불러오기
+const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
+const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오기
+const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
+const EDIT_POST = "EDIT_POST"; // 개스타그램 게시물 수정
+const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
 
-const addPost = createAction(ADD_POST, (post) => ({ post }));
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
-const getMyPost = createAction(GET_MY_POST, (eachList) => ({ eachList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
+const getMyPost = createAction(GET_MY_POST, (eachList) => ({ eachList }));
+const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 
 const initialState = {
   mainList: [],
   eachList: [],
+};
+
+const getAllPostMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/dogsta",
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getAllPost(postList));
+        console.log("개스타그램 모든 게시물 GET 성공", postList);
+      })
+      .catch((err) => {
+        console.log("개스타그램 모든 게시물 GET 에러", err);
+      });
+  };
+};
+
+const getPostMD = (userId, dogPostId) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/dogsta/${userId}/${dogPostId}`,
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts[0];
+        dispatch(getDogPost(postList));
+        console.log("개스타그램 게시물 하나 GET 성공", res);
+      })
+      .catch((err) => {
+        console.log("개스타그램 게시물 하나 GET 오류", err);
+      });
+  };
+};
+
+const getMyPostMD = (userId) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/dogsta/${userId}`,
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getDogPost(postList));
+        console.log("개스타그램 나의 게시물 GET 성공", res);
+      })
+      .catch((err) => {
+        console.log("개스타그램 나의 게시물 GET 오류", err);
+      });
+  };
 };
 
 const addPostMD = (formData) => {
@@ -39,71 +95,10 @@ const addPostMD = (formData) => {
     })
       .then((res) => {
         // dispatch(addPost(formData));
-        console.log("포스트 성공", res);
-        // history.push("/mypage");
+        console.log("개스타그램 게시물 POST 성공", res);
       })
       .catch((err) => {
-        console.log("에러 발생", err);
-      });
-  };
-};
-
-const getAllPostMD = () => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: "http://13.209.70.209/dogsta",
-      data: {},
-      headers: {},
-    })
-      .then((res) => {
-        const postList = res.data.posts;
-        console.log(postList);
-        dispatch(getAllPost(postList));
-        // console.log("개스타그램 메인 게시물 불러오기 완료", postList);
-      })
-      .catch((err) => {
-        console.log("개스타그램 메인 게시물 불러오기 실패", err);
-      });
-  };
-};
-
-const getMyPostMD = (userId) => {
-  return function (dispatch, useState, { history }) {
-    axios({
-      method: "GET",
-      url: `http://13.209.70.209/dogsta/${userId}`,
-      data: {},
-      headers: {},
-    })
-      .then((res) => {
-        const postList = res.data.posts;
-        console.log(postList);
-        dispatch(getDogPost(postList));
-        // console.log("포스트 하나를 불러왔습니다", res);
-      })
-      .catch((err) => {
-        console.log("포스트 하나 불러옴 실패", err);
-      });
-  };
-};
-
-const getPostMD = (userId, dogPostId) => {
-  return function (dispatch, useState, { history }) {
-    axios({
-      method: "GET",
-      url: `http://13.209.70.209/dogsta/${userId}/${dogPostId}`,
-      data: {},
-      headers: {},
-    })
-      .then((res) => {
-        const postList = res.data.posts[0];
-        console.log(postList);
-        dispatch(getDogPost(postList));
-        // console.log("포스트 하나를 불러왔습니다", res);
-      })
-      .catch((err) => {
-        console.log("포스트 하나 불러옴 실패", err);
+        console.log("개스타그램 게시물 POST 에러", err);
       });
   };
 };
@@ -123,10 +118,10 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        console.log("수정 완료", res);
+        console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        console.log("수정 실패", err);
+        console.log("개스타그램 게시물 PATCH 오류", err);
       });
   };
 };
@@ -145,33 +140,33 @@ const deletePostMD = (postId) => {
       },
     })
       .then((res) => {
-        console.log("삭제 성공");
         window.alert("삭제 성공");
         history.goBack();
+        console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
-        console.log("삭제 실패");
+        console.log("개스타그램 게시물 DELETE 오류", err);
       });
   };
 };
 
 export default handleActions(
   {
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.mainList.push(action.payload.mainList);
-      }),
     [GET_ALL_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainList = action.payload.mainList;
+      }),
+    [GET_DOGPOST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.eachList = action.payload.eachList;
       }),
     [GET_MY_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.eachList = action.payload.eachList;
       }),
-    [GET_DOGPOST]: (state, action) =>
+    [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.eachList = action.payload.eachList;
+        draft.mainList.push(action.payload.mainList);
       }),
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -188,17 +183,18 @@ export default handleActions(
 );
 
 const actionCreators = {
-  addPost,
-  addPostMD,
   getAllPost,
-  getAllPostMD,
-  getMyPost,
-  getMyPostMD,
   getDogPost,
-  getPostMD,
+  getMyPost,
+  addPost,
   editPost,
-  editPostMD,
   deletePost,
+
+  getAllPostMD,
+  getPostMD,
+  getMyPostMD,
+  addPostMD,
+  editPostMD,
   deletePostMD,
 };
 

@@ -37,7 +37,7 @@ const NavBar = (props) => {
           {/* 개스타그램 버튼 */}
           <Button
             onClick={() => {
-              history.push("/dogstagram");
+              history.push("/dogStaMain");
             }}
             style={{ marginRight: "28px" }}
           >
