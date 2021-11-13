@@ -93,6 +93,7 @@ const LogIn = (props) => {
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
           />
           <InputText
+            type="password"
             placeholder="비밀번호를 입력하세요"
             onChange={passwordChangeHandler}
           />

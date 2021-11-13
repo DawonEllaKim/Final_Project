@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
 
-import TopBar from '../components/TopBar';
+import TopBar from "../components/TopBar";
 
 // 유저 이미지 기본값
 import defaultUser from "../image/default_user.jpg";
@@ -175,6 +175,7 @@ const SignUp = () => {
 
         <Input>
           <InputText
+            type="password"
             placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
             onChange={passwordChangeHandler}
           />
@@ -182,6 +183,7 @@ const SignUp = () => {
 
         <Input>
           <InputText
+            type="password"
             placeholder="패스워드 확인"
             onChange={confirmPasswordChangeHandler}
           />
@@ -286,19 +288,19 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-        <button
+          <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
           </button>
-          <button 
+          <button
             onClick={submitUserInfo}
-            style={{backgroundColor:'#ff5656'}}
-            >
-              회원 정보 등록
-            </button>
+            style={{ backgroundColor: "#ff5656" }}
+          >
+            회원 정보 등록
+          </button>
         </ButtonWrap>
       </Wrap>
     </>
@@ -370,7 +372,6 @@ const Input = styled.div`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
   color: #888;
-
 `;
 
 const Title = styled.div`

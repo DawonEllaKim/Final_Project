@@ -27,14 +27,16 @@ const GaeStaCard = (props) => {
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
 
+          <FlexButton>
+            <DeleteButton
+              onClick={() => {
+                history.push("/dogstawrite");
+              }}
+            >
+              게시물 작성하기
+            </DeleteButton>
+          </FlexButton>
           {/* 임시 - ADD 버튼 */}
-          <button
-            onClick={() => {
-              history.push("/dogstawrite");
-            }}
-          >
-            ADD
-          </button>
         </>
       ) : (
         <Posts>
@@ -79,7 +81,30 @@ const GaeStaCard = (props) => {
     </Wrap>
   );
 };
+const FlexButton = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 350px;
+  height: 40px;
+  margin: 30px auto 130px auto;
 
+  button {
+    width: 160px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 1px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }
+`;
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 160px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px gray;
+`;
 const Wrap = styled.div`
   width: 100%;
 `;
