@@ -15,17 +15,13 @@ const Card = ({ post }) => {
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
 
-  console.log(post);
-
-  // const MeetingDate = initialMeetingDate.split("T")[0];
-  // const year = MeetingDate.split("-")[0];
-  // const month = MeetingDate.split("-")[1];
-  // const day = MeetingDate.split("-")[2];
-  // const MeetingTime = initialMeetingDate.split("T")[1];
-  // const hour = MeetingTime.split(":")[0];
-  // const minute = MeetingTime.split(":")[1];
-
-  // console.log(MeetingTime, MeetingDate, year, month, day, hour, minute);
+  const MeetingDate = initialMeetingDate.split("T")[0];
+  const year = MeetingDate.split("-")[0];
+  const month = MeetingDate.split("-")[1];
+  const day = MeetingDate.split("-")[2];
+  const MeetingTime = initialMeetingDate.split("T")[1];
+  const hour = MeetingTime.split(":")[0];
+  const minute = MeetingTime.split(":")[1];
 
   return (
     <CardWrap>
@@ -37,9 +33,15 @@ const Card = ({ post }) => {
         <CardTop>
           <h4>
             {dogGender === "남" ? (
-              <img src={male} style={{ width: "16px", height: "16px", borderRadius:'0' }} />
+              <img
+                src={male}
+                style={{ width: "16px", height: "16px", borderRadius: "0" }}
+              />
             ) : (
-              <img src={female} style={{ width: "16px", height: "16px", borderRadius:'0'}} />
+              <img
+                src={female}
+                style={{ width: "16px", height: "16px", borderRadius: "0" }}
+              />
             )}
           </h4>
           <p>{dogName + ", " + dogAge}</p>
@@ -47,10 +49,10 @@ const Card = ({ post }) => {
         <CardCenter>
           <p>장소 : 서울숲</p>
           <p>크기 : {post.dogSize}</p>
-          <p styoe={{wordBreak:'keep-all'}}>{dogComment}</p>
+          <p styoe={{ wordBreak: "keep-all" }}>{dogComment}</p>
         </CardCenter>
         <CardBottom>
-          {/* {year}. {month}. {day} {hour}시 {minute}분 */}
+          {year}. {month}. {day} {hour}시 {minute}분
         </CardBottom>
       </CardInfo>
     </CardWrap>

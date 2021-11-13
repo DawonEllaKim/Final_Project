@@ -3,18 +3,22 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-import NavBar from "../components/NavBar"; // 컴포넌츠
-import { actionCreators as postActions } from "../redux/modules/dogsta"; // 액션 불러오기
+// 컴포넌츠
+import NavBar from "../../components/NavBar";
+import TopBar from "../../components/TopBar";
 
-import TopBar from "../components/TopBar";
-import dog from "../image/dog.png";
+// 리덕스
+import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
-const DogStaGram = (props) => {
+// 이미지/아이콘
+import dog from "../../image/dog.png";
+
+const DogStaMain = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // 개스타그램의 모든 게시물 리스트
   const postList = useSelector((state) => state.dogsta.mainList);
-  // console.log("모든 개스타그램 포스트리스트", postList);
 
   useEffect(() => {
     dispatch(postActions.getAllPostMD());
@@ -36,7 +40,7 @@ const DogStaGram = (props) => {
         </Category>
         <AddBtn
           onClick={() => {
-            history.push("/dogstawrite");
+            history.push("/dogStaWrite");
           }}
         >
           게시물 추가하기
@@ -53,7 +57,7 @@ const DogStaGram = (props) => {
                     src={post.dogPostImage}
                     onClick={() =>
                       history.push(
-                        `/dogstadetail/${post.userId}}/${post.dogPostId}`
+                        `/dogStaDetail/${post.userId}}/${post.dogPostId}`
                       )
                     }
                   />
@@ -181,4 +185,4 @@ const Text = styled.div`
   }
 `;
 
-export default DogStaGram;
+export default DogStaMain;

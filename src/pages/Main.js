@@ -241,7 +241,6 @@ const Login = styled.img`
   left: 33%;
   z-index: 3;
   object-fit: cover;
-  object-fit: cover;
 `;
 const LoginText = styled.img`
   position: absolute;

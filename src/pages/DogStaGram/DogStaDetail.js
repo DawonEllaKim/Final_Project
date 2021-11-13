@@ -4,16 +4,12 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
-import NavBar from "../components/NavBar";
-import TopBar from "../components/TopBar";
+import TopBar from "../../components/TopBar";
+import NavBar from "../../components/NavBar";
 
 // 리덕스
-import { actionCreators as postActions } from "../redux/modules/dogsta";
-import { actionCreators as userActions } from "../redux/modules/user";
-
-// 아이콘들
-import notification from "../image/Notification.png";
-import backward from "../image/backward.png";
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
 const DogStaDetail = (props) => {
   const dispatch = useDispatch();
@@ -21,16 +17,7 @@ const DogStaDetail = (props) => {
 
   const postId = props.match.params.dogPostId;
   const currentPostUserId = props.match.params.userId;
-  console.log(
-    "포스트 아이디",
-    postId,
-    "현재 게시물 유저 아이디",
-    currentPostUserId
-  );
-
   const post = useSelector((state) => state.dogsta.eachList);
-  console.log("현재 포스트의 정보", post);
-
   const currentPageUserId = props.match.params.userId;
   const userId = localStorage.getItem("userId");
 
