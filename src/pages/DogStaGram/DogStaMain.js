@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+// DogStaMain.js - 개스타그램의 메인 페이지 (모든 게시물)
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
-import NavBar from "../../components/NavBar";
 import TopBar from "../../components/TopBar";
+import NavBar from "../../components/NavBar";
 
 // 리덕스
 import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
-// 이미지/아이콘
+// 이미지 + 아이콘
 import dog from "../../image/dog.png";
 
 const DogStaMain = (props) => {

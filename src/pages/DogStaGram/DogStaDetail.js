@@ -1,3 +1,4 @@
+// DogStaDetail.js - 개스타그램 게시물 하나에 대한 상세페이지
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
@@ -8,7 +9,6 @@ import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 
 // 리덕스
-import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
 const DogStaDetail = (props) => {
@@ -21,14 +21,17 @@ const DogStaDetail = (props) => {
   const currentPageUserId = props.match.params.userId;
   const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    // dispatch(userActions.getMypageMD(userId));
-    dispatch(postActions.getPostMD(currentPostUserId, postId));
-  }, [currentPostUserId, postId]);
+  const editPost = () => {
+    history.push(`/mapEdit/${postId}`);
+  };
 
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
+
+  useEffect(() => {
+    dispatch(postActions.getPostMD(currentPostUserId, postId));
+  }, [currentPostUserId, postId]);
 
   return (
     <Wrap>
@@ -108,9 +111,7 @@ const DogStaDetail = (props) => {
         //   <Button onClick={deletePost}>삭제하기</Button>
         // </div>
         <FlexButton>
-          <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
-            수정하기
-          </EditButton>
+          <EditButton onClick={editPost}>수정하기</EditButton>
           <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
         </FlexButton>
       )}

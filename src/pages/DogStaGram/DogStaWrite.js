@@ -1,23 +1,22 @@
-// 이 페이지에서 해야 할 것 -> 유저 정보 불러오기
-
-import React, { useEffect, useState } from "react";
+// DogStaWrite.js - 개스타그램 게시물 작성 페이지
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // 컴포넌츠
+import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+
+// 리덕스
 import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
-// 이미지 기본값
+// 이미지 + 아이콘
 import defaultDog from "../../image/default_dog.png";
-import TopBar from "../../components/TopBar";
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const userId = localStorage.getItem("userId");
 
   const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : "");
   const [imgFile, setImgFile] = useState(null);
@@ -40,9 +39,6 @@ const DogStaWrite = (props) => {
       reader.readAsDataURL(e.target.files[0]);
       setImgFile(e.target.files[0]);
     }
-
-    console.log("imgBase64", imgBase64);
-    console.log("imgFile", imgFile);
   };
 
   const dogPostDescChange = (e) => {
@@ -59,11 +55,6 @@ const DogStaWrite = (props) => {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
-
-    // const post = {
-    //   dogPostDesc: dogPostDesc,
-    // };
-    // console.log(post);
 
     const formData = new FormData();
     formData.append("dogPostImage", imgFile);
