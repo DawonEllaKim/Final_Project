@@ -41,17 +41,14 @@ const MapContainer3 = () => {
     var ps = new kakao.maps.services.Places();
 
     // 키워드 검색을 요청 (검색어,장소검색 완료 콜백함수)
-      ps.keywordSearch(searchList, placesSearchCB);
+    ps.keywordSearch(searchList, placesSearchCB);
 
-
- 
-    // 장소검색이 완료됐을 때 호출되는 콜백함수 
+    // 장소검색이 완료됐을 때 호출되는 콜백함수
     function placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료하면
         // 검색 목록과 마커를 표출
         displayPlaces(data);
-
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         //검색어 결과가 없을 때
         alert("검색 결과가 존재하지 않습니다.");
@@ -69,7 +66,6 @@ const MapContainer3 = () => {
         fragment = document.createDocumentFragment(),
         bounds = new kakao.maps.LatLngBounds();
 
-
       // 검색 결과 목록에 추가된 항목들을 제거
       removeAllChildNods(listEl);
 
@@ -77,7 +73,8 @@ const MapContainer3 = () => {
       removeMarker();
 
       for (var i = 0; i < 15; i++) {
-       //마커 생성, 지도에 표시
+        //마커 생성, 지도에 표시
+        // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
         var marker = addMarker(placePosition, i);
         var itemEl = getListItem(i, places[i]);
@@ -175,8 +172,8 @@ const MapContainer3 = () => {
 
       return marker;
     }
-   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합
-   var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합
+    var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     // 지도 위에 표시되고 있는 마커를 모두 제거합니다
     function removeMarker() {
       for (var i = 0; i < markers.length; i++) {
