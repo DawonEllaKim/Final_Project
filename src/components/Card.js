@@ -17,15 +17,15 @@ const Card = ({ post }) => {
 
   console.log(post);
 
-  const MeetingDate = initialMeetingDate.split("T")[0];
-  const year = MeetingDate.split("-")[0];
-  const month = MeetingDate.split("-")[1];
-  const day = MeetingDate.split("-")[2];
-  const MeetingTime = initialMeetingDate.split("T")[1];
-  const hour = MeetingTime.split(":")[0];
-  const minute = MeetingTime.split(":")[1];
+  // const MeetingDate = initialMeetingDate.split("T")[0];
+  // const year = MeetingDate.split("-")[0];
+  // const month = MeetingDate.split("-")[1];
+  // const day = MeetingDate.split("-")[2];
+  // const MeetingTime = initialMeetingDate.split("T")[1];
+  // const hour = MeetingTime.split(":")[0];
+  // const minute = MeetingTime.split(":")[1];
 
-  console.log(MeetingTime, MeetingDate, year, month, day, hour, minute);
+  // console.log(MeetingTime, MeetingDate, year, month, day, hour, minute);
 
   return (
     <CardWrap>
@@ -50,7 +50,7 @@ const Card = ({ post }) => {
           <p>{dogComment}</p>
         </CardCenter>
         <CardBottom>
-          {year}. {month}. {day} {hour}시 {minute}분
+          {/* {year}. {month}. {day} {hour}시 {minute}분 */}
         </CardBottom>
       </CardInfo>
     </CardWrap>

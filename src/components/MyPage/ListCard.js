@@ -10,8 +10,8 @@ const ListCard = ({ post, userId }) => {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.myList);
-  console.log(useSelector((state) => state));
-
+  console.log(useSelector((state) => state)); 
+  console.log(postList)
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
   }, []);
