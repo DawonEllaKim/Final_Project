@@ -223,7 +223,7 @@ const StyledSlider = styled(Slider)`
 const LoginImg = styled.div`
   position: relative;
   width: 350px;
-  height: 100%;
+  height: 172px;
   border-radius: 25px;
   cursor: pointer;
   object-fit: cover;
@@ -236,7 +236,7 @@ const Logo = styled.img`
 `;
 const Login = styled.img`
   position: absolute;
-  top: 58.5%;
+  top: 56.5%;
   left: 33%;
   z-index: 3;
   object-fit: cover;
