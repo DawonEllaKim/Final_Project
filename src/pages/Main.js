@@ -49,7 +49,7 @@ const Main = (props) => {
   const userInfo = useSelector((state) => state.user.list);
 
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
-  console.log(dogStaPostList);
+  // console.log(dogStaPostList);
 
   // 스피너
   const is_loading = useSelector((state) => state.sign.is_loading);
@@ -65,6 +65,7 @@ const Main = (props) => {
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
+
   const bottomSettings = {
     dots: false,
     infinite: true,
