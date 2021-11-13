@@ -18,8 +18,8 @@ import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
 import search from "../image/search.png";
 import map from "../image/map.png";
-import { distance1 } from "../components/MarkerList/DistanceList";
-
+import detailAddress from "../image/detailAddress.png";
+import detailFilter from "../image/detailFilter.png";
 const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Map2 = (props) => {
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
-
+  const moment = require('moment');
   
   console.log(startDate);
   console.log(markerName);
@@ -44,14 +44,13 @@ const Map2 = (props) => {
       routeName : markerName.routeName,
       startLocationAddress: markerName.startLocationAddress,
       endLocationAddress: markerName.endLocationAddress,
-      locationAddress: markerName.placename,
-      locationCategory: markerName.locationCategory,
-      coordinate: markerName.coordinate,
-      wishDesc: wishDesc,
-      meetingDate: startDate,
-      completed: false,
+      locationCategory: markerName.locationCategory,     
+      wishDesc: wishDesc,  
       dogCount: dogCount,
+      meetingDate:moment(startDate).add(9,'h')._d,
+
     };
+    console.log(Info)
     dispatch(PostActions.addPostMD(Info));
   };
 
@@ -82,31 +81,45 @@ const Map2 = (props) => {
           </WalkButton>
         </SearchWrap>
 
+       { markerName.routeName&&
+       <div>
         <AdressWrap>
           <CircleDiv>
-            <img src={map} />
+            <img src={detailAddress} />
           </CircleDiv>
           <Address>
-            상세 주소
+       
             <Detail>{markerName.locationCategory}</Detail>
             <Detail>{markerName.routeName}</Detail>
           </Address>
         </AdressWrap>
 
+        <AdressWrap>
+          <CircleDiv>
+            <img src={detailFilter} />
+          </CircleDiv>
+          <Address>
+           
+            <Detail>총{" "}{markerName.totalDistance}</Detail>
+            <Detail>시간:{" "}{markerName.totalTime}</Detail>
+          </Address>
+        </AdressWrap>
+        </div>
+}
         <Title>산책 일시</Title>
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
-          timeInputLabel="Time"
+          timeInputLabel="시작시간"
           dateFormat="MM/dd/yyyy h:mm aa"
           showTimeInput
           inline
         />
          <Title>
-        <Box sx={{ minWidth: 120}}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">마리 수</InputLabel>
-        <Select
+        <CustomBox sx={{ minWidth: 120}}>
+      <CustomFormControl fullWidth>
+        <CustomInputLabel id="demo-simple-select-label">마리 수</CustomInputLabel>
+        <CustomSelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={dogCount}
@@ -118,12 +131,12 @@ const Map2 = (props) => {
           <MenuItem value={4}>4마리</MenuItem>
           <MenuItem value={5}>5마리</MenuItem>
           <MenuItem value={6}>6마리</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+        </CustomSelect>
+      </CustomFormControl>
+    </CustomBox>
     </Title>
-        <Title>소개/유의사항</Title>
-        <TextArea onChange={(e) => setWishDesc(e.target.value)}></TextArea>
+        <Title1>소개/유의사항</Title1>
+        <TextArea placeholder="산책에 관한 글을 작성해주세요~" onChange={(e) => setWishDesc(e.target.value)}></TextArea>
         <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
       <NavBar />
@@ -132,7 +145,32 @@ const Map2 = (props) => {
 };
 
 export default Map2;
+const Title1 = styled.div
+`
+box-sizing: border-box;
+  height: 35px;
+  font-size: 18px;
+  line-height: 26px;
+  margin: 80px 0 20px 0;
+`
+const CustomSelect =styled(Select)
+`
+box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+`
+const CustomInputLabel = styled(InputLabel)
+`
+display:flex;
+align-items: center;
+`;
+const CustomFormControl = styled(FormControl)
+`
 
+`
+const CustomBox = styled(Box)
+`
+
+`
 const Frame = styled.div`
   max-width: 390px;
   margin: 0 auto;
@@ -179,6 +217,8 @@ const WalkButton = styled.button`
   height: 48px;
   display: flex;
   align-items: center;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px gray;
 `;
 
 const AdressWrap = styled.div`
@@ -190,7 +230,7 @@ const AdressWrap = styled.div`
   text-align: center;
   justify-content: flex-start;
   color: #000000;
-  margin-bottom: 10px;
+  margin: 40px 0px;
 `;
 
 const CircleDiv = styled.div`
@@ -201,7 +241,7 @@ const CircleDiv = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
+
 `;
 const Address = styled.div`
   margin-left: 15px;
@@ -225,12 +265,14 @@ const TextArea = styled.textarea`
   height: 138px;
   font-size: 14px;
   line-height: 20px;
-  border: 2px solid black;
+  border:1px  gray;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   color: #5f5f5f;
   padding: 10px;
   margin-bottom: 30px;
   box-sizing: border-box;
+  background-color:#F9F5C2;
 `;
 
 const AddButton = styled.button`
@@ -240,5 +282,6 @@ const AddButton = styled.button`
   font-size: 16px;
   border-radius: 12px;
   background-color: transparent;
-  box-shadow: 0px 4px black;
+  border:1px  gray;
+  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
 `;

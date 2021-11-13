@@ -445,6 +445,7 @@ const Preview = styled.img`
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
+  object-fit: cover;
 `;
 const AddWrap = styled.div``;
 const AddImage = styled.input`

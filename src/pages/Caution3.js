@@ -76,7 +76,7 @@ const Wrap = styled.div`
   align-items: center;
 
   max-width: 390px;
-  margin: auto;
+  margin: 0 0 100px 0;
 
   font-size: 14px;
   text-align: center;
@@ -90,7 +90,7 @@ const Header = styled.div`
   height: 52px;
   padding: 0 20px;
 
-  margin-bottom: 18px;
+  margin: 36px 0;
   font-size: 18px;
 `;
 const Img = styled.img`
@@ -100,6 +100,8 @@ const Img = styled.img`
   margin-bottom: 24px;
 `;
 const Paragraph = styled.div`
+  padding: 0 20px;
+
   h3 {
     font-size: 18px;
     margin-bottom: 36px;

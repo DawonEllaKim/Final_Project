@@ -5,7 +5,8 @@ import { useHistory } from "react-router";
 
 // 컴포넌츠
 import GaeStaCard from "../components/MyPage/GaeStaCard";
-import DogCard from "../components/MyPage/DogCard";
+import DogCard from "../components/DogCard";
+import UserCard from "../components/UserCard";
 import ListCard from "../components/MyPage/ListCard";
 import NavBar from "../components/NavBar";
 import Chat from "../components/Chat";
@@ -16,11 +17,12 @@ import { actionCreators as signActions } from "../redux/modules/sign";
 
 // 아이콘
 import { FiLogOut } from "react-icons/fi";
-import notification from "../image/Notification.png";
-import backward from "../image/backward.png";
+import redHeart from "../image/redHeart.png";
+import grayHeart from "../image/grayHeart.png";
 import dog from "../image/dog.png";
 import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
+import edit from "../image/edit.png";
 
 // 로그인 이미지
 import logo from "../image/loginLogo.png";
@@ -29,47 +31,17 @@ import loginText from "../image/loginText.png";
 import ChatPageElla from "./ChatPageElla";
 import { current } from "immer";
 
-// socket
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:3001");
+import TopBar from "../components/TopBar";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [check, setCheck] = useState("sta");
-  const [chatMode, setChatMode] = useState(false);
+  const [check, setCheck] = useState();
 
-  const pageList = useSelector((state) => state.user.page);
   const userInfo = useSelector((state) => state.user.list);
-
   const currentPageUserId = props.match.params.userId;
-  console.log(currentPageUserId);
-  console.log(props);
-
-  const is_login = localStorage.getItem("userId");
   const userId = localStorage.getItem("userId");
-  console.log(pageList);
-
-  console.log(userInfo);
-  console.log(userId);
-
-  // 채팅 방 유저 아이디
-  const room = [currentPageUserId, userId].sort();
-  console.log(room);
-  // 채팅방 주소 만들기
-  const setRoom = room[0] + "-" + room[1];
-  console.log(setRoom);
-
-  const [showChat, setShowChat] = useState(false);
-
-  // socket
-
-  const joinRoom = () => {
-    socket.emit("join_room", setRoom);
-    // history.push(`/chat/${setRoom}`)
-    setShowChat(true);
-  };
 
   // 로그아웃
   const logout = () => {
@@ -83,238 +55,186 @@ const MyPage = (props) => {
 
   useEffect(() => {
     dispatch(userActions.getMypageMD(currentPageUserId));
+    setCheck("sta");
   }, []);
 
   return (
     <div>
-      {is_login ? (
-        !showChat ? (
-          <Wrap>
-            {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-            <Header>
-              <button
+      <Wrap>
+        <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
+        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+
+        {/* 유저 정보 */}
+        <UserInfo>
+          <UserInfoLeft>
+            {/* 유저 사진 */}
+            <UserImg src={userInfo.userImage} />
+
+            {/* 편집모드 */}
+            {currentPageUserId === userId && (
+              <Edit
                 onClick={() => {
-                  history.goBack();
+                  history.push("/userProfile");
                 }}
               >
-                <img src={backward} style={{ width: "10px", height: "18px" }} />
-              </button>
-              <p>{userInfo.userNickname}님의 페이지</p>
-              <button>
-                <img
-                  src={notification}
-                  style={{ width: "24px", height: "24px" }}
-                />
-              </button>
-            </Header>
+                <img src={edit} />
+              </Edit>
+            )}
+          </UserInfoLeft>
 
-            {/* 유저 정보 */}
-            <UserInfo>
-              {/* 유저 사진 */}
-              <img src={userInfo.userImage} />
-
-              {/* 유저 닉네임 + 유저 주소 */}
-              <div>
-                <span>{userInfo.userNickname}</span>
-                <span>{userInfo.userLocation}</span>
-              </div>
-
-              {/* 로그아웃 버튼 */}
-              {currentPageUserId === userId ? (
-                <LogOut onClick={logout}>
-                  <FiLogOut size="16" />
-                  <span>로그아웃</span>
-                </LogOut>
-              ) : (
-                <div>
-                  <button
-                    onClick={() => {
-                      console.log(
-                        "지금 페이지 유저 ID",
-                        currentPageUserId,
-                        "지금 로그인 유저 ID",
-                        userId
-                      );
-                      // history.push("/chatPageElla");
-                      setChatMode(true);
-                    }}
-                  >
-                    {userInfo.userNickname}님에게 쪽지보내기
-                  </button>
-                  {chatMode === true ? (
-                    <CHAT>
-                      <ChatPageElla
-                        currentPageUserId={currentPageUserId}
-                        userId={userId}
-                      />
-                      <button
-                        onClick={() => {
-                          setChatMode(false);
-                        }}
-                      >
-                        close
-                      </button>
-                    </CHAT>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              )}
-            </UserInfo>
-
-            {/* 다른 페이지로 이동 버튼들 */}
-            <Buttons>
-              <div
-                onClick={() => {
-                  setCheck("sta");
-                }}
-              >
-                <div>
-                  <img src={dog} />
-                  <span>개스타그램</span>
-                </div>
-              </div>
-              <div
-                onClick={() => {
-                  setCheck("dog");
-                }}
-              >
-                <img src={chat} onClick={() => history.push("/mypage")} />
-                <span>등록정보</span>
-              </div>
-              <div
-                onClick={() => {
-                  setCheck("list");
-                }}
-              >
-                <img src={myPage} />
-                <span>산책 목록</span>
-              </div>
-            </Buttons>
-
-            {/* 상황 마다 바뀔 카드들 */}
+          <UserRight>
+            {/* 유저 닉네임 + 유저 주소 */}
             <div>
-              {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
-              {check === "dog" && <DogCard post={userInfo} />}
-              {check === "list" && <ListCard post={pageList} />}
+              <span style={{ fontWeight: "400" }}>{userInfo.userNickname}</span>
+              <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
             </div>
-            <NavBar />
-          </Wrap>
-        ) : (
-          <Chat socket={socket} name={currentPageUserId} room={room} />
-        )
-      ) : (
-        <Wrap>
-          <div onClick={() => history.push("/login")}>
-            <LoginImg>
-              <Logo src={logo} />
-              <Login src={login} />
-              <LoginText src={loginText} />
-            </LoginImg>
+
+            {/* 로그아웃 버튼 */}
+            {currentPageUserId === userId && (
+              <LogOut onClick={logout}>
+                <FiLogOut size="16" />
+                <span>로그아웃</span>
+              </LogOut>
+            )}
+          </UserRight>
+        </UserInfo>
+
+        {/* 별점/리뷰 */}
+        <Review>
+          <ReviewLeft>
+            <div>
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={redHeart} />
+              <img src={grayHeart} />
+            </div>
+            <p>4.5/5</p>
+          </ReviewLeft>
+          <ReviewRight>리뷰보기</ReviewRight>
+        </Review>
+
+        {/* 다른 페이지로 이동 버튼들 */}
+        <Buttons>
+          <div
+            onClick={() => {
+              setCheck("sta");
+            }}
+          >
+            <div>
+              <img src={dog} style={{ width: "24px", height: "21px" }} />
+              <span>개스타그램</span>
+            </div>
           </div>
-        </Wrap>
-      )}
+          <div
+            onClick={() => {
+              setCheck("dog");
+            }}
+          >
+            <img src={chat} style={{ width: "20px", height: "16px" }} />
+            <span>등록정보</span>
+          </div>
+          <div
+            onClick={() => {
+              setCheck("list");
+            }}
+          >
+            <img src={myPage} style={{ width: "16px", height: "20px" }} />
+            <span>산책 목록</span>
+          </div>
+        </Buttons>
+
+        {/* 상황 마다 바뀔 카드들 */}
+        <Cards>
+          {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
+          {check === "dog" && (
+            <div>
+              <UserCard post={userInfo} userId={currentPageUserId} />
+              <DogCard post={userInfo} userId={currentPageUserId} />
+            </div>
+          )}
+          {check === "list" && (
+            <ListCard post={userInfo} userId={currentPageUserId} />
+          )}
+        </Cards>
+
+        {/* 고정 버튼 */}
+        <NavBar />
+      </Wrap>
     </div>
   );
 };
 
-const CHAT = styled.div`
-  width: 80vw;
-  height: 80vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: white;
-`;
-
-const LoginImg = styled.div`
-  position: relative;
-  width: 350px;
-  height: 220px;
-  border-radius: 25px;
-  cursor: pointer;
-`;
-const Logo = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-const Login = styled.img`
-  position: absolute;
-  top: 58.5%;
-  left: 33%;
-  z-index: 3;
-`;
-const LoginText = styled.img`
-  position: absolute;
-  top: 68%;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-
 const Wrap = styled.div`
-  box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  max-width: 390px;
-  margin: auto;
-
-  font-size: 14px;
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 350px;
-  height: 52px;
-  margin: 10px auto 18px auto;
-  font-size: 18px;
-
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
+  padding: 0 20px;
 `;
 const UserInfo = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
 
-  width: 350px;
-  height: 108px;
-  margin-bottom: 22px;
-  border-top: 0.25px solid #b9b8b8;
-  border-bottom: 0.25px solid #b9b8b8;
+  width: 100%;
+  height: 88px;
 
-  img {
-    width: 80px;
-    height: 80px;
-    margin-right: 14.5px;
-    border: 1px solid black;
-    border-radius: 50%;
-  }
+  margin-bottom: 24px;
+`;
+const UserInfoLeft = styled.div`
+  position: relative;
 
+  width: 91px;
+  height: 88px;
+
+  margin-right: 16px;
+`;
+const UserRight = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    margin-right: 60px;
+    align-items: center;
   }
+`;
+const UserImg = styled.img`
+  width: 83px;
+  height: 83px;
+  padding: 2px;
 
-  span {
-    margin-bottom: 7px;
-    font-size: 16px;
-    color: #5f5f5f;
+  margin-right: 14.5px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+const Edit = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: #fff;
+
+  img {
+    width: 22px;
+    height: 22px;
   }
 `;
 const Buttons = styled.div`
@@ -322,9 +242,10 @@ const Buttons = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 297px;
-  height: 51px;
-  margin: 0 auto 11px auto;
+
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
 
   div {
     display: flex;
@@ -339,6 +260,10 @@ const Buttons = styled.div`
     height: 24px;
     margin-bottom: 8px;
   }
+
+  span {
+    font-size: 14px;
+  }
 `;
 const LogOut = styled.button`
   display: flex;
@@ -349,6 +274,54 @@ const LogOut = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  color: #5f5f5f;
+`;
+const Review = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 66px;
+  width: 100%;
+  margin-bottom: 22px;
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+`;
+const ReviewLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    color: #5f5f5f;
+  }
+
+  img {
+    width: 20px;
+    height: 18px;
+    margin-right: 2px;
+  }
+
+  p {
+    color: #5f5f5f;
+  }
+`;
+const ReviewRight = styled.div`
+  color: #5f5f5f;
+`;
+const Cards = styled.div`
+  width: 100%;
+  margin: 24px 0 200px 0;
+  padding-top: 24px;
+  border-top: 1px solid #c4c4c4;
 `;
 
 export default MyPage;

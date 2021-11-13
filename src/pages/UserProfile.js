@@ -6,10 +6,8 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/user";
 
-// 버튼 이미지
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
-import notification from "../image/Notification.png";
+// 상단바
+import TopBar from '../components/TopBar';
 
 const EditUser = (props) => {
   const dispatch = useDispatch();
@@ -225,19 +223,12 @@ const EditUser = (props) => {
     <>
       <Wrap>
         {/* 뒤로가기 버튼 + 회원정보 텍스트  */}
-        <TopWrap>
-          <Button _onClick={() => history.goBack()}>
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <TopTitle>회원 정보 수정</TopTitle>
-          <Button>
-            <img src={notification} style={{ width: "24px", height: "24px" }} />
-          </Button>
-        </TopWrap>
+        <TopBar only_left>회원 정보 수정</TopBar>
 
         {/* 보호자 이미지 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
+          <UploadLabel for="imgFile">사진 업로드</UploadLabel>
           <AddImage
             type="file"
             name="imgFile"
@@ -358,17 +349,7 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-const TopWrap = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
-const TopTitle = styled.div`
-  font-size: 18px;
-  line-height: 52px;
-`;
+
 const ImageWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -379,22 +360,31 @@ const ImageWrap = styled.div`
 const Preview = styled.img`
   width: 120px;
   height: 120px;
-  border: 2px solid black;
   box-sizing: border-box;
   border-radius: 20px;
   margin: 0 auto;
+  object-fit: cover;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+`;
+const UploadLabel = styled.label`
+  border-bottom: 1px solid black;
+  padding: 10px 5px 5px 5px;
+  margin: 10px;
+  cursor: pointer;
 `;
 const AddImage = styled.input`
-  width: 180px;
-  margin: 10px 0;
+  /* width: 180px;
+  margin: 10px 0; */
+  display: none;
 `;
 const Body = styled.div``;
 const Filter = styled.div`
-  border: 2px solid black;
   border-radius: 10px;
   padding: 12px 24px;
   margin-bottom: 20px;
   text-align: left;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  color: #888;
 `;
 const Title = styled.div`
   margin-bottom: 15px;
@@ -422,17 +412,18 @@ const Nickname = styled.input`
 `;
 const UserAge = styled.input``;
 const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
+  margin: 40px 0;
 `;
 const Add = styled.button`
-  width: 100%;
+  width: 160px;
   height: 48px;
   font-size: 16px;
-  border: 2px solid black;
+  border: none;
   border-radius: 10px;
   background-color: transparent;
-  box-shadow: 0px 4px black;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 `;
 

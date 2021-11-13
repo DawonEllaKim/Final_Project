@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import { TextField } from '@mui/material';
+
 import { Close } from '@mui/icons-material';
 import {useDispatch} from "react-redux"
 import {actionCreators as markerActions} from "../redux/modules/marker"
-import CheckMain from '../pages/CheckMain';
-import { FaWalking } from 'react-icons/fa';
+
 const MarkerModal = (props) => {
     const dispatch = useDispatch();
     const distance = props.distance;
@@ -23,10 +22,12 @@ const MarkerModal = (props) => {
           routeName: distance.name,
           cooridnate: walk,
         }
+        console.log(marker)
         dispatch(markerActions.addMarkerAX(marker))
+        
         props.close()
     }
-    console.log(props.latitude,props.longitude,props.placename)
+  
     return (
         
             <React.Fragment>

@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
 import { dogBreedCheck } from "../shared/check";
 
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
+import TopBar from '../components/TopBar';
+
+// 강아지 이미지 기본 값
+import defaultDog from "../image/default_dog.png";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -18,46 +20,46 @@ const SignDog = (props) => {
   console.log(signUser);
 
   const submitDogInfo = () => {
-    if (!dogBreedCheck(dog_breed)) {
+    if (!dogBreedCheck(dogBreed)) {
       window.alert("강아지 종은 한글,영문 형식만 입력 가능합니다");
       return;
     }
 
     if (
-      dog_gender === "" ||
-      dog_name === "" ||
-      dog_size === "" ||
-      dog_breed === "" ||
-      dog_age === "" ||
+      dogGender === "" ||
+      dogName === "" ||
+      dogSize === "" ||
+      dogBreed === "" ||
+      dogAge === "" ||
       neutral === "" ||
-      dog_comment === ""
+      dogComment === ""
     ) {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("dogGender", dog_gender);
-    formData.append("dogName", dog_name);
-    formData.append("dogSize", dog_size);
-    formData.append("dogBreed", dog_breed);
-    formData.append("dogAge", dog_age);
+    formData.append("dogGender", dogGender);
+    formData.append("dogName", dogName);
+    formData.append("dogSize", dogSize);
+    formData.append("dogBreed", dogBreed);
+    formData.append("dogAge", dogAge);
     formData.append("neutral", neutral);
-    formData.append("dogComment", dog_comment);
+    formData.append("dogComment", dogComment);
     formData.append("dogImage", imgFile);
 
     dispatch(DogActions.signDogAPI(formData));
   };
 
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  const [dog_gender, setDogGender] = useState("");
-  const [dog_name, setDogName] = useState("");
-  const [dog_size, setDogSize] = useState("");
-  const [dog_breed, setDogBreed] = useState("");
-  const [dog_age, setDogAge] = useState("");
+  const [dogGender, setDogGender] = useState("");
+  const [dogName, setDogName] = useState("");
+  const [dogSize, setDogSize] = useState("");
+  const [dogBreed, setDogBreed] = useState("");
+  const [dogAge, setDogAge] = useState("");
   const [neutral, setNeutral] = useState("");
-  const [dog_comment, setDogComment] = useState("");
+  const [dogComment, setDogComment] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -120,27 +122,20 @@ const SignDog = (props) => {
   return (
     <>
       <Wrap>
-        <Header>
-          <Button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p style={{ marginRight: "150px" }}>회원가입</p>
-        </Header>
+        <TopBar only_left>반려견 등록</TopBar>
 
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
+            <UploadLabel for='imgFile'>
+              사진 업로드
+            </UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
               id="imgFile"
               onChange={handleChangeFile}
             ></AddImage>
-            {/* <AddBtn>이미지 등록하기</AddBtn> */}
           </AddWrap>
         </ImageWrap>
         <Input>
@@ -163,7 +158,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="s"
-                  checked={dog_size === "소형견"}
+                  checked={dogSize === "소형견"}
                   onClick={() => dogSizeChangeHandler("소형견")}
                 />
               </RadioWrap>
@@ -174,7 +169,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="m"
-                  checked={dog_size === "중형견"}
+                  checked={dogSize === "중형견"}
                   onClick={() => dogSizeChangeHandler("중형견")}
                 />
               </RadioWrap>
@@ -186,7 +181,7 @@ const SignDog = (props) => {
                 <DogSize
                   type="radio"
                   id="l"
-                  checked={dog_size === "대형견"}
+                  checked={dogSize === "대형견"}
                   onClick={() => dogSizeChangeHandler("대형견")}
                 />
               </RadioWrap>
@@ -203,7 +198,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="b"
-                  checked={dog_gender === "남"}
+                  checked={dogGender === "남"}
                   onClick={() => dogGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -215,7 +210,7 @@ const SignDog = (props) => {
                 <DogGender
                   type="radio"
                   id="g"
-                  checked={dog_gender === "여"}
+                  checked={dogGender === "여"}
                   onClick={() => dogGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -261,7 +256,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="young"
-                  checked={dog_age === "0~3세"}
+                  checked={dogAge === "0~3세"}
                   onClick={() => dogAgeChangeHandler("0~3세")}
                 />
               </RadioWrap>
@@ -273,7 +268,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="junior"
-                  checked={dog_age === "4~7세"}
+                  checked={dogAge === "4~7세"}
                   onClick={() => dogAgeChangeHandler("4~7세")}
                 />
               </RadioWrap>
@@ -285,7 +280,7 @@ const SignDog = (props) => {
                 <DogAge
                   type="radio"
                   id="senior"
-                  checked={dog_age === "8세 이상"}
+                  checked={dogAge === "8세 이상"}
                   onClick={() => dogAgeChangeHandler("8세 이상")}
                 />
               </RadioWrap>
@@ -294,22 +289,16 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Input>
-          <Title> 한 줄 소개</Title>
+        <Input style={{backgroundColor: '#FAF7CE'}}>
+          <Title> 강아지 한 줄 소개</Title>
           <InputText
             placeholder="ex) 우리 집 최고 애교쟁이!"
             onChange={dogCommentChangeHandler}
+            style={{backgroundColor: '#FAF7CE'}}
           ></InputText>
         </Input>
         <ButtonWrap>
-          <button onClick={submitDogInfo}>가입하기</button>
-          <button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            취소하기
-          </button>
+          <button onClick={submitDogInfo}>등록하기</button>
         </ButtonWrap>
       </Wrap>
     </>
@@ -324,29 +313,18 @@ const Wrap = styled.div`
   font-size: 14px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin-bottom: 18px;
-  font-size: 18px;
-`;
 const Input = styled.div`
   box-sizing: border-box;
   padding: 12px 24px;
-  border: 2px solid #000;
   border-radius: 15px;
   margin-bottom: 20px;
   text-align: left;
   font-size: 16px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  color:#888;
 `;
 
-const TopTitle = styled.div`
-  font-size: 16px;
-`;
+
 
 const ImageWrap = styled.div`
   margin: 20px 0;
@@ -355,9 +333,10 @@ const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
+  object-fit: cover;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const InputText = styled.input`
   width: 100%;
@@ -369,9 +348,16 @@ const InputText = styled.input`
   }
 `;
 const AddWrap = styled.div``;
+const UploadLabel = styled.label`
+  border-bottom: 1px solid black;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+`;
 const AddImage = styled.input`
-  width: 180px;
-  margin: 10px 0;
+  /* width: 180px;
+  margin: 10px 0; */
+  display: none;
 `;
 const Title = styled.div`
   margin-bottom: 15px;
@@ -387,7 +373,8 @@ const Flex = styled.div`
   text-align: center;
 `;
 const Label = styled.label`
-  padding-top: 5px;
+  padding-top: 4px;
+  font-size: 14px;
 `;
 
 const DogSize = styled.input``;
@@ -396,15 +383,13 @@ const DogNeutral = styled.input``;
 const DogAge = styled.input``;
 
 const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
   button {
     width: 160px;
     height: 48px;
     background-color: #fff;
     border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
+    border: none;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   }
 `;

@@ -50,7 +50,7 @@ const getMypageMD = (userId) => {
         const userInfo = res.data.posts[0];
 
         dispatch(getList(userInfo));
-        dispatch(getMypage(userInfo));
+  
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);

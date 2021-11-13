@@ -4,6 +4,8 @@ import styled from "styled-components";
 // 리액트 아이콘
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
+import male from "../image/male.png";
+import female from "../image/female.png";
 
 const Card = ({ post }) => {
   const dogImage = post.dogImage;
@@ -13,29 +15,42 @@ const Card = ({ post }) => {
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
 
+  console.log(post);
+
   const MeetingDate = initialMeetingDate.split("T")[0];
   const year = MeetingDate.split("-")[0];
   const month = MeetingDate.split("-")[1];
   const day = MeetingDate.split("-")[2];
   const MeetingTime = initialMeetingDate.split("T")[1];
-  console.log(MeetingTime);
-  // const hour = MeetingTime.split(":")[0];
-  // const minute = MeetingTime.split(":")[1];
+  const hour = MeetingTime.split(":")[0];
+  const minute = MeetingTime.split(":")[1];
+
+  console.log(MeetingTime, MeetingDate, year, month, day, hour, minute);
 
   return (
     <CardWrap>
       {/* 카드 왼쪽 - 이미지 */}
-      <img src={dogImage} />
+      <img src={dogImage} sty />
 
       {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
         <CardTop>
-          <h4> {dogGender === "남" ? <BsGenderMale /> : <BsGenderFemale />}</h4>
+          <h4>
+            {dogGender === "남" ? (
+              <img src={male} style={{ width: "16px", height: "16px", borderRadius:'0' }} />
+            ) : (
+              <img src={female} style={{ width: "16px", height: "16px", borderRadius:'0'}} />
+            )}
+          </h4>
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
-        <CardCenter>{dogComment}</CardCenter>
+        <CardCenter>
+          <p>장소 : 서울숲</p>
+          <p>크기 : {post.dogSize}</p>
+          <p styoe={{wordBreak:'keep-all'}}>{dogComment}</p>
+        </CardCenter>
         <CardBottom>
-          {year}. {month}. {day} {}:{}
+          {year}. {month}. {day} {hour}시 {minute}분
         </CardBottom>
       </CardInfo>
     </CardWrap>
@@ -43,27 +58,30 @@ const Card = ({ post }) => {
 };
 
 const CardWrap = styled.div`
-  border: 2px solid black;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  width: 350px;
-  height: 176px;
-  margin-bottom: 30px;
-  padding: 12px;
+
+  width: 100%;
+
+  margin-bottom: 24px;
   border-radius: 25px;
+  background-color: #fff;
+  color: #747474;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 20.27px;
   cursor: pointer;
-  box-shadow: 0px 3px black;
+
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+
   img {
     width: 152px;
     height: 152px;
     border-radius: 25px;
-    margin-right: 16px;
+    object-fit: cover;
   }
 `;
 const CardInfo = styled.div`
@@ -75,18 +93,19 @@ const CardInfo = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-left: 16px;
 `;
 const CardTop = styled.div`
-  padding-top: 8px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   font-weight: 600;
+  margin-top: 13px;
   h4 {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     padding: 0;
     margin: 0 8px 0 0;
     font-weight: 600;
@@ -95,14 +114,20 @@ const CardTop = styled.div`
     padding: 0;
     margin: 0;
     font-size: 16px;
+    color: black;
+    font-weight: 400;
   }
 `;
 const CardCenter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  text-align: left;
   font-size: 14px;
+  line-height: 1.4;
   width: 100%;
-  padding-top: 12px;
+  padding: 8px 8px 0 0;
+  box-sizing: border-box;
 `;
 const CardBottom = styled.div`
   position: absolute;

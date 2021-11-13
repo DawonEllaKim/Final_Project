@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Slider from "react-slick";
-import Weather from "../components/Weather"
+import Weather from "../components/Weather";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -14,16 +14,16 @@ import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
 import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
+import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
 
-// 버튼 이미지
-import Button from "../elements/Button";
-import filter from "../image/filter.png";
-import notification from "../image/Notification.png";
+// 상단바
+import TopBar from "../components/TopBar";
 
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
 import { GrNotification } from "react-icons/gr";
+import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // 액션 불러오기
 
 // 로그인 이미지
 import logo from "../image/loginLogo.png";
@@ -34,7 +34,14 @@ import loginText from "../image/loginText.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// 스피너
+import Spinner from "../shared/Spinner";
+
 import caution1 from "../image/caution1.png";
+import caution2 from "../image/caution2.png";
+import caution3 from "../image/caution3.png";
+import dogsta from "../redux/modules/dogsta";
+import { FaBullseye } from "react-icons/fa";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -42,14 +49,29 @@ const Main = (props) => {
   const userInfo = useSelector((state) => state.user.list);
   console.log(postList, userInfo);
 
+  const dogStaPostList = useSelector((state) => state.dogsta.mainList);
+
+  // 스피너
+  const is_loading = useSelector((state) => state.sign.is_loading);
+
   // 슬라이드 세팅
-  const settings = {
+  const topSettings = {
     dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+  };
+  const bottomSettings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 3.5,
+    slidesToScroll: 1,
+    autoplay: false,
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
@@ -73,27 +95,22 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
-  
     dispatch(postActions.getMainMD());
+    dispatch(dogStaActions.getAllPostMD());
   }, []);
+
+  if (is_loading) {
+    return <Spinner />;
+  }
 
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
-      {/* 필터 + 산책할개 + 알람 */}
-      <Head>
-        <Button _onClick={showSideBar}>
-          <img src={filter} style={{ paddingTop: "4px" }} />
-        </Button>
-        <p>산책할개</p>
-        <Button>
-          <img src={notification} style={{ width: "24px", height: "24px" }} />
-        </Button>
-      </Head>
+      <TopBar> 산책할개 </TopBar>
 
       {/* 일러스트 슬라이드 */}
 
       {!userId ? (
-        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
+        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
           <div onClick={() => history.push("/login")}>
             <LoginImg>
               <Logo src={logo} />
@@ -103,8 +120,8 @@ const Main = (props) => {
           </div>
         </StyledSlider>
       ) : (
-        <StyledSlider {...settings} style={{ cursor: "pointer" }}>
-          <Weather/>
+        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+          <Weather />
           <div
             onClick={() => {
               history.push("/caution1");
@@ -114,14 +131,14 @@ const Main = (props) => {
           </div>
           <div
             onClick={() => {
-              history.push("/caution1");
+              history.push("/caution2");
             }}
           >
             <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
           </div>
           <div
             onClick={() => {
-              history.push("/caution1");
+              history.push("/caution3");
             }}
           >
             <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
@@ -130,9 +147,9 @@ const Main = (props) => {
       )}
 
       {/* 사이드 바*/}
-      <SideWrap>
-        {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
-        <SideBarNav sideBar={sideBar}>
+      {/* <SideWrap> */}
+      {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
+      {/* <SideBarNav sideBar={sideBar}>
           <BarWrap>
             <Filter onClick={showSideBar}>
               <AiOutlineFilter
@@ -150,7 +167,21 @@ const Main = (props) => {
             </SubMenuWrap>
           </BarWrap>
         </SideBarNav>
-      </SideWrap>
+      </SideWrap> */}
+
+      {/* 개스타그램 모음 */}
+      <Body>
+        <Text>오늘의 개스타</Text>
+        <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
+          {dogStaPostList.map((post, index) => {
+            return (
+              <div>
+                <MainDogsta post={post} key={index} />
+              </div>
+            );
+          })}
+        </DogstaSlide>
+      </Body>
 
       {/* 각 게시물에 대한 카드들 */}
       <Body>
@@ -171,56 +202,31 @@ const Main = (props) => {
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 390px;
-  margin: auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 0 20px 60px 20px;
   box-sizing: border-box;
-`;
-
-const Head = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 12px;
-  div {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  p {
-    width: 150px;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 35px;
-    color: #393939;
-    cursor: pointer;
-  }
 `;
 
 const StyledSlider = styled(Slider)`
   .slick-slide div {
     outline: none;
   }
+
   width: 350px;
-  height: 220px;
+  height: 172px;
   margin-bottom: 12px;
   border-radius: 25px;
-  border: 2px solid black;
   box-sizing: border-box;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const LoginImg = styled.div`
   position: relative;
   width: 350px;
-  height: 220px;
+  height: 172px;
   border-radius: 25px;
   cursor: pointer;
+  object-fit: cover;
 `;
 const Logo = styled.img`
   position: absolute;
@@ -230,22 +236,26 @@ const Logo = styled.img`
 `;
 const Login = styled.img`
   position: absolute;
-  top: 58.5%;
+  top: 56.5%;
   left: 33%;
   z-index: 3;
+  object-fit: cover;
+  object-fit: cover;
 `;
 const LoginText = styled.img`
   position: absolute;
   top: 68%;
   left: 50%;
   transform: translateX(-50%);
+  object-fit: cover;
 `;
 
 const Img = styled.img`
   width: 350px;
-  height: 220px;
+  height: 172px;
   background-size: cover;
   border-radius: 25px;
+  object-fit: cover;
 `;
 
 const Slide = styled.div`
@@ -311,18 +321,32 @@ const Filter = styled.div`
 const SubMenuWrap = styled.div`
   width: 100%;
 `;
+
+const DogstaSlide = styled(Slider)`
+  display: flex;
+  justify-content: left;
+  /* gap: 20px; */
+  width: 320px;
+  height: 80px;
+  .slick-prev:before,
+  .slick-next:before {
+    color: gray;
+  }
+`;
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin-bottom: 50px;
+  margin: 28px 0;
+  border-top: 1px solid #c4c4c4;
 `;
 const Text = styled.p`
   width: 152px;
   height: 16px;
-  margin: 32px 0 24px 0;
+  margin: 12px 0 24px 0;
   font-size: 16px;
   font-weight: 700;
 `;

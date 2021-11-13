@@ -13,7 +13,7 @@ const instance = axios.create({
 
   headers: {
     // "content-type": "application/json;charset=UTF-8",
-    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+  
     accept: "application/json",
     "Access-Control-Allow-Origin": "*",
     authorization: `Bearer ${getCookie("token")}`,

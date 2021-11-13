@@ -392,6 +392,7 @@ const Image = styled.img`
   height: 100px;
   border-radius: 50%;
   background-color: pink;
+  object-fit: cover;
 `;
 
 // 드롭다운 필터를 위한 스타일

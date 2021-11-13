@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
 
 import logo from "../image/logo.png";
+// 상단바
+import TopBar from "../components/TopBar";
 
 import { KAKAO_AUTH_URL } from "../components/OAuth";
 // const { Kakao } = window;
@@ -75,6 +77,7 @@ const LogIn = (props) => {
   return (
     <>
       <Wrap>
+        <TopBar only_left></TopBar>
         <Logo src={logo} />
         <InputBox>
           <MdAlternateEmail
@@ -110,17 +113,29 @@ const LogIn = (props) => {
   );
 };
 
+const Head = styled.div`
+  position: fixed;
+  top: 70px;
+  left: 70px;
+  width: 390px;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const Wrap = styled.div`
   text-align: center;
   max-width: 390px;
   font-size: 14px;
-  padding: 55px;
+  padding-bottom: 55px;
   margin: 0 auto;
 `;
 const Logo = styled.img`
   width: 132px;
   height: 196px;
-  margin: 50px auto 46px auto;
+  margin: 0 auto 46px auto;
 `;
 const InputBox = styled.div`
   box-sizing: border-box;

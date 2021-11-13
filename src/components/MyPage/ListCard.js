@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-
-// 컴포넌츠
+import { useSelector, useDispatch } from "react-redux";
 import Card from "../../components/Card";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
-const ListCard = ({ post }) => {
+const ListCard = ({ post, userId }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const postList = useSelector((state) => state.post.myList);
+  console.log(useSelector((state) => state));
+
+  useEffect(() => {
+    dispatch(postActions.getMyPostMD(userId));
+  }, []);
 
   return (
     <Wrap>
-      <Title>산책목록</Title>
-
+      {/* 해당 페이지 소유자가 등록된 산책이 없다면 삼항연산자로 문구 보여주기 */}
       <CardWrap>
-        {post.length === 1 ? (
+        {postList.length === 0 ? (
           <NoCard>등록된 산책 목록이 없습니다.</NoCard>
         ) : (
           <div>
-            {post.map((page, index) => {
+            {postList.map((post, index) => {
               return (
-                <div onClick={() => history.push(`/posts/${page.post_id}`)}>
-                  <Card index={index} key={index} post={page} />
+                <div onClick={() => history.push(`/posts/${post.postId}`)}>
+                  <Card index={index} key={index} post={post} />
                 </div>
               );
             })}
@@ -32,8 +39,7 @@ const ListCard = ({ post }) => {
 };
 
 const Wrap = styled.div`
-  width: 350px;
-  border-top: 1px solid #c4c4c4;
+  width: 100%;
 `;
 const Title = styled.div`
   margin: 20px;
@@ -50,7 +56,6 @@ const NoCard = styled.div`
   height: 60px;
   border-radius: 20px;
 `;
-
 const CardWrap = styled.div`
   text-align: left;
 `;

@@ -9,20 +9,23 @@ import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
 
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
+import TopBar from '../components/TopBar';
+
+// 유저 이미지 기본값
+import defaultUser from "../image/default_user.jpg";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgBase64, setImgBase64] = useState(defaultUser ? defaultUser : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
+
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm_password, setConfirmPassword] = useState("");
-  const [user_nickname, setUserNickname] = useState("");
-  const [user_location, setUserLocation] = useState("");
-  const [user_gender, setUserGender] = useState("");
-  const [user_age, setUserAge] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [userLocation, setUserLocation] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [userAge, setUserAge] = useState("");
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -34,6 +37,7 @@ const SignUp = () => {
         setImgBase64(base64.toString());
       }
     };
+
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
@@ -45,6 +49,7 @@ const SignUp = () => {
     console.log(newTitle);
     setUserEmail(newTitle);
   };
+
   const passwordChangeHandler = (e) => {
     const newTitle = e.target.value;
     console.log(newTitle);
@@ -94,7 +99,7 @@ const SignUp = () => {
       return;
     }
 
-    if (password !== confirm_password) {
+    if (password !== confirmPassword) {
       window.alert("비밀번호가 일치하지 않습니다.");
       return;
     }
@@ -102,11 +107,11 @@ const SignUp = () => {
     if (
       userEmail === "" ||
       password === "" ||
-      confirm_password === "" ||
-      user_nickname === "" ||
-      user_location === "" ||
-      user_gender === "" ||
-      user_age === ""
+      confirmPassword === "" ||
+      userNickname === "" ||
+      userLocation === "" ||
+      userGender === "" ||
+      userAge === ""
     ) {
       window.alert("입력하지 않은 값이 있습니다.");
       return;
@@ -115,11 +120,11 @@ const SignUp = () => {
     const formData = new FormData();
     formData.append("userEmail", userEmail);
     formData.append("password", password);
-    formData.append("confirmPassword", confirm_password);
-    formData.append("userNickname", user_nickname);
-    formData.append("userLocation", user_location);
-    formData.append("userGender", user_gender);
-    formData.append("userAge", user_age);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("userNickname", userNickname);
+    formData.append("userLocation", userLocation);
+    formData.append("userGender", userGender);
+    formData.append("userAge", userAge);
     formData.append("userImage", imgFile);
 
     toast.success("회원 정보 등록이 완료되었습니다!", {
@@ -135,21 +140,13 @@ const SignUp = () => {
     <>
       <Wrap>
         {/* 뒤로가기 버튼 + 회원가입 텍스트 */}
-        <Header>
-          <Button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p style={{ marginRight: "150px" }}>회원가입</p>
-        </Header>
+        <TopBar only_left>회원가입</TopBar>
 
         {/* 유저 사진 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
+            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -199,7 +196,7 @@ const SignUp = () => {
 
         <Input>
           <InputText
-            placeholder="거주지 입력"
+            placeholder="거주지 입력 (시/구/동 까지)"
             onChange={userLocationChangeHandler}
           />
         </Input>
@@ -213,7 +210,7 @@ const SignUp = () => {
                   type="radio"
                   id="b"
                   value="남"
-                  checked={user_gender === "남"}
+                  checked={userGender === "남"}
                   onClick={() => userGenderChangeHandler("남")}
                 />
               </RadioWrap>
@@ -225,7 +222,7 @@ const SignUp = () => {
                   type="radio"
                   id="g"
                   value="여"
-                  checked={user_gender === "여"}
+                  checked={userGender === "여"}
                   onClick={() => userGenderChangeHandler("여")}
                 />
               </RadioWrap>
@@ -242,7 +239,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="10"
-                  checked={user_age === "10대"}
+                  checked={userAge === "10대"}
                   onClick={() => userAgeChangeHandler("10대")}
                 />
               </RadioWrap>
@@ -254,7 +251,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="20"
-                  checked={user_age === "20대"}
+                  checked={userAge === "20대"}
                   onClick={() => userAgeChangeHandler("20대")}
                 />
               </RadioWrap>
@@ -266,7 +263,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="30"
-                  checked={user_age === "30대"}
+                  checked={userAge === "30대"}
                   onClick={() => userAgeChangeHandler("30대")}
                 />
               </RadioWrap>
@@ -278,7 +275,7 @@ const SignUp = () => {
                 <UserAge
                   type="radio"
                   id="40"
-                  checked={user_age === "40대 이상"}
+                  checked={userAge === "40대 이상"}
                   onClick={() => userAgeChangeHandler("40대 이상")}
                 />
               </RadioWrap>
@@ -289,14 +286,19 @@ const SignUp = () => {
         </Input>
 
         <ButtonWrap>
-          <button onClick={submitUserInfo}>회원가입</button>
-          <button
+        <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
           </button>
+          <button 
+            onClick={submitUserInfo}
+            style={{backgroundColor:'#ff5656'}}
+            >
+              회원 정보 등록
+            </button>
         </ButtonWrap>
       </Wrap>
     </>
@@ -306,20 +308,9 @@ const SignUp = () => {
 const Wrap = styled.div`
   text-align: center;
   max-width: 390px;
+  box-sizing: border-box;
   padding: 0 20px;
-  margin: 30px auto;
   font-size: 14px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin-bottom: 18px;
-  font-size: 18px;
 `;
 
 const ImageWrap = styled.div`
@@ -330,28 +321,27 @@ const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
   height: 120px;
-  border: 2px solid #000;
   border-radius: 14px;
   margin: auto;
+  object-fit: cover;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddWrap = styled.div``;
-const AddImage = styled.input`
-  width: 180px;
-  margin: 10px 0;
+const UploadLabel = styled.label`
+  border-bottom: 1px solid black;
+  padding: 10px 5px 5px 5px;
+  margin: 10px;
+  cursor: pointer;
 `;
-
+const AddImage = styled.input`
+  /* width: 180px;
+  margin: 10px 0; */
+  display: none;
+`;
 const UserWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-// const Input = styled.div`
-//   width: 240px;
-//   background-color: #ebebeb;
-//   border-radius: 10px;
-//   padding: 12px 24px;
-//   margin-bottom: 20px;
-//   text-align: left;
-// `;
 const InputText = styled.input`
   width: 100%;
   border: 0;
@@ -365,7 +355,7 @@ const IdCheck = styled.button`
   box-sizing: border-box;
   width: 81px;
   height: 60px;
-  border: 2px solid #000;
+  border: none;
   background-color: #9de8df;
   border-radius: 14px;
   cursor: pointer;
@@ -374,11 +364,13 @@ const IdCheck = styled.button`
 const Input = styled.div`
   box-sizing: border-box;
   padding: 12px 24px;
-  border: 2px solid #000;
-  border-radius: 15px;
+  border-radius: 14px;
   margin-bottom: 20px;
   text-align: left;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
+  color: #888;
+
 `;
 
 const Title = styled.div`
@@ -388,14 +380,17 @@ const FlexWrap = styled.div`
   display: flex;
   justify-content: space-around;
 `;
-const RadioWrap = styled.div``;
+const RadioWrap = styled.div`
+  font-size: 16px;
+`;
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
 `;
 const Label = styled.label`
-  padding-top: 5px;
+  padding-top: 4px;
+  font-size: 14px;
 `;
 
 const Password = styled.input`
@@ -414,13 +409,14 @@ const UserAge = styled.input``;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 40px 0;
   button {
     width: 160px;
     height: 48px;
     background-color: #fff;
+    border: none;
     border-radius: 14px;
-    border: 2px solid #000;
-    box-shadow: 0 4px 0px #000;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
   }
 `;

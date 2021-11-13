@@ -8,14 +8,14 @@ import { getCookie } from "../../shared/Cookie";
 const ADD_POST = "ADD_POST"; // 포스트 작성
 const GET_ALL_POST = "GET_ALL_POST"; // 모든 포스트 불러오기
 const GET_MY_POST = "GET_MY_POST"; // 포스트 하나 불러오기
-const GET_POST = "GET_POST"; // 포스트 하나 불러오기
+const GET_DOGPOST = "GET_DOGPOST"; // 포스트 하나 불러오기
 const EDIT_POST = "EDIT_POST"; // 포스트 수정
 const DELETE_POST = "DELETE_POST"; //포스트 삭제
 
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getMyPost = createAction(GET_MY_POST, (eachList) => ({ eachList }));
-const getPost = createAction(GET_POST, (eachList) => ({ eachList }));
+const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 
@@ -38,7 +38,7 @@ const addPostMD = (formData) => {
       },
     })
       .then((res) => {
-        dispatch(addPost(formData));
+        // dispatch(addPost(formData));
         console.log("포스트 성공", res);
         // history.push("/mypage");
       })
@@ -79,7 +79,7 @@ const getMyPostMD = (userId) => {
       .then((res) => {
         const postList = res.data.posts;
         console.log(postList);
-        dispatch(getPost(postList));
+        dispatch(getDogPost(postList));
         // console.log("포스트 하나를 불러왔습니다", res);
       })
       .catch((err) => {
@@ -99,7 +99,7 @@ const getPostMD = (userId, dogPostId) => {
       .then((res) => {
         const postList = res.data.posts[0];
         console.log(postList);
-        dispatch(getPost(postList));
+        dispatch(getDogPost(postList));
         // console.log("포스트 하나를 불러왔습니다", res);
       })
       .catch((err) => {
@@ -169,7 +169,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.eachList = action.payload.eachList;
       }),
-    [GET_POST]: (state, action) =>
+    [GET_DOGPOST]: (state, action) =>
       produce(state, (draft) => {
         draft.eachList = action.payload.eachList;
       }),
@@ -194,7 +194,7 @@ const actionCreators = {
   getAllPostMD,
   getMyPost,
   getMyPostMD,
-  getPost,
+  getDogPost,
   getPostMD,
   editPost,
   editPostMD,
