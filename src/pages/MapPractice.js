@@ -746,14 +746,8 @@ const MapPractice = React.memo(() => {
                     <img src={detailAddress} />
                   </CircleDiv>
                   <Address>
-                    <Detail>
-                      출발
-                      <br /> {Han1.start}
-                    </Detail>
-                    <Detail>
-                      도착
-                      <br /> {Han1.last}
-                    </Detail>
+                    <Detail>출발: {Han1.start}</Detail>
+                    <Detail>도착: {Han1.last}</Detail>
                   </Address>
                 </AdressWrap>
 
@@ -762,7 +756,7 @@ const MapPractice = React.memo(() => {
                     <img src={detailFilter} />
                   </CircleDiv>
                   <Address>
-                    <Detail>거리: {Han1.distance}</Detail>
+                    <Detail>총 {Han1.distance}</Detail>
                     <Detail>시간: {Han1.time}</Detail>
                   </Address>
                 </AdressWrap>
@@ -775,14 +769,8 @@ const MapPractice = React.memo(() => {
                     <img src={detailAddress} />
                   </CircleDiv>
                   <Address>
-                    <Detail>
-                      출발
-                      <br /> {Han2.start}
-                    </Detail>
-                    <Detail>
-                      도착
-                      <br /> {Han2.last}
-                    </Detail>
+                    <Detail>출발: {Han2.start}</Detail>
+                    <Detail>도착: {Han2.last}</Detail>
                   </Address>
                 </AdressWrap>
 
