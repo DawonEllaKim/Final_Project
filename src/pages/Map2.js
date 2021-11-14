@@ -136,19 +136,12 @@ const Map2 = (props) => {
         ></TextArea>
         <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
       </InputArea>
-      <NavArea>
-        <NavBar />
-      </NavArea>
+      <NavBar />
     </Frame>
   );
 };
 
 export default Map2;
-const NavArea = styled.div`
-  width: 390px;
-  display: flex;
-  justify-content: center;
-`;
 
 const Title1 = styled.div`
   box-sizing: border-box;
