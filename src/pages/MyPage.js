@@ -4,18 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 // 컴포넌츠
-import GaeStaCard from "../components/MyPage/GaeStaCard";
+import TopBar from "../components/TopBar";
+import NavBar from "../components/NavBar";
+import DogStaList from "../components/MyPage/DogStaList";
 import DogCard from "../components/DogCard";
 import UserCard from "../components/UserCard";
-import ListCard from "../components/MyPage/ListCard";
-import NavBar from "../components/NavBar";
-import Chat from "../components/Chat";
+import WalkList from "../components/MyPage/WalkList";
 
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as signActions } from "../redux/modules/sign";
 
-// 아이콘
+// 이미지  + 아이콘
 import { FiLogOut } from "react-icons/fi";
 import redHeart from "../image/redHeart.png";
 import grayHeart from "../image/grayHeart.png";
@@ -24,24 +24,15 @@ import myPage from "../image/myPage.png";
 import chat from "../image/chat.png";
 import edit from "../image/edit.png";
 
-// 로그인 이미지
-import logo from "../image/loginLogo.png";
-import login from "../image/login.png";
-import loginText from "../image/loginText.png";
-import ChatPageElla from "./ChatPageElla";
-import { current } from "immer";
-
-import TopBar from "../components/TopBar";
-
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [check, setCheck] = useState();
+  const [status, setStatus] = useState(); // 개스타그램, 강아지 정보, 산책목록 컴포넌츠를 중 택1
 
-  const userInfo = useSelector((state) => state.user.list);
-  const currentPageUserId = props.match.params.userId;
-  const userId = localStorage.getItem("userId");
+  const userInfo = useSelector((state) => state.user.list); // 현재 로그인된 유저 정보
+  const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
+  const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
 
   // 로그아웃
   const logout = () => {
@@ -54,114 +45,118 @@ const MyPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getMypageMD(currentPageUserId));
-    setCheck("sta");
+    dispatch(userActions.getMypageMD(currentPageUserId)); // 현재 마이페이지 유저 ID로 정보 불러오기
+    setStatus("sta");
   }, []);
 
   return (
-    <div>
-      <Wrap>
-        <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
-        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+    <Wrap>
+      {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 버튼 */}
+      <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
 
-        {/* 유저 정보 */}
-        <UserInfo>
-          <UserInfoLeft>
-            {/* 유저 사진 */}
-            <UserImg src={userInfo.userImage} />
+      {/* 현재 페이지의 유저 정보 */}
+      <UserInfo>
+        {/* 유저 사진 + 유저 편집 버튼 */}
+        <UserInfoLeft>
+          <UserImg src={userInfo.userImage} />
 
-            {/* 편집모드 */}
-            {currentPageUserId === userId && (
-              <Edit
-                onClick={() => {
-                  history.push("/userProfile");
-                }}
-              >
-                <img src={edit} />
-              </Edit>
-            )}
-          </UserInfoLeft>
-
-          <UserRight>
-            {/* 유저 닉네임 + 유저 주소 */}
-            <div>
-              <span style={{ fontWeight: "400" }}>{userInfo.userNickname}</span>
-              <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
-            </div>
-
-            {/* 로그아웃 버튼 */}
-            {currentPageUserId === userId && (
-              <LogOut onClick={logout}>
-                <FiLogOut size="16" />
-                <span>로그아웃</span>
-              </LogOut>
-            )}
-          </UserRight>
-        </UserInfo>
-
-        {/* 별점/리뷰 */}
-        <Review>
-          <ReviewLeft>
-            <div>
-              <img src={redHeart} />
-              <img src={redHeart} />
-              <img src={redHeart} />
-              <img src={redHeart} />
-              <img src={grayHeart} />
-            </div>
-            <p>4.5/5</p>
-          </ReviewLeft>
-          <ReviewRight>리뷰보기</ReviewRight>
-        </Review>
-
-        {/* 다른 페이지로 이동 버튼들 */}
-        <Buttons>
-          <div
-            onClick={() => {
-              setCheck("sta");
-            }}
-          >
-            <div>
-              <img src={dog} style={{ width: "24px", height: "21px" }} />
-              <span>개스타그램</span>
-            </div>
-          </div>
-          <div
-            onClick={() => {
-              setCheck("dog");
-            }}
-          >
-            <img src={chat} style={{ width: "20px", height: "16px" }} />
-            <span>등록정보</span>
-          </div>
-          <div
-            onClick={() => {
-              setCheck("list");
-            }}
-          >
-            <img src={myPage} style={{ width: "16px", height: "20px" }} />
-            <span>산책 목록</span>
-          </div>
-        </Buttons>
-
-        {/* 상황 마다 바뀔 카드들 */}
-        <Cards>
-          {check === "sta" && <GaeStaCard userId={currentPageUserId} />}
-          {check === "dog" && (
-            <div>
-              <UserCard post={userInfo} userId={currentPageUserId} />
-              <DogCard post={userInfo} userId={currentPageUserId} />
-            </div>
+          {/* 현재 페이지의 userId 와 현재 로그인된 userId가 같을때에는 편집 보튼을 보여주고 아니면 안 보여준다. */}
+          {currentPageUserId === userId && (
+            <Edit
+              onClick={() => {
+                history.push("/userProfile");
+              }}
+            >
+              <img src={edit} />
+            </Edit>
           )}
-          {check === "list" && (
-            <ListCard post={userInfo} userId={currentPageUserId} />
-          )}
-        </Cards>
+        </UserInfoLeft>
 
-        {/* 고정 버튼 */}
-        <NavBar />
-      </Wrap>
-    </div>
+        {/* 유저 닉네임 + 주소 + 로그아웃버튼 */}
+        <UserRight>
+          <div>
+            <span style={{ fontWeight: "400" }}>{userInfo.userNickname}</span>
+            <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
+          </div>
+
+          {currentPageUserId === userId && (
+            <LogOut onClick={logout}>
+              <FiLogOut size="16" />
+              <span>로그아웃</span>
+            </LogOut>
+          )}
+        </UserRight>
+      </UserInfo>
+
+      {/* 별점/리뷰 */}
+      <Review>
+        <ReviewLeft>
+          <div>
+            <img src={redHeart} />
+            <img src={redHeart} />
+            <img src={redHeart} />
+            <img src={redHeart} />
+            <img src={grayHeart} />
+          </div>
+          <p>4.5/5</p>
+        </ReviewLeft>
+        <ReviewRight>리뷰보기</ReviewRight>
+      </Review>
+
+      {/* 다른 페이지로 이동 버튼들 */}
+      <Buttons>
+        {/* DogStaList 버튼 - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
+        <div
+          onClick={() => {
+            setStatus("sta");
+          }}
+        >
+          <img src={dog} style={{ width: "24px", height: "21px" }} />
+          <span>개스타그램</span>
+        </div>
+
+        {/* InfoList 버튼 - 현재 페이지 유저의 강아지 정보*/}
+        <div
+          onClick={() => {
+            setStatus("dog");
+          }}
+        >
+          <img src={chat} style={{ width: "20px", height: "16px" }} />
+          <span>강아지 정보</span>
+        </div>
+        {/* WalkList 버튼 - 현재 페이지 유저가 쓴 산책 게시물*/}
+        <div
+          onClick={() => {
+            setStatus("list");
+          }}
+        >
+          <img src={myPage} style={{ width: "16px", height: "20px" }} />
+          <span>산책 목록</span>
+        </div>
+      </Buttons>
+
+      {/* 개스타그램, 강아지 정보, 산책목록 카드들 */}
+      <Cards>
+        {/* DogStaList - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
+        {status === "sta" && <DogStaList userId={currentPageUserId} />}
+
+        {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
+        {status === "dog" && (
+          <div>
+            <UserCard post={userInfo} userId={currentPageUserId} />
+            <DogCard post={userInfo} userId={currentPageUserId} />
+          </div>
+        )}
+
+        {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}
+        {status === "list" && (
+          <WalkList post={userInfo} userId={currentPageUserId} />
+        )}
+      </Cards>
+
+      {/* 고정 버튼 */}
+      <NavBar />
+    </Wrap>
   );
 };
 

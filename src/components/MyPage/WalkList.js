@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "../../components/Card";
+import Card from "../Card";
+
+// 리덕스
 import { actionCreators as postActions } from "../../redux/modules/post";
 
-const ListCard = ({ post, userId }) => {
+const WalkList = ({ post, userId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.myList);
-  console.log(useSelector((state) => state)); 
-  console.log(postList)
+  console.log(useSelector((state) => state));
+  console.log(postList);
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
   }, []);
@@ -60,4 +62,4 @@ const CardWrap = styled.div`
   text-align: left;
 `;
 
-export default ListCard;
+export default WalkList;

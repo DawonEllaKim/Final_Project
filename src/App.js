@@ -44,7 +44,7 @@ import UserProfile from "./pages/UserProfile";
 // 개스타그램
 import DogStaWrite from "./pages/DogStaGram/DogStaWrite";
 import DogStaDetail from "./pages/DogStaGram/DogStaDetail";
-import DogStaEdit from "./components/MyPage/DogStaEdit";
+import InfoList from "./components/MyPage/InfoList";
 import DogStaMain from "./pages/DogStaGram/DogStaMain";
 
 import GlobalStyle from "./GlobalStyle";
@@ -116,11 +116,7 @@ function App() {
           component={DogStaDetail}
         />
         <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
-        <PrivateRoute
-          exact
-          path="/dogstaedit/:dogPostId"
-          component={DogStaEdit}
-        />
+        <PrivateRoute exact path="/InfoList/:dogPostId" component={InfoList} />
 
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />

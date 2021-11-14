@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
-import NavBar from "../../components/NavBar";
+import NavBar from "../NavBar";
 
 // 리덕스
 import { actionCreators as postActions } from "../../redux/modules/dogsta";

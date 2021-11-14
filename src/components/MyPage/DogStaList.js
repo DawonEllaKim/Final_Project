@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-// 액션 불러오기
+// 리덕스
 import { actionCreators as postActions } from "../../redux/modules/dogsta";
 
+// 이미지 + 아이콘
 import emptyHeart from "../../image/emptyHeart.png";
 
 const GaeStaCard = (props) => {
@@ -14,15 +15,14 @@ const GaeStaCard = (props) => {
 
   const userId = props.userId; // 현재 페이지의 유저아이디
   const postList = useSelector((state) => state.dogsta.eachList); //현재 페이지 유저의 모든 개스타그램 게시물
-  console.log(postList);
 
   useEffect(() => {
-    dispatch(postActions.getMyPostMD(userId));
+    dispatch(postActions.getMyPostMD(userId)); //현재 페이지 유저의 모든 개스타그램 게시물 불러오기
   }, []);
 
   return (
     <Wrap>
-      {/* 게시물 */}
+      {/* 개스타그램 게시물의 유무 판단*/}
       {!postList ? (
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
@@ -80,6 +80,7 @@ const GaeStaCard = (props) => {
     </Wrap>
   );
 };
+
 const FlexButton = styled.div`
   display: flex;
   justify-content: center;
