@@ -206,7 +206,7 @@ const getMyPostMD = (userId) => {
       },
     })
       .then((res) => {
-        if(res.data.posts[0].meetingDate)
+
         for(let i=0;i<res.data.posts.length;i++)
       { 
         let initialDate = res.data.posts[i].meetingDate.split("T")[0];
