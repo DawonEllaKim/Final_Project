@@ -2,6 +2,7 @@ import "./App.css";
 import { Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
+import GlobalStyle from "./GlobalStyle";
 import PrivateRoute from "./shared/PrivateRoute";
 
 //  로그인/회원가입
@@ -47,7 +48,9 @@ import DogStaDetail from "./pages/DogStaGram/DogStaDetail";
 import InfoList from "./components/MyPage/InfoList";
 import DogStaMain from "./pages/DogStaGram/DogStaMain";
 
-import GlobalStyle from "./GlobalStyle";
+// 알람 + 쪽지
+import Notification from "./pages/Notification";
+import ChatWrite from "./pages/ChatWrite";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
@@ -117,6 +120,10 @@ function App() {
         />
         <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
         <PrivateRoute exact path="/InfoList/:dogPostId" component={InfoList} />
+
+        {/* 알람 + 쪽지 */}
+        <PrivateRoute exact path="/notification" component={Notification} />
+        <PrivateRoute exact path="/chatwrite" component={ChatWrite} />
 
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />
