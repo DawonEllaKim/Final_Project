@@ -19,8 +19,8 @@ const GaeStaCard = (props) => {
 
   return (
     <Wrap>
-      {/* 개스타그램 게시물의 유무에 따라서 보여주는 화면을 다르게*/}
-      {!postList ? (
+      {/* 개스타그램 게시물의 유무 판단*/}
+      {postList.length == 0 ? (
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
           <Button
