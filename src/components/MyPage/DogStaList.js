@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 const GaeStaCard = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const GaeStaCard = (props) => {
   const postList = useSelector((state) => state.dogsta.myList); //현재 페이지 유저의 모든 개스타그램 게시물
 
   useEffect(() => {
-    dispatch(postActions.getMyPostMD(userId)); //현재 페이지 유저의 모든 개스타그램 게시물 불러오기
+    dispatch(dogstaActions.getMyPostMD(userId)); //현재 페이지 유저의 모든 개스타그램 게시물 불러오기
   }, []);
 
   return (
@@ -41,18 +41,17 @@ const GaeStaCard = (props) => {
                   history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
                 }
               >
+                {/* 포스트 사진 */}
                 <img src={post.dogPostImage} />
 
-                <Text>
+                {/* 포스트 정보 */}
+                <PostInfo>
                   <p>{post.dogPostDesc}</p>
-
-                  <div>
+                  <WriterInfo>
                     <img src={post.userImage} />
-                    <span style={{ marginRight: "45px" }}>
-                      {post.userNickname}
-                    </span>
-                  </div>
-                </Text>
+                    <span>{post.userNickname}</span>
+                  </WriterInfo>
+                </PostInfo>
               </Card>
             );
           })}
@@ -103,11 +102,11 @@ const Posts = styled.div`
   }
 `;
 const Card = styled.div`
-  width: 160px;
   border-radius: 20px;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+  padding-bottom: 10px;
 `;
-const Text = styled.div`
+const PostInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,18 +116,21 @@ const Text = styled.div`
   p {
     margin-bottom: 20px;
   }
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    height: 20px;
-  }
+`;
+const WriterInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  height: 20px;
   img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     margin-right: 4px;
+  }
+  span {
+    margin-right: 45px;
   }
 `;
 

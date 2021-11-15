@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Alert from "../components/Notification/Alert";
 import Chat from "../components/Notification/Chat";
 import TopBar from "../components/TopBar";
 
 const Notification = () => {
-  const [status, setStatus] = useState("alert");
-  const [focus, setFocus] = useState("alert");
+  const [status, setStatus] = useState();
+  const [focus, setFocus] = useState();
 
   const alert = () => {
     setStatus("alert");
@@ -14,6 +14,12 @@ const Notification = () => {
   const chat = () => {
     setStatus("chat");
   };
+
+  useEffect(() => {
+    setStatus("alert");
+    setFocus("alert");
+  }, []);
+
   return (
     <Wrap>
       <TopBar>Notification</TopBar>
@@ -56,7 +62,6 @@ const Category = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
   button {
     box-sizing: border-box;
     width: 70px;
@@ -64,12 +69,7 @@ const Category = styled.div`
     padding-bottom: 10px;
     background-color: transparent;
     border: none;
-
     text-align: center;
-
-    :focus {
-      border-bottom: 4px solid red;
-    }
   }
 `;
 
