@@ -23,7 +23,7 @@ const GaeStaCard = (props) => {
   return (
     <Wrap>
       {/* 개스타그램 게시물의 유무 판단*/}
-      {!postList ? (
+      {postList.length==0 ? (
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
 

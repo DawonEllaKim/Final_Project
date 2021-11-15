@@ -95,8 +95,9 @@ const addPostMD = (formData) => {
       },
     })
       .then((res) => {
-        // dispatch(addPost(formData));
+        
         console.log("개스타그램 게시물 POST 성공", res);
+        history.back()
       })
       .catch((err) => {
         console.log("개스타그램 게시물 POST 에러", err);
