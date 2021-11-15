@@ -20,7 +20,7 @@ const DogStaDetail = (props) => {
   const post = useSelector((state) => state.dogsta.eachList);
   const currentPageUserId = props.match.params.userId;
   const userId = localStorage.getItem("userId");
-
+   console.log(post)
   const editPost = () => {
     history.push(`/mapEdit/${postId}`);
   };
@@ -31,7 +31,7 @@ const DogStaDetail = (props) => {
 
   useEffect(() => {
     dispatch(postActions.getPostMD(currentPostUserId, postId));
-  }, [currentPostUserId, postId]);
+  }, []);
 
   return (
     <Wrap>

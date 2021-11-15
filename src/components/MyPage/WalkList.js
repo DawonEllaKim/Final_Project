@@ -12,7 +12,7 @@ const WalkList = ({ post, userId }) => {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.myList);
-  console.log(useSelector((state) => state));
+
   console.log(postList);
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId));
@@ -22,7 +22,7 @@ const WalkList = ({ post, userId }) => {
     <Wrap>
       {/* 해당 페이지 소유자가 등록된 산책이 없다면 삼항연산자로 문구 보여주기 */}
       <CardWrap>
-        {postList.length === 0 ? (
+        {postList.length < 1 ? (
           <NoCard>등록된 산책 목록이 없습니다.</NoCard>
         ) : (
           <div>

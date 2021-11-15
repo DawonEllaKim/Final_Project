@@ -103,7 +103,7 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
-
+  console.log(dogStaPostList)
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       <TopBar> 산책할개 </TopBar>
@@ -176,7 +176,7 @@ const Main = (props) => {
         <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
           {dogStaPostList.map((post, index) => {
             return (
-              <div>
+              <div onClick={()=>history.push()} >
                 <MainDogsta post={post} key={index} />
               </div>
             );
