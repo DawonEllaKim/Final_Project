@@ -8,6 +8,10 @@ import male from "../image/male.png";
 import female from "../image/female.png";
 
 const Card = ({ post }) => {
+  console.log(post)
+ 
+
+  
   const dogImage = post.dogImage;
   const dogName = post.dogName;
   const dogGender = post.dogGender;
@@ -15,13 +19,13 @@ const Card = ({ post }) => {
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
 
-  const MeetingDate = initialMeetingDate.split("T")[0];
-  const year = MeetingDate.split("-")[0];
-  const month = MeetingDate.split("-")[1];
-  const day = MeetingDate.split("-")[2];
-  const MeetingTime = initialMeetingDate.split("T")[1];
-  const hour = MeetingTime.split(":")[0];
-  const minute = MeetingTime.split(":")[1];
+  // const MeetingDate = initialMeetingDate.split("T")[0];
+  // const year = MeetingDate.split("-")[0];
+  // const month = MeetingDate.split("-")[1];
+  // const day = MeetingDate.split("-")[2];
+  // const MeetingTime = initialMeetingDate.split("T")[1];
+  // const hour = MeetingTime.split(":")[0];
+  // const minute = MeetingTime.split(":")[1];
 
   return (
     <CardWrap>
@@ -47,17 +51,17 @@ const Card = ({ post }) => {
           <p>{dogName + ", " + dogAge}</p>
         </CardTop>
         <CardCenter>
-          <p>장소 : 서울숲</p>
+          <p>장소 : {post.locationCategory}</p>
           <p>크기 : {post.dogSize}</p>
           <p styoe={{ wordBreak: "keep-all" }}>{dogComment}</p>
         </CardCenter>
         <CardBottom>
-          {year}. {month}. {day} {hour}시 {minute}분
+       {initialMeetingDate?initialMeetingDate: ""}
         </CardBottom>
       </CardInfo>
     </CardWrap>
   );
-};
+            }
 
 const CardWrap = styled.div`
   display: flex;

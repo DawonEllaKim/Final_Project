@@ -13,13 +13,14 @@ const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
-const getMyPost = createAction(GET_MY_POST, (eachList) => ({ eachList }));
+const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 
 const initialState = {
   mainList: [],
+  myList: [],
   eachList: [],
 };
 
@@ -71,7 +72,7 @@ const getMyPostMD = (userId) => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        dispatch(getDogPost(postList));
+        dispatch(getMyPost(postList));
         console.log("개스타그램 나의 게시물 GET 성공", res);
       })
       .catch((err) => {
@@ -162,7 +163,7 @@ export default handleActions(
       }),
     [GET_MY_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.eachList = action.payload.eachList;
+        draft.myList = action.payload.myList;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {

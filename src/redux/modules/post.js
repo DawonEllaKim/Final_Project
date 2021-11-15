@@ -43,7 +43,24 @@ const initialState = {
   map: [],
   //산책 요청
   list: [],
-  myList: [],
+  myList: [{dogAge: "4~7세",
+dogBreed: "골든리트리버",
+dogComment: "왈왈",
+dogGender: "남",
+dogId: 19,
+dogImage: "https://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/08ebac7d6d399be48695097eaa0846ac"
+,dogName: "골든",
+dogSize: "중형견",
+meetingDate: "2021-11-15T12:42:33.096Z",
+neutral: "false",
+postId: 27,
+userAge: "20대",
+userGender: "남",
+userId: 24,
+userImage: "https://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/fb6d84033fc5fb08e60c699cb42ce2b8"
+,userLocation: "서울시 강동구"
+,userNickname: "monmon"
+,wishDesc: "하하하"}] ,
   is_loading: true,
 };
 
@@ -189,6 +206,29 @@ const getMyPostMD = (userId) => {
       },
     })
       .then((res) => {
+        if(res.data.posts[0].meetingDate)
+        for(let i=0;i<res.data.posts.length;i++)
+      { 
+        let initialDate = res.data.posts[i].meetingDate.split("T")[0];
+        let year = initialDate.split("-")[0];
+        let month = initialDate.split("-")[1];
+        let day = initialDate.split("-")[2];
+        let initialTime = res.data.posts[i].meetingDate.split("T")[1];
+        let hour = initialTime.split(":")[0];
+        let minute = initialTime.split(":")[1];
+        res.data.posts[i].meetingDate =
+          year +
+          "년 " +
+          month +
+          "월 " +
+          day +
+          "일 "
+           +
+          hour +
+          "시 " +
+          minute +
+          "분";
+        }
         const postList = res.data.posts;
 
         dispatch(getMyPost(postList));
