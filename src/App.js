@@ -54,14 +54,8 @@ import ChatWrite from "./pages/ChatWrite";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
-// import Message from "./pages/Message";
 // import KakaoSignUp from "./pages/KakaoSignUp";
 // import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
-// import ChatPage from "./pages/ChatPage";
-// import ChatPageElla from "./pages/ChatPageElla";
-// import Join from "./components/Join";
-// import Chat from "./components/Chat";
-// import PrivateRoute from "./shared/PrivateRoute";
 
 function App() {
   return (
@@ -123,7 +117,7 @@ function App() {
 
         {/* 알람 + 쪽지 */}
         <PrivateRoute exact path="/notification" component={Notification} />
-        <PrivateRoute exact path="/chatwrite" component={ChatWrite} />
+        <PrivateRoute exact path="/chatwrite/:roomId" component={ChatWrite} />
 
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />
@@ -132,12 +126,7 @@ function App() {
           exact
           path="/oauth/kakao/callback"
           component={OAuth2RedirectHandler}
-        />
-        <Route exact path="/chatPage" component={ChatPage} />
-        <Route exact path="/chatPageElla" component={ChatPageElla} />
-        <Route exact path="/join" component={Join} />
-        <Route exact path="/chat/:id" component={Chat} />
-        <Route exact path="/message" component={Message} /> */}
+        /> */}
       </ConnectedRouter>
     </div>
   );

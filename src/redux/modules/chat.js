@@ -1,91 +1,53 @@
-// import { createAction, handleActions } from "redux-actions";
-// import { produce } from "immer";
-// import socketClient from "socket.io-client";
-// import axios from "axios";
-// import { getCookie } from "../../shared/Cookie";
+import axios from "axios";
+import { produce } from "immer";
+import { getCookie } from "../../shared/Cookie";
+import { createAction, handleActions } from "redux-actions";
 
-// // action
-// const GET_MSG = "GET_MSG";
-// const SET_MSG = "SET_MSG";
-// const GET_USER = "GET_USER";
+const GET_ALL_MY_CHAT_ROOMS = "GET_ALL_MY_CHAT_ROOMS";
 
-// // action creators
-// const getMsg = createAction(GET_MSG, (msg) => ({ msg }));
-// const setMsg = createAction(SET_MSG, (msg) => ({ msg }));
-// const getUser = createAction(GET_USER, (user) => ({ user }));
+const getAllMyChatRooms = createAction(GET_ALL_MY_CHAT_ROOMS, (list) => ({
+  list,
+}));
 
-// // initialState
-// const initialState = {
-//   chat: [],
-//   user: [],
-// };
+const initialState = {
+  list: [],
+  // chat: [],
+  // user: [],
+};
 
-// // middleware
-// const getMsgMD = () => {
-//   // return function(dispatch)
-//   // socket.on('load', {res} =>{
-//   //     disptch(getMsg(res))
-//   // })
+const getAllMyChatRoomsMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://localhost:4000/chats",
+      data: {},
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        const allMyChatRooms = res.data;
+        dispatch(getAllMyChatRooms(allMyChatRooms));
+        console.log("나한테 온 모든 쪽지방 GET 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("나한테 온 모든 쪽지방 GET 에러", err);
+      });
+  };
+};
 
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url: "http://localhost:4000/chat",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         console.log(res.data);
-//         dispatch(getMsg(res.data));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+// reducer
+export default handleActions(
+  {
+    [GET_ALL_MY_CHAT_ROOMS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.list;
+      }),
+  },
+  initialState
+);
 
-// const setMsgMD = () => {
-//   return function (dispatch, getState, { history }) {};
-// };
-
-// const getUserMD = () => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url: "http://localhost:4000/chatuser",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         console.log(res.data);
-//         dispatch(getUser(res.data));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
-// // reducer
-// export default handleActions(
-//   {
-//     [GET_MSG]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.msg = action.payload.msg;
-//       }),
-//     [SET_MSG]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.msg = action.payload.msg;
-//       }),
-//     [GET_USER]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.user = action.payload.user;
-//       }),
-//   },
-//   initialState
-// );
-
-// export const actionCreators = {
-//   getMsgMD,
-//   getUserMD,
-// };
+export const actionCreators = {
+  getAllMyChatRooms,
+  getAllMyChatRoomsMD,
+};

@@ -8,6 +8,7 @@ import user from "./modules/user";
 import sign from "./modules/sign";
 import marker from "./modules/marker";
 import dogsta from "./modules/dogsta";
+import chat from "./modules/chat";
 
 export const history = createBrowserHistory();
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   sign: sign,
   user: user,
   dogsta: dogsta,
+  chat: chat,
   router: connectRouter(history),
 });
 

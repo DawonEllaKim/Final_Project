@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
+
+// 컴포넌츠
 import Alert from "../components/Notification/Alert";
 import Chat from "../components/Notification/Chat";
 import TopBar from "../components/TopBar";
 
+// 리덕스
+import { actionCreators as chatActions } from "../redux/modules/chat";
+
 const Notification = () => {
+  const dispatch = useDispatch();
+
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
+
+  const allMyChatRooms = useSelector((state) => state.chat.list);
 
   const alert = () => {
     setStatus("alert");
@@ -18,11 +29,14 @@ const Notification = () => {
   useEffect(() => {
     setStatus("alert");
     setFocus("alert");
+    dispatch(chatActions.getAllMyChatRoomsMD());
   }, []);
 
   return (
     <Wrap>
       <TopBar>Notification</TopBar>
+
+      {/* 알림 or 쪽지함 */}
       <Category>
         <button
           onClick={alert}
@@ -40,6 +54,7 @@ const Notification = () => {
         </button>
       </Category>
 
+      {/* 상태값에 따라서 바뀌는 카드 */}
       {status === "alert" ? (
         <div>
           <Alert />
@@ -49,7 +64,9 @@ const Notification = () => {
         </div>
       ) : (
         <div>
-          <Chat />
+          {allMyChatRooms.map((room, index) => {
+            return <Chat key={index} room={room} />;
+          })}
         </div>
       )}
     </Wrap>
