@@ -1,0 +1,92 @@
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axios from "axios";
+import { getCookie } from "../../shared/Cookie";
+
+// action
+const ADD_COMMENT = "ADD_COMMENT";
+const GET_COMMENT = "GET_COMMENT";
+const EDIT_COMMENT = "EDIT_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMETN";
+
+// action creators
+const addComment = createAction(ADD_COMMENT, (commentList) => ({
+  commentList,
+}));
+const getComment = createAction(GET_COMMENT, (commentList) => ({
+  commentList,
+}));
+const editComment = createAction(EDIT_COMMENT, () => ({}));
+const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
+  commentId,
+}));
+
+// initialState
+const initialState = {
+  commentList: [],
+};
+
+// middleware
+const addCommentMD = (comments) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "POST",
+      url: "http://localhost:4000/comment",
+      data: comments,
+      header: {},
+    })
+      .then((res) => {
+        console.log("댓글 post", res);
+      })
+      .catch((err) => {
+        console.log("댓글 post 실패", err);
+      });
+  };
+};
+
+const getCommentMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://localhost:4000/comment",
+      data: {},
+      header: {},
+    })
+      .then((res) => {
+        const commentList = res.data;
+        console.log("댓글 get", commentList);
+        dispatch(getComment(commentList));
+      })
+      .catch((err) => {
+        console.log("댓글 get 에러", err);
+      });
+  };
+};
+
+// reducer
+export default handleActions(
+  {
+    [ADD_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.commentList.push(action.payload.commentList);
+      }),
+    [GET_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.commentList = action.payload.commentList;
+      }),
+    [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {}),
+    [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {}),
+  },
+  initialState
+);
+
+const actionCreators = {
+  addComment,
+  addCommentMD,
+  getComment,
+  getCommentMD,
+  editComment,
+  deleteComment,
+};
+
+export { actionCreators };
