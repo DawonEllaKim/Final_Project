@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import Comment from '../../components/Dogsta/Comment';
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -19,6 +20,11 @@ const DogStaDetail = (props) => {
   const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
+
+  console.log(post);
+  console.log(postId);
+  console.log(currentPostUserId);
+  console.log(userId);
 
   const editPost = () => {
     history.push(`/mapEdit/${postId}`); // 수정하기 함수
@@ -69,6 +75,14 @@ const DogStaDetail = (props) => {
           <p>{post.dogPostDesc}</p>
         </PostInfo>
       </Write>
+
+        {/* 댓글 */}
+      <Comment 
+        post={post} 
+        postId={postId} 
+        currentPostUserId={currentPostUserId} 
+        userId={userId}
+      />
 
       {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
       {currentPostUserId === userId && (
