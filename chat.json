@@ -2,8 +2,8 @@
 	"chats":[
     {
       "roomId":1,
-			"opposite":"soso",
-			"oppositeImg":"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
+			"receiver":"soso",
+			"receiverImg":"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
       "chat":[
         {
           "senderNickname":"soso",
@@ -39,8 +39,8 @@
     },
 		{
       "roomId":2,
-			"opposite":"hyo",
-			"oppositeImg":"https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg",
+			"receiver":"hyo",
+			"receiverImg":"https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg",
       "chat":[
         {
           "senderNickname":"hyo",
