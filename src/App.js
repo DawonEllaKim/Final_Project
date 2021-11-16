@@ -117,7 +117,11 @@ function App() {
 
         {/* 알람 + 쪽지 */}
         <PrivateRoute exact path="/notification" component={Notification} />
-        <PrivateRoute exact path="/chatwrite/:roomId" component={ChatWrite} />
+        <PrivateRoute
+          exact
+          path="/chatwrite/:roomId/:opposite"
+          component={ChatWrite}
+        />
 
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />
