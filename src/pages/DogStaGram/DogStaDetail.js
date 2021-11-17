@@ -27,7 +27,9 @@ const DogStaDetail = (props) => {
   console.log(userId);
 
   const editPost = () => {
-    history.push(`/mapEdit/${postId}`); // 수정하기 함수
+
+    history.push(`/dogStaEdit/${currentPostUserId}/${postId}`)
+
   };
 
   const deletePost = () => {

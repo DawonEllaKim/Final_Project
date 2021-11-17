@@ -47,6 +47,7 @@ import DogStaWrite from "./pages/DogStaGram/DogStaWrite";
 import DogStaDetail from "./pages/DogStaGram/DogStaDetail";
 import InfoList from "./components/MyPage/InfoList";
 import DogStaMain from "./pages/DogStaGram/DogStaMain";
+import DogStaEdit from "./pages/DogStaGram/DogStarEdit";
 
 // 알람 + 쪽지
 import Notification from "./pages/Notification";
@@ -109,6 +110,12 @@ function App() {
         />
         <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
         <PrivateRoute exact path="/InfoList/:dogPostId" component={InfoList} />
+        <PrivateRoute
+          exact
+          path="/dogStaEdit/:userId/:dogPostId"
+          component={DogStaEdit}
+        />
+
         {/* 알람 + 쪽지 */}
         <PrivateRoute exact path="/notification" component={Notification} />
         <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />

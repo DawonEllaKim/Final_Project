@@ -95,6 +95,34 @@ const updateUserMD = (userInfo) => {
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+        // "Content-Type": "multipart/form-data; ",
+      },
+    })
+      .then((res) => {
+        console.log(res.data); // signup 정보 확인
+        dispatch(updateUser(userInfo));
+        window.alert("수정 완료");
+        history.push("/userProfile")
+      })
+      .catch((err) => {
+        console.log("updateUserMD에서 오류발생", err);
+        window.alert("오류 발생");
+      });
+  };
+};
+
+const updateUserImageMD = (userInfo) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "PATCH",
+      url: "http://13.209.70.209/users/changeImage",
+      data: userInfo,
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        // accept: "application/json",
         "Content-Type": "application/octet-stream",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("userLogin")}`,
@@ -105,7 +133,7 @@ const updateUserMD = (userInfo) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateUser(userInfo));
         window.alert("수정 완료");
-        history.push("/myPage");
+        history.push("/userProfile")
       })
       .catch((err) => {
         console.log("updateUserMD에서 오류발생", err);
@@ -141,11 +169,37 @@ const getDogMD = () => {
   };
 };
 
-const updateDogMD = (dog_id, formData) => {
+const updateDogMD = ( formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
       url: "http://13.209.70.209/dogs",
+      data: formData,
+      headers: {
+        accept: "application/json",
+        // "Content-Type": "multipart/form-data; ",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data); // signup 정보 확인
+        dispatch(updateDog(formData));
+        window.alert("반려견 정보가 수정되었습니다.");
+        history.push("/dogProfile")
+      })
+      .catch((err) => {
+        console.log("updateDogAPI에서 오류발생", err);
+        window.alert("오류 발생");
+      });
+  };
+};
+
+const updateDogImageMD = (formData) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "PATCH",
+      url: "http://13.209.70.209/dogs/changeImage",
       data: formData,
       headers: {
         accept: "application/json",
@@ -158,7 +212,7 @@ const updateDogMD = (dog_id, formData) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateDog(formData));
         window.alert("반려견 정보가 수정되었습니다.");
-        history.goBack();
+        history.push("/dogProfile")
       })
       .catch((err) => {
         console.log("updateDogAPI에서 오류발생", err);
@@ -166,7 +220,6 @@ const updateDogMD = (dog_id, formData) => {
       });
   };
 };
-
 export default handleActions(
   {
     [GET_MYPAGE]: (state, action) =>
@@ -204,10 +257,12 @@ const actionCreators = {
   getDogMD,
   updateDog,
   updateDogMD,
+  updateDogImageMD,
   getUser,
   getUserMD,
   updateUser,
   updateUserMD,
+  updateUserImageMD,
 };
 
 export { actionCreators };

@@ -119,7 +119,33 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
+        window.alert("게시물이 수정되었습니다")
         console.log("개스타그램 게시물 PATCH 완료", res);
+      })
+      .catch((err) => {
+        console.log("개스타그램 게시물 PATCH 오류", err);
+      });
+  };
+};
+const editPostImageMD = (post) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "PATCH",
+      url: `http://13.209.70.209/dogsta/changeImage`,
+      data: post,
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+        "Content-Type": "multipart/form-data; ",
+      },
+    })
+      .then((res) => {
+        dispatch(editPost(post));
+        window.alert("사진이 수정되었습니다")
+        console.log("개스타그램 게시물 PATCH 완료", res);
+        history.goBack();
       })
       .catch((err) => {
         console.log("개스타그램 게시물 PATCH 오류", err);
@@ -196,6 +222,7 @@ const actionCreators = {
   getMyPostMD,
   addPostMD,
   editPostMD,
+  editPostImageMD,
   deletePostMD,
 };
 

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
-
+import AWS from "aws-sdk";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/user";
-
+import edit from "../image/edit.png";
 // 상단바
 import TopBar from "../components/TopBar";
+import UserModal from "../components/UserModal";
 
 const EditUser = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const EditUser = (props) => {
   const _userGender = user.userGender;
   const _userImage = user.userImage;
   const _userNickname = user.userNickname;
-
+  const _userLocation = user.userLocation;
   const [imgBase64, setImgBase64] = useState(_userImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [userNickname, setUserNickname] = useState(
@@ -27,25 +28,7 @@ const EditUser = (props) => {
   );
   const [user_gender, setUserGender] = useState("");
   const [userAge, setUserAge] = useState("");
-
-  const handleChangeFile = (event) => {
-    // 이미지 파일
-    event.preventDefault();
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setImgBase64(base64.toString());
-      }
-    };
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-      setImgFile(event.target.files[0]);
-    }
-    // else
-    // reader.readAsDataURL(userImage);
-    //   setImgFile(userImage)
-  };
+  const [userLocation, setUserLocation] = useState();
 
   const userNicknameChangeHandler = (e) => {
     setUserNickname(e.target.value);
@@ -56,7 +39,13 @@ const EditUser = (props) => {
   const userAgeChangeHandler = (age) => {
     setUserAge(age);
   };
+  const userLocationChangeHandler = (e) => {
+    setUserLocation(e.target.value);
+  };
 
+  const [modal, setModal] = useState();
+
+  console.log(modal);
   // 뒤로가기 버튼 - 수정 취소
   const cancel = () => {
     // if (
@@ -74,146 +63,22 @@ const EditUser = (props) => {
     setUserAge(_userAge);
     setImgBase64(_userImage);
     setImgFile(_userImage);
+    setUserLocation(_userLocation);
   }, [_userGender, _userAge, _userImage, _userNickname]);
 
   // 수정하기 버튼 = 수정 완료
+  console.log(_userAge);
 
-  const update = () => {
-    const image = imgFile ? imgFile : user.userImage;
-
-    const formData = new FormData();
-    formData.append("userNickname", _userNickname);
-    formData.append("user_gender", user_gender);
-    formData.append("userAge", _userAge);
-    formData.append("userImage", imgFile);
-
-    // const userInfo = {
-    //   userNickname,
-    //   user_gender,
-    //   userAge,
-    //   userImage: imgFile,
-    // };
-    dispatch(UserActions.updateUserMD(formData));
+  const updateInfo = () => {
+    console.log(userNickname, user_gender, userAge, imgFile);
+    const userInfo = {
+      userNickname,
+      userGender: user_gender,
+      userAge,
+      userLocation,
+    };
+    dispatch(UserActions.updateUserMD(userInfo));
   };
-
-  // const dataURLToBlob = (dataURL) => {
-  //   const BASE64_MARKER = ';base64,'
-
-  //   // base64로 인코딩 되어있지 않을 경우
-  //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
-  //     const parts = dataURL.split(',')
-  //     console.log(parts)
-  //     const contentType = parts[0].split('.')[4]
-  //     console.log(contentType)
-  //     const raw = parts[0]
-  //     console.log(raw)
-  //     return new Blob([raw], {
-  //       type: "",
-  //     })
-  //   }
-  //   // base64로 인코딩 된 이진데이터일 경우
-  //   const parts = dataURL.split(BASE64_MARKER)
-  //   const contentType = parts[0].split(':')[1]
-  //   const raw = window.atob(parts[1])
-  //   console.log(contentType)
-  //   // atob()는 Base64를 디코딩하는 메서드
-  //   const rawLength = raw.length
-  //   // 부호 없는 1byte 정수 배열을 생성
-  //   const uInt8Array = new Uint8Array(rawLength) // 길이만 지정된 배열
-  //   let i = 0
-  //   while (i < rawLength) {
-  //     uInt8Array[i] = raw.charCodeAt(i)
-  //     i++
-  //   }
-  //   return new Blob([uInt8Array], {
-  //     type: contentType,
-  //   })
-  // }
-  // else
-  // reader.readAsDataURL(userImage);
-  //   setImgFile(userImage)
-  // };
-
-  // const userNicknameChangeHandler = (e) => {
-  //   setUserNickname(e.target.value);
-  // };
-  // const genderChangeHandler = (gender) => {
-  //   setUserGender(gender);
-  // };
-  // const userAgeChangeHandler = (age) => {
-  //   setUserAge(age);
-  // };
-
-  // // 뒤로가기 버튼 - 수정 취소
-  // const cancel = () => {
-  //   // if (
-  //   //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
-  //   // ) {
-  //   history.goBack();
-  //   // }
-  // };
-
-  // // 현재 접속한 보호자의 정보 불러오기
-  // useEffect(() => {
-  //   dispatch(UserActions.getUserMD());
-  //   setUserNickname(userNickname);
-  //   setUserGender(userGender);
-  //   setUserAge(userAge);
-  //   setImgBase64(userImage);
-  //   setImgFile(userImage);
-  // }, [userGender, userAge, userImage, userNickname]);
-
-  // // 수정하기 버튼 = 수정 완료
-  // console.log(imgFile, user.userImage);
-  // const update = () => {
-  //   console.log(imgFile);
-  //   const image = imgFile ? imgFile : user.userImage;
-  //   console.log(image);
-  //   const formData = new FormData();
-  //   formData.append("userNickname", userNickname);
-  //   formData.append("userGender", user_gender);
-  //   formData.append("userAge", userAge);
-  //   formData.append("userImage", " ");
-
-  //   console.log(userNickname, user_gender, userAge, imgFile);
-  //   // const userInfo = {
-  //   //   userNickname,
-  //   //   user_gender,
-  //   //   userAge,
-  //   //   userImage: imgFile,
-  //   // };
-  //   dispatch(UserActions.updateUserMD(formData));
-  // };
-
-  // const dataURLToBlob = dataURL => {
-  //   const BASE64_MARKER = ";base64,";
-
-  //   // base64로 인코딩 되어있지 않을 경우
-  //   if (dataURL.indexOf(BASE64_MARKER) === -1) {
-  //     const parts = dataURL.split(",");
-  //     const contentType = parts[0].split(":")[1];
-  //     const raw = parts[1];
-  //     return new Blob([raw], {
-  //       type: contentType
-  //     });
-  //   }
-  //   // base64로 인코딩 된 이진데이터일 경우
-  //   const parts = dataURL.split(BASE64_MARKER);
-  //   const contentType = parts[0].split(":")[1];
-  //   const raw = window.atob(parts[1]);
-  //   // atob()는 Base64를 디코딩하는 메서드
-  //   const rawLength = raw.length;
-  //   // 부호 없는 1byte 정수 배열을 생성
-  //   const uInt8Array = new Uint8Array(rawLength); // 길이만 지정된 배열
-  //   let i = 0;
-  //   while (i < rawLength) {
-  //     uInt8Array[i] = raw.charCodeAt(i);
-  //     i++;
-  //   }
-  //   return new Blob([uInt8Array], {
-  //     type: contentType
-  //   });
-  // };
 
   return (
     <>
@@ -222,25 +87,33 @@ const EditUser = (props) => {
         <TopBar only_left>회원 정보 수정</TopBar>
 
         {/* 보호자 이미지 */}
-        <ImageWrap>
-          <Preview src={imgBase64}></Preview>
-          <UploadLabel for="imgFile">사진 업로드</UploadLabel>
-          <AddImage
-            type="file"
-            name="imgFile"
-            id="imgFile"
-            onChange={handleChangeFile}
-          />
-        </ImageWrap>
+
+        <UserWrap>
+          <UserInfoLeft onClick={() => setModal(true)}>
+            <UserImg src={_userImage} />
+            <Edit>
+              <img src={edit} />
+            </Edit>
+          </UserInfoLeft>
+        </UserWrap>
+        {modal && <UserModal setModal={setModal} userImage={_userImage} />}
 
         {/* 보호자 닉네임 + 성별 + 나이대 */}
         <Body>
           {/* 보호자 닉네임 */}
           <Filter>
+            <Title>닉네임</Title>
             <Nickname
               placeholder="닉네임을 입력하세요"
               onChange={userNicknameChangeHandler}
               defaultValue={_userNickname}
+            />
+          </Filter>
+          <Filter>
+            <Title>사는곳(시,구,동)</Title>
+            <Nickname
+              onChange={userLocationChangeHandler}
+              defaultValue={_userLocation}
             />
           </Filter>
           {/* 보호자 성별 */}
@@ -279,7 +152,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="10"
-                    checked={_userAge === "10대"}
+                    checked={userAge === "10대"}
                     onClick={() => userAgeChangeHandler("10대")}
                     name="age"
                   />
@@ -291,7 +164,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="20"
-                    checked={_userAge === "20대"}
+                    checked={userAge === "20대"}
                     onClick={() => userAgeChangeHandler("20대")}
                     name="age"
                   />
@@ -304,7 +177,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="30"
-                    checked={_userAge === "30대"}
+                    checked={userAge === "30대"}
                     onClick={() => userAgeChangeHandler("30대")}
                     name="age"
                   />
@@ -317,7 +190,7 @@ const EditUser = (props) => {
                   <UserAge
                     type="radio"
                     id="40"
-                    checked={_userAge === "40대 이상"}
+                    checked={userAge === "40대 이상"}
                     onClick={() => userAgeChangeHandler("40대 이상")}
                     name="age"
                   />
@@ -331,13 +204,56 @@ const EditUser = (props) => {
 
         {/* 수정 완료 버튼 */}
         <Footer>
-          <Add onClick={update}>수정하기</Add>
+          <Add onClick={updateInfo}>수정하기</Add>
         </Footer>
       </Wrap>
     </>
   );
 };
+const UserWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+const UserInfoLeft = styled.div`
+  position: relative;
 
+  width: 150px;
+  height: 150px;
+`;
+const UserImg = styled.img`
+  width: 150px;
+  height: 150px;
+  padding: 2px;
+  background-size: cover;
+  overflow: hidden;
+  margin-right: 14.5px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+const Edit = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: #fff;
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+`;
 const Wrap = styled.div`
   max-width: 390px;
   padding: 0 20px;
