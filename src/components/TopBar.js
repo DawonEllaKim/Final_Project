@@ -45,7 +45,11 @@ const TopBar = (props) => {
         </Button>
         {text ? text : children}
         <Button position="absolute" top="0" right="0">
-          <img src={notification} style={{ width: "24px", height: "24px" }} />
+          <img
+            src={notification}
+            style={{ width: "24px", height: "24px" }}
+            onClick={() => history.push("/notification")}
+          />
         </Button>
       </Both>
     </div>
@@ -69,7 +73,6 @@ const Left = styled.div`
   margin: 36px 0;
   text-align: center;
   padding: ${(props) => props.padding};
-
 `;
 const Both = styled.div`
   position: relative;

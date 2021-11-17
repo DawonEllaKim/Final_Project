@@ -40,6 +40,7 @@ const Detail = (props) => {
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
   }, [post.walk, post.start]);
+
   const [walk, setWalk] = useState(post.walk ? post.walk : list1);
   const [start, setStart] = useState(post.start ? post.start : olympic);
   const is_loading = useSelector((state) => state.post.is_loading);
@@ -56,6 +57,7 @@ const Detail = (props) => {
   const userGender = post.userGender;
   console.log(userImage);
   console.log(walk);
+
   // 강아지 정보
   const dogImage = post.dogImage;
   const dogName = post.dogName;
@@ -68,6 +70,7 @@ const Detail = (props) => {
   const location = post.locationCategory;
   const dogCo = post.dogCount;
   const wishDesc = post.wishDesc;
+
   // 산책 정보
   const meetingDate = post.meetingDate;
   const completed = post.completed;
@@ -474,12 +477,31 @@ const Detail = (props) => {
           <MapWrap id="map"></MapWrap>
 
           {/* 버튼 */}
-          {get_id == post.userId && (
+          {get_id == post.userId ? (
             <FlexButton>
               <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
               <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
                 수정하기
               </EditButton>
+            </FlexButton>
+          ) : (
+            <FlexButton>
+              <EditButton
+                onClick={() => {
+                  window.confirm(
+                    `${userNickname}과 함께 ${location}에서 산책 신청 하시겠습니까?`
+                  );
+                }}
+              >
+                산책 신청하기
+              </EditButton>
+              <DeleteButton
+                onClick={() => {
+                  history.push("/chatwrite");
+                }}
+              >
+                쪽지하기
+              </DeleteButton>
             </FlexButton>
           )}
         </DetailWrap>

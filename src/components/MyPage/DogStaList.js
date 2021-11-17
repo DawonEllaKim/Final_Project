@@ -4,10 +4,7 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 // 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
-
-// 이미지 + 아이콘
-import emptyHeart from "../../image/emptyHeart.png";
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 const GaeStaCard = (props) => {
   const dispatch = useDispatch();
@@ -17,118 +14,55 @@ const GaeStaCard = (props) => {
   const postList = useSelector((state) => state.dogsta.myList); //현재 페이지 유저의 모든 개스타그램 게시물
 
   useEffect(() => {
-    dispatch(postActions.getMyPostMD(userId)); //현재 페이지 유저의 모든 개스타그램 게시물 불러오기
+    dispatch(dogstaActions.getMyPostMD(userId)); //현재 페이지 유저의 모든 개스타그램 게시물 불러오기
   }, []);
- console.log(postList)
+
   return (
     <Wrap>
       {/* 개스타그램 게시물의 유무 판단*/}
-      {postList.length==0 ? (
+      {postList.length == 0 ? (
         <>
           <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
-
-          <FlexButton>
-            <DeleteButton
-              onClick={() => {
-                history.push("/dogStaWrite");
-              }}
-            >
-              게시물 작성하기
-            </DeleteButton>
-          </FlexButton>
+          <Button
+            onClick={() => {
+              history.push("/dogStaWrite");
+            }}
+          >
+            게시물 작성하기
+          </Button>
         </>
       ) : (
         <Posts>
-          <>
-        
+          {postList.map((post, index) => {
+            return (
+              <Card
+                key={index}
+                onClick={() =>
+                  history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
+                }
+              >
+                {/* 포스트 사진 */}
+                <img src={post.dogPostImage} />
 
-            {postList.map((post, index) => {
-              return (
-                <Card
-                  key={index}
-                  onClick={() =>
-                    history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
-                  }
-                >
-                  <img src={post.dogPostImage} />
-
-                  <Text>
-                    <p>{post.dogPostDesc}</p>
-
-                    <div>
-                      <img src={post.userImage} />
-                      <span style={{ marginRight: "45px" }}>
-                        {post.userNickname}
-                      </span>
-                      {/* <img src={emptyHeart} />
-                      <span>12</span> */}
-                    </div>
-                  </Text>
-                </Card>
-              );
-            })}
-          </>
+                {/* 포스트 정보 */}
+                <PostInfo>
+                  <p>{post.dogPostDesc}</p>
+                  <WriterInfo>
+                    <img src={post.userImage} />
+                    <span>{post.userNickname}</span>
+                  </WriterInfo>
+                </PostInfo>
+              </Card>
+            );
+          })}
         </Posts>
       )}
     </Wrap>
   );
 };
 
-const FlexButton = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 350px;
-  height: 40px;
-  margin: 30px auto 130px auto;
-
-  button {
-    width: 160px;
-    height: 40px;
-    background-color: #fff;
-    border-radius: 14px;
-    border: 1px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-  }
-`;
-const DeleteButton = styled.button`
-  cursor: pointer;
-  width: 160px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px gray;
-`;
 const Wrap = styled.div`
   width: 100%;
-`;
-const Posts = styled.div`
-  display: grid;
-  grid-template-columns: 168px 168px;
-  /* grid-template-rows: 130px 130px; */
-  gap: 20px 20px;
-
-  width: 100%;
-  /* height: 100%; */
-
-  cursor: pointer;
-  /* border-radius: 20px; */
-
-  img {
-    width: 100%;
-    height: 150px;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-`;
-const Card = styled.div`
-  width: 160px;
-
-  border-radius: 20px;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
 `;
 const NoCard = styled.div`
   display: flex;
@@ -139,30 +73,64 @@ const NoCard = styled.div`
   height: 60px;
   border-radius: 20px;
 `;
-const Text = styled.div`
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 160px;
+  height: 40px;
+  margin: 30px auto 130px auto;
+  background-color: #fff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px gray;
+`;
+const Posts = styled.div`
+  display: grid;
+  grid-template-columns: 168px 168px;
+  gap: 20px 20px;
+  width: 100%;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+`;
+const Card = styled.div`
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+  padding-bottom: 10px;
+`;
+const PostInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-
   padding: 3px 7px;
   margin: 4px;
   p {
     margin-bottom: 20px;
   }
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-
-    height: 20px;
-  }
+`;
+const WriterInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  height: 20px;
   img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     margin-right: 4px;
+  }
+  span {
+    margin-right: 45px;
   }
 `;
 

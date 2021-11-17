@@ -1,195 +1,97 @@
-// 유저 정보 받아오기
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
 
-// 컴포넌츠
-import NavBar from "../NavBar";
+// 이미지 + 아이콘
+import male from "../../image/male.png";
+import female from "../../image/female.png";
 
-// 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
-
-// 아이콘들
-import notification from "../../image/Notification.png";
-import backward from "../../image/backward.png";
-
-const DogStaEdit = (props) => {
-  const dispatch = useDispatch();
+const DogCard = ({ post }) => {
   const history = useHistory();
 
-  const postId = props.match.params.id;
-  const post = useSelector((state) => state.dogsta.eachList);
-
-  const [imgBase64, setImgBase64] = useState(post.dogPostImage);
-  const [imgFile, setImgFile] = useState(null);
-  const [dogPostDesc, setDogPostDesc] = useState("");
-
-  const imageChange = (e) => {
-    e.preventDefault();
-
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      const base64 = reader.result;
-
-      if (base64) {
-        setImgBase64(base64.toString());
-      }
-    };
-
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-      setImgFile(e.target.files[0]);
-    }
-
-    console.log("imgBase64", imgBase64);
-    console.log("imgFile", imgFile);
-  };
-
-  const dogPostDescChange = (e) => {
-    setDogPostDesc(e.target.value);
-    console.log(dogPostDesc);
-  };
-
-  const dogStaEditCancel = () => {
-    window.alert("취소");
-  };
-
-  const dogStaEdit = () => {
-    dispatch(postActions.editPostMD(postId, eachPost));
-  };
-
-  const eachPost = {
-    dogPostDesc: dogPostDesc,
-  };
-
-  // useEffect(() => {
-  //   dispatch(postActions.getPostMD(postId));
-  // }, [postId]);
-
   return (
-    <Wrap>
-      {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-      <Header>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <img src={backward} style={{ width: "10px", height: "18px" }} />
-        </button>
-        <p>Dawon님의 페이지</p>
-        <button>
-          <img src={notification} style={{ width: "24px", height: "24px" }} />
-        </button>
-      </Header>
+    <CardWrap
+      onClick={() => {
+        history.push("/dogProfile");
+      }}
+    >
+      {/* 카드 왼쪽 - 강아지 이미지 */}
+      <img src={post.dogImage} />
 
-      {/* 유저 정보 */}
-      <UserInfo>
-        <img />
-        <div>
-          <span>Dawon0411</span>
-          <span>서울시 양천구 목동</span>
-        </div>
-      </UserInfo>
+      {/* 카드 오른쪽 - 강아지 정보 */}
+      <CardInfo>
+        {/* 강아지 성별 + 이름 + 나이 */}
+        <CardTop>
+          {post.dogGender === "남" ? <img src={male} /> : <img src={female} />}
+          {post.dogName}, {post.dogAge}
+        </CardTop>
 
-      {/* 게시물 부분 */}
-      <Write>
-        <img src={imgBase64} />
-        <input type="file" name="imageFile" onChange={imageChange} />
-        <div>
-          <textarea
-            defaultValue={post.dogPostDesc}
-            onChange={dogPostDescChange}
-          />
-        </div>
-      </Write>
-
-      <button onClick={dogStaEditCancel}>취소하기</button>
-      <button onClick={dogStaEdit}>수정 완료하기</button>
-
-      {/* 고정 네비게이션 바 */}
-      <NavBar />
-    </Wrap>
+        {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
+        <CardBottom style={{ marginBottom: "20px" }}>
+          <div>{post.dogBreed}</div>
+          <div>중성화여부 / {post.neutral == true ? "유" : "무"}</div>
+          <div>{post.dogComment}</div>
+        </CardBottom>
+      </CardInfo>
+    </CardWrap>
   );
 };
 
-const Wrap = styled.div`
-  box-sizing: border-box;
-  width: 390px;
-  margin: auto;
-  padding: 0 20px 150px 20px;
-`;
-const Header = styled.div`
+const CardWrap = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin: 46px auto 18px auto;
-  font-size: 18px;
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
-  width: 350px;
-  height: 108px;
-  margin-bottom: 22px;
-  border-top: 0.25px solid #b9b8b8;
-  border-bottom: 0.25px solid #b9b8b8;
-
-  img {
-    width: 80px;
-    height: 80px;
-    margin-right: 14.5px;
-    border: 1px solid black;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  span {
-    margin-bottom: 7px;
-    font-size: 16px;
-    color: #5f5f5f;
-  }
-`;
-const Write = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 100%;
-  margin: auto;
+  height: 152px;
+
+  margin-bottom: 24px;
+
+  border-radius: 25px;
+  background-color: #fff;
+  color: #747474;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.27px;
+  cursor: pointer;
+
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
 
   img {
-    width: 100%;
+    width: 152px;
+    height: 152px;
+    border-radius: 25px;
     object-fit: cover;
   }
-
+`;
+const CardTop = styled.div`
+  font-size: 16px;
+  color: black;
+  margin-bottom: 20px;
+  img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 8px;
+  }
+`;
+const CardInfo = styled.div`
+  width: 192px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 20px;
+  padding-top: 11px;
+`;
+const CardBottom = styled.div`
   div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
+    justify-content: flex-start;
     width: 100%;
   }
 `;
 
-export default DogStaEdit;
+export default DogCard;

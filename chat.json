@@ -1,62 +1,78 @@
 {
-	"chat":[
+	"chats":[
     {
-      "id":1,
-      "room":[
+      "roomId":1,
+			"receiver":"soso",
+			"receiverImg":"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
+      "chat":[
         {
-          "roomNum":1,
-          "sender":"abc",
-          "text" : "hi, i'm abc",
-          "createdAt":"2021-11-10 23:00",
-          "updatedAt":"2021-11-10 23:14"
+          "senderNickname":"soso",
+          "text":"abc",
+          "createdAt":"2021-11-10 23:00"
         },
         {
-          "roomNum":1,
-          "text" : "hi, i'm 123",
-          "sender":"123",
-          "createdAt":"2021-11-10 23:00",
-          "updatedAt":"2021-11-10 23:14"
+          "senderNickname":"dawonella0411",
+          "text":"abdsadasdc",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"soso",
+          "text":"abaac",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"dawonella0411",
+          "text":"ss",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"soso",
+          "text":"he",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"dawonella0411",
+          "text":"q112",
+          "createdAt":"2021-11-10 23:00"
         }
       ]
     },
-    {
-      "id":2,
-      "room":[
+		{
+      "roomId":2,
+			"receiver":"hyo",
+			"receiverImg":"https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg",
+      "chat":[
         {
-          "roomNum":2,
-          "sender":"abc",
-          "text" : "안녕하세요",
-          "createdAt":"2021-11-10 23:00",
-          "updatedAt":"2021-11-10 23:14"
+          "senderNickname":"hyo",
+          "text":"abc",
+          "createdAt":"2021-11-10 23:00"
         },
         {
-          "roomNum":2,
-          "text" : "산책 신청합니다",
-          "sender":"456",
-          "createdAt":"2021-11-10 23:00",
-          "updatedAt":"2021-11-10 23:14"
+          "senderNickname":"dawonella0411",
+          "text":"abdsadasdc",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"hyo",
+          "text":"abaac",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"dawonella0411",
+          "text":"ss",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"hyo",
+          "text":"he",
+          "createdAt":"2021-11-10 23:00"
+        },
+				{
+          "senderNickname":"dawonella0411",
+          "text":"q112",
+          "createdAt":"2021-11-10 23:00"
         }
       ]
     }
-	],
-  "chatuser":[
-    {
-    "members":{
-      "me":"abc",
-      "other":"123"
-    },
-    "id":1,
-    "createdAt":"2021-11-10 23:00",
-    "updatedAt":"2021-11-10 23:14"
-  },
-  {
-    "members":{
-      "me":"abc",
-      "other":"456"
-    },
-    "id":2,
-    "createdAt":"2021-11-10 23:00",
-    "updatedAt":"2021-11-10 23:14"
-  }
 	]
 }

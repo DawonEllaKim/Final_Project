@@ -1,91 +1,110 @@
-// import { createAction, handleActions } from "redux-actions";
-// import { produce } from "immer";
-// import socketClient from "socket.io-client";
-// import axios from "axios";
-// import { getCookie } from "../../shared/Cookie";
+import axios from "axios";
+import { produce } from "immer";
+import { getCookie } from "../../shared/Cookie";
+import { createAction, handleActions } from "redux-actions";
 
-// // action
-// const GET_MSG = "GET_MSG";
-// const SET_MSG = "SET_MSG";
-// const GET_USER = "GET_USER";
+const GET_ALL_MY_CHAT_ROOMS = "GET_ALL_MY_CHAT_ROOMS"; // 나의 모든 채팅 방 불러오기
+const SEND_MESSAGE = "SEND_MESSAGE";
+const GET_ONE_CHAT = "GET_ONE_CHAT";
 
-// // action creators
-// const getMsg = createAction(GET_MSG, (msg) => ({ msg }));
-// const setMsg = createAction(SET_MSG, (msg) => ({ msg }));
-// const getUser = createAction(GET_USER, (user) => ({ user }));
+const getAllMyChatRooms = createAction(GET_ALL_MY_CHAT_ROOMS, (list) => ({
+  list,
+}));
+const sendMessage = createAction(SEND_MESSAGE, (oneList) => ({
+  oneList,
+}));
+const getOneChat = createAction(GET_ONE_CHAT, (oneList) => ({
+  oneList,
+}));
 
-// // initialState
-// const initialState = {
-//   chat: [],
-//   user: [],
-// };
+const initialState = {
+  list: [],
+  oneList: [],
+};
 
-// // middleware
-// const getMsgMD = () => {
-//   // return function(dispatch)
-//   // socket.on('load', {res} =>{
-//   //     disptch(getMsg(res))
-//   // })
+const getAllMyChatRoomsMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://localhost:4000/chats",
+      data: {},
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        const allMyChatRooms = res.data;
+        dispatch(getAllMyChatRooms(allMyChatRooms));
+        console.log("나한테 온 모든 쪽지방 GET 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("나한테 온 모든 쪽지방 GET 에러", err);
+      });
+  };
+};
 
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url: "http://localhost:4000/chat",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         console.log(res.data);
-//         dispatch(getMsg(res.data));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+const sendMessageMD = (chatInfo) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "POST",
+      url: "http://localhost:4000/onechat",
+      data: chatInfo,
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        dispatch(sendMessage(chatInfo));
+        console.log("쪽지 보내기 POST 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("쪽지 보내기 POST 에러", err);
+      });
+  };
+};
 
-// const setMsgMD = () => {
-//   return function (dispatch, getState, { history }) {};
-// };
+const getOneChatMD = () => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://localhost:4000/onechat",
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        dispatch(getOneChat(res.data));
+        console.log("방 한개에 대한 모든 메세지 GET 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("방 한개에 대한 모든 메세지 GET 오류", err);
+      });
+  };
+};
 
-// const getUserMD = () => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url: "http://localhost:4000/chatuser",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         console.log(res.data);
-//         dispatch(getUser(res.data));
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+// reducer
+export default handleActions(
+  {
+    [GET_ALL_MY_CHAT_ROOMS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.list;
+      }),
+    [SEND_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.oneList.push(action.payload.oneList);
+      }),
+    [GET_ONE_CHAT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.oneList = action.payload.oneList;
+      }),
+  },
+  initialState
+);
 
-// // reducer
-// export default handleActions(
-//   {
-//     [GET_MSG]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.msg = action.payload.msg;
-//       }),
-//     [SET_MSG]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.msg = action.payload.msg;
-//       }),
-//     [GET_USER]: (state, action) =>
-//       produce(state, (draft) => {
-//         draft.user = action.payload.user;
-//       }),
-//   },
-//   initialState
-// );
-
-// export const actionCreators = {
-//   getMsgMD,
-//   getUserMD,
-// };
+export const actionCreators = {
+  getAllMyChatRooms,
+  sendMessage,
+  getOneChat,
+  getAllMyChatRoomsMD,
+  sendMessageMD,
+  getOneChatMD,
+};

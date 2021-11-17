@@ -7,13 +7,13 @@ import { useHistory } from "react-router";
 import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import DogStaList from "../components/MyPage/DogStaList";
-import DogCard from "../components/DogCard";
-import UserCard from "../components/UserCard";
+import InfoList from "../components/MyPage/InfoList";
 import WalkList from "../components/MyPage/WalkList";
 
 // 리덕스
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as signActions } from "../redux/modules/sign";
+import { actionCreators as chatAction } from "../redux/modules/chat";
 
 // 이미지  + 아이콘
 import { FiLogOut } from "react-icons/fi";
@@ -34,6 +34,9 @@ const MyPage = (props) => {
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
   const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
 
+  const rawRoomId = [userId, currentPageUserId].sort();
+  const roomId = rawRoomId[0] + "-" + rawRoomId[1];
+
   // 로그아웃
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -42,6 +45,17 @@ const MyPage = (props) => {
     } else {
       console.log("로그인 유지");
     }
+  };
+
+  const createRoom = () => {
+    const chatInfo = {
+      senderId: userId,
+      opposite: currentPageUserId,
+    };
+
+    console.log("새로운 방을 생성합니다.");
+    // dispatch(chatAction.createRoomMD(chatInfo));
+    console.log("룸 아이디", roomId, "챗 인포", chatInfo);
   };
 
   useEffect(() => {
@@ -79,11 +93,20 @@ const MyPage = (props) => {
             <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
           </div>
 
-          {currentPageUserId === userId && (
+          {currentPageUserId === userId ? (
             <LogOut onClick={logout}>
               <FiLogOut size="16" />
               <span>로그아웃</span>
             </LogOut>
+          ) : (
+            <button
+              onClick={() => {
+                history.push(`/chatwrite/${roomId}/${currentPageUserId}`);
+              }}
+              // {createRoom}
+            >
+              {userInfo.userNickname}님에게 쪽지 보내기
+            </button>
           )}
         </UserRight>
       </UserInfo>
@@ -142,10 +165,7 @@ const MyPage = (props) => {
 
         {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
         {status === "dog" && (
-          <div>
-            <UserCard post={userInfo} userId={currentPageUserId} />
-            <DogCard post={userInfo} userId={currentPageUserId} />
-          </div>
+          <InfoList post={userInfo} userId={currentPageUserId} />
         )}
 
         {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}

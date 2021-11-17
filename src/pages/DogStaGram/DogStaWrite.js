@@ -9,7 +9,7 @@ import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 
 // 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
 import defaultDog from "../../image/default_dog.png";
@@ -61,7 +61,7 @@ const DogStaWrite = (props) => {
     formData.append("dogPostDesc", dogPostDesc);
 
     history.goBack();
-    dispatch(postActions.addPostMD(formData));
+    dispatch(dogstaActions.addPostMD(formData));
   };
 
   return (

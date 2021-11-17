@@ -332,6 +332,69 @@
       "createdAt": "2021-11-10 23:00",
       "updatedAt": "2021-11-10 23:14"
     }
+  ],
+  "comment": [
+    {
+      "id": 1,
+      "commentId": 1,
+      "dogPostId": 40,
+      "userId": 3,
+      "userNickname": "hj",
+      "commentDesc": "귀여워요",
+      "commentCount": 10,
+      "createdAt": "2021.11.16 16:00"
+    },
+    {
+      "id": 2,
+      "commentId": 2,
+      "dogPostId": 40,
+      "userId": 11,
+      "userNickname": "zoe",
+      "commentDesc": "저도 같이 산책해요",
+      "commentCount": 10,
+      "createdAt": "2021.11.16 16:00"
+    },
+    {
+      "commentDesc": "댓글",
+      "userNickname": "25",
+      "dogPostId": 40,
+      "userId": 24,
+      "id": 6
+    },
+    {
+      "commentDesc": "산책 조아 왈왈",
+      "userNickname": "25",
+      "dogPostId": 42,
+      "userId": 25,
+      "id": 7
+    },
+    {
+      "commentDesc": "멍멍",
+      "userNickname": "25",
+      "userId": "25",
+      "id": 8
+    },
+    {
+      "commentDesc": "되니?",
+      "userNickname": "25",
+      "dogPostId": 43,
+      "userId": "25",
+      "id": 9
+    },
+    {
+      "commentDesc": "오 되네?",
+      "userNickname": "25",
+      "dogPostId": 43,
+      "userId": "25",
+      "id": 10
+    },
+    {
+      "commentDesc": "ㅇㅇㅇ",
+      "userNickname": "25",
+      "dogPostId": 40,
+      "userId": "25",
+      "id": 11
+    }
   ]
   
 }

@@ -7,30 +7,37 @@ import { useSelector, useDispatch } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import Comment from '../../components/Dogsta/Comment';
 
 // 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 const DogStaDetail = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postId = props.match.params.dogPostId;
-  const currentPostUserId = props.match.params.userId;
-  const post = useSelector((state) => state.dogsta.eachList);
-  const currentPageUserId = props.match.params.userId;
-  const userId = localStorage.getItem("userId");
-   console.log(post)
+  const post = useSelector((state) => state.dogsta.eachList); // 현재 개스타그램 게시물 정보
+  const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
+  const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
+  const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
+
+  console.log(post);
+  console.log(postId);
+  console.log(currentPostUserId);
+  console.log(userId);
+
   const editPost = () => {
+
     history.push(`/dogStaEdit/${currentPostUserId}/${postId}`)
+
   };
 
   const deletePost = () => {
-    dispatch(postActions.deletePostMD(postId));
+    dispatch(dogstaActions.deletePostMD(postId)); // 삭제하기 함수
   };
 
   useEffect(() => {
-    dispatch(postActions.getPostMD(currentPostUserId, postId));
+    dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
   }, []);
 
   return (
@@ -39,14 +46,6 @@ const DogStaDetail = (props) => {
       <TopBar>{post.userNickname}님의 게시물</TopBar>
 
       {/* 유저 정보 */}
-      {/* <UserInfo>
-        <img src={post.userImage} />
-        <div>
-          <span>{post.userNickname}</span>
-          <span>{post.userLocation}</span>
-        </div>
-      </UserInfo> */}
-
       <UserInfo
         onClick={() => {
           history.push(`/mypage/${post.userId}`);
@@ -68,52 +67,31 @@ const DogStaDetail = (props) => {
 
       {/* 게시물 부분 */}
       <Write>
+        {/* 게시물 이미지 */}
         <img src={post.dogPostImage} />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "left",
-            marginBottom: "50px",
-          }}
-        >
-          <img
-            src={post.userImage}
-            style={{
-              width: "20px",
-              height: "20px",
-              marginRight: "7px",
-              borderRadius: "50%",
-            }}
-          />
-          <p style={{ marginRight: "10px" }}>{post.userNickname}</p>
+
+        {/* 작성자 이미지 + 작성자 닉네임 + 게시물 글*/}
+        <PostInfo>
+          <img src={post.userImage} />
+          <UserNickname>{post.userNickname}</UserNickname>
           <p>{post.dogPostDesc}</p>
-          {/* <span>어제</span> */}
-        </div>
+        </PostInfo>
       </Write>
 
-      {currentPageUserId === userId && (
-        // <div
-        //   style={{
-        //     display: "flex",
-        //     flexDirection: "row",
-        //     justifyContent: "space-between",
-        //     margin: "0 40px",
-        //   }}
-        // >
-        //   <Button
-        //     onClick={() => {
-        //       history.push(`/dogstaedit/${postId}`);
-        //     }}
-        //   >
-        //     수정하기
-        //   </Button>
-        //   <Button onClick={deletePost}>삭제하기</Button>
-        // </div>
-        <FlexButton>
-          <EditButton onClick={editPost}>수정하기</EditButton>
-          <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
-        </FlexButton>
+        {/* 댓글 */}
+      <Comment 
+        post={post} 
+        postId={postId} 
+        currentPostUserId={currentPostUserId} 
+        userId={userId}
+      />
+
+      {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
+      {currentPostUserId === userId && (
+        <BottomBtn>
+          <button onClick={editPost}>수정하기</button>
+          <button onClick={deletePost}>삭제하기</button>
+        </BottomBtn>
       )}
 
       {/* 고정 네비게이션 바 */}
@@ -121,66 +99,27 @@ const DogStaDetail = (props) => {
     </Wrap>
   );
 };
-const DeleteButton = styled.button`
-  cursor: pointer;
-  width: 160px;
-  height: 48px;
-  border-radius: 10px;
-  border: 1px gray;
-`;
-const EditButton = styled.button`
-  cursor: pointer;
-  width: 160px;
-  height: 48px;
-  border-radius: 10px;
-  border: 1px gray;
-`;
-const FlexButton = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 350px;
-  height: 52px;
-  margin: 30px auto 130px auto;
-
-  button {
-    width: 160px;
-    height: 48px;
-    background-color: #fff;
-    border-radius: 14px;
-    border: 1px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-  }
-`;
-const Button = styled.button`
-  width: 100px;
-  height: 30px;
-  border: none;
-
-  border-radius: 20px;
-
-  cursor: pointer;
+const Wrap = styled.div`
+  box-sizing: border-box;
+  width: 390px;
+  margin: auto;
+  padding: 0 20px 150px 20px;
 `;
 const UserInfo = styled.div`
   position: relative;
-
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-
   width: 100%;
   height: 88px;
-
   margin-bottom: 24px;
   cursor: pointer;
 `;
 const UserInfoLeft = styled.div`
   position: relative;
-
   width: 91px;
   height: 88px;
-
   margin-right: 16px;
 `;
 const UserRight = styled.div`
@@ -206,83 +145,6 @@ const UserImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
-const Edit = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  border: 2px solid black;
-  border-radius: 50%;
-  background-color: #fff;
-
-  img {
-    width: 22px;
-    height: 22px;
-  }
-`;
-const Wrap = styled.div`
-  box-sizing: border-box;
-  width: 390px;
-  margin: auto;
-  padding: 0 20px 150px 20px;
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin: 46px auto 18px auto;
-  font-size: 18px;
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
-// const UserInfo = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: left;
-//   align-items: center;
-//   width: 350px;
-//   height: 108px;
-//   margin-bottom: 22px;
-//   border-top: 0.25px solid #b9b8b8;
-//   border-bottom: 0.25px solid #b9b8b8;
-
-//   img {
-//     width: 80px;
-//     height: 80px;
-//     margin-right: 14.5px;
-//     border: 1px solid black;
-//     border-radius: 50%;
-//     object-fit: cover;
-//   }
-
-//   div {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: flex-start;
-//   }
-
-//   span {
-//     margin-bottom: 7px;
-//     font-size: 16px;
-//     color: #5f5f5f;
-//   }
-// `;
 const Write = styled.div`
   display: flex;
   flex-direction: column;
@@ -290,19 +152,42 @@ const Write = styled.div`
   align-items: center;
   width: 100%;
   margin: auto;
-
   img {
     width: 100%;
     object-fit: cover;
   }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 100%;
+`;
+const PostInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    border-radius: 50%;
+  }
+`;
+const UserNickname = styled.p`
+  margin-right: 10px;
+`;
+const BottomBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  height: 52px;
+  margin: 30px auto 130px auto;
+  button {
+    width: 160px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 1px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
   }
 `;
 

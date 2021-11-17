@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+
+// 컴포넌츠
 import Card from "../Card";
 
 // 리덕스
@@ -11,11 +13,10 @@ const WalkList = ({ post, userId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const postList = useSelector((state) => state.post.myList);
+  const postList = useSelector((state) => state.post.myList); // 나의 산책 게시물 리스트
 
-  console.log(postList);
   useEffect(() => {
-    dispatch(postActions.getMyPostMD(userId));
+    dispatch(postActions.getMyPostMD(userId)); // 나의 산책 게시물 불러오기
   }, []);
 
   return (
@@ -43,11 +44,8 @@ const WalkList = ({ post, userId }) => {
 const Wrap = styled.div`
   width: 100%;
 `;
-const Title = styled.div`
-  margin: 20px;
-  font-weight: 700;
-  font-size: 16px;
-  text-align: center;
+const CardWrap = styled.div`
+  text-align: left;
 `;
 const NoCard = styled.div`
   display: flex;
@@ -57,9 +55,6 @@ const NoCard = styled.div`
   width: 100%;
   height: 60px;
   border-radius: 20px;
-`;
-const CardWrap = styled.div`
-  text-align: left;
 `;
 
 export default WalkList;
