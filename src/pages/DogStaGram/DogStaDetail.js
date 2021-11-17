@@ -107,6 +107,7 @@ const DogStaDetail = (props) => {
               onClick={toggleLike} 
             />
           )}
+          {likeCount}
           </Like>
         </PostInfo>
         <PostDesc>{post.dogPostDesc}</PostDesc>
