@@ -8,10 +8,11 @@ import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/user";
 // 리액트 아이콘
-import { MdArrowBackIosNew } from "react-icons/md";
 
+import edit from "../image/edit.png";
 // 상단바
 import TopBar from "../components/TopBar";
+import DogModal from "../components/DogModal";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const EditDog = (props) => {
   const [dogComment, setDogComment] = useState(
     dog.dogComment ? dog.dogComment : ""
   );
+  const [modal,setModal] = useState();
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -76,17 +78,24 @@ const EditDog = (props) => {
   };
 
   const update = () => {
-    const formData = new FormData();
-    formData.append("dogName", dogName);
-    formData.append("dogBreed", dogBreed);
-    formData.append("dogSize", dogSize);
-    formData.append("dogGender", dogGender);
-    formData.append("neutral", neutral);
-    formData.append("dogAge", dogAge);
-    formData.append("dogComment", dogComment);
-    formData.append("dogImage", imgFile);
-    dispatch(DogActions.updateDogMD(dogId, formData));
+    const dogInfo = {
+      dogName,
+      dogBreed,
+      dogSize,
+      dogGender,
+      neutral,
+      dogAge,
+      dogComment
+    }
+     
+    dispatch(DogActions.updateDogMD(dogInfo));
   };
+  const updateImage = () => {
+    const formData = new FormData();
+    formData.append("dogImage", imgFile);
+    dispatch(DogActions.updateDogImageMD(formData));
+  };
+
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
@@ -116,7 +125,7 @@ const EditDog = (props) => {
       <TopBar only_left> 반려견 정보 수정</TopBar>
 
       {/* 강아지 사진 */}
-      <ImageWrap>
+      {/* <ImageWrap>
         <Preview src={imgBase64}></Preview>
         <UploadLabel for="imgFile">사진 업로드</UploadLabel>
         <AddImage
@@ -125,10 +134,22 @@ const EditDog = (props) => {
           id="imgFile"
           onChange={handleChangeFile}
         />
-      </ImageWrap>
+      </ImageWrap> */}
+       <UserWrap>
+        <UserInfoLeft onClick={()=>setModal(true)} >
+        <UserImg src={dog.dogImage}  />
+         <Edit >
+           <img src={edit}/>
+           </Edit>
+           </UserInfoLeft>
+           </UserWrap>
+           {
+             modal && <DogModal setModal={setModal} dogImage={dog.dogImage}/>
+           }
 
       {/* 강아지 이름 */}
       <Filter>
+      <Title>강아지 이름</Title>
         <Input
           placeholder="강아지 이름을 입력하세요. "
           onChange={dogNameChangeHandler}
@@ -138,6 +159,7 @@ const EditDog = (props) => {
 
       {/* 강아지 종 */}
       <Filter>
+      <Title>견종</Title>
         <Input
           placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
           defaultValue={dog.dogBreed}
@@ -311,11 +333,58 @@ const EditDog = (props) => {
       {/* 수정 완료 버튼 */}
       <ButtonWrap>
         <Add onClick={update}>수정하기</Add>
+  
       </ButtonWrap>
     </Wrap>
   );
 };
+const UserWrap = styled.div
+`
+display:flex;
+justify-content:center;
+margin-bottom:20px;
+`
+const UserInfoLeft = styled.div`
+  position: relative;
 
+  width: 150px;
+  height: 150px;
+
+
+`;
+const UserImg = styled.img`
+  width: 150px;
+  height: 150px;
+  padding: 2px;
+  background-size:cover;
+  overflow:hidden;
+  margin-right: 14.5px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+const Edit = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: #fff;
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+`;
 const Wrap = styled.div`
   max-width: 390px;
   padding: 0 20px;

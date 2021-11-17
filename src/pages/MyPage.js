@@ -28,7 +28,7 @@ const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [status, setStatus] = useState(); // 개스타그램, 강아지 정보, 산책목록 컴포넌츠를 중 택1
+  const [status, setStatus] = useState("sta"); // 개스타그램, 강아지 정보, 산책목록 컴포넌츠를 중 택1
 
   const userInfo = useSelector((state) => state.user.list); // 현재 로그인된 유저 정보
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
