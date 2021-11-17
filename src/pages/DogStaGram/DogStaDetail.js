@@ -32,8 +32,6 @@ const DogStaDetail = (props) => {
 
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  // const liked = useSelector((state) => state)
-  // console.log(liked);
 
   const toggleLike = () => {
     // setLiked(!liked);
@@ -48,13 +46,6 @@ const DogStaDetail = (props) => {
 
     dispatch(dogstaActions.toggleLikeMD(postId));
   };
-
-  // const addLike = () =>{
-  //   dispatch(dogstaActions.addLikeMD(postId))
-  // }
-  // const deleteLike = () =>{
-  //   dispatch(dogstaActions.deleteLikeMD(postId))
-  // }
 
   const editPost = () => {
     history.push(`/mapEdit/${postId}`); // 수정하기 함수
@@ -114,7 +105,6 @@ const DogStaDetail = (props) => {
               onClick={toggleLike} 
             />
           )}
-          {likeCount}
           </Like>
         </PostInfo>
         <PostDesc>{post.dogPostDesc}</PostDesc>
