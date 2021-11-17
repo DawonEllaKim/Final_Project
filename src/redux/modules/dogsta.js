@@ -10,6 +10,9 @@ const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
 const EDIT_POST = "EDIT_POST"; // 개스타그램 게시물 수정
 const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
+const TOGGLE_LIKE = 'TOGGLE_LIKE'; // 좋아요 토글
+// const ADD_LIKE = 'ADD_LIKE'; // 좋아요
+// const DELETE_LIKE = 'DELETE_LIKE'; // 좋아요 취소
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
@@ -17,11 +20,16 @@ const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
+// 좋아요
+const toggleLike = createAction(TOGGLE_LIKE,(postId, liked) =>({postId, liked}))
+// const addLike = createAction(ADD_LIKE,(postDetail, liked)=>({postDetail, liked}))
+// const deleteLike = createAction(DELETE_LIKE,(postDetail,liked) =>({postDetail,liked}))
 
 const initialState = {
   mainList: [],
   myList: [],
   eachList: [],
+  // postDetail:[]
 };
 
 const getAllPostMD = () => {
@@ -151,6 +159,84 @@ const deletePostMD = (postId) => {
   };
 };
 
+const toggleLikeMD = (dogPostId) =>{
+  return (dispatch, getState, {history}) =>{
+    axios({
+      method: "POST",
+      // url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
+      url: "http://localhost:4000/dogstalike",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        // accept: "application/json",
+        // "Access-Control-Allow-Origin": "*",
+        // authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        const liked = res;
+        console.log("좋아요 반영 성공", liked);
+      })
+      .catch((err) => {
+        console.log("좋아요 반영 오류", err);
+      });
+  }
+}
+
+// const addLikeMD = (dogPostId) =>{
+//   return function (dispatch, getState, {history}){
+//     const postDetail = getState().dogsta.postDetail
+//     console.log(postDetail);
+//     axios({
+//       method: "POST",
+//       // url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
+//       url:`http://localhost:4000/like`,
+//       data: {},
+//       headers: {
+//         // "content-type": "application/json;charset=UTF-8",
+//         // accept: "application/json",
+//         // "Access-Control-Allow-Origin": "*",
+//         // authorization: `Bearer ${getCookie("userLogin")}`,
+//       },
+//     })
+//     .then((res)=>{
+//       const liked = res;
+//       console.log('게시물 좋아요 성공', liked)
+//       // dispatch(addLike(postDetail, liked))
+//     })
+//     .catch((err) =>{
+//       console.log('게시물 좋아요 오류', err)
+//     })
+//   }
+// }
+
+// const deleteLikeMD = (dogPostId) =>{
+//   return function (dispatch, getState, {history}){
+//     const postDetail = getState()
+//     console.log(postDetail);
+//     axios({
+//       method: "DELETE",
+//       // url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
+//       url:`http://localhost:4000/like`,
+//       data: {},
+//       headers: {
+//         // "content-type": "application/json;charset=UTF-8",
+//         // accept: "application/json",
+//         // "Access-Control-Allow-Origin": "*",
+//         // authorization: `Bearer ${getCookie("userLogin")}`,
+//       },
+//     })
+//     .then((res)=>{
+//       const liked = res;
+//       // dispatch(addLike(postDetail, liked))
+//       console.log('게시물 좋아요 취소 성공', liked)
+//     })
+//     .catch((err) =>{
+//       console.log('게시물 좋아요 취소 오류', err)
+//     })
+//   }
+// }
+
 export default handleActions(
   {
     [GET_ALL_POST]: (state, action) =>
@@ -179,6 +265,18 @@ export default handleActions(
           (post) => post.id !== action.payload.postId
         );
       }),
+    [TOGGLE_LIKE]: (state, action) =>
+      produce(state, (draft) =>{
+        draft.liked = action.payload.liked
+      }),
+    // [ADD_LIKE]:(state,action)=>
+    // produce(state,(draft) =>{
+    //   draft.postDetail = {...action.payload.postDetail, liked: action.payload.liked};
+    // }),
+    // [DELETE_LIKE]:(state,action)=>
+    // produce(state,(draft) =>{
+    //   draft.postDetail = {...action.payload.postDetail, liked: action.payload.liked};
+    // }),
   },
   initialState
 );
@@ -190,6 +288,9 @@ const actionCreators = {
   addPost,
   editPost,
   deletePost,
+  toggleLike,
+  // addLike,
+  // deleteLike,
 
   getAllPostMD,
   getPostMD,
@@ -197,6 +298,9 @@ const actionCreators = {
   addPostMD,
   editPostMD,
   deletePostMD,
+  toggleLikeMD,
+  // addLikeMD,
+  // deleteLikeMD,
 };
 
 export { actionCreators };
