@@ -55,8 +55,6 @@ const Detail = (props) => {
   const userNickname = post.userNickname;
   const userAge = post.userAge;
   const userGender = post.userGender;
-  console.log(userImage);
-  console.log(walk);
 
   // 강아지 정보
   const dogImage = post.dogImage;
@@ -497,7 +495,7 @@ const Detail = (props) => {
               </EditButton>
               <DeleteButton
                 onClick={() => {
-                  history.push("/chatwrite");
+                  history.push(`/chatwrite/${post.userId}`);
                 }}
               >
                 쪽지하기

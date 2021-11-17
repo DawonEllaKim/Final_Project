@@ -50,7 +50,8 @@ import DogStaMain from "./pages/DogStaGram/DogStaMain";
 
 // 알람 + 쪽지
 import Notification from "./pages/Notification";
-import ChatWrite from "./pages/ChatWrite";
+import ChatWrite from "./pages/Chat/ChatWrite";
+import ChatDetail from "./pages/Chat/ChatDetail";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
@@ -67,23 +68,19 @@ function App() {
         <Route exact path="/logIn" component={LogIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
-
         {/* 메인 페이지 */}
         <Route exact path="/" component={Main} />
         <Route exact path="/check" component={CheckMain} />
         <Route exact path="/weather" component={Weather} />
-
         {/* 산책 유의사항 */}
         <Route exact path="/caution1" component={Caution1} />
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
-
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />
         <PrivateRoute exact path="/postEdit/:id" component={PostEdit} />
         <PrivateRoute exact path="/addDate" component={AddDate} />
-
         {/* 지도 */}
         <PrivateRoute exact path="/map2" component={Map2} />
         <PrivateRoute exact path="/write" component={Write} />
@@ -98,13 +95,11 @@ function App() {
         <Route exact path="/map" component={Map} />
         <Route exact path="/road" component={Road} />
         <Route exact path="/mapPractice" component={MapPractice} />
-
         {/* 마이페이지 */}
         <PrivateRoute exact path="/mypage/:userId" component={MyPage} />
         <PrivateRoute exact path="/dogProfile" component={DogProfile} />
         <PrivateRoute exact path="/userProfile" component={UserProfile} />
         <PrivateRoute exact path="/myProfile" component={MyProfile} />
-
         {/* 개스타그램 */}
         <Route exact path="/dogStaMain" component={DogStaMain} />
         <PrivateRoute
@@ -114,12 +109,12 @@ function App() {
         />
         <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
         <PrivateRoute exact path="/InfoList/:dogPostId" component={InfoList} />
-
         {/* 알람 + 쪽지 */}
         <PrivateRoute exact path="/notification" component={Notification} />
+        <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />
         <PrivateRoute
           exact
-          path="/chatwrite/:roomId/:opposite"
+          path="/chatwrite/:receiverId"
           component={ChatWrite}
         />
 

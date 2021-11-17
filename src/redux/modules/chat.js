@@ -3,108 +3,149 @@ import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
 import { createAction, handleActions } from "redux-actions";
 
-const GET_ALL_MY_CHAT_ROOMS = "GET_ALL_MY_CHAT_ROOMS"; // 나의 모든 채팅 방 불러오기
-const SEND_MESSAGE = "SEND_MESSAGE";
-const GET_ONE_CHAT = "GET_ONE_CHAT";
+const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
+const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
+const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
+const GET_DETAIL = "GET_DETAIL"; // 한 쪽지 GET
 
-const getAllMyChatRooms = createAction(GET_ALL_MY_CHAT_ROOMS, (list) => ({
+const inBox = createAction(IN_BOX, (inBoxList) => ({
+  inBoxList,
+}));
+const outBox = createAction(OUT_BOX, (outBoxList) => ({
+  outBoxList,
+}));
+const sendMessage = createAction(SEND_MESSAGE, (list) => ({
   list,
 }));
-const sendMessage = createAction(SEND_MESSAGE, (oneList) => ({
-  oneList,
-}));
-const getOneChat = createAction(GET_ONE_CHAT, (oneList) => ({
-  oneList,
+const getDetail = createAction(GET_DETAIL, (inBoxList) => ({
+  inBoxList,
 }));
 
 const initialState = {
+  inBoxList: [],
+  outBoxList: [],
   list: [],
-  oneList: [],
 };
 
-const getAllMyChatRoomsMD = () => {
+const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://localhost:4000/chats",
+      url: "http://13.209.70.209/chat/inbox",
       data: {},
       headers: {
         Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        const allMyChatRooms = res.data;
-        dispatch(getAllMyChatRooms(allMyChatRooms));
-        console.log("나한테 온 모든 쪽지방 GET 성공", res.data);
+        const list = res.data.message;
+        dispatch(inBox(list));
+        console.log("나한테 온 모든 쪽지 GET 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("나한테 온 모든 쪽지방 GET 에러", err);
+        console.log("나한테 온 모든 쪽지 GET 에러", err);
       });
   };
 };
 
-const sendMessageMD = (chatInfo) => {
+const outBoxMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/chat/outBox",
+      data: {},
+      headers: {
+        Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        const list = res.data.message;
+        dispatch(outBox(list));
+        console.log("내가 보낸 모든 쪽지 GET 성공", res.data.message);
+      })
+      .catch((err) => {
+        console.log("내가 보낸 모든 쪽지 GET 에러", err);
+      });
+  };
+};
+
+const sendMessageMD = (receiverId, message) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/onechat",
-      data: chatInfo,
+      url: `http://13.209.70.209/chat/${receiverId}`,
+      data: { message },
       headers: {
         Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        dispatch(sendMessage(chatInfo));
+        dispatch(sendMessage(message));
+        window.confirm("쪽지를 보내시겠습니까?");
         console.log("쪽지 보내기 POST 성공", res.data);
+        history.push("/notification");
       })
       .catch((err) => {
+        window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);
+        history.push("/notification");
       });
   };
 };
 
-const getOneChatMD = () => {
+const getDetailMD = (chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: "http://localhost:4000/onechat",
+      url: `http://13.209.70.209/chat/${chatId}`,
       data: {},
-      headers: {},
+      headers: {
+        Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
     })
       .then((res) => {
-        dispatch(getOneChat(res.data));
-        console.log("방 한개에 대한 모든 메세지 GET 성공", res.data);
+        dispatch(getDetail(res.data.message));
+        console.log("쪽지 하나에 대한 정보 GET 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("방 한개에 대한 모든 메세지 GET 오류", err);
+        console.log("쪽지 하나에 대한 정보 GET 오류", err);
       });
   };
 };
 
-// reducer
 export default handleActions(
   {
-    [GET_ALL_MY_CHAT_ROOMS]: (state, action) =>
+    [IN_BOX]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.list;
+        draft.inBoxList = action.payload.inBoxList;
+      }),
+    [OUT_BOX]: (state, action) =>
+      produce(state, (draft) => {
+        draft.outBoxList = action.payload.outBoxList;
       }),
     [SEND_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.oneList.push(action.payload.oneList);
+        draft.list.push(action.payload.list);
       }),
-    [GET_ONE_CHAT]: (state, action) =>
+    [GET_DETAIL]: (state, action) =>
       produce(state, (draft) => {
-        draft.oneList = action.payload.oneList;
+        draft.inBoxList = action.payload.inBoxList;
       }),
   },
   initialState
 );
 
 export const actionCreators = {
-  getAllMyChatRooms,
+  inBox,
+  outBox,
   sendMessage,
-  getOneChat,
-  getAllMyChatRoomsMD,
+  getDetail,
+  inBoxMD,
+  outBoxMD,
   sendMessageMD,
-  getOneChatMD,
+  getDetailMD,
 };

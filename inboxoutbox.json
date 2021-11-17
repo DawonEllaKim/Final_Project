@@ -1,0 +1,62 @@
+{
+  "inbox": [
+    {
+      "id": 1,
+      "senderNickname": 123,
+      "senderImage": "https://static.remove.bg/remove-bg-web/f50bd6ad4990ff621deccea155ab762c39d8c77a/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
+      "message": "hello",
+			"createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 2,
+      "senderNickname": 123,
+      "senderImage": "https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/result.jpeg",
+      "message": "hello",
+			"createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 3,
+      "senderNickname": 223,
+      "senderImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTsfzKIfbX5Y96u5SNI_6JIrma2m44SzZXESzl8EgP_C4qotD2g8_IQCrGLLwNDvr4HIg&usqp=CAU",
+      "message": "hello",
+			"createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 4,
+      "senderNickname": 123,
+      "senderImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCC9PdoI7S6I5N3l64cZcebbyvANOA1ALu-pl_nIm-bqJeo7w4qIPY_egsdy24pKrncI0&usqp=CAU",
+      "message": "hello",
+			"createdAt": "2021-11-16T16:30:59.000Z"
+    }
+  ],
+	"outbox": [
+    {
+      "id": 1,
+      "userNickname": "dawonella0411",
+      "senderImage": "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+      "message": "아니요 시간없어요",
+      "createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 2,
+      "userNickname": "dawonella0411",
+      "senderImage": "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+      "message": "당연하죠",
+      "createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 3,
+      "userNickname": "dawonella0411",
+      "senderImage": "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+      "message": "저희강아지는 저희강아지는 저희강아지는 저희강아지는 저희강아지는저희강아지는저희강아지는 저희강아지는v저희강아지는저희강아지는저희강아지는 저희강아지는저희강아지는 저희강아지는 저희강아지는 저희강아지는저희강아지는",
+      "createdAt": "2021-11-16T16:30:59.000Z"
+    },
+    {
+      "id": 4,
+      "userNickname": "dawonella0411",
+      "senderImage": "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+      "message": "길게 메세지보내봅시다 길게 메세지보내봅시다길게 메세지보내봅시다ㅍ 길게 메세지보내봅시다길게 메세지보내봅시다 길게 메세지보내봅시다길게 메세지보내봅시다길게 메세지보내봅시다 ㅍvㅍ ㅍv vㅍv",
+      "createdAt": "2021-11-16T16:30:59.000Z"
+    }
+  ]
+}

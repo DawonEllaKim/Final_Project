@@ -50,7 +50,6 @@ const getMypageMD = (userId) => {
         const userInfo = res.data.posts[0];
 
         dispatch(getList(userInfo));
-  
       })
       .catch((err) => {
         console.log("getMypageMD에서 오류발생", err);
@@ -77,6 +76,7 @@ const getUserMD = () => {
         console.log(res.data.user); // user 정보 확인
         localStorage.setItem("image", res.data.user[0].userImage);
         localStorage.setItem("userId", res.data.user[0].userId);
+        localStorage.setItem("userNickname", res.data.user[0].userNickname);
         dispatch(getUser(res.data.user[0]));
       })
       .catch((err) => {

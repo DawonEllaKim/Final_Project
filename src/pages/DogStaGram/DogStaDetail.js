@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
-import Comment from '../../components/Dogsta/Comment';
+import Comment from "../../components/Dogsta/Comment";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -76,11 +76,11 @@ const DogStaDetail = (props) => {
         </PostInfo>
       </Write>
 
-        {/* 댓글 */}
-      <Comment 
-        post={post} 
-        postId={postId} 
-        currentPostUserId={currentPostUserId} 
+      {/* 댓글 */}
+      <Comment
+        post={post}
+        postId={postId}
+        currentPostUserId={currentPostUserId}
         userId={userId}
       />
 

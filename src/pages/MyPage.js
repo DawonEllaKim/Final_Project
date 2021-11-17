@@ -33,6 +33,7 @@ const MyPage = (props) => {
   const userInfo = useSelector((state) => state.user.list); // 현재 로그인된 유저 정보
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
   const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
+  console.log(userInfo);
 
   const rawRoomId = [userId, currentPageUserId].sort();
   const roomId = rawRoomId[0] + "-" + rawRoomId[1];
@@ -101,9 +102,8 @@ const MyPage = (props) => {
           ) : (
             <button
               onClick={() => {
-                history.push(`/chatwrite/${roomId}/${currentPageUserId}`);
+                history.push(`/chatwrite/${currentPageUserId}`);
               }}
-              // {createRoom}
             >
               {userInfo.userNickname}님에게 쪽지 보내기
             </button>
