@@ -1,5 +1,5 @@
 // DogStaDetail.js - 개스타그램 게시물 하나에 대한 상세페이지
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,10 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
-import Comment from "../../components/Dogsta/Comment";
+import Comment from "../../components/DogstaComment/Comment";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
+
+// 아이콘
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const DogStaDetail = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +29,23 @@ const DogStaDetail = (props) => {
   console.log(postId);
   console.log(currentPostUserId);
   console.log(userId);
+
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  const toggleLike = () => {
+    // setLiked(!liked);
+
+    if(liked){
+      setLiked(false);
+      setLikeCount(likeCount - 1);
+    }else{
+      setLiked(true);
+      setLikeCount(likeCount +1);
+    }
+
+    dispatch(dogstaActions.toggleLikeMD(postId));
+  };
 
   const editPost = () => {
 
@@ -74,14 +95,26 @@ const DogStaDetail = (props) => {
         <PostInfo>
           <img src={post.userImage} />
           <UserNickname>{post.userNickname}</UserNickname>
-          <p>{post.dogPostDesc}</p>
+          <Like>
+          {/* 좋아요 버튼 토글 */}
+          {liked ? (
+            <FavoriteIcon 
+              onClick={toggleLike} 
+              style={{ color: "red" }} 
+            />
+          ) : (
+            <FavoriteBorderIcon 
+              onClick={toggleLike} 
+            />
+          )}
+          </Like>
         </PostInfo>
+        <PostDesc>{post.dogPostDesc}</PostDesc>
       </Write>
 
       {/* 댓글 */}
       <Comment
         post={post}
-        postId={postId}
         currentPostUserId={currentPostUserId}
         userId={userId}
       />
@@ -160,7 +193,7 @@ const Write = styled.div`
 const PostInfo = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   width: 100%;
   margin-bottom: 50px;
@@ -174,6 +207,8 @@ const PostInfo = styled.div`
 const UserNickname = styled.p`
   margin-right: 10px;
 `;
+const Like = styled.p``
+const PostDesc = styled.p``;
 const BottomBtn = styled.div`
   display: flex;
   justify-content: space-between;

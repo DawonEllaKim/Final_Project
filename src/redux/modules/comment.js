@@ -7,7 +7,7 @@ import { getCookie } from "../../shared/Cookie";
 const ADD_COMMENT = "ADD_COMMENT";
 const GET_COMMENT = "GET_COMMENT";
 const EDIT_COMMENT = "EDIT_COMMENT";
-const DELETE_COMMENT = "DELETE_COMMETN";
+const DELETE_COMMENT = "DELETE_COMMENT";
 
 // action creators
 const addComment = createAction(ADD_COMMENT, (commentList) => ({

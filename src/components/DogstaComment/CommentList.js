@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const CommentList = ({ comment }) => {
-  console.log(comment);
+  // console.log(comment);
   const dogPostId = comment.dogPostId;
-  console.log("댓글 작성한 포스트 id", dogPostId);
+  // console.log("댓글 작성한 포스트 id", dogPostId);
   const userId = localStorage.getItem("userId");
-  console.log("로그인한 유저 id", userId);
+  // console.log("로그인한 유저 id", userId);
 
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;

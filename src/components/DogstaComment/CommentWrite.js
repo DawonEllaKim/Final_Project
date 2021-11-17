@@ -8,7 +8,7 @@ const CommentWrite = (props) => {
   const dispatch = useDispatch();
   // 댓글작성 유저 아이디(내아이디) => 닉네임으로 바꿔야함
   const userNickname = localStorage.getItem("userId");
-  console.log(userNickname);
+  // console.log(userNickname);
 
   const [commentDesc, setCommentDesc] = useState("");
 
@@ -24,7 +24,7 @@ const CommentWrite = (props) => {
       dogPostId,
       userId,
     };
-    console.log(comment);
+    // console.log(comment);
     dispatch(commentActions.addCommentMD(comment));
   };
 
