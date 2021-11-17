@@ -48,6 +48,7 @@ import InfoList from "./components/MyPage/InfoList";
 import DogStaMain from "./pages/DogStaGram/DogStaMain";
 
 import GlobalStyle from "./GlobalStyle";
+import DogStaEdit from "./pages/DogStaGram/DogStarEdit";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
@@ -117,7 +118,8 @@ function App() {
         />
         <PrivateRoute exact path="/dogStaWrite" component={DogStaWrite} />
         <PrivateRoute exact path="/InfoList/:dogPostId" component={InfoList} />
-
+        <PrivateRoute exact path="/dogStaEdit/:userId/:dogPostId" component={DogStaEdit} />
+         
         {/* 진행중... */}
         {/* <Route exact path="/calendar" component={Calendar} />
         <Route exact path="/kakaosignup" component={KakaoSignUp} />

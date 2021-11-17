@@ -22,7 +22,7 @@ const DogStaDetail = (props) => {
   const userId = localStorage.getItem("userId");
    console.log(post)
   const editPost = () => {
-    history.push(`/mapEdit/${postId}`);
+    history.push(`/dogStaEdit/${currentPostUserId}/${postId}`)
   };
 
   const deletePost = () => {
