@@ -11,6 +11,7 @@ import Comment from "../../components/DogstaComment/Comment";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 // 아이콘
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -24,6 +25,9 @@ const DogStaDetail = (props) => {
   const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
+
+  const like = useSelector((state) =>state)
+  console.log(like)
 
   console.log(post);
   console.log(postId);
@@ -59,6 +63,7 @@ const DogStaDetail = (props) => {
 
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
+    // dispatch(commentActions.getCommentMD(postId))
   }, []);
 
   return (

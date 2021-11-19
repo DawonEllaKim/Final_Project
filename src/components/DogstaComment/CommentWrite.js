@@ -26,6 +26,7 @@ const CommentWrite = (props) => {
     };
     // console.log(comment);
     dispatch(commentActions.addCommentMD(comment));
+    setCommentDesc('');
   };
 
   return (

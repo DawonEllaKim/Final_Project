@@ -1,7 +1,7 @@
-import React from "react";
+import React,{useEffect} from "react";
 import styled from "styled-components";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentList = ({ comment }) => {
@@ -18,9 +18,17 @@ const CommentList = ({ comment }) => {
   const desc = comment.commentDesc;
   // const time = comment.createdAt;
 
-  const deleteComment = () =>{
+  const commentList = useSelector((state) => state.comment.commentList);
+  console.log(commentList)
+
+
+  const delComment = () =>{
     dispatch(commentActions.deleteCommentMD(commentId));
   }
+
+  useEffect(() => {
+    dispatch(commentActions.getCommentMD())
+  }, []);
 
   return (
     <div>
@@ -35,7 +43,7 @@ const CommentList = ({ comment }) => {
         {comment.userId == userId ? (
           <BtnWrap>
             <Edit>수정</Edit>
-            <Delete onClick={deleteComment}>삭제</Delete>
+            <Delete onClick={delComment}>삭제</Delete>
           </BtnWrap>
         ) : null}
       </Wrap>

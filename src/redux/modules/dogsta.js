@@ -11,6 +11,8 @@ const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
 const EDIT_POST = "EDIT_POST"; // 개스타그램 게시물 수정
 const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
 const TOGGLE_LIKE = 'TOGGLE_LIKE'; // 좋아요 토글
+const GET_LIKES = 'GET_LIKES' // 해당 게시물 좋아요 불러오기
+const GET_MY_LIKE = 'GET_MY_LIKE' // 내가 좋아요 눌렀는지 여부
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
@@ -20,17 +22,22 @@ const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 // 좋아요
 const toggleLike = createAction(TOGGLE_LIKE,(postId, liked) =>({postId, liked}))
+const getLikes = createAction(GET_LIKES, (postId,likeCnt) =>({postId,likeCnt}))
+const getMyLike = createAction(GET_MY_LIKE,(postId, likeExist) =>({postId,likeExist}))
+
 const initialState = {
   mainList: [],
   myList: [],
   eachList: [],
+  likeCnt:[],
+  likeExist:[]
 };
 
 const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/dogsta",
+      url: "http://13.209.70.209/dogsta/recentFilter",
       data: {},
       headers: {},
     })
@@ -179,13 +186,13 @@ const deletePostMD = (postId) => {
   };
 };
 
-const toggleLikeMD = (dogPostId, likeStatus) =>{
+const toggleLikeMD = (dogPostId, like) =>{
   return (dispatch, getState, {history}) =>{
     // if(likeStatus){
       axios({
         method: "POST",
-        url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
-        data: {likeStatus},
+        url: `http://13.209.70.209/likes/${dogPostId}`,
+        data: {like},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
@@ -202,8 +209,8 @@ const toggleLikeMD = (dogPostId, likeStatus) =>{
     // }else{
     //   axios({
     //     method: "DELETE",
-    //     url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
-    //     data: {likeStatus},
+    //     url: `http://13.209.70.209/likes/${dogPostId}`,
+    //     data: {like},
     //     headers: {
     //       // "content-type": "application/json;charset=UTF-8",
     //       accept: "application/json",
@@ -219,6 +226,50 @@ const toggleLikeMD = (dogPostId, likeStatus) =>{
     //     });
     // }
     
+  }
+}
+
+const getLikesMD = (dogPostId) =>{
+  return function(dispatch, getState, {history}){
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/likes/${dogPostId}`,
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        // accept: "application/json",
+        // "Access-Control-Allow-Origin": "*",
+        // authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+    .then((res) =>{
+      console.log('좋아요 get', res.data);
+    })
+    .catch((err) =>{
+      console.log('좋아요 get 에러', err);
+    })
+  }
+}
+
+const getMyLikeMD = () =>{
+  return function(dispatch, getState, {history}){
+    axios({
+      method: "GET",
+      url: `http://13.209.70.209/likes/likeExist`,
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        // accept: "application/json",
+        // "Access-Control-Allow-Origin": "*",
+        // authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+    .then((res) =>{
+      console.log('좋아요 get', res.data);
+    })
+    .catch((err) =>{
+      console.log('좋아요 get 에러', err);
+    })
   }
 }
 
@@ -254,6 +305,14 @@ export default handleActions(
       produce(state, (draft) =>{
         draft.liked = action.payload.liked
       }),
+    [GET_LIKES]: (state,action) =>
+      produce(state,(draft) =>{
+        draft.likeCnt = action.payload.likeCnt;
+      }),
+    [GET_MY_LIKE]: (state,action) =>
+      produce(state,(draft) =>{ 
+        draft.likeExist = action.payload.likeExist;
+      }),
   },
   initialState
 );
@@ -266,6 +325,8 @@ const actionCreators = {
   editPost,
   deletePost,
   toggleLike,
+  getLikes,
+  getMyLike,
 
   getAllPostMD,
   getPostMD,
@@ -275,6 +336,8 @@ const actionCreators = {
   editPostImageMD,
   deletePostMD,
   toggleLikeMD,
+  getLikesMD,
+  getMyLikeMD
 };
 
 export { actionCreators };
