@@ -32,11 +32,14 @@ import backward from "../image/backward.png";
 const { kakao } = window;
 
 const Detail = (props) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
+  const postId = props.match.params.id;
 
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
+
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
   }, [post.walk, post.start]);
@@ -46,9 +49,6 @@ const Detail = (props) => {
   const is_loading = useSelector((state) => state.post.is_loading);
 
   const get_id = localStorage.getItem("userId");
-
-  const postId = props.match.params.id;
-  const dispatch = useDispatch();
 
   // 유저 정보
   const userImage = post.userImage;

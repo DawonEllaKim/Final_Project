@@ -65,7 +65,7 @@ const CardWrap = styled.div`
 
   width: 100%;
 
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   border-radius: 25px;
   background-color: #fff;
   color: #747474;

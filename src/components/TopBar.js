@@ -70,7 +70,7 @@ const Left = styled.div`
   line-height: 52px;
   font-size: 18px;
   font-weight: 500;
-  margin: 36px 0;
+  /* margin: 36px 0; */
   text-align: center;
   padding: ${(props) => props.padding};
 `;
@@ -82,7 +82,7 @@ const Both = styled.div`
   line-height: 52px;
   font-size: 18px;
   font-weight: 500;
-  margin: 36px 0;
+  /* margin: 36px 0; */
   text-align: center;
   padding: ${(props) => props.padding};
 `;

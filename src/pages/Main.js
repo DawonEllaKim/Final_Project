@@ -48,8 +48,8 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const postList1 = useSelector((state) => state.post.main);
   const postList = postList1.slice(0, 4);
-  const userInfo = useSelector((state) => state.user.list);
   console.log(postList);
+  const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
   // console.log(dogStaPostList);
 
@@ -95,6 +95,9 @@ const Main = (props) => {
       setSideBar(false);
     }
   };
+  const hover = () => {
+    console.log("hello");
+  };
 
   // 게시물 불러오기
   useEffect(() => {
@@ -108,7 +111,7 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
-  console.log(dogStaPostList);
+
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       <TopBar> 산책할개 </TopBar>
@@ -188,6 +191,7 @@ const Main = (props) => {
           })}
         </DogstaSlide>
       </Body>
+
       <div>
         <button
           onFocus={() => {
@@ -223,18 +227,33 @@ const Main = (props) => {
 
       {/* 각 게시물에 대한 카드들 */}
       <Body>
-        <Text>같이 산책하실래요?</Text>
+        <Text>올림픽 공원</Text>
 
         <TEST>
-          {postList.map((post, index) => {
-            return (
-              <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                <MainCard post={post} key={index} />
-              </div>
-            );
-          })}
-        </TEST>
+          <img src={postList[0].dogImage} />
+          <div>
+            {postList.map((post, index) => {
+              const dogImage = post.dogImage;
+              const dogName = post.dogName;
+              const dogGender = post.dogGender;
+              const dogAge = post.dogAge;
+              const dogComment = post.dogComment;
+              const initialMeetingDate = post.meetingDate;
 
+              return (
+                <AAA
+                  onMouseEnter={hover}
+                  onClick={() => history.push(`/posts/${post.postId}`)}
+                >
+                  <MainCard post={post} key={index}>
+                    <Image src={dogImage} />
+                  </MainCard>
+                </AAA>
+              );
+            })}
+          </div>
+        </TEST>
+        {/*
         <div>
           {postList.map((post, index) => {
             return (
@@ -243,34 +262,53 @@ const Main = (props) => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </Body>
       <NavBar />
     </Wrap>
   );
 };
+const Image = styled.img`
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+  height: 100%;
+`;
 
 const TEST = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 300px;
-  border: 1px solid black;
 
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  /* border: 1px solid red; */
+  img {
+    width: 100%;
+    /* border: 1px solid blue; */
+    aspect-ratio: 4 / 2;
+    object-fit: cover;
+    border-radius: 14px;
+  }
   div {
-    width: 50px;
-    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 `;
-
+const AAA = styled.div`
+  width: 23%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+`;
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  width: 390px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 20px 60px 20px;
+  /* padding: 0 20px 60px 20px; */
   box-sizing: border-box;
 `;
 
@@ -408,7 +446,7 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 28px 0;
+  /* margin: 28px 0; */
   border-top: 1px solid #c4c4c4;
 `;
 const Text = styled.p`
