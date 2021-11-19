@@ -10,6 +10,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 // 컴포넌츠
 import Card from "../components/Card";
+import MainCard from "../components/MainCard";
 import DogSize from "../components/MainSideBar/Filters/DogSize";
 import DogGender from "../components/MainSideBar/Filters/DogGender";
 import DogAge from "../components/MainSideBar/Filters/DogAge";
@@ -45,9 +46,10 @@ import { FaBullseye } from "react-icons/fa";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.main);
+  const postList1 = useSelector((state) => state.post.main);
+  const postList = postList1.slice(0, 4);
   const userInfo = useSelector((state) => state.user.list);
-
+  console.log(postList);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
   // console.log(dogStaPostList);
 
@@ -78,7 +80,6 @@ const Main = (props) => {
   };
 
   const userId = localStorage.getItem("userId");
-  console.log(userId);
 
   // 사이드 바
   const sideBarRef = useRef();
@@ -97,7 +98,10 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
-    dispatch(postActions.getMainMD());
+    dispatch(postActions.getAllMD());
+    // dispatch(postActions.getOlympicMD());
+    // dispatch(postActions.getSeoulMD());
+    // dispatch(postActions.getBanpoMD());
     dispatch(dogStaActions.getAllPostMD());
   }, []);
 
@@ -220,7 +224,17 @@ const Main = (props) => {
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        <div>dd</div>
+
+        <TEST>
+          {postList.map((post, index) => {
+            return (
+              <div onClick={() => history.push(`/posts/${post.postId}`)}>
+                <MainCard post={post} key={index} />
+              </div>
+            );
+          })}
+        </TEST>
+
         <div>
           {postList.map((post, index) => {
             return (
@@ -235,6 +249,21 @@ const Main = (props) => {
     </Wrap>
   );
 };
+
+const TEST = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  border: 1px solid black;
+
+  div {
+    width: 50px;
+    border: 1px solid red;
+  }
+`;
 
 const Wrap = styled.div`
   text-align: center;

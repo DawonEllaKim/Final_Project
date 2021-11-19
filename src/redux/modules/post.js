@@ -14,7 +14,10 @@ import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
 
 // action
 //메인 페이지 GET 요청
-const GET_MAIN = "GET_MAIN"; // 모든 게시물 조회
+const GET_ALL = "GET_ALL"; // 모든 게시물 조회
+const GET_OLYMPIC = "GET_OLYMPIC"; // 모든 게시물 조회
+const GET_SEOUL = "GET_SEOUL"; // 모든 게시물 조회
+const GET_BANPO = "GET_BANPO"; // 모든 게시물 조회
 const GET_POST = "GET_POST"; // 특정 게시물 조회
 const GET_MY_POST = "GET_MY_POST"; // 내 게시물 조회
 
@@ -27,7 +30,10 @@ const LOADING = "LOADING";
 
 // action creators
 //메인 페이지 GET 요청
-const getMain = createAction(GET_MAIN, (main) => ({ main }));
+const getAll = createAction(GET_ALL, (main) => ({ main }));
+const getOlympic = createAction(GET_OLYMPIC, (olympic) => ({ olympic }));
+const getSeoul = createAction(GET_SEOUL, (seoul) => ({ seoul }));
+const getBanpo = createAction(GET_BANPO, (banpo) => ({ banpo }));
 const getMap = createAction(GET_MAP, (map) => ({ map }));
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
@@ -40,6 +46,9 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const initialState = {
   //메인 요청
   main: [],
+  olympic: [],
+  seoul: [],
+  banpo: [],
   map: [],
   //산책 요청
   list: [],
@@ -72,7 +81,7 @@ const initialState = {
 
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
 //dog_name,meeting_date
-const getMainMD = () => {
+const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -87,13 +96,94 @@ const getMainMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        dispatch(getMain(postList));
+        dispatch(getAll(postList));
         dispatch(loading(false));
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
         console.log(err);
         // console.log("정보 불러오기 실패");
+      });
+  };
+};
+
+const getOlympicMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/posts/olympicPark",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        console.log(postList);
+        dispatch(getOlympic(postList));
+        dispatch(loading(false));
+        console.log("getOlympicMD 정보 불러오기 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("정보 불러오기 실패");
+      });
+  };
+};
+
+const getSeoulMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/posts/seoulForest",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        console.log(postList);
+        dispatch(getSeoul(postList));
+        dispatch(loading(false));
+        console.log("getseoul 정보 불러오기 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("정보 불러오기 실패");
+      });
+  };
+};
+
+const getBanpoMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/posts/banpoPark",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        console.log(postList);
+        dispatch(getBanpo(postList));
+        dispatch(loading(false));
+        console.log("getOlympicMD 정보 불러오기 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("정보 불러오기 실패");
       });
   };
 };
@@ -347,9 +437,21 @@ const deletePostMD = (postId) => {
 // reducer
 export default handleActions(
   {
-    [GET_MAIN]: (state, action) =>
+    [GET_ALL]: (state, action) =>
       produce(state, (draft) => {
         draft.main = action.payload.main;
+      }),
+    [GET_OLYMPIC]: (state, action) =>
+      produce(state, (draft) => {
+        draft.olympic = action.payload.olympic;
+      }),
+    [GET_SEOUL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.seoul = action.payload.seoul;
+      }),
+    [GET_BANPO]: (state, action) =>
+      produce(state, (draft) => {
+        draft.banpo = action.payload.banpo;
       }),
     [GET_MAP]: (state, action) =>
       produce(state, (draft) => {
@@ -387,14 +489,20 @@ export default handleActions(
 );
 
 const actionCreators = {
-  getMain,
+  getAll,
+  getOlympic,
+  getSeoul,
+  getBanpo,
   getPost,
   getMyPost,
   addPost,
   updatePost,
   deletePost,
 
-  getMainMD,
+  getAllMD,
+  getOlympicMD,
+  getSeoulMD,
+  getBanpoMD,
   getMyPostMD,
   getPostMD,
   addPostMD,
