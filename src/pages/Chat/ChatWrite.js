@@ -1,3 +1,4 @@
+// ChatWrite.js - 쪽지 시작 창
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -10,7 +11,6 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 
 const ChatWrite = (props) => {
   const [message, setMessage] = useState("");
-
   const dispatch = useDispatch();
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
 

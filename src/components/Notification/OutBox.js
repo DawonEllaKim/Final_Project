@@ -1,22 +1,35 @@
-// OutBox.js - 내가 다른 유저들에게 보낸 쪽지들이 다 모여있는 보낸 쪽지함
+// OutBox.js - 내가 보낸 쪽지들이 다 모여있는 보낸 쪽지함
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
+// 리덕스
 import { history } from "../../redux/configureStore";
+import { actionCreators as chatActions } from "../../redux/modules/chat";
 
 const OutBox = ({ box }) => {
+  const dispatch = useDispatch();
+
   const chatId = box.chatId; // 보낸 쪽지의 고유 아이디
   const myNickname = localStorage.getItem("userNickname"); // 나의 닉네임
   const myImage = localStorage.getItem("image"); // 나의 프로필 사진
   const message = box.message; // 보낸 쪽지의 내용
   const time = box.createdAt; // 쪽지 보낸 시간
 
+  const deleteBtn = () => {
+    const receiverId = box.receiverId;
+    const senderId = Number(box.senderId);
+    const chatId = box.chatId;
+    dispatch(chatActions.deleteOutMessageMD(receiverId, senderId, chatId));
+  };
+
   return (
-    <Wrap
-      onClick={() => {
-        history.push(`/chatdetail/${chatId}`);
-      }}
-    >
-      <Left>
+    <Wrap>
+      <Left
+        onClick={() => {
+          history.push(`/chatdetail/${chatId}`);
+        }}
+      >
         <img src={myImage} />
         <span>{myNickname}</span>
       </Left>
@@ -25,6 +38,7 @@ const OutBox = ({ box }) => {
         <p>{message}</p>
         <span>{time}</span>
       </Right>
+      <button onClick={deleteBtn}>삭제</button>
     </Wrap>
   );
 };

@@ -1,21 +1,38 @@
-import React from "react";
+// InBox.js - 받은 쪽지함
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
+// 리덕스
 import { history } from "../../redux/configureStore";
+import { actionCreators as chatActions } from "../../redux/modules/chat";
 
 const InBox = ({ box }) => {
+  const dispatch = useDispatch();
+
   const chatId = box.chatId; // 받은 쪽지의 고유 아이디
   const senderImage = box.senderImage; // 쪽지 보낸 사람의 프로필 사진
   const senderNickname = box.senderNickname; // 쪽지 보낸 사람의 닉네임
   const message = box.message; // 받은 쪽지의 내용
   const time = box.createdAt; // 쪽지 받은 시간
 
+  const deleteBtn = () => {
+    const receiverId = box.receiverId;
+    const senderId = Number(box.senderId);
+    const chatId = box.chatId;
+    dispatch(chatActions.deleteInMessageMD(receiverId, senderId, chatId));
+  };
+  useEffect(() => {
+    dispatch(chatActions.inBoxMD()); // 내가 받은 모든 쪽지 불러오기
+  }, []);
+
   return (
-    <Wrap
-      onClick={() => {
-        history.push(`/chatdetail/${chatId}`);
-      }}
-    >
-      <Left>
+    <Wrap>
+      <Left
+        onClick={() => {
+          history.push(`/chatdetail/${chatId}`);
+        }}
+      >
         <img src={senderImage} />
         <span>{senderNickname}</span>
       </Left>
@@ -23,6 +40,7 @@ const InBox = ({ box }) => {
         <p>{message}</p>
         <span>{time}</span>
       </Right>
+      <button onClick={deleteBtn}>삭제</button>
     </Wrap>
   );
 };

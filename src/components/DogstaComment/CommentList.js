@@ -12,15 +12,15 @@ const CommentList = ({ comment }) => {
   const userId = localStorage.getItem("userId");
   console.log("로그인한 유저 id", userId);
   const commentId = comment.id;
-  console.log('댓글 id', commentId)
+  console.log("댓글 id", commentId);
 
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
   // const time = comment.createdAt;
 
-  const deleteComment = () =>{
+  const deleteComment = () => {
     dispatch(commentActions.deleteCommentMD(commentId));
-  }
+  };
 
   return (
     <div>
@@ -31,6 +31,7 @@ const CommentList = ({ comment }) => {
           {/* <Time>{time}</Time> */}
           <Comment>댓글 달기</Comment>
         </TextWrap>
+
         {/* 댓글 작성한 본인만 수정/삭제 가능 */}
         {comment.userId == userId ? (
           <BtnWrap>

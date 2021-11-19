@@ -10,7 +10,7 @@ const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
 const EDIT_POST = "EDIT_POST"; // 개스타그램 게시물 수정
 const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
-const TOGGLE_LIKE = 'TOGGLE_LIKE'; // 좋아요 토글
+const TOGGLE_LIKE = "TOGGLE_LIKE"; // 좋아요 토글
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
@@ -19,7 +19,10 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 // 좋아요
-const toggleLike = createAction(TOGGLE_LIKE,(postId, liked) =>({postId, liked}))
+const toggleLike = createAction(TOGGLE_LIKE, (postId, liked) => ({
+  postId,
+  liked,
+}));
 const initialState = {
   mainList: [],
   myList: [],
@@ -30,7 +33,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/dogsta",
+      url: "http://13.209.70.209/dogsta/recentFilter",
       data: {},
       headers: {},
     })
@@ -121,7 +124,7 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("게시물이 수정되었습니다")
+        window.alert("게시물이 수정되었습니다");
         console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
@@ -145,7 +148,7 @@ const editPostImageMD = (post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("사진이 수정되었습니다")
+        window.alert("사진이 수정되었습니다");
         console.log("개스타그램 게시물 PATCH 완료", res);
         history.goBack();
       })
@@ -179,26 +182,26 @@ const deletePostMD = (postId) => {
   };
 };
 
-const toggleLikeMD = (dogPostId, likeStatus) =>{
-  return (dispatch, getState, {history}) =>{
+const toggleLikeMD = (dogPostId, likeStatus) => {
+  return (dispatch, getState, { history }) => {
     // if(likeStatus){
-      axios({
-        method: "POST",
-        url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
-        data: {likeStatus},
-        headers: {
-          // "content-type": "application/json;charset=UTF-8",
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          authorization: `Bearer ${getCookie("token")}`,
-        },
+    axios({
+      method: "POST",
+      url: `http://13.209.70.209/dogsta/${dogPostId}/like`,
+      data: { likeStatus },
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log("좋아요 반영 성공", res.data);
       })
-        .then((res) => {
-          console.log("좋아요 반영 성공", res.data);
-        })
-        .catch((err) => {
-          console.log("좋아요 반영 오류", err);
-        });
+      .catch((err) => {
+        console.log("좋아요 반영 오류", err);
+      });
     // }else{
     //   axios({
     //     method: "DELETE",
@@ -218,9 +221,8 @@ const toggleLikeMD = (dogPostId, likeStatus) =>{
     //       console.log("좋아요 반영 오류", err);
     //     });
     // }
-    
-  }
-}
+  };
+};
 
 export default handleActions(
   {
@@ -251,8 +253,8 @@ export default handleActions(
         );
       }),
     [TOGGLE_LIKE]: (state, action) =>
-      produce(state, (draft) =>{
-        draft.liked = action.payload.liked
+      produce(state, (draft) => {
+        draft.liked = action.payload.liked;
       }),
   },
   initialState

@@ -17,8 +17,8 @@ const getComment = createAction(GET_COMMENT, (commentList) => ({
   commentList,
 }));
 const editComment = createAction(EDIT_COMMENT, () => ({}));
-const deleteComment = createAction(DELETE_COMMENT, (commentList) => ({
-  commentList,
+const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
+  commentId,
 }));
 
 // initialState
@@ -73,30 +73,28 @@ const getCommentMD = () => {
   };
 };
 
-const deleteCommentMD = (commentId) =>{
-  return function(dispatch, getState, {history}){
-    console.log(commentId)
+const deleteCommentMD = (commentId) => {
+  return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
-      url: "http://localhost:4000/comment",
+      url: `http://localhost:4000/comment`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
+        accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        // authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        const commentList = res.data;
-        console.log("댓글 삭제 성공", commentList);
-        // dispatch(deleteComment(commentList));
+        dispatch(deleteComment(commentId));
+        console.log("댓글 삭제 성공", res);
       })
       .catch((err) => {
         console.log("댓글 삭제 에러", err);
       });
-  }
-}
+  };
+};
 
 // reducer
 export default handleActions(
@@ -109,14 +107,13 @@ export default handleActions(
       produce(state, (draft) => {
         draft.commentList = action.payload.commentList;
       }),
-    [EDIT_COMMENT]: (state, action) => 
-      produce(state, (draft) => {}),
-    [DELETE_COMMENT]: (state, action) => 
+    [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {}),
+
+    [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload)
         draft.commentList = draft.commentList.filter(
-          (post) => post.id !== action.payload.id
-        )
+          (comment) => comment.id !== action.payload.commentId
+        );
       }),
   },
   initialState
@@ -129,7 +126,7 @@ const actionCreators = {
   getCommentMD,
   editComment,
   deleteComment,
-  deleteCommentMD
+  deleteCommentMD,
 };
 
 export { actionCreators };

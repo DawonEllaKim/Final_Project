@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import SignDog from "./pages/SignDog";
 
 //  메인 페이지
+import AllList from "./pages/AllList";
 import Main from "./pages/Main";
 import Weather from "./components/Weather";
 import CheckMain from "./pages/CheckMain";
@@ -70,6 +71,7 @@ function App() {
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signDog" component={SignDog} />
         {/* 메인 페이지 */}
+        <Route exact path="/alllist/:page" component={AllList} />
         <Route exact path="/" component={Main} />
         <Route exact path="/check" component={CheckMain} />
         <Route exact path="/weather" component={Weather} />
