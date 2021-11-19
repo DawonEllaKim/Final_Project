@@ -21,25 +21,16 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 // 좋아요
-const toggleLike = createAction(TOGGLE_LIKE, (postId, liked) => ({
-  postId,
-  liked,
-}));
-const getLikes = createAction(GET_LIKES, (postId, likeCnt) => ({
-  postId,
-  likeCnt,
-}));
-const getMyLike = createAction(GET_MY_LIKE, (postId, likeExist) => ({
-  postId,
-  likeExist,
-}));
+const toggleLike = createAction(TOGGLE_LIKE, (liked) => ({ liked }));
+const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
+const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 
 const initialState = {
   mainList: [],
   myList: [],
   eachList: [],
   likeCnt: [],
-  likeExist: [],
+  likeExist: false,
 };
 
 const getAllPostMD = () => {
@@ -145,6 +136,7 @@ const editPostMD = (postId, post) => {
       });
   };
 };
+
 const editPostImageMD = (post) => {
   return function (dispatch, useState, { history }) {
     axios({
@@ -195,45 +187,55 @@ const deletePostMD = (postId) => {
   };
 };
 
-const toggleLikeMD = (dogPostId, like) => {
+const toggleLikeMD = (dogPostId, liked) => {
   return (dispatch, getState, { history }) => {
-    // if(likeStatus){
-    axios({
-      method: "POST",
-      url: `http://13.209.70.209/likes/${dogPostId}`,
-      data: { like },
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("token")}`,
-      },
-    }).catch((err) => {
-      console.log("좋아요 반영 오류", err);
-    });
-    // }else{
-    //   axios({
-    //     method: "DELETE",
-    //     url: `http://13.209.70.209/likes/${dogPostId}`,
-    //     data: {like},
-    //     headers: {
-    //       // "content-type": "application/json;charset=UTF-8",
-    //       accept: "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       authorization: `Bearer ${getCookie("token")}`,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       console.log("좋아요 반영 성공", res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log("좋아요 반영 오류", err);
-    //     });
-    // }
+    console.log(liked);
+    if (!liked) {
+      axios({
+        method: "POST",
+        url: `http://13.209.70.209/likes/${dogPostId}`,
+        data: {},
+        headers: {
+          // "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      })
+        .then((res) => {
+          const likeStatus = res.data.existLike;
+          dispatch(toggleLike(likeStatus));
+          console.log("좋아요 반영 성공", res.data);
+        })
+        .catch((err) => {
+          console.log("좋아요 반영 오류", err);
+        });
+    } else {
+      axios({
+        method: "DELETE",
+        url: `http://13.209.70.209/likes/${dogPostId}`,
+        data: {},
+        headers: {
+          // "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      })
+        .then((res) => {
+          const likeStatus = res.data.existLike;
+          dispatch(toggleLike(likeStatus));
+          console.log("좋아요 반영 성공", res.data);
+        })
+        .catch((err) => {
+          console.log("좋아요 반영 오류", err);
+        });
+    }
   };
 };
 
 const getLikesMD = (dogPostId) => {
+  console.log(dogPostId);
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -247,10 +249,11 @@ const getLikesMD = (dogPostId) => {
       },
     })
       .then((res) => {
-        console.log("좋아요 get", res.data);
+        dispatch(getLikes(res.data.likeNum.count));
+        console.log("좋아요 카운트 get", res.data.likeNum.count);
       })
       .catch((err) => {
-        console.log("좋아요 get 에러", err);
+        console.log("좋아요 카운트 get 에러", err);
       });
   };
 };
@@ -265,10 +268,11 @@ const getMyLikeMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
+        dispatch(getMyLike(res.data));
         console.log("좋아요 get", res.data);
       })
       .catch((err) => {
@@ -307,10 +311,12 @@ export default handleActions(
       }),
     [TOGGLE_LIKE]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action);
         draft.liked = action.payload.liked;
       }),
     [GET_LIKES]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action);
         draft.likeCnt = action.payload.likeCnt;
       }),
     [GET_MY_LIKE]: (state, action) =>

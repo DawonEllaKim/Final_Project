@@ -26,35 +26,30 @@ const DogStaDetail = (props) => {
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
 
-  const like = useSelector((state) =>state)
-  console.log(like)
+  const likeCount = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
 
-  console.log(post);
-  console.log(postId);
-  console.log(currentPostUserId);
-  console.log(userId);
+  const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
+  const [liked, setLiked] = useState(Boolean);
+  console.log(liked);
+  // console.log(useSelector((state)=>state.))
 
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  // const [likeCount, setLikeCount] = useState(likeCnt);
 
   const toggleLike = () => {
     // setLiked(!liked);
-
-    if(liked){
+    if (liked === true) {
       setLiked(false);
-      setLikeCount(likeCount - 1);
-    }else{
+      // setLikeCount(likeCount - 1);
+    } else {
       setLiked(true);
-      setLikeCount(likeCount +1);
+      // setLikeCount(likeCount + 1);
     }
-
-    dispatch(dogstaActions.toggleLikeMD(postId));
+    dispatch(dogstaActions.toggleLikeMD(postId, liked));
+    console.log(liked);
   };
 
   const editPost = () => {
-
-    history.push(`/dogStaEdit/${currentPostUserId}/${postId}`)
-
+    history.push(`/dogStaEdit/${currentPostUserId}/${postId}`);
   };
 
   const deletePost = () => {
@@ -63,8 +58,11 @@ const DogStaDetail = (props) => {
 
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
-    // dispatch(commentActions.getCommentMD(postId))
-  }, []);
+    dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
+    dispatch(dogstaActions.getMyLikeMD());
+    setLiked(myLike);
+  }, [myLike]);
+  console.log(liked);
 
   return (
     <Wrap>
@@ -101,18 +99,13 @@ const DogStaDetail = (props) => {
           <img src={post.userImage} />
           <UserNickname>{post.userNickname}</UserNickname>
           <Like>
-          {/* 좋아요 버튼 토글 */}
-          {liked ? (
-            <FavoriteIcon 
-              onClick={toggleLike} 
-              style={{ color: "red" }} 
-            />
-          ) : (
-            <FavoriteBorderIcon 
-              onClick={toggleLike} 
-            />
-          )}
-          {likeCount}
+            {/* 좋아요 버튼 토글 */}
+            {liked ? (
+              <FavoriteIcon onClick={toggleLike} style={{ color: "red" }} />
+            ) : (
+              <FavoriteBorderIcon onClick={toggleLike} />
+            )}
+            {likeCount}
           </Like>
         </PostInfo>
         <PostDesc>{post.dogPostDesc}</PostDesc>
@@ -213,7 +206,7 @@ const PostInfo = styled.div`
 const UserNickname = styled.p`
   margin-right: 10px;
 `;
-const Like = styled.p``
+const Like = styled.p``;
 const PostDesc = styled.p``;
 const BottomBtn = styled.div`
   display: flex;
