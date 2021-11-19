@@ -26,23 +26,26 @@ const DogStaDetail = (props) => {
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
 
-  const likeCount = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
+  const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
 
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
   const [liked, setLiked] = useState(Boolean);
   console.log(liked);
   // console.log(useSelector((state)=>state.))
 
-  // const [likeCount, setLikeCount] = useState(likeCnt);
+  const [likeCount, setLikeCount] = useState(likeCnt);
 
+  console.log(liked);
   const toggleLike = () => {
-    // setLiked(!liked);
     if (liked === true) {
       setLiked(false);
-      // setLikeCount(likeCount - 1);
+      setLikeCount(likeCount - 1);
+      if (likeCount < 0) {
+        return;
+      }
     } else {
       setLiked(true);
-      // setLikeCount(likeCount + 1);
+      setLikeCount(likeCount + 1);
     }
     dispatch(dogstaActions.toggleLikeMD(postId, liked));
     console.log(liked);
@@ -62,7 +65,6 @@ const DogStaDetail = (props) => {
     dispatch(dogstaActions.getMyLikeMD());
     setLiked(myLike);
   }, [myLike]);
-  console.log(liked);
 
   return (
     <Wrap>

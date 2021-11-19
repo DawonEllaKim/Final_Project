@@ -11,7 +11,6 @@ import {
   hangang3,
 } from "../../components/MarkerList/HangangList";
 import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
-
 // action
 //메인 페이지 GET 요청
 const GET_ALL = "GET_ALL"; // 모든 게시물 조회
@@ -20,14 +19,12 @@ const GET_SEOUL = "GET_SEOUL"; // 모든 게시물 조회
 const GET_BANPO = "GET_BANPO"; // 모든 게시물 조회
 const GET_POST = "GET_POST"; // 특정 게시물 조회
 const GET_MY_POST = "GET_MY_POST"; // 내 게시물 조회
-
 const GET_MAP = "GET_MAP";
 //산책 페이지 GET,POST,FETCH,DELETE
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
-
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -78,7 +75,6 @@ const initialState = {
   ],
   is_loading: true,
 };
-
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
 //dog_name,meeting_date
 const getAllMD = () => {
@@ -202,16 +198,17 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        localStorage.setItem("date", res.data.posts[0].meetingDate);
-        localStorage.setItem("dogCount", res.data.posts[0].dogCount);
-        const initialDate = res.data.posts[0].meetingDate.split("T")[0];
+        console.log(res.data);
+        localStorage.setItem("date", res.data.posts.meetingDate);
+        localStorage.setItem("dogCount", res.data.posts.dogCount);
+        const initialDate = res.data.posts.meetingDate.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
         const day = initialDate.split("-")[2];
-        const initialTime = res.data.posts[0].meetingDate.split("T")[1];
+        const initialTime = res.data.posts.meetingDate.split("T")[1];
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];
-        res.data.posts[0].meetingDate =
+        res.data.posts.meetingDate =
           year +
           "년 " +
           month +
@@ -222,63 +219,60 @@ const getPostMD = (postId) => {
           "시 " +
           minute +
           "분";
-
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list1;
+          res.data.posts.walk = list1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list2;
+          res.data.posts.walk = list2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list3;
+          res.data.posts.walk = list3;
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul1;
+          res.data.posts.walk = seoul1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul2;
+          res.data.posts.walk = seoul2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul3;
+          res.data.posts.walk = seoul3;
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang1;
+          res.data.posts.walk = hangang1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang2;
+          res.data.posts.walk = hangang2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang3;
-
-        if (res.data.posts[0].locationCategory == "올림픽공원")
-          res.data.posts[0].start = olympic;
-        if (res.data.posts[0].locationCategory == "서울숲")
-          res.data.posts[0].start = seoul;
-        if (res.data.posts[0].locationCategory == "반포한강공원")
-          res.data.posts[0].start = hangang[0];
-        const postList = res.data.posts[0];
+          res.data.posts.walk = hangang3;
+        if (res.data.posts.locationCategory == "올림픽공원")
+          res.data.posts.start = olympic;
+        if (res.data.posts.locationCategory == "서울숲")
+          res.data.posts.start = seoul;
+        if (res.data.posts.locationCategory == "반포한강공원")
+          res.data.posts.start = hangang[0];
+        const postList = res.data.posts;
         console.log(res.data);
         dispatch(getPost(postList));
-
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -287,7 +281,6 @@ const getPostMD = (postId) => {
       });
   };
 };
-
 const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -323,7 +316,6 @@ const getMyPostMD = (userId) => {
             "분";
         }
         const postList = res.data.posts;
-
         dispatch(getMyPost(postList));
         console.log("정보 불러오기 완료", postList);
       })
@@ -332,7 +324,6 @@ const getMyPostMD = (userId) => {
       });
   };
 };
-
 //산책 수정할 때 GET으로 읽을 데이터 가져올 미들웨어
 const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
@@ -370,7 +361,6 @@ const getMapMD = (postId) => {
           "분";
         res.data.posts.mapedit_date =
           year + "-" + month + "-" + day + "T" + hour + ":" + minute;
-
         const postList = res.data.posts;
         console.log(postList);
         dispatch(getMap(postList));
@@ -383,7 +373,6 @@ const getMapMD = (postId) => {
       });
   };
 };
-
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -398,14 +387,12 @@ const addPostMD = (post) => {
       });
   };
 };
-
 const updatePostMD = (postId, post) => {
   return function (dispatch, getState, { history }) {
     apis
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-
         console.log("수정완료");
         window.alert("수정완료");
         dispatch(updatePost(post));
@@ -416,7 +403,6 @@ const updatePostMD = (postId, post) => {
       });
   };
 };
-
 const deletePostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     console.log(postId);
@@ -433,7 +419,6 @@ const deletePostMD = (postId) => {
       });
   };
 };
-
 // reducer
 export default handleActions(
   {
@@ -487,7 +472,6 @@ export default handleActions(
   },
   initialState
 );
-
 const actionCreators = {
   getAll,
   getOlympic,
@@ -508,8 +492,6 @@ const actionCreators = {
   addPostMD,
   deletePostMD,
   updatePostMD,
-
   getMapMD,
 };
-
 export { actionCreators };
