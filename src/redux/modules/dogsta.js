@@ -21,9 +21,9 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 // 좋아요
-const toggleLike = createAction(TOGGLE_LIKE,(postId, liked) =>({postId, liked}))
-const getLikes = createAction(GET_LIKES, (postId,likeCnt) =>({postId,likeCnt}))
-const getMyLike = createAction(GET_MY_LIKE,(postId, likeExist) =>({postId,likeExist}))
+const toggleLike = createAction(TOGGLE_LIKE,( liked) =>({ liked}))
+const getLikes = createAction(GET_LIKES, (likeCnt) =>({likeCnt}))
+const getMyLike = createAction(GET_MY_LIKE,( likeExist) =>({likeExist}))
 
 const initialState = {
   mainList: [],
@@ -188,11 +188,11 @@ const deletePostMD = (postId) => {
 
 const toggleLikeMD = (dogPostId, like) =>{
   return (dispatch, getState, {history}) =>{
-    // if(likeStatus){
+    if(!like){
       axios({
         method: "POST",
         url: `http://13.209.70.209/likes/${dogPostId}`,
-        data: {like},
+        data: {},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
@@ -201,35 +201,40 @@ const toggleLikeMD = (dogPostId, like) =>{
         },
       })
         .then((res) => {
+          const likeStatus = res.data.existLike;
+          dispatch(toggleLike(likeStatus));
           console.log("좋아요 반영 성공", res.data);
         })
         .catch((err) => {
           console.log("좋아요 반영 오류", err);
         });
-    // }else{
-    //   axios({
-    //     method: "DELETE",
-    //     url: `http://13.209.70.209/likes/${dogPostId}`,
-    //     data: {like},
-    //     headers: {
-    //       // "content-type": "application/json;charset=UTF-8",
-    //       accept: "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       authorization: `Bearer ${getCookie("token")}`,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       console.log("좋아요 반영 성공", res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log("좋아요 반영 오류", err);
-    //     });
-    // }
+    }else{
+      axios({
+        method: "DELETE",
+        url: `http://13.209.70.209/likes/${dogPostId}`,
+        data: {},
+        headers: {
+          // "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      })
+        .then((res) => {
+          const likeStatus = res.data.existLike;
+          dispatch(toggleLike(likeStatus));
+          console.log("좋아요 반영 성공", res.data);
+        })
+        .catch((err) => {
+          console.log("좋아요 반영 오류", err);
+        });
+    }
     
   }
 }
 
 const getLikesMD = (dogPostId) =>{
+  console.log(dogPostId);
   return function(dispatch, getState, {history}){
     axios({
       method: "GET",
@@ -243,15 +248,17 @@ const getLikesMD = (dogPostId) =>{
       },
     })
     .then((res) =>{
-      console.log('좋아요 get', res.data);
+      const likeCnt = res.data.likeNum;
+      dispatch(getLikes(likeCnt));
+      console.log('좋아요 카운트 get', res.data);
     })
     .catch((err) =>{
-      console.log('좋아요 get 에러', err);
+      console.log('좋아요 카운트 get 에러', err);
     })
   }
 }
 
-const getMyLikeMD = () =>{
+const getMyLikeMD = (postId) =>{
   return function(dispatch, getState, {history}){
     axios({
       method: "GET",
@@ -261,11 +268,13 @@ const getMyLikeMD = () =>{
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
     .then((res) =>{
-      console.log('좋아요 get', res.data);
+      const myLike = res.data;
+      dispatch(getMyLike(myLike));
+      console.log('좋아요 get', res);
     })
     .catch((err) =>{
       console.log('좋아요 get 에러', err);
@@ -303,14 +312,17 @@ export default handleActions(
       }),
     [TOGGLE_LIKE]: (state, action) =>
       produce(state, (draft) =>{
+        console.log(action)
         draft.liked = action.payload.liked
       }),
     [GET_LIKES]: (state,action) =>
       produce(state,(draft) =>{
+        console.log(action);
         draft.likeCnt = action.payload.likeCnt;
       }),
     [GET_MY_LIKE]: (state,action) =>
       produce(state,(draft) =>{ 
+        console.log(action);
         draft.likeExist = action.payload.likeExist;
       }),
   },

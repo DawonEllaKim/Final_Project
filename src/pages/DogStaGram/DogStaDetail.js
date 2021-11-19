@@ -25,17 +25,20 @@ const DogStaDetail = (props) => {
   const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
-
-  const like = useSelector((state) =>state)
-  console.log(like)
-
+  
   console.log(post);
   console.log(postId);
   console.log(currentPostUserId);
   console.log(userId);
 
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  const likeCnt = useSelector((state) => state.dogsta.likeCnt.count); // 게시물 좋아요 수
+  const myLike = useSelector((state) => state.dogsta.likeExist) // 게시물 좋아요 여부
+
+  console.log(likeCnt);
+  console.log(myLike);
+
+  const [liked, setLiked] = useState(myLike);
+  const [likeCount, setLikeCount] = useState(likeCnt);
 
   const toggleLike = () => {
     // setLiked(!liked);
@@ -48,9 +51,12 @@ const DogStaDetail = (props) => {
       setLikeCount(likeCount +1);
     }
 
-    dispatch(dogstaActions.toggleLikeMD(postId));
+    dispatch(dogstaActions.toggleLikeMD(postId, liked));
   };
 
+  console.log(liked)
+  console.log(likeCount)
+  
   const editPost = () => {
 
     history.push(`/dogStaEdit/${currentPostUserId}/${postId}`)
@@ -63,8 +69,9 @@ const DogStaDetail = (props) => {
 
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
-    // dispatch(commentActions.getCommentMD(postId))
-  }, []);
+    dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
+    dispatch(dogstaActions.getMyLikeMD())
+  }, [postId]);
 
   return (
     <Wrap>
