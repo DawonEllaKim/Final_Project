@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -12,22 +12,21 @@ const CommentList = ({ comment }) => {
   const userId = localStorage.getItem("userId");
   console.log("로그인한 유저 id", userId);
   const commentId = comment.id;
-  console.log('댓글 id', commentId)
+  console.log("댓글 id", commentId);
 
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
   // const time = comment.createdAt;
 
   const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList)
+  console.log(commentList);
 
-
-  const delComment = () =>{
+  const delComment = () => {
     dispatch(commentActions.deleteCommentMD(commentId));
-  }
+  };
 
   useEffect(() => {
-    dispatch(commentActions.getCommentMD())
+    dispatch(commentActions.getCommentMD());
   }, []);
 
   return (
@@ -39,6 +38,7 @@ const CommentList = ({ comment }) => {
           {/* <Time>{time}</Time> */}
           <Comment>댓글 달기</Comment>
         </TextWrap>
+
         {/* 댓글 작성한 본인만 수정/삭제 가능 */}
         {comment.userId == userId ? (
           <BtnWrap>

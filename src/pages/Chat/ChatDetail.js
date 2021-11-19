@@ -1,3 +1,4 @@
+// ChatDetail.js - 쪽지 상세창
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";

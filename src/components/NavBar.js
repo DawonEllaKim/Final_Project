@@ -1,4 +1,4 @@
-import React, { useSelector } from "react";
+import React, { useSelector, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
@@ -11,6 +11,7 @@ import addBtn from "../image/addBtn.png";
 
 const NavBar = (props) => {
   const userId = localStorage.getItem("userId");
+  const [page, setPage] = useState();
 
   return (
     <>
@@ -27,7 +28,12 @@ const NavBar = (props) => {
 
           {/* 산책 목록 버튼 */}
           <Button
-            onClick={() => history.push("/")}
+            onFocus={() => {
+              setPage("all");
+            }}
+            onClick={() => {
+              history.push(`/alllist/${page}`);
+            }}
             style={{ marginRight: "100px" }}
           >
             <img src={walk} style={{ width: "20px", height: "20px" }} />

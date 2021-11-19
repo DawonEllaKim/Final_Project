@@ -10,9 +10,9 @@ const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
 const EDIT_POST = "EDIT_POST"; // 개스타그램 게시물 수정
 const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
-const TOGGLE_LIKE = 'TOGGLE_LIKE'; // 좋아요 토글
-const GET_LIKES = 'GET_LIKES' // 해당 게시물 좋아요 불러오기
-const GET_MY_LIKE = 'GET_MY_LIKE' // 내가 좋아요 눌렀는지 여부
+const TOGGLE_LIKE = "TOGGLE_LIKE"; // 좋아요 토글
+const GET_LIKES = "GET_LIKES"; // 해당 게시물 좋아요 불러오기
+const GET_MY_LIKE = "GET_MY_LIKE"; // 내가 좋아요 눌렀는지 여부
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
@@ -21,16 +21,25 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 // 좋아요
-const toggleLike = createAction(TOGGLE_LIKE,(postId, liked) =>({postId, liked}))
-const getLikes = createAction(GET_LIKES, (postId,likeCnt) =>({postId,likeCnt}))
-const getMyLike = createAction(GET_MY_LIKE,(postId, likeExist) =>({postId,likeExist}))
+const toggleLike = createAction(TOGGLE_LIKE, (postId, liked) => ({
+  postId,
+  liked,
+}));
+const getLikes = createAction(GET_LIKES, (postId, likeCnt) => ({
+  postId,
+  likeCnt,
+}));
+const getMyLike = createAction(GET_MY_LIKE, (postId, likeExist) => ({
+  postId,
+  likeExist,
+}));
 
 const initialState = {
   mainList: [],
   myList: [],
   eachList: [],
-  likeCnt:[],
-  likeExist:[]
+  likeCnt: [],
+  likeExist: [],
 };
 
 const getAllPostMD = () => {
@@ -128,7 +137,7 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("게시물이 수정되었습니다")
+        window.alert("게시물이 수정되었습니다");
         console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
@@ -152,7 +161,7 @@ const editPostImageMD = (post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("사진이 수정되었습니다")
+        window.alert("사진이 수정되었습니다");
         console.log("개스타그램 게시물 PATCH 완료", res);
         history.goBack();
       })
@@ -186,26 +195,22 @@ const deletePostMD = (postId) => {
   };
 };
 
-const toggleLikeMD = (dogPostId, like) =>{
-  return (dispatch, getState, {history}) =>{
+const toggleLikeMD = (dogPostId, like) => {
+  return (dispatch, getState, { history }) => {
     // if(likeStatus){
-      axios({
-        method: "POST",
-        url: `http://13.209.70.209/likes/${dogPostId}`,
-        data: {like},
-        headers: {
-          // "content-type": "application/json;charset=UTF-8",
-          accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          authorization: `Bearer ${getCookie("token")}`,
-        },
-      })
-        .then((res) => {
-          console.log("좋아요 반영 성공", res.data);
-        })
-        .catch((err) => {
-          console.log("좋아요 반영 오류", err);
-        });
+    axios({
+      method: "POST",
+      url: `http://13.209.70.209/likes/${dogPostId}`,
+      data: { like },
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    }).catch((err) => {
+      console.log("좋아요 반영 오류", err);
+    });
     // }else{
     //   axios({
     //     method: "DELETE",
@@ -225,12 +230,11 @@ const toggleLikeMD = (dogPostId, like) =>{
     //       console.log("좋아요 반영 오류", err);
     //     });
     // }
-    
-  }
-}
+  };
+};
 
-const getLikesMD = (dogPostId) =>{
-  return function(dispatch, getState, {history}){
+const getLikesMD = (dogPostId) => {
+  return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
       url: `http://13.209.70.209/likes/${dogPostId}`,
@@ -242,17 +246,17 @@ const getLikesMD = (dogPostId) =>{
         // authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
-    .then((res) =>{
-      console.log('좋아요 get', res.data);
-    })
-    .catch((err) =>{
-      console.log('좋아요 get 에러', err);
-    })
-  }
-}
+      .then((res) => {
+        console.log("좋아요 get", res.data);
+      })
+      .catch((err) => {
+        console.log("좋아요 get 에러", err);
+      });
+  };
+};
 
-const getMyLikeMD = () =>{
-  return function(dispatch, getState, {history}){
+const getMyLikeMD = () => {
+  return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
       url: `http://13.209.70.209/likes/likeExist`,
@@ -264,14 +268,14 @@ const getMyLikeMD = () =>{
         // authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
-    .then((res) =>{
-      console.log('좋아요 get', res.data);
-    })
-    .catch((err) =>{
-      console.log('좋아요 get 에러', err);
-    })
-  }
-}
+      .then((res) => {
+        console.log("좋아요 get", res.data);
+      })
+      .catch((err) => {
+        console.log("좋아요 get 에러", err);
+      });
+  };
+};
 
 export default handleActions(
   {
@@ -302,15 +306,15 @@ export default handleActions(
         );
       }),
     [TOGGLE_LIKE]: (state, action) =>
-      produce(state, (draft) =>{
-        draft.liked = action.payload.liked
+      produce(state, (draft) => {
+        draft.liked = action.payload.liked;
       }),
-    [GET_LIKES]: (state,action) =>
-      produce(state,(draft) =>{
+    [GET_LIKES]: (state, action) =>
+      produce(state, (draft) => {
         draft.likeCnt = action.payload.likeCnt;
       }),
-    [GET_MY_LIKE]: (state,action) =>
-      produce(state,(draft) =>{ 
+    [GET_MY_LIKE]: (state, action) =>
+      produce(state, (draft) => {
         draft.likeExist = action.payload.likeExist;
       }),
   },
@@ -337,7 +341,7 @@ const actionCreators = {
   deletePostMD,
   toggleLikeMD,
   getLikesMD,
-  getMyLikeMD
+  getMyLikeMD,
 };
 
 export { actionCreators };

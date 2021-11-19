@@ -83,6 +83,7 @@ const Main = (props) => {
   // 사이드 바
   const sideBarRef = useRef();
   const [sideBar, setSideBar] = useState(false);
+  const [page, setPage] = useState();
 
   const showSideBar = () => {
     setSideBar(!sideBar);
@@ -103,7 +104,7 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
-  console.log(dogStaPostList)
+  console.log(dogStaPostList);
   return (
     <Wrap ref={sideBarRef} onClick={closeSideBar}>
       <TopBar> 산책할개 </TopBar>
@@ -176,24 +177,59 @@ const Main = (props) => {
         <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
           {dogStaPostList.map((post, index) => {
             return (
-              <div onClick={()=>history.push()} >
+              <div onClick={() => history.push()}>
                 <MainDogsta post={post} key={index} />
               </div>
             );
           })}
         </DogstaSlide>
       </Body>
+      <div>
+        <button
+          onFocus={() => {
+            setPage("olympic");
+          }}
+          onClick={() => {
+            history.push(`/alllist/${page}`);
+          }}
+        >
+          올림픽
+        </button>
+        <button
+          onFocus={() => {
+            setPage("seoul");
+          }}
+          onClick={() => {
+            history.push(`/alllist/${page}`);
+          }}
+        >
+          서울
+        </button>
+        <button
+          onFocus={() => {
+            setPage("banpo");
+          }}
+          onClick={() => {
+            history.push(`/alllist/${page}`);
+          }}
+        >
+          반포
+        </button>
+      </div>
 
       {/* 각 게시물에 대한 카드들 */}
       <Body>
         <Text>같이 산책하실래요?</Text>
-        {postList.map((post, index) => {
-          return (
-            <div onClick={() => history.push(`/posts/${post.postId}`)}>
-              <Card post={post} key={index} />
-            </div>
-          );
-        })}
+        <div>dd</div>
+        <div>
+          {postList.map((post, index) => {
+            return (
+              <div onClick={() => history.push(`/posts/${post.postId}`)}>
+                <Card post={post} key={index} />
+              </div>
+            );
+          })}
+        </div>
       </Body>
       <NavBar />
     </Wrap>

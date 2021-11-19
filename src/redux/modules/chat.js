@@ -1,3 +1,4 @@
+// chat.js - 쪽지함 불러오기, 쪽지 보내기, 쪽지 삭제하기
 import axios from "axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
@@ -7,6 +8,8 @@ const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
 const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
 const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
 const GET_DETAIL = "GET_DETAIL"; // 한 쪽지 GET
+const DELETE_IN_MESSAGE = "DELETE_IN_MESSAGE"; // 받은 쪽지함에서 하나 삭제
+const DELETE_OUT_MESSAGE = "DELETE_OUT_MESSAGE"; // 보낸 쪽지함에서 하나 삭제
 
 const inBox = createAction(IN_BOX, (inBoxList) => ({
   inBoxList,
@@ -19,6 +22,12 @@ const sendMessage = createAction(SEND_MESSAGE, (list) => ({
 }));
 const getDetail = createAction(GET_DETAIL, (inBoxList) => ({
   inBoxList,
+}));
+const deleteInMessage = createAction(DELETE_IN_MESSAGE, (inBoxList) => ({
+  inBoxList,
+}));
+const deleteOutMessage = createAction(DELETE_OUT_MESSAGE, (outBoxList) => ({
+  outBoxList,
 }));
 
 const initialState = {
@@ -109,10 +118,52 @@ const getDetailMD = (chatId) => {
     })
       .then((res) => {
         dispatch(getDetail(res.data.message));
-        console.log("쪽지 하나에 대한 정보 GET 성공", res.data.message);
+        console.log("쪽지 하나 DELETE 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("쪽지 하나에 대한 정보 GET 오류", err);
+        console.log("쪽지 하나 DELETE 오류", err);
+      });
+  };
+};
+
+const deleteInMessageMD = (receiverId, senderId, chatId) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "POST",
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
+      data: {},
+      headers: {
+        Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        // dispatch(deleteMessage(myId, receiverId));
+        console.log("Inbox에서 쪽지 하나 DELETE 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("Inbox에서 쪽지 하나 DELETE 오류", err);
+      });
+  };
+};
+
+const deleteOutMessageMD = (receiverId, senderId, chatId) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "POST",
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
+      data: {},
+      headers: {
+        Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        // dispatch(deleteMessage(myId, receiverId));
+        console.log("Outbox에서 쪽지 하나 DELETE 성공", res.data);
+      })
+      .catch((err) => {
+        console.log("Outbox에서쪽지 하나 DELETE 오류", err);
       });
   };
 };
@@ -135,6 +186,18 @@ export default handleActions(
       produce(state, (draft) => {
         draft.inBoxList = action.payload.inBoxList;
       }),
+    [DELETE_IN_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.inBoxList = draft.inBoxList.filter(
+          (message) => message.id !== action.payload.chatId
+        );
+      }),
+    [DELETE_OUT_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.outBoxList = draft.outBoxList.filter(
+          (message) => message.id !== action.payload.chatId
+        );
+      }),
   },
   initialState
 );
@@ -144,8 +207,13 @@ export const actionCreators = {
   outBox,
   sendMessage,
   getDetail,
+  deleteInMessage,
+  deleteOutMessage,
+
   inBoxMD,
   outBoxMD,
   sendMessageMD,
   getDetailMD,
+  deleteInMessageMD,
+  deleteOutMessageMD,
 };

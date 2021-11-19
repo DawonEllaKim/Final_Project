@@ -16,9 +16,11 @@ const addComment = createAction(ADD_COMMENT, (commentList) => ({
 const getComment = createAction(GET_COMMENT, (commentList) => ({
   commentList,
 }));
-const editComment = createAction(EDIT_COMMENT, (commentList) => ({commentList}));
+const editComment = createAction(EDIT_COMMENT, (commentList) => ({
+  commentList,
+}));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
-  commentId
+  commentId,
 }));
 
 // initialState
@@ -73,8 +75,8 @@ const getCommentMD = (dogPostId) => {
   };
 };
 
-const editCommentMD = () =>{
-  return function(dispatch, useState, {history}){
+const editCommentMD = () => {
+  return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
       url: `http://localhost:4000/comment/`,
@@ -86,40 +88,39 @@ const editCommentMD = () =>{
         // authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
-    .then((res) =>{
-      dispatch(editComment())
-      console.log('댓글 수정', res.data);
-    })
-    .catch((err) =>{
-      console.log('댓글 수정 에러', err)
-    })
-  }
-}
+      .then((res) => {
+        dispatch(editComment());
+        console.log("댓글 수정", res.data);
+      })
+      .catch((err) => {
+        console.log("댓글 수정 에러", err);
+      });
+  };
+};
 
-const deleteCommentMD = (id) =>{
-  return function(dispatch, getState, {history}){
-    console.log(id)
+const deleteCommentMD = (id) => {
+  return function (dispatch, getState, { history }) {
+    console.log(id);
     axios({
       method: "DELETE",
       url: `http://localhost:4000/comment/${id}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
+        accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        // authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        const commentList = res.data;
-        console.log("댓글 삭제 성공", commentList);
-        // dispatch(deleteComment(commentList));
+        // dispatch(deleteComment(commentId));
+        console.log("댓글 삭제 성공", res);
       })
       .catch((err) => {
         console.log("댓글 삭제 에러", err);
       });
-  }
-}
+  };
+};
 
 // reducer
 export default handleActions(
@@ -132,16 +133,15 @@ export default handleActions(
       produce(state, (draft) => {
         draft.commentList = action.payload.commentList;
       }),
-    [EDIT_COMMENT]: (state, action) => 
+    [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.commentList = {...draft.commentList, ...action.payload.post}
+        draft.commentList = { ...draft.commentList, ...action.payload.post };
       }),
-    [DELETE_COMMENT]: (state, action) => 
+    [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload)
         draft.commentList = draft.commentList.filter(
           (comment) => comment.id !== action.payload.commentId
-        )
+        );
       }),
   },
   initialState
@@ -155,7 +155,7 @@ const actionCreators = {
   editComment,
   editCommentMD,
   deleteComment,
-  deleteCommentMD
+  deleteCommentMD,
 };
 
 export { actionCreators };
