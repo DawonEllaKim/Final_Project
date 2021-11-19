@@ -31,7 +31,6 @@ const DogStaDetail = (props) => {
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
   const [liked, setLiked] = useState(Boolean);
   console.log(liked);
-  // console.log(useSelector((state)=>state.))
 
   const [likeCount, setLikeCount] = useState(likeCnt);
 
@@ -62,9 +61,10 @@ const DogStaDetail = (props) => {
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
-    dispatch(dogstaActions.getMyLikeMD());
+    dispatch(dogstaActions.getMyLikeMD(postId));
     setLiked(myLike);
-  }, [myLike]);
+    setLikeCount(likeCount);
+  }, [myLike,likeCount]);
 
   return (
     <Wrap>

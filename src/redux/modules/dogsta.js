@@ -258,11 +258,11 @@ const getLikesMD = (dogPostId) => {
   };
 };
 
-const getMyLikeMD = () => {
+const getMyLikeMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/likes/likeExist`,
+      url: `http://13.209.70.209/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
