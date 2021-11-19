@@ -37,20 +37,24 @@ const DogStaDetail = (props) => {
   console.log(likeCnt);
   console.log(myLike);
 
-  const [liked, setLiked] = useState(myLike);
+  // const [liked, setLiked] = useState(!myLike);
+  const [liked,setLiked] = useState(Boolean)
   const [likeCount, setLikeCount] = useState(likeCnt);
 
+  console.log(liked);
   const toggleLike = () => {
-    // setLiked(!liked);
+  //   // setLiked(!liked);
 
-    if(liked){
+    if(liked === true){
       setLiked(false);
       setLikeCount(likeCount - 1);
+      if(likeCount<0){
+        return;
+      }
     }else{
       setLiked(true);
       setLikeCount(likeCount +1);
     }
-
     dispatch(dogstaActions.toggleLikeMD(postId, liked));
   };
 
@@ -70,8 +74,11 @@ const DogStaDetail = (props) => {
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
-    dispatch(dogstaActions.getMyLikeMD())
-  }, [postId]);
+    dispatch(dogstaActions.getMyLikeMD());
+
+    setLiked(myLike);
+    console.log(myLike);
+  }, [myLike]);
 
   return (
     <Wrap>

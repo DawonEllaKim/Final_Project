@@ -30,7 +30,7 @@ const initialState = {
   myList: [],
   eachList: [],
   likeCnt:[],
-  likeExist:[]
+  likeExist:false,
 };
 
 const getAllPostMD = () => {
