@@ -32,7 +32,7 @@ const DogStaDetail = (props) => {
   const [liked, setLiked] = useState(Boolean);
   console.log(liked);
 
-  const [likeCount, setLikeCount] = useState(likeCnt);
+  const [likeCount, setLikeCount] = useState();
 
   console.log(liked);
   const toggleLike = () => {
@@ -63,8 +63,8 @@ const DogStaDetail = (props) => {
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
     dispatch(dogstaActions.getMyLikeMD(postId));
     setLiked(myLike);
-    setLikeCount(likeCount);
-  }, [myLike,likeCount]);
+    setLikeCount(likeCnt);
+  }, [myLike,likeCnt]);
 
   return (
     <Wrap>
