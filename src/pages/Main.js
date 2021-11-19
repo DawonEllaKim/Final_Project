@@ -30,6 +30,7 @@ import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // �
 import logo from "../image/loginLogo.png";
 import login from "../image/login.png";
 import loginText from "../image/loginText.png";
+import Hangang from "../image/Hangang.png";
 
 // 슬라이드
 import "slick-carousel/slick/slick.css";
@@ -95,9 +96,8 @@ const Main = (props) => {
       setSideBar(false);
     }
   };
-  const hover = () => {
-    console.log("hello");
-  };
+  const [location, setLocation] = useState("");
+  const [image, setImage] = useState(Hangang);
 
   // 게시물 불러오기
   useEffect(() => {
@@ -230,19 +230,30 @@ const Main = (props) => {
         <Text>올림픽 공원</Text>
 
         <TEST>
-          <img src={postList[0].dogImage} />
+          <Part>
+            <img src={image} />
+            <p>
+              {location} <br />
+              {location}에서 산책하기
+            </p>
+          </Part>
+
           <div>
             {postList.map((post, index) => {
               const dogImage = post.dogImage;
-              const dogName = post.dogName;
-              const dogGender = post.dogGender;
-              const dogAge = post.dogAge;
-              const dogComment = post.dogComment;
-              const initialMeetingDate = post.meetingDate;
+              const hover = () => {
+                setLocation(post.locationCategory);
+                setImage(post.dogImage);
+              };
+              const hoverOut = () => {
+                setLocation("반포한강공원");
+                setImage(Hangang);
+              };
 
               return (
                 <AAA
                   onMouseEnter={hover}
+                  onMouseLeave={hoverOut}
                   onClick={() => history.push(`/posts/${post.postId}`)}
                 >
                   <MainCard post={post} key={index}>
@@ -268,6 +279,30 @@ const Main = (props) => {
     </Wrap>
   );
 };
+
+const Part = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border-radius: 14px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 2;
+    object-fit: cover;
+    border-radius: 14px;
+    opacity: 0.8;
+  }
+
+  p {
+    width: 100%;
+    aspect-ratio: 4 / 2;
+    position: absolute;
+    color: white;
+    font-size: 30px;
+  }
+`;
 const Image = styled.img`
   width: 100%;
   border-radius: 5px;
@@ -284,13 +319,7 @@ const TEST = styled.div`
   width: 100%;
   aspect-ratio: 4 / 3;
   /* border: 1px solid red; */
-  img {
-    width: 100%;
-    /* border: 1px solid blue; */
-    aspect-ratio: 4 / 2;
-    object-fit: cover;
-    border-radius: 14px;
-  }
+
   div {
     display: flex;
     flex-direction: row;
@@ -302,6 +331,7 @@ const AAA = styled.div`
   width: 23%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  cursor: pointer;
 `;
 const Wrap = styled.div`
   text-align: center;
