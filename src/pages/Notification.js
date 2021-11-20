@@ -10,18 +10,19 @@ import OutBox from "../components/Notification/OutBox";
 
 // 리덕스
 import { actionCreators as chatActions } from "../redux/modules/chat";
-
+import { actionCreators as notiActions } from "../redux/modules/notification";
 const Notification = (props) => {
   const notification = props.notification // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄
   console.log(notification)
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
   const [title,setTitle] = useState(); 
-
+  
   const dispatch = useDispatch();
   const inBoxList = useSelector((state) => state.chat.inBoxList); // 내가 받은 모든 쪽지 리스트
   const outBoxList = useSelector((state) => state.chat.outBoxList); // 내가 보낸 모든 쪽지 리스트
-
+  const getNoti = useSelector((state)=>state.notification.noti) ; //알람가지고오기
+  const userId = localStorage.getItem("userId")
   // alert = 알람, InBoxStatus = 받은 쪽지함, OutBoxStatus = 보낸 쪽지함
   const alert = () => {
     setStatus("alert");
@@ -42,8 +43,9 @@ const Notification = (props) => {
     setTitle("알림페이지") //"알림페이지" 로 타이틀 시작 
     dispatch(chatActions.inBoxMD()); // 내가 받은 모든 쪽지 불러오기
     dispatch(chatActions.outBoxMD()); // 내가 보낸 모든 쪽지 불러오기
+    dispatch(notiActions.getNotiMD(userId)); // 알람 불러오기
   }, []);
-
+   console.log(getNoti)
   return (
     <Wrap>
       <TopBar>{title}</TopBar>
@@ -82,7 +84,11 @@ const Notification = (props) => {
       {/* 상태값에 따라서 바뀌는 카드 */}
       {status === "alert" && (
         <div>
-          <Alert notification={notification} />
+          {
+            getNoti.map((noti,index)=>{
+              return <Alert noti={noti}/>
+            })
+          }
         </div>
       )}
       {status === "InBoxStatus" && (

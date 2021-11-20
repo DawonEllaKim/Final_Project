@@ -38,8 +38,10 @@ const InBox = ({ box }) => {
       </Left>
       <Right>
         <p>{message}</p>
+ 
         <span>{time}</span>
         <button onClick={deleteBtn}>삭제</button>
+
       </Right>
    
     </Wrap>
@@ -56,26 +58,26 @@ const Wrap = styled.div`
   margin: 0.5rem;
   box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
   border: 0.01rem solid lightGray;
-  border-radius:5vw;
+  border-radius:14px;
 `;
 
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-
+  width:20%;
   align-items: center;
 
   margin-right: 10px;
   img {
-    width: 13vw;
-    height: 13vw;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
     object-fit: cover;
   }
 `;
 const Right = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: left;
@@ -86,13 +88,14 @@ const Right = styled.div`
     padding-right:10vw;
   }
   span {
-    padding-bottom:9vh;
+     
     padding-right:2vw;
     width: 30%;
     color: gray;
     text-align: right;
     font-size:2vw;
   }
+  width:80%;
 `;
 
 export default InBox;
