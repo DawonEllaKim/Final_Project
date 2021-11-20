@@ -132,7 +132,7 @@ const DogStaMain = (props) => {
           )}
 
           {/* 하단 고정 버튼  */}
-          <NavBar />
+          <NavBar add_dogsta />
         </Body>
       ) : (
         <div>아직 추천 순 정렬 x</div>
