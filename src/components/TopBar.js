@@ -4,14 +4,18 @@ import { history } from "../redux/configureStore";
 
 import backward from "../image/backward.png";
 import notification1 from "../image/Notification.png";
-
+import { useDispatch,useSelector } from "react-redux";
 import {io} from "socket.io-client";
-
+import { actionCreators as notiActions } from "../redux/modules/notification";
 
 const TopBar = (props) => {
+
+
   const { text, children, padding, only_left, only_right } = props;
 
   const styles = { padding };
+
+  const dispatch =useDispatch();
 
   const userId = localStorage.getItem("userId");
 
@@ -29,16 +33,22 @@ const TopBar = (props) => {
      setNotification(((prev)=>[...prev,data]))
 
     });
-
-   
-  
   }, [socket]);
+  const getNoti = useSelector((state)=>state.notification.noti)
   let arr = localStorage.getItem("noti")
   let noti= JSON.parse(arr)
   useEffect(()=>{  
     localStorage.setItem("noti",JSON.stringify(notification))
     arr= localStorage.getItem("noti")
   },[notification,noti])
+  
+  useEffect(()=> {
+    dispatch(notiActions.getNotiMD(userId))
+  },[])
+  if(noti.length<1)
+    noti=getNoti;
+  else 
+    noti.length+=getNoti.length
 
   if (only_left) {
     return (

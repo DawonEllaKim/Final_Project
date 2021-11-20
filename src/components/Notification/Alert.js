@@ -1,71 +1,60 @@
 import React, {useEffect,useState} from "react";
 import styled from "styled-components";
+import { useDispatch,useSelector } from "react-redux";
+import { actionCreators as notiActions } from "../../redux/modules/notification";
 import {io} from "socket.io-client";
-const Alert = (props) => {
-  
-  let arr = localStorage.getItem("noti")
-  useEffect(()=>{
-      arr =localStorage.getItem("noti")
-  },[arr])
+const Alert = ({noti}) => {
+  const dispatch = useDispatch();
+ 
+  const userId = localStorage.getItem("userId");
 
-  let notification = JSON.parse(arr)
-  console.log(notification)
-  // const [socket, setSocket] = useState(null)
-  // const userId = localStorage.getItem("userId");
-  // useEffect(() => {
-  //   setSocket(io.connect(`http://13.209.70.209/notification`));
-  // }, []);
+  const [socket, setSocket] = useState(null)
+  const [notification, setNotification] = useState([]);
+  useEffect(() => {
+    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+  }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+    console.log(userId)
+  }, []);
+  useEffect(() => {
+    socket?.on("getNotification", (data)=>{
+     setNotification(((prev)=>[...prev,data]))
 
-  // useEffect(() => {
-  //   socket?.emit("postUser", userId);
-  //   console.log(userId)
-  // }, [socket, userId]);
-  // console.log(socket)
-  // const socket =localStorage.getItem("socket")
-  // console.log(socket)
-  // useEffect(() => {
-  //   socket?.on("getNotification", (data)=>{
-  //    setNotification(((prev)=>[...prev,data]))
-  //   });
-    
-  // }, [socket]);
-  // console.log(socket)
-  // console.log(notification)
+    });
+  }, [socket]);
+ console.log(notification)
 
-  const displayNotification = ({ senderNickname, type }) => {
-    let action;
-
-    if (type === 1) {
-      action=`${senderNickname}님이 회원님에게 쪽지를 보냈습니다!`
-    } else if (type === 2) {
-      action = "commented";
-    } else {
-      action = "shared";
-    }
-    return (
-      <div>
-      <Wrap>
-        <Left>
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
-        </Left>
-        <Right>
-          {action}
-          <span>1시간 전</span>
-        </Right>
-        
-      </Wrap>
-      
-      </div>
-    )
-  };
   return (
-    notification?(
-      notification.map((n) => displayNotification(n))
-    ):
-    <div>
-      알람이 없습니다
-    </div>
-  );
+        <div>
+        <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(noti.notificationId))}}>
+          <Left>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
+          </Left>
+          <Right>
+          {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
+            <span>1시간 전</span>
+          </Right>
+          
+        </Wrap>
+        {notification.map((n)=> {
+          return (
+            <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(n.notificationId))}}>
+          <Left>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
+          </Left>
+          <Right>
+          {n.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
+            <span>1시간 전</span>
+          </Right>
+          
+        </Wrap>
+          )
+        })}
+        </div>
+        )
+   
+ 
 };
 
 const Wrap = styled.div`
@@ -73,7 +62,7 @@ const Wrap = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
+  cursor:pointer;
   height: 12vh;
   margin: 0.5rem;
   box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);

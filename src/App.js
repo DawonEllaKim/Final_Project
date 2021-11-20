@@ -63,6 +63,7 @@ import ChatDetail from "./pages/Chat/ChatDetail";
 
 //웹소켓 
 import {io} from "socket.io-client";
+import Toast from "./components/Toast/Toast";
 
 
 function App() {
@@ -88,16 +89,44 @@ function App() {
 
   useEffect(()=>{
     localStorage.setItem("noti",JSON.stringify(notification))
+    handleToast("letter")
   },[notification])
   console.log(notification)
-
+  
+  //Toast
+  const msgList = {
+    letter: "새로운 쪽지가 왔습니다!",
+    like: "내 게시글에 좋아요를 했습니다",
+    comment: "내 게시글에 댓글을 남겼습니다"
+  };
   
    console.log(socket)
-  
+   const [ToastStatus, setToastStatus] = useState(false);
+   const [ToastMsg, setToastMsg] = useState("");
+ 
+   const handleToast = (type) => {
+     if (!ToastStatus&&notification.length>0) {
+       setToastStatus(true);
+       setToastMsg(msgList[type]);
+     }
+   };
+ 
+   useEffect(() => {
+     if (ToastStatus) {
+       setTimeout(() => {
+         setToastStatus(false);
+         setToastMsg("");
+       }, 1500);
+     }
+   }, [ToastStatus]);
   return (
     <div className="App">
       <GlobalStyle />
-
+      {ToastStatus && (
+        <>
+          <Toast msg={ToastMsg}/>
+        </>
+      )}
       <ConnectedRouter history={history}>
         {/* 로그인/회원가입 */}
         <Route exact path="/logIn" component={LogIn} />

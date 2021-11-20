@@ -10,7 +10,7 @@ import marker from "./modules/marker";
 import dogsta from "./modules/dogsta";
 import chat from "./modules/chat";
 import comment from "./modules/comment";
-
+import notification from "./modules/notification";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   dogsta: dogsta,
   chat: chat,
   comment: comment,
+  notification: notification,
   router: connectRouter(history),
 });
 
