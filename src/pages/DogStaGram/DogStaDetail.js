@@ -30,11 +30,9 @@ const DogStaDetail = (props) => {
 
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
   const [liked, setLiked] = useState(Boolean);
-  console.log(liked);
 
   const [likeCount, setLikeCount] = useState();
 
-  console.log(liked);
   const toggleLike = () => {
     if (liked === true) {
       setLiked(false);
@@ -47,7 +45,6 @@ const DogStaDetail = (props) => {
       setLikeCount(likeCount + 1);
     }
     dispatch(dogstaActions.toggleLikeMD(postId, liked));
-    console.log(liked);
   };
 
   const editPost = () => {
@@ -64,7 +61,7 @@ const DogStaDetail = (props) => {
     dispatch(dogstaActions.getMyLikeMD(postId));
     setLiked(myLike);
     setLikeCount(likeCnt);
-  }, [myLike,likeCnt]);
+  }, [myLike, likeCnt]);
 
   return (
     <Wrap>

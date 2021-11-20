@@ -53,18 +53,17 @@ function Weather({ setCold }) {
     axios.get(url).then((responseData) => {
       const data = responseData.data;
       setWeather({
-          id: data.weather[0].id,
-          temperature: data.main.temp,
-          main: data.weather[0].main,
-          loading: false,
-        });
-       console.log(data)
+        id: data.weather[0].id,
+        temperature: data.main.temp,
+        main: data.weather[0].main,
+        loading: false,
+      });
+      //  console.log(data)
     });
-  }, [])
- 
-  
+  }, []);
+
   let c = weather.temperature - 273.15;
-//   setCold(c < 15 ? true : false);
+  //   setCold(c < 15 ? true : false);
 
   const selectIcon = () => {
     let iconId =
@@ -92,14 +91,11 @@ function Weather({ setCold }) {
       <InfoWrapper>
         <Location>서울시</Location>
         <DateDiv> {dateBuilder(new Date())} </DateDiv>
-   
+
         <WeatherDiv>
           {weather.main}
-          <WeatherIcon> 
-            {selectIcon()}
-          </WeatherIcon>
-          </WeatherDiv>
-      
+          <WeatherIcon>{selectIcon()}</WeatherIcon>
+        </WeatherDiv>
       </InfoWrapper>
     </Wrapper>
   );
@@ -110,31 +106,31 @@ const Wrapper = styled.div`
   width: 350px;
   height: 172px;
   display: flex;
-  
+
   align-items: center;
   justify-content: flex-start;
-  gap:20px;
-  background-color: #86D3FF;
-  text-align:center;
-  border-radius:15px;
-  box-sizing:border-box;
+  gap: 20px;
+  background-color: #86d3ff;
+  text-align: center;
+  border-radius: 15px;
+  box-sizing: border-box;
 `;
 
 const Temperature = styled.div`
   color: white;
   font-size: 44px;
-  padding:0 16px 0 24px;
+  padding: 0 16px 0 24px;
 `;
 
 const InfoWrapper = styled.div`
   box-sizing: border-box;
-  text-align:left;
-`
+  text-align: left;
+`;
 const Location = styled.div`
   color: #444;
   font-size: 20px;
   font-weight: 500;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 const DateDiv = styled.div`
@@ -146,9 +142,9 @@ const DateDiv = styled.div`
 const WeatherDiv = styled.div`
   color: white;
   font-size: 20px;
-  text-align:center;
-  display:flex;
-  align-items:center;
+  text-align: center;
+  display: flex;
+  align-items: center;
 `;
 
 const WeatherIcon = styled.div`

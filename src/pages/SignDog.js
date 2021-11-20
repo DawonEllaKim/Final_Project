@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/sign";
 import { dogBreedCheck } from "../shared/check";
 
-import TopBar from '../components/TopBar';
+import TopBar from "../components/TopBar";
 
 // 강아지 이미지 기본 값
 import defaultDog from "../image/default_dog.png";
@@ -127,9 +127,7 @@ const SignDog = (props) => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for='imgFile'>
-              사진 업로드
-            </UploadLabel>
+            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -289,12 +287,12 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Input style={{backgroundColor: '#FAF7CE'}}>
+        <Input style={{ backgroundColor: "#FAF7CE" }}>
           <Title> 강아지 한 줄 소개</Title>
           <InputText
             placeholder="ex) 우리 집 최고 애교쟁이!"
             onChange={dogCommentChangeHandler}
-            style={{backgroundColor: '#FAF7CE'}}
+            style={{ backgroundColor: "#FAF7CE" }}
           ></InputText>
         </Input>
         <ButtonWrap>
@@ -321,10 +319,8 @@ const Input = styled.div`
   text-align: left;
   font-size: 16px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  color:#888;
+  color: #888;
 `;
-
-
 
 const ImageWrap = styled.div`
   margin: 20px 0;

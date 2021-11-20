@@ -24,7 +24,7 @@ const TopBar = (props) => {
   }, []);
   useEffect(() => {
     socket?.emit("postUser", userId);
-    console.log(userId);
+    // console.log(userId);
   }, []);
   useEffect(() => {
     socket?.on("getNotification", (data) => {

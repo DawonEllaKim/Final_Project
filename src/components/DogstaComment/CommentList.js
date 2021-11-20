@@ -5,29 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentList = ({ comment }) => {
-  console.log(comment);
   const dispatch = useDispatch();
-  const dogPostId = comment.dogPostId;
-  console.log("댓글 작성한 포스트 id", dogPostId);
   const userId = localStorage.getItem("userId");
-  console.log("로그인한 유저 id", userId);
   const commentId = comment.id;
-  console.log("댓글 id", commentId);
-
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
-  // const time = comment.createdAt;
-
-  const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList);
+  const agoTime = comment.AGOTIME;
 
   const delComment = () => {
     dispatch(commentActions.deleteCommentMD(commentId));
   };
-
-  useEffect(() => {
-    dispatch(commentActions.getCommentMD());
-  }, []);
 
   return (
     <div>
@@ -35,8 +22,8 @@ const CommentList = ({ comment }) => {
         <TextWrap>
           <User>{userNickname}</User>
           <Desc>{desc}</Desc>
-          {/* <Time>{time}</Time> */}
-          <Comment>댓글 달기</Comment>
+          <Time>{agoTime}</Time>
+          {/* <Comment>댓글 달기</Comment> */}
         </TextWrap>
 
         {/* 댓글 작성한 본인만 수정/삭제 가능 */}

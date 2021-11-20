@@ -29,21 +29,21 @@ const initialState = {
 };
 
 // middleware
-const addCommentMD = (comments) => {
+const addCommentMD = (dogPostId, comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/comment",
-      data: comments,
+      url: `http://13.209.70.209/comment/${dogPostId}`,
+      data: comment,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        console.log("댓글 post", res.data);
+        // console.log("댓글 post", res.data);
       })
       .catch((err) => {
         console.log("댓글 post 실패", err);
@@ -51,11 +51,11 @@ const addCommentMD = (comments) => {
   };
 };
 
-const getCommentMD = (dogPostId) => {
+const getCommentMD = (userId, dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/comment/`,
+      url: `http://13.209.70.209/comment/${userId}/${dogPostId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -65,8 +65,8 @@ const getCommentMD = (dogPostId) => {
       },
     })
       .then((res) => {
-        const commentList = res.data;
-        console.log("댓글 get", commentList);
+        const commentList = res.data.comment;
+        // console.log("댓글 get", commentList);
         dispatch(getComment(commentList));
       })
       .catch((err) => {
@@ -79,7 +79,7 @@ const editCommentMD = () => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/comment/`,
+      url: `http://13.209.70.209/comment/`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -103,7 +103,7 @@ const deleteCommentMD = (id) => {
     console.log(id);
     axios({
       method: "DELETE",
-      url: `http://localhost:4000/comment/${id}`,
+      url: `http://13.209.70.209/comment/${id}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

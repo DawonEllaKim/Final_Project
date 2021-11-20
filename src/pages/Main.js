@@ -1,66 +1,75 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Slider from "react-slick";
-import Weather from "../components/Weather";
+
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as userActions } from "../redux/modules/user";
-import notification from "../image/Notification.png";
-
-// 컴포넌츠
-import Card from "../components/Card";
-import MainCard from "../components/MainCard";
-import DogSize from "../components/MainSideBar/Filters/DogSize";
-import DogGender from "../components/MainSideBar/Filters/DogGender";
-import DogAge from "../components/MainSideBar/Filters/DogAge";
-import LocationCategory from "../components/MainSideBar/Filters/LocationCategory";
-import MainDogsta from "../components/MainDogsta";
-import NavBar from "../components/NavBar";
-
-// 상단바
-import TopBar from "../components/TopBar";
-import Button from "../elements/Button";
-
-// 리액트 아이콘
-import { AiOutlineFilter } from "react-icons/ai";
-import { GrNotification } from "react-icons/gr";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // 액션 불러오기
 
-// 로그인 이미지
+// 컴포넌츠
+import Weather from "../components/Weather";
+import MainCard from "../components/MainCard";
+import MainDogsta from "../components/MainDogsta";
+import NavBar from "../components/NavBar";
+import TopBar from "../components/TopBar";
+import Spinner from "../shared/Spinner";
+
+// 이미지
 import logo from "../image/loginLogo.png";
 import login from "../image/login.png";
 import loginText from "../image/loginText.png";
 import Hangang from "../image/Hangang.jpeg";
+import Seoul from "../image/Seoul.png";
+import Banpo from "../image/Banpo.jpeg";
 import MainPageLogo from "../image/MainPageLogo.png";
-
-// 슬라이드
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-// 스피너
-import Spinner from "../shared/Spinner";
-
 import caution1 from "../image/caution1.png";
 import caution2 from "../image/caution2.png";
 import caution3 from "../image/caution3.png";
+
+// 슬라이드
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import dogsta from "../redux/modules/dogsta";
 import { FaBullseye } from "react-icons/fa";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-  const postList1 = useSelector((state) => state.post.main);
-  const length = postList1.length;
-  const postList = postList1.slice(0, 4);
-  const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
 
+  // 올림픽공원
+  const olympicList = useSelector((state) => state.post.olympic);
+  const olympic = olympicList.slice(0, 4);
+  const olympicListLength = olympicList.length;
+  const [olympicTitle, setOlympicTitle] = useState("올림픽공원");
+  const [olympicImage, setOlympicImage] = useState(Hangang);
+  const [olympicDogName, setOlympicDogName] = useState();
+  const [olympicTime, setOlympicTime] = useState();
+  const [olympicLocation, setOlympicLocation] = useState("");
+
+  // 서울숲
+  const seoulList = useSelector((state) => state.post.seoul);
+  const seoul = seoulList.slice(0, 4);
+  const seoulListLength = seoulList.length;
+  const [seoulTitle, setSeoulTitle] = useState("서울숲");
+  const [seoulImage, setSeoulImage] = useState(Seoul);
+  const [seoulDogName, setSeoulDogName] = useState();
+  const [seoulTime, setSeoulTime] = useState();
+  const [seoulLocation, setSeoulLocation] = useState("");
+
+  // 반포 한강공원
+  const banpoList = useSelector((state) => state.post.banpo);
+  const banpo = banpoList.slice(0, 4);
+  const banpoListLength = banpoList.length;
+  const [banpoTitle, setBanpoTitle] = useState("반포 한강공원");
+  const [banpoImage, setBanpoImage] = useState(Banpo);
+  const [banpoDogName, setBanpoDogName] = useState();
+  const [banpoTime, setBanpoTime] = useState();
+  const [banpoLocation, setBanpoLocation] = useState("");
+
   const [page, setPage] = useState();
-  const [location, setLocation] = useState("");
-  const [image, setImage] = useState(Hangang);
-  const [dogName, setDogName] = useState();
-  const [time, setTime] = useState();
 
   //소켓
   const userId = localStorage.getItem("userId");
@@ -93,10 +102,10 @@ const Main = (props) => {
 
   // 게시물 불러오기
   useEffect(() => {
-    dispatch(postActions.getAllMD());
-    // dispatch(postActions.getOlympicMD());
-    // dispatch(postActions.getSeoulMD());
-    // dispatch(postActions.getBanpoMD());
+    // dispatch(postActions.getAllMD());
+    dispatch(postActions.getOlympicMD());
+    dispatch(postActions.getSeoulMD());
+    dispatch(postActions.getBanpoMD());
     dispatch(dogStaActions.getAllPostMD());
   }, []);
 
@@ -111,42 +120,45 @@ const Main = (props) => {
           <img src={MainPageLogo} style={{ height: "30px" }} />
         </TopBar>
 
-        {!userId ? (
-          <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-            <div onClick={() => history.push("/login")}>
-              <LoginImg>
-                <Logo src={logo} />
-                <Login src={login} />
-                <LoginText src={loginText} />
-              </LoginImg>
-            </div>
-          </StyledSlider>
-        ) : (
-          <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-            {/* <Weather /> */}
-            <div
-              onClick={() => {
-                history.push("/caution1");
-              }}
-            >
-              <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-            </div>
-            <div
-              onClick={() => {
-                history.push("/caution2");
-              }}
-            >
-              <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-            </div>
-            <div
-              onClick={() => {
-                history.push("/caution3");
-              }}
-            >
-              <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-            </div>
-          </StyledSlider>
-        )}
+        {/* 슬라이드 */}
+        <div>
+          {!userId ? (
+            <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+              <div onClick={() => history.push("/login")}>
+                <LoginImg>
+                  <Logo src={logo} />
+                  <Login src={login} />
+                  <LoginText src={loginText} />
+                </LoginImg>
+              </div>
+            </StyledSlider>
+          ) : (
+            <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+              <Weather />
+              <div
+                onClick={() => {
+                  history.push("/caution1");
+                }}
+              >
+                <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+              </div>
+              <div
+                onClick={() => {
+                  history.push("/caution2");
+                }}
+              >
+                <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+              </div>
+              <div
+                onClick={() => {
+                  history.push("/caution3");
+                }}
+              >
+                <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+              </div>
+            </StyledSlider>
+          )}
+        </div>
 
         {/* 개스타그램 모음 */}
         <DogSta>
@@ -162,95 +174,214 @@ const Main = (props) => {
           </DogstaSlide>
         </DogSta>
 
-        {/*
-		<div>
-			<button
-				onFocus={() => {
-					setPage("seoul");
-				}}
-				onClick={() => {
-					history.push(`/alllist/${page}`);
-				}}
-			>
-				서울
-			</button>
-			<button
-				onFocus={() => {
-					setPage("banpo");
-				}}
-				onClick={() => {
-					history.push(`/alllist/${page}`);
-				}}
-			>
-				반포
-			</button>
-		</div> */}
-
         {/* 각 게시물에 대한 카드들 */}
         <Body>
-          {/* 올림픽 공원 게시물 */}
-          <Header>
-            <Text>올림픽 공원</Text>
-            <MoreBtn
-              onFocus={() => {
-                setPage("olympic");
-              }}
-              onClick={() => {
-                history.push(`/alllist/${page}`);
-              }}
-            >
-              더보기
-            </MoreBtn>
-          </Header>
+          {/* 올림픽공원 */}
+          <div>
+            <Header>
+              <Text>올림픽 공원</Text>
+              <MoreBtn
+                onFocus={() => {
+                  setPage("olympic");
+                }}
+                onClick={() => {
+                  history.push(`/alllist/${page}`);
+                }}
+              >
+                더보기
+              </MoreBtn>
+            </Header>
 
-          <TEST>
-            <Part>
-              <PartImg src={image} />
+            <TEST>
+              <Part>
+                <PartImg src={olympicImage} />
 
-              <CardTextHere>
-                <Number>{length}</Number>
+                <CardTextHere>
+                  <Number>+{olympicListLength}</Number>
 
-                <CardText>
-                  <p>{dogName}와 함께 산책하기</p>
-                  <span>
-                    2021/11/10 12시 30분
-                    {/* {time}
-								{location} */}
-                  </span>
-                </CardText>
-              </CardTextHere>
-            </Part>
+                  <CardText>
+                    <div>{olympicTitle}</div>
+                    <p>{olympicDogName}</p>
+                    <span>
+                      {olympicTime}
+                      {olympicLocation}
+                    </span>
+                  </CardText>
+                </CardTextHere>
+              </Part>
 
-            <SubLists>
-              {postList.map((post, index) => {
-                const dogImage = post.dogImage;
-                const hover = () => {
-                  setDogName(post.dogName);
-                  setTime(post.meetingDate);
-                  setLocation(post.locationCategory);
-                  setImage(post.dogImage);
-                };
-                const hoverOut = () => {
-                  setLocation("반포한강공원");
-                  setImage(Hangang);
-                };
+              <SubLists>
+                {olympic.map((post, index) => {
+                  const dogImage = post.dogImage;
+                  const hover = () => {
+                    setOlympicTitle();
+                    setOlympicImage(post.dogImage);
+                    setOlympicDogName(post.dogName + "와 함께 산책하기");
+                    setOlympicTime(post.meetingDate);
+                    setOlympicLocation(post.locationCategory);
+                  };
+                  const hoverOut = () => {
+                    setOlympicTitle("올림픽공원");
+                    setOlympicImage(Hangang);
+                    setOlympicDogName("");
+                    setOlympicTime();
+                    setOlympicLocation();
+                  };
 
-                return (
-                  <AAA
-                    onMouseEnter={hover}
-                    onMouseLeave={hoverOut}
-                    onClick={() => history.push(`/posts/${post.postId}`)}
-                  >
-                    <MainCard post={post} key={index}>
-                      <Image src={dogImage} />
-                    </MainCard>
-                  </AAA>
-                );
-              })}
-            </SubLists>
-          </TEST>
+                  return (
+                    <AAA
+                      onMouseEnter={hover}
+                      onMouseLeave={hoverOut}
+                      onClick={() => history.push(`/posts/${post.postId}`)}
+                    >
+                      <MainCard post={post} key={index}>
+                        <Image src={dogImage} />
+                      </MainCard>
+                    </AAA>
+                  );
+                })}
+              </SubLists>
+            </TEST>
+          </div>
+
+          {/* 서울숲 */}
+          <div>
+            <Header>
+              <Text>서울숲</Text>
+              <MoreBtn
+                onFocus={() => {
+                  setPage("seoul");
+                }}
+                onClick={() => {
+                  history.push(`/alllist/${page}`);
+                }}
+              >
+                더보기
+              </MoreBtn>
+            </Header>
+
+            <TEST>
+              <Part>
+                <PartImg src={seoulImage} />
+
+                <CardTextHere>
+                  <Number>+{seoulListLength}</Number>
+
+                  <CardText>
+                    <div>{seoulTitle}</div>
+                    <p>{seoulDogName}</p>
+                    <span>
+                      {seoulTime}
+                      {seoulLocation}
+                    </span>
+                  </CardText>
+                </CardTextHere>
+              </Part>
+
+              <SubLists>
+                {seoul.map((post, index) => {
+                  const dogImage = post.dogImage;
+                  const hover = () => {
+                    setSeoulTitle();
+                    setSeoulImage(post.dogImage);
+                    setSeoulDogName(post.dogName + "와 함께 산책하기");
+                    setSeoulTime(post.meetingDate);
+                    setSeoulLocation(post.locationCategory);
+                  };
+                  const hoverOut = () => {
+                    setSeoulTitle("서울숲");
+                    setSeoulImage(Seoul);
+                    setSeoulDogName("");
+                    setSeoulTime();
+                    setSeoulLocation();
+                  };
+
+                  return (
+                    <AAA
+                      onMouseEnter={hover}
+                      onMouseLeave={hoverOut}
+                      onClick={() => history.push(`/posts/${post.postId}`)}
+                    >
+                      <MainCard post={post} key={index}>
+                        <Image src={dogImage} />
+                      </MainCard>
+                    </AAA>
+                  );
+                })}
+              </SubLists>
+            </TEST>
+          </div>
+
+          {/* 반포 한강공원 */}
+          <div>
+            <Header>
+              <Text>반포 한강공원</Text>
+              <MoreBtn
+                onFocus={() => {
+                  setPage("banpo");
+                }}
+                onClick={() => {
+                  history.push(`/alllist/${page}`);
+                }}
+              >
+                더보기
+              </MoreBtn>
+            </Header>
+
+            <TEST>
+              <Part>
+                <PartImg src={banpoImage} />
+
+                <CardTextHere>
+                  <Number>+{banpoListLength}</Number>
+
+                  <CardText>
+                    <div>{banpoTitle}</div>
+                    <p>{banpoDogName}</p>
+                    <span>
+                      {banpoTime}
+                      {banpoLocation}
+                    </span>
+                  </CardText>
+                </CardTextHere>
+              </Part>
+
+              <SubLists>
+                {banpo.map((post, index) => {
+                  const dogImage = post.dogImage;
+                  const hover = () => {
+                    setBanpoTitle();
+                    setBanpoImage(post.dogImage);
+                    setBanpoDogName(post.dogName + "와 함께 산책하기");
+                    setBanpoTime(post.meetingDate);
+                    setBanpoLocation(post.locationCategory);
+                  };
+                  const hoverOut = () => {
+                    setBanpoTitle("반포 한강공원");
+                    setBanpoImage(Banpo);
+                    setBanpoDogName("");
+                    setBanpoTime();
+                    setBanpoLocation();
+                  };
+
+                  return (
+                    <AAA
+                      onMouseEnter={hover}
+                      onMouseLeave={hoverOut}
+                      onClick={() => history.push(`/posts/${post.postId}`)}
+                    >
+                      <MainCard post={post} key={index}>
+                        <Image src={dogImage} />
+                      </MainCard>
+                    </AAA>
+                  );
+                })}
+              </SubLists>
+            </TEST>
+          </div>
         </Body>
       </Wrap>
+
       <NavBar />
     </div>
   );
@@ -354,6 +485,11 @@ const CardText = styled.div`
   font-size: 20px;
   line-height: 29px;
   color: #fff;
+  div {
+    position: absolute;
+    bottom: 120px;
+    font-size: 30px;
+  }
 
   span {
     margin-top: 8px;

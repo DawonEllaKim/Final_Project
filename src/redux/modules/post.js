@@ -117,14 +117,12 @@ const getOlympicMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        console.log(postList);
         dispatch(getOlympic(postList));
         dispatch(loading(false));
-        console.log("getOlympicMD 정보 불러오기 완료");
+        // console.log("getOlympicMD 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
+        console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -144,14 +142,12 @@ const getSeoulMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        console.log(postList);
         dispatch(getSeoul(postList));
         dispatch(loading(false));
-        console.log("getseoul 정보 불러오기 완료");
+        // console.log("getseoul 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
+        console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -171,13 +167,11 @@ const getBanpoMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        console.log(postList);
         dispatch(getBanpo(postList));
         dispatch(loading(false));
-        console.log("getOlympicMD 정보 불러오기 완료");
+        // console.log("getOlympicMD 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log(err);
         console.log("정보 불러오기 실패");
       });
   };
@@ -196,7 +190,6 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
         const initialDate = res.data.posts.meetingDate.split("T")[0];
@@ -269,13 +262,11 @@ const getPostMD = (postId) => {
         if (res.data.posts.locationCategory == "반포한강공원")
           res.data.posts.start = hangang[0];
         const postList = res.data.posts;
-        console.log(res.data);
         dispatch(getPost(postList));
-        console.log("정보 불러오기 완료");
+        // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
+        console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -315,7 +306,7 @@ const getMyPostMD = (userId) => {
         }
         const postList = res.data.posts;
         dispatch(getMyPost(postList));
-        console.log("정보 불러오기 완료", postList);
+        // console.log("정보 불러오기 완료", postList);
       })
       .catch((err) => {
         console.log("정보 불러오기 실패", err);
@@ -360,15 +351,13 @@ const getMapMD = (postId) => {
         res.data.posts.mapedit_date =
           year + "-" + month + "-" + day + "T" + hour + ":" + minute;
         const postList = res.data.posts;
-        console.log(postList);
+
         dispatch(getMap(postList));
         dispatch(loading(false));
-        console.log("정보 불러오기 완료");
-        console.log(res.data);
+        // console.log("정보 불러오기 완료", res.data);
       })
       .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
+        console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -377,7 +366,6 @@ const addPostMD = (post) => {
     apis
       .createPostAX(post)
       .then((res) => {
-        console.log(res);
         // dispatch(addPost(post));
         window.location.replace("/");
       })
@@ -392,7 +380,6 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-        console.log("수정완료");
         window.alert("수정완료");
         dispatch(updatePost(post));
         history.push(`/posts/${postId}`);
@@ -408,7 +395,6 @@ const deletePostMD = (postId) => {
     apis
       .deletePostAX(postId)
       .then((res) => {
-        console.log("삭제 완료");
         window.alert("삭제 완료");
         // dispatch(deletePost(postId));
         history.replace("/");

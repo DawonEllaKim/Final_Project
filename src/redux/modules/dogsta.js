@@ -44,7 +44,7 @@ const getAllPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        console.log("개스타그램 모든 게시물 GET 성공", postList);
+        // console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
         console.log("개스타그램 모든 게시물 GET 에러", err);
@@ -82,7 +82,7 @@ const getMyPostMD = (userId) => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMyPost(postList));
-        console.log("개스타그램 나의 게시물 GET 성공", res);
+        // console.log("개스타그램 나의 게시물 GET 성공", res);
       })
       .catch((err) => {
         console.log("개스타그램 나의 게시물 GET 오류", err);
@@ -104,7 +104,7 @@ const addPostMD = (formData) => {
       },
     })
       .then((res) => {
-        console.log("개스타그램 게시물 POST 성공", res);
+        // console.log("개스타그램 게시물 POST 성공", res);
         history.back();
       })
       .catch((err) => {
