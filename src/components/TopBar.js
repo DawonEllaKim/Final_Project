@@ -68,12 +68,15 @@ const TopBar = (props) => {
           {text ? text : children}
           <BtnRight onClick={() => history.push("/notification")}>
             <img
-              src={notification}
+              src={notification1}
               style={{
                 width: "24px",
                 height: "24px",
               }}
             />
+             <Edit>
+            {noti.length}
+          </Edit>
           </BtnRight>
         </Right>
       </div>
@@ -99,12 +102,15 @@ const TopBar = (props) => {
         <BtnRight onClick={() => history.push("/notification")}>
           <img
 
-            src={notification}
+            src={notification1}
             style={{
               width: "24px",
               height: "24px",
             }}
           />
+          <Edit>
+            {noti.length}
+          </Edit>
         </BtnRight>
 
       </Both>
@@ -120,8 +126,8 @@ TopBar.defaultProps = {
 };
 const Edit = styled.div`
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: 0px;
+  right: 0px;
   cursor: pointer;
 
   display: flex;
@@ -133,7 +139,7 @@ const Edit = styled.div`
   width: 20px;
   height: 20px;
   padding: 6px;
-  border: 2px solid black;
+
   border-radius: 50%;
   background-color: red;
 
