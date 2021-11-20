@@ -27,8 +27,9 @@ const DogStaDetail = (props) => {
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
 
   const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
-
+  console.log(likeCnt)
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
+  console.log(myLike)
   const [liked, setLiked] = useState(Boolean);
   console.log(liked);
 

@@ -19,8 +19,8 @@ const getComment = createAction(GET_COMMENT, (commentList) => ({
 const editComment = createAction(EDIT_COMMENT, (commentList) => ({
   commentList,
 }));
-const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
-  commentId,
+const deleteComment = createAction(DELETE_COMMENT, (commentList) => ({
+  commentList,
 }));
 
 // initialState
@@ -29,21 +29,22 @@ const initialState = {
 };
 
 // middleware
-const addCommentMD = (comments) => {
+const addCommentMD = (dogPostId,comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://localhost:4000/comment",
-      data: comments,
+      url: `http://13.209.70.209/comment/${dogPostId}`,
+      data: comment,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        console.log("댓글 post", res.data);
+        dispatch(addComment(comment));
+        console.log("댓글 post", res);
       })
       .catch((err) => {
         console.log("댓글 post 실패", err);
@@ -55,7 +56,7 @@ const getCommentMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/comment/`,
+      url: `http://13.209.70.209/comment/${dogPostId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -65,7 +66,7 @@ const getCommentMD = (dogPostId) => {
       },
     })
       .then((res) => {
-        const commentList = res.data;
+        const commentList = res.data.comment;
         console.log("댓글 get", commentList);
         dispatch(getComment(commentList));
       })
@@ -75,17 +76,17 @@ const getCommentMD = (dogPostId) => {
   };
 };
 
-const editCommentMD = () => {
+const editCommentMD = (dogPostId, commentId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://localhost:4000/comment/`,
+      url: `http://13.209.70.209/comment/${dogPostId}/${commentId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -98,22 +99,22 @@ const editCommentMD = () => {
   };
 };
 
-const deleteCommentMD = (id) => {
+const deleteCommentMD = (dogPostId, commentId) => {
   return function (dispatch, getState, { history }) {
-    console.log(id);
+    // console.log(id);
     axios({
       method: "DELETE",
-      url: `http://localhost:4000/comment/${id}`,
+      url: `http://13.209.70.209/comment/${dogPostId}/${commentId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("token")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        // dispatch(deleteComment(commentId));
+        dispatch(deleteComment(commentId));
         console.log("댓글 삭제 성공", res);
       })
       .catch((err) => {
@@ -140,7 +141,7 @@ export default handleActions(
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.commentList = draft.commentList.filter(
-          (comment) => comment.id !== action.payload.commentId
+          (comment) => comment.commentId !== action.payload.commentList          
         );
       }),
   },

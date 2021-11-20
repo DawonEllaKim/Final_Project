@@ -19,6 +19,16 @@ const DogStaMain = (props) => {
   const history = useHistory();
 
   const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램의 모든 게시물 리스트
+  console.log(postList);
+
+  // const postLike = useSelector((state) => state.dogsta);
+  // console.log(postLike);
+  // const likeList = useSelector((state) => state.dogsta).likeList;
+  // console.log(likeList);
+
+  // const liked = postList.filter(like, index) =>{
+  //   return like.
+  // }
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
@@ -37,6 +47,7 @@ const DogStaMain = (props) => {
     setStatus("newest");
     setFocus("newest");
     dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
+    // dispatch(dogstaActions.getLikePostMD());
   }, []);
 
   return (
@@ -65,14 +76,6 @@ const DogStaMain = (props) => {
             추천
           </button>
         </Category>
-
-        <AddBtn
-          onClick={() => {
-            history.push("/dogStaWrite");
-          }}
-        >
-          게시물 추가하기
-        </AddBtn>
       </Head>
 
       {/* 게시물 목록 - 최신순, 추천순*/}
@@ -124,6 +127,10 @@ const DogStaMain = (props) => {
                         <img src={post.userImage} />
                         <span>{post.userNickname}</span>
                       </WriterInfo>
+                      <LikeInfo>
+                        <span>like</span> 
+                        {post.count}
+                      </LikeInfo>
                     </PostInfo>
                   </Card>
                 );
@@ -142,12 +149,14 @@ const DogStaMain = (props) => {
 };
 
 const Wrap = styled.div`
+  border: 1px solid blue;
+  box-sizing: border-box;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  padding: 0 20px;
   margin: auto;
   margin-bottom: 150px;
 `;
@@ -193,6 +202,8 @@ const Head = styled.div`
 //   width: 110px;
 // `;
 const Category = styled.div`
+  border: 1px solid red;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -205,14 +216,8 @@ const Category = styled.div`
     background-color: transparent;
     border: none;
     text-align: center;
+    cursor: pointer;
   }
-`;
-const AddBtn = styled.button`
-  border: none;
-  background-color: #fff;
-  width: 100px;
-  cursor: pointer;
-  font-size: 14px;
 `;
 const Body = styled.div`
   display: flex;
@@ -221,9 +226,12 @@ const Body = styled.div`
   align-items: center;
 `;
 const Posts = styled.div`
+  border: 1px solid red;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 168px 168px;
-  gap: 20px 20px;
+  grid-template-columns: 48% 48%;
+  row-gap: 20px;
+  justify-content: space-between;
   width: 100%;
   cursor: pointer;
   img {
@@ -232,13 +240,10 @@ const Posts = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
   }
 `;
 const Card = styled.div`
-  border-radius: 20px;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
   padding-bottom: 10px;
 `;
 const PostInfo = styled.div`
@@ -247,7 +252,7 @@ const PostInfo = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 3px 7px;
-  margin: 4px;
+  /* margin: 4px; */
   p {
     margin-bottom: 20px;
   }
@@ -268,5 +273,6 @@ const WriterInfo = styled.div`
     margin-right: 45px;
   }
 `;
+const LikeInfo = styled.div``;
 
 export default DogStaMain;

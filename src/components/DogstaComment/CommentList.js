@@ -11,22 +11,26 @@ const CommentList = ({ comment }) => {
   console.log("댓글 작성한 포스트 id", dogPostId);
   const userId = localStorage.getItem("userId");
   console.log("로그인한 유저 id", userId);
-  const commentId = comment.id;
+  const commentId = comment.commentId;
   console.log("댓글 id", commentId);
 
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
-  // const time = comment.createdAt;
+  const time = comment.AGOTIME;
 
   const commentList = useSelector((state) => state.comment.commentList);
   console.log(commentList);
 
+  const editComment = () =>{
+    
+  }
+
   const delComment = () => {
-    dispatch(commentActions.deleteCommentMD(commentId));
+    dispatch(commentActions.deleteCommentMD(dogPostId,commentId));
   };
 
   useEffect(() => {
-    dispatch(commentActions.getCommentMD());
+    // dispatch(commentActions.getCommentMD( dogPostId));
   }, []);
 
   return (
@@ -35,14 +39,14 @@ const CommentList = ({ comment }) => {
         <TextWrap>
           <User>{userNickname}</User>
           <Desc>{desc}</Desc>
-          {/* <Time>{time}</Time> */}
-          <Comment>댓글 달기</Comment>
+          <Time>{time}</Time>
+          {/* <Comment>댓글 달기</Comment> */}
         </TextWrap>
 
         {/* 댓글 작성한 본인만 수정/삭제 가능 */}
         {comment.userId == userId ? (
           <BtnWrap>
-            <Edit>수정</Edit>
+            <Edit onClick={editComment}>수정</Edit>
             <Delete onClick={delComment}>삭제</Delete>
           </BtnWrap>
         ) : null}

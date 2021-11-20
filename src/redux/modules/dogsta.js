@@ -4,7 +4,8 @@ import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
 
-const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든 게시물 불러오기
+const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
+const GET_LIKE_POST = 'GET_LIKE_POST'; // 개스타그램 좋아요순 게시물 불러오기
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
 const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오기
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
@@ -15,11 +16,13 @@ const GET_LIKES = "GET_LIKES"; // 해당 게시물 좋아요 불러오기
 const GET_MY_LIKE = "GET_MY_LIKE"; // 내가 좋아요 눌렀는지 여부
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
+const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({mainLikeList}))
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
-const addPost = createAction(ADD_POST, (post) => ({ post }));
+const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
+
 // 좋아요
 const toggleLike = createAction(TOGGLE_LIKE, (liked) => ({ liked }));
 const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
@@ -27,10 +30,12 @@ const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 
 const initialState = {
   mainList: [],
+  mainLikeList:[],
   myList: [],
   eachList: [],
   likeCnt: [],
   likeExist: false,
+  likeList:[]
 };
 
 const getAllPostMD = () => {
@@ -48,6 +53,25 @@ const getAllPostMD = () => {
       })
       .catch((err) => {
         console.log("개스타그램 모든 게시물 GET 에러", err);
+      });
+  };
+};
+
+const getLikePostMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "http://13.209.70.209/dogsta/likeFilter",
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getAllPost(postList));
+        console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
+      })
+      .catch((err) => {
+        console.log("개스타그램 좋아요순 게시물 GET 에러", err);
       });
   };
 };
@@ -98,14 +122,16 @@ const addPostMD = (formData) => {
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
+        dispatch(addPost(formData));
         console.log("개스타그램 게시물 POST 성공", res);
-        history.back();
+        history.push('/dogStaMain');
       })
       .catch((err) => {
         console.log("개스타그램 게시물 POST 에러", err);
@@ -281,11 +307,16 @@ const getMyLikeMD = (dogPostId) => {
   };
 };
 
+
 export default handleActions(
   {
     [GET_ALL_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainList = action.payload.mainList;
+      }),
+    [GET_LIKE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainLikeList = action.payload.mainLikeList;
       }),
     [GET_DOGPOST]: (state, action) =>
       produce(state, (draft) => {
@@ -322,13 +353,14 @@ export default handleActions(
     [GET_MY_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.likeExist = action.payload.likeExist;
-      }),
+      })
   },
   initialState
 );
 
 const actionCreators = {
   getAllPost,
+  getLikePost,
   getDogPost,
   getMyPost,
   addPost,
@@ -339,6 +371,7 @@ const actionCreators = {
   getMyLike,
 
   getAllPostMD,
+  getLikePostMD,
   getPostMD,
   getMyPostMD,
   addPostMD,
