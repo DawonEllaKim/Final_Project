@@ -55,7 +55,7 @@ const Main = (props) => {
   const postList = postList1.slice(0, 4);
   const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
-  console.log(postList);
+  console.log(dogStaPostList);
   const userId = localStorage.getItem("userId");
 
   const [page, setPage] = useState();
@@ -212,19 +212,20 @@ const Main = (props) => {
         <TEST>
           <Part>
             <img src={image} />
-            <p>
+            <CardTextHere>
               <Number>{length}</Number>
               <CardText>
-                <span>{dogName}와 함께 산책하기</span>
+                <p>{dogName}와 함께 산책하기</p>
                 <span>
-                  {time}
-                  {location}
+                  2021/11/10 12시 30분
+                  {/* {time}
+                  {location} */}
                 </span>
               </CardText>
-            </p>
+            </CardTextHere>
           </Part>
 
-          <div>
+          <SubLists>
             {postList.map((post, index) => {
               const dogImage = post.dogImage;
               const hover = () => {
@@ -250,20 +251,11 @@ const Main = (props) => {
                 </AAA>
               );
             })}
-          </div>
+          </SubLists>
         </TEST>
-        {/*
-        <div>
-          {postList.map((post, index) => {
-            return (
-              <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                <Card post={post} key={index} />
-              </div>
-            );
-          })}
-        </div> */}
       </Body>
-      {/* <NavBar /> */}
+
+      <NavBar />
     </Wrap>
   );
 };
@@ -278,9 +270,6 @@ const Wrap = styled.div`
 
   /* text-align: center; */
   position: relative;
-  border: 1px solid red;
-
-  background-color: #c4c4c4;
 `;
 const Both = styled.div`
   /* position: relative; */
@@ -299,9 +288,8 @@ const StyledSlider = styled(Slider)`
   width: 100%;
   aspect-ratio: 4 / 2;
   border-radius: 14px;
-  border: 1px solid blue;
 
-  /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25); */
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const Img = styled.img`
   width: 100%;
@@ -310,10 +298,18 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
+const TEST = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
 const Part = styled.div`
   width: 100%;
-  /* height: 100%; */
-
+  height: 100%;
+  margin-bottom: 17px;
   background-color: #000;
   border-radius: 14px;
   cursor: pointer;
@@ -326,66 +322,58 @@ const Part = styled.div`
     border-radius: 14px;
     opacity: 0.6;
   }
-
-  p {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 100%;
-    aspect-ratio: 4 / 2.5;
-    color: white;
-    font-size: 30px;
-  }
 `;
+const CardTextHere = styled.div``;
 const Number = styled.span`
   position: absolute;
   top: 14px;
   left: 14px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 68px;
   height: 27px;
-  border: 1px solid red;
   background-color: #fff;
   color: #000;
   /* opacity: 0.6; */
 
   border-radius: 14px;
   font-size: 14px;
-  line-height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 const CardText = styled.div`
-  width: 100%;
   position: absolute;
   bottom: 0;
-  border: 1px solid black;
+  left: 0;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  span {
-    border: 1px solid blue;
-    width: 100%;
+  width: 100%;
+  margin-bottom: 16px;
 
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 29px;
-    display: flex;
-    align-items: center;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 29px;
+  color: #fff;
+
+  span {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20.27px;
   }
 `;
+const SubLists = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Image = styled.img`
   width: 100%;
   border-radius: 5px;
@@ -393,22 +381,6 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const TEST = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  /* aspect-ratio: 4 / 3; */
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-`;
 const AAA = styled.div`
   width: 23%;
   aspect-ratio: 1 / 1;
@@ -465,8 +437,6 @@ const DogSta = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: 28px 0;
-  border-top: 1px solid #c4c4c4;
-  border: 1px solid red;
 `;
 const Header = styled.div`
   display: flex;
@@ -475,7 +445,6 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 31px;
-  border: 1px solid blue;
 `;
 const Text = styled.p`
   font-size: 16px;
@@ -492,7 +461,6 @@ const MoreBtn = styled.button`
 `;
 
 const DogstaSlide = styled(Slider)`
-  border: 1px solid purple;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -503,10 +471,10 @@ const DogstaSlide = styled(Slider)`
   /* height: 80px; */
   text-align: center;
   cursor: pointer;
-  /* .slick-prev:before,
+  .slick-prev:before,
   .slick-next:before {
     color: gray;
-  } */
+  }
   div {
     width: 100%;
   }
@@ -518,7 +486,6 @@ const Body = styled.div`
   align-items: center;
   box-sizing: border-box;
   /* margin: 28px 0; */
-  border-top: 1px solid #c4c4c4;
 `;
 
 export default Main;

@@ -11,7 +11,7 @@ function MainDogsta({ post }) {
     >
       <Dogsta src={post.dogPostImage} />
 
-      <p>{post.dogPostId}</p>
+      <p>{post.dogName}</p>
     </Wrap>
   );
 }
@@ -23,7 +23,6 @@ const Wrap = styled.div`
   justify-content: center;
   align-content: center;
   p {
-    border: 1px solid green;
     margin-right: 10px;
 
     font-size: 12px;
