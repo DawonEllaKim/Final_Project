@@ -55,7 +55,7 @@ const Main = (props) => {
   const postList = postList1.slice(0, 4);
   const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
-  console.log(dogStaPostList);
+
   const userId = localStorage.getItem("userId");
 
   const [page, setPage] = useState();
@@ -211,9 +211,11 @@ const Main = (props) => {
 
         <TEST>
           <Part>
-            <img src={image} />
+            <PartImg src={image} />
+
             <CardTextHere>
               <Number>{length}</Number>
+
               <CardText>
                 <p>{dogName}와 함께 산책하기</p>
                 <span>
@@ -314,14 +316,13 @@ const Part = styled.div`
   border-radius: 14px;
   cursor: pointer;
   position: relative;
-
-  img {
-    width: 100%;
-    aspect-ratio: 4 / 2.5;
-    object-fit: cover;
-    border-radius: 14px;
-    opacity: 0.6;
-  }
+`;
+const PartImg = styled.img`
+  width: 100%;
+  aspect-ratio: 4 / 2.5;
+  object-fit: cover;
+  border-radius: 14px;
+  opacity: 0.6;
 `;
 const CardTextHere = styled.div``;
 const Number = styled.span`

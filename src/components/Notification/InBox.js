@@ -15,6 +15,7 @@ const InBox = ({ box }) => {
   const senderNickname = box.senderNickname; // 쪽지 보낸 사람의 닉네임
   const message = box.message; // 받은 쪽지의 내용
   const time = box.createdAt; // 쪽지 받은 시간
+  console.log(box);
 
   const deleteBtn = () => {
     const receiverId = box.receiverId;
