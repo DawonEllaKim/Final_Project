@@ -4,25 +4,41 @@ import { history } from "../redux/configureStore";
 
 function MainDogsta({ post }) {
   return (
-    <div>
-      <Dogsta
-        onClick={() =>
-          history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
-        }
-        style={{ cursor: "pointer" }}
-        src={post.dogPostImage}
-      ></Dogsta>
-    </div>
+    <Wrap
+      onClick={() =>
+        history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
+      }
+    >
+      <Dogsta src={post.dogPostImage} />
+
+      <p>{post.dogPostId}</p>
+    </Wrap>
   );
 }
 
+const Wrap = styled.div`
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  p {
+    border: 1px solid green;
+    margin-right: 10px;
+
+    font-size: 12px;
+  }
+`;
+
 const Dogsta = styled.img`
-  width: 80px;
-  height: 80px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   object-fit: cover;
-  /* margin: 0 20px; */
+  cursor: pointer;
+  background-color: pink;
+  margin-bottom: 14px;
 `;
 
 export default MainDogsta;

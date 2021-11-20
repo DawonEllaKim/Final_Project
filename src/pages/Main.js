@@ -7,6 +7,7 @@ import Weather from "../components/Weather";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
+import notification from "../image/Notification.png";
 
 // 컴포넌츠
 import Card from "../components/Card";
@@ -20,6 +21,7 @@ import NavBar from "../components/NavBar";
 
 // 상단바
 import TopBar from "../components/TopBar";
+import Button from "../elements/Button";
 
 // 리액트 아이콘
 import { AiOutlineFilter } from "react-icons/ai";
@@ -30,7 +32,8 @@ import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // �
 import logo from "../image/loginLogo.png";
 import login from "../image/login.png";
 import loginText from "../image/loginText.png";
-import Hangang from "../image/Hangang.png";
+import Hangang from "../image/Hangang.jpeg";
+import MainPageLogo from "../image/MainPageLogo.png";
 
 // 슬라이드
 import "slick-carousel/slick/slick.css";
@@ -48,11 +51,18 @@ import { FaBullseye } from "react-icons/fa";
 const Main = (props) => {
   const dispatch = useDispatch();
   const postList1 = useSelector((state) => state.post.main);
+  const length = postList1.length;
   const postList = postList1.slice(0, 4);
-  console.log(postList);
   const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
-  // console.log(dogStaPostList);
+  console.log(postList);
+  const userId = localStorage.getItem("userId");
+
+  const [page, setPage] = useState();
+  const [location, setLocation] = useState("");
+  const [image, setImage] = useState(Hangang);
+  const [dogName, setDogName] = useState();
+  const [time, setTime] = useState();
 
   // 스피너
   const is_loading = useSelector((state) => state.sign.is_loading);
@@ -73,31 +83,12 @@ const Main = (props) => {
     dots: false,
     infinite: true,
     speed: 1000,
-    slidesToShow: 3.5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 1000,
     pauseOnHover: true,
   };
-
-  const userId = localStorage.getItem("userId");
-
-  // 사이드 바
-  const sideBarRef = useRef();
-  const [sideBar, setSideBar] = useState(false);
-  const [page, setPage] = useState();
-
-  const showSideBar = () => {
-    setSideBar(!sideBar);
-  };
-
-  const closeSideBar = (e) => {
-    if (sideBarRef.current === e.target) {
-      setSideBar(false);
-    }
-  };
-  const [location, setLocation] = useState("");
-  const [image, setImage] = useState(Hangang);
 
   // 게시물 불러오기
   useEffect(() => {
@@ -113,10 +104,18 @@ const Main = (props) => {
   }
 
   return (
-    <Wrap ref={sideBarRef} onClick={closeSideBar}>
-      <TopBar> 산책할개 </TopBar>
-
-      {/* 일러스트 슬라이드 */}
+    <Wrap>
+      <Both>
+        <img src={MainPageLogo} style={{ height: "22px" }} />
+        <img
+          position="absolute"
+          top="0"
+          right="0"
+          src={notification}
+          style={{ width: "24px", height: "24px" }}
+          onClick={() => history.push("/notification")}
+        />
+      </Both>
 
       {!userId ? (
         <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
@@ -130,7 +129,7 @@ const Main = (props) => {
         </StyledSlider>
       ) : (
         <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-          <Weather />
+          {/* <Weather /> */}
           <div
             onClick={() => {
               history.push("/caution1");
@@ -155,54 +154,22 @@ const Main = (props) => {
         </StyledSlider>
       )}
 
-      {/* 사이드 바*/}
-      {/* <SideWrap> */}
-      {/* 햄버거 메뉴 누르면 열리는 사이드 바 */}
-      {/* <SideBarNav sideBar={sideBar}>
-          <BarWrap>
-            <Filter onClick={showSideBar}>
-              <AiOutlineFilter
-                style={{ width: "23px", height: "23px", marginRight: "10px" }}
-              />
-              <p>Filter</p>
-              <button>초기화</button>
-            </Filter>
-
-            <SubMenuWrap>
-              <DogSize />
-              <DogGender />
-              <DogAge />
-              <LocationCategory />
-            </SubMenuWrap>
-          </BarWrap>
-        </SideBarNav>
-      </SideWrap> */}
-
       {/* 개스타그램 모음 */}
-      <Body>
-        <Text>오늘의 개스타</Text>
-        <DogstaSlide {...bottomSettings} style={{ cursor: "pointer" }}>
+      <DogSta>
+        <Header>
+          <Text>오늘의 개스타</Text>
+          <MoreBtn>더보기</MoreBtn>
+        </Header>
+
+        <DogstaSlide {...bottomSettings}>
           {dogStaPostList.map((post, index) => {
-            return (
-              <div onClick={() => history.push()}>
-                <MainDogsta post={post} key={index} />
-              </div>
-            );
+            return <MainDogsta post={post} key={index} />;
           })}
         </DogstaSlide>
-      </Body>
+      </DogSta>
 
+      {/*
       <div>
-        <button
-          onFocus={() => {
-            setPage("olympic");
-          }}
-          onClick={() => {
-            history.push(`/alllist/${page}`);
-          }}
-        >
-          올림픽
-        </button>
         <button
           onFocus={() => {
             setPage("seoul");
@@ -223,18 +190,37 @@ const Main = (props) => {
         >
           반포
         </button>
-      </div>
+      </div> */}
 
       {/* 각 게시물에 대한 카드들 */}
       <Body>
-        <Text>올림픽 공원</Text>
+        {/* 올림픽 공원 게시물 */}
+        <Header>
+          <Text>올림픽 공원</Text>
+          <MoreBtn
+            onFocus={() => {
+              setPage("olympic");
+            }}
+            onClick={() => {
+              history.push(`/alllist/${page}`);
+            }}
+          >
+            더보기
+          </MoreBtn>
+        </Header>
 
         <TEST>
           <Part>
             <img src={image} />
             <p>
-              {location} <br />
-              {location}에서 산책하기
+              <Number>{length}</Number>
+              <CardText>
+                <span>{dogName}와 함께 산책하기</span>
+                <span>
+                  {time}
+                  {location}
+                </span>
+              </CardText>
             </p>
           </Part>
 
@@ -242,6 +228,8 @@ const Main = (props) => {
             {postList.map((post, index) => {
               const dogImage = post.dogImage;
               const hover = () => {
+                setDogName(post.dogName);
+                setTime(post.meetingDate);
                 setLocation(post.locationCategory);
                 setImage(post.dogImage);
               };
@@ -275,32 +263,127 @@ const Main = (props) => {
           })}
         </div> */}
       </Body>
-      <NavBar />
+      {/* <NavBar /> */}
     </Wrap>
   );
 };
 
+const Wrap = styled.div`
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  /* text-align: center; */
+  position: relative;
+  border: 1px solid red;
+
+  background-color: #c4c4c4;
+`;
+const Both = styled.div`
+  /* position: relative; */
+  background-color: #fff;
+  width: 100%;
+  height: 52px;
+  box-sizing: border-box;
+  line-height: 52px;
+`;
+
+const StyledSlider = styled(Slider)`
+  /* .slick-slide div { */
+  /* outline: none; */
+  /* } */
+  box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 4 / 2;
+  border-radius: 14px;
+  border: 1px solid blue;
+
+  /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25); */
+`;
+const Img = styled.img`
+  width: 100%;
+  aspect-ratio: 4 / 2;
+  border-radius: 14px;
+  object-fit: cover;
+`;
+
 const Part = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+
   background-color: #000;
   border-radius: 14px;
   cursor: pointer;
+  position: relative;
 
   img {
     width: 100%;
-    aspect-ratio: 4 / 2;
+    aspect-ratio: 4 / 2.5;
     object-fit: cover;
     border-radius: 14px;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   p {
-    width: 100%;
-    aspect-ratio: 4 / 2;
     position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    aspect-ratio: 4 / 2.5;
     color: white;
     font-size: 30px;
+  }
+`;
+const Number = styled.span`
+  position: absolute;
+  top: 14px;
+  left: 14px;
+
+  width: 68px;
+  height: 27px;
+  border: 1px solid red;
+  background-color: #fff;
+  color: #000;
+  /* opacity: 0.6; */
+
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const CardText = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    border: 1px solid blue;
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
   }
 `;
 const Image = styled.img`
@@ -317,8 +400,7 @@ const TEST = styled.div`
   align-items: center;
 
   width: 100%;
-  aspect-ratio: 4 / 3;
-  /* border: 1px solid red; */
+  /* aspect-ratio: 4 / 3; */
 
   div {
     display: flex;
@@ -333,30 +415,10 @@ const AAA = styled.div`
   object-fit: cover;
   cursor: pointer;
 `;
-const Wrap = styled.div`
-  text-align: center;
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-  /* padding: 0 20px 60px 20px; */
-  box-sizing: border-box;
-`;
 
-const StyledSlider = styled(Slider)`
-  .slick-slide div {
-    outline: none;
-  }
-
-  width: 350px;
-  height: 172px;
-  margin-bottom: 12px;
-  border-radius: 25px;
-  box-sizing: border-box;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-`;
 const LoginImg = styled.div`
   position: relative;
-  width: 350px;
+  width: 100%;
   height: 172px;
   border-radius: 25px;
   cursor: pointer;
@@ -383,14 +445,6 @@ const LoginText = styled.img`
   object-fit: cover;
 `;
 
-const Img = styled.img`
-  width: 350px;
-  height: 172px;
-  background-size: cover;
-  border-radius: 25px;
-  object-fit: cover;
-`;
-
 const Slide = styled.div`
   width: 350px;
   height: 220px;
@@ -403,73 +457,60 @@ const SideWrap = styled.div`
   height: 100%;
   overflow: auto;
 `;
-const SideBarNav = styled.div`
-  position: fixed;
-  top: 0;
-  left: ${({ sideBar }) => (sideBar ? "0" : "-100%")};
+
+const DogSta = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  transition: 350ms;
-  z-index: 10;
-`;
-const BarWrap = styled.div`
-  background-color: #c4c4c4;
-  width: 308px;
-  height: 100%;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-top: 44px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-const Filter = styled.div`
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
+  margin: 28px 0;
+  border-top: 1px solid #c4c4c4;
+  border: 1px solid red;
+`;
+const Header = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 82px;
-  padding-left: 26.26px;
-  font-size: 18px;
-  font-weight: 400;
-  text-decoration: none;
-  cursor: pointer;
-  p {
-    font-size: 18px;
-    margin-right: 130px;
-  }
-  button {
-    border: none;
-    background-color: transparent;
-    font-size: 18px;
-  }
+  margin-bottom: 31px;
+  border: 1px solid blue;
 `;
-const SubMenuWrap = styled.div`
-  width: 100%;
+const Text = styled.p`
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23px;
+`;
+const MoreBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  line-height: 20px;
+  font-size: 14px;
+  opacity: 0.6;
+  cursor: pointer;
 `;
 
 const DogstaSlide = styled(Slider)`
+  border: 1px solid purple;
   display: flex;
-  justify-content: left;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   /* gap: 20px; */
-  width: 320px;
-  height: 80px;
-  .slick-prev:before,
+  width: 100%;
+  margin-bottom: 32px;
+  /* height: 80px; */
+  text-align: center;
+  cursor: pointer;
+  /* .slick-prev:before,
   .slick-next:before {
     color: gray;
-  }
+  } */
   div {
     width: 100%;
   }
 `;
-
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -478,13 +519,6 @@ const Body = styled.div`
   box-sizing: border-box;
   /* margin: 28px 0; */
   border-top: 1px solid #c4c4c4;
-`;
-const Text = styled.p`
-  width: 152px;
-  height: 16px;
-  margin: 12px 0 24px 0;
-  font-size: 16px;
-  font-weight: 700;
 `;
 
 export default Main;
