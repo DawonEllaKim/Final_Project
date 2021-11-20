@@ -26,7 +26,7 @@ const CommentList = ({ comment }) => {
   };
 
   useEffect(() => {
-    dispatch(commentActions.getCommentMD());
+    // dispatch(commentActions.getCommentMD(userId, dogPostId));
   }, []);
 
   return (
