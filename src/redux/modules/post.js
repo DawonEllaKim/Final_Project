@@ -112,16 +112,17 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        localStorage.setItem("date", res.data.posts[0].meetingDate);
-        localStorage.setItem("dogCount", res.data.posts[0].dogCount);
-        const initialDate = res.data.posts[0].meetingDate.split("T")[0];
+        console.log(res.data)
+        localStorage.setItem("date", res.data.posts.meetingDate);
+        localStorage.setItem("dogCount", res.data.posts.dogCount);
+        const initialDate = res.data.posts.meetingDate.split("T")[0];
         const year = initialDate.split("-")[0];
         const month = initialDate.split("-")[1];
         const day = initialDate.split("-")[2];
-        const initialTime = res.data.posts[0].meetingDate.split("T")[1];
+        const initialTime = res.data.posts.meetingDate.split("T")[1];
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];
-        res.data.posts[0].meetingDate =
+        res.data.posts.meetingDate =
           year +
           "년 " +
           month +
@@ -134,58 +135,58 @@ const getPostMD = (postId) => {
           "분";
 
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list1;
+          res.data.posts.walk = list1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list2;
+          res.data.posts.walk = list2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "올림픽공원"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "올림픽공원"
         )
-          res.data.posts[0].walk = list3;
+          res.data.posts.walk = list3;
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul1;
+          res.data.posts.walk = seoul1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul2;
+          res.data.posts.walk = seoul2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "서울숲"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "서울숲"
         )
-          res.data.posts[0].walk = seoul3;
+          res.data.posts.walk = seoul3;
         if (
-          res.data.posts[0].routeName == "산책로A" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로A" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang1;
+          res.data.posts.walk = hangang1;
         if (
-          res.data.posts[0].routeName == "산책로B" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로B" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang2;
+          res.data.posts.walk = hangang2;
         if (
-          res.data.posts[0].routeName == "산책로C" &&
-          res.data.posts[0].locationCategory == "반포한강공원"
+          res.data.posts.routeName == "산책로C" &&
+          res.data.posts.locationCategory == "반포한강공원"
         )
-          res.data.posts[0].walk = hangang3;
+          res.data.posts.walk = hangang3;
 
-        if (res.data.posts[0].locationCategory == "올림픽공원")
-          res.data.posts[0].start = olympic;
-        if (res.data.posts[0].locationCategory == "서울숲")
-          res.data.posts[0].start = seoul;
-        if (res.data.posts[0].locationCategory == "반포한강공원")
-          res.data.posts[0].start = hangang[0];
-        const postList = res.data.posts[0];
+        if (res.data.posts.locationCategory == "올림픽공원")
+          res.data.posts.start = olympic;
+        if (res.data.posts.locationCategory == "서울숲")
+          res.data.posts.start = seoul;
+        if (res.data.posts.locationCategory == "반포한강공원")
+          res.data.posts.start = hangang[0];
+        const postList = res.data.posts;
         console.log(res.data);
         dispatch(getPost(postList));
 

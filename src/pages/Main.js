@@ -51,6 +51,13 @@ const Main = (props) => {
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
   // console.log(dogStaPostList);
 
+
+  //소켓
+  const userId = localStorage.getItem("userId");
+  
+
+
+
   // 스피너
   const is_loading = useSelector((state) => state.sign.is_loading);
 
@@ -77,7 +84,7 @@ const Main = (props) => {
     pauseOnHover: true,
   };
 
-  const userId = localStorage.getItem("userId");
+  
   console.log(userId);
 
   // 사이드 바
