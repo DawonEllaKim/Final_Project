@@ -1,14 +1,44 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
 import backward from "../image/backward.png";
-import notification from "../image/Notification.png";
+import notification1 from "../image/Notification.png";
+
+import {io} from "socket.io-client";
+
 
 const TopBar = (props) => {
   const { text, children, padding, only_left, only_right } = props;
 
   const styles = { padding };
+
+  const userId = localStorage.getItem("userId");
+
+  const [socket, setSocket] = useState(null)
+  const [notification, setNotification] = useState([]);
+  useEffect(() => {
+    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+  }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+    console.log(userId)
+  }, []);
+  useEffect(() => {
+    socket?.on("getNotification", (data)=>{
+     setNotification(((prev)=>[...prev,data]))
+
+    });
+
+   
+  
+  }, [socket]);
+  let arr = localStorage.getItem("noti")
+  let noti= JSON.parse(arr)
+  useEffect(()=>{  
+    localStorage.setItem("noti",JSON.stringify(notification))
+    arr= localStorage.getItem("noti")
+  },[notification,noti])
 
   if (only_left) {
     return (
@@ -68,6 +98,7 @@ const TopBar = (props) => {
         {text ? text : children}
         <BtnRight onClick={() => history.push("/notification")}>
           <img
+
             src={notification}
             style={{
               width: "24px",
@@ -75,6 +106,7 @@ const TopBar = (props) => {
             }}
           />
         </BtnRight>
+
       </Both>
     </div>
   );
@@ -86,7 +118,27 @@ TopBar.defaultProps = {
   only_left: false,
   only_right: false,
 };
+const Edit = styled.div`
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  cursor: pointer;
 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: red;
+
+
+`;
 const Left = styled.div`
   position: relative;
   width: 100%;

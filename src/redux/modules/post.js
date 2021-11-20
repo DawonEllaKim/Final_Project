@@ -11,26 +11,23 @@ import {
   hangang3,
 } from "../../components/MarkerList/HangangList";
 import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
+
 // action
 //메인 페이지 GET 요청
-const GET_ALL = "GET_ALL"; // 모든 게시물 조회
-const GET_OLYMPIC = "GET_OLYMPIC"; // 모든 게시물 조회
-const GET_SEOUL = "GET_SEOUL"; // 모든 게시물 조회
-const GET_BANPO = "GET_BANPO"; // 모든 게시물 조회
+const GET_MAIN = "GET_MAIN"; // 모든 게시물 조회
 const GET_POST = "GET_POST"; // 특정 게시물 조회
 const GET_MY_POST = "GET_MY_POST"; // 내 게시물 조회
+
 const GET_MAP = "GET_MAP";
 //산책 페이지 GET,POST,FETCH,DELETE
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
+
 // action creators
 //메인 페이지 GET 요청
-const getAll = createAction(GET_ALL, (main) => ({ main }));
-const getOlympic = createAction(GET_OLYMPIC, (olympic) => ({ olympic }));
-const getSeoul = createAction(GET_SEOUL, (seoul) => ({ seoul }));
-const getBanpo = createAction(GET_BANPO, (banpo) => ({ banpo }));
+const getMain = createAction(GET_MAIN, (main) => ({ main }));
 const getMap = createAction(GET_MAP, (map) => ({ map }));
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
@@ -43,9 +40,6 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const initialState = {
   //메인 요청
   main: [],
-  olympic: [],
-  seoul: [],
-  banpo: [],
   map: [],
   //산책 요청
   list: [],
@@ -75,9 +69,10 @@ const initialState = {
   ],
   is_loading: true,
 };
+
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
 //dog_name,meeting_date
-const getAllMD = () => {
+const getMainMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -92,94 +87,13 @@ const getAllMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        dispatch(getAll(postList));
+        dispatch(getMain(postList));
         dispatch(loading(false));
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
         console.log(err);
         // console.log("정보 불러오기 실패");
-      });
-  };
-};
-
-const getOlympicMD = () => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: "http://13.209.70.209/posts/olympicPark",
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
-      },
-    })
-      .then((res) => {
-        const postList = res.data.posts;
-        console.log(postList);
-        dispatch(getOlympic(postList));
-        dispatch(loading(false));
-        console.log("getOlympicMD 정보 불러오기 완료");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
-      });
-  };
-};
-
-const getSeoulMD = () => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: "http://13.209.70.209/posts/seoulForest",
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
-      },
-    })
-      .then((res) => {
-        const postList = res.data.posts;
-        console.log(postList);
-        dispatch(getSeoul(postList));
-        dispatch(loading(false));
-        console.log("getseoul 정보 불러오기 완료");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
-      });
-  };
-};
-
-const getBanpoMD = () => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "GET",
-      url: "http://13.209.70.209/posts/banpoPark",
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
-      },
-    })
-      .then((res) => {
-        const postList = res.data.posts;
-        console.log(postList);
-        dispatch(getBanpo(postList));
-        dispatch(loading(false));
-        console.log("getOlympicMD 정보 불러오기 완료");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("정보 불러오기 실패");
       });
   };
 };
@@ -198,7 +112,7 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data)
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
         const initialDate = res.data.posts.meetingDate.split("T")[0];
@@ -219,6 +133,7 @@ const getPostMD = (postId) => {
           "시 " +
           minute +
           "분";
+
         if (
           res.data.posts.routeName == "산책로A" &&
           res.data.posts.locationCategory == "올림픽공원"
@@ -264,6 +179,7 @@ const getPostMD = (postId) => {
           res.data.posts.locationCategory == "반포한강공원"
         )
           res.data.posts.walk = hangang3;
+
         if (res.data.posts.locationCategory == "올림픽공원")
           res.data.posts.start = olympic;
         if (res.data.posts.locationCategory == "서울숲")
@@ -273,6 +189,7 @@ const getPostMD = (postId) => {
         const postList = res.data.posts;
         console.log(res.data);
         dispatch(getPost(postList));
+
         console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -281,6 +198,7 @@ const getPostMD = (postId) => {
       });
   };
 };
+
 const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -316,6 +234,7 @@ const getMyPostMD = (userId) => {
             "분";
         }
         const postList = res.data.posts;
+
         dispatch(getMyPost(postList));
         console.log("정보 불러오기 완료", postList);
       })
@@ -324,6 +243,7 @@ const getMyPostMD = (userId) => {
       });
   };
 };
+
 //산책 수정할 때 GET으로 읽을 데이터 가져올 미들웨어
 const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
@@ -361,6 +281,7 @@ const getMapMD = (postId) => {
           "분";
         res.data.posts.mapedit_date =
           year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+
         const postList = res.data.posts;
         console.log(postList);
         dispatch(getMap(postList));
@@ -373,6 +294,7 @@ const getMapMD = (postId) => {
       });
   };
 };
+
 const addPostMD = (post) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -387,12 +309,14 @@ const addPostMD = (post) => {
       });
   };
 };
+
 const updatePostMD = (postId, post) => {
   return function (dispatch, getState, { history }) {
     apis
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
+
         console.log("수정완료");
         window.alert("수정완료");
         dispatch(updatePost(post));
@@ -403,6 +327,7 @@ const updatePostMD = (postId, post) => {
       });
   };
 };
+
 const deletePostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     console.log(postId);
@@ -419,24 +344,13 @@ const deletePostMD = (postId) => {
       });
   };
 };
+
 // reducer
 export default handleActions(
   {
-    [GET_ALL]: (state, action) =>
+    [GET_MAIN]: (state, action) =>
       produce(state, (draft) => {
         draft.main = action.payload.main;
-      }),
-    [GET_OLYMPIC]: (state, action) =>
-      produce(state, (draft) => {
-        draft.olympic = action.payload.olympic;
-      }),
-    [GET_SEOUL]: (state, action) =>
-      produce(state, (draft) => {
-        draft.seoul = action.payload.seoul;
-      }),
-    [GET_BANPO]: (state, action) =>
-      produce(state, (draft) => {
-        draft.banpo = action.payload.banpo;
       }),
     [GET_MAP]: (state, action) =>
       produce(state, (draft) => {
@@ -472,26 +386,24 @@ export default handleActions(
   },
   initialState
 );
+
 const actionCreators = {
-  getAll,
-  getOlympic,
-  getSeoul,
-  getBanpo,
+  getMain,
   getPost,
   getMyPost,
   addPost,
   updatePost,
   deletePost,
 
-  getAllMD,
-  getOlympicMD,
-  getSeoulMD,
-  getBanpoMD,
+  getMainMD,
   getMyPostMD,
   getPostMD,
   addPostMD,
   deletePostMD,
   updatePostMD,
+
   getMapMD,
 };
+
 export { actionCreators };
+

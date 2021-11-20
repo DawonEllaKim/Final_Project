@@ -1,4 +1,5 @@
 import "./App.css";
+import React, {useEffect,useState} from 'react'
 import { Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
@@ -60,7 +61,39 @@ import ChatDetail from "./pages/Chat/ChatDetail";
 // import KakaoSignUp from "./pages/KakaoSignUp";
 // import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 
+//웹소켓 
+import {io} from "socket.io-client";
+
+
 function App() {
+ //socket
+  const userId = localStorage.getItem("userId");
+  const [socket, setSocket] = useState(null)
+  const [notification, setNotification] = useState([]);
+  useEffect(() => {
+    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+  }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+    console.log(userId)
+  }, []);
+  useEffect(() => {
+    socket?.on("getNotification", (data)=>{
+     setNotification(((prev)=>[...prev,data]))
+    
+    },[socket]);
+   
+  
+  }, [socket]);
+
+  useEffect(()=>{
+    localStorage.setItem("noti",JSON.stringify(notification))
+  },[notification])
+  console.log(notification)
+
+  
+   console.log(socket)
+  
   return (
     <div className="App">
       <GlobalStyle />
@@ -119,12 +152,13 @@ function App() {
         />
 
         {/* 알람 + 쪽지 */}
-        <PrivateRoute exact path="/notification" component={Notification} />
+        <Route exact path="/notification"  component={Notification} />
         <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />
         <PrivateRoute
           exact
           path="/chatwrite/:receiverId"
           component={ChatWrite}
+       
         />
 
         {/* 진행중... */}
