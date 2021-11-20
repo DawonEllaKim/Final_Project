@@ -56,13 +56,14 @@ const Main = (props) => {
   const userInfo = useSelector((state) => state.user.list);
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
 
-  const userId = localStorage.getItem("userId");
-
   const [page, setPage] = useState();
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(Hangang);
   const [dogName, setDogName] = useState();
   const [time, setTime] = useState();
+
+  //소켓
+  const userId = localStorage.getItem("userId");
 
   // 스피너
   const is_loading = useSelector((state) => state.sign.is_loading);
@@ -104,167 +105,160 @@ const Main = (props) => {
   }
 
   return (
-    <Wrap>
-      <Both>
-        <img src={MainPageLogo} style={{ height: "22px" }} />
-        <img
-          position="absolute"
-          top="0"
-          right="0"
-          src={notification}
-          style={{ width: "24px", height: "24px" }}
-          onClick={() => history.push("/notification")}
-        />
-      </Both>
+    <div>
+      <Wrap>
+        <TopBar only_right>
+          <img src={MainPageLogo} style={{ height: "30px" }} />
+        </TopBar>
 
-      {!userId ? (
-        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-          <div onClick={() => history.push("/login")}>
-            <LoginImg>
-              <Logo src={logo} />
-              <Login src={login} />
-              <LoginText src={loginText} />
-            </LoginImg>
-          </div>
-        </StyledSlider>
-      ) : (
-        <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-          {/* <Weather /> */}
-          <div
-            onClick={() => {
-              history.push("/caution1");
-            }}
-          >
-            <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-          </div>
-          <div
-            onClick={() => {
-              history.push("/caution2");
-            }}
-          >
-            <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-          </div>
-          <div
-            onClick={() => {
-              history.push("/caution3");
-            }}
-          >
-            <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-          </div>
-        </StyledSlider>
-      )}
+        {!userId ? (
+          <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+            <div onClick={() => history.push("/login")}>
+              <LoginImg>
+                <Logo src={logo} />
+                <Login src={login} />
+                <LoginText src={loginText} />
+              </LoginImg>
+            </div>
+          </StyledSlider>
+        ) : (
+          <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+            {/* <Weather /> */}
+            <div
+              onClick={() => {
+                history.push("/caution1");
+              }}
+            >
+              <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+            </div>
+            <div
+              onClick={() => {
+                history.push("/caution2");
+              }}
+            >
+              <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+            </div>
+            <div
+              onClick={() => {
+                history.push("/caution3");
+              }}
+            >
+              <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+            </div>
+          </StyledSlider>
+        )}
 
-      {/* 개스타그램 모음 */}
-      <DogSta>
-        <Header>
-          <Text>오늘의 개스타</Text>
-          <MoreBtn>더보기</MoreBtn>
-        </Header>
+        {/* 개스타그램 모음 */}
+        <DogSta>
+          <Header>
+            <Text>오늘의 개스타</Text>
+            <MoreBtn>더보기</MoreBtn>
+          </Header>
 
-        <DogstaSlide {...bottomSettings}>
-          {dogStaPostList.map((post, index) => {
-            return <MainDogsta post={post} key={index} />;
-          })}
-        </DogstaSlide>
-      </DogSta>
-
-      {/*
-      <div>
-        <button
-          onFocus={() => {
-            setPage("seoul");
-          }}
-          onClick={() => {
-            history.push(`/alllist/${page}`);
-          }}
-        >
-          서울
-        </button>
-        <button
-          onFocus={() => {
-            setPage("banpo");
-          }}
-          onClick={() => {
-            history.push(`/alllist/${page}`);
-          }}
-        >
-          반포
-        </button>
-      </div> */}
-
-      {/* 각 게시물에 대한 카드들 */}
-      <Body>
-        {/* 올림픽 공원 게시물 */}
-        <Header>
-          <Text>올림픽 공원</Text>
-          <MoreBtn
-            onFocus={() => {
-              setPage("olympic");
-            }}
-            onClick={() => {
-              history.push(`/alllist/${page}`);
-            }}
-          >
-            더보기
-          </MoreBtn>
-        </Header>
-
-        <TEST>
-          <Part>
-            <PartImg src={image} />
-
-            <CardTextHere>
-              <Number>{length}</Number>
-
-              <CardText>
-                <p>{dogName}와 함께 산책하기</p>
-                <span>
-                  2021/11/10 12시 30분
-                  {/* {time}
-                  {location} */}
-                </span>
-              </CardText>
-            </CardTextHere>
-          </Part>
-
-          <SubLists>
-            {postList.map((post, index) => {
-              const dogImage = post.dogImage;
-              const hover = () => {
-                setDogName(post.dogName);
-                setTime(post.meetingDate);
-                setLocation(post.locationCategory);
-                setImage(post.dogImage);
-              };
-              const hoverOut = () => {
-                setLocation("반포한강공원");
-                setImage(Hangang);
-              };
-
-              return (
-                <AAA
-                  onMouseEnter={hover}
-                  onMouseLeave={hoverOut}
-                  onClick={() => history.push(`/posts/${post.postId}`)}
-                >
-                  <MainCard post={post} key={index}>
-                    <Image src={dogImage} />
-                  </MainCard>
-                </AAA>
-              );
+          <DogstaSlide {...bottomSettings}>
+            {dogStaPostList.map((post, index) => {
+              return <MainDogsta post={post} key={index} />;
             })}
-          </SubLists>
-        </TEST>
-      </Body>
+          </DogstaSlide>
+        </DogSta>
 
+        {/*
+		<div>
+			<button
+				onFocus={() => {
+					setPage("seoul");
+				}}
+				onClick={() => {
+					history.push(`/alllist/${page}`);
+				}}
+			>
+				서울
+			</button>
+			<button
+				onFocus={() => {
+					setPage("banpo");
+				}}
+				onClick={() => {
+					history.push(`/alllist/${page}`);
+				}}
+			>
+				반포
+			</button>
+		</div> */}
+
+        {/* 각 게시물에 대한 카드들 */}
+        <Body>
+          {/* 올림픽 공원 게시물 */}
+          <Header>
+            <Text>올림픽 공원</Text>
+            <MoreBtn
+              onFocus={() => {
+                setPage("olympic");
+              }}
+              onClick={() => {
+                history.push(`/alllist/${page}`);
+              }}
+            >
+              더보기
+            </MoreBtn>
+          </Header>
+
+          <TEST>
+            <Part>
+              <PartImg src={image} />
+
+              <CardTextHere>
+                <Number>{length}</Number>
+
+                <CardText>
+                  <p>{dogName}와 함께 산책하기</p>
+                  <span>
+                    2021/11/10 12시 30분
+                    {/* {time}
+								{location} */}
+                  </span>
+                </CardText>
+              </CardTextHere>
+            </Part>
+
+            <SubLists>
+              {postList.map((post, index) => {
+                const dogImage = post.dogImage;
+                const hover = () => {
+                  setDogName(post.dogName);
+                  setTime(post.meetingDate);
+                  setLocation(post.locationCategory);
+                  setImage(post.dogImage);
+                };
+                const hoverOut = () => {
+                  setLocation("반포한강공원");
+                  setImage(Hangang);
+                };
+
+                return (
+                  <AAA
+                    onMouseEnter={hover}
+                    onMouseLeave={hoverOut}
+                    onClick={() => history.push(`/posts/${post.postId}`)}
+                  >
+                    <MainCard post={post} key={index}>
+                      <Image src={dogImage} />
+                    </MainCard>
+                  </AAA>
+                );
+              })}
+            </SubLists>
+          </TEST>
+        </Body>
+      </Wrap>
       <NavBar />
-    </Wrap>
+    </div>
   );
 };
 
 const Wrap = styled.div`
   box-sizing: border-box;
-
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;

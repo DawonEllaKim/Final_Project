@@ -28,6 +28,7 @@ import Button from "../elements/Button";
 // 리액트 아이콘
 import notification from "../image/Notification.png";
 import backward from "../image/backward.png";
+import TopBar from "../components/TopBar";
 
 const { kakao } = window;
 
@@ -382,20 +383,9 @@ const Detail = (props) => {
       {/* {post_info && ( */}
       <Wrap>
         {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
-        <Header>
-          <Button
-            _onClick={() => {
-              history.goBack();
-            }}
-          >
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <p>상세 페이지</p>
-          <Button>
-            <img src={notification} style={{ width: "24px", height: "24px" }} />
-          </Button>
-        </Header>
-
+        <TopBar>
+          산책할개
+          </TopBar>
         {/* 게시물 올린 보호자의 정보 */}
         <UserWrap>
           {/* 보호자 사진, 닉네임, 나이대, 성별 */}
@@ -518,10 +508,9 @@ const Wrap = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
-  max-width: 390px;
+
+  
   margin: 0 0 90px 0;
   padding: 0 20px;
 

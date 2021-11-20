@@ -39,66 +39,64 @@ const InBox = ({ box }) => {
       </Left>
       <Right>
         <p>{message}</p>
+ 
         <span>{time}</span>
+        <button onClick={deleteBtn}>삭제</button>
+
       </Right>
-      <button onClick={deleteBtn}>삭제</button>
+   
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-around;
   align-items: center;
 
-  height: 100px;
-  margin: 10px;
-  padding: 10px;
-  cursor: pointer;
+  height: 12vh;
+  margin: 0.5rem;
+  box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
+  border: 0.01rem solid lightGray;
+  border-radius:14px;
 `;
+
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width:20%;
   align-items: center;
-  margin-right: 15px;
 
+  margin-right: 10px;
   img {
-    width: 48px;
-    height: 48px;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
     object-fit: cover;
-  }
-  span {
-    font-size: 12px;
   }
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
+  text-align: left;
+  margin-right:10vw;
+  margin-right: 10px;
   p {
-    width: 100%;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: left;
-    margin-bottom: 5px;
+    width: 80%;
+    padding-right:10vw;
   }
   span {
-    width: 100%;
+     
+    padding-right:2vw;
+    width: 30%;
     color: gray;
     text-align: right;
+    font-size:2vw;
   }
+  width:80%;
 `;
 
 export default InBox;

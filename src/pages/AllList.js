@@ -15,6 +15,7 @@ import Olympic from "../components/AllList/Olympic";
 import All from "../components/AllList/All";
 import SeoulForest from "../components/AllList/SeoulForest";
 import Banpo from "../components/AllList/Banpo";
+import MainPageLogo from "../image/MainPageLogo.png";
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
@@ -50,7 +51,9 @@ const AllList = (props) => {
   } else {
     return (
       <Wrap>
-        <TopBar> 산책할개 </TopBar>
+        <TopBar>
+          <TopBarImg src={MainPageLogo} />
+        </TopBar>
 
         {/* 알림, 받은 쪽지함, 보낸 쪽지함 */}
         <Category>
@@ -112,10 +115,14 @@ const AllList = (props) => {
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  width: 390px;
-  margin: 0 auto;
-  padding: 0 20px 60px 20px;
+  /* width: 390px; */
+  /* margin: 0 auto; */
+  /* padding: 0 20px 60px 20px; */
   box-sizing: border-box;
+`;
+
+const TopBarImg = styled.img`
+  height: 22px;
 `;
 const Category = styled.div`
   display: flex;

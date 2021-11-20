@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body{
-	padding: 40px 30px 100px 30px;
+	padding: 40px 0 120px 0;
 	font-size: 16px;
 	font-family: 'Noto Sans KR', sans-serif;
 }`;

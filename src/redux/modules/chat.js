@@ -94,6 +94,7 @@ const sendMessageMD = (receiverId, message) => {
     })
       .then((res) => {
         dispatch(sendMessage(message));
+        dispatch(sendNotificationMD(receiverId))
         window.confirm("쪽지를 보내시겠습니까?");
         console.log("쪽지 보내기 POST 성공", res.data);
         history.push("/notification");
@@ -105,6 +106,29 @@ const sendMessageMD = (receiverId, message) => {
       });
   };
 };
+
+const sendNotificationMD = (receiverId) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "POST",
+      url: `http://13.209.70.209/notification/${receiverId}`,
+     
+      headers: {
+        Accept: "application/json",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
+        console.log("쪽지 보내기 POST 에러", err);
+        history.push("/notification");
+      });
+  };
+};
+
 
 const getDetailMD = (chatId) => {
   return function (dispatch, useState, { history }) {
@@ -215,6 +239,7 @@ export const actionCreators = {
   inBox,
   outBox,
   sendMessage,
+  
   getDetail,
   deleteInMessage,
   deleteOutMessage,
@@ -222,6 +247,7 @@ export const actionCreators = {
   inBoxMD,
   outBoxMD,
   sendMessageMD,
+  sendNotificationMD,
   getDetailMD,
   deleteInMessageMD,
   deleteOutMessageMD,

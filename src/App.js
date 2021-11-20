@@ -1,4 +1,5 @@
 import "./App.css";
+import React, {useEffect,useState} from 'react'
 import { Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
@@ -60,11 +61,72 @@ import ChatDetail from "./pages/Chat/ChatDetail";
 // import KakaoSignUp from "./pages/KakaoSignUp";
 // import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
 
+//웹소켓 
+import {io} from "socket.io-client";
+import Toast from "./components/Toast/Toast";
+
+
 function App() {
+ //socket
+  const userId = localStorage.getItem("userId");
+  const [socket, setSocket] = useState(null)
+  const [notification, setNotification] = useState([]);
+  useEffect(() => {
+    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+  }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+    console.log(userId)
+  }, []);
+  useEffect(() => {
+    socket?.on("getNotification", (data)=>{
+     setNotification(((prev)=>[...prev,data]))
+    
+    },[socket]);
+   
+  
+  }, [socket]);
+
+  useEffect(()=>{
+    localStorage.setItem("noti",JSON.stringify(notification))
+    handleToast("letter")
+  },[notification])
+  console.log(notification)
+  
+  //Toast
+  const msgList = {
+    letter: "새로운 쪽지가 왔습니다!",
+    like: "내 게시글에 좋아요를 했습니다",
+    comment: "내 게시글에 댓글을 남겼습니다"
+  };
+  
+   console.log(socket)
+   const [ToastStatus, setToastStatus] = useState(false);
+   const [ToastMsg, setToastMsg] = useState("");
+ 
+   const handleToast = (type) => {
+     if (!ToastStatus&&notification.length>0) {
+       setToastStatus(true);
+       setToastMsg(msgList[type]);
+     }
+   };
+ 
+   useEffect(() => {
+     if (ToastStatus) {
+       setTimeout(() => {
+         setToastStatus(false);
+         setToastMsg("");
+       }, 1500);
+     }
+   }, [ToastStatus]);
   return (
     <div className="App">
       <GlobalStyle />
-
+      {ToastStatus && (
+        <>
+          <Toast msg={ToastMsg}/>
+        </>
+      )}
       <ConnectedRouter history={history}>
         {/* 로그인/회원가입 */}
         <Route exact path="/logIn" component={LogIn} />
@@ -119,12 +181,13 @@ function App() {
         />
 
         {/* 알람 + 쪽지 */}
-        <PrivateRoute exact path="/notification" component={Notification} />
+        <Route exact path="/notification"  component={Notification} />
         <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />
         <PrivateRoute
           exact
           path="/chatwrite/:receiverId"
           component={ChatWrite}
+       
         />
 
         {/* 진행중... */}

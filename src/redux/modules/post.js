@@ -364,6 +364,7 @@ const getMapMD = (postId) => {
         dispatch(getMap(postList));
         dispatch(loading(false));
         console.log("정보 불러오기 완료");
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -490,7 +491,6 @@ const actionCreators = {
   addPostMD,
   deletePostMD,
   updatePostMD,
-
   getMapMD,
 };
 export { actionCreators };
