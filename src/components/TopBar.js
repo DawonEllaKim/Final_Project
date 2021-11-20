@@ -126,6 +126,8 @@ TopBar.defaultProps = {
 
 const Wrap = styled.div`
   margin-bottom: 36px;
+  background-color: #fff;
+  padding-top: 40px;
 `;
 const Edit = styled.div`
   position: absolute;

@@ -105,7 +105,7 @@ const updateUserMD = (userInfo) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateUser(userInfo));
         window.alert("수정 완료");
-        history.push("/userProfile")
+        history.push("/userProfile");
       })
       .catch((err) => {
         console.log("updateUserMD에서 오류발생", err);
@@ -133,7 +133,7 @@ const updateUserImageMD = (userInfo) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateUser(userInfo));
         window.alert("수정 완료");
-        history.push("/userProfile")
+        history.push("/userProfile");
       })
       .catch((err) => {
         console.log("updateUserMD에서 오류발생", err);
@@ -169,7 +169,7 @@ const getDogMD = () => {
   };
 };
 
-const updateDogMD = ( formData) => {
+const updateDogMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
@@ -186,7 +186,7 @@ const updateDogMD = ( formData) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateDog(formData));
         window.alert("반려견 정보가 수정되었습니다.");
-        history.push("/dogProfile")
+        history.push("/dogProfile");
       })
       .catch((err) => {
         console.log("updateDogAPI에서 오류발생", err);
@@ -212,7 +212,7 @@ const updateDogImageMD = (formData) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateDog(formData));
         window.alert("반려견 정보가 수정되었습니다.");
-        history.push("/dogProfile")
+        history.push("/dogProfile");
       })
       .catch((err) => {
         console.log("updateDogAPI에서 오류발생", err);

@@ -115,13 +115,19 @@ const Main = (props) => {
 
   return (
     <div>
-      <Wrap>
-        <TopBar only_right>
-          <img src={MainPageLogo} style={{ height: "30px" }} />
-        </TopBar>
+      <TopBar only_right>
+        <img src={MainPageLogo} style={{ height: "30px" }} />
+      </TopBar>
 
+      <Wrap>
         {/* 슬라이드 */}
-        <div>
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "30px 30px 40px 30px",
+            boxSizing: "border-box",
+          }}
+        >
           {!userId ? (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
               <div onClick={() => history.push("/login")}>
@@ -135,7 +141,7 @@ const Main = (props) => {
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
               <Weather />
-              {/* <div
+              <div
                 onClick={() => {
                   history.push("/caution1");
                 }}
@@ -155,7 +161,7 @@ const Main = (props) => {
                 }}
               >
                 <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-              </div> */}
+              </div>
             </StyledSlider>
           )}
         </div>
@@ -177,7 +183,7 @@ const Main = (props) => {
         {/* 각 게시물에 대한 카드들 */}
         <Body>
           {/* 올림픽공원 */}
-          <div>
+          <BodyWrap>
             <Header>
               <Text>올림픽 공원</Text>
               <MoreBtn
@@ -242,10 +248,10 @@ const Main = (props) => {
                 })}
               </SubLists>
             </TEST>
-          </div>
+          </BodyWrap>
 
           {/* 서울숲 */}
-          <div>
+          <BodyWrap>
             <Header>
               <Text>서울숲</Text>
               <MoreBtn
@@ -310,10 +316,10 @@ const Main = (props) => {
                 })}
               </SubLists>
             </TEST>
-          </div>
+          </BodyWrap>
 
           {/* 반포 한강공원 */}
-          <div>
+          <BanpoBodyWrap>
             <Header>
               <Text>반포 한강공원</Text>
               <MoreBtn
@@ -378,7 +384,7 @@ const Main = (props) => {
                 })}
               </SubLists>
             </TEST>
-          </div>
+          </BanpoBodyWrap>
         </Body>
       </Wrap>
 
@@ -389,12 +395,12 @@ const Main = (props) => {
 
 const Wrap = styled.div`
   box-sizing: border-box;
-  padding: 0 30px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-
+  background-color: #c4c4c4;
   /* text-align: center; */
   position: relative;
 `;
@@ -411,12 +417,12 @@ const StyledSlider = styled(Slider)`
   /* .slick-slide div { */
   /* outline: none; */
   /* } */
+
   box-sizing: border-box;
   width: 100%;
   aspect-ratio: 4 / 2;
   border-radius: 14px;
-
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
 `;
 const Img = styled.img`
   width: 100%;
@@ -567,7 +573,8 @@ const DogSta = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 28px 0;
+  margin: 8px 0;
+  background-color: #fff;
 `;
 const Header = styled.div`
   display: flex;
@@ -617,6 +624,17 @@ const Body = styled.div`
   align-items: center;
   box-sizing: border-box;
   /* margin: 28px 0; */
+`;
+
+const BodyWrap = styled.div`
+  padding: 20px 30px;
+  background-color: #fff;
+  margin-bottom: 8px;
+`;
+const BanpoBodyWrap = styled.div`
+  padding: 20px 30px 20px 30px;
+  background-color: #fff;
+  margin-bottom: 8px;
 `;
 
 export default Main;
