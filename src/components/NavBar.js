@@ -139,7 +139,7 @@ const Nav = styled.div`
   width: 100%;
   height: 80px;
   z-index: 5;
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.15)
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.15);
 `;
 const Box = styled.div`
   box-sizing: border-box;

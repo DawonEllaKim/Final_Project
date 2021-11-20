@@ -19,7 +19,7 @@ const Comment = (props) => {
   // console.log("댓글작성 페이지 id", dogPostId);
 
   const dispatch = useDispatch();
-  const commentList = useSelector((state) => state.comment.commentList,comment);
+  const commentList = useSelector((state) => state.comment.commentList);
   console.log(commentList);
 
   //   현재 게시물 페이지 id와 작성한 댓글 페이지 id가 같은 경우
@@ -30,16 +30,16 @@ const Comment = (props) => {
   // console.log(postCommentList);
 
   useEffect(() => {
-    dispatch(commentActions.getCommentMD(userId, dogPostId));
-  }, [userId, dogPostId]);
+    dispatch(commentActions.getCommentMD(dogPostId));
+  }, [dogPostId]);
 
   return (
     <div>
       <Wrap>
         <Count>댓글 10개</Count>
         <CommentWrap>
-          {/* {commentList[0] ? ( */}
-            {/* <div> */}
+          {commentList[0] ? (
+            <div>
             {commentList.map((comment, index) => {
               return (
                 <div>
@@ -47,15 +47,16 @@ const Comment = (props) => {
                 </div>
               );
             })}
-            {/* // </div>
-          // ):(
-          //   <div>등록된 댓글이 없습니다.</div>
-          // )} */}
+             </div>
+           ):(
+             <div>등록된 댓글이 없습니다.</div>
+           )}
           
         </CommentWrap>
         <CommentWrite
-          post={post}
-          currentPostUserId={currentPostUserId}
+          // post={post}
+          // currentPostUserId={currentPostUserId}
+          // commentList = {commentList}
           userId={userId}
           dogPostId={dogPostId}
         />

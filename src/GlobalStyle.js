@@ -7,9 +7,8 @@ const GlobalStyle = createGlobalStyle`
 	margin: 0;
 }
 body{
-	padding: 0;
+	padding: 0 20px;
 	margin: 0;
-	max-width: 390px;
 	margin: auto;
 	font-size: 16px;
 	font-family: 'Noto Sans KR', sans-serif;

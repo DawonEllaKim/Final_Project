@@ -74,9 +74,9 @@ const TopBar = (props) => {
                 height: "24px",
               }}
             />
-             <Edit>
+             {/* <Edit>
             {noti.length}
-          </Edit>
+          </Edit> */}
           </BtnRight>
         </Right>
       </div>
@@ -108,9 +108,9 @@ const TopBar = (props) => {
               height: "24px",
             }}
           />
-          <Edit>
+          {/* <Edit>
             {noti.length}
-          </Edit>
+          </Edit> */}
         </BtnRight>
 
       </Both>

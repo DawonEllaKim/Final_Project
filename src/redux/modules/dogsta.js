@@ -14,13 +14,12 @@ const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
 const TOGGLE_LIKE = "TOGGLE_LIKE"; // 좋아요 토글
 const GET_LIKES = "GET_LIKES"; // 해당 게시물 좋아요 불러오기
 const GET_MY_LIKE = "GET_MY_LIKE"; // 내가 좋아요 눌렀는지 여부
-const GET_LIKE_LIST = 'GET_LIKE_LIST';
 
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({mainLikeList}))
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
-const addPost = createAction(ADD_POST, (post) => ({ post }));
+const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 
@@ -28,7 +27,6 @@ const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
 const toggleLike = createAction(TOGGLE_LIKE, (liked) => ({ liked }));
 const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
 const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
-const getLikeList = createAction(GET_LIKE_LIST,(likeList) => ({likeList}))
 
 const initialState = {
   mainList: [],
@@ -124,14 +122,16 @@ const addPostMD = (formData) => {
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("userLogin")}`,
       },
     })
       .then((res) => {
+        dispatch(addPost(formData));
         console.log("개스타그램 게시물 POST 성공", res);
-        history.back();
+        history.push('/dogStaMain');
       })
       .catch((err) => {
         console.log("개스타그램 게시물 POST 에러", err);
@@ -307,29 +307,6 @@ const getMyLikeMD = (dogPostId) => {
   };
 };
 
-const getLikeListMD = ()=>{
-  return function(dispatch, getState,{history}){
-    axios({
-      method: "GET",
-      url: `http://13.209.70.209/likes/myLike`,
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("token")}`,
-      },
-    })
-    .then((res) =>{
-      const likeList = res.data.myLike;
-      dispatch(getLikeList(likeList))
-      console.log('좋아요 누른 리스트 get', likeList)
-    })
-    .catch((err)=>{
-      console.log('좋아요 누른 리스트 get 실패', err)
-    })
-  }
-}
 
 export default handleActions(
   {
@@ -376,11 +353,7 @@ export default handleActions(
     [GET_MY_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.likeExist = action.payload.likeExist;
-      }),
-    [GET_LIKE_LIST]:(state, action) =>
-      produce(state,(draft) =>{
-        draft.likeList = action.payload.likeList;
-    })
+      })
   },
   initialState
 );
@@ -396,7 +369,6 @@ const actionCreators = {
   toggleLike,
   getLikes,
   getMyLike,
-  getLikeList,
 
   getAllPostMD,
   getLikePostMD,
@@ -409,7 +381,6 @@ const actionCreators = {
   toggleLikeMD,
   getLikesMD,
   getMyLikeMD,
-  getLikeListMD
 };
 
 export { actionCreators };

@@ -248,6 +248,13 @@
       "dogPostId": 46,
       "userId": "23",
       "id": 2
+    },
+    {
+      "commentDesc": "ㅇㅇㅇ",
+      "userNickname": "25",
+      "dogPostId": 54,
+      "userId": "25",
+      "id": 3
     }
   ]
 }
