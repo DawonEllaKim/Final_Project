@@ -7,7 +7,7 @@ import { BsGenderFemale } from "react-icons/bs";
 import male from "../image/male.png";
 import female from "../image/female.png";
 
-const Card = ({ post }) => {
+const MainCard = ({ post }) => {
   const dogImage = post.dogImage;
   const dogName = post.dogName;
   const dogGender = post.dogGender;
@@ -15,20 +15,12 @@ const Card = ({ post }) => {
   const dogComment = post.dogComment;
   const initialMeetingDate = post.meetingDate;
 
-  // const MeetingDate = initialMeetingDate.split("T")[0];
-  // const year = MeetingDate.split("-")[0];
-  // const month = MeetingDate.split("-")[1];
-  // const day = MeetingDate.split("-")[2];
-  // const MeetingTime = initialMeetingDate.split("T")[1];
-  // const hour = MeetingTime.split(":")[0];
-  // const minute = MeetingTime.split(":")[1];
-
   return (
     <CardWrap>
       {/* 카드 왼쪽 - 이미지 */}
       <img src={dogImage} sty />
 
-      {/* 카드 오른쪽 - 약속 정보*/}
+      {/* 카드 오른쪽 - 약속 정보
       <CardInfo>
         <CardTop>
           <h4>
@@ -52,7 +44,7 @@ const Card = ({ post }) => {
           <p styoe={{ wordBreak: "keep-all" }}>{dogComment}</p>
         </CardCenter>
         <CardBottom>{initialMeetingDate ? initialMeetingDate : ""}</CardBottom>
-      </CardInfo>
+      </CardInfo> */}
     </CardWrap>
   );
 };
@@ -139,4 +131,4 @@ const CardBottom = styled.div`
   padding: 10px 0;
 `;
 
-export default Card;
+export default MainCard;

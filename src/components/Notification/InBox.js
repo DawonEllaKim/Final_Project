@@ -23,7 +23,7 @@ const InBox = ({ box }) => {
     dispatch(chatActions.deleteInMessageMD(receiverId, senderId, chatId));
   };
   useEffect(() => {
-    dispatch(chatActions.inBoxMD()); // 내가 받은 모든 쪽지 불러오기
+    // dispatch(chatActions.inBoxMD()); // 내가 받은 모든 쪽지 불러오기
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 // chat.js - 쪽지함 불러오기, 쪽지 보내기, 쪽지 삭제하기
+
 import axios from "axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
@@ -23,11 +24,11 @@ const sendMessage = createAction(SEND_MESSAGE, (list) => ({
 const getDetail = createAction(GET_DETAIL, (inBoxList) => ({
   inBoxList,
 }));
-const deleteInMessage = createAction(DELETE_IN_MESSAGE, (inBoxList) => ({
-  inBoxList,
+const deleteInMessage = createAction(DELETE_IN_MESSAGE, (chatId) => ({
+  chatId,
 }));
-const deleteOutMessage = createAction(DELETE_OUT_MESSAGE, (outBoxList) => ({
-  outBoxList,
+const deleteOutMessage = createAction(DELETE_OUT_MESSAGE, (chatId) => ({
+  chatId,
 }));
 
 const initialState = {
@@ -162,7 +163,7 @@ const deleteInMessageMD = (receiverId, senderId, chatId) => {
       },
     })
       .then((res) => {
-        // dispatch(deleteMessage(myId, receiverId));
+        dispatch(deleteInMessage(chatId));
         console.log("Inbox에서 쪽지 하나 DELETE 성공", res.data);
       })
       .catch((err) => {
@@ -183,7 +184,8 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
       },
     })
       .then((res) => {
-        // dispatch(deleteMessage(myId, receiverId));
+        console.log(chatId);
+        dispatch(deleteOutMessage(chatId));
         console.log("Outbox에서 쪽지 하나 DELETE 성공", res.data);
       })
       .catch((err) => {
@@ -213,14 +215,21 @@ export default handleActions(
     [DELETE_IN_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
         draft.inBoxList = draft.inBoxList.filter(
-          (message) => message.id !== action.payload.chatId
+          (message) => message.chatId !== action.payload.chatId
         );
       }),
     [DELETE_OUT_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.outBoxList = draft.outBoxList.filter(
-          (message) => message.id !== action.payload.chatId
+        // console.log(state);
+        // console.log(action.payload);
+        // console.log(action.payload.outBoxList);
+        // console.log(action);
+        // console.log(draft);
+        const newList = draft.outBoxList.filter(
+          (message) => message.chatId !== action.payload.chatId
         );
+        // console.log(newList);
+        draft.outBoxList = newList;
       }),
   },
   initialState

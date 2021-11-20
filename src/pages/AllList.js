@@ -11,6 +11,10 @@ import Spinner from "../shared/Spinner";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Olympic from "../components/AllList/Olympic";
+import All from "../components/AllList/All";
+import SeoulForest from "../components/AllList/SeoulForest";
+import Banpo from "../components/AllList/Banpo";
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
@@ -34,10 +38,11 @@ const AllList = (props) => {
   };
 
   const params = props.match.params.page;
+
   useEffect(() => {
-    dispatch(postActions.getMainMD()); // 모든 산책 약속 게시물 불러오기
     setStatus(params);
     setFocus(params);
+    // dispatch(postActions.getOlympicMD()); // 모든 산책 약속 게시물 불러오기
   }, []);
 
   if (is_loading) {
@@ -93,55 +98,10 @@ const AllList = (props) => {
         {/* 각 게시물에 대한 카드들 */}
         <Body>
           <Text>같이 산책하실래요?</Text>
-
-          {status === "all" && (
-            <div>
-              {postList.map((post, index) => {
-                return (
-                  <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                    <Card post={post} key={index} />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {status === "olympic" && (
-            <div>
-              올림픽
-              {/* {postList.map((post, index) => {
-                return (
-                  <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                    <Card post={post} key={index} />
-                  </div>
-                );
-              })} */}
-            </div>
-          )}
-          {status === "seoul" && (
-            <div>
-              서울
-              {/* {postList.map((post, index) => {
-                return (
-                  <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                    <Card post={post} key={index} />
-                  </div>
-                );
-              })} */}
-            </div>
-          )}
-          {status === "banpo" && (
-            <div>
-              반포
-              {/* {postList.map((post, index) => {
-                return (
-                  <div onClick={() => history.push(`/posts/${post.postId}`)}>
-                    <Card post={post} key={index} />
-                  </div>
-                );
-              })} */}
-            </div>
-          )}
+          {status === "all" && <All />}
+          {status === "olympic" && <Olympic />}
+          {status === "seoul" && <SeoulForest />}
+          {status === "banpo" && <Banpo />}
         </Body>
         <NavBar />
       </Wrap>
