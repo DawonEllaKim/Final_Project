@@ -16,8 +16,8 @@ const addComment = createAction(ADD_COMMENT, (commentList) => ({
 const getComment = createAction(GET_COMMENT, (commentList) => ({
   commentList,
 }));
-const editComment = createAction(EDIT_COMMENT, (commentList) => ({
-  commentList,
+const editComment = createAction(EDIT_COMMENT, (commentList, commentId) => ({
+  commentList, commentId
 }));
 const deleteComment = createAction(DELETE_COMMENT, (commentList) => ({
   commentList,
@@ -52,7 +52,7 @@ const addCommentMD = (dogPostId, comment) => {
   };
 };
 
-const getCommentMD = (userId, dogPostId) => {
+const getCommentMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -76,12 +76,12 @@ const getCommentMD = (userId, dogPostId) => {
   };
 };
 
-const editCommentMD = (dogPostId, commentId) => {
+const editCommentMD = (dogPostId, commentId,commentList) => {
   return function (dispatch, useState, { history }) {
     axios({
-      method: "GET",
+      method: "PATCH",
       url: `http://13.209.70.209/comment/${dogPostId}/${commentId}`,
-      data: {},
+      data: commentList,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
@@ -90,7 +90,8 @@ const editCommentMD = (dogPostId, commentId) => {
       },
     })
       .then((res) => {
-        dispatch(editComment());
+        
+        dispatch(editComment(commentList,commentId));
         console.log("댓글 수정", res.data);
       })
       .catch((err) => {
@@ -136,7 +137,16 @@ export default handleActions(
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.commentList = { ...draft.commentList, ...action.payload.post };
+        console.log(state)
+        console.log(action)
+        console.log(draft)
+        console.log(draft.commentList)
+        let commentIdx = draft.commentList.findIndex(
+          (comment) => comment.commentId == action.payload.commentId
+        )
+        console.log(commentIdx)
+        // draft.commentList[commentIdx].commentDesc = action.payload.commentList.commentDesc;
+        draft.commentList[commentIdx] = { ...draft.commentList[commentIdx], ...action.payload.commentList};
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
