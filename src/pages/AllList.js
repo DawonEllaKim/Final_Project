@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 // 컴포넌츠
 // import Card from "../components/Card";
@@ -9,8 +10,7 @@ import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 리덕스
-// import { history } from "../redux/configureStore";
-// import { actionCreators as postActions } from "../redux/modules/post";
+import { history } from "../redux/configureStore";
 import Olympic from "../components/AllList/Olympic";
 import All from "../components/AllList/All";
 import SeoulForest from "../components/AllList/SeoulForest";
@@ -21,8 +21,8 @@ const AllList = (props) => {
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
 
-  // const dispatch = useDispatch();
-  // const postList = useSelector((state) => state.post.main);
+  const dispatch = useDispatch();
+  const postList = useSelector((state) => state.post.main);
   const is_loading = useSelector((state) => state.sign.is_loading); // 화면 로딩중일때 보일 스피너
 
   const all = () => {
@@ -43,7 +43,7 @@ const AllList = (props) => {
   useEffect(() => {
     setStatus(params);
     setFocus(params);
-    // dispatch(postActions.getOlympicMD()); // 모든 산책 약속 게시물 불러오기
+    dispatch(postActions.getAllMD());
   }, []);
 
   if (is_loading) {
@@ -100,8 +100,7 @@ const AllList = (props) => {
 
         {/* 각 게시물에 대한 카드들 */}
         <Body>
-          <Text>같이 산책하실래요?</Text>
-          {status === "all" && <All />}
+          {status === "all" && <All postList={postList} />}
           {status === "olympic" && <Olympic />}
           {status === "seoul" && <SeoulForest />}
           {status === "banpo" && <Banpo />}
@@ -115,9 +114,9 @@ const AllList = (props) => {
 const Wrap = styled.div`
   text-align: center;
   position: relative;
-  /* width: 390px; */
+  width: 100%;
   /* margin: 0 auto; */
-  /* padding: 0 20px 60px 20px; */
+  padding: 0 30px;
   box-sizing: border-box;
 `;
 
@@ -145,7 +144,7 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 28px 0;
+  width: 100%;
   border-top: 1px solid #c4c4c4;
 `;
 const Text = styled.p`
