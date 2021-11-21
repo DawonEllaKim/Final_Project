@@ -33,9 +33,9 @@ function Weather({ setCold }) {
       "11월",
       "12월",
     ];
-    // sunday 먼저..!!
-    let days = ["알", "월", "화", "수", "목", "금", "토"];
 
+    // sunday 먼저..!!
+    let days = ["일", "월", "화", "수", "목", "금", "토"];
     let day = days[d.getDay()];
     let month = months[d.getMonth()];
     let year = d.getFullYear();
@@ -45,7 +45,7 @@ function Weather({ setCold }) {
   };
 
   const city = "Seoul";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=London&appid=3ad1d1f3a704fea952da06944931bbd0`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=3ad1d1f3a704fea952da06944931bbd0`;
   const [weather, setWeather] = useState("");
 
   // 날씨 가져오기
@@ -53,18 +53,22 @@ function Weather({ setCold }) {
     axios.get(url).then((responseData) => {
       const data = responseData.data;
       setWeather({
-          id: data.weather[0].id,
-          temperature: data.main.temp,
-          main: data.weather[0].main,
-          loading: false,
-        });
-       console.log(data)
+        id: data.weather[0].id,
+        currentTemperature: data.main.temp,
+        minTemperature: data.main.temp_min,
+        maxTemperature: data.main.temp_max,
+        main: data.weather[0].main,
+        loading: false,
+        // icon: data.weather[0].icon,
+      });
+      //  console.log(data)
     });
-  }, [])
- 
-  
-  let c = weather.temperature - 273.15;
-//   setCold(c < 15 ? true : false);
+  }, []);
+
+  let currentTemperature = weather.currentTemperature - 273.15;
+  let minTemperature = weather.minTemperature - 273.15;
+  let maxTemperature = weather.maxTemperature - 273.15;
+  //   setCold(c < 15 ? true : false);
 
   const selectIcon = () => {
     let iconId =
@@ -88,18 +92,19 @@ function Weather({ setCold }) {
   };
   return (
     <Wrapper>
-      <Temperature>{c.toFixed(0)}℃</Temperature>
+      <Temperature>{currentTemperature.toFixed(0)}℃</Temperature>
+      {/* <Temperature>{minTemperature.toFixed(0)}℃</Temperature>
+      <Temperature>{maxTemperature.toFixed(0)}℃</Temperature> */}
+      {/* 282.42K − 273.15 = 9.27°C */}
+
       <InfoWrapper>
         <Location>서울시</Location>
         <DateDiv> {dateBuilder(new Date())} </DateDiv>
-   
+
         <WeatherDiv>
           {weather.main}
-          <WeatherIcon> 
-            {selectIcon()}
-          </WeatherIcon>
-          </WeatherDiv>
-      
+          <WeatherIcon>{selectIcon()}</WeatherIcon>
+        </WeatherDiv>
       </InfoWrapper>
     </Wrapper>
   );
@@ -107,34 +112,33 @@ function Weather({ setCold }) {
 export default Weather;
 
 const Wrapper = styled.div`
-  width: 350px;
-  height: 172px;
+  width: 100%;
+  aspect-ratio: 4 / 2;
   display: flex;
-  
   align-items: center;
-  justify-content: flex-start;
-  gap:20px;
-  background-color: #86D3FF;
-  text-align:center;
-  border-radius:15px;
-  box-sizing:border-box;
+  justify-content: center;
+  gap: 20px;
+  background-color: #86d3ff;
+  text-align: center;
+  border-radius: 15px;
+  box-sizing: border-box;
 `;
 
 const Temperature = styled.div`
   color: white;
   font-size: 44px;
-  padding:0 16px 0 24px;
+  padding: 0 16px 0 24px;
 `;
 
 const InfoWrapper = styled.div`
   box-sizing: border-box;
-  text-align:left;
-`
+  text-align: left;
+`;
 const Location = styled.div`
   color: #444;
   font-size: 20px;
   font-weight: 500;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 const DateDiv = styled.div`
@@ -146,9 +150,9 @@ const DateDiv = styled.div`
 const WeatherDiv = styled.div`
   color: white;
   font-size: 20px;
-  text-align:center;
-  display:flex;
-  align-items:center;
+  text-align: center;
+  display: flex;
+  align-items: center;
 `;
 
 const WeatherIcon = styled.div`

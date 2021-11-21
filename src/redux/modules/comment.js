@@ -29,7 +29,7 @@ const initialState = {
 };
 
 // middleware
-const addCommentMD = (dogPostId,comment) => {
+const addCommentMD = (dogPostId, comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -52,7 +52,7 @@ const addCommentMD = (dogPostId,comment) => {
   };
 };
 
-const getCommentMD = (dogPostId) => {
+const getCommentMD = (userId, dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -141,7 +141,7 @@ export default handleActions(
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.commentList = draft.commentList.filter(
-          (comment) => comment.commentId !== action.payload.commentList          
+          (comment) => comment.commentId !== action.payload.commentList
         );
       }),
   },

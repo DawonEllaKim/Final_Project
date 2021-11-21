@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentList = ({ comment }) => {
-  console.log(comment);
   const dispatch = useDispatch();
-  const dogPostId = comment.dogPostId;
-  console.log("댓글 작성한 포스트 id", dogPostId);
   const userId = localStorage.getItem("userId");
   console.log("로그인한 유저 id", userId);
   const commentId = comment.commentId;
@@ -19,14 +16,12 @@ const CommentList = ({ comment }) => {
   const time = comment.AGOTIME;
 
   const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList);
+  const dogPostId = comment.dogPostId;
 
-  const editComment = () =>{
-    
-  }
+  const editComment = () => {};
 
   const delComment = () => {
-    dispatch(commentActions.deleteCommentMD(dogPostId,commentId));
+    dispatch(commentActions.deleteCommentMD(dogPostId, commentId));
   };
 
   useEffect(() => {
