@@ -7,6 +7,7 @@ import { getCookie } from "../../shared/Cookie";
 //마이페이지
 const GET_MYPAGE = "GET_MYPAGE";
 const GET_LIST = "GET_LIST";
+
 //유저
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
@@ -48,7 +49,6 @@ const getMypageMD = (userId) => {
     })
       .then((res) => {
         const userInfo = res.data.posts[0];
-
         dispatch(getList(userInfo));
       })
       .catch((err) => {
