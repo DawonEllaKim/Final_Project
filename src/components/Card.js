@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 // 리액트 아이콘
-import { BsGenderMale } from "react-icons/bs";
-import { BsGenderFemale } from "react-icons/bs";
+// import { BsGenderMale } from "react-icons/bs";
+// import { BsGenderFemale } from "react-icons/bs";
 import male from "../image/male.png";
 import female from "../image/female.png";
 
@@ -26,7 +26,7 @@ const Card = ({ post }) => {
   return (
     <CardWrap>
       {/* 카드 왼쪽 - 이미지 */}
-      <img src={dogImage} sty />
+      <img src={dogImage} alt="dog" />
 
       {/* 카드 오른쪽 - 약속 정보*/}
       <CardInfo>
@@ -36,11 +36,13 @@ const Card = ({ post }) => {
               <img
                 src={male}
                 style={{ width: "16px", height: "16px", borderRadius: "0" }}
+                alt="Male"
               />
             ) : (
               <img
                 src={female}
                 style={{ width: "16px", height: "16px", borderRadius: "0" }}
+                alt="Female"
               />
             )}
           </h4>

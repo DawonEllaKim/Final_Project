@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { actionCreators as postActions } from "../../redux/modules/post";
 import Card from "../Card";
 import { history } from "../../redux/configureStore";
@@ -12,7 +11,7 @@ function Banpo() {
 
   useEffect(() => {
     dispatch(postActions.getBanpoMD());
-  }, []);
+  });
 
   return (
     <div>

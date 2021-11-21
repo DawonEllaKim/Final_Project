@@ -1,16 +1,16 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 // 컴포넌츠
-import Card from "../components/Card";
+// import Card from "../components/Card";
 import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 리덕스
-import { history } from "../redux/configureStore";
-import { actionCreators as postActions } from "../redux/modules/post";
+// import { history } from "../redux/configureStore";
+// import { actionCreators as postActions } from "../redux/modules/post";
 import Olympic from "../components/AllList/Olympic";
 import All from "../components/AllList/All";
 import SeoulForest from "../components/AllList/SeoulForest";
@@ -21,8 +21,8 @@ const AllList = (props) => {
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
 
-  const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.main);
+  // const dispatch = useDispatch();
+  // const postList = useSelector((state) => state.post.main);
   const is_loading = useSelector((state) => state.sign.is_loading); // 화면 로딩중일때 보일 스피너
 
   const all = () => {

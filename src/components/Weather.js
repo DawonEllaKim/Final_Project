@@ -1,5 +1,6 @@
-import styled from "styled-components";
+// Weather.js - 메인 페이지의 날씨 슬라이드
 import React, { useState } from "react";
+import styled from "styled-components";
 import axios from "axios";
 import {
   TiWeatherSunny,
@@ -10,6 +11,9 @@ import {
   TiWeatherCloudy,
 } from "react-icons/ti";
 import { BsCloudFog } from "react-icons/bs";
+import { MdLocationPin } from "react-icons/md";
+import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 const api = {
   key: "a422f44283aac58f0d215db5d78a2834",
@@ -47,6 +51,7 @@ function Weather({ setCold }) {
   const city = "Seoul";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=3ad1d1f3a704fea952da06944931bbd0`;
   const [weather, setWeather] = useState("");
+  const [phrase, setPhrase] = useState("");
 
   // 날씨 가져오기
   React.useEffect(() => {
@@ -59,9 +64,24 @@ function Weather({ setCold }) {
         maxTemperature: data.main.temp_max,
         main: data.weather[0].main,
         loading: false,
-        // icon: data.weather[0].icon,
+        icon: data.weather[0].icon,
       });
-      //  console.log(data)
+      const weatherNumber = (parseInt(weather.id) / 100).toFixed(0);
+      if (weatherNumber === 0) {
+        setPhrase("산책 시키기 좋은 날씨네요!");
+      } else if (weatherNumber === 2) {
+        setPhrase("비가 많이 오네요!");
+      } else if (weatherNumber === 3) {
+        setPhrase("우비 입고 산책 어때요?");
+      } else if (weatherNumber === 5) {
+        setPhrase("비가 많이 오네요");
+      } else if (weatherNumber === 6) {
+        setPhrase("강아지한테 눈 보여주기 좋은 날!");
+      } else if (weatherNumber === 7) {
+        setPhrase("안개와 함께 산책!");
+      } else {
+        setPhrase("구름이 많아서 안 더워요!");
+      }
     });
   }, []);
 
@@ -75,70 +95,119 @@ function Weather({ setCold }) {
       weather.id === 800 ? 0 : (parseInt(weather.id) / 100).toFixed(0);
     switch (iconId) {
       case "0":
-        return <TiWeatherSunny size="50" color="red" />;
+        return <TiWeatherSunny size="106px" color="red" />;
       case "2":
-        return <TiWeatherStormy size="50" color="black" />;
+        return <TiWeatherStormy size="106px" color="black" />;
       case "3":
-        return <TiWeatherShower size="50" color="blue" />;
+        return <TiWeatherShower size="106px" color="blue" />;
       case "5":
-        return <TiWeatherDownpour size="50" color="navy" />;
+        return <TiWeatherDownpour size="106px" color="navy" />;
       case "6":
-        return <TiWeatherSnow size="50" color="white" />;
+        return <TiWeatherSnow size="106px" color="white" />;
       case "7":
-        return <BsCloudFog size="50" color="white" />;
+        return <BsCloudFog size="106px" color="white" />;
       case "8":
-        return <TiWeatherCloudy size="50" color="white" />;
+        return <TiWeatherCloudy size="106px" color="white" />;
     }
   };
+
   return (
-    <Wrapper>
-      <Temperature>{currentTemperature.toFixed(0)}℃</Temperature>
-      {/* <Temperature>{minTemperature.toFixed(0)}℃</Temperature>
-      <Temperature>{maxTemperature.toFixed(0)}℃</Temperature> */}
-      {/* 282.42K − 273.15 = 9.27°C */}
+    <Wrap>
+      <Left>
+        <LeftTop>
+          <MdLocationPin
+            style={{ color: "#FF5656", width: "30px", height: "30px" }}
+          />
+          <City>서울시</City>
+        </LeftTop>
 
-      <InfoWrapper>
-        <Location>서울시</Location>
-        <DateDiv> {dateBuilder(new Date())} </DateDiv>
+        <Temperature>{currentTemperature.toFixed(0)}℃</Temperature>
+        <p style={{ marginBottom: "15px" }}>{phrase}</p>
 
-        <WeatherDiv>
-          {weather.main}
-          <WeatherIcon>{selectIcon()}</WeatherIcon>
-        </WeatherDiv>
-      </InfoWrapper>
-    </Wrapper>
+        <OtherTemp>
+          <IoIosArrowDown
+            style={{
+              color: "#61C5B8",
+              width: "30px",
+              height: "30px",
+              marginTop: "-5px",
+            }}
+          />
+          <MinMaxTemp>{minTemperature.toFixed(0)}℃</MinMaxTemp>
+
+          <IoIosArrowUp
+            style={{
+              color: "#FF5656",
+              width: "30px",
+              height: "30px",
+              marginTop: "-7px",
+            }}
+          />
+          <MinMaxTemp>{maxTemperature.toFixed(0)}℃</MinMaxTemp>
+        </OtherTemp>
+      </Left>
+
+      <Right>
+        <WeatherIcon>{selectIcon()}</WeatherIcon>
+      </Right>
+      <div></div>
+    </Wrap>
   );
 }
 export default Weather;
 
-const Wrapper = styled.div`
+const Wrap = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   aspect-ratio: 4 / 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+  padding: 16px 40px;
   background-color: #86d3ff;
-  text-align: center;
-  border-radius: 15px;
-  box-sizing: border-box;
+  border-radius: 14px;
+`;
+
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 `;
 
 const Temperature = styled.div`
-  color: white;
-  font-size: 44px;
-  padding: 0 16px 0 24px;
+  font-size: 48px;
+  line-height: 56px;
+  color: #fff;
+  margin-left: 8px;
+  margin-bottom: 12px;
+`;
+const OtherTemp = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+const MinMaxTemp = styled.div`
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  margin-right: 14px;
 `;
 
-const InfoWrapper = styled.div`
-  box-sizing: border-box;
-  text-align: left;
+const City = styled.div`
+  color: #fff;
+  font-size: 18px;
+  margin-left: 10px;
 `;
-const Location = styled.div`
-  color: #444;
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 10px;
+const LeftTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
 `;
 
 const DateDiv = styled.div`
@@ -147,15 +216,23 @@ const DateDiv = styled.div`
   font-style: italic;
 `;
 
-const WeatherDiv = styled.div`
+const Right = styled.div`
   color: white;
   font-size: 20px;
   text-align: center;
   display: flex;
   align-items: center;
+  margin-right: 20px;
+  width: 100%;
 `;
 
 const WeatherIcon = styled.div`
-  font-size: 16px;
-  margin: 4px 0 0 16px;
+  display: flex;
+  width: 100%;
+
+  justify-content: right;
+  align-items: right;
+
+  /* width: 106px;
+  height: 106px; */
 `;
