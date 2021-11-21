@@ -11,7 +11,7 @@ function Banpo() {
 
   useEffect(() => {
     dispatch(postActions.getBanpoMD());
-  });
+  }, []);
 
   return (
     <div>

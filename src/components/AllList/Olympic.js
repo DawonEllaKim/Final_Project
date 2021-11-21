@@ -11,7 +11,7 @@ function Olympic() {
 
   useEffect(() => {
     dispatch(postActions.getOlympicMD());
-  });
+  }, []);
 
   return (
     <div>

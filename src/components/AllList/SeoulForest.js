@@ -11,7 +11,7 @@ function SeoulForest() {
 
   useEffect(() => {
     dispatch(postActions.getSeoulMD());
-  });
+  }, []);
 
   return (
     <div>

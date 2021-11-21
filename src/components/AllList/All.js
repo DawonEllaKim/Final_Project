@@ -12,7 +12,7 @@ function All() {
 
   useEffect(() => {
     dispatch(postActions.getAllMD());
-  });
+  }, []);
 
   return (
     <div>
