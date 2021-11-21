@@ -116,6 +116,17 @@ const getOlympicMD = () => {
       },
     })
       .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const year = fullDate.split("-")[0];
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+        }
         const postList = res.data.posts;
         dispatch(getOlympic(postList));
         dispatch(loading(false));
@@ -141,6 +152,17 @@ const getSeoulMD = () => {
       },
     })
       .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const year = fullDate.split("-")[0];
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+        }
         const postList = res.data.posts;
         dispatch(getSeoul(postList));
         dispatch(loading(false));
@@ -166,6 +188,17 @@ const getBanpoMD = () => {
       },
     })
       .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const year = fullDate.split("-")[0];
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+        }
         const postList = res.data.posts;
         dispatch(getBanpo(postList));
         dispatch(loading(false));
@@ -192,10 +225,10 @@ const getPostMD = (postId) => {
       .then((res) => {
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
-        const initialDate = res.data.posts.meetingDate.split("T")[0];
-        const year = initialDate.split("-")[0];
-        const month = initialDate.split("-")[1];
-        const day = initialDate.split("-")[2];
+        const fullDate = res.data.posts.meetingDate.split("T")[0];
+        const year = fullDate.split("-")[0];
+        const month = fullDate.split("-")[1];
+        const day = fullDate.split("-")[2];
         const initialTime = res.data.posts.meetingDate.split("T")[1];
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];
@@ -285,10 +318,10 @@ const getMyPostMD = (userId) => {
     })
       .then((res) => {
         for (let i = 0; i < res.data.posts.length; i++) {
-          let initialDate = res.data.posts[i].meetingDate.split("T")[0];
-          let year = initialDate.split("-")[0];
-          let month = initialDate.split("-")[1];
-          let day = initialDate.split("-")[2];
+          let fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          let year = fullDate.split("-")[0];
+          let month = fullDate.split("-")[1];
+          let day = fullDate.split("-")[2];
           let initialTime = res.data.posts[i].meetingDate.split("T")[1];
           let hour = initialTime.split(":")[0];
           let minute = initialTime.split(":")[1];
@@ -330,10 +363,10 @@ const getMapMD = (postId) => {
       .then((res) => {
         res.data.posts.longitude = res.data.posts.longitude.toString();
         res.data.posts.latitude = res.data.posts.latitude.toString();
-        const initialDate = res.data.posts.meeting_date.split("T")[0];
-        const year = initialDate.split("-")[0];
-        const month = initialDate.split("-")[1];
-        const day = initialDate.split("-")[2];
+        const fullDate = res.data.posts.meeting_date.split("T")[0];
+        const year = fullDate.split("-")[0];
+        const month = fullDate.split("-")[1];
+        const day = fullDate.split("-")[2];
         const initialTime = res.data.posts.meeting_date.split("T")[1];
         const hour = initialTime.split(":")[0];
         const minute = initialTime.split(":")[1];

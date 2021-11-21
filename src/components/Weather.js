@@ -52,7 +52,7 @@ function Weather({ setCold }) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=3ad1d1f3a704fea952da06944931bbd0`;
   const [weather, setWeather] = useState("");
   const [phrase, setPhrase] = useState("");
-
+  const weatherNumber = (parseInt(weather.id) / 100).toFixed(0);
   // 날씨 가져오기
   React.useEffect(() => {
     axios.get(url).then((responseData) => {
@@ -66,18 +66,18 @@ function Weather({ setCold }) {
         loading: false,
         icon: data.weather[0].icon,
       });
-      const weatherNumber = (parseInt(weather.id) / 100).toFixed(0);
-      if (weatherNumber === 0) {
+
+      if (weatherNumber === "0") {
         setPhrase("산책 시키기 좋은 날씨네요!");
-      } else if (weatherNumber === 2) {
+      } else if (weatherNumber === "2") {
         setPhrase("비가 많이 오네요!");
-      } else if (weatherNumber === 3) {
+      } else if (weatherNumber === "3") {
         setPhrase("우비 입고 산책 어때요?");
-      } else if (weatherNumber === 5) {
+      } else if (weatherNumber === "5") {
         setPhrase("비가 많이 오네요");
-      } else if (weatherNumber === 6) {
+      } else if (weatherNumber === "6") {
         setPhrase("강아지한테 눈 보여주기 좋은 날!");
-      } else if (weatherNumber === 7) {
+      } else if (weatherNumber === "7") {
         setPhrase("안개와 함께 산책!");
       } else {
         setPhrase("구름이 많아서 안 더워요!");
@@ -101,7 +101,7 @@ function Weather({ setCold }) {
       case "3":
         return <TiWeatherShower size="106px" color="blue" />;
       case "5":
-        return <TiWeatherDownpour size="106px" color="navy" />;
+        return <TiWeatherDownpour size="106px" color="white" />;
       case "6":
         return <TiWeatherSnow size="106px" color="white" />;
       case "7":

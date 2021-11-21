@@ -115,16 +115,18 @@ const Main = (props) => {
 
   return (
     <div>
-      <TopBar only_right>
-        <img src={MainPageLogo} style={{ height: "30px" }} />
-      </TopBar>
+      <div style={{ margin: "0 30px" }}>
+        <TopBar only_right>
+          <img src={MainPageLogo} style={{ height: "30px" }} />
+        </TopBar>
+      </div>
 
       <Wrap>
         {/* 슬라이드 */}
         <div
           style={{
             backgroundColor: "#fff",
-            padding: "30px 30px 40px 30px",
+            padding: "0 30px 40px 30px",
             boxSizing: "border-box",
           }}
         >
@@ -155,13 +157,19 @@ const Main = (props) => {
               >
                 <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
               </div>
-              <div
+              {/* <CautionCard
                 onClick={() => {
                   history.push("/caution3");
                 }}
               >
-                <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-              </div>
+                <div>
+                  <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+                </div>
+                <div>
+                  <h1>1. 목줄착용</h1>
+                  <p>ddvvddd</p>
+                </div>
+              </CautionCard> */}
             </StyledSlider>
           )}
         </div>
@@ -403,6 +411,7 @@ const Wrap = styled.div`
   background-color: #c4c4c4;
   /* text-align: center; */
   position: relative;
+  margin-bottom: -40px;
 `;
 const Both = styled.div`
   /* position: relative; */
@@ -423,6 +432,33 @@ const StyledSlider = styled(Slider)`
   aspect-ratio: 4 / 2;
   border-radius: 14px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+`;
+
+const CautionCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  aspect-ratio: 4 / 2;
+  border-radius: 14px;
+  border: 1px solid black;
+  img {
+    width: 144px;
+    height: 144px;
+
+    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+
+    border-radius: 14px;
+    object-fit: cover;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const Img = styled.img`
   width: 100%;
@@ -574,6 +610,7 @@ const DogSta = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: 8px 0;
+  padding: 20px 30px;
   background-color: #fff;
 `;
 const Header = styled.div`

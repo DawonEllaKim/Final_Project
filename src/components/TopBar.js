@@ -125,7 +125,7 @@ TopBar.defaultProps = {
 };
 
 const Wrap = styled.div`
-  margin-bottom: 36px;
+  margin-bottom: 26px;
   background-color: #fff;
   padding-top: 40px;
 `;
