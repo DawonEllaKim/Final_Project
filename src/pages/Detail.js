@@ -23,12 +23,11 @@ import endMarker from "../image/start.png";
 import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
 import Spinner from "../shared/Spinner";
-import Button from "../elements/Button";
 
 // 리액트 아이콘
-import notification from "../image/Notification.png";
-import backward from "../image/backward.png";
 import TopBar from "../components/TopBar";
+import { BsCalendarCheck } from "react-icons/bs";
+import { BiEditAlt } from "react-icons/bi";
 
 const { kakao } = window;
 
@@ -40,7 +39,6 @@ const Detail = (props) => {
 
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
-
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
   }, [post.walk, post.start]);
@@ -76,14 +74,9 @@ const Detail = (props) => {
   const locationCategory = post.locationCategory;
 
   //산책로 찾기
-
-  console.log(postId);
   const deletePost = () => {
     dispatch(postActions.deletePostMD(postId));
   };
-
-  //  const walk = post.walk;
-  //  const start = post.start;
 
   useEffect(() => {
     let dott = [];
@@ -378,14 +371,15 @@ const Detail = (props) => {
       map: map,
     });
   }, [walk, start]);
+
   return (
     <>
-      {/* {post_info && ( */}
+      {/* 헤더 */}
+      <TopWrap>
+        <TopBar>산책 정보</TopBar>
+      </TopWrap>
+
       <Wrap>
-        {/* 뒤로가기 버튼 + 상세페이지 + 알람 */}
-        <TopBar>
-          산책할개
-          </TopBar>
         {/* 게시물 올린 보호자의 정보 */}
         <UserWrap>
           {/* 보호자 사진, 닉네임, 나이대, 성별 */}
@@ -412,55 +406,64 @@ const Detail = (props) => {
         <DogImage src={dogImage} />
 
         {/* 산책 정보 */}
-
         <DetailWrap>
           {/* 강아지 정보 */}
           <DogWrap>
             {/* 강아지 이름, 강아지 나이, 강아지 소개 */}
             <DogInfo>
-              <span>
+              <DogName>
                 {dogName} / {dogAge}
-              </span>
-              <span
-                style={{
-                  color: "#5c5c5c",
-                  fontWeight: "normal",
-                  marginBottom: "12px",
-                }}
-              >
-                {dogBreed}
-              </span>
+              </DogName>
+              <DogBreed>{dogBreed}</DogBreed>
+              <Comment>{dogComment}</Comment>
             </DogInfo>
+
             {/* 강아지 카테고리 모음 */}
             <DogCategory>
               <div>{dogSize}</div>
               <div>{dogGender === "남" ? "남아" : "여아"}</div>
               <div>{neutral === true ? "중성화O" : "중성화X"}</div>
-              <div>{dogCo}</div>
+              <div>{dogCo + "마리"}</div>
             </DogCategory>
-            <Comment>{dogComment}</Comment>
           </DogWrap>
-          <Line />
 
           {/* 예약 시간 */}
           <TimeWrap>
-            <Title>예약 시간</Title>
-            <MeetingTime>{meetingDate}</MeetingTime>
-          </TimeWrap>
-          <Line />
+            <Box>
+              <RedIcon>
+                <BsCalendarCheck
+                  style={{
+                    color: "#fff",
+                    width: "24px",
+                    height: "24px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </RedIcon>
+              <BoxDiv>
+                <MeetingTime>{meetingDate}</MeetingTime>
+                <MeetingLocation>{location}</MeetingLocation>
+              </BoxDiv>
+            </Box>
 
-          {/* 예약 장소 */}
-          <LocationWrap>
-            <Title>예약 장소</Title>
-            <MeetingLocation>{location}</MeetingLocation>
-            <MeetingLocation>{post.routeName}</MeetingLocation>
-          </LocationWrap>
-          <Line />
-          <LocationWrap>
-            <Title>소개/유의사항</Title>
-            <MeetingLocation>{wishDesc}</MeetingLocation>
-          </LocationWrap>
-          <Line />
+            <Box>
+              <RedIcon>
+                <BiEditAlt
+                  style={{
+                    color: "#fff",
+                    width: "24px",
+                    height: "24px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </RedIcon>
+              <BoxDiv>
+                <Title>소개/유의사항</Title>
+                <MeetingLocation>{wishDesc}</MeetingLocation>
+              </BoxDiv>
+            </Box>
+          </TimeWrap>
+
           {/* 지도 */}
           <MapWrap id="map"></MapWrap>
 
@@ -495,46 +498,35 @@ const Detail = (props) => {
         </DetailWrap>
 
         {/* 고정 버튼들 */}
-        <NavBar />
       </Wrap>
-      {/* )} */}
+      <NavBar />
     </>
   );
 };
-
+const TopWrap = styled.div`
+  margin: 0 30px;
+`;
 const Wrap = styled.div`
   box-sizing: border-box;
 
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
-
-  
-  margin: 0 0 90px 0;
-  padding: 0 20px;
+  padding: 0 30px;
 
   font-size: 14px;
   text-align: center;
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 52px;
-  margin: 46px auto 18px auto;
-  font-size: 18px;
 `;
 const UserWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+  width: 100%;
   height: 48px;
-  margin-bottom: 13px;
+  margin-bottom: 20px;
 `;
 const UserLeft = styled.div`
   display: flex;
@@ -545,7 +537,6 @@ const UserLeft = styled.div`
   cursor: pointer;
 `;
 const UserImage = styled.img`
-  /* position: relative; */
   width: 48px;
   height: 48px;
   margin-right: 17px;
@@ -579,81 +570,109 @@ const UserRight = styled.div`
 `;
 const DogImage = styled.img`
   /* position: relative; */
-  width: 352px;
-  height: 230px;
-  margin-bottom: 34px;
-  border-radius: 20px;
+  width: 100%;
+  aspect-ratio: 4/2.5;
+  margin-bottom: 20px;
+  border-radius: 14px;
   z-index: 10;
   object-fit: cover;
 `;
-const DetailWrap = styled.div``;
-
+const DetailWrap = styled.div`
+  width: 100%;
+`;
 const DogWrap = styled.div`
   width: 100%;
   height: 160px;
+  margin-bottom: 25px;
 `;
 const DogInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-self: center;
   align-items: center;
-  font-size: 16px;
-  color: #000;
 
-  span {
-    margin-bottom: 4px;
-    font-weight: bold;
-  }
+  color: #000;
 `;
+const DogName = styled.span`
+  margin-bottom: 2px;
+  font-size: 20px;
+`;
+const DogBreed = styled.span`
+  color: #5c5c5c;
+  margin-bottom: 2px;
+  font-weight: normal;
+  font-size: 16px;
+`;
+const Comment = styled.div`
+  margin-bottom: 30px;
+  font-size: 16px;
+`;
+
 const DogCategory = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+  width: 100%;
   height: 32px;
-  margin: 0 auto 38px auto;
 
   div {
-    width: 90px;
+    width: 21.5%;
     height: 32px;
-    margin-right: 7px;
+    /* margin: 0 10px; */
     line-height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #9de8df;
+    background-color: #fff;
     border: 1px gray;
     border-radius: 20px;
     font-size: 14px;
+    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
   }
-`;
-const Comment = styled.div`
-  font-size: 16px;
-`;
-const Line = styled.hr`
-  /* display: block; */
-  width: 350px;
-  border: 0.25px solid lightGray;
-  margin: 26px auto;
 `;
 const Title = styled.div`
   margin-bottom: 8px;
-  color: #868e96;
+  color: #5c5c5c;
 `;
 const TimeWrap = styled.div`
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+`;
+const Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 29px;
+`;
+
+const BoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  text-align: left;
+`;
+const RedIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #ff5656;
+  border-radius: 50%;
+  margin-right: 25px;
 `;
 const MeetingTime = styled.div`
   font-size: 16px;
 `;
-const LocationWrap = styled.div`
-  font-size: 16px;
-`;
 const MeetingLocation = styled.div``;
-
 const MapWrap = styled.div`
-  width: 350px;
+  width: 100%;
   height: 500px;
   box-sizing: border-box;
   border-radius: 20px;
@@ -662,9 +681,9 @@ const MapWrap = styled.div`
 const FlexButton = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 350px;
+  width: 90%;
   height: 52px;
-  margin: 30px auto 130px auto;
+  margin: 30px auto 0 auto;
 
   button {
     width: 160px;
@@ -690,24 +709,5 @@ const EditButton = styled.button`
   border-radius: 10px;
   border: 1px gray;
 `;
-const Map = styled.div`
-  width: 350px;
-  height: 207px;
-  border-radius: 20px;
-`;
-const Edit = styled.button`
-  width: 40px;
-  height: 40px;
-  margin: 0 8px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-`;
-const Delete = styled.button`
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-`;
+
 export default Detail;
