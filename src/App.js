@@ -49,7 +49,7 @@ import DogStaWrite from "./pages/DogStaGram/DogStaWrite";
 import DogStaDetail from "./pages/DogStaGram/DogStaDetail";
 import InfoList from "./components/MyPage/InfoList";
 import DogStaMain from "./pages/DogStaGram/DogStaMain";
-import DogStaEdit from "./pages/DogStaGram/DogStarEdit";
+import DogStaEdit from "./pages/DogStaGram/DogStaEdit";
 
 // 알람 + 쪽지
 import Notification from "./pages/Notification";
