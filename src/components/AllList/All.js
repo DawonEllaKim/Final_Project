@@ -56,7 +56,13 @@ function All({ postList }) {
                       }}
                     />
                   ) : (
-                    <IoMdFemale />
+                    <IoMdFemale
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        color: "#FF8989",
+                      }}
+                    />
                   )}
                 </h4>
               </CardTop>

@@ -81,6 +81,7 @@ const TopBar = (props) => {
                   height: "24px",
                   marginLeft: "-30px",
                   marginRight: "10px",
+                  color: "#000",
                 }}
               />
             </a>

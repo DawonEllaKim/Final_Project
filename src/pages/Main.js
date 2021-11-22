@@ -111,7 +111,7 @@ const Main = (props) => {
       {/* 로고 + 알람 버튼 */}
       <TopWrap>
         <TopBar only_right>
-          <img src={MainPageLogo} style={{ height: "30px" }} />
+          <img src={MainPageLogo} style={{ height: "50px" }} />
         </TopBar>
       </TopWrap>
 
