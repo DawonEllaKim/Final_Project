@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
-import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-
 import { useHistory } from "react-router";
+
+// 리덕스
 import { actionCreators as postActions } from "../redux/modules/dogsta";
+
+// 아이콘
+import { Close } from "@mui/icons-material";
+
 const DogStarEditModal = (props) => {
   const dispatch = useDispatch();
   const history =useHistory()
  
   const editImage = () => {
-  
-
-
     const image = imgFile ? imgFile : props.dogStarImage;
 
     const formData = new FormData();
     formData.append("dogPostImage", imgFile);
     dispatch(postActions.editPostImageMD(formData));
-  
-
  };
  
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
@@ -77,7 +75,7 @@ const Component = styled.div`
   transform: translateX(-50%);
   opacity: 0.4;
   height: 100vh;
-  width: 390px;
+  width: 100%;
   background-color: black;
   z-index: 10;
 `;

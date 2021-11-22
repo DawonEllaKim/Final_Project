@@ -43,15 +43,6 @@ const GaeStaCard = (props) => {
               >
                 {/* 포스트 사진 */}
                 <img src={post.dogPostImage} />
-
-                {/* 포스트 정보 */}
-                <PostInfo>
-                  <p>{post.dogPostDesc}</p>
-                  <WriterInfo>
-                    <img src={post.userImage} />
-                    <span>{post.userNickname}</span>
-                  </WriterInfo>
-                </PostInfo>
               </Card>
             );
           })}
@@ -77,8 +68,8 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   width: 160px;
-  height: 40px;
-  margin: 30px auto 130px auto;
+  padding: 16px 0;
+  margin: 30px auto ;
   background-color: #fff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -87,51 +78,22 @@ const Button = styled.button`
 `;
 const Posts = styled.div`
   display: grid;
-  grid-template-columns: 168px 168px;
-  gap: 20px 20px;
+  grid-template-columns: 48% 48%;
+  row-gap: 20px;
   width: 100%;
+  justify-content: space-between;
   cursor: pointer;
   img {
     width: 100%;
-    height: 150px;
-    background-position: center;
-    background-repeat: no-repeat;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 10px;
   }
 `;
 const Card = styled.div`
-  border-radius: 20px;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
-  padding-bottom: 10px;
-`;
-const PostInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 3px 7px;
-  margin: 4px;
-  p {
-    margin-bottom: 20px;
-  }
-`;
-const WriterInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
-  height: 20px;
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 4px;
-  }
-  span {
-    margin-right: 45px;
-  }
+  width: 100%;
+  border-radius: 10px;  
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 `;
 
 export default GaeStaCard;

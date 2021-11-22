@@ -17,23 +17,25 @@ import { actionCreators as chatAction } from "../redux/modules/chat";
 
 // 이미지  + 아이콘
 import { FiLogOut } from "react-icons/fi";
+import { FaDog } from 'react-icons/fa';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import redHeart from "../image/redHeart.png";
 import grayHeart from "../image/grayHeart.png";
-import dog from "../image/dog.png";
-import myPage from "../image/myPage.png";
-import chat from "../image/chat.png";
-import edit from "../image/edit.png";
+
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [status, setStatus] = useState("sta"); // 개스타그램, 강아지 정보, 산책목록 컴포넌츠를 중 택1
+  const [status, setStatus] = useState(); // 개스타그램, 강아지 정보, 산책목록 컴포넌츠를 중 택1
+  const [focus, setFocus] = useState(); // 선택한 컴포넌츠 빨간색
 
   const userInfo = useSelector((state) => state.user.list); // 현재 로그인된 유저 정보
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
   const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
-  console.log(userInfo);
 
   const rawRoomId = [userId, currentPageUserId].sort();
   const roomId = rawRoomId[0] + "-" + rawRoomId[1];
@@ -62,6 +64,7 @@ const MyPage = (props) => {
   useEffect(() => {
     dispatch(userActions.getMypageMD(currentPageUserId)); // 현재 마이페이지 유저 ID로 정보 불러오기
     setStatus("sta");
+    // setFocus('sta');
   }, []);
 
   return (
@@ -75,14 +78,14 @@ const MyPage = (props) => {
         <UserInfoLeft>
           <UserImg src={userInfo.userImage} />
 
-          {/* 현재 페이지의 userId 와 현재 로그인된 userId가 같을때에는 편집 보튼을 보여주고 아니면 안 보여준다. */}
+          {/* 현재 페이지의 userId 와 현재 로그인된 userId가 같을때에는 편집 버튼을 보여주고 아니면 안 보여준다. */}
           {currentPageUserId === userId && (
             <Edit
               onClick={() => {
                 history.push("/userProfile");
               }}
             >
-              <img src={edit} />
+              <ModeEditIcon />
             </Edit>
           )}
         </UserInfoLeft>
@@ -90,7 +93,7 @@ const MyPage = (props) => {
         {/* 유저 닉네임 + 주소 + 로그아웃버튼 */}
         <UserRight>
           <div>
-            <span style={{ fontWeight: "400" }}>{userInfo.userNickname}</span>
+            <span style={{ fontWeight: "600" }}>{userInfo.userNickname}</span>
             <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
           </div>
 
@@ -100,19 +103,20 @@ const MyPage = (props) => {
               <span>로그아웃</span>
             </LogOut>
           ) : (
-            <button
+            <Message
               onClick={() => {
                 history.push(`/chatwrite/${currentPageUserId}`);
               }}
             >
-              {userInfo.userNickname}님에게 쪽지 보내기
-            </button>
+              <MailOutlineIcon />
+              {userInfo.userNickname}님에게<br/>쪽지 보내기
+            </Message>
           )}
         </UserRight>
       </UserInfo>
 
       {/* 별점/리뷰 */}
-      <Review>
+      {/* <Review>
         <ReviewLeft>
           <div>
             <img src={redHeart} />
@@ -124,7 +128,7 @@ const MyPage = (props) => {
           <p>4.5/5</p>
         </ReviewLeft>
         <ReviewRight>리뷰보기</ReviewRight>
-      </Review>
+      </Review> */}
 
       {/* 다른 페이지로 이동 버튼들 */}
       <Buttons>
@@ -133,8 +137,10 @@ const MyPage = (props) => {
           onClick={() => {
             setStatus("sta");
           }}
+          // onFocus={()=>setFocus('sta')}
+          // style = {{color: focus === 'sta'?'#ff5656':'#000'}}
         >
-          <img src={dog} style={{ width: "24px", height: "21px" }} />
+          <FaDog size='22' />
           <span>개스타그램</span>
         </div>
 
@@ -143,8 +149,10 @@ const MyPage = (props) => {
           onClick={() => {
             setStatus("dog");
           }}
+          // onFocus={()=>setFocus('dog')}
+          // style = {{color: focus === 'dog'?'#ff5656':'#000'}}
         >
-          <img src={chat} style={{ width: "20px", height: "16px" }} />
+          <ContactsIcon />
           <span>강아지 정보</span>
         </div>
         {/* WalkList 버튼 - 현재 페이지 유저가 쓴 산책 게시물*/}
@@ -152,8 +160,10 @@ const MyPage = (props) => {
           onClick={() => {
             setStatus("list");
           }}
+          // onFocus={()=>setFocus('list')}
+          // style = {{color: focus === 'list'?'#ff5656':'#000'}}
         >
-          <img src={myPage} style={{ width: "16px", height: "20px" }} />
+          <ListAltIcon />
           <span>산책 목록</span>
         </div>
       </Buttons>
@@ -165,7 +175,7 @@ const MyPage = (props) => {
 
         {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
         {status === "dog" && (
-          <InfoList post={userInfo} userId={currentPageUserId} />
+          <InfoList post={userInfo} userId={userId} currentPageUserId={currentPageUserId} />
         )}
 
         {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}
@@ -210,14 +220,12 @@ const UserInfoLeft = styled.div`
 const UserRight = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: left;
   }
 `;
 const UserImg = styled.img`
@@ -229,6 +237,7 @@ const UserImg = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
+
 const Edit = styled.div`
   position: absolute;
   bottom: 0;
@@ -243,15 +252,81 @@ const Edit = styled.div`
   width: 36px;
   height: 36px;
   padding: 6px;
-  border: 2px solid black;
   border-radius: 50%;
   background-color: #fff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
 
   img {
     width: 22px;
     height: 22px;
   }
 `;
+const LogOut = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 20px;
+  color: #5f5f5f;
+`;
+const Message = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 20px;
+  color: #5f5f5f;
+`
+
+// const Review = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+
+//   height: 66px;
+//   width: 100%;
+//   margin-bottom: 22px;
+//   border-top: 1px solid #c4c4c4;
+//   border-bottom: 1px solid #c4c4c4;
+// `;
+// const ReviewLeft = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: left;
+//   align-items: center;
+
+//   div {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     align-items: center;
+//     margin-right: 10px;
+//     color: #5f5f5f;
+//   }
+
+//   img {
+//     width: 20px;
+//     height: 18px;
+//     margin-right: 2px;
+//   }
+
+//   p {
+//     color: #5f5f5f;
+//   }
+// `;
+// const ReviewRight = styled.div`
+//   color: #5f5f5f;
+// `;
+
 const Buttons = styled.div`
   display: flex;
   flex-direction: row;
@@ -277,66 +352,16 @@ const Buttons = styled.div`
   }
 
   span {
+    display: block;
     font-size: 14px;
+    padding-top: 2px;
   }
 `;
-const LogOut = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  color: #5f5f5f;
-`;
-const Review = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  height: 66px;
-  width: 100%;
-  margin-bottom: 22px;
-  border-top: 1px solid #c4c4c4;
-  border-bottom: 1px solid #c4c4c4;
-`;
-const ReviewLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
-
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    color: #5f5f5f;
-  }
-
-  img {
-    width: 20px;
-    height: 18px;
-    margin-right: 2px;
-  }
-
-  p {
-    color: #5f5f5f;
-  }
-`;
-const ReviewRight = styled.div`
-  color: #5f5f5f;
-`;
 const Cards = styled.div`
   width: 100%;
-  margin: 24px 0 200px 0;
+  margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #c4c4c4;
 `;
 
 export default MyPage;

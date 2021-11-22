@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
+
+// 리덕스
 import { actionCreators as commentActions } from "../../redux/modules/comment";
+
+// 아이콘
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import CloseIcon from "@mui/icons-material/Close";
+import DoneIcon from "@mui/icons-material/Done";
 
 const CommentList = ({ comment }) => {
   const dispatch = useDispatch();
-  console.log(comment);
   const [commentDesc, setCommentDesc] = useState("");
   const [edit, setEdit] = useState(false);
-  const userId = localStorage.getItem("userId");
-  console.log("로그인한 유저 id", userId);
-  const commentId = comment.commentId;
-  console.log("댓글 id", commentId);
+  const userId = localStorage.getItem("userId"); // 로그인한 유저 id
+  const commentId = comment.commentId; // 댓글 id
 
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
   const time = comment.AGOTIME;
-
-  const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList);
   const dogPostId = comment.dogPostId;
 
+  // 댓글 수정
   const editComment = () => {
     setEdit(true);
-    console.log(commentId)
+    console.log(commentId);
   };
 
   const commentChangeHandler = (e) => {
     setCommentDesc(e.target.value);
   };
-  
-  const completeEdit = () =>{
-    const newComment = {
-      commentDesc
-    }
-    console.log(commentId)
-    dispatch(commentActions.editCommentMD(dogPostId, commentId, newComment))
-    setEdit(false);
-  }
 
-  const cancleEdit = () => {
+  // 댓글 삭제
+  const delComment = () => {
+    dispatch(commentActions.deleteCommentMD(dogPostId, commentId));
+  };
+
+  // 댓글 수정 완료
+  const completeEdit = () => {
+    const newComment = {
+      commentDesc,
+    };
+    dispatch(commentActions.editCommentMD(dogPostId, commentId, newComment));
     setEdit(false);
   };
 
-  const delComment = () => {
-    dispatch(commentActions.deleteCommentMD(dogPostId, commentId));
+  // 댓글 수정 취소
+  const cancleEdit = () => {
+    setEdit(false);
   };
 
   useEffect(() => {
@@ -56,17 +59,27 @@ const CommentList = ({ comment }) => {
     <div>
       <Wrap>
         <TextWrap>
-          <User>{userNickname}</User>
-          {edit ? (
-            <input
-              type="text"
-              value={commentDesc}
-              onChange={commentChangeHandler}
-            />
-          ) : (
-            <Desc>{desc}</Desc>
-          )}
-          <Time>{time}</Time>
+          <Left>
+            <User>{userNickname}</User>
+          </Left>
+          <Right>
+            {/* 댓글 수정시 input창으로 바뀜 */}
+            {edit ? (
+              <div>
+                <EditText
+                  type="text"
+                  value={commentDesc}
+                  onChange={commentChangeHandler}
+                />
+                <Time>{time}</Time>
+              </div>
+            ) : (
+              <div>
+                <Desc>{desc}</Desc>
+                <Time>{time}</Time>
+              </div>
+            )}
+          </Right>
           {/* <Comment>댓글 달기</Comment> */}
         </TextWrap>
 
@@ -75,13 +88,21 @@ const CommentList = ({ comment }) => {
           <BtnWrap>
             {edit ? (
               <div>
-                <Edit onClick={completeEdit}>완료</Edit>
-                <button onClick={cancleEdit}>취소</button>
+                <Edit onClick={completeEdit}>
+                  <DoneIcon sx={{ fontSize: 20 }} />
+                </Edit>
+                <Cancle onClick={cancleEdit}>
+                  <CloseIcon sx={{ fontSize: 20 }} />
+                </Cancle>
               </div>
             ) : (
               <div>
-                <Edit onClick={editComment}>수정</Edit>
-                <Delete onClick={delComment}>삭제</Delete>
+                <Edit onClick={editComment}>
+                  <ModeEditIcon sx={{ fontSize: 20 }} />
+                </Edit>
+                <Delete onClick={delComment}>
+                  <CloseIcon sx={{ fontSize: 20 }} />
+                </Delete>
               </div>
             )}
           </BtnWrap>
@@ -94,22 +115,64 @@ const CommentList = ({ comment }) => {
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size:14px;
-  padding: 4px 0;
+  font-size: 14px;
+  padding: 2px 0;
 `;
-const TextWrap = styled.div``;
-const User = styled.span`
-  font-weight: 600;
+const TextWrap = styled.div`
+  display: flex;
+  justify-content: left;
+  width: calc(100% - 64px);
+`;
+const Left = styled.div`
   margin-right: 12px;
 `;
-const Desc = styled.span`
+const User = styled.span`
+  font-weight: 600;
+`;
+
+const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Desc = styled.div`
+  word-break: break-all;
 `;
 const Time = styled.span`
+  font-size: 12px;
   color: #bdbdbd;
 `;
-const Comment = styled.button``;
-const BtnWrap = styled.div``;
-const Edit = styled.button``;
-const Delete = styled.button``;
+const EditText = styled.input`
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bdbdbd;
+  padding: 2px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const BtnWrap = styled.div`
+  width: 50px;
+`;
+const Edit = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #bdbdbd;
+  margin-right: 8px;
+`;
+const Delete = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #bdbdbd;
+`;
+const Cancle = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #bdbdbd;
+`;
 
 export default CommentList;
