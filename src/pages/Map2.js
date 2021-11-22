@@ -12,6 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import ErrorModal from "../components/ErrorModal";
 
 // 상단바
 import TopBar from "../components/TopBar";
@@ -28,18 +29,20 @@ const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const markerName = useSelector((state) => state.marker.marker);
+  console.log(markerName);
 
   const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
   const [wishDesc, setWishDesc] = useState(); //desc설명
   const [dogCount, setDogCount] = React.useState("");
-
+  const [is_modal, setModal] = useState(false);
+  const closeModal = () => {
+    setModal(false);
+  };
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
   const moment = require("moment");
 
-  console.log(startDate);
-  console.log(markerName);
   const SubmitLocation = () => {
     const Info = {
       totalDistance: markerName.totalDistance,
@@ -53,61 +56,85 @@ const Map2 = (props) => {
       dogCount: dogCount,
       meetingDate: moment(startDate).add(9, "h")._d,
     };
-    console.log(Info);
-    dispatch(PostActions.addPostMD(Info));
+    if (
+      markerName.totalDistance == "" ||
+      markerName.totalTime == "" ||
+      markerName.routeColor == "" ||
+      markerName.routeName == "" ||
+      markerName.startLocationAddress == "" ||
+      markerName.endLocationAddress == "" ||
+      markerName.locationCategory == "" ||
+      wishDesc == "" ||
+      dogCount == ""
+    ) {
+      setModal(true);
+    } else {
+      dispatch(PostActions.addPostMD(Info));
+    }
   };
 
-  //지도 표시할 div
-
   return (
-    <Frame>
-      {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
-      <TopBar>산책 등록</TopBar>
-      <InputArea>
-        <SearchWrap>
-          <WalkButton
-            onClick={() => {
-              history.push("/MapPractice");
-            }}
-          >
-            <img src={search} style={{ marginLeft: "4px" }} />
-            <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
-          </WalkButton>
-        </SearchWrap>
+    <>
+      <Wrap>
+        {/* 헤더 */}
+        {/* {is_modal? <ErrorModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
+        <TopBar>산책 등록</TopBar>
+        {/* 산책로 */}
+        <div>
+          <Title>산책로 설정</Title>
+          <SearchWrap>
+            <WalkButton
+              onClick={() => {
+                history.push("/MapPractice");
+              }}
+            >
+              <img src={search} />
+              <div>어디서 산책하실건가요? </div>
+            </WalkButton>
+          </SearchWrap>
 
-        {markerName.routeName && (
-          <div>
-            <AdressWrap>
-              <CircleDiv>
-                <img src={detailAddress} />
-              </CircleDiv>
-              <Address>
-                <Detail>{markerName.locationCategory}</Detail>
-                <Detail>{markerName.routeName}</Detail>
-              </Address>
-            </AdressWrap>
+          {/* 상세주소 선택 후 나오는 정보 모음 */}
+          {markerName.routeName && (
+            <div>
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailAddress} />
+                </CircleDiv>
+                <Address>
+                  <Detail>상세주소</Detail>
+                  <Detail>출발: {markerName.startLocationAddress}</Detail>
+                  <Detail>도착: {markerName.endLocationAddress}</Detail>
+                </Address>
+              </AdressWrap>
 
-            <AdressWrap>
-              <CircleDiv>
-                <img src={detailFilter} />
-              </CircleDiv>
-              <Address>
-                <Detail>총 {markerName.totalDistance}</Detail>
-                <Detail>시간: {markerName.totalTime}</Detail>
-              </Address>
-            </AdressWrap>
-          </div>
-        )}
-        <Title>산책 일시</Title>
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          timeInputLabel="시작시간"
-          dateFormat="MM/dd/yyyy h:mm aa"
-          showTimeInput
-          inline
-        />
-        <Title>
+              <AdressWrap>
+                <CircleDiv>
+                  <img src={detailFilter} />
+                </CircleDiv>
+                <Address>
+                  <Detail>총 {markerName.totalDistance}</Detail>
+                  <Detail>시간: {markerName.totalTime}</Detail>
+                </Address>
+              </AdressWrap>
+            </div>
+          )}
+        </div>
+        {/* 산책 일시 */}
+        <div>
+          <Title>산책 일시</Title>
+          <Calendar>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              timeInputLabel="산책시간"
+              dateFormat="MM/dd/yyyy h:mm aa"
+              showTimeInput
+              inline
+            />
+          </Calendar>
+        </div>
+        {/* 강아지 마리 수  */}
+        <div>
           <CustomBox sx={{ minWidth: 120 }}>
             <CustomFormControl fullWidth>
               <CustomInputLabel id="demo-simple-select-label">
@@ -128,28 +155,40 @@ const Map2 = (props) => {
               </CustomSelect>
             </CustomFormControl>
           </CustomBox>
-        </Title>
-        <Title1>소개/유의사항</Title1>
-        <TextArea
-          placeholder="산책에 관한 글을 작성해주세요~"
-          onChange={(e) => setWishDesc(e.target.value)}
-        ></TextArea>
-        <AddButton onClick={SubmitLocation}>산책 등록</AddButton>
-      </InputArea>
+        </div>
+        {/* 소개/유의사항 */}
+        <div>
+          <Title>소개/유의사항</Title>
+          <TextArea
+            placeholder="예) 소형견만 산책 가능, 수컷만 가능..."
+            onChange={(e) => setWishDesc(e.target.value)}
+          ></TextArea>
+        </div>
+        {/* 등록 버튼 */}
+        <AddButton onClick={SubmitLocation}>산책 등록하기</AddButton>
+        {is_modal ? (
+          <ErrorModal
+            close={closeModal}
+            text={"입력하지 않은 정보가 있습니다."}
+          />
+        ) : null}
+      </Wrap>
       <NavBar />
-    </Frame>
+    </>
   );
 };
 
-export default Map2;
-
-const Title1 = styled.div`
+const Wrap = styled.div`
   box-sizing: border-box;
-  height: 35px;
-  font-size: 18px;
-  line-height: 26px;
-  margin: 80px 0 20px 0;
+  width: 100%;
+  padding: 0 30px;
+  text-align: center;
 `;
+const Calendar = styled.div`
+  box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+`;
+
 const CustomSelect = styled(Select)`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
@@ -160,20 +199,6 @@ const CustomInputLabel = styled(InputLabel)`
 `;
 const CustomFormControl = styled(FormControl)``;
 const CustomBox = styled(Box)``;
-const Frame = styled.div`
-  max-width: 390px;
-  padding: 0 20px;
-  margin: 0 auto;
-  text-align: center;
-  box-sizing: border-box;
-  padding-bottom: 100px;
-  justify-content: center;
-`;
-
-const InputArea = styled.div`
-  /* padding: 40px 0; */
-  box-sizing: border-box;
-`;
 
 const SearchWrap = styled.div`
   width: 100%;
@@ -189,12 +214,21 @@ const WalkButton = styled.button`
   background: #ffffff;
   border-radius: 14px;
   text-align: left;
-  width: 350px;
+  padding-left: 12px;
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px gray;
+  margin-bottom: 20px;
+  img {
+    margin-left: 4px;
+  }
+
+  div {
+    margin-left: 10px;
+  }
 `;
 
 const AdressWrap = styled.div`
@@ -230,9 +264,12 @@ const Detail = styled.div`
 const Title = styled.div`
   box-sizing: border-box;
   height: 35px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 26px;
-  margin: 40px 0 20px 0;
+  margin: 12px 0;
+  width: 100%;
+  font-weight: bold;
+  margin: 30px 0;
 `;
 
 const TextArea = styled.textarea`
@@ -244,7 +281,7 @@ const TextArea = styled.textarea`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   color: #5f5f5f;
-  padding: 10px;
+  padding: 20px 24px;
   margin-bottom: 30px;
   box-sizing: border-box;
   background-color: #f9f5c2;
@@ -260,3 +297,5 @@ const AddButton = styled.button`
   border: 1px gray;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
+
+export default Map2;

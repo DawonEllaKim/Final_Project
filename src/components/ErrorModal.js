@@ -1,29 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { actionCreators as markerActions } from "../redux/modules/marker";
 
-const MarkerModal = (props) => {
+import error from "../image/error.png";
+
+const ErrorModal = (props) => {
   const dispatch = useDispatch();
-  const distance = props.distance;
-  const road = props.road;
-  const check = props.check;
-  const walk = props.walk;
-  const addMarker = () => {
-    let marker = {
-      totalDistance: distance.distance,
-      totalTime: distance.time,
-      startLocationAddress: distance.start,
-      endLocationAddress: distance.last,
-      locationCategory: check,
-      routeColor: distance.color,
-      routeName: distance.name,
-      cooridnate: walk,
-    };
-    dispatch(markerActions.addMarkerAX(marker));
 
+  const addMarker = () => {
     props.close();
   };
 
@@ -35,16 +20,10 @@ const MarkerModal = (props) => {
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
-
-        <ModalHeader>산책로를 설정하시겠습니까?</ModalHeader>
-        <ModalInput>
-          출발지 : {distance.start}
-          <br />
-          산책로 : {distance.name}
-        </ModalInput>
-        <ModalButtonContainer>
-          <ModalSubmitBtn onClick={addMarker}> 산책로 등록 </ModalSubmitBtn>
-        </ModalButtonContainer>
+        <div>
+          <Img src={error} />
+          <ModalHeader>{props.text}</ModalHeader>
+        </div>
       </ModalComponent>
     </React.Fragment>
   );
@@ -60,6 +39,7 @@ const Component = styled.div`
   background-color: black;
   z-index: 10;
 `;
+
 const ModalComponent = styled.div`
   position: fixed;
   top: 50%;
@@ -112,4 +92,10 @@ const ModalExitBtn = styled.button`
   color: black;
 `;
 
-export default MarkerModal;
+const Img = styled.img`
+  width: 88px;
+  height: 88px;
+  margin-top: 80px;
+`;
+
+export default ErrorModal;
