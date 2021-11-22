@@ -94,11 +94,19 @@ const CommentList = ({ comment }) => {
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size:14px;
+  padding: 4px 0;
 `;
 const TextWrap = styled.div``;
-const User = styled.span``;
-const Desc = styled.span``;
-const Time = styled.span``;
+const User = styled.span`
+  font-weight: 600;
+  margin-right: 12px;
+`;
+const Desc = styled.span`
+`;
+const Time = styled.span`
+  color: #bdbdbd;
+`;
 const Comment = styled.button``;
 const BtnWrap = styled.div``;
 const Edit = styled.button``;

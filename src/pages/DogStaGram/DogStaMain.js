@@ -99,36 +99,29 @@ const DogStaMain = (props) => {
                 return (
                   <Card key={index}>
                     {/* 포스트 사진 */}
-                    <img
-                      src={post.dogPostImage}
-                      onClick={() =>
-                        history.push(
-                          `/dogStaDetail/${post.userId}/${post.dogPostId}`
-                        )
-                      }
-                    />
-
-                    {/* 포스트 정보 */}
-                    <PostInfo>
-                      <p
+                    <ImageWrap>
+                      <CardImage
+                        src={post.dogPostImage}
                         onClick={() =>
                           history.push(
                             `/dogStaDetail/${post.userId}/${post.dogPostId}`
                           )
                         }
-                      >
-                        {post.dogPostDesc}
-                      </p>
+                      />
+                    </ImageWrap>
+
+                    {/* 포스트 정보 */}
+                    <PostInfo>
                       <WriterInfo
                         onClick={() => {
                           history.push(`/mypage/${post.userId}`);
                         }}
                       >
-                        <img src={post.userImage} />
+                        <UserImage src={post.userImage} />
                         <span>{post.userNickname}</span>
                       </WriterInfo>
                       <LikeInfo>
-                        <span>like</span> 
+                        <span>like</span>
                         {post.count}
                       </LikeInfo>
                     </PostInfo>
@@ -149,8 +142,6 @@ const DogStaMain = (props) => {
 };
 
 const Wrap = styled.div`
-  border: 1px solid blue;
-  box-sizing: border-box;
   width: 100%;
   position: relative;
   display: flex;
@@ -158,7 +149,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-content: center;
   margin: auto;
-  margin-bottom: 150px;
+  padding: 0 30px;
 `;
 const NoCard = styled.div`
   display: flex;
@@ -226,7 +217,6 @@ const Body = styled.div`
   align-items: center;
 `;
 const Posts = styled.div`
-  border: 1px solid red;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 48% 48%;
@@ -234,28 +224,34 @@ const Posts = styled.div`
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
-  img {
+  /* img {
+    border: 2px solid black;
+    box-sizing: border-box;
     width: 100%;
-    height: 150px;
+    padding-bottom: 50%;
     background-position: center;
     background-repeat: no-repeat;
     object-fit: cover;
-  }
+  } */
 `;
 const Card = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
-  padding-bottom: 10px;
+`;
+const ImageWrap = styled.div`
+  width: 100%;
+`;
+const CardImage = styled.img`
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
 `;
 const PostInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 3px 7px;
-  /* margin: 4px; */
-  p {
-    margin-bottom: 20px;
-  }
+  justify-content: space-between;
+  padding: 8px 10px;
 `;
 const WriterInfo = styled.div`
   display: flex;
@@ -263,16 +259,28 @@ const WriterInfo = styled.div`
   justify-content: left;
   align-items: center;
   height: 20px;
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 4px;
-  }
   span {
-    margin-right: 45px;
+    font-size: 14px;
   }
 `;
-const LikeInfo = styled.div``;
+
+const UserImage = styled.img`
+  box-sizing: border-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 4px;
+`;
+
+const LikeInfo = styled.div`
+  span {
+    font-size: 14px;
+    color: #888;
+    margin-right: 4px;
+  }
+`;
 
 export default DogStaMain;

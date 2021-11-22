@@ -137,10 +137,6 @@ export default handleActions(
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
-        console.log(action)
-        console.log(draft)
-        console.log(draft.commentList)
         let commentIdx = draft.commentList.findIndex(
           (comment) => comment.commentId == action.payload.commentId
         )
