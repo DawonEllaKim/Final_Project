@@ -1,99 +1,138 @@
+// All.js - 산책가자 페이지에서 전체 카드 페이지
 import React from "react";
 import styled from "styled-components";
 
-// import Card from "../Card";
+// 리덕스
 import { history } from "../../redux/configureStore";
-import male from "../../image/male.png";
-import female from "../../image/female.png";
+
+// 이미지 + 아이콘
+import OlympicMap from "../../image/OlympicMap.png";
+import SeoulMap from "../../image/SeoulMap.png";
+import BanpoMap from "../../image/BanpoMap.png";
+import { IoMdMale } from "react-icons/io";
+import { IoMdFemale } from "react-icons/io";
+import { MdLocationPin } from "react-icons/md";
+import { FaRegClock } from "react-icons/fa";
 
 function All({ postList }) {
   return (
-    <div>
+    <Wrap>
       {postList.map((post, index) => {
         const dogImage = post.dogImage;
         const dogName = post.dogName;
         const dogGender = post.dogGender;
         const dogAge = post.dogAge;
-        const dogComment = post.dogComment;
         const initialMeetingDate = post.meetingDate;
 
+        // 장소 카테고리마다 카드에 보이는 지도 이미지 다르게
+        const map = () => {
+          if (post.locationCategory === "서울숲") {
+            return SeoulMap;
+          } else if (post.locationCategory === "올림픽공원") {
+            return OlympicMap;
+          } else {
+            return BanpoMap;
+          }
+        };
+
         return (
-          <div
+          <CardWrap
             post={post}
             key={index}
             onClick={() => history.push(`/posts/${post.postId}`)}
           >
-            <CardWrap>
-              {/* 카드 왼쪽 */}
-              <CardInfo>
-                <CardTop>
-                  <DogPhoto src={dogImage} alt="dog" />
-                  <p>{dogName + ", " + dogAge}</p>
-                  <h4>{dogGender === "남" ? "a" : "d"}</h4>
-                </CardTop>
+            {/* 카드 왼쪽 */}
+            <Left>
+              <CardTop>
+                <DogPhoto src={dogImage} alt="dog" />
+                <DogInfo>{dogName + ", " + dogAge}</DogInfo>
+                <h4>
+                  {dogGender === "남" ? (
+                    <IoMdMale
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        color: "#89B1FF",
+                      }}
+                    />
+                  ) : (
+                    <IoMdFemale />
+                  )}
+                </h4>
+              </CardTop>
 
-                {/* <CardCenter>
-                    <p>장소 : {post.locationCategory}</p>
-                    <p>크기 : {post.dogSize}</p>
-                    <p styoe={{ wordBreak: "keep-all" }}>{dogComment}</p>
-                  </CardCenter>
-                  <CardBottom>
-                    {initialMeetingDate ? initialMeetingDate : ""}
-                  </CardBottom> */}
-              </CardInfo>
-              {/* 카드 오른쪽 */}
-              <div>Map</div>
-            </CardWrap>
-          </div>
+              <CardBottom>
+                <MeetingInfo>
+                  <MdLocationPin
+                    style={{ width: "25px", height: "25px", color: "#FF5656" }}
+                  />
+                  <p>{post.locationCategory}</p>
+                </MeetingInfo>
+
+                <MeetingInfo>
+                  <FaRegClock
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marignLeft: "100px",
+                      // border: "1px solid red",
+                    }}
+                  />
+                  <p style={{ marginLeft: "10px" }}>{initialMeetingDate}</p>
+                </MeetingInfo>
+              </CardBottom>
+            </Left>
+            {/* 카드 오른쪽 */}
+            <Map src={map()} />
+          </CardWrap>
         );
       })}
-    </div>
+    </Wrap>
   );
 }
 
+const Wrap = styled.div`
+  width: 100%;
+`;
 const CardWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-
-  /* margin-bottom: 24px; */
+  padding: 20px 25px;
+  margin-bottom: 20px;
   border-radius: 14px;
   background-color: #fff;
-  /* color: #747474; */
-
-  /* font-size: 14px;
-  font-weight: 400;
-  line-height: 20.27px; */
   cursor: pointer;
-
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 `;
-const CardInfo = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 164px;
-
+const Left = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 `;
 const CardTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  line-height: 23px;
 `;
-
 const DogPhoto = styled.img`
   width: 48px;
   height: 48px;
+  margin-right: 12px;
   border-radius: 50%;
   object-fit: cover;
 `;
-const CardCenter = styled.div`
+const DogInfo = styled.p`
+  margin-right: 8px;
+`;
+const CardBottom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -104,13 +143,18 @@ const CardCenter = styled.div`
   padding: 8px 8px 0 0;
   box-sizing: border-box;
 `;
-const CardBottom = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: left;
-  font-size: 14px;
-  padding: 10px 0;
+const MeetingInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  text-align: center;
+  font-size: 16px;
+  margin: 5px 0;
+`;
+
+const Map = styled.img`
+  width: 124px;
+  height: 124px;
+  border-radius: 14px;
 `;
 export default All;
