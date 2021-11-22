@@ -107,7 +107,12 @@ const Notification = (props) => {
   );
 };
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 20px;
+`;
 const Category = styled.div`
   display: flex;
   flex-direction: row;

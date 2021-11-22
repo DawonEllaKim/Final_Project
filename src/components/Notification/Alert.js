@@ -28,14 +28,20 @@ const Alert = ({noti}) => {
   return (
         <div>
         <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(noti.notificationId))}}>
+  
           <Left>
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
+            <img src={noti.userImage} />
+          
+            <span>{noti.senderNickname}</span>
           </Left>
           <Right>
-          {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
-            <span>1시간 전</span>
+          <Message>{noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!</Message>
+           
+           <Info>
+            <Time>1시간전</Time>
+            </Info>
           </Right>
-          
+  
         </Wrap>
         {notification.map((n)=> {
           return (
@@ -44,7 +50,9 @@ const Alert = ({noti}) => {
             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
           </Left>
           <Right>
+            <Message>
           {n.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
+          </Message>
             <span>1시간 전</span>
           </Right>
           
@@ -57,52 +65,89 @@ const Alert = ({noti}) => {
  
 };
 
+const Message = styled.div
+`
+display:flex;
+width:100%;
+height:80%;
+justify-content:flex-start;
+align-items:center;
+padding-top:10px;
+`
+const Info = styled.div
+`
+display:flex;
+width:100%;
+justify-content:flex-end;
+align-items:center;
+padding-right:1rem;
+`
+const Time = styled.div
+`
+padding-right:10px;
+padding-bottom:3px;
+`
+const DeleteBtn = styled.div
+`
+img{
+ 
+  width:15px;
+  height:15px;
+}
+`
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+margin: 0.5rem;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
   cursor:pointer;
-  height: 12vh;
-  margin: 0.5rem;
+  height: 6em;
+
   box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
   border: 0.01rem solid lightGray;
-  border-radius:5vw;
+  border-radius:15px;
+  position:relative;
 `;
 
 const Left = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+ display:block;
 
-  margin-right: 3vw;
+  padding-left:10px;
+  padding-top:5px;
+
+  height:100%;
   img {
-    width: 13vw;
-    height: 13vw;
+    display:flex;
+    justify-content: center;
+    
+    width: 4em;
+    height: 4em;
     border-radius: 50%;
     object-fit: cover;
+  }
+  span {
+    display:flex;
+    justify-content: center;
+    
+    margin-bottom:5px;
+  }
+  button {
+    display:flex;
   }
 `;
 const Right = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  height:100%;
   justify-content: center;
   align-items: center;
-  text-align: left;
 
-  margin-right: 10px;
-  p {
-    width: 80%;
-  }
-  span {
-    padding-bottom:9vh;
-    padding-right:2vw;
-    width: 30%;
-    color: gray;
-    text-align: right;
-    font-size:2vw;
-  }
+  width:100%;
+  margin-left: 10px;
+ 
+ 
 `;
 
 export default Alert;
