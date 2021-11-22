@@ -127,7 +127,9 @@ const DogStaDetail = (props) => {
             {currentPostUserId !== userId && (
               <MailOutlineIcon
                 sx={{ fontSize: 20 }}
-                onClick={() => {}}
+                onClick={() => {
+                  history.push(`/chatwrite/${currentPostUserId}`);
+                }}
                 style={{ verticalAlign: "bottom", cursor: "pointer" }}
               />
             )}
