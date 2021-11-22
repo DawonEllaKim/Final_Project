@@ -128,7 +128,7 @@ const DogStaMain = (props) => {
                         <span>{post.userNickname}</span>
                       </WriterInfo>
                       <LikeInfo>
-                        <span>like</span> 
+                        <span>like</span>
                         {post.count}
                       </LikeInfo>
                     </PostInfo>

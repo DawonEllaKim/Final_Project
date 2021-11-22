@@ -132,6 +132,7 @@ const addPostMD = (formData) => {
     })
       .then((res) => {
         dispatch(addPost(formData));
+        console.log();
         console.log("개스타그램 게시물 POST 성공", res);
         history.push("/dogStaMain");
       })
