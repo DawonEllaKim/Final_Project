@@ -125,7 +125,7 @@ const Main = (props) => {
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
               <Weather />
-              <CautionCard
+              {/* <CautionCard
                 onClick={() => {
                   history.push("/caution1");
                 }}
@@ -138,14 +138,13 @@ const Main = (props) => {
                 }}
               >
                 <img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-              </CautionCard>
+              </CautionCard> */}
               <CautionCard
                 onClick={() => {
                   history.push("/caution3");
                 }}
               >
                 <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-
                 <div>
                   <p>1. 목줄착용</p>
                   <p>목줄 착용은 선택이 아닌 필수입니다</p>
@@ -193,7 +192,7 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
+            <WholeCardWrap>
               <Part
                 onClick={() => {
                   history.push(`/posts/${postId}`);
@@ -228,15 +227,15 @@ const Main = (props) => {
                   };
 
                   return (
-                    <AAA onClick={hover}>
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BodyWrap>
 
           {/* 서울숲 */}
@@ -255,7 +254,7 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
+            <WholeCardWrap>
               <Part
                 onClick={() => {
                   history.push(`/posts/${postId}`);
@@ -290,15 +289,15 @@ const Main = (props) => {
                   };
 
                   return (
-                    <AAA onClick={hover}>
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BodyWrap>
 
           {/* 반포 한강공원 */}
@@ -317,7 +316,7 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
+            <WholeCardWrap>
               <Part
                 onClick={() => {
                   history.push(`/posts/${postId}`);
@@ -352,15 +351,15 @@ const Main = (props) => {
                   };
 
                   return (
-                    <AAA onClick={hover}>
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BanpoBodyWrap>
         </Body>
       </Wrap>
@@ -434,7 +433,7 @@ const CautionCard = styled.div`
   }
 `;
 
-const TEST = styled.div`
+const WholeCardWrap = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -521,7 +520,7 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const AAA = styled.div`
+const MainCardWrap = styled.div`
   width: 23%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
