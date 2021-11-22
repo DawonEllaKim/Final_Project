@@ -78,15 +78,8 @@ const DogStaDetail = (props) => {
           history.push(`/mypage/${post.userId}`);
         }}
       >
-        <UserInfoLeft>
           <UserImg src={post.userImage} />
-        </UserInfoLeft>
-
-        <UserRight>
-          <div>
-            <span>{post.userNickname}</span>
-          </div>
-        </UserRight>
+          <span>{post.userNickname}</span>
       </UserInfo>
 
       {/* 게시물 부분 */}
@@ -145,6 +138,7 @@ const DogStaDetail = (props) => {
             {currentPostUserId === userId && (
               <BtnWrap>
                 <button onClick={editPost}>수정</button>
+                <span>|</span>
                 <button onClick={deletePost}>삭제</button>
               </BtnWrap>
             )}
@@ -187,13 +181,6 @@ const UserInfo = styled.div`
   width: 100%;
   margin-bottom: 24px;
   cursor: pointer;
-`;
-const UserInfoLeft = styled.div`
-  margin-right: 16px;
-`;
-const UserRight = styled.div`
-  width: 100%;
-  cursor: pointer;
   span {
     font-weight: 600;
   }
@@ -204,6 +191,7 @@ const UserImg = styled.img`
   padding: 2px;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 16px;
 `;
 const Write = styled.div`
   width: 100%;
@@ -251,8 +239,12 @@ const BtnWrap = styled.div`
   button {
     background-color: transparent;
     border: none;
-    margin-left: 4px;
     cursor: pointer;
+  }
+  span {
+    font-size: 14px;
+    color: #bdbdbd;
+    padding: 0 4px;
   }
 `;
 const PostDesc = styled.p``;

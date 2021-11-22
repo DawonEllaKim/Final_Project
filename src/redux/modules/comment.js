@@ -141,7 +141,6 @@ export default handleActions(
           (comment) => comment.commentId == action.payload.commentId
         )
         console.log(commentIdx)
-        // draft.commentList[commentIdx].commentDesc = action.payload.commentList.commentDesc;
         draft.commentList[commentIdx] = { ...draft.commentList[commentIdx], ...action.payload.commentList};
       }),
     [DELETE_COMMENT]: (state, action) =>

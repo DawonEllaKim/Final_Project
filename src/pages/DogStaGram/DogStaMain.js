@@ -19,16 +19,7 @@ const DogStaMain = (props) => {
   const history = useHistory();
 
   const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램의 모든 게시물 리스트
-  console.log(postList);
-
-  // const postLike = useSelector((state) => state.dogsta);
-  // console.log(postLike);
-  // const likeList = useSelector((state) => state.dogsta).likeList;
-  // console.log(likeList);
-
-  // const liked = postList.filter(like, index) =>{
-  //   return like.
-  // }
+  const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
@@ -47,7 +38,7 @@ const DogStaMain = (props) => {
     setStatus("newest");
     setFocus("newest");
     dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
-    // dispatch(dogstaActions.getLikePostMD());
+    dispatch(dogstaActions.getLikePostMD()); // 개스타그램 게시물 좋아요순
   }, []);
 
   return (
@@ -64,14 +55,14 @@ const DogStaMain = (props) => {
           <button
             onClick={newest}
             onFocus={() => setFocus("newest")}
-            style={{ borderBottom: focus === "newest" ? "4px solid red" : "" }}
+            style={{ borderBottom: focus === "newest" ? "4px solid red" : "", color: focus === 'newest' ? '#ff5656' :'#000' }}
           >
             최신
           </button>
           <button
             onClick={mostLiked}
             onFocus={() => setFocus("mostLiked")}
-            style={{ borderBottom: focus === "newest" ? "" : "4px solid red" }}
+            style={{ borderBottom: focus === "newest" ? "" : "4px solid red", color: focus === 'newest' ? '#000' :'#ff5656'}}
           >
             추천
           </button>
@@ -80,6 +71,7 @@ const DogStaMain = (props) => {
 
       {/* 게시물 목록 - 최신순, 추천순*/}
       {status === "newest" ? (
+        // 최신순 정렬
         <Body>
           {/* 개스타그램 게시물의 유무 판단*/}
           {postList.length == 0 ? (
@@ -135,7 +127,61 @@ const DogStaMain = (props) => {
           <NavBar add_dogsta />
         </Body>
       ) : (
-        <div>아직 추천 순 정렬 x</div>
+        // 추천순 정렬
+        <Body>
+          {/* 개스타그램 게시물의 유무 판단*/}
+          {postList.length == 0 ? (
+            <>
+              <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
+              <Button
+                onClick={() => {
+                  history.push("/dogStaWrite");
+                }}
+              >
+                게시물 작성하기
+              </Button>
+            </>
+          ) : (
+            <Posts>
+              {postLike.map((post, index) => {
+                return (
+                  <Card key={index}>
+                    {/* 포스트 사진 */}
+                    <ImageWrap>
+                      <CardImage
+                        src={post.dogPostImage}
+                        onClick={() =>
+                          history.push(
+                            `/dogStaDetail/${post.userId}/${post.dogPostId}`
+                          )
+                        }
+                      />
+                    </ImageWrap>
+
+                    {/* 포스트 정보 */}
+                    <PostInfo>
+                      <WriterInfo
+                        onClick={() => {
+                          history.push(`/mypage/${post.userId}`);
+                        }}
+                      >
+                        <UserImage src={post.userImage} />
+                        <span>{post.userNickname}</span>
+                      </WriterInfo>
+                      <LikeInfo>
+                        <span>like</span>
+                        {post.count}
+                      </LikeInfo>
+                    </PostInfo>
+                  </Card>
+                );
+              })}
+            </Posts>
+          )}
+
+          {/* 하단 고정 버튼  */}
+          <NavBar add_dogsta />
+        </Body>
       )}
     </Wrap>
   );
@@ -164,8 +210,8 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   width: 160px;
-  height: 40px;
-  margin: 30px auto 130px auto;
+  padding: 16px 0;
+  margin: 30px auto;
   background-color: #fff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -178,23 +224,10 @@ const TopBarImg = styled.img`
   margin: -4px 10px;
 `;
 const Head = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 40px 32px 40px;
+  text-align: center;
+  margin-bottom: 32px;
 `;
-// const Category = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-//   font-size: 16px;
-//   width: 110px;
-// `;
 const Category = styled.div`
-  border: 1px solid red;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -224,15 +257,6 @@ const Posts = styled.div`
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
-  /* img {
-    border: 2px solid black;
-    box-sizing: border-box;
-    width: 100%;
-    padding-bottom: 50%;
-    background-position: center;
-    background-repeat: no-repeat;
-    object-fit: cover;
-  } */
 `;
 const Card = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
@@ -251,14 +275,13 @@ const CardImage = styled.img`
 const PostInfo = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 8px 10px;
+  padding: 6px 10px 8px 10px;
 `;
 const WriterInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  height: 20px;
   span {
     font-size: 14px;
   }
@@ -276,10 +299,12 @@ const UserImage = styled.img`
 `;
 
 const LikeInfo = styled.div`
+  margin-right: 4px;
   span {
+    display: inline-block;
     font-size: 14px;
     color: #888;
-    margin-right: 4px;
+    margin: 0 4px 2px 0;
   }
 `;
 

@@ -12,14 +12,14 @@ import NavBar from "../../components/NavBar";
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
-import defaultDog from "../../image/default_dog.png";
+import defaultImage from '../../image/defaultImage.png'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : "");
+  const [imgBase64, setImgBase64] = useState(defaultImage ? defaultImage : "");
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
 
@@ -117,7 +117,7 @@ const Write = styled.div`
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border: 1px solid #ebebeb;
-    border-radius: 14px;
+    border-radius: 40px;
   }
 
   label {

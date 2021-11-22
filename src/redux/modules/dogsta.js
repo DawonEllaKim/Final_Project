@@ -51,7 +51,7 @@ const getAllPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+        console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
         console.log("개스타그램 모든 게시물 GET 에러", err);
@@ -69,7 +69,7 @@ const getLikePostMD = () => {
     })
       .then((res) => {
         const postList = res.data.posts;
-        dispatch(getAllPost(postList));
+        dispatch(getLikePost(postList));
         console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
       })
       .catch((err) => {
