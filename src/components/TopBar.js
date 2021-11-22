@@ -7,6 +7,7 @@ import notification1 from "../image/Notification.png";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { actionCreators as notiActions } from "../redux/modules/notification";
+import { RiFeedbackLine } from "react-icons/ri";
 
 const TopBar = (props) => {
   const { text, children, padding, only_left, only_right } = props;
@@ -42,6 +43,7 @@ const TopBar = (props) => {
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);
+
   if (noti.length < 1) noti = getNoti;
   else noti.length += getNoti.length;
 
@@ -71,8 +73,19 @@ const TopBar = (props) => {
       <Wrap>
         <Right {...styles}>
           {text ? text : children}
-          <BtnRight onClick={() => history.push("/notification")}>
+          <BtnRight>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link">
+              <RiFeedbackLine
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  marginLeft: "-30px",
+                  marginRight: "10px",
+                }}
+              />
+            </a>
             <img
+              onClick={() => history.push("/notification")}
               src={notification1}
               style={{
                 width: "24px",

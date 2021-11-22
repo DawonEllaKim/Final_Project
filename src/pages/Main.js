@@ -1,3 +1,4 @@
+// Main.js - 메인 페이지
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -5,7 +6,7 @@ import styled from "styled-components";
 // 리덕스
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as dogStaActions } from "../redux/modules/dogsta"; // 액션 불러오기
+import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
@@ -16,9 +17,9 @@ import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 이미지
-import logo from "../image/loginLogo.png";
-import login from "../image/login.png";
-import loginText from "../image/loginText.png";
+// import logo from "../image/loginLogo.png";
+import LoginLogoImg from "../image/Login.png";
+// import loginText from "../image/loginText.png";
 import Hangang from "../image/Hangang.jpeg";
 import Seoul from "../image/Seoul.png";
 import Banpo from "../image/Banpo.jpeg";
@@ -32,12 +33,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import dogsta from "../redux/modules/dogsta";
-import { FaBullseye } from "react-icons/fa";
-
 const Main = (props) => {
+  const [page, setPage] = useState();
   const dispatch = useDispatch();
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
+  const is_loading = useSelector((state) => state.sign.is_loading);
+  const userId = localStorage.getItem("userId");
 
   // 올림픽공원
   const olympicList = useSelector((state) => state.post.olympic);
@@ -48,6 +49,7 @@ const Main = (props) => {
   const [olympicDogName, setOlympicDogName] = useState();
   const [olympicTime, setOlympicTime] = useState();
   const [olympicLocation, setOlympicLocation] = useState("");
+  const [postId, setPostId] = useState();
 
   // 서울숲
   const seoulList = useSelector((state) => state.post.seoul);
@@ -69,15 +71,7 @@ const Main = (props) => {
   const [banpoTime, setBanpoTime] = useState();
   const [banpoLocation, setBanpoLocation] = useState("");
 
-  const [page, setPage] = useState();
-
-  //소켓
-  const userId = localStorage.getItem("userId");
-
-  // 스피너
-  const is_loading = useSelector((state) => state.sign.is_loading);
-
-  // 슬라이드 세팅
+  // 날씨 + 주의사항 슬라이드 세팅
   const topSettings = {
     dots: true,
     infinite: true,
@@ -89,6 +83,7 @@ const Main = (props) => {
     pauseOnHover: true,
   };
 
+  // 개스타그램 슬라이드 세팅
   const bottomSettings = {
     dots: false,
     infinite: true,
@@ -100,13 +95,11 @@ const Main = (props) => {
     pauseOnHover: true,
   };
 
-  // 게시물 불러오기
   useEffect(() => {
-    // dispatch(postActions.getAllMD());
+    dispatch(dogStaActions.getAllPostMD());
     dispatch(postActions.getOlympicMD());
     dispatch(postActions.getSeoulMD());
     dispatch(postActions.getBanpoMD());
-    dispatch(dogStaActions.getAllPostMD());
   }, []);
 
   if (is_loading) {
@@ -114,71 +107,64 @@ const Main = (props) => {
   }
 
   return (
-    <div>
-      <div style={{ margin: "0 30px" }}>
+    <>
+      {/* 로고 + 알람 버튼 */}
+      <TopWrap>
         <TopBar only_right>
           <img src={MainPageLogo} style={{ height: "30px" }} />
         </TopBar>
-      </div>
+      </TopWrap>
 
       <Wrap>
-        {/* 슬라이드 */}
-        <div
-          style={{
-            backgroundColor: "#fff",
-            padding: "0 30px 40px 30px",
-            boxSizing: "border-box",
-          }}
-        >
+        {/* 날씨 + 주의사항 슬라이드 */}
+        <Slide>
           {!userId ? (
-            <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-              <div onClick={() => history.push("/login")}>
-                <LoginImg>
-                  <Logo src={logo} />
-                  <Login src={login} />
-                  <LoginText src={loginText} />
-                </LoginImg>
-              </div>
+            <StyledSlider {...topSettings}>
+              <Logo src={LoginLogoImg} onClick={() => history.push("/login")} />
             </StyledSlider>
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
               <Weather />
-              <div
+              {/* <CautionCard
                 onClick={() => {
                   history.push("/caution1");
                 }}
               >
-                <Img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-              </div>
-              <div
+                <img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+              </CautionCard>
+              <CautionCard
                 onClick={() => {
                   history.push("/caution2");
                 }}
               >
-                <Img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-              </div>
-              {/* <CautionCard
+                <img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+              </CautionCard> */}
+              <CautionCard
                 onClick={() => {
                   history.push("/caution3");
                 }}
               >
+                <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
                 <div>
-                  <Img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+                  <p>1. 목줄착용</p>
+                  <p>목줄 착용은 선택이 아닌 필수입니다</p>
                 </div>
-                <div>
-                  <h1>1. 목줄착용</h1>
-                  <p>ddvvddd</p>
-                </div>
-              </CautionCard> */}
+              </CautionCard>
             </StyledSlider>
           )}
-        </div>
+        </Slide>
 
         {/* 개스타그램 모음 */}
         <DogSta>
           <Header>
             <Text>오늘의 개스타</Text>
-            <MoreBtn>더보기</MoreBtn>
+            <MoreBtn
+              onClick={() => {
+                history.push("/dogStaMain");
+              }}
+            >
+              더보기
+            </MoreBtn>
           </Header>
 
           <DogstaSlide {...bottomSettings}>
@@ -206,8 +192,12 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
-              <Part>
+            <WholeCardWrap>
+              <Part
+                onClick={() => {
+                  history.push(`/posts/${postId}`);
+                }}
+              >
                 <PartImg src={olympicImage} />
 
                 <CardTextHere>
@@ -233,29 +223,19 @@ const Main = (props) => {
                     setOlympicDogName(post.dogName + "와 함께 산책하기");
                     setOlympicTime(post.meetingDate);
                     setOlympicLocation(post.locationCategory);
-                  };
-                  const hoverOut = () => {
-                    setOlympicTitle("올림픽공원");
-                    setOlympicImage(Hangang);
-                    setOlympicDogName("");
-                    setOlympicTime();
-                    setOlympicLocation();
+                    setPostId(post.postId);
                   };
 
                   return (
-                    <AAA
-                      onMouseEnter={hover}
-                      onMouseLeave={hoverOut}
-                      onClick={() => history.push(`/posts/${post.postId}`)}
-                    >
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BodyWrap>
 
           {/* 서울숲 */}
@@ -274,8 +254,12 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
-              <Part>
+            <WholeCardWrap>
+              <Part
+                onClick={() => {
+                  history.push(`/posts/${postId}`);
+                }}
+              >
                 <PartImg src={seoulImage} />
 
                 <CardTextHere>
@@ -301,29 +285,19 @@ const Main = (props) => {
                     setSeoulDogName(post.dogName + "와 함께 산책하기");
                     setSeoulTime(post.meetingDate);
                     setSeoulLocation(post.locationCategory);
-                  };
-                  const hoverOut = () => {
-                    setSeoulTitle("서울숲");
-                    setSeoulImage(Seoul);
-                    setSeoulDogName("");
-                    setSeoulTime();
-                    setSeoulLocation();
+                    setPostId(post.postId);
                   };
 
                   return (
-                    <AAA
-                      onMouseEnter={hover}
-                      onMouseLeave={hoverOut}
-                      onClick={() => history.push(`/posts/${post.postId}`)}
-                    >
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BodyWrap>
 
           {/* 반포 한강공원 */}
@@ -342,8 +316,12 @@ const Main = (props) => {
               </MoreBtn>
             </Header>
 
-            <TEST>
-              <Part>
+            <WholeCardWrap>
+              <Part
+                onClick={() => {
+                  history.push(`/posts/${postId}`);
+                }}
+              >
                 <PartImg src={banpoImage} />
 
                 <CardTextHere>
@@ -369,105 +347,93 @@ const Main = (props) => {
                     setBanpoDogName(post.dogName + "와 함께 산책하기");
                     setBanpoTime(post.meetingDate);
                     setBanpoLocation(post.locationCategory);
-                  };
-                  const hoverOut = () => {
-                    setBanpoTitle("반포 한강공원");
-                    setBanpoImage(Banpo);
-                    setBanpoDogName("");
-                    setBanpoTime();
-                    setBanpoLocation();
+                    setPostId(post.postId);
                   };
 
                   return (
-                    <AAA
-                      onMouseEnter={hover}
-                      onMouseLeave={hoverOut}
-                      onClick={() => history.push(`/posts/${post.postId}`)}
-                    >
+                    <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>
-                    </AAA>
+                    </MainCardWrap>
                   );
                 })}
               </SubLists>
-            </TEST>
+            </WholeCardWrap>
           </BanpoBodyWrap>
         </Body>
       </Wrap>
 
       <NavBar />
-    </div>
+    </>
   );
 };
 
+const TopWrap = styled.div`
+  margin: 0 30px;
+`;
 const Wrap = styled.div`
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   background-color: #c4c4c4;
-  /* text-align: center; */
   position: relative;
   margin-bottom: -40px;
 `;
-const Both = styled.div`
-  /* position: relative; */
+const Slide = styled.div`
   background-color: #fff;
-  width: 100%;
-  height: 52px;
+  padding: 0 30px 40px 30px;
   box-sizing: border-box;
-  line-height: 52px;
 `;
-
 const StyledSlider = styled(Slider)`
-  /* .slick-slide div { */
-  /* outline: none; */
-  /* } */
-
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   width: 100%;
   aspect-ratio: 4 / 2;
   border-radius: 14px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
-
+const Logo = styled.img`
+  width: 80%;
+  padding: 10px 50px;
+`;
 const CautionCard = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  width: 100%;
+  position: relative;
   aspect-ratio: 4 / 2;
   border-radius: 14px;
   border: 1px solid black;
+  padding: 10px 20px;
+  margin: 10px;
   img {
+    /* position: absolute;
+    top: 15%;
+    left: 7%; */
     width: 144px;
     height: 144px;
-
     filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
-
     border-radius: 14px;
     object-fit: cover;
+    border: 1px solid pink;
   }
   div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* position: absolute;
+    top: 15%;
+    right: 5%; */
+    border: 1px solid green;
+    width: 50%;
+  }
+  p {
+    border: 1px solid red;
   }
 `;
-const Img = styled.img`
-  width: 100%;
-  aspect-ratio: 4 / 2;
-  border-radius: 14px;
-  object-fit: cover;
-`;
 
-const TEST = styled.div`
+const WholeCardWrap = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -554,7 +520,7 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const AAA = styled.div`
+const MainCardWrap = styled.div`
   width: 23%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -568,39 +534,6 @@ const LoginImg = styled.div`
   border-radius: 25px;
   cursor: pointer;
   object-fit: cover;
-`;
-const Logo = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-const Login = styled.img`
-  position: absolute;
-  top: 56.5%;
-  left: 33%;
-  z-index: 3;
-  object-fit: cover;
-`;
-const LoginText = styled.img`
-  position: absolute;
-  top: 68%;
-  left: 50%;
-  transform: translateX(-50%);
-  object-fit: cover;
-`;
-
-const Slide = styled.div`
-  width: 350px;
-  height: 220px;
-  margin-bottom: 12px;
-  border-radius: 25px;
-  background-color: #c4c4c4;
-`;
-const SideWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: auto;
 `;
 
 const DogSta = styled.div`
