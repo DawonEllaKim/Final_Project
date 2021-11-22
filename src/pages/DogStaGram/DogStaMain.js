@@ -48,8 +48,8 @@ const DogStaMain = (props) => {
     setFocus("newest");
     dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
     // dispatch(dogstaActions.getLikePostMD());
-  }, []);
-
+  }, [focus]);
+  
   return (
     <Wrap>
       {/* 제일 상단 고정 버튼 */}

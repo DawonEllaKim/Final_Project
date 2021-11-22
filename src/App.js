@@ -179,7 +179,7 @@ function App() {
         />
 
         {/* 알람 + 쪽지 */}
-        <Route exact path="/notification" component={Notification} />
+        <PrivateRoute exact path="/notification" component={Notification} />
         <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />
         <PrivateRoute
           exact

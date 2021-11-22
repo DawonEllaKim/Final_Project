@@ -41,7 +41,7 @@ const TopBar = (props) => {
   }, [notification, noti]);
 
   useEffect(() => {
-    dispatch(notiActions.getNotiMD(userId));
+    dispatch(notiActions.getNotiMD());
   }, []);
 
   if (noti.length < 1) noti = getNoti;

@@ -13,11 +13,11 @@ const initialState = {
   noti: [],
 };
 
-const getNotiMD = (receiverId) => {
+const getNotiMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/notification/${receiverId}`,
+      url: `http://13.209.70.209/notification`,
       data: {},
       headers: {
         accept: "application/json",
@@ -32,7 +32,7 @@ const getNotiMD = (receiverId) => {
       })
       .catch((err) => {
         console.log("GETNOTI에서 오류발생", err);
-        window.alert("오류 발생", err);
+   
       });
   };
 };

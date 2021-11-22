@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { MdAlternateEmail } from "react-icons/md";
 import { AiOutlineLock } from "react-icons/ai";
 import kakaoPicture from "../image/kakao_login_medium_wide.png";
 import axios from "axios";
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
 
 import logo from "../image/logo.png";
@@ -19,6 +19,8 @@ const LogIn = (props) => {
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const [alert,setAlert] = useState("");
 
   const userEmailChangeHandler = (e) => {
     // console.log(e.target.value);
@@ -29,14 +31,21 @@ const LogIn = (props) => {
     setPassword(e.target.value);
   };
 
+ 
+  const message=useSelector(state => state.sign.alert)
+  console.log(message)
+  useEffect(() => {
+    // dispatch(postActions.getAllMD());
+    
+    setAlert(message)
+  }, [message]);
   const onClickLogin = () => {
     if ((userEmail === "") | (password === "")) {
-      window.alert("이메일 또는 비밀번호를 입력해주세요");
+      setAlert("이메일 또는 비밀번호를 입력해주세요");
       return;
     }
     dispatch(userActions.logInMD(userEmail, password));
   };
-
   // const loginWithKakao = () => {
   //   const scope = "profile_nickname,profile_image";
   //   Kakao.Auth.login({
@@ -79,6 +88,7 @@ const LogIn = (props) => {
       <Wrap>
         <TopBar only_left></TopBar>
         <Logo src={logo} />
+        
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -98,40 +108,38 @@ const LogIn = (props) => {
             onChange={passwordChangeHandler}
           />
         </InputBox>
-
+        <Alert>{alert ? alert : message}</Alert>
         <LoginBtn onClick={onClickLogin}>로그인</LoginBtn>
         <SignupBtn onClick={() => history.push("/signup")}>
-          회원가입 하러가기
+          함께 산책시켜요~! <span>회원가입하러가기</span>
         </SignupBtn>
-        <a
+        {/* <a
           href={KAKAO_AUTH_URL}
           //  onClick={loginWithKakao}
         >
           <KakaoLogin src={kakaoPicture} />
-        </a>
+        </a> */}
       </Wrap>
     </>
   );
 };
 
-const Head = styled.div`
-  position: fixed;
-  top: 70px;
-  left: 70px;
-  width: 390px;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
+const Alert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:center;
+margin-bottom:8px;
+margin-top:8px;
+`
 
 const Wrap = styled.div`
   text-align: center;
-  max-width: 390px;
+
   font-size: 14px;
+  
   padding-bottom: 55px;
-  margin: 0 auto;
+
 `;
 const Logo = styled.img`
   width: 132px;
@@ -142,12 +150,16 @@ const InputBox = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  width: 280x;
-  height: 60px;
+  margin:0 auto;
   padding: 10px 20px;
-  margin-bottom: 16px;
-  border: 2px solid #000;
+  margin-top: 16px;
+  border: 1px gray ;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
+  width:80%;
+  &:hover {
+    border: 2px solid lightBlue;
+  }
 `;
 
 const InputText = styled.input`
@@ -155,29 +167,36 @@ const InputText = styled.input`
   border: 0;
   padding: 10px 0;
   margin-left: 16px;
+  
   &:focus {
     outline: none;
   }
 `;
 const LoginBtn = styled.button`
   box-sizing: border-box;
-  width: 100%;
+  width:80%;
+  display:flex;
+  justify-content:center;
   padding: 12px;
-  margin: 24px auto 34px auto;
-  background-color: #ff5656;
-  border: 2px solid #000;
+  margin: 0 auto;
+  background-color: #FF5252;
+  border: 1px gray ;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 24px;
   font-size: 16px;
-  box-shadow: 0 4px 0px #000;
   cursor: pointer;
+
 `;
 const SignupBtn = styled.button`
   margin-bottom: 38px;
   font-size: 14px;
-
+  margin-top:20px;
   border: none;
   background-color: transparent;
   cursor: pointer;
+  span {
+    color:red;
+  }
 `;
 const KakaoLogin = styled.img`
   width: 100%;

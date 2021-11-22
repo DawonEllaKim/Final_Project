@@ -12,7 +12,8 @@ import { emailCheck, passwordCheck } from "../shared/check";
 import TopBar from "../components/TopBar";
 
 // 유저 이미지 기본값
-import defaultUser from "../image/default_user.jpg";
+import defaultUser from "../image/default_user.png";
+import e from "cors";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,16 @@ const SignUp = () => {
   const [userLocation, setUserLocation] = useState("");
   const [userGender, setUserGender] = useState("");
   const [userAge, setUserAge] = useState("");
+  const [alert,setAlert] = useState("");
+  const [alertEmail,setAlertEmail] = useState("");
+  const [alertPassword,setAlertPassword] = useState("");
+  const [alertConfirmPassword,setAlertConfirmPassword] = useState("");
+  const [alertUserNickname,setAlertUserNickname] = useState("");
+  const [alertUserLocation,setAlertUserLocation] = useState("");
+  const [alertUserGender,setAlertUserGender] = useState("");
+  const [alertUserAge,setAlertUserAge] = useState("");
+  const [alertImage,setAlertImage]= useState("");
+ 
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -79,43 +90,102 @@ const SignUp = () => {
     console.log(name);
     setUserAge(name);
   };
+  
+  const checkDup = () => {
+    if(!emailCheck(userEmail)){
+     setAlertEmail("이메일 형식이 아닙니다!")
+      return ;
+    }
+    else {
+      setAlertEmail("")
+    }
+
+    dispatch(UserActions.signDupAPI(userEmail));
+  }
 
   const submitUserInfo = () => {
-    if (!emailCheck(userEmail)) {
-      toast.error("잘못된 이메일 형식입니다.", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
-        hideProgressBar: false,
-        draggable: true,
-        closeOnClick: true,
-      });
-      return;
+  
+    if(!passwordCheck(password)||password!==confirmPassword||!confirmPassword)
+    {
+      if (!passwordCheck(password)) {
+        setAlertPassword(
+          "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요"
+        );
+      
+      }
+      
+  
+       if (password !== confirmPassword) {
+        setAlertPassword("비밀번호가 일치하지 않습니다.");
+        setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
+        
+      }
+      if(confirmPassword == "")
+      {
+        setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다")
+      
+      }
+  
+      else{
+        setAlertPassword("false")
+        setAlertConfirmPassword(false);
+      }
     }
-
-    if (!passwordCheck(password)) {
-      window.alert(
-        "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요"
-      );
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      window.alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
+   if(imgBase64==defaultUser)
+   setAlertImage("유저이미지를 등록해주세요")
+   else{
+     setAlertImage("")
+   }
+    
     if (
-      userEmail === "" ||
-      password === "" ||
-      confirmPassword === "" ||
-      userNickname === "" ||
-      userLocation === "" ||
-      userGender === "" ||
-      userAge === ""
-    ) {
-      window.alert("입력하지 않은 값이 있습니다.");
-      return;
+      userEmail =="" || !emailCheck(userEmail))
+      {
+        setAlertEmail("이메일형식이 아닙니다")
+        
+      }
+    else{
+      setAlertEmail("")
     }
+
+      
+      if(userNickname == "")
+      {
+        setAlertUserNickname("닉네임이 입력되지 않았습니다")
+        
+      }
+      else{
+        setAlertUserNickname("")
+      }
+ 
+      if(userLocation == "")
+      {
+        setAlertUserLocation("거주지가 입력되지 않았습니다") 
+       
+      }
+      else{
+        setAlertUserLocation("")
+      }
+
+      if(userGender == "") 
+      {
+        setAlertUserGender("성별이 체크되지 않았습니다")
+        
+      }
+      else {
+        setAlertUserGender("")
+      }
+      
+      if(userAge == "")
+      {
+        setAlertUserAge("나이가 체크되지 않았습니다")
+       
+      }
+      else {
+        setAlertUserAge("")
+      }
+      if(!(userAge||userGender||userLocation||userNickname||confirmPassword||password||userEmail||password !== confirmPassword||!passwordCheck(password)))
+      return;
+    
 
     const formData = new FormData();
     formData.append("userEmail", userEmail);
@@ -127,12 +197,12 @@ const SignUp = () => {
     formData.append("userAge", userAge);
     formData.append("userImage", imgFile);
 
-    toast.success("회원 정보 등록이 완료되었습니다!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-      draggable: true,
-      closeOnClick: true,
-    });
+    // toast.success("회원 정보 등록이 완료되었습니다!", {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
+    //   draggable: true,
+    //   closeOnClick: true,
+    // });
     dispatch(UserActions.signUserAPI(formData));
   };
 
@@ -146,7 +216,7 @@ const SignUp = () => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
+            <UploadLabel for="imgFile">이미지 등록하기</UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -155,24 +225,21 @@ const SignUp = () => {
             />
           </AddWrap>
         </ImageWrap>
-
+        <ImageAlert>{alertImage?alertImage:""}</ImageAlert>
         <UserWrap>
-          <Input style={{ width: "241px" }}>
+          <Input >
             <InputText
-              placeholder="이메일 입력 "
+              placeholder="이메일 입력 ex) abc@naver.com "
               onChange={userEmailChangeHandler}
             />
           </Input>
           <IdCheck
-            onClick={() => {
-              dispatch(UserActions.signDupAPI(userEmail));
-              console.log("아이디 중복 확인 중");
-            }}
+            onClick={checkDup}
           >
             중복확인
           </IdCheck>
         </UserWrap>
-
+        <Alert>{alertEmail?alertEmail:""}</Alert>
         <Input>
           <InputText
             type="password"
@@ -180,7 +247,7 @@ const SignUp = () => {
             onChange={passwordChangeHandler}
           />
         </Input>
-
+        <Alert>{alertPassword?alertPassword:""}</Alert>
         <Input>
           <InputText
             type="password"
@@ -188,21 +255,21 @@ const SignUp = () => {
             onChange={confirmPasswordChangeHandler}
           />
         </Input>
-
+        <Alert>{alertConfirmPassword?alertConfirmPassword:""}</Alert>
         <Input>
           <InputText
             placeholder="닉네임 입력"
             onChange={userNicknameChangeHandler}
           />
         </Input>
-
+        <Alert>{alertUserNickname?alertUserNickname:""}</Alert>
         <Input>
           <InputText
             placeholder="거주지 입력 (시/구/동 까지)"
             onChange={userLocationChangeHandler}
           />
         </Input>
-
+        <Alert>{alertUserLocation?alertUserLocation:""}</Alert>
         <Input>
           <Title>성별</Title>
           <FlexWrap>
@@ -232,7 +299,7 @@ const SignUp = () => {
             </Flex>
           </FlexWrap>
         </Input>
-
+        <Alert>{alertUserGender?alertUserGender:""}</Alert>
         <Input>
           <Title>나이대</Title>
           <FlexWrap>
@@ -286,8 +353,15 @@ const SignUp = () => {
             </Flex>
           </FlexWrap>
         </Input>
-
+        <Alert>{alertUserAge?alertUserAge:""}</Alert>
         <ButtonWrap>
+        
+          <button
+            onClick={submitUserInfo}
+            style={{ backgroundColor: "#ff5656" }}
+          >
+           가입하기
+          </button>
           <button
             onClick={() => {
               history.goBack();
@@ -295,28 +369,36 @@ const SignUp = () => {
           >
             취소하기
           </button>
-          <button
-            onClick={submitUserInfo}
-            style={{ backgroundColor: "#ff5656" }}
-          >
-            회원 정보 등록
-          </button>
         </ButtonWrap>
       </Wrap>
     </>
   );
 };
+const Alert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:flex-start;
 
+`
+const ImageAlert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:center;
+
+`
 const Wrap = styled.div`
-  text-align: center;
-  max-width: 390px;
+
   box-sizing: border-box;
   padding: 0 20px;
   font-size: 14px;
 `;
 
 const ImageWrap = styled.div`
-  margin: 20px 0;
+  margin: 10px 0;
+  diplay: flex;
+  justify-content:center;
 `;
 
 const Preview = styled.img`
@@ -324,16 +406,21 @@ const Preview = styled.img`
   width: 120px;
   height: 120px;
   border-radius: 14px;
-  margin: auto;
+  margin: 0 auto;
+  display:flex;
+  justify-content:center;
   object-fit: cover;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
+ 
   padding: 10px 5px 5px 5px;
   margin: 10px;
   cursor: pointer;
+  display:flex;
+  justify-content:center;
+
 `;
 const AddImage = styled.input`
   /* width: 180px;
@@ -342,12 +429,13 @@ const AddImage = styled.input`
 `;
 const UserWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+
+  width:100%;
 `;
 const InputText = styled.input`
   width: 100%;
   border: 0;
-
+  margin: 0 auto;
   padding: 10px 0;
   &:focus {
     outline: none;
@@ -355,23 +443,29 @@ const InputText = styled.input`
 `;
 const IdCheck = styled.button`
   box-sizing: border-box;
-  width: 81px;
+  width: 120px;
   height: 60px;
   border: none;
   background-color: #9de8df;
   border-radius: 14px;
   cursor: pointer;
+  margin-left:30px;
+  margin-top:10px;
 `;
 
 const Input = styled.div`
   box-sizing: border-box;
+  margin: 10px 0px;
   padding: 12px 24px;
   border-radius: 14px;
-  margin-bottom: 20px;
   text-align: left;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
   color: #888;
+  width:100%;
+  &:hover {
+    border: 2px solid lightBlue;
+  }
 `;
 
 const Title = styled.div`
