@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
-import NavBar from "../../components/NavBar";
-import Comment from "../../components/DogstaComment/Comment";
 import CommentList from "../../components/DogstaComment/CommentList";
 import CommentWrite from "../../components/DogstaComment/CommentWrite";
 
@@ -18,6 +16,8 @@ import { actionCreators as commentActions } from "../../redux/modules/comment";
 // 아이콘
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 const DogStaDetail = (props) => {
   const dispatch = useDispatch();
@@ -30,8 +30,9 @@ const DogStaDetail = (props) => {
 
   const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
-  const commentList = useSelector((state) => state.comment.commentList);
+  const commentList = useSelector((state) => state.comment.commentList); // 댓글 전체
 
+  // 좋아요 여부, 좋야요 갯수
   const [liked, setLiked] = useState(Boolean);
   const [likeCount, setLikeCount] = useState();
 
@@ -71,22 +72,19 @@ const DogStaDetail = (props) => {
       {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
       <TopBar>{post.userNickname}님의 게시물</TopBar>
 
-      {/* 유저 정보 */}
+      {/* 유저 정보 - 사진,닉네임*/}
       <UserInfo
         onClick={() => {
           history.push(`/mypage/${post.userId}`);
         }}
       >
         <UserInfoLeft>
-          {/* 유저 사진 */}
           <UserImg src={post.userImage} />
         </UserInfoLeft>
 
         <UserRight>
-          {/* 유저 닉네임 + 유저 주소 */}
           <div>
             <span>{post.userNickname}</span>
-            {/* <span style={{ color: "#5F5F5F" }}>{post.userLocation}</span> */}
           </div>
         </UserRight>
       </UserInfo>
@@ -98,98 +96,104 @@ const DogStaDetail = (props) => {
           <PostImage src={post.dogPostImage} />
         </ImageWrap>
 
-        {/* 작성자 이미지 + 작성자 닉네임 + 게시물 글*/}
+        {/* 게시물 정보 */}
         <PostInfo>
-          <Like>
-            {/* 좋아요 버튼 토글 */}
-            {liked ? (
-              <FavoriteIcon onClick={toggleLike} style={{ color: "red" }} />
-            ) : (
-              <FavoriteBorderIcon onClick={toggleLike} />
-            )}
-            {likeCount}
-          </Like>
+          <Left>
+            <LikeCnt>
+              {/* 좋아요 버튼 토글 */}
+              {liked ? (
+                <FavoriteIcon
+                  onClick={toggleLike}
+                  sx={{ fontSize: 20 }}
+                  style={{
+                    color: "red",
+                    verticalAlign: "bottom",
+                    marginRight: "2px",
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  onClick={toggleLike}
+                  sx={{ fontSize: 20 }}
+                  style={{ verticalAlign: "bottom", marginRight: "2px" }}
+                />
+              )}
+              {likeCount}
+            </LikeCnt>
 
-          <span>댓글 {commentList.length}</span>
+            {/* 댓글 */}
+            <CommentCnt>
+              <CommentOutlinedIcon
+                sx={{ fontSize: 20 }}
+                style={{ verticalAlign: "bottom", marginRight: "2px" }}
+              />
+              {commentList.length}
+            </CommentCnt>
+
+            {/* 현재 로그인한 유저가 작성한 게시물이 아닌 경우, 해당 게시물 유저에게 쪽지 보내기 */}
+            {currentPostUserId !== userId && (
+              <MailOutlineIcon
+                sx={{ fontSize: 20 }}
+                onClick={() => {}}
+                style={{ verticalAlign: "bottom", cursor: "pointer" }}
+              />
+            )}
+          </Left>
 
           {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
-          {currentPostUserId === userId && (
-            <BtnWrap>
-              <button onClick={editPost}>수정</button>
-              <button onClick={deletePost}>삭제</button>
-            </BtnWrap>
-          )}
+          <Right>
+            {currentPostUserId === userId && (
+              <BtnWrap>
+                <button onClick={editPost}>수정</button>
+                <button onClick={deletePost}>삭제</button>
+              </BtnWrap>
+            )}
+          </Right>
         </PostInfo>
         <PostDesc>{post.dogPostDesc}</PostDesc>
         <Time>{post.AGOTIME}</Time>
       </Write>
 
       {/* 댓글 */}
-      {/* <Comment
-        post={post}
-        currentPostUserId={currentPostUserId}
-        userId={userId}
-      /> */}
-
-<CommentWrap>
-          {commentList[0] ? (
-            <div>
-              {commentList.map((comment, index) => {
-                return (
-                  <div>
-                    <CommentList comment={comment} key={index} />
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div>등록된 댓글이 없습니다.</div>
-          )}
-        </CommentWrap>
-        <CommentWrite
-          // post={post}
-          // currentPostUserId={currentPostUserId}
-          // commentList = {commentList}
-          userId={userId}
-          postId={postId}
-        />
-      {/* 고정 네비게이션 바 */}
-      <NavBar />
+      <CommentWrap>
+        {commentList[0] ? (
+          <div>
+            {commentList.map((comment, index) => {
+              return (
+                <div>
+                  <CommentList comment={comment} key={index} />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div>등록된 댓글이 없습니다.</div>
+        )}
+      </CommentWrap>
+      <CommentFix>
+      <CommentWrite userId={userId} postId={postId} />
+      </CommentFix>
     </Wrap>
   );
 };
+
 const Wrap = styled.div`
   padding: 0 30px;
 `;
 const UserInfo = styled.div`
-  /* position: relative; */
   display: flex;
   justify-content: left;
   align-items: center;
   width: 100%;
-  /* height: 88px; */
   margin-bottom: 24px;
   cursor: pointer;
 `;
 const UserInfoLeft = styled.div`
-  /* position: relative; */
-  /* width: 91px;
-  height: 88px; */
   margin-right: 16px;
 `;
 const UserRight = styled.div`
   width: 100%;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
   cursor: pointer;
-  /* div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  } */
   span {
     font-weight: 600;
   }
@@ -203,11 +207,10 @@ const UserImg = styled.img`
 `;
 const Write = styled.div`
   width: 100%;
-  border: 1px solid blue;
 `;
 const ImageWrap = styled.div`
   width: 100%;
-  border-radius:14px;
+  border-radius: 14px;
 `;
 const PostImage = styled.img`
   width: 100%;
@@ -219,40 +222,36 @@ const PostImage = styled.img`
   border-radius: 14px;
 `;
 const PostInfo = styled.div`
-  border: 1px solid black;
-
-  /* position: absolute; */
   display: flex;
-  flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin: 12px 0;
-  /* img {
-    width: 20px;
-    height: 20px;
-    margin-right: 7px;
-    border-radius: 50%;
-  } */
 `;
+
+const Left = styled.div``;
+const Right = styled.div``;
+
 const Time = styled.div`
   font-size: 14px;
   color: #bdbdbd;
-  margin: 12px 0; 
-`
-const UserNickname = styled.p`
-  margin-right: 10px;
+  margin: 12px 0;
 `;
-const Like = styled.span``;
+const LikeCnt = styled.span`
+  font-size: 14px;
+  margin-right: 12px;
+  cursor: pointer;
+`;
+const CommentCnt = styled.span`
+  font-size: 14px;
+  margin-right: 12px;
+`;
 const BtnWrap = styled.div`
-border: 1px solid red;
-  position: relative;
-  top: 0;
-  right: 0;
   display: flex;
   button {
     background-color: transparent;
     border: none;
+    margin-left: 4px;
     cursor: pointer;
   }
 `;
@@ -260,6 +259,15 @@ const PostDesc = styled.p``;
 
 const CommentWrap = styled.div`
   border-top: 1px solid #dbdbdb;
+  padding: 12px 0;
+  div {
+    font-size: 14px;
+  }
 `;
+const CommentFix = styled.div`
+  position: fixed;
+  width: calc(100% - 60px);
+  bottom: 36px;
+`
 
 export default DogStaDetail;

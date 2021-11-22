@@ -6,11 +6,7 @@ import { actionCreators as commentActions } from "../../redux/modules/comment";
 const CommentWrite = (props) => {
   const { postId, userId } = props;
   const dispatch = useDispatch();
-  console.log(postId, userId);
-  // 댓글작성 유저 아이디(내아이디) => 닉네임으로 바꿔야함
   const userNickname = localStorage.getItem("userNickname");
-  console.log(userNickname);
-
   const [commentDesc, setCommentDesc] = useState("");
 
   const commentChange = (e) => {
@@ -24,7 +20,6 @@ const CommentWrite = (props) => {
       postId,
       userId,
     };
-    // console.log(comment);
     dispatch(commentActions.addCommentMD(postId, comment));
     setCommentDesc("");
   };
@@ -43,10 +38,31 @@ const CommentWrite = (props) => {
 };
 
 const Wrap = styled.div`
+  width: 100%;
+  position: relative;
   display: flex;
   justify-content: space-between;
 `;
-const CommentInput = styled.input``;
-const CommentAdd = styled.button``;
+const CommentInput = styled.input`
+  display: block;
+  width: 100%;
+  border: none;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 33.5px;
+  padding: 12px 60px 12px 20px;
+  &:focus {
+    outline: none;
+  }
+`;
+const CommentAdd = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  border: none;
+  background-color:transparent;
+  color: #ff5656;
+  font-weight: 600;
+  cursor: pointer;
+`;
 
 export default CommentWrite;
