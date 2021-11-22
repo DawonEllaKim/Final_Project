@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 
+// 컴포넌츠
+import NavBar from "../../components/NavBar";
+
 // 이미지 + 아이콘
 import male from "../../image/male.png";
 import female from "../../image/female.png";
@@ -52,6 +55,7 @@ const InfoList = (props) => {
       <Title>강아지 한 줄 소개</Title>
       <div>{post.dogComment}</div>
     </DogInfo>
+    <NavBar add_dogsta/>
     </Wrap>
   );
 };

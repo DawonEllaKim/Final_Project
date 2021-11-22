@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
+// 컴포넌츠
+import NavBar from "../../components/NavBar";
+
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
@@ -48,6 +51,8 @@ const GaeStaCard = (props) => {
           })}
         </Posts>
       )}
+      {/* 고정 버튼 */}
+      <NavBar add_dogsta/>
     </Wrap>
   );
 };
