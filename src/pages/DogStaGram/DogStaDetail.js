@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 import Comment from "../../components/DogstaComment/Comment";
+import CommentList from "../../components/DogstaComment/CommentList";
+import CommentWrite from "../../components/DogstaComment/CommentWrite";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -27,11 +29,10 @@ const DogStaDetail = (props) => {
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
 
   const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
-  console.log(likeCnt)
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
-  console.log(myLike)
-  const [liked, setLiked] = useState(Boolean);
+  const commentList = useSelector((state) => state.comment.commentList);
 
+  const [liked, setLiked] = useState(Boolean);
   const [likeCount, setLikeCount] = useState();
 
   const toggleLike = () => {
@@ -60,9 +61,10 @@ const DogStaDetail = (props) => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
     dispatch(dogstaActions.getMyLikeMD(postId));
+    dispatch(commentActions.getCommentMD(postId));
     setLiked(myLike);
     setLikeCount(likeCnt);
-  }, [myLike, likeCnt]);
+  }, [myLike, likeCnt, postId]);
 
   return (
     <Wrap>
@@ -83,8 +85,8 @@ const DogStaDetail = (props) => {
         <UserRight>
           {/* 유저 닉네임 + 유저 주소 */}
           <div>
-            <span style={{ fontWeight: "400" }}>{post.userNickname}</span>
-            <span style={{ color: "#5F5F5F" }}>{post.userLocation}</span>
+            <span>{post.userNickname}</span>
+            {/* <span style={{ color: "#5F5F5F" }}>{post.userLocation}</span> */}
           </div>
         </UserRight>
       </UserInfo>
@@ -92,12 +94,12 @@ const DogStaDetail = (props) => {
       {/* 게시물 부분 */}
       <Write>
         {/* 게시물 이미지 */}
-        <img src={post.dogPostImage} />
+        <ImageWrap>
+          <PostImage src={post.dogPostImage} />
+        </ImageWrap>
 
         {/* 작성자 이미지 + 작성자 닉네임 + 게시물 글*/}
         <PostInfo>
-          <img src={post.userImage} />
-          <UserNickname>{post.userNickname}</UserNickname>
           <Like>
             {/* 좋아요 버튼 토글 */}
             {liked ? (
@@ -107,122 +109,157 @@ const DogStaDetail = (props) => {
             )}
             {likeCount}
           </Like>
+
+          <span>댓글 {commentList.length}</span>
+
+          {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
+          {currentPostUserId === userId && (
+            <BtnWrap>
+              <button onClick={editPost}>수정</button>
+              <button onClick={deletePost}>삭제</button>
+            </BtnWrap>
+          )}
         </PostInfo>
         <PostDesc>{post.dogPostDesc}</PostDesc>
+        <Time>{post.AGOTIME}</Time>
       </Write>
 
       {/* 댓글 */}
-      <Comment
+      {/* <Comment
         post={post}
         currentPostUserId={currentPostUserId}
         userId={userId}
-      />
+      /> */}
 
-      {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
-      {currentPostUserId === userId && (
-        <BottomBtn>
-          <button onClick={editPost}>수정하기</button>
-          <button onClick={deletePost}>삭제하기</button>
-        </BottomBtn>
-      )}
-
+<CommentWrap>
+          {commentList[0] ? (
+            <div>
+              {commentList.map((comment, index) => {
+                return (
+                  <div>
+                    <CommentList comment={comment} key={index} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>등록된 댓글이 없습니다.</div>
+          )}
+        </CommentWrap>
+        <CommentWrite
+          // post={post}
+          // currentPostUserId={currentPostUserId}
+          // commentList = {commentList}
+          userId={userId}
+          postId={postId}
+        />
       {/* 고정 네비게이션 바 */}
       <NavBar />
     </Wrap>
   );
 };
 const Wrap = styled.div`
-  box-sizing: border-box;
-  width: 390px;
-  margin: auto;
-  padding: 0 20px 150px 20px;
+  padding: 0 30px;
 `;
 const UserInfo = styled.div`
-  position: relative;
+  /* position: relative; */
   display: flex;
-  flex-direction: row;
   justify-content: left;
   align-items: center;
   width: 100%;
-  height: 88px;
+  /* height: 88px; */
   margin-bottom: 24px;
   cursor: pointer;
 `;
 const UserInfoLeft = styled.div`
-  position: relative;
-  width: 91px;
-  height: 88px;
+  /* position: relative; */
+  /* width: 91px;
+  height: 88px; */
   margin-right: 16px;
 `;
 const UserRight = styled.div`
   width: 100%;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
   cursor: pointer;
-  div {
+  /* div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  } */
+  span {
+    font-weight: 600;
   }
 `;
 const UserImg = styled.img`
-  width: 83px;
-  height: 83px;
+  width: 48px;
+  height: 48px;
   padding: 2px;
-
-  margin-right: 14.5px;
   border-radius: 50%;
   object-fit: cover;
 `;
 const Write = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  margin: auto;
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
+  border: 1px solid blue;
+`;
+const ImageWrap = styled.div`
+  width: 100%;
+  border-radius:14px;
+`;
+const PostImage = styled.img`
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  border-radius: 14px;
 `;
 const PostInfo = styled.div`
+  border: 1px solid black;
+
+  /* position: absolute; */
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
   width: 100%;
-  margin-bottom: 50px;
-  img {
+  margin: 12px 0;
+  /* img {
     width: 20px;
     height: 20px;
     margin-right: 7px;
     border-radius: 50%;
-  }
+  } */
 `;
+const Time = styled.div`
+  font-size: 14px;
+  color: #bdbdbd;
+  margin: 12px 0; 
+`
 const UserNickname = styled.p`
   margin-right: 10px;
 `;
-const Like = styled.p``;
-const PostDesc = styled.p``;
-const BottomBtn = styled.div`
+const Like = styled.span``;
+const BtnWrap = styled.div`
+border: 1px solid red;
+  position: relative;
+  top: 0;
+  right: 0;
   display: flex;
-  justify-content: space-between;
-  width: 350px;
-  height: 52px;
-  margin: 30px auto 130px auto;
   button {
-    width: 160px;
-    height: 48px;
-    background-color: #fff;
-    border-radius: 14px;
-    border: 1px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    background-color: transparent;
+    border: none;
     cursor: pointer;
   }
+`;
+const PostDesc = styled.p``;
+
+const CommentWrap = styled.div`
+  border-top: 1px solid #dbdbdb;
 `;
 
 export default DogStaDetail;

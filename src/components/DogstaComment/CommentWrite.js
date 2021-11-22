@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentWrite = (props) => {
-  const { dogPostId, userId } = props;
+  const { postId, userId } = props;
   const dispatch = useDispatch();
-  console.log(dogPostId, userId);
+  console.log(postId, userId);
   // 댓글작성 유저 아이디(내아이디) => 닉네임으로 바꿔야함
   const userNickname = localStorage.getItem("userNickname");
   console.log(userNickname);
@@ -21,11 +21,11 @@ const CommentWrite = (props) => {
     const comment = {
       commentDesc,
       userNickname,
-      dogPostId,
+      postId,
       userId,
     };
     // console.log(comment);
-    dispatch(commentActions.addCommentMD(dogPostId, comment));
+    dispatch(commentActions.addCommentMD(postId, comment));
     setCommentDesc("");
   };
 

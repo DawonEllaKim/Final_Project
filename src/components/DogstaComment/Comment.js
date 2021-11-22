@@ -31,7 +31,7 @@ const Comment = (props) => {
   return (
     <div>
       <Wrap>
-        <Count>댓글 10개</Count>
+        <Count>댓글 {commentList.length}개</Count>
         <CommentWrap>
           {commentList[0] ? (
             <div>

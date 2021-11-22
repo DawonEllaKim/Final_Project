@@ -24,6 +24,7 @@ const DogStaEdit = (props) => {
   const postId = props.match.params.dogPostId;
   const currentPostUserId = props.match.params.userId;
   const post = useSelector((state) => state.dogsta.eachList);
+  const userId = localStorage.getItem("userId");
   const currentPageUserId = props.match.params.userId;
   const [modal,setModal] = useState();
   // 이미지 파일
@@ -68,6 +69,8 @@ const DogStaEdit = (props) => {
         dogPostDesc
     }
     dispatch(postActions.editPostMD(postId,Info));
+    history.push(`/dogStaDetail/${userId}/${postId}`)
+
   };
 
   return (
