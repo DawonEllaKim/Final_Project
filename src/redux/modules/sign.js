@@ -13,7 +13,7 @@ const LOG_OUT = "LOG_OUT";
 const CHECK_DOG = "CHEKC_DOG";
 const LOADING = "LOADING";
 const GET_ID = "GET_ID";
-
+const GET_ALERT = "GET_ALERT";
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
 const login = createAction(LOG_IN, (user) => ({ user }));
@@ -21,7 +21,7 @@ const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const checkDog = createAction(CHECK_DOG, (check_dog) => ({ check_dog }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const getId = createAction(GET_ID, (get_id) => ({ get_id }));
-
+const getAlert = createAction(GET_ALERT, (alert)=>({alert}))
 const initialState = {
   user: [],
   dog: [],
@@ -29,6 +29,7 @@ const initialState = {
   is_loading: true,
   get_id: [],
   is_login: false,
+  alert:"",
 };
 
 const signDupAPI = (userEmail) => {
@@ -36,7 +37,7 @@ const signDupAPI = (userEmail) => {
     axios({
       method: "POST",
       url: "http://13.209.70.209/users/checkDup",
-      data: userEmail,
+      data: {userEmail},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
         Accept: "application/json",
@@ -76,8 +77,9 @@ const logInMD = (userEmail, password) => {
         history.push("/check");
       })
       .catch((err) => {
-        window.alert("로그인 오류");
-        console.log(err);
+
+        dispatch(getAlert("아이디와 비밀번호가 맞지 않습니다!"))
+    
       });
   };
 };
@@ -122,7 +124,7 @@ const signUserAPI = (formData) => {
       })
       .catch((err) => {
         console.log("signupAPI에서 오류발생", err);
-        window.alert("오류 발생");
+    
       });
   };
 };
@@ -212,6 +214,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
+      [GET_ALERT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.alert = action.payload.alert;
+      }),
   },
 
   initialState
@@ -226,4 +232,5 @@ export const actionCreators = {
   signDupAPI,
   checkDogAPI,
   getIdAPI,
+  getAlert,
 };

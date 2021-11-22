@@ -30,7 +30,7 @@ const Alert = ({noti}) => {
         <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(noti.notificationId))}}>
   
           <Left>
-            <img src={noti.userImage} />
+            <img src={noti.senderImage} />
           
             <span>{noti.senderNickname}</span>
           </Left>
