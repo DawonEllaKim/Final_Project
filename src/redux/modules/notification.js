@@ -12,7 +12,32 @@ const deleteNoti = createAction(DELETE_NOTI, (noti) => ({ noti }));
 const initialState = {
   noti: [],
 };
-
+const postNotiMD = (notificationId,senderId,type) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "PATCH",
+      url: `http://13.209.70.209/notification/${notificationId}/${senderId}`,
+      data: {type:type},
+      headers: {
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("userLogin")}`,
+      },
+    })
+      .then((res) => {
+        // console.log(res.data.notification)
+        if(type==3)
+         window.alert("산책 수락하셨습니다")
+         if(type==4)
+         window.alert("산책 거절하셨습니다")
+         dispatch(deleteNotiMD(notificationId))
+      })
+      .catch((err) => {
+        console.log("POSTNOTI에서 오류발생", err);
+   
+      });
+  };
+}
 const getNotiMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -83,6 +108,7 @@ const actionCreators = {
   getNotiMD,
   deleteNoti,
   deleteNotiMD,
+  postNotiMD,
 };
 
 export { actionCreators };

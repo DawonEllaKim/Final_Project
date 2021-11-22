@@ -37,7 +37,7 @@ const ChatDetail = (props) => {
 
   return (
     <div>
-      <TopBar>쪽지</TopBar>
+      <TopBar>답장하기</TopBar>
       <Wrap>
         <Message>
           받은 쪽지
@@ -63,38 +63,36 @@ const ChatDetail = (props) => {
 };
 
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: block;
+
+  width:80%;
+  margin: 0 auto;
 `;
 const Message = styled.div`
-  width: 300px;
-  height: 250px;
 
+  height: 250px;
+  width:100%;
   border: 2px solid black;
   border-radius: 30px;
 
-  margin: 20px;
 
+  margin : 20px 0px;
   padding: 20px;
 `;
 const Input = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
-  width: 300px;
+  width:100%;
+
   height: 250px;
-  margin: auto;
+
   padding: 20px;
 
   border: 2px solid black;
   border-radius: 30px;
 
   textarea {
-    width: 280px;
+    width:100%;
     height: 200px;
     border: none;
   }

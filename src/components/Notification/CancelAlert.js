@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch,useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
 import {io} from "socket.io-client";
-const Alert = ({noti}) => {
+const CancelAlert = ({noti}) => {
   const dispatch = useDispatch();
  
   const userId = localStorage.getItem("userId");
@@ -35,7 +35,7 @@ const Alert = ({noti}) => {
             <span>{noti.senderNickname}</span>
           </Left>
           <Right>
-          <Message>{noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!</Message>
+          <Message>{noti.senderNickname}님이 회원님의 산책요청을 거절했습니다!</Message>
            
            <Info>
             <Time>{noti.AGOTIME}</Time>
@@ -150,4 +150,4 @@ const Right = styled.div`
  
 `;
 
-export default Alert;
+export default CancelAlert;

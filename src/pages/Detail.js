@@ -22,6 +22,7 @@ import endMarker from "../image/start.png";
 // 리덕스
 import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 import Spinner from "../shared/Spinner";
 
 // 리액트 아이콘
@@ -54,7 +55,7 @@ const Detail = (props) => {
   const userNickname = post.userNickname;
   const userAge = post.userAge;
   const userGender = post.userGender;
-
+  const userId = post.userId;
   // 강아지 정보
   const dogImage = post.dogImage;
   const dogName = post.dogName;
@@ -479,9 +480,7 @@ const Detail = (props) => {
             <FlexButton>
               <EditButton
                 onClick={() => {
-                  window.confirm(
-                    `${userNickname}과 함께 ${location}에서 산책 신청 하시겠습니까?`
-                  );
+                 dispatch(chatActions.sendNotificationMD(userId,2))
                 }}
               >
                 산책 신청하기
