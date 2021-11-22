@@ -11,6 +11,7 @@ import TopBar from "../components/TopBar";
 
 // 강아지 이미지 기본 값
 import defaultDog from "../image/default_dog.png";
+import { ElectricScooterSharp } from "@mui/icons-material";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -18,38 +19,8 @@ const SignDog = (props) => {
   //jsonserver 데이터 맞추기 위한 코드
   const signUser = useSelector((state) => state.sign.user);
   console.log(signUser);
+  
 
-  const submitDogInfo = () => {
-    if (!dogBreedCheck(dogBreed)) {
-      window.alert("강아지 종은 한글,영문 형식만 입력 가능합니다");
-      return;
-    }
-
-    if (
-      dogGender === "" ||
-      dogName === "" ||
-      dogSize === "" ||
-      dogBreed === "" ||
-      dogAge === "" ||
-      neutral === "" ||
-      dogComment === ""
-    ) {
-      window.alert("입력하지 않은 값이 있습니다.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("dogGender", dogGender);
-    formData.append("dogName", dogName);
-    formData.append("dogSize", dogSize);
-    formData.append("dogBreed", dogBreed);
-    formData.append("dogAge", dogAge);
-    formData.append("neutral", neutral);
-    formData.append("dogComment", dogComment);
-    formData.append("dogImage", imgFile);
-
-    dispatch(DogActions.signDogAPI(formData));
-  };
 
   const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
@@ -58,8 +29,60 @@ const SignDog = (props) => {
   const [dogSize, setDogSize] = useState("");
   const [dogBreed, setDogBreed] = useState("");
   const [dogAge, setDogAge] = useState("");
-  const [neutral, setNeutral] = useState("");
+  const [neutral, setNeutral] = useState("1");
   const [dogComment, setDogComment] = useState("");
+  
+  const [alertDogGender,setAlertDogGender] = useState("")
+  const [alertDogName,setAlertDogName] = useState("")
+  const [alertDogSize,setAlertDogSize] = useState("")
+  const [alertDogBreed,setAlertDogBreed] = useState("")
+  const [alertDogAge,setAlertDogAge] = useState("")
+  const [alertNeutral,setAlertNeutral] = useState("")
+  const [alertDogComment,setAlertDogComment] = useState("")
+  const [alertDogImage, setAlertDogImage] = useState("")
+  const alertHandlerDG = () => {
+    if(!dogGender)
+    setAlertDogGender("강아지 성별을 입력해주세요!")
+    else 
+    setAlertDogGender();
+  }
+  const alertHandlerDN = () => {
+    if(!dogName)
+    setAlertDogName("강아지 이름을 입력해주세요!")
+    else 
+    setAlertDogName();
+  }
+  const alertHandlerDB = () => {
+    if(!dogBreed)
+    setAlertDogBreed("강아지 품종을 입력해주세요!")
+    else 
+    setAlertDogBreed();
+  }
+  const alertHandlerDA = () => {
+    if(!dogAge)
+    setAlertDogAge("강아지 나이를 입력해주세요!")
+    else 
+    setAlertDogAge();
+  }
+  const alertHandlerN = () => {
+    if(neutral===true||neutral===false)
+    setAlertNeutral();
+    else 
+    setAlertNeutral("강아지 성을 입력해주세요!")
+  }
+  const alertHandlerDC = () => {
+    if(!dogComment)
+    setAlertDogComment("강아지 소개를 써주세요!")
+    else 
+    setAlertDogComment();
+  }
+  const alertHandlerDS = () => {
+    if(!dogSize)
+    setAlertDogSize("강아지 크기를 입력해주세요!")
+    else
+    setAlertDogSize()
+  }
+
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -118,7 +141,53 @@ const SignDog = (props) => {
     console.log(newTitle);
     setDogComment(newTitle);
   };
+  const submitDogInfo = () => {
+    if(imgBase64==defaultDog)
+    {
+      setAlertDogImage("강아지 이미지가 입력해주세요!")
+    }
+    else
+    {
+      setAlertDogImage("")
+    }
+   
+    alertHandlerDA();
+    alertHandlerDB();
+    alertHandlerDC();
+    alertHandlerDG();
+    alertHandlerDN();
+    alertHandlerN();
+    alertHandlerDS();
+  
+    if (!dogBreedCheck(dogBreed)) {
+      setAlertDogBreed("강아지 종은 한글만 입력 가능합니다");
+     
+    }
+    if (
+      dogGender === "" ||
+      dogName === "" ||
+      dogSize === "" ||
+      dogBreed === "" ||
+      dogAge === "" ||
+      neutral === "" ||
+      dogComment === ""
+    ) {
+     
+      return;
+    }
 
+    const formData = new FormData();
+    formData.append("dogGender", dogGender);
+    formData.append("dogName", dogName);
+    formData.append("dogSize", dogSize);
+    formData.append("dogBreed", dogBreed);
+    formData.append("dogAge", dogAge);
+    formData.append("neutral", neutral);
+    formData.append("dogComment", dogComment);
+    formData.append("dogImage", imgFile);
+
+    dispatch(DogActions.signDogAPI(formData));
+  };
   return (
     <>
       <Wrap>
@@ -136,18 +205,21 @@ const SignDog = (props) => {
             ></AddImage>
           </AddWrap>
         </ImageWrap>
+        <ImageAlert>{alertDogImage?alertDogImage:""}</ImageAlert>
         <Input>
           <InputText
             placeholder="강아지 이름 입력 "
             onChange={dogNameChangeHandler}
           ></InputText>
         </Input>
+        <Alert>{alertDogName?alertDogName:""}</Alert>
         <Input>
           <InputText
             placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
             onChange={dogBreedChangeHandler}
           ></InputText>
         </Input>
+        <Alert>{alertDogBreed?alertDogBreed:""}</Alert>
         <Input>
           <Title>크기</Title>
           <FlexWrap>
@@ -188,6 +260,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
+        <Alert>{alertDogSize?alertDogSize:""}</Alert>
         <Input>
           <Title>성별</Title>
           <FlexWrap>
@@ -217,6 +290,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
+        <Alert>{alertDogGender?alertDogGender:""}</Alert>
         <Input>
           <Title>중성화 여부</Title>
           <FlexWrap>
@@ -246,6 +320,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
+        <Alert>{alertNeutral?alertNeutral:""}</Alert>
         <Input>
           <Title>나이대</Title>
           <FlexWrap>
@@ -287,6 +362,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
+        <Alert>{alertDogAge?alertDogAge:""}</Alert>
         <Input style={{ backgroundColor: "#FAF7CE" }}>
           <Title> 강아지 한 줄 소개</Title>
           <InputText
@@ -295,6 +371,7 @@ const SignDog = (props) => {
             style={{ backgroundColor: "#FAF7CE" }}
           ></InputText>
         </Input>
+        <Alert>{alertDogComment?alertDogComment:""}</Alert>
         <ButtonWrap>
           <button onClick={submitDogInfo}>등록하기</button>
         </ButtonWrap>
@@ -302,10 +379,23 @@ const SignDog = (props) => {
     </>
   );
 };
+const Alert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:flex-start;
 
+`
+const ImageAlert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:center;
+
+`
 const Wrap = styled.div`
   text-align: center;
-  max-width: 390px;
+
   padding: 0 20px;
   margin: 30px auto;
   font-size: 14px;
@@ -315,7 +405,7 @@ const Input = styled.div`
   box-sizing: border-box;
   padding: 12px 24px;
   border-radius: 15px;
-  margin-bottom: 20px;
+  margin: 10px 0px;
   text-align: left;
   font-size: 16px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
@@ -323,7 +413,7 @@ const Input = styled.div`
 `;
 
 const ImageWrap = styled.div`
-  margin: 20px 0;
+ 
 `;
 const Preview = styled.img`
   box-sizing: border-box;
@@ -345,9 +435,9 @@ const InputText = styled.input`
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
+
   padding: 5px;
-  margin: 10px;
+
   cursor: pointer;
 `;
 const AddImage = styled.input`

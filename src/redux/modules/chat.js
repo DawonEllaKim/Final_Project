@@ -107,18 +107,20 @@ const sendMessageMD = (receiverId, message) => {
   };
 };
 
-const sendNotificationMD = (receiverId) => {
+const sendNotificationMD = (receiverId,type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: `http://13.209.70.209/notification/${receiverId}`,
-
+      data: {type: type},
       headers: {
         Accept: "application/json",
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        window.alert("메세지성공")
+      })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);

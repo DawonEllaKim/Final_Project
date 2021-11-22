@@ -2,8 +2,9 @@ import React, {useEffect,useState} from "react";
 import styled from "styled-components";
 import { useDispatch,useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
+import { actionCreators as chatActions } from "../../redux/modules/chat";
 import {io} from "socket.io-client";
-const Alert = ({noti}) => {
+const WalkAlert = ({noti}) => {
   const dispatch = useDispatch();
  
   const userId = localStorage.getItem("userId");
@@ -27,7 +28,7 @@ const Alert = ({noti}) => {
 
   return (
         <div>
-        <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(noti.notificationId))}}>
+        <Wrap >
   
           <Left>
             <img src={noti.senderImage} />
@@ -35,11 +36,14 @@ const Alert = ({noti}) => {
             <span>{noti.senderNickname}</span>
           </Left>
           <Right>
-          <Message>{noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!</Message>
-           
-           <Info>
+          <Info>
             <Time>{noti.AGOTIME}</Time>
             </Info>
+          <Message>{noti.senderNickname}님이 산책요청하셨습니다.<br/>수락하시겠습니까?</Message>
+         <BtnArea>
+          <SubmitBtn onClick={()=>dispatch(notiActions.postNotiMD(noti.notificationId,noti.senderId,3))} >수락하기</SubmitBtn>
+          <CancelBtn onClick={()=>dispatch(notiActions.postNotiMD(noti.notificationId,noti.senderId,4))}>거절하기</CancelBtn>
+          </BtnArea>
           </Right>
   
         </Wrap>
@@ -53,6 +57,10 @@ const Alert = ({noti}) => {
             <Message>
           {n.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
           </Message>
+          <BtnArea>
+          <SubmitBtn>수락하기</SubmitBtn>
+          <CancelBtn>거절하기</CancelBtn>
+          </BtnArea>
             <span>1시간 전</span>
           </Right>
           
@@ -64,7 +72,13 @@ const Alert = ({noti}) => {
    
  
 };
-
+const BtnArea = styled.div
+`
+width:100%;
+display:flex;
+justify-content:flex-start;
+padding-bottom:10px;
+`
 const Message = styled.div
 `
 display:flex;
@@ -87,13 +101,30 @@ const Time = styled.div
 padding-right:10px;
 padding-bottom:3px;
 `
-const DeleteBtn = styled.div
+const CancelBtn = styled.div
 `
-img{
- 
-  width:15px;
-  height:15px;
-}
+
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:20px;
+width:7rem;
+height:40px;
+box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
+  border: 0.01rem solid lightGray;
+`
+const SubmitBtn = styled.div
+`
+background-color:#FF5656;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:20px;
+width:7rem;
+height:40px;
+box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
+  border: 0.01rem solid lightGray;
+  margin-right:10px;
 `
 const Wrap = styled.div`
 margin: 0.5rem;
@@ -102,7 +133,7 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
   cursor:pointer;
-  height: 6em;
+  height: 9em;
 
   box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
   border: 0.01rem solid lightGray;
@@ -114,7 +145,7 @@ const Left = styled.div`
  display:block;
 
   padding-left:10px;
-  padding-top:5px;
+  padding:30px 
 
   height:100%;
   img {
@@ -150,4 +181,4 @@ const Right = styled.div`
  
 `;
 
-export default Alert;
+export default WalkAlert;
