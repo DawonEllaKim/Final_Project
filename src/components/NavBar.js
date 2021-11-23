@@ -35,7 +35,7 @@ const NavBar = (props) => {
                 setPage("all");
               }}
               onClick={() => {
-                history.push(`/alllist/${page}`);
+                history.push("/alllist/all");
               }}
               style={{ marginRight: "100px" }}
             >

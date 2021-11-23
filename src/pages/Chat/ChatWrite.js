@@ -5,7 +5,8 @@ import styled from "styled-components";
 import {io} from "socket.io-client";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
-
+//모달
+import ChatSuccessModal from "../../components/Modal/ChatSuccessModal"
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as userActions } from "../../redux/modules/user";
@@ -13,12 +14,15 @@ const ChatWrite = (props) => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
-
+  const get_modal = useSelector((state)=>state.chat.modal)
+  const [modal,setModal] = useState("")
+  
  
   const userInfo = useSelector((state) => state.user.list);
   useEffect(()=> {
     dispatch(userActions.getMypageMD(receiverId));
-  },[])
+    setModal(get_modal)
+  },[get_modal])
 
   const messageChange = (e) => {
     setMessage(e.target.value);
@@ -27,13 +31,17 @@ const ChatWrite = (props) => {
   // 쪽지 보내기 액션 실행 버튼
   const sendChat = () => {
     
-
+    
     dispatch(chatAction.sendMessageMD(receiverId, message,1));
   };
-
+  console.log(modal)
 
   return (
+   
     <div>
+       {
+      modal? <ChatSuccessModal setModal={setModal} receiverId={receiverId}/> : ""
+    }
       <TopBar>쪽지하기</TopBar>
       <Info>
         <ImageWrap>

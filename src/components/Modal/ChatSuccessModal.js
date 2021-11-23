@@ -4,20 +4,19 @@ import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png"
-
-const LoginSuccessModal = (props) => {
+import { actionCreators as chatActions } from "../../redux/modules/chat";
+const ChatSuccessModal = (props) => {
   const dispatch = useDispatch();
   const history= useHistory();
-  const addMarker = () => {
-    props.close();
+  const modalHandler = () => {
+    dispatch(chatActions.modalMD())
   };
-
+  
   return (
-    <div  onClick={()=>{props.setModal(false)
-      history.push("/check")}}>
+    <div onClick={modalHandler}>
       <Component />
 
-      <ModalComponent >
+      <ModalComponent  >
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
@@ -25,7 +24,7 @@ const LoginSuccessModal = (props) => {
             <ImageWrap>
           <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>로그인 완료!</ModalHeader>
+          <ModalHeader>쪽지보내기 완료!</ModalHeader>
         </Info>
       </ModalComponent>
     </div>
@@ -99,4 +98,5 @@ const Img = styled.img`
   height: 15px;
 
 `;
-export default LoginSuccessModal;
+
+export default ChatSuccessModal;

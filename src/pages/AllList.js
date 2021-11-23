@@ -49,7 +49,7 @@ const AllList = (props) => {
   };
 
   useEffect(() => {
-    setStatus(params);
+    setStatus("all");
     setFocus(params);
     dispatch(postActions.getAllMD());
   }, []);
