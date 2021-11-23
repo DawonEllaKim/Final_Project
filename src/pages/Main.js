@@ -448,7 +448,7 @@ const Main = (props) => {
 const TopBarWrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
-  padding-top: 40px;
+  padding-top: 14px;
 `;
 const TopBarEdit = styled.div`
   position: absolute;

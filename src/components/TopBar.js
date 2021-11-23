@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
-
-import backward from "../image/backward.png";
-import notification1 from "../image/Notification.png";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+
+// 리덕스
 import { actionCreators as notiActions } from "../redux/modules/notification";
-import { RiFeedbackLine } from "react-icons/ri";
+
+// 아이콘
+import {MdArrowBackIos} from 'react-icons/md';
+import { IoNotificationsOutline } from "react-icons/io5";
 
 const TopBar = (props) => {
   const { text, children, padding, only_left, only_right } = props;
@@ -52,16 +54,14 @@ const TopBar = (props) => {
     return (
       <Wrap>
         <Left {...styles}>
-          <BtnLeft
+          <BtnLeft>
+            <MdArrowBackIos 
             onClick={() => {
               history.goBack();
             }}
-          >
-            <img
-              src={backward}
               style={{
-                width: "10px",
-                height: "18px",
+                width: "24px",
+                height: "24px",
               }}
             />
           </BtnLeft>
@@ -75,24 +75,12 @@ const TopBar = (props) => {
         <Right {...styles}>
           {text ? text : children}
           <BtnRight>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link">
-              <RiFeedbackLine
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  marginLeft: "-30px",
-                  marginRight: "10px",
-                  color: "#000",
-                }}
-              />
-            </a>
-            <img
-              onClick={() => history.push("/notification")}
-              src={notification1}
-              style={{
-                width: "24px",
-                height: "24px",
-              }}
+            <IoNotificationsOutline 
+            onClick={() => history.push("/notification")}
+            style={{
+              width: "24px",
+              height: "24px",
+            }}
             />
             <Edit>{noti.length}</Edit>
           </BtnRight>
@@ -103,28 +91,26 @@ const TopBar = (props) => {
   return (
     <Wrap>
       <Both {...styles}>
-        <BtnLeft
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <img
-            src={backward}
-            style={{
-              width: "10px",
-              height: "18px",
+        <BtnLeft>
+        <MdArrowBackIos 
+            onClick={() => {
+              history.goBack();
             }}
-          />
+              style={{
+                width: "24px",
+                height: "24px",
+              }}
+            />
         </BtnLeft>
         {text ? text : children}
-        <BtnRight onClick={() => history.push("/notification")}>
-          <img
-            src={notification1}
+        <BtnRight> 
+        <IoNotificationsOutline 
+            onClick={() => history.push("/notification")}
             style={{
               width: "24px",
               height: "24px",
             }}
-          />
+            />
           <Edit>{noti.length}</Edit>
         </BtnRight>
       </Both>
@@ -142,7 +128,7 @@ TopBar.defaultProps = {
 const Wrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
-  padding-top: 10px;
+  padding-top: 14px;
 `;
 const Edit = styled.div`
   position: absolute;
@@ -213,7 +199,7 @@ const BtnLeft = styled.button`
 const BtnRight = styled.button`
   position: absolute;
   top: 0;
-  right: 0;
+  right: 8px;
   border: none;
   background-color: transparent;
   width: 52px;
