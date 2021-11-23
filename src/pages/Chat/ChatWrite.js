@@ -81,7 +81,7 @@ const Input = styled.div`
   align-items: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   width: 80%;
-  height: 25em;
+  height: 20em;
   margin: auto;
   padding: 20px;
 
@@ -90,9 +90,10 @@ const Input = styled.div`
   border-radius: 30px; 
   
   textarea {
-    width: 90%;
-    height: 25em;
+    width: 100%;
+    height: 100%;
     border: none;
+    font-size:16px;
     &:focus {
       outline: none;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { MdAlternateEmail } from "react-icons/md";
 import { AiOutlineLock } from "react-icons/ai";
@@ -7,11 +7,11 @@ import axios from "axios";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
-
+import Spinner from "../shared/Spinner";
 import logo from "../image/logo.png";
 // 상단바
 import TopBar from "../components/TopBar";
-
+import LoginSuccessModal from "../components/Modal/LoginSuccessModal";
 import { KAKAO_AUTH_URL } from "../components/OAuth";
 // const { Kakao } = window;
 
@@ -19,8 +19,8 @@ const LogIn = (props) => {
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [alert, setAlert] = useState("");
+  const [modal,setModal] = useState("")
+  const [alert,setAlert] = useState("");
 
   const userEmailChangeHandler = (e) => {
     // console.log(e.target.value);
@@ -30,19 +30,25 @@ const LogIn = (props) => {
     // console.log(e.target.value);
     setPassword(e.target.value);
   };
-
-  const message = useSelector((state) => state.sign.alert);
-
+  const [loading,setLoading] = useState(true)
+  const is_loading = useSelector((state) => state.sign.is_loading);
+  const getModal= useSelector((state) => state.sign.modal);
+  const message=useSelector(state => state.sign.alert)
+  console.log(message)
   useEffect(() => {
     // dispatch(postActions.getAllMD());
 
-    setAlert(message);
-  }, [message]);
+    setLoading(is_loading)
+    setLoading(true)
+    setAlert(message)
+    setModal(getModal)
+  }, [message,is_loading]);
   const onClickLogin = () => {
     if ((userEmail === "") | (password === "")) {
       setAlert("이메일 또는 비밀번호를 입력해주세요");
       return;
     }
+   setLoading(false)
     dispatch(userActions.logInMD(userEmail, password));
   };
   // const loginWithKakao = () => {
@@ -81,13 +87,19 @@ const LogIn = (props) => {
   //     },
   //   });
   // };
-
+  if (!loading) {
+    return <Spinner />;
+  }
   return (
     <>
+    {
+      modal? <LoginSuccessModal setModal={setModal}/>:""
+    }
       <Wrap>
         <TopBar only_left></TopBar>
+        <div onClick={()=>{history.push("/")}}>
         <Logo src={logo} />
-
+        </div>
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -123,20 +135,22 @@ const LogIn = (props) => {
   );
 };
 
-const Alert = styled.div`
-  color: #ff5252;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 8px;
-  margin-top: 8px;
-`;
+const Alert =styled.div
+`
+color: #FF5252;
+display:flex;
+justify-content:center;
+margin-bottom:8px;
+margin-top:8px;
+`
 
 const Wrap = styled.div`
   text-align: center;
 
   font-size: 14px;
-
+  
   padding-bottom: 55px;
+
 `;
 const Logo = styled.img`
   width: 132px;
@@ -147,13 +161,13 @@ const InputBox = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin:0 auto;
   padding: 10px 20px;
   margin-top: 16px;
-  border: 1px gray;
+  border: 1px gray ;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
-  width: 80%;
+  width:80%;
   &:hover {
     border: 2px solid lightBlue;
   }
@@ -164,34 +178,36 @@ const InputText = styled.input`
   border: 0;
   padding: 10px 0;
   margin-left: 16px;
-
+  
   &:focus {
     outline: none;
   }
 `;
 const LoginBtn = styled.button`
   box-sizing: border-box;
-  width: 80%;
-  display: flex;
-  justify-content: center;
+  width:80%;
+  display:flex;
+  justify-content:center;
   padding: 12px;
   margin: 0 auto;
-  background-color: #ff5252;
-  border: 1px gray;
+  margin-top:20px;
+  background-color: #FF5252;
+  border: 1px gray ;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 24px;
   font-size: 16px;
   cursor: pointer;
+
 `;
 const SignupBtn = styled.button`
   margin-bottom: 38px;
   font-size: 14px;
-  margin-top: 20px;
+  margin-top:20px;
   border: none;
   background-color: transparent;
   cursor: pointer;
   span {
-    color: red;
+    color:red;
   }
 `;
 const KakaoLogin = styled.img`
@@ -204,3 +220,4 @@ const KakaoLogin = styled.img`
 `;
 
 export default LogIn;
+
