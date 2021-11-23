@@ -31,12 +31,15 @@ const Notification = (props) => {
   const alert = () => {
     setStatus("alert");
     setTitle("알림페이지");
+    setFocus("alert")
   };
   const InBoxStatus = () => {
+    setFocus("InBoxStatus")
     setStatus("InBoxStatus");
     setTitle("쪽지함");
   };
   const OutBoxStatus = () => {
+    setFocus("OutBoxStatus")
     setStatus("OutBoxStatus");
     setTitle("쪽지함");
   };

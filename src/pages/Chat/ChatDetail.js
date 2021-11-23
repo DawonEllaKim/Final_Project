@@ -9,10 +9,10 @@ import TopBar from "../../components/TopBar";
 
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
-
+import { useHistory } from "react-router";
 const ChatDetail = (props) => {
   const [message, setMessage] = useState("");
-
+  const history= useHistory();
   const dispatch = useDispatch();
   const list = useSelector((state) => state.chat.inBoxList[0]); // 이 쪽지의 정보
   const myId = localStorage.getItem("userId"); // 나의 유저 아이디
@@ -37,47 +37,53 @@ const ChatDetail = (props) => {
   }, []);
 
   return (
- 
-    <div>
-      <TopBar>답장하기</TopBar>
-      <Info>
-        <ImageWrap>
-          <img src={list.senderImage}/>
-          {list.senderNickname}
-        </ImageWrap>
-         <div>
-           {list.AGOTIME}
-         </div>
-        </Info>
-      <Wrap>
-        <Message>
-       
-          <p>{list.message}</p>
+     <div>
+       {
+         list? <div>
     
-        </Message>
-        <SendInfo>
-        <ImageWrap>
-          <img src={RedMessage}/>
-          {list.senderNickname}에게 답장하기
-        </ImageWrap>
-         <div>
-         
-         </div>
-        </SendInfo>
-        {/* 남이 보낸 쪽지의 상세페이지 들어갈때만 답장 할 수 있는 창이 열린다 */}
-        {list.receiverId !== myId && (
-          <Input>
-            <textarea
-              type="text"
-              placeholder="쪽지 내용을 입력해주세요"
-              onChange={messageChange}
-            />
+         <TopBar>답장하기</TopBar>
+         <Info onClick={()=>history.push(`/mypage/${list.senderId}`)}>
+           <ImageWrap>
+             <img src={list.senderImage}/>
+             {list.senderNickname}
+           </ImageWrap>
+            <div>
+              {list.AGOTIME}
+            </div>
+           </Info>
+         <Wrap>
+           <Message>
           
-          </Input>
-        )}
-      </Wrap>
-      <SendBtn onClick={sendChat}>답장하기</SendBtn>
-    </div>
+             <p>{list.message}</p>
+       
+           </Message>
+           <SendInfo>
+           <ImageWrap>
+             <img src={RedMessage}/>
+             {list.senderNickname}에게 답장하기
+           </ImageWrap>
+            <div>
+            
+            </div>
+           </SendInfo>
+           {/* 남이 보낸 쪽지의 상세페이지 들어갈때만 답장 할 수 있는 창이 열린다 */}
+           {list.receiverId !== myId && (
+             <Input>
+               <textarea
+                 type="text"
+                 placeholder="쪽지 내용을 입력해주세요"
+                 onChange={messageChange}
+               />
+             
+             </Input>
+           )}
+         </Wrap>
+         <SendBtn onClick={sendChat}>답장하기</SendBtn>
+       </div> :
+       <div> </div>
+       }
+     </div>
+   
   );
 };
 const SendBtn = styled.div
@@ -132,7 +138,7 @@ const Wrap = styled.div`
 `;
 const Message = styled.div`
 
-  height: 40vh;
+  height: 30vh;
   width:100%;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;
@@ -147,7 +153,7 @@ const Input = styled.div`
 
   width:100%;
 
-  height: 40vh;
+  height: 30vh;
 
   padding: 20px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
@@ -156,10 +162,14 @@ const Input = styled.div`
   margin-top:20px;
   textarea {
     width:100%;
-    height: 200px;
+    height: 25vh;
     border: none;
+    &:focus{
+      outline:none;
+    }
+    font-size:16px;
   }
-
+ cursor:pointer;
   button {
     width: 50px;
     height: 30px;
