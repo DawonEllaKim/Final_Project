@@ -12,9 +12,9 @@ import { FaRegClock } from "react-icons/fa";
 import OlympicMap from "../../image/OlympicMap.png";
 import SeoulMap from "../../image/SeoulMap.png";
 import BanpoMap from "../../image/BanpoMap.png";
+
 function Banpo() {
   const dispatch = useDispatch();
-
   const postList = useSelector((state) => state.post.banpo);
 
   useEffect(() => {

@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png";
 import { actionCreators as chatActions } from "../../redux/modules/chat";
-const ChatSuccessModal = (props) => {
+
+const SuccessModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const modalHandler = () => {
@@ -20,11 +21,12 @@ const ChatSuccessModal = (props) => {
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
+
         <Info>
           <ImageWrap>
             <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>쪽지보내기 완료!</ModalHeader>
+          <ModalHeader>{props.text}</ModalHeader>
         </Info>
       </ModalComponent>
     </div>
@@ -93,4 +95,4 @@ const Img = styled.img`
   height: 15px;
 `;
 
-export default ChatSuccessModal;
+export default SuccessModal;

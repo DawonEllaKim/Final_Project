@@ -25,19 +25,27 @@ import search from "../image/search.png";
 import map from "../image/map.png";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
+import SuccessModal from "../components/Modal/SuccessModal";
+
 const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const markerName = useSelector((state) => state.marker.marker);
-  console.log(markerName);
+
+  const get_modal = useSelector((state) => state.chat.modal);
+  const [modal, setModal] = useState("");
 
   const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
   const [wishDesc, setWishDesc] = useState(); //desc설명
   const [dogCount, setDogCount] = React.useState("");
-  const [is_modal, setModal] = useState(false);
+  const [is_modal, setIsModal] = useState(false);
   const closeModal = () => {
-    setModal(false);
+    setIsModal(false);
   };
+  useEffect(() => {
+    setModal(get_modal);
+  }, [get_modal]);
+
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
@@ -67,15 +75,17 @@ const Map2 = (props) => {
       wishDesc == "" ||
       dogCount == ""
     ) {
-      setModal(true);
+      setIsModal(true);
     } else {
-      // setModal(tru)
+      setModal(true);
       dispatch(PostActions.addPostMD(Info));
     }
   };
 
   return (
     <>
+      {modal ? <SuccessModal setModal={setModal} text="산책 등록 완료" /> : ""}
+
       <Wrap>
         {/* 헤더 */}
         {/* {is_modal? <ErrorModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}

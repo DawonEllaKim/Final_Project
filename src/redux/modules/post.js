@@ -25,6 +25,7 @@ const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
+const GET_MODAL = "GET_MODAL";
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -39,6 +40,8 @@ const addPost = createAction(ADD_POST, (list) => ({ list }));
 const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
+
 // initialState
 const initialState = {
   //메인 요청
@@ -49,6 +52,7 @@ const initialState = {
   map: [],
   //산책 요청
   list: [],
+  modal: "",
   myList: [
     {
       dogAge: "4~7세",
@@ -76,6 +80,12 @@ const initialState = {
   is_loading: true,
 };
 
+const modalMD = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(getModal(false));
+    history.goBack();
+  };
+};
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
 //dog_name,meeting_date
 const getAllMD = () => {
@@ -411,7 +421,8 @@ const addPostMD = (post) => {
       .createPostAX(post)
       .then((res) => {
         // dispatch(addPost(post));
-        window.location.replace("/");
+        window.location.replace("/allList/all");
+        dispatch(getModal(true));
       })
       .catch((err) => {
         console.log(err);
@@ -498,6 +509,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
+    [GET_MODAL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.modal = action.payload.modal;
+      }),
   },
   initialState
 );
@@ -512,6 +527,7 @@ const actionCreators = {
   updatePost,
   deletePost,
 
+  modalMD,
   getAllMD,
   getOlympicMD,
   getSeoulMD,

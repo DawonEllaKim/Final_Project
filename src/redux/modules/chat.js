@@ -30,7 +30,7 @@ const deleteInMessage = createAction(DELETE_IN_MESSAGE, (chatId) => ({
 const deleteOutMessage = createAction(DELETE_OUT_MESSAGE, (chatId) => ({
   chatId,
 }));
-const getModal = createAction(GET_MODAL,(modal)=>({modal}));
+const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const initialState = {
   inBoxList: [],
   outBoxList: [],
@@ -38,12 +38,12 @@ const initialState = {
   modal: "",
 };
 
-const modalMD= () => {
-  return function (dispatch,getState, {history}) {
-    dispatch(getModal(false))
+const modalMD = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(getModal(false));
     history.goBack();
-  }
-}
+  };
+};
 
 const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
@@ -89,7 +89,7 @@ const outBoxMD = () => {
   };
 };
 
-const sendMessageMD = (receiverId, message,type) => {
+const sendMessageMD = (receiverId, message, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -102,33 +102,29 @@ const sendMessageMD = (receiverId, message,type) => {
     })
       .then((res) => {
         dispatch(sendMessage(message));
-        dispatch(sendNotificationMD(receiverId,1));
-        dispatch(getModal(true))
+        dispatch(sendNotificationMD(receiverId, 1));
+        dispatch(getModal(true));
         console.log("쪽지 보내기 POST 성공", res.data);
-    
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);
-      
       });
   };
 };
 
-const sendNotificationMD = (receiverId,type) => {
+const sendNotificationMD = (receiverId, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: `http://13.209.70.209/notification/${receiverId}`,
-      data: {type: type},
+      data: { type: type },
       headers: {
         Accept: "application/json",
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
-      .then((res) => {
-    
-      })
+      .then((res) => {})
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);
@@ -238,7 +234,7 @@ export default handleActions(
         // console.log(newList);
         draft.outBoxList = newList;
       }),
-      [GET_MODAL]: (state, action) =>
+    [GET_MODAL]: (state, action) =>
       produce(state, (draft) => {
         draft.modal = action.payload.modal;
       }),
