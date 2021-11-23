@@ -56,7 +56,8 @@ const MapPractice = React.memo(() => {
   const [distance, setDistance] = useState(distance1); //디스턴스정보
   const [walk, setWalk] = useState(list1); //산책로 좌표정보
   const [road, setRoad] = useState(); //산책로이름
-
+  const [focus, setFocus] = useState();
+  console.log(road);
   const closeModal = () => {
     setModal(false);
   };
@@ -521,6 +522,9 @@ const MapPractice = React.memo(() => {
             <div>
               <WalkArea>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "list1" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로A"
                   value="list1"
                   checked={road === "list1"}
@@ -529,6 +533,9 @@ const MapPractice = React.memo(() => {
                   산책로 A
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "list2" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로B"
                   value="list2"
                   checked={road === "list2"}
@@ -537,6 +544,9 @@ const MapPractice = React.memo(() => {
                   산책로 B
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "list3" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로C"
                   value="list3"
                   checked={road === "list3"}
@@ -637,6 +647,9 @@ const MapPractice = React.memo(() => {
             <div>
               <WalkArea>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "seoul1" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로A"
                   value="seoul1"
                   checked={road === "seoul1"}
@@ -645,6 +658,9 @@ const MapPractice = React.memo(() => {
                   산책로A
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "seoul2" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로B"
                   value="seoul2"
                   checked={road === "seoul2"}
@@ -653,6 +669,9 @@ const MapPractice = React.memo(() => {
                   산책로B
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "seoul3" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로C"
                   value="seoul3"
                   checked={road === "seoul3"}
@@ -753,6 +772,9 @@ const MapPractice = React.memo(() => {
             <div>
               <WalkArea>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "hangang1" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로A"
                   value="hangang1"
                   checked={road === "hangang1"}
@@ -761,6 +783,9 @@ const MapPractice = React.memo(() => {
                   산책로A
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "hangang2" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로B"
                   value="hangang2"
                   checked={road === "hangang2"}
@@ -769,6 +794,9 @@ const MapPractice = React.memo(() => {
                   산책로B
                 </WalkBtn>
                 <WalkBtn
+                  style={{
+                    boxShadow: road === "hangang3" ? "0px 0px 5px #ff5656" : "",
+                  }}
                   name="산책로C"
                   value="hangang3"
                   checked={road === "hangang3"}
@@ -913,8 +941,10 @@ const WalkBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   &:hover {
     cursor: pointer;
+    background-color: #ff5656;
   }
 `;
 const IconDiv = styled.div`

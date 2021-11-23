@@ -33,15 +33,19 @@ const AllList = (props) => {
 
   const all = () => {
     setStatus("all");
+    setFocus("all");
   };
   const olympic = () => {
     setStatus("olympic");
+    setFocus("olympic");
   };
   const seoul = () => {
     setStatus("seoul");
+    setFocus("seoul");
   };
   const banpo = () => {
     setStatus("banpo");
+    setFocus("banpo");
   };
 
   useEffect(() => {
