@@ -10,7 +10,7 @@ import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
-import MainCard from "../components/MainCard";
+// import MainCard from "../components/MainCard";
 import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
@@ -299,7 +299,7 @@ const Main = (props) => {
                   return (
                     <MainCardWrap onClick={hover}>
                       <MainCard post={post} key={index}>
-                        <Image src={dogImage} />
+                        <Image src={post.dogImage} />
                       </MainCard>
                     </MainCardWrap>
                   );
@@ -309,7 +309,7 @@ const Main = (props) => {
           </BodyWrap>
 
           {/* 반포 한강공원 */}
-          <BanpoBodyWrap>
+          <BodyWrap>
             <Header>
               <Text>반포 한강공원</Text>
               <MoreBtn
@@ -368,7 +368,7 @@ const Main = (props) => {
                 })}
               </SubLists>
             </WholeCardWrap>
-          </BanpoBodyWrap>
+          </BodyWrap>
         </Body>
       </Wrap>
 
@@ -396,11 +396,8 @@ const Slide = styled.div`
   box-sizing: border-box;
 `;
 const StyledSlider = styled(Slider)`
-border: 1px solid blue;
   width: 100%;
   position: relative;
-  /* aspect-ratio: 4 / 2; */
-  /* padding-bottom: 50%; */
   overflow: hidden;
   border-radius: 14px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
@@ -452,11 +449,6 @@ const CautionCard = styled.div`
 `;
 
 const WholeCardWrap = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
 `;
 const Part = styled.div`
@@ -531,21 +523,28 @@ const SubLists = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
 
-const Image = styled.img`
-  width: 100%;
-  border-radius: 5px;
-  object-fit: cover;
-  height: 100%;
 `;
 
 const MainCardWrap = styled.div`
   width: 23%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
   cursor: pointer;
 `;
+
+const MainCard = styled.div`
+  width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+`
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  border-radius: 5px;
+`;
+
 
 const LoginImg = styled.div`
   position: relative;
@@ -606,21 +605,12 @@ const DogstaSlide = styled(Slider)`
   }
 `;
 const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  /* margin: 28px 0; */
+width: 100%;
 `;
 
 const BodyWrap = styled.div`
+width: 100%;
   padding: 20px 30px;
-  background-color: #fff;
-  margin-bottom: 8px;
-`;
-const BanpoBodyWrap = styled.div`
-  padding: 20px 30px 20px 30px;
   background-color: #fff;
   margin-bottom: 8px;
 `;

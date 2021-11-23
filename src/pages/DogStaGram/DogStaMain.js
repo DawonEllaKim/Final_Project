@@ -260,17 +260,20 @@ const Posts = styled.div`
 `;
 const Card = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
 `;
 const ImageWrap = styled.div`
   width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
 `;
 const CardImage = styled.img`
   width: 100%;
   height: 100%;
-  aspect-ratio: 1 / 1;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: absolute;
   object-fit: cover;
+  border-radius: 10px 10px 0 0;
 `;
 const PostInfo = styled.div`
   display: flex;
