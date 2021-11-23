@@ -13,6 +13,7 @@ import edit from "../image/edit.png";
 // 상단바
 import TopBar from "../components/TopBar";
 import DogModal from "../components/DogModal";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const EditDog = (props) => {
   // 이미지
   const [imgBase64, setImgBase64] = useState(dog.dogImage && dog.dogImage); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-
   const [dogName, setDogName] = useState(dog.dogName ? dog.dogName : "");
   const [dogBreed, setDogBreed] = useState(dog.dogBreed ? dog.dogBreed : "");
   const [dogSize, setDogSize] = useState();
@@ -37,7 +37,7 @@ const EditDog = (props) => {
   const [dogComment, setDogComment] = useState(
     dog.dogComment ? dog.dogComment : ""
   );
-  const [modal,setModal] = useState();
+  const [modal, setModal] = useState();
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -55,6 +55,7 @@ const EditDog = (props) => {
       setImgFile(e.target.files[0]);
     }
   };
+
   const dogNameChangeHandler = (e) => {
     setDogName(e.target.value);
   };
@@ -85,17 +86,16 @@ const EditDog = (props) => {
       dogGender,
       neutral,
       dogAge,
-      dogComment
-    }
-     
+      dogComment,
+    };
     dispatch(DogActions.updateDogMD(dogInfo));
   };
+
   const updateImage = () => {
     const formData = new FormData();
     formData.append("dogImage", imgFile);
     dispatch(DogActions.updateDogImageMD(formData));
   };
-
 
   useEffect(() => {
     dispatch(DogActions.getDogMD());
@@ -118,7 +118,6 @@ const EditDog = (props) => {
     dog.dogAge,
     dog.dogComment,
   ]);
-  console.log(imgFile);
 
   return (
     <Wrap>
@@ -135,21 +134,19 @@ const EditDog = (props) => {
           onChange={handleChangeFile}
         />
       </ImageWrap> */}
-       <UserWrap>
-        <UserInfoLeft onClick={()=>setModal(true)} >
-        <UserImg src={dog.dogImage}  />
-         <Edit >
-           <img src={edit}/>
-           </Edit>
-           </UserInfoLeft>
-           </UserWrap>
-           {
-             modal && <DogModal setModal={setModal} dogImage={dog.dogImage}/>
-           }
+      <UserWrap>
+        <UserInfoLeft onClick={() => setModal(true)}>
+          <UserImg src={dog.dogImage} />
+          <Edit>
+            <ModeEditIcon />
+          </Edit>
+        </UserInfoLeft>
+      </UserWrap>
+      {modal && <DogModal setModal={setModal} dogImage={dog.dogImage} />}
 
       {/* 강아지 이름 */}
       <Filter>
-      <Title>강아지 이름</Title>
+        <Title>강아지 이름</Title>
         <Input
           placeholder="강아지 이름을 입력하세요. "
           onChange={dogNameChangeHandler}
@@ -159,7 +156,7 @@ const EditDog = (props) => {
 
       {/* 강아지 종 */}
       <Filter>
-      <Title>견종</Title>
+        <Title>견종</Title>
         <Input
           placeholder="강아지 종을 입력하세요. ex) 말티즈, 비숑..."
           defaultValue={dog.dogBreed}
@@ -333,31 +330,28 @@ const EditDog = (props) => {
       {/* 수정 완료 버튼 */}
       <ButtonWrap>
         <Add onClick={update}>수정하기</Add>
-  
       </ButtonWrap>
     </Wrap>
   );
 };
-const UserWrap = styled.div
-`
-display:flex;
-justify-content:center;
-margin-bottom:20px;
-`
+
+const UserWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
 const UserInfoLeft = styled.div`
   position: relative;
 
   width: 150px;
   height: 150px;
-
-
 `;
 const UserImg = styled.img`
   width: 150px;
   height: 150px;
   padding: 2px;
-  background-size:cover;
-  overflow:hidden;
+  background-size: cover;
+  overflow: hidden;
   margin-right: 14.5px;
   border-radius: 50%;
   object-fit: cover;
@@ -376,9 +370,9 @@ const Edit = styled.div`
   width: 36px;
   height: 36px;
   padding: 6px;
-  border: 2px solid black;
   border-radius: 50%;
   background-color: #fff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
 
   img {
     width: 22px;
@@ -386,40 +380,12 @@ const Edit = styled.div`
   }
 `;
 const Wrap = styled.div`
-  max-width: 390px;
-  padding: 0 20px;
-  margin: 30px auto;
+  max-width: 100%;
+  padding: 0 30px;
   font-size: 14px;
   text-align: center;
 `;
 
-const ImageWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-`;
-const Preview = styled.img`
-  width: 120px;
-  height: 120px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  margin: 0 auto;
-  object-fit: cover;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-`;
-const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
-  padding: 10px 5px 5px 5px;
-  margin: 10px;
-  cursor: pointer;
-`;
-const AddImage = styled.input`
-  /* width: 180px;
-  margin: 10px 0; */
-  display: none;
-`;
 const Filter = styled.div`
   border-radius: 10px;
   padding: 12px 24px;
@@ -453,7 +419,7 @@ const Input = styled.input`
   }
 `;
 const ButtonWrap = styled.div`
-  margin: 40px 0;
+  /* margin: 40px 0; */
 `;
 const Add = styled.button`
   width: 160px;

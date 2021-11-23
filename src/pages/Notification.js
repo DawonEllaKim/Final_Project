@@ -11,6 +11,10 @@ import OutBox from "../components/Notification/OutBox";
 // 리덕스
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as notiActions } from "../redux/modules/notification";
+import WalkAlert from "../components/Notification/WalkAlert";
+import SubmitAlert from "../components/Notification/SubmitAlert";
+import CancelAlert from "../components/Notification/CancelAlert";
+
 const Notification = (props) => {
   const notification = props.notification; // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄
   console.log(notification);
@@ -27,12 +31,15 @@ const Notification = (props) => {
   const alert = () => {
     setStatus("alert");
     setTitle("알림페이지");
+    setFocus("alert")
   };
   const InBoxStatus = () => {
+    setFocus("InBoxStatus")
     setStatus("InBoxStatus");
     setTitle("쪽지함");
   };
   const OutBoxStatus = () => {
+    setFocus("OutBoxStatus")
     setStatus("OutBoxStatus");
     setTitle("쪽지함");
   };
@@ -85,7 +92,14 @@ const Notification = (props) => {
       {status === "alert" && (
         <div>
           {getNoti.map((noti, index) => {
+            if(noti.type==1)
             return <Alert noti={noti} />;
+            if(noti.type==2)
+            return <WalkAlert noti={noti}/>
+            if(noti.type==3)
+            return <SubmitAlert noti={noti}/>
+            if(noti.type==4)
+            return <CancelAlert noti={noti}/>
           })}
         </div>
       )}

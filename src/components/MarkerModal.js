@@ -22,7 +22,6 @@ const MarkerModal = (props) => {
       routeName: distance.name,
       cooridnate: walk,
     };
-    console.log(marker);
     dispatch(markerActions.addMarkerAX(marker));
 
     props.close();
@@ -31,11 +30,13 @@ const MarkerModal = (props) => {
   return (
     <React.Fragment>
       <Component onClick={props.close} />
+
       <ModalComponent>
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
-        <ModalHeader>산책로로 설정하겠습니까?</ModalHeader>
+
+        <ModalHeader>산책로를 설정하시겠습니까?</ModalHeader>
         <ModalInput>
           출발지 : {distance.start}
           <br />
@@ -55,7 +56,7 @@ const Component = styled.div`
   transform: translateX(-50%);
   opacity: 0.4;
   height: 100vh;
-  width: 390px;
+  width: 100%;
   background-color: black;
   z-index: 10;
 `;
@@ -63,7 +64,7 @@ const ModalComponent = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 350px;
+  width: 70%;
   height: 300px;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -72,6 +73,7 @@ const ModalComponent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-radius: 14px;
 `;
 const ModalHeader = styled.div`
   margin-top: 30px;
@@ -89,17 +91,14 @@ const ModalButtonContainer = styled.div`
 `;
 const ModalSubmitBtn = styled.button`
   width: 100%;
-  background-color: #ffe812;
+  background-color: #ff5656;
   border: none;
   outline: none;
   padding: 10px 0;
   cursor: pointer;
   font-weight: 600;
   font-size: 15px;
-  border-radius: 4px;
-  &:hover {
-    opacity: 0.7;
-  }
+  border-radius: 14px;
 `;
 const ModalExitBtn = styled.button`
   position: absolute;

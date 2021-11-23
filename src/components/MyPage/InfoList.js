@@ -11,16 +11,16 @@ import female from "../../image/female.png";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const InfoList = (props) => {
-  const {post, userId, currentPageUserId} = props;
+  const { post, userId, currentPageUserId } = props;
   const history = useHistory();
 
   return (
     <Wrap>
-    <CardWrap>
-      <DogImage>
-      {/* 카드 왼쪽 - 강아지 이미지 */}
-      <img src={post.dogImage} />
-      {currentPageUserId === userId && (
+      <CardWrap>
+        <DogImage>
+          {/* 카드 왼쪽 - 강아지 이미지 */}
+          <img src={post.dogImage} />
+          {currentPageUserId === userId && (
             <Edit
               onClick={() => {
                 history.push("/dogProfile");
@@ -29,19 +29,21 @@ const InfoList = (props) => {
               <ModeEditIcon />
             </Edit>
           )}
-      </DogImage>
+        </DogImage>
 
-      {/* 카드 오른쪽 - 강아지 정보 */}
-      <CardInfo>
-        {/* 강아지 성별 + 이름 + 나이 */}
-        <CardTop>
-          <DogGender>
-          {post.dogGender === "남" ? <img src={male} /> : <img src={female} />}
-          </DogGender>
-          <DogName>{post.dogName}
-</DogName>
-        </CardTop>
-
+        {/* 카드 오른쪽 - 강아지 정보 */}
+        <CardInfo>
+          {/* 강아지 성별 + 이름 + 나이 */}
+          <CardTop>
+            <DogGender>
+              {post.dogGender === "남" ? (
+                <img src={male} />
+              ) : (
+                <img src={female} />
+              )}
+            </DogGender>
+            <DogName>{post.dogName}</DogName>
+          </CardTop>
         {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
         <CardBottom>
           <div>나이 : {post.dogAge}</div>
@@ -60,7 +62,7 @@ const InfoList = (props) => {
   );
 };
 
-const Wrap = styled.div``
+const Wrap = styled.div``;
 const CardWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -83,7 +85,7 @@ const DogImage = styled.div`
     object-fit: cover;
     position: absolute;
   }
-`
+`;
 const Edit = styled.div`
   position: absolute;
   bottom: 16px;
@@ -125,10 +127,10 @@ const CardTop = styled.div`
     margin-right: 8px;
   }
 `;
-const DogGender = styled.span``
+const DogGender = styled.span``;
 const DogName = styled.span`
   font-size: 24px;
-`
+`;
 const CardBottom = styled.div`
   div {
     width: 100%;
@@ -140,7 +142,7 @@ const CardBottom = styled.div`
 const DogInfo = styled.div`
   text-align: center;
   margin-top: 30px;
-  div{
+  div {
     width: 100%;
     height: 128px;
     text-align: left;
@@ -148,12 +150,12 @@ const DogInfo = styled.div`
     margin-top: 20px;
     color: #747474;
     border-radius: 14px;
-    background-color:#FAF7CE;
+    background-color: #faf7ce;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
   }
-`
+`;
 const Title = styled.p`
   font-weight: 600;
-`
+`;
 
 export default InfoList;

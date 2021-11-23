@@ -30,7 +30,7 @@ const InBox = ({ box }) => {
   }, []);
 
   return (
-   
+    
     <Wrap>
 
       <Left
@@ -79,13 +79,14 @@ const Time = styled.div
 `
 padding-right:10px;
 padding-bottom:3px;
+font-size:12px;
 `
 const DeleteBtn = styled.div
 `
 img{
  
-  width:15px;
-  height:15px;
+  width:20px;
+  height:20px;
 }
 `
 const Wrap = styled.div`
@@ -97,8 +98,8 @@ align-items: center;
   cursor:pointer;
   height: 6em;
 
-  box-shadow: 0 0.03em 0.03em rgba(0, 0, 0, 0.25);
-  border: 0.01rem solid lightGray;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid lightGray;
   border-radius:15px;
   position:relative;
 `;
@@ -107,15 +108,15 @@ const Left = styled.div`
  display:block;
 
   padding-left:10px;
-  padding-top:5px;
+  padding-top:10px;
 
   height:100%;
   img {
     display:flex;
     justify-content: center;
     
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
     object-fit: cover;
   }

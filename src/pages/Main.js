@@ -13,7 +13,7 @@ import Weather from "../components/Weather";
 // import MainCard from "../components/MainCard";
 import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
-import TopBar from "../components/TopBar";
+// import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 이미지
@@ -27,18 +27,29 @@ import MainPageLogo from "../image/MainPageLogo.png";
 import caution1 from "../image/caution1.png";
 import caution2 from "../image/caution2.png";
 import caution3 from "../image/caution3.png";
+import backward from "../image/backward.png";
+import notification1 from "../image/Notification.png";
+import { RiFeedbackLine } from "react-icons/ri";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 // 슬라이드
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { io } from "socket.io-client";
+import { actionCreators as notiActions } from "../redux/modules/notification";
+
 const Main = (props) => {
   const [page, setPage] = useState();
-  const dispatch = useDispatch();
+
   const dogStaPostList = useSelector((state) => state.dogsta.mainList);
   const is_loading = useSelector((state) => state.sign.is_loading);
   const userId = localStorage.getItem("userId");
+  const dispatch = useDispatch();
+
+  const [socket, setSocket] = useState(null);
+  const [notification, setNotification] = useState([]);
 
   // 올림픽공원
   const olympicList = useSelector((state) => state.post.olympic);
@@ -102,6 +113,36 @@ const Main = (props) => {
     dispatch(postActions.getBanpoMD());
   }, []);
 
+  useEffect(() => {
+    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+  }, []);
+
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+  }, []);
+
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      setNotification((prev) => [...prev, data]);
+    });
+  }, [socket]);
+
+  const getNoti = useSelector((state) => state.notification.noti);
+  let arr = localStorage.getItem("noti");
+  let noti = JSON.parse(arr);
+
+  useEffect(() => {
+    localStorage.setItem("noti", JSON.stringify(notification));
+    arr = localStorage.getItem("noti");
+  }, [notification, noti]);
+
+  useEffect(() => {
+    dispatch(notiActions.getNotiMD());
+  }, []);
+
+  if (noti.length < 1) noti = getNoti;
+  else noti.length += getNoti.length;
+
   if (is_loading) {
     return <Spinner />;
   }
@@ -110,9 +151,36 @@ const Main = (props) => {
     <>
       {/* 로고 + 알람 버튼 */}
       <TopWrap>
-        <TopBar only_right>
-          <img src={MainPageLogo} style={{ height: "30px" }} />
-        </TopBar>
+        <TopBarWrap>
+          <TopBarButtons>
+            <TopBarBtnLeft>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link">
+                <RiFeedbackLine
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    color: "#000",
+                  }}
+                />
+              </a>
+            </TopBarBtnLeft>
+            <img src={MainPageLogo} style={{ height: "50px" }} />
+            <TopBarBtnRight>
+              {userId && (
+                <div>
+                  <IoNotificationsOutline
+                    onClick={() => history.push("/notification")}
+                    style={{
+                      width: "24px",
+                      height: "24px",
+                    }}
+                  />
+                  <TopBarEdit>{noti.length}</TopBarEdit>
+                </div>
+              )}
+            </TopBarBtnRight>
+          </TopBarButtons>
+        </TopBarWrap>
       </TopWrap>
 
       <Wrap>
@@ -377,6 +445,106 @@ const Main = (props) => {
   );
 };
 
+const TopBarWrap = styled.div`
+  margin-bottom: 26px;
+  background-color: #fff;
+  padding-top: 40px;
+`;
+const TopBarEdit = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+
+  border-radius: 50%;
+  background-color: red;
+`;
+const Left = styled.div`
+  position: relative;
+  width: 100%;
+  height: 52px;
+  box-sizing: border-box;
+  line-height: 52px;
+  font-size: 18px;
+  font-weight: 500;
+
+  text-align: center;
+  padding: ${(props) => props.padding};
+`;
+const TopBarRight = styled.div`
+  position: relative;
+  width: 100%;
+  height: 52px;
+  box-sizing: border-box;
+  line-height: 52px;
+  font-size: 18px;
+  font-weight: 500;
+
+  text-align: center;
+  padding: ${(props) => props.padding};
+`;
+const Both = styled.div`
+  position: relative;
+  width: 100%;
+  height: 52px;
+  box-sizing: border-box;
+  line-height: 52px;
+  font-size: 18px;
+  font-weight: 500;
+  /* margin: 36px 0; */
+  text-align: center;
+  padding: ${(props) => props.padding};
+`;
+
+const BtnLeft = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  background-color: transparent;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+`;
+const TopBarButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+`;
+const TopBarBtnLeft = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  background-color: transparent;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+`;
+const TopBarBtnRight = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+`;
+
 const TopWrap = styled.div`
   margin: 0 30px;
 `;
@@ -505,11 +673,6 @@ const CardText = styled.div`
   font-size: 20px;
   line-height: 29px;
   color: #fff;
-  div {
-    position: absolute;
-    bottom: 120px;
-    font-size: 30px;
-  }
 
   span {
     margin-top: 8px;
@@ -517,6 +680,12 @@ const CardText = styled.div`
     font-weight: 400;
     line-height: 20.27px;
   }
+`;
+
+const CardTitle = styled.p`
+  position: absolute;
+  bottom: 120px;
+  font-size: 30px;
 `;
 const SubLists = styled.div`
   display: flex;

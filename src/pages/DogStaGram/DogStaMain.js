@@ -39,8 +39,8 @@ const DogStaMain = (props) => {
     setFocus("newest");
     dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
     dispatch(dogstaActions.getLikePostMD()); // 개스타그램 게시물 좋아요순
-  }, [focus]);
-  
+  }, []);
+
   return (
     <Wrap>
       {/* 제일 상단 고정 버튼 */}
@@ -55,14 +55,20 @@ const DogStaMain = (props) => {
           <button
             onClick={newest}
             onFocus={() => setFocus("newest")}
-            style={{ borderBottom: focus === "newest" ? "4px solid red" : "", color: focus === 'newest' ? '#ff5656' :'#000' }}
+            style={{
+              borderBottom: focus === "newest" ? "4px solid red" : "",
+              color: focus === "newest" ? "#ff5656" : "#000",
+            }}
           >
             최신
           </button>
           <button
             onClick={mostLiked}
             onFocus={() => setFocus("mostLiked")}
-            style={{ borderBottom: focus === "newest" ? "" : "4px solid red", color: focus === 'newest' ? '#000' :'#ff5656'}}
+            style={{
+              borderBottom: focus === "newest" ? "" : "4px solid red",
+              color: focus === "newest" ? "#000" : "#ff5656",
+            }}
           >
             추천
           </button>

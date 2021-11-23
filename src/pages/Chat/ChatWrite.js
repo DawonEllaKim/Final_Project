@@ -1,6 +1,6 @@
 // ChatWrite.js - 쪽지 시작 창
 import React, { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {io} from "socket.io-client";
 // 컴포넌츠
@@ -8,29 +8,17 @@ import TopBar from "../../components/TopBar";
 
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
-
+import { actionCreators as userActions } from "../../redux/modules/user";
 const ChatWrite = (props) => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
 
-  const [socket, setSocket] = useState(null)
-  const userId = localStorage.getItem("userId");
-  useEffect(() => {
-    setSocket(io.connect(`http://13.209.70.209/notification/1`));
-  }, []);
-
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-    console.log(userId)
-  }, [socket, userId]);
-  const handleNotification = () => {
-    socket.emit("sendNotification", {
-      senderName: userId,
-      receiverName: receiverId,
-      type:1,
-    });
-  };  //쪽지하기 버튼 클릭할 때 socket 통신 할 핸들러
+ 
+  const userInfo = useSelector((state) => state.user.list);
+  useEffect(()=> {
+    dispatch(userActions.getMypageMD(receiverId));
+  },[])
 
   const messageChange = (e) => {
     setMessage(e.target.value);
@@ -40,48 +28,74 @@ const ChatWrite = (props) => {
   const sendChat = () => {
     
 
-    dispatch(chatAction.sendMessageMD(receiverId, message));
+    dispatch(chatAction.sendMessageMD(receiverId, message,1));
   };
-  const sendChat1 = () => {
-    
 
-    dispatch(chatAction.sendNotificationMD(receiverId));
-  };
 
   return (
     <div>
-      <TopBar>새 쪽지</TopBar>
+      <TopBar>쪽지하기</TopBar>
+      <Info>
+        <ImageWrap>
+          <img src={userInfo.userImage}/>
+        </ImageWrap>
+           {userInfo.userNickname}
+        </Info>
       <Input>
         <textarea
           type="text"
           placeholder="메세지 보내기"
           onChange={messageChange}
         />
-              <button onClick={sendChat1}>send보내기</button>
-        <button onClick={sendChat}>보내기</button>
+           
+       
       </Input>
+      <SendBtn onClick={sendChat}>쪽지하기</SendBtn>
     </div>
   );
 };
 
+const Info = styled.div
+`
+margin: 0 auto;
+display:flex;
+width:80%;
+align-items:center;
+margin-bottom:10px;
+`
+const ImageWrap = styled.div
+`
+
+img{
+  width:4rem;
+   height:4rem;
+border-radius: 50%;
+object-fit: cover;
+}
+margin-right:10px;
+`
 const Input = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  width: 300px;
-  height: 250px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  width: 80%;
+  height: 25em;
   margin: auto;
   padding: 20px;
 
-  border: 2px solid black;
-  border-radius: 30px;
+ border: 1px solid lightGray;
 
+  border-radius: 30px; 
+  
   textarea {
-    width: 280px;
-    height: 200px;
+    width: 90%;
+    height: 25em;
     border: none;
+    &:focus {
+      outline: none;
+    }
   }
 
   button {
@@ -89,5 +103,19 @@ const Input = styled.div`
     height: 30px;
   }
 `;
+const SendBtn = styled.div
+`
+
+display:flex;
+justify-content:center;
+box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+border: 1px solid lightGray;
+width:30%;
+height:2.5em;
+align-items:center;
+border-radius:15px;
+margin: 30px auto;
+cursor:pointer;
+`
 
 export default ChatWrite;

@@ -9,6 +9,7 @@ import edit from "../image/edit.png";
 // 상단바
 import TopBar from "../components/TopBar";
 import UserModal from "../components/UserModal";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditUser = (props) => {
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ const EditUser = (props) => {
           <UserInfoLeft onClick={() => setModal(true)}>
             <UserImg src={_userImage} />
             <Edit>
-              <img src={edit} />
+              <ModeEditIcon />
             </Edit>
           </UserInfoLeft>
         </UserWrap>
@@ -245,9 +246,9 @@ const Edit = styled.div`
   width: 36px;
   height: 36px;
   padding: 6px;
-  border: 2px solid black;
   border-radius: 50%;
   background-color: #fff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
 
   img {
     width: 22px;
@@ -255,9 +256,8 @@ const Edit = styled.div`
   }
 `;
 const Wrap = styled.div`
-  max-width: 390px;
-  padding: 0 20px;
-  margin: 30px auto;
+  width: 100%;
+  padding: 0 30px;
   font-size: 14px;
   text-align: center;
 `;
@@ -326,7 +326,7 @@ const UserAge = styled.input``;
 const Footer = styled.div`
   /* display: flex;
   justify-content: space-between; */
-  margin: 40px 0;
+  /* margin: 40px 0; */
 `;
 const Add = styled.button`
   width: 160px;

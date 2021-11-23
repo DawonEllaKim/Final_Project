@@ -25,12 +25,10 @@ const Write = (props) => {
   const [wishDesc, setWishDesc] = useState(post ? post.wishDesc : "");
 
   const locationChange = (e) => {
-    console.log(e.target.value);
     setLocation(e.target.value);
   };
 
   const countChange = (e) => {
-    console.log(e.target.value);
     setDogCount(e.target.value);
   };
 
@@ -47,8 +45,6 @@ const Write = (props) => {
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
-
-    console.log(post);
     dispatch(postActions.updatePostMD(postId, post));
   };
 
@@ -61,15 +57,14 @@ const Write = (props) => {
       dogCount: dogCount,
       wishDesc: wishDesc,
     };
-
-    console.log(post);
     dispatch(postActions.addPostMD(post));
   };
+
   return (
     <>
       <Wrap>
         <Left>
-          <Map></Map>
+          <Map />
         </Left>
         <Right>
           <Location>

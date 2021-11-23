@@ -17,14 +17,13 @@ import { actionCreators as chatAction } from "../redux/modules/chat";
 
 // 이미지  + 아이콘
 import { FiLogOut } from "react-icons/fi";
-import { FaDog } from 'react-icons/fa';
-import ContactsIcon from '@mui/icons-material/Contacts';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import { FaDog } from "react-icons/fa";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import redHeart from "../image/redHeart.png";
 import grayHeart from "../image/grayHeart.png";
-
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -64,7 +63,7 @@ const MyPage = (props) => {
   useEffect(() => {
     dispatch(userActions.getMypageMD(currentPageUserId)); // 현재 마이페이지 유저 ID로 정보 불러오기
     setStatus("sta");
-    // setFocus('sta');
+    setFocus("sta");
   }, []);
 
   return (
@@ -109,7 +108,9 @@ const MyPage = (props) => {
               }}
             >
               <MailOutlineIcon />
-              {userInfo.userNickname}님에게<br/>쪽지 보내기
+              {userInfo.userNickname}님에게
+              <br />
+              쪽지 보내기
             </Message>
           )}
         </UserRight>
@@ -136,11 +137,11 @@ const MyPage = (props) => {
         <div
           onClick={() => {
             setStatus("sta");
+            setFocus("sta");
           }}
-          // onFocus={()=>setFocus('sta')}
-          // style = {{color: focus === 'sta'?'#ff5656':'#000'}}
+          style={{ color: focus === "sta" ? "#ff5656" : "#000" }}
         >
-          <FaDog size='22' />
+          <FaDog size="22" />
           <span>개스타그램</span>
         </div>
 
@@ -148,9 +149,9 @@ const MyPage = (props) => {
         <div
           onClick={() => {
             setStatus("dog");
+            setFocus("dog");
           }}
-          // onFocus={()=>setFocus('dog')}
-          // style = {{color: focus === 'dog'?'#ff5656':'#000'}}
+          style={{ color: focus === "dog" ? "#ff5656" : "#000" }}
         >
           <ContactsIcon />
           <span>강아지 정보</span>
@@ -159,9 +160,9 @@ const MyPage = (props) => {
         <div
           onClick={() => {
             setStatus("list");
+            setFocus("list");
           }}
-          // onFocus={()=>setFocus('list')}
-          // style = {{color: focus === 'list'?'#ff5656':'#000'}}
+          style={{ color: focus === "list" ? "#ff5656" : "#000" }}
         >
           <ListAltIcon />
           <span>산책 목록</span>
@@ -175,7 +176,11 @@ const MyPage = (props) => {
 
         {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
         {status === "dog" && (
-          <InfoList post={userInfo} userId={userId} currentPageUserId={currentPageUserId} />
+          <InfoList
+            post={userInfo}
+            userId={userId}
+            currentPageUserId={currentPageUserId}
+          />
         )}
 
         {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}
@@ -281,7 +286,7 @@ const Message = styled.button`
   cursor: pointer;
   margin-right: 20px;
   color: #5f5f5f;
-`
+`;
 
 // const Review = styled.div`
 //   display: flex;
@@ -332,7 +337,9 @@ const Buttons = styled.div`
 
   width: 100%;
   height: 48px;
-  padding: 0 24px;
+  padding: 40px 24px;
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
 
   div {
     display: flex;

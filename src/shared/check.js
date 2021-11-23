@@ -13,6 +13,6 @@ export const passwordCheck = (password) => {
 
 // 견종 문자만 가능하게 제한
 export const dogBreedCheck = (dogBreed) => {
-  var regExp = /^[가-힣a-zA-Z]+$/;
+  var regExp = /^[가-힣\s]+$/;
   return regExp.test(dogBreed);
 };
