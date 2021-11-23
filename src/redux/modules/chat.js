@@ -81,7 +81,7 @@ const outBoxMD = () => {
   };
 };
 
-const sendMessageMD = (receiverId, message) => {
+const sendMessageMD = (receiverId, message,type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
@@ -94,7 +94,7 @@ const sendMessageMD = (receiverId, message) => {
     })
       .then((res) => {
         dispatch(sendMessage(message));
-        dispatch(sendNotificationMD(receiverId));
+        dispatch(sendNotificationMD(receiverId,1));
         window.confirm("쪽지를 보내시겠습니까?");
         console.log("쪽지 보내기 POST 성공", res.data);
         history.push("/notification");

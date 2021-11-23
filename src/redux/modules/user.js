@@ -49,6 +49,7 @@ const getMypageMD = (userId) => {
     })
       .then((res) => {
         const userInfo = res.data.posts[0];
+        dispatch(getList(userInfo))
         dispatch(getList(userInfo));
       })
       .catch((err) => {

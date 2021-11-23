@@ -21,7 +21,7 @@ const CommentWrite = (props) => {
       userId,
     };
     dispatch(commentActions.addCommentMD(postId, comment));
-    setCommentDesc("");
+    setCommentDesc(null);
   };
 
   return (
