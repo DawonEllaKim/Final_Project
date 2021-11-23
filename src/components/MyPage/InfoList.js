@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 
+// 컴포넌츠
+import NavBar from "../../components/NavBar";
+
 // 이미지 + 아이콘
 import male from "../../image/male.png";
 import female from "../../image/female.png";
@@ -41,20 +44,20 @@ const InfoList = (props) => {
             </DogGender>
             <DogName>{post.dogName}</DogName>
           </CardTop>
-
-          {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
-          <CardBottom>
-            <div>나이 : {post.dogAge}</div>
-            <div>견종 : {post.dogBreed}</div>
-            <div>크기 : {post.dogSize}</div>
-            <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
-          </CardBottom>
-        </CardInfo>
-      </CardWrap>
-      <DogInfo>
-        <Title>강아지 한 줄 소개</Title>
-        <div>{post.dogComment}</div>
-      </DogInfo>
+        {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
+        <CardBottom>
+          <div>나이 : {post.dogAge}</div>
+          <div>견종 : {post.dogBreed}</div>
+          <div>크기 : {post.dogSize}</div>
+          <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
+        </CardBottom>
+      </CardInfo>
+    </CardWrap>
+    <DogInfo>
+      <Title>강아지 한 줄 소개</Title>
+      <div>{post.dogComment}</div>
+    </DogInfo>
+    <NavBar add_dogsta/>
     </Wrap>
   );
 };
@@ -72,12 +75,15 @@ const CardWrap = styled.div`
 `;
 const DogImage = styled.div`
   position: relative;
+  padding-bottom: 50%;
+  overflow: hidden;
   width: 50%;
   img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    position: absolute;
   }
 `;
 const Edit = styled.div`
