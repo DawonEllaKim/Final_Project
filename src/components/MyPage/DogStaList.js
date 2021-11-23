@@ -90,14 +90,18 @@ const Posts = styled.div`
   cursor: pointer;
   img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    position: absolute;
   }
 `;
 const Card = styled.div`
   width: 100%;
   border-radius: 10px;  
+  position: relative;
+  padding-bottom: 100%;
+  overflow:hidden;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 `;
 

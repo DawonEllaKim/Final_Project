@@ -157,16 +157,19 @@ function Weather({ setCold }) {
 export default Weather;
 
 const Wrap = styled.div`
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  aspect-ratio: 4 / 2;
-  padding: 16px 40px;
+  height: 100%;
+  /* aspect-ratio: 4 / 2; */
+  padding: 16px 30px;
   background-color: #86d3ff;
   border-radius: 14px;
+  /* position: absolute; */
+  /* object-fit:cover; */
+  border: 1px solid red;
 `;
 
 const Left = styled.div`

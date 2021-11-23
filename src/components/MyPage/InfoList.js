@@ -73,12 +73,15 @@ const CardWrap = styled.div`
 `;
 const DogImage = styled.div`
   position: relative;
+  padding-bottom: 50%;
+  overflow: hidden;
   width: 50%;
   img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    position: absolute;
   }
 `
 const Edit = styled.div`

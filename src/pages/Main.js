@@ -125,12 +125,16 @@ const Main = (props) => {
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
               <Weather />
-              {/* <CautionCard
+              <CautionCard
                 onClick={() => {
                   history.push("/caution1");
                 }}
               >
                 <img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+                <div>
+                  <h3>1. 목줄 착용</h3>
+                  <p>목줄 착용은 <br /> 선택이 아닌 필수입니다</p>
+                </div>
               </CautionCard>
               <CautionCard
                 onClick={() => {
@@ -138,7 +142,11 @@ const Main = (props) => {
                 }}
               >
                 <img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-              </CautionCard> */}
+                <div>
+                  <h3>2. 사람 주의</h3>
+                  <p>개를 무서워하는 사람들을<br/>주의 해야합니다.</p>
+                </div>
+              </CautionCard>
               <CautionCard
                 onClick={() => {
                   history.push("/caution3");
@@ -146,8 +154,8 @@ const Main = (props) => {
               >
                 <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
                 <div>
-                  <p>1. 목줄착용</p>
-                  <p>목줄 착용은 선택이 아닌 필수입니다</p>
+                  <h3>3. 식물 주의</h3>
+                  <p>상처가 날 수 있는 식물을<br />주의해야합니다.</p>
                 </div>
               </CautionCard>
             </StyledSlider>
@@ -388,9 +396,12 @@ const Slide = styled.div`
   box-sizing: border-box;
 `;
 const StyledSlider = styled(Slider)`
-  /* box-sizing: border-box; */
+border: 1px solid blue;
   width: 100%;
-  aspect-ratio: 4 / 2;
+  position: relative;
+  /* aspect-ratio: 4 / 2; */
+  /* padding-bottom: 50%; */
+  overflow: hidden;
   border-radius: 14px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -400,36 +411,43 @@ const Logo = styled.img`
   padding: 10px 50px;
 `;
 const CautionCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  aspect-ratio: 4 / 2;
+  /* display: flex;
+  flex-direction: row; */
+  /* display: grid;
+  grid-template-columns:48% 48% ;
+  justify-content: space-between; */
+  /* align-items: center; */
+  /* position: relative; */
+  /* aspect-ratio: 4 / 2; */
+  height: 100%;
   border-radius: 14px;
-  border: 1px solid black;
-  padding: 10px 20px;
-  margin: 10px;
+  /* padding: 10px 20px; */
   img {
     /* position: absolute;
     top: 15%;
     left: 7%; */
-    width: 144px;
-    height: 144px;
+    width: 50%;
+    padding: 12px; 
+    aspect-ratio: 1 / 1;
     filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
     border-radius: 14px;
     object-fit: cover;
-    border: 1px solid pink;
+    float: left;
   }
   div {
     /* position: absolute;
     top: 15%;
     right: 5%; */
-    border: 1px solid green;
     width: 50%;
+    height: 100%;
+    padding: 12px;
+    float:right;
   }
-  p {
-    border: 1px solid red;
+  h3{
+    padding-top:12px;
+  }
+  p{
+    padding: 12px 0;
   }
 `;
 
@@ -443,19 +461,21 @@ const WholeCardWrap = styled.div`
 `;
 const Part = styled.div`
   width: 100%;
-  height: 100%;
   margin-bottom: 17px;
   background-color: #000;
   border-radius: 14px;
   cursor: pointer;
   position: relative;
+  padding-bottom: 75%;
+  overflow: hidden;
 `;
 const PartImg = styled.img`
   width: 100%;
-  aspect-ratio: 4 / 2.5;
+  height: 100%;
   object-fit: cover;
   border-radius: 14px;
   opacity: 0.6;
+  position: absolute;
 `;
 const CardTextHere = styled.div``;
 const Number = styled.span`
@@ -573,10 +593,8 @@ const DogstaSlide = styled(Slider)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* gap: 20px; */
   width: 100%;
   margin-bottom: 32px;
-  /* height: 80px; */
   text-align: center;
   cursor: pointer;
   .slick-prev:before,
