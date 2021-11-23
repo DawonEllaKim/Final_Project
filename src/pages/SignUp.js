@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { actionCreators as UserActions } from "../redux/modules/sign";
 import { emailCheck, passwordCheck } from "../shared/check";
-
+import Spinner from "../shared/Spinner";
 import TopBar from "../components/TopBar";
-
+import SignUpSuccessModal from "../components/Modal/SignUpSuccessModal";
 // 유저 이미지 기본값
 import defaultUser from "../image/default_user.png";
 import e from "cors";
@@ -19,7 +19,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(defaultUser ? defaultUser : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-
+  
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,7 +36,17 @@ const SignUp = () => {
   const [alertUserGender, setAlertUserGender] = useState("");
   const [alertUserAge, setAlertUserAge] = useState("");
   const [alertImage, setAlertImage] = useState("");
+  const [modal,setModal] = useState("")
+  const is_loading = useSelector((state) => state.sign.is_loading);
+  const user_modal = useSelector((state) => state.sign.user_modal);
+  const [loading,setLoading] = useState()
+  useEffect(() => {
+    // dispatch(postActions.getAllMD());
 
+    setLoading(is_loading)
+    setLoading(true)
+    setModal(user_modal)
+  }, [is_loading,user_modal]);
   const handleChangeFile = (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -189,11 +199,17 @@ const SignUp = () => {
     //   draggable: true,
     //   closeOnClick: true,
     // });
+    setLoading(false);
     dispatch(UserActions.signUserAPI(formData));
   };
-
+  if (!loading) {
+    return <Spinner />;
+  }
   return (
     <>
+    {
+      modal? <SignUpSuccessModal setModal={setModal}/> : ""
+    }
       <Wrap>
         {/* 뒤로가기 버튼 + 회원가입 텍스트 */}
         <TopBar only_left>회원가입</TopBar>

@@ -7,11 +7,11 @@ import axios from "axios";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/sign";
-
+import Spinner from "../shared/Spinner";
 import logo from "../image/logo.png";
 // 상단바
 import TopBar from "../components/TopBar";
-
+import LoginSuccessModal from "../components/Modal/LoginSuccessModal";
 import { KAKAO_AUTH_URL } from "../components/OAuth";
 // const { Kakao } = window;
 
@@ -19,7 +19,7 @@ const LogIn = (props) => {
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [modal,setModal] = useState("")
   const [alert,setAlert] = useState("");
 
   const userEmailChangeHandler = (e) => {
@@ -30,20 +30,25 @@ const LogIn = (props) => {
     // console.log(e.target.value);
     setPassword(e.target.value);
   };
-
- 
+  const [loading,setLoading] = useState(true)
+  const is_loading = useSelector((state) => state.sign.is_loading);
+  const getModal= useSelector((state) => state.sign.modal);
   const message=useSelector(state => state.sign.alert)
   console.log(message)
   useEffect(() => {
     // dispatch(postActions.getAllMD());
-    
+
+    setLoading(is_loading)
+    setLoading(true)
     setAlert(message)
-  }, [message]);
+    setModal(getModal)
+  }, [message,is_loading]);
   const onClickLogin = () => {
     if ((userEmail === "") | (password === "")) {
       setAlert("이메일 또는 비밀번호를 입력해주세요");
       return;
     }
+   setLoading(false)
     dispatch(userActions.logInMD(userEmail, password));
   };
   // const loginWithKakao = () => {
@@ -82,13 +87,19 @@ const LogIn = (props) => {
   //     },
   //   });
   // };
-
+  if (!loading) {
+    return <Spinner />;
+  }
   return (
     <>
+    {
+      modal? <LoginSuccessModal setModal={setModal}/>:""
+    }
       <Wrap>
         <TopBar only_left></TopBar>
+        <div onClick={()=>{history.push("/")}}>
         <Logo src={logo} />
-        
+        </div>
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -179,6 +190,7 @@ const LoginBtn = styled.button`
   justify-content:center;
   padding: 12px;
   margin: 0 auto;
+  margin-top:20px;
   background-color: #FF5252;
   border: 1px gray ;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);

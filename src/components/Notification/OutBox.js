@@ -23,9 +23,11 @@ const OutBox = ({ box }) => {
     const chatId = box.chatId;
     dispatch(chatActions.deleteOutMessageMD(receiverId, senderId, chatId));
   };
-
+   console.log(box)
   return (
-    <Wrap>
+    <Wrap  onClick={() => {
+      history.push(`/chatsend/${chatId}`);
+    }}>
       <Left
         onClick={() => {
           history.push(`/chatdetail/${chatId}`);

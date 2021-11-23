@@ -1,4 +1,3 @@
-// ChatDetail.js - 쪽지 상세창
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ import TopBar from "../../components/TopBar";
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useHistory } from "react-router";
-const ChatDetail = (props) => {
+const ChatSend = (props) => {
   const [message, setMessage] = useState("");
   const history= useHistory();
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ const ChatDetail = (props) => {
        {
          list? <div>
     
-         <TopBar>받은 쪽지</TopBar>
+         <TopBar>보낸 쪽지</TopBar>
          <Info onClick={()=>history.push(`/mypage/${list.senderId}`)}>
            <ImageWrap>
              <img src={list.senderImage}/>
@@ -59,28 +58,9 @@ const ChatDetail = (props) => {
              <p>{list.message}</p>
        
            </Message>
-           <SendInfo>
-           <ImageWrap>
-             <img src={RedMessage}/>
-             {list.senderNickname}에게 답장하기
-           </ImageWrap>
-            <div>
-            
-            </div>
-           </SendInfo>
-           {/* 남이 보낸 쪽지의 상세페이지 들어갈때만 답장 할 수 있는 창이 열린다 */}
-           {list.receiverId !== myId && (
-             <Input>
-               <textarea
-                 type="text"
-                 placeholder="쪽지 내용을 입력해주세요"
-                 onChange={messageChange}
-               />
-             
-             </Input>
-           )}
+          
          </Wrap>
-         <SendBtn onClick={sendChat}>답장하기</SendBtn>
+        
        </div> :
        <div> </div>
        }
@@ -178,4 +158,4 @@ const Input = styled.div`
   }
 `;
 
-export default ChatDetail;
+export default ChatSend;

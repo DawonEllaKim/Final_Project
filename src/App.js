@@ -64,6 +64,7 @@ import ChatDetail from "./pages/Chat/ChatDetail";
 //웹소켓
 import { io } from "socket.io-client";
 import Toast from "./components/Toast/Toast";
+import ChatSend from "./pages/Chat/ChatSend";
 
 function App() {
   //socket
@@ -181,6 +182,7 @@ function App() {
         {/* 알람 + 쪽지 */}
         <PrivateRoute exact path="/notification" component={Notification} />
         <PrivateRoute exact path="/ChatDetail/:chatId" component={ChatDetail} />
+        <PrivateRoute exact path="/chatsend/:chatId" component={ChatSend} />
         <PrivateRoute
           exact
           path="/chatwrite/:receiverId"

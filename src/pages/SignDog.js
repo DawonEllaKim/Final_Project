@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew } from "react-icons/md";
 
@@ -8,10 +8,11 @@ import { actionCreators as DogActions } from "../redux/modules/sign";
 import { dogBreedCheck } from "../shared/check";
 
 import TopBar from "../components/TopBar";
-
+import Spinner from "../shared/Spinner";
 // 강아지 이미지 기본 값
 import defaultDog from "../image/default_dog.png";
 import { ElectricScooterSharp } from "@mui/icons-material";
+import SignDogSuccessModal from "../components/Modal/SignDogSuccessModal";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -40,6 +41,17 @@ const SignDog = (props) => {
   const [alertNeutral,setAlertNeutral] = useState("")
   const [alertDogComment,setAlertDogComment] = useState("")
   const [alertDogImage, setAlertDogImage] = useState("")
+  const [loading,setLoading] = useState();
+  const [modal,setModal] = useState();
+  const is_loading = useSelector((state) => state.sign.is_loading);
+  const dog_modal = useSelector((state) => state.sign.dog_modal);
+  useEffect(() => {
+    // dispatch(postActions.getAllMD());
+
+    setLoading(is_loading)
+    setLoading(true)
+    setModal(dog_modal)
+  }, [is_loading,dog_modal]);
   const alertHandlerDG = () => {
     if(!dogGender)
     setAlertDogGender("강아지 성별을 입력해주세요!")
@@ -185,11 +197,17 @@ const SignDog = (props) => {
     formData.append("neutral", neutral);
     formData.append("dogComment", dogComment);
     formData.append("dogImage", imgFile);
-
+    setLoading(false);
     dispatch(DogActions.signDogAPI(formData));
   };
+  if (!loading) {
+    return <Spinner />;
+  }
   return (
     <>
+      {
+        modal?<SignDogSuccessModal setModal={setModal}/>:""
+      }
       <Wrap>
         <TopBar only_left>반려견 등록</TopBar>
 
