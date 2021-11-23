@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as markerActions } from "../redux/modules/marker";
 import { useHistory } from "react-router";
 import { actionCreators as UserActions } from "../redux/modules/user";
+import Spinner from "../shared/Spinner";
 const UserModal = (props) => {
   const dispatch = useDispatch();
   const history =useHistory()
@@ -13,14 +14,14 @@ const UserModal = (props) => {
   const addMarker = () => {
   
 
-
+    
     const image = imgFile ? imgFile : props.userImage;
 
     const formData = new FormData();
      console.log(image)
     formData.append("userImage", imgFile); 
   
-
+    setLoading(true)
     dispatch(UserActions.updateUserImageMD(formData));
   };
  
@@ -45,7 +46,13 @@ const UserModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
-
+  const [loading,setLoading] = useState("")
+   if(loading)
+   {
+     return (
+       <Spinner/>
+     )
+   }
   return (
     <React.Fragment>
       <Component  />
@@ -112,7 +119,7 @@ const ModalButtonContainer = styled.div`
 `;
 const ModalSubmitBtn = styled.button`
   width: 100%;
-  background-color: #ffe812;
+  background-color: #FF5656;
   border: none;
   outline: none;
   padding: 10px 0;
