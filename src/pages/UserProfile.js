@@ -257,7 +257,7 @@ const Edit = styled.div`
 `;
 const Wrap = styled.div`
   width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
   font-size: 14px;
   text-align: center;
 `;

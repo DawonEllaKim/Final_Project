@@ -84,7 +84,7 @@ const DogStaEdit = (props) => {
 };
 
 const Wrap = styled.div`
-  padding: 0 3%;
+  padding: 0 5%;
 `;
 
 const Write = styled.div`

@@ -196,7 +196,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 20px;
+  padding: 0 5%;
 `;
 const UserInfo = styled.div`
   position: relative;

@@ -1,8 +1,8 @@
 // ChatWrite.js - 쪽지 시작 창
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {io} from "socket.io-client";
+import { io } from "socket.io-client";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 
@@ -14,11 +14,10 @@ const ChatWrite = (props) => {
   const dispatch = useDispatch();
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
 
- 
   const userInfo = useSelector((state) => state.user.list);
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(userActions.getMypageMD(receiverId));
-  },[])
+  }, []);
 
   const messageChange = (e) => {
     setMessage(e.target.value);
@@ -26,69 +25,64 @@ const ChatWrite = (props) => {
 
   // 쪽지 보내기 액션 실행 버튼
   const sendChat = () => {
-    
-
-    dispatch(chatAction.sendMessageMD(receiverId, message,1));
+    dispatch(chatAction.sendMessageMD(receiverId, message, 1));
   };
 
-
   return (
-    <div>
+    <Wrap>
       <TopBar>쪽지하기</TopBar>
       <Info>
         <ImageWrap>
-          <img src={userInfo.userImage}/>
+          <img src={userInfo.userImage} />
         </ImageWrap>
-           {userInfo.userNickname}
-        </Info>
+        {userInfo.userNickname}
+      </Info>
       <Input>
         <textarea
           type="text"
           placeholder="메세지 보내기"
           onChange={messageChange}
         />
-           
-       
       </Input>
       <SendBtn onClick={sendChat}>쪽지하기</SendBtn>
-    </div>
+    </Wrap>
   );
 };
 
-const Info = styled.div
-`
-margin: 0 auto;
-display:flex;
-width:80%;
-align-items:center;
-margin-bottom:10px;
-`
-const ImageWrap = styled.div
-`
-
-img{
-  width:4rem;
-   height:4rem;
-border-radius: 50%;
-object-fit: cover;
-}
-margin-right:10px;
-`
+const Wrap = styled.div`
+  padding: 0 5%;
+`;
+const Info = styled.div`
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+const ImageWrap = styled.div`
+  img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  margin-right: 10px;
+`;
 const Input = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  width: 80%;
+  width: 100%;
   height: 25em;
   margin: auto;
   padding: 20px;
 
- border: 1px solid lightGray;
+  border: 1px solid lightGray;
 
-  border-radius: 30px; 
-  
+  border-radius: 30px;
+
   textarea {
     width: 90%;
     height: 25em;
@@ -103,19 +97,17 @@ const Input = styled.div`
     height: 30px;
   }
 `;
-const SendBtn = styled.div
-`
-
-display:flex;
-justify-content:center;
-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-border: 1px solid lightGray;
-width:30%;
-height:2.5em;
-align-items:center;
-border-radius:15px;
-margin: 30px auto;
-cursor:pointer;
-`
+const SendBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid lightGray;
+  width: 30%;
+  height: 2.5em;
+  align-items: center;
+  border-radius: 15px;
+  margin: 30px auto;
+  cursor: pointer;
+`;
 
 export default ChatWrite;

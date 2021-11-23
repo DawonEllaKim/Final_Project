@@ -125,7 +125,7 @@ const Wrap = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-padding: 0 20px;
+padding: 0 5%;
 `;
 const Category = styled.div`
   display: flex;

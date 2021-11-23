@@ -367,7 +367,7 @@ const ImageAlert = styled.div`
 `;
 const Wrap = styled.div`
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 0 5%;
   font-size: 14px;
 `;
 

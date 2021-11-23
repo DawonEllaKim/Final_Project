@@ -176,7 +176,7 @@ const DogStaDetail = (props) => {
 };
 
 const Wrap = styled.div`
-  padding: 0 3%;
+  padding: 0 5%;
 `;
 const UserInfo = styled.div`
   display: flex;
