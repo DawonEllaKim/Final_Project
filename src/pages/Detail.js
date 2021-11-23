@@ -480,7 +480,7 @@ const Detail = (props) => {
             <FlexButton>
               <EditButton
                 onClick={() => {
-                 dispatch(chatActions.sendNotificationMD(userId,2))
+                  dispatch(chatActions.sendNotificationMD(userId, 2));
                 }}
               >
                 산책 신청하기
