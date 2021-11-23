@@ -88,8 +88,8 @@ const DogImage = styled.div`
 `;
 const Edit = styled.div`
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 0px;
+  right: 0px;
   cursor: pointer;
 
   display: flex;

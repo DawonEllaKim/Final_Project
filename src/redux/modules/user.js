@@ -16,6 +16,11 @@ const UPDATE_USER = "UPDATE_USER";
 const GET_DOG = "GET_DOG";
 const UPDATE_DOG = "UPDATE_DOG";
 
+//로딩
+const LOADING = "LOADING"
+//모달
+const USER_MODAL = "USER_MODAL";
+const DOG_MODAL = "DOG_MODAL";
 //액션생성함수
 //마이페이지 GET요청
 const getMypage = createAction(GET_MYPAGE, (page) => ({ page }));
@@ -27,13 +32,31 @@ const updateUser = createAction(UPDATE_USER, (user) => ({ user }));
 //강아지 정보 GET,FETCH 요청
 const getDog = createAction(GET_DOG, (dog) => ({ dog }));
 const updateDog = createAction(UPDATE_DOG, (dog) => ({ dog }));
+//모달
+const loading = createAction(LOADING,(loading)=>({loading}))
+const userModal = createAction(USER_MODAL, (user_modal)=>({user_modal}))
+const dogModal = createAction(DOG_MODAL, (dog_modal)=>({dog_modal}))
 const initialState = {
   list: [],
   page: [],
   user: [],
   dog: "",
+  loading:"",
+  user_modal: "",
+  dog_modal: "",
 };
-
+const userModalMD= () => {
+  return function (dispatch,getState, {history}) {
+    dispatch(userModal(false))
+    history.goBack();
+  }
+}
+const dogModalMD= () => {
+  return function (dispatch,getState, {history}) {
+    dispatch(dogModal(false))
+    history.goBack();
+  }
+}
 const getMypageMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -105,8 +128,7 @@ const updateUserMD = (userInfo) => {
       .then((res) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateUser(userInfo));
-        window.alert("수정 완료");
-        history.push("/userProfile");
+        dispatch(userModal(true))
       })
       .catch((err) => {
         console.log("updateUserMD에서 오류발생", err);
@@ -133,8 +155,8 @@ const updateUserImageMD = (userInfo) => {
       .then((res) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateUser(userInfo));
-        window.alert("수정 완료");
-        history.push("/userProfile");
+        dispatch(loading(true))
+        history.goBack();
       })
       .catch((err) => {
         console.log("updateUserMD에서 오류발생", err);
@@ -186,8 +208,7 @@ const updateDogMD = (formData) => {
       .then((res) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateDog(formData));
-        window.alert("반려견 정보가 수정되었습니다.");
-        history.push("/dogProfile");
+        dispatch(dogModal(true))
       })
       .catch((err) => {
         console.log("updateDogAPI에서 오류발생", err);
@@ -212,8 +233,8 @@ const updateDogImageMD = (formData) => {
       .then((res) => {
         console.log(res.data); // signup 정보 확인
         dispatch(updateDog(formData));
-        window.alert("반려견 정보가 수정되었습니다.");
-        history.push("/dogProfile");
+      
+        history.goBack();
       })
       .catch((err) => {
         console.log("updateDogAPI에서 오류발생", err);
@@ -247,6 +268,18 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog = { ...draft.dog, ...action.payload.dog };
       }),
+      [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.loading = action.payload.loading;
+      }),
+      [USER_MODAL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user_modal = action.payload.user_modal;
+      }),
+      [DOG_MODAL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.dog_modal = action.payload.dog_modal;
+      }),
   },
   initialState
 );
@@ -264,6 +297,8 @@ const actionCreators = {
   updateUser,
   updateUserMD,
   updateUserImageMD,
+  userModalMD,
+  dogModalMD,
 };
 
 export { actionCreators };
