@@ -13,6 +13,7 @@ import { IoMdMale } from "react-icons/io";
 import { IoMdFemale } from "react-icons/io";
 import { MdLocationPin } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
+import { BsCalendarCheck } from "react-icons/bs";
 
 function All({ postList }) {
   return (
@@ -42,54 +43,72 @@ function All({ postList }) {
             onClick={() => history.push(`/posts/${post.postId}`)}
           >
             {/* 카드 왼쪽 */}
-            <Left>
+            <DogImage>
+              <Map src={dogImage} alt="dog" />
+            </DogImage>
+
+            {/* 카드 오른쪽 */}
+            <Right>
               <CardTop>
-                <DogPhoto src={dogImage} alt="dog" />
-                <DogInfo>{dogName + ", " + dogAge}</DogInfo>
-                <h4>
-                  {dogGender === "남" ? (
-                    <IoMdMale
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        color: "#89B1FF",
-                      }}
-                    />
-                  ) : (
-                    <IoMdFemale
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        color: "#FF8989",
-                      }}
-                    />
-                  )}
-                </h4>
+                <DogInfo>
+                  <h4 style={{ marginRight: "10px" }}>
+                    {dogGender === "남" ? (
+                      <IoMdMale
+                        style={{
+                          width: "24px",
+                          height: "24px",
+                          color: "#89B1FF",
+                        }}
+                      />
+                    ) : (
+                      <IoMdFemale
+                        style={{
+                          width: "24px",
+                          height: "24px",
+                          color: "#FF8989",
+                        }}
+                      />
+                    )}
+                  </h4>
+                  <DogName>{dogName}</DogName>
+                </DogInfo>
+                <DogAge>{dogAge}</DogAge>
               </CardTop>
 
               <CardBottom>
-                <MeetingInfo>
-                  <MdLocationPin
-                    style={{ width: "25px", height: "25px", color: "#FF5656" }}
-                  />
-                  <p>{post.locationCategory}</p>
-                </MeetingInfo>
+                <Box>
+                  <RedIcon>
+                    <MdLocationPin
+                      style={{
+                        color: "#fff",
+                        width: "16px",
+                        height: "16px",
+                        fontWeight: "bold",
+                      }}
+                    />
+                  </RedIcon>
+                  <BoxDiv>
+                    <MeetingTime>{post.locationCategory}</MeetingTime>
+                  </BoxDiv>
+                </Box>
 
-                <MeetingInfo>
-                  <FaRegClock
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      marignLeft: "100px",
-                      // border: "1px solid red",
-                    }}
-                  />
-                  <p style={{ marginLeft: "10px" }}>{initialMeetingDate}</p>
-                </MeetingInfo>
+                <Box>
+                  <RedIcon>
+                    <FaRegClock
+                      style={{
+                        color: "#fff",
+                        width: "16px",
+                        height: "16px",
+                        fontWeight: "bold",
+                      }}
+                    />
+                  </RedIcon>
+                  <BoxDiv>
+                    <MeetingTime>{initialMeetingDate}</MeetingTime>
+                  </BoxDiv>
+                </Box>
               </CardBottom>
-            </Left>
-            {/* 카드 오른쪽 */}
-            {/* <Map src={map()} /> */}
+            </Right>
           </CardWrap>
         );
       })}
@@ -106,27 +125,33 @@ const CardWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 25px;
+  padding: 14px;
   margin-bottom: 20px;
   border-radius: 14px;
   background-color: #fff;
   cursor: pointer;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 `;
-const Left = styled.div`
+const Right = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  width: 45%;
 `;
 const CardTop = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   line-height: 23px;
+`;
+const DogInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 const DogPhoto = styled.img`
   width: 48px;
@@ -135,14 +160,18 @@ const DogPhoto = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
-const DogInfo = styled.p`
+const DogName = styled.p`
   margin-right: 8px;
+`;
+const DogAge = styled.p`
+  margin-left: 25px;
+  font-size: 14px;
 `;
 const CardBottom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  text-align: left;
+  text-align: Right;
   font-size: 14px;
   line-height: 1.4;
   width: 100%;
@@ -152,15 +181,54 @@ const CardBottom = styled.div`
 const MeetingInfo = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: Right;
   text-align: center;
   font-size: 16px;
   margin: 5px 0;
 `;
-
-const Map = styled.img`
-  width: 124px;
-  height: 124px;
-  border-radius: 14px;
+const DogImage = styled.div`
+  position: relative;
+  width: 45%;
+  padding-bottom: 50%;
+  overflow: hidden;
 `;
+const Map = styled.img`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  border-radius: 14px;
+  left: 0;
+`;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 29px;
+`;
+
+const RedIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #ff5656;
+  border-radius: 100px;
+  margin-right: 10px;
+`;
+
+const BoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  text-align: left;
+`;
+const MeetingTime = styled.div`
+  font-size: 16px;
+`;
+const MeetingLocation = styled.div``;
 export default All;

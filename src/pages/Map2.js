@@ -69,6 +69,7 @@ const Map2 = (props) => {
     ) {
       setModal(true);
     } else {
+      // setModal(tru)
       dispatch(PostActions.addPostMD(Info));
     }
   };
