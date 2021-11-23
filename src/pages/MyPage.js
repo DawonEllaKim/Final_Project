@@ -188,9 +188,6 @@ const MyPage = (props) => {
           <WalkList post={userInfo} userId={currentPageUserId} />
         )}
       </Cards>
-
-      {/* 고정 버튼 */}
-      <NavBar />
     </Wrap>
   );
 };

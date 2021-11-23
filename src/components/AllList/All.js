@@ -89,7 +89,7 @@ function All({ postList }) {
               </CardBottom>
             </Left>
             {/* 카드 오른쪽 */}
-            <Map src={map()} />
+            {/* <Map src={map()} /> */}
           </CardWrap>
         );
       })}

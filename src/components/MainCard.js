@@ -9,23 +9,27 @@ import female from "../image/female.png";
 
 const MainCard = ({ post }) => {
   const dogImage = post.dogImage;
-  const dogName = post.dogName;
-  const dogGender = post.dogGender;
-  const dogAge = post.dogAge;
-  const dogComment = post.dogComment;
-  const initialMeetingDate = post.meetingDate;
   return (
-    <>
+    <Wrap>
       <Image src={dogImage} />
-    </>
+    </Wrap>
   );
 };
 
-const Image = styled.img`
+const Wrap = styled.div`
+border: 1px solid green;
   width: 100%;
-  border-radius: 5px;
-  object-fit: cover;
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+`
+const Image = styled.img`
+border:1px solid red;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  position: absolute;
+  border-radius: 5px;
 `;
 
 export default MainCard;

@@ -13,28 +13,29 @@ const TopBar = (props) => {
   const { text, children, padding, only_left, only_right } = props;
 
   const styles = { padding };
-
   const dispatch = useDispatch();
-
   const userId = localStorage.getItem("userId");
-
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
+
   useEffect(() => {
     setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
   }, []);
+
   useEffect(() => {
     socket?.emit("postUser", userId);
-    // console.log(userId);
   }, []);
+
   useEffect(() => {
     socket?.on("getNotification", (data) => {
       setNotification((prev) => [...prev, data]);
     });
   }, [socket]);
+
   const getNoti = useSelector((state) => state.notification.noti);
   let arr = localStorage.getItem("noti");
   let noti = JSON.parse(arr);
+
   useEffect(() => {
     localStorage.setItem("noti", JSON.stringify(notification));
     arr = localStorage.getItem("noti");

@@ -220,3 +220,4 @@ const KakaoLogin = styled.img`
 `;
 
 export default LogIn;
+
