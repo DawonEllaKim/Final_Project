@@ -29,6 +29,7 @@ import Spinner from "../shared/Spinner";
 import TopBar from "../components/TopBar";
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
+import { RiPinDistanceFill } from "react-icons/ri";
 
 const { kakao } = window;
 
@@ -443,7 +444,29 @@ const Detail = (props) => {
               </RedIcon>
               <BoxDiv>
                 <MeetingTime>{meetingDate}</MeetingTime>
-                <MeetingLocation>{location}</MeetingLocation>
+                <MeetingLocation>
+                  {location} {post.routeName}
+                </MeetingLocation>
+              </BoxDiv>
+            </Box>
+
+            <Box>
+              <RedIcon>
+                <RiPinDistanceFill
+                  style={{
+                    color: "#fff",
+                    width: "24px",
+                    height: "24px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </RedIcon>
+              <BoxDiv>
+                <div>출발: {post.startLocationAddress}</div>
+                <div>도착: {post.endLocationAddress}</div>
+                <div>
+                  총 {post.totalDistance}, {post.totalTime} 코스
+                </div>
               </BoxDiv>
             </Box>
 

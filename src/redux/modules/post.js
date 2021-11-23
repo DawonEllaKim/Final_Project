@@ -103,7 +103,7 @@ const getAllMD = () => {
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
           res.data.posts[i].meetingDate =
-            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts;
         dispatch(getAll(postList));
@@ -141,7 +141,7 @@ const getOlympicMD = () => {
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
           res.data.posts[i].meetingDate =
-            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts;
         dispatch(getOlympic(postList));
@@ -178,7 +178,7 @@ const getSeoulMD = () => {
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
           res.data.posts[i].meetingDate =
-            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts;
         dispatch(getSeoul(postList));
@@ -215,7 +215,7 @@ const getBanpoMD = () => {
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
           res.data.posts[i].meetingDate =
-            year + "년 " + month + "월 " + day + "일 " + hour + ":" + minute;
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts;
         dispatch(getBanpo(postList));
