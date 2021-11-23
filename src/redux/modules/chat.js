@@ -95,9 +95,9 @@ const sendMessageMD = (receiverId, message,type) => {
       .then((res) => {
         dispatch(sendMessage(message));
         dispatch(sendNotificationMD(receiverId,1));
-        window.confirm("쪽지를 보내시겠습니까?");
+     
         console.log("쪽지 보내기 POST 성공", res.data);
-        history.push("/notification");
+        history.goBack();
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");

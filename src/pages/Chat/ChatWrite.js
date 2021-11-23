@@ -85,9 +85,9 @@ const Input = styled.div`
   margin: auto;
   padding: 20px;
 
-  border: 1px solid lightGray;
+ border: 1px solid lightGray;
 
-  border-radius: 30px;
+  border-radius: 30px; 
   
   textarea {
     width: 90%;
@@ -115,6 +115,7 @@ height:2.5em;
 align-items:center;
 border-radius:15px;
 margin: 30px auto;
+cursor:pointer;
 `
 
 export default ChatWrite;
