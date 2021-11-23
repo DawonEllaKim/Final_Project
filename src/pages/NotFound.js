@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import spinner from "../image/spinner.gif";
 
-const Redirect = () => {
+const NotFound = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push("/login");
@@ -13,7 +13,7 @@ const Redirect = () => {
   return (
     <Wrap>
       <img src={spinner} />
-      <h4>로그인 후 이용 할 수 있는 서비스 입니다.</h4>
+      <h4>찾을 수 없는 페이지 입니다.</h4>
     </Wrap>
   );
 };
@@ -28,4 +28,4 @@ const Wrap = styled.div`
     margin-top: -100px;
   }
 `;
-export default Redirect;
+export default NotFound;

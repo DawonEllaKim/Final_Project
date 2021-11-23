@@ -55,6 +55,7 @@ import DogStaEdit from "./pages/DogStaGram/DogStaEdit";
 import Notification from "./pages/Notification";
 import ChatWrite from "./pages/Chat/ChatWrite";
 import ChatDetail from "./pages/Chat/ChatDetail";
+import NotFound from "./pages/NotFound";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
@@ -70,13 +71,15 @@ function App() {
   const userId = localStorage.getItem("userId");
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
+
   useEffect(() => {
     setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
   }, []);
+
   useEffect(() => {
     socket?.emit("postUser", userId);
-    // console.log(userId);
   }, []);
+
   useEffect(() => {
     socket?.on(
       "getNotification",
@@ -117,6 +120,7 @@ function App() {
       }, 1500);
     }
   }, [ToastStatus]);
+
   return (
     <div className="App">
       <GlobalStyle />
@@ -154,10 +158,10 @@ function App() {
           path="/editMapContainer3/:id"
           component={EditMapContainer3}
         />
-        <Route exact path="/findLocation" component={FindLocation} />
-        <Route exact path="/map" component={Map} />
-        <Route exact path="/road" component={Road} />
-        <Route exact path="/mapPractice" component={MapPractice} />
+        <PrivateRoute exact path="/findLocation" component={FindLocation} />
+        <PrivateRoute exact path="/map" component={Map} />
+        <PrivateRoute exact path="/road" component={Road} />
+        <PrivateRoute exact path="/mapPractice" component={MapPractice} />
         {/* 마이페이지 */}
         <PrivateRoute exact path="/mypage/:userId" component={MyPage} />
         <PrivateRoute exact path="/dogProfile" component={DogProfile} />
@@ -195,6 +199,7 @@ function App() {
           path="/oauth/kakao/callback"
           component={OAuth2RedirectHandler}
         /> */}
+        {/* <Route exact component={NotFound} /> */}
       </ConnectedRouter>
     </div>
   );

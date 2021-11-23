@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdAlternateEmail } from "react-icons/md";
 import { AiOutlineLock } from "react-icons/ai";
@@ -19,8 +19,8 @@ const LogIn = (props) => {
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const [alert,setAlert] = useState("");
+
+  const [alert, setAlert] = useState("");
 
   const userEmailChangeHandler = (e) => {
     // console.log(e.target.value);
@@ -31,13 +31,12 @@ const LogIn = (props) => {
     setPassword(e.target.value);
   };
 
- 
-  const message=useSelector(state => state.sign.alert)
-  console.log(message)
+  const message = useSelector((state) => state.sign.alert);
+
   useEffect(() => {
     // dispatch(postActions.getAllMD());
-    
-    setAlert(message)
+
+    setAlert(message);
   }, [message]);
   const onClickLogin = () => {
     if ((userEmail === "") | (password === "")) {
@@ -88,7 +87,7 @@ const LogIn = (props) => {
       <Wrap>
         <TopBar only_left></TopBar>
         <Logo src={logo} />
-        
+
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -124,22 +123,20 @@ const LogIn = (props) => {
   );
 };
 
-const Alert =styled.div
-`
-color: #FF5252;
-display:flex;
-justify-content:center;
-margin-bottom:8px;
-margin-top:8px;
-`
+const Alert = styled.div`
+  color: #ff5252;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+`;
 
 const Wrap = styled.div`
   text-align: center;
 
   font-size: 14px;
-  
-  padding-bottom: 55px;
 
+  padding-bottom: 55px;
 `;
 const Logo = styled.img`
   width: 132px;
@@ -150,13 +147,13 @@ const InputBox = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  margin:0 auto;
+  margin: 0 auto;
   padding: 10px 20px;
   margin-top: 16px;
-  border: 1px gray ;
+  border: 1px gray;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
-  width:80%;
+  width: 80%;
   &:hover {
     border: 2px solid lightBlue;
   }
@@ -167,35 +164,34 @@ const InputText = styled.input`
   border: 0;
   padding: 10px 0;
   margin-left: 16px;
-  
+
   &:focus {
     outline: none;
   }
 `;
 const LoginBtn = styled.button`
   box-sizing: border-box;
-  width:80%;
-  display:flex;
-  justify-content:center;
+  width: 80%;
+  display: flex;
+  justify-content: center;
   padding: 12px;
   margin: 0 auto;
-  background-color: #FF5252;
-  border: 1px gray ;
+  background-color: #ff5252;
+  border: 1px gray;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 24px;
   font-size: 16px;
   cursor: pointer;
-
 `;
 const SignupBtn = styled.button`
   margin-bottom: 38px;
   font-size: 14px;
-  margin-top:20px;
+  margin-top: 20px;
   border: none;
   background-color: transparent;
   cursor: pointer;
   span {
-    color:red;
+    color: red;
   }
 `;
 const KakaoLogin = styled.img`
