@@ -50,29 +50,29 @@ function All({ postList }) {
             {/* 카드 오른쪽 */}
             <Right>
               <CardTop>
+                <h4 style={{ marginRight: "10px" }}>
+                  {dogGender === "남" ? (
+                    <IoMdMale
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        color: "#89B1FF",
+                      }}
+                    />
+                  ) : (
+                    <IoMdFemale
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        color: "#FF8989",
+                      }}
+                    />
+                  )}
+                </h4>
                 <DogInfo>
-                  <h4 style={{ marginRight: "10px" }}>
-                    {dogGender === "남" ? (
-                      <IoMdMale
-                        style={{
-                          width: "24px",
-                          height: "24px",
-                          color: "#89B1FF",
-                        }}
-                      />
-                    ) : (
-                      <IoMdFemale
-                        style={{
-                          width: "24px",
-                          height: "24px",
-                          color: "#FF8989",
-                        }}
-                      />
-                    )}
-                  </h4>
-                  <DogName>{dogName}</DogName>
+                  <p>{dogName}</p>
+                  <p>{dogAge}</p>
                 </DogInfo>
-                <DogAge>{dogAge}</DogAge>
               </CardTop>
 
               <CardBottom>
@@ -118,13 +118,16 @@ function All({ postList }) {
 
 const Wrap = styled.div`
   width: 100%;
+  /* height: 135px; */
 `;
 const CardWrap = styled.div`
+  font-size: 14px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 163px;
   padding: 14px;
   margin-bottom: 20px;
   border-radius: 14px;
@@ -137,21 +140,22 @@ const Right = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 45%;
+  width: 55%;
+  height: 140px;
 `;
 const CardTop = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  font-size: 16px;
+  align-items: flex-start;
+  font-size: 14px;
   line-height: 23px;
 `;
 const DogInfo = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
 `;
 const DogPhoto = styled.img`
   width: 48px;
@@ -183,14 +187,16 @@ const MeetingInfo = styled.div`
   flex-direction: row;
   justify-content: Right;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   margin: 5px 0;
 `;
 const DogImage = styled.div`
   position: relative;
-  width: 45%;
-  padding-bottom: 50%;
-  overflow: hidden;
+  width: 40%;
+  height: 140px;
+  /* width: 45%; */
+  /* padding-bottom: 50%; */
+  /* overflow: hidden; */
 `;
 const Map = styled.img`
   width: 100%;
@@ -206,7 +212,7 @@ const Box = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  margin-bottom: 29px;
+  margin-bottom: 15px;
 `;
 
 const RedIcon = styled.div`
@@ -228,7 +234,7 @@ const BoxDiv = styled.div`
   text-align: left;
 `;
 const MeetingTime = styled.div`
-  font-size: 16px;
+  font-size: 14px;
 `;
 const MeetingLocation = styled.div``;
 export default All;
