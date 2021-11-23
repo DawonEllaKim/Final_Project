@@ -64,7 +64,7 @@ const MyPage = (props) => {
     dispatch(userActions.getMypageMD(currentPageUserId)); // 현재 마이페이지 유저 ID로 정보 불러오기
     setStatus("sta");
     setFocus("sta");
-  }, []);
+  }, [currentPageUserId]);
 
   return (
     <Wrap>

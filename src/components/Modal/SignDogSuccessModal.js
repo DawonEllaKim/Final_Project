@@ -13,11 +13,11 @@ const SignDogSuccessModal = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <Component />
+    <div >
+      <Component onClick={()=>{props.setModal(false)
+        history.push("/")}}/>
 
-      <ModalComponent  onClick={()=>{props.setModal(false)
-        history.push("/")}}>
+      <ModalComponent  >
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
@@ -25,15 +25,17 @@ const SignDogSuccessModal = (props) => {
             <ImageWrap>
           <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>강아지등록에 성공했습니다.</ModalHeader>
+          <ModalHeader>강아지등록 완료!</ModalHeader>
         </Info>
       </ModalComponent>
-    </React.Fragment>
+    </div>
   );
 };
 const Info = styled.div
 `
-display:block;
+display:flex;
+align-items:center;
+width:80%;
 margin:0 auto;
 `
 const Component = styled.div`
@@ -49,10 +51,10 @@ const Component = styled.div`
 `;
 const ImageWrap = styled.div
 `
-margin:0 auto;
+
 background-color:red;
-width:100px;
-height:100px;
+width:30px;
+height:30px;
 border-radius:50%;
 display:flex;
 justify-content:center;
@@ -63,7 +65,7 @@ const ModalComponent = styled.div`
   top: 50%;
   left: 50%;
   width: 70%;
-  height: 300px;
+  height: 150px;
   transform: translate(-50%, -50%);
   background-color: white;
   z-index: 20;
@@ -74,10 +76,10 @@ const ModalComponent = styled.div`
   border-radius: 14px;
 `;
 const ModalHeader = styled.div`
-  margin-top: 30px;
+
   font-weight: 600;
   font-size: 18px;
-
+  margin-left:10px;
 `;
 
 const ModalExitBtn = styled.button`
@@ -93,8 +95,8 @@ const ModalExitBtn = styled.button`
 `;
 
 const Img = styled.img`
-  width: 60px;
-  height: 60x;
+  width: 15px;
+  height: 15px;
 
 `;
 

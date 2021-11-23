@@ -10,6 +10,7 @@ import TopBar from "../../components/TopBar";
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useHistory } from "react-router";
+import ChatSuccessModal from "../../components/Modal/ChatSuccessModal";
 const ChatDetail = (props) => {
   const [message, setMessage] = useState("");
   const history= useHistory();
@@ -21,7 +22,8 @@ const ChatDetail = (props) => {
   // const receiverNickname = list.senderNickname; // 쪽지 받을 상대의 닉네임
   // const receivedMessage = list.message; // 받은 쪽지 내용
   // const receivedTime = list.createdAt; // 쪽지 받은 시간
-
+  const [modal,setModal] = useState("");
+  const getModal = useSelector((state)=>state.chat.modal)
   const messageChange = (e) => {
     setMessage(e.target.value);
   };
@@ -33,13 +35,17 @@ const ChatDetail = (props) => {
 
   // 해당 쪽지에 관한 정보만 불러오기
   useEffect(() => {
+    setModal(getModal)
     dispatch(chatAction.getDetailMD(chatId));
-  }, []);
+  }, [getModal]);
   
 
 
   return (
      <div>
+       {
+         modal?<ChatSuccessModal/>:""
+       }
        {
          list? <div>
     
