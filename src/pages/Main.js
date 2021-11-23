@@ -661,11 +661,6 @@ const CardText = styled.div`
   font-size: 20px;
   line-height: 29px;
   color: #fff;
-  div {
-    position: absolute;
-    bottom: 120px;
-    font-size: 30px;
-  }
 
   span {
     margin-top: 8px;
@@ -673,6 +668,12 @@ const CardText = styled.div`
     font-weight: 400;
     line-height: 20.27px;
   }
+`;
+
+const CardTitle = styled.p`
+  position: absolute;
+  bottom: 120px;
+  font-size: 30px;
 `;
 const SubLists = styled.div`
   display: flex;
