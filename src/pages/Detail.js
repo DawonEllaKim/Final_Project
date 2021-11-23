@@ -596,7 +596,7 @@ const DogImage = styled.img`
   aspect-ratio: 4/2.5;
   margin-bottom: 20px;
   border-radius: 14px;
-  z-index: 10;
+  /* z-index: 10; */
   object-fit: cover;
 `;
 const DetailWrap = styled.div`

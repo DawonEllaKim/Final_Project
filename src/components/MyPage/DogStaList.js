@@ -69,7 +69,7 @@ const Button = styled.button`
   justify-content: center;
   width: 160px;
   padding: 16px 0;
-  margin: 30px auto ;
+  margin: 30px auto;
   background-color: #fff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -92,7 +92,7 @@ const Posts = styled.div`
 `;
 const Card = styled.div`
   width: 100%;
-  border-radius: 10px;  
+  border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 `;
 
