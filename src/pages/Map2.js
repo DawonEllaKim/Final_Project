@@ -192,7 +192,7 @@ const Map2 = (props) => {
 const Wrap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
   text-align: center;
 `;
 const Calendar = styled.div`

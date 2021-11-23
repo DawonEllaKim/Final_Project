@@ -84,7 +84,7 @@ const DogStaEdit = (props) => {
 };
 
 const Wrap = styled.div`
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 
 const Write = styled.div`
@@ -100,11 +100,12 @@ const Write = styled.div`
   textarea {
     width: 100%;
     height: 100px;
+    font-size: 16px;
     padding: 12px;
     resize: none;
     scrollbar-width: none;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-    border: none;
+    border: 1px solid #bdbdbd;
     border-radius: 14px;
     &::-webkit-scrollbar {
       display: none;
@@ -130,7 +131,7 @@ const Edit = styled.div`
 
   width: 40px;
   height: 40px;
-  padding: 4px;
+  padding: 6px;
   text-align: center;
   border: 2px solid black;
   border-radius: 50%;

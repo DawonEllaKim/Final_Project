@@ -376,12 +376,8 @@ const Detail = (props) => {
 
   return (
     <>
-      {/* 헤더 */}
-      <TopWrap>
-        <TopBar>산책 정보</TopBar>
-      </TopWrap>
-
       <Wrap>
+        <TopBar>산책 정보</TopBar>
         {/* 게시물 올린 보호자의 정보 */}
         <UserWrap>
           {/* 보호자 사진, 닉네임, 나이대, 성별 */}
@@ -525,9 +521,6 @@ const Detail = (props) => {
     </>
   );
 };
-const TopWrap = styled.div`
-  margin: 0 30px;
-`;
 const Wrap = styled.div`
   box-sizing: border-box;
 
@@ -536,7 +529,7 @@ const Wrap = styled.div`
   flex-direction: column;
   width: 100%;
 
-  padding: 0 30px;
+  padding: 0 5%;
 
   font-size: 14px;
   text-align: center;

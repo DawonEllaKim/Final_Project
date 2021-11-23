@@ -34,7 +34,7 @@ const ChatWrite = (props) => {
   console.log(modal);
 
   return (
-    <div>
+    <Wrap>
       {modal ? (
         <ChatSuccessModal setModal={setModal} receiverId={receiverId} />
       ) : (
@@ -55,14 +55,17 @@ const ChatWrite = (props) => {
         />
       </Input>
       <SendBtn onClick={sendChat}>쪽지하기</SendBtn>
-    </div>
+    </Wrap>
   );
 };
 
+const Wrap = styled.div`
+  padding: 0 5%;
+`;
 const Info = styled.div`
   margin: 0 auto;
   display: flex;
-  width: 80%;
+  width: 100%;
   align-items: center;
   margin-bottom: 10px;
 `;
@@ -81,8 +84,8 @@ const Input = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  width: 80%;
-  height: 20em;
+  width: 100%;
+  height: 25em;
   margin: auto;
   padding: 20px;
 
