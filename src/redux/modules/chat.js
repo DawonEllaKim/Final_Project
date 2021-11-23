@@ -11,7 +11,7 @@ const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
 const GET_DETAIL = "GET_DETAIL"; // 한 쪽지 GET
 const DELETE_IN_MESSAGE = "DELETE_IN_MESSAGE"; // 받은 쪽지함에서 하나 삭제
 const DELETE_OUT_MESSAGE = "DELETE_OUT_MESSAGE"; // 보낸 쪽지함에서 하나 삭제
-
+const GET_MODAL = "GET_MODAL";
 const inBox = createAction(IN_BOX, (inBoxList) => ({
   inBoxList,
 }));
@@ -30,12 +30,20 @@ const deleteInMessage = createAction(DELETE_IN_MESSAGE, (chatId) => ({
 const deleteOutMessage = createAction(DELETE_OUT_MESSAGE, (chatId) => ({
   chatId,
 }));
-
+const getModal = createAction(GET_MODAL,(modal)=>({modal}));
 const initialState = {
   inBoxList: [],
   outBoxList: [],
   list: [],
+  modal: "",
 };
+
+const modalMD= () => {
+  return function (dispatch,getState, {history}) {
+    dispatch(getModal(false))
+    history.goBack();
+  }
+}
 
 const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
@@ -95,14 +103,14 @@ const sendMessageMD = (receiverId, message,type) => {
       .then((res) => {
         dispatch(sendMessage(message));
         dispatch(sendNotificationMD(receiverId,1));
-     
+        dispatch(getModal(true))
         console.log("쪽지 보내기 POST 성공", res.data);
-        history.goBack();
+    
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);
-        history.push("/notification");
+      
       });
   };
 };
@@ -119,7 +127,7 @@ const sendNotificationMD = (receiverId,type) => {
       },
     })
       .then((res) => {
-        window.alert("메세지성공")
+    
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
@@ -230,6 +238,10 @@ export default handleActions(
         // console.log(newList);
         draft.outBoxList = newList;
       }),
+      [GET_MODAL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.modal = action.payload.modal;
+      }),
   },
   initialState
 );
@@ -242,7 +254,7 @@ export const actionCreators = {
   getDetail,
   deleteInMessage,
   deleteOutMessage,
-
+  modalMD,
   inBoxMD,
   outBoxMD,
   sendMessageMD,
