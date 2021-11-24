@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TopBar from "../../components/TopBar";
 import CommentList from "../../components/DogstaComment/CommentList";
 import CommentWrite from "../../components/DogstaComment/CommentWrite";
-import NavBar from '../../components/NavBar';
+import NavBar from "../../components/NavBar";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -30,7 +30,7 @@ const DogStaDetail = (props) => {
   const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
-  const userImage = localStorage.getItem('image'); // 현재 로그인 한 사람 이미지
+  const userImage = localStorage.getItem("image"); // 현재 로그인 한 사람 이미지
 
   const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
@@ -96,8 +96,8 @@ const DogStaDetail = (props) => {
           history.push(`/mypage/${post.userId}`);
         }}
       >
-          <UserImg src={post.userImage} />
-          <span>{post.userNickname}</span>
+        <UserImg src={post.userImage} />
+        <span>{post.userNickname}</span>
       </UserInfo>
 
       {/* 게시물 부분 */}
@@ -184,7 +184,7 @@ const DogStaDetail = (props) => {
           <div>등록된 댓글이 없습니다.</div>
         )}
       </CommentWrap>
-      <CommentWrite userId={userId} postId={postId} userImage={userImage}/>
+      <CommentWrite userId={userId} postId={postId} userImage={userImage} />
 
       <NavBar add_dogsta />
     </Wrap>

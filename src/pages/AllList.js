@@ -146,7 +146,7 @@ const Category = styled.div`
     box-sizing: border-box;
 
     margin: 0 5px 20px 5px;
-    padding: 0 10px;
+    padding: 0 5px;
     padding-bottom: 10px;
     background-color: transparent;
     border: none;

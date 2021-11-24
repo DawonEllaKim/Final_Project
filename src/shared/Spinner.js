@@ -6,7 +6,7 @@ const Spinner = () => {
   return (
     <Wrap>
       <img src={spinner} />
-      <h3>로딩중입니다...</h3>
+      <h4>로딩중입니다...</h4>
     </Wrap>
   );
 };
@@ -16,11 +16,13 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 390px;
+  width: 100%;
   margin: 0 auto;
+  height: 100vh;
+  img {
+    width: 90%;
+  }
   h4 {
-    margin-top: -100px;
   }
 `;
-
 export default Spinner;
