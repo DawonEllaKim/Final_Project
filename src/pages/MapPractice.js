@@ -9,6 +9,8 @@ import trashMarker from "../image/tra.png";
 import waterMarker from "../image/water-tap.png";
 import dogMarker from "../image/DogRun.png";
 import NavBar from "../components/NavBar";
+import Select from "react-select";
+import drop from "../image/dropdown.png";
 import {
   distance1,
   distance2,
@@ -55,7 +57,12 @@ const MapPractice = React.memo(() => {
   const [distance, setDistance] = useState(distance1); //디스턴스정보
   const [walk, setWalk] = useState(list1); //산책로 좌표정보
   const [road, setRoad] = useState(); //산책로이름
-
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+  
   const closeModal = () => {
     setModal(false);
   };
@@ -485,7 +492,7 @@ const MapPractice = React.memo(() => {
               />
             </IconDiv>
 
-            <Options>
+            {/* <Options>
               <MapBox sx={{ width: "100%" }}>
                 <FormControl sx={{ width: "100%" }}>
                   <NativeSelect
@@ -509,8 +516,16 @@ const MapPractice = React.memo(() => {
                   </NativeSelect>
                 </FormControl>
               </MapBox>
+            </Options> */}
+            <Options>
+            <MapDrop onChange={checkHandler}   >
+                    <option value="">어디서 산책하실건가요?</option>
+                    <option value="서울숲">서울숲</option>
+                    <option value="올림픽공원">올림픽공원</option>
+                    <option value="반포한강공원">반포 한강공원</option>
+                </MapDrop>
             </Options>
-
+            <DropImage src={drop} />
             {errorModal ? (
               <ErrorModal
                 close={closeErrorModal}
@@ -907,6 +922,32 @@ const MapPractice = React.memo(() => {
   );
 });
 
+const MapDrop = styled.select
+`
+width: 100%;
+height: 48px;
+padding-left:10px;
+border: 1px solid lightGray;
+background-color:transparent;
+-webkit-appearance:none;
+background-color:white;
+box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+border-radius: 14px;
+cursor:pointer;
+&:focus {
+  outline: none;
+}
+`
+const DropImage = styled.img
+`
+  position:relative;
+  right:20px;
+  top:20px;
+  z-index:0;
+  width:14px;
+  height:7px;
+  
+`
 const MapWrap = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -934,7 +975,8 @@ const WalkArea = styled.div`
   margin: 20px 0;
 `;
 const WalkBtn = styled.div`
-  width: 100px;
+  width:60%;
+  margin:0px 10px;
   height: 48px;
   border-radius: 24px;
   background-color: #f3f3f3;
@@ -952,7 +994,7 @@ const IconDiv = styled.div`
   width: 48px;
   height: 48px;
   border: 1px solid #dbdbdb;
-  /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25); */
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   border-radius: 14px;
@@ -965,6 +1007,7 @@ const MapBox = styled(Box)`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   width: 280px;
   padding: 4px 12px;
+  border:none;
 `;
 const Crap = styled.div`
   box-sizing: border-box;
@@ -1009,6 +1052,7 @@ const Detail = styled.div`
 const Options = styled.div`
   width: 100%;
   text-align: center;
+  border:none;
 `;
 
 export default MapPractice;
