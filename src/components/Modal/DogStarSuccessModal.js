@@ -4,13 +4,12 @@ import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png";
-import { actionCreators as chatActions } from "../../redux/modules/chat";
-
-const SuccessModal = (props) => {
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
+const DogStarSuccessModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const modalHandler = () => {
-    dispatch(chatActions.modalMD());
+    dispatch(dogstaActions.modalMD());
   };
 
   return (
@@ -21,12 +20,11 @@ const SuccessModal = (props) => {
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
-
         <Info>
           <ImageWrap>
             <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>{props.text}</ModalHeader>
+          <ModalHeader>개스타 등록완료!</ModalHeader>
         </Info>
       </ModalComponent>
     </div>
@@ -66,7 +64,7 @@ const ModalComponent = styled.div`
   height: 150px;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 99;
+  z-index: 20;
   display: flex;
 
   align-items: center;
@@ -95,4 +93,4 @@ const Img = styled.img`
   height: 15px;
 `;
 
-export default SuccessModal;
+export default DogStarSuccessModal;

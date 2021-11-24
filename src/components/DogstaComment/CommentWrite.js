@@ -39,6 +39,7 @@ const CommentWrite = (props) => {
         <CommentInput
           placeholder="댓글을 입력하세요"
           onChange={commentChange}
+          value={commentDesc}
         ></CommentInput>
         <CommentAdd onClick={addComment}>등록</CommentAdd>
       </WriteWrap>

@@ -14,7 +14,7 @@ const DELETE_POST = "DELETE_POST"; // 개스타그램 게시물 삭제
 const TOGGLE_LIKE = "TOGGLE_LIKE"; // 좋아요 토글
 const GET_LIKES = "GET_LIKES"; // 해당 게시물 좋아요 불러오기
 const GET_MY_LIKE = "GET_MY_LIKE"; // 내가 좋아요 눌렀는지 여부
-
+const GET_MODAL = "GET_MODAL";
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
   mainLikeList,
@@ -23,13 +23,15 @@ const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
-const deletePost = createAction(DELETE_POST, (eachList) => ({ eachList }));
+const deletePost = createAction(DELETE_POST, (mainList) => ({ mainList }));
 
 // 좋아요
 const toggleLike = createAction(TOGGLE_LIKE, (liked) => ({ liked }));
 const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
 const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 
+//모달
+const getModal = createAction(GET_MODAL,(modal)=>({modal}))
 const initialState = {
   mainList: [],
   mainLikeList: [],
@@ -38,6 +40,13 @@ const initialState = {
   likeCnt: [],
   likeExist: false,
   likeList: [],
+  modal:"",
+};
+const modalMD = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(getModal(false));
+    history.goBack();
+  };
 };
 
 const getAllPostMD = () => {
@@ -133,7 +142,7 @@ const addPostMD = (formData) => {
       .then((res) => {
         dispatch(getAllPostMD());
         console.log("개스타그램 게시물 POST 성공", res);
-        history.push("/dogStaMain");
+        dispatch(getModal(true))
       })
       .catch((err) => {
         console.log("개스타그램 게시물 POST 에러", err);
@@ -165,11 +174,11 @@ const editPostMD = (postId, post) => {
   };
 };
 
-const editPostImageMD = (post) => {
+const editPostImageMD = (post,dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/dogsta/changeImage`,
+      url: `http://13.209.70.209/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -181,12 +190,18 @@ const editPostImageMD = (post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("사진이 수정되었습니다");
+        dispatch(getModal(true))
+        setTimeout(()=>{
+          dispatch(getModal(false))
+          history.goBack();
+        },1000)
+  
         console.log("개스타그램 게시물 PATCH 완료", res);
-        history.goBack();
+     
       })
       .catch((err) => {
         console.log("개스타그램 게시물 PATCH 오류", err);
+        history.goBack();
       });
   };
 };
@@ -205,8 +220,11 @@ const deletePostMD = (postId) => {
       },
     })
       .then((res) => {
-        window.alert("삭제 성공");
-        history.goBack();
+        
+        dispatch(deletePost(postId))
+      
+          history.goBack();
+       
         console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
@@ -337,8 +355,8 @@ export default handleActions(
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.eachList = draft.eachList.filter(
-          (post) => post.id !== action.payload.postId
+        draft.mainList = draft.mainList.filter(
+          (post) => post.id !== action.payload.mainList
         );
       }),
     [TOGGLE_LIKE]: (state, action) =>
@@ -355,6 +373,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.likeExist = action.payload.likeExist;
       }),
+      [GET_MODAL] : (state, action) => 
+      produce(state, (draft)=> {
+        draft.modal = action.payload.modal;
+      }),
   },
   initialState
 );
@@ -370,7 +392,7 @@ const actionCreators = {
   toggleLike,
   getLikes,
   getMyLike,
-
+  modalMD,
   getAllPostMD,
   getLikePostMD,
   getPostMD,
@@ -382,6 +404,7 @@ const actionCreators = {
   toggleLikeMD,
   getLikesMD,
   getMyLikeMD,
+  getModal,
 };
 
 export { actionCreators };

@@ -64,6 +64,7 @@ const DogStaEdit = (props) => {
           <DogStarEditModal
             setModal={setModal}
             dogStarImage={post.dogPostImage}
+            dogPostId = {post.dogPostId}
           />
         )}
 
