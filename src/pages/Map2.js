@@ -277,6 +277,7 @@ const Title = styled.div`
   margin: 30px 0;
 `;
 const TextArea = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 138px;
   font-size: 14px;
