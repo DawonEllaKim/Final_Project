@@ -8,8 +8,8 @@ import { history } from "../../redux/configureStore";
 import NavBar from "../../components/NavBar";
 
 // 리액트 아이콘
-import backward from "../../image/backward.png";
-import forward from "../../image/forward.png";
+import { MdArrowBackIos } from "react-icons/md";
+import { MdArrowForwardIos } from "react-icons/md";
 import caution from "../../image/caution1.png";
 
 const Caution1 = () => {
@@ -17,17 +17,25 @@ const Caution1 = () => {
     <Wrap>
       {/* 헤더 */}
       <Header>
-        <img
-          src={backward}
+        <MdArrowBackIos
           onClick={() => {
-            history.push("/");
+            history.push("/caution3");
+          }}
+          style={{
+            width: "24px",
+            height: "24px",
+            cursor: "pointer",
           }}
         />
         <p>산책 시 유의할 점 1</p>
-        <img
-          src={forward}
+        <MdArrowForwardIos
           onClick={() => {
             history.push("/caution2");
+          }}
+          style={{
+            width: "24px",
+            height: "24px",
+            cursor: "pointer",
           }}
         />
       </Header>
@@ -75,8 +83,8 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 
-  max-width: 100%;
-  margin: 0 0 0px 0;
+  width: 100%;
+  padding: 14px 5% 0 5%;
 
   font-size: 14px;
   text-align: center;
@@ -86,34 +94,29 @@ const Header = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+  width: 100%;
   height: 52px;
-  padding: 0 20px;
 
-  margin: 26px 0;
-  font-size: 18px;
   margin-bottom: 26px;
-  img {
-    cursor: pointer;
-    width: 10px;
-    height: 18px;
-  }
+  font-size: 18px;
 `;
 const Img = styled.div`
-  box-sizing: border-box;
-  aspect-ratio: 4/2;
   width: 100%;
-  padding: 0 30px;
-  margin-bottom: 47px;
+  position: relative;
+  padding-bottom: 50%;
+  overflow: hidden;
+  margin-bottom: 40px;
   img {
     border-radius: 14px;
     width: 100%;
-    aspect-ratio: 4/2;
+    height: 100%;
+    position: absolute;
+    left: 0;
     object-fit: cover;
   }
 `;
 const Paragraph = styled.div`
-  padding: 0 30px;
+  word-break: keep-all;
   h3 {
     font-size: 18px;
     margin-bottom: 36px;

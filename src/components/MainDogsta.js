@@ -23,6 +23,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-content: center;
   text-align: center;
+  padding-top: 22px;
   p {
     margin-top: 10px;
     font-size: 12px;

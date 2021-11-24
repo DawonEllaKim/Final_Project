@@ -208,7 +208,8 @@ const SignupBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
   span {
-    color: red;
+    color:#ff5656;
+    padding-left: 4px;
   }
 `;
 const KakaoLogin = styled.img`
