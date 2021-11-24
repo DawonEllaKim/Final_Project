@@ -55,7 +55,6 @@ import DogStaEdit from "./pages/DogStaGram/DogStaEdit";
 import Notification from "./pages/Notification";
 import ChatWrite from "./pages/Chat/ChatWrite";
 import ChatDetail from "./pages/Chat/ChatDetail";
-import NotFound from "./pages/NotFound";
 
 // 진행중
 // import Calendar from "./pages/Calendar";
@@ -201,7 +200,6 @@ function App() {
           path="/oauth/kakao/callback"
           component={OAuth2RedirectHandler}
         /> */}
-        {/* <Route exact component={NotFound} /> */}
       </ConnectedRouter>
     </div>
   );

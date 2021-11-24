@@ -84,7 +84,7 @@ const MyPage = (props) => {
                 history.push("/userProfile");
               }}
             >
-              <ModeEditIcon style={{width:"15px"}}/>
+              <ModeEditIcon style={{ width: "15px" }} />
             </Edit>
           )}
         </UserInfoLeft>
@@ -93,9 +93,12 @@ const MyPage = (props) => {
         <UserRight>
           <div>
             <span style={{ fontWeight: "600" }}>{userInfo.userNickname}</span>
-            <span style={{ color: "#5F5F5F", fontSize:"14px" }}>{userInfo.userLocation}</span>
-            <span style={{ color: "#5F5F5F", fontSize:"14px" }}>{userInfo.userGender}/{userInfo.userAge}</span>
-           
+            <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
+              {userInfo.userLocation}
+            </span>
+            <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
+              {userInfo.userGender}/{userInfo.userAge}
+            </span>
           </div>
 
           {currentPageUserId === userId ? (
@@ -109,10 +112,11 @@ const MyPage = (props) => {
                 history.push(`/chatwrite/${currentPageUserId}`);
               }}
             >
-              <MailOutlineIcon /><div>
-              {userInfo.userNickname}님에게
-              <br />
-              쪽지 보내기
+              <MailOutlineIcon />
+              <div>
+                {userInfo.userNickname}님에게
+                <br />
+                쪽지 보내기
               </div>
             </Message>
           )}
@@ -219,8 +223,6 @@ const UserInfoLeft = styled.div`
 
   width: 91px;
   height: 88px;
-
- 
 `;
 const UserRight = styled.div`
   width: 100%;
@@ -279,8 +281,7 @@ const LogOut = styled.button`
   color: #5f5f5f;
 `;
 const Message = styled.button`
-
-  display:block;
+  display: block;
   align-items: center;
 
   border: none;
@@ -366,7 +367,7 @@ const Buttons = styled.div`
 
 const Cards = styled.div`
   width: 100%;
-  margin-top: 24px;
+  margin-top: 10px;
   padding-top: 24px;
 `;
 

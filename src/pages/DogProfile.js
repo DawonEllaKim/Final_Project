@@ -20,12 +20,7 @@ import DogSuccessModal from "../components/Modal/DogSuccessModal";
 const EditDog = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
-  console.log(dog);
   const dogId = dog.dogId;
-  // console.log(dog.dogImage);
-  // const endocoding = window.btoa("dd");
-  // const decodedString = window.atob(endocoding);
-  // console.log(decodedString);
 
   // 이미지
   const [imgBase64, setImgBase64] = useState(dog.dogImage && dog.dogImage); // 파일 base64

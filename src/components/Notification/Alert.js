@@ -1,139 +1,138 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
-import {io} from "socket.io-client";
-const Alert = ({noti}) => {
+import trash from "../../image/tra.png";
+
+import { io } from "socket.io-client";
+const Alert = ({ noti }) => {
   const dispatch = useDispatch();
- 
+
   const userId = localStorage.getItem("userId");
 
-  const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
   useEffect(() => {
     setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
   }, []);
+
   useEffect(() => {
     socket?.emit("postUser", userId);
-    console.log(userId)
   }, []);
-  useEffect(() => {
-    socket?.on("getNotification", (data)=>{
-     setNotification(((prev)=>[...prev,data]))
 
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      setNotification((prev) => [...prev, data]);
     });
   }, [socket]);
- console.log(notification)
 
   return (
-        <div>
-        <Wrap onClick={()=>{dispatch(notiActions.deleteNotiMD(noti.notificationId))}}>
-  
-          <Left>
-            <img src={noti.senderImage} />
-          
-            <span>{noti.senderNickname}</span>
-          </Left>
-          <Right>
-          <Message>{noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!</Message>
-           
-           <Info>
+    <div>
+      <Wrap>
+        <Left>
+          <img src={noti.senderImage} />
+
+          <span>{noti.senderNickname}</span>
+        </Left>
+        <Right>
+          <Message>
+            {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
+          </Message>
+
+          <Info>
             <Time>{noti.AGOTIME}</Time>
-            </Info>
-          </Right>
-  
-        </Wrap>
-       
-        </div>
-        )
-   
- 
+            <DeleteBtn
+              onClick={() => {
+                dispatch(notiActions.deleteNotiMD(noti.notificationId));
+              }}
+            >
+              <img src={trash} />
+            </DeleteBtn>
+          </Info>
+        </Right>
+      </Wrap>
+    </div>
+  );
 };
 
-const Message = styled.div
-`
-display:flex;
-width:100%;
-height:80%;
-justify-content:flex-start;
-align-items:center;
-padding-top:10px;
-`
-const Info = styled.div
-`
-display:flex;
-width:100%;
-justify-content:flex-end;
-align-items:center;
-padding-right:1rem;
-`
-const Time = styled.div
-`
-padding-right:10px;
-padding-bottom:3px;
-font-size:12px;
-`
-const DeleteBtn = styled.div
-`
-img{
- 
-  width:15px;
-  height:15px;
-}
-`
+const Message = styled.div`
+  display: flex;
+  width: 100%;
+  height: 80%;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10px;
+`;
+const Info = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1rem;
+`;
+const Time = styled.div`
+  padding-right: 10px;
+  padding-bottom: 3px;
+  font-size: 12px;
+`;
+const DeleteBtn = styled.div`
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
 const Wrap = styled.div`
-margin: 0.5rem;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-  cursor:pointer;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
   height: 6em;
 
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;
-  border-radius:15px;
-  position:relative;
+  border-radius: 15px;
+  position: relative;
 `;
 
 const Left = styled.div`
- display:block;
+  display: block;
 
-  padding-left:10px;
-  padding-top:10px;
+  padding-left: 10px;
+  padding-top: 10px;
 
-  height:100%;
+  height: 100%;
   img {
-    display:flex;
+    display: flex;
     justify-content: center;
-    
+
     width: 3em;
     height: 3em;
     border-radius: 50%;
     object-fit: cover;
   }
   span {
-    display:flex;
+    display: flex;
     justify-content: center;
-    
-    margin-bottom:5px;
+
+    margin-bottom: 5px;
   }
   button {
-    display:flex;
+    display: flex;
   }
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
 
-  height:100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 
-  width:100%;
+  width: 100%;
   margin-left: 10px;
- 
- 
 `;
 
 export default Alert;

@@ -41,7 +41,7 @@ import EditMarkerModal from "../components/EditMarkerModal";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 import map from "../image/map.png";
-import {FaAngleDown} from "react-icons/fa"
+import { FaAngleDown } from "react-icons/fa";
 const { kakao } = window;
 const EditMapContainer = React.memo((props) => {
   // const dispatch =useDispatch();
@@ -430,20 +430,20 @@ const EditMapContainer = React.memo((props) => {
   }, [start, kakao, check, walk, distance]);
   return (
     <>
-    <MapWrap>
-    <TopBar>산책 수정</TopBar>
-    <Crap>
-      <form
-        onsubmit="searchPlaces(); return false;"
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          width: "100%",
-          marginBottom: "15px",
-        }}
-      >
-        <IconDiv>
-        <img
+      <MapWrap>
+        <TopBar>산책 수정</TopBar>
+        <Crap>
+          <form
+            onsubmit="searchPlaces(); return false;"
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              width: "100%",
+              marginBottom: "15px",
+            }}
+          >
+            <IconDiv>
+              <img
                 style={{
                   width: "20px",
                   height: "30px",
@@ -451,395 +451,390 @@ const EditMapContainer = React.memo((props) => {
                 }}
                 src={map}
               />
-        </IconDiv>
-        <Options>
-            <MapDrop onChange={checkHandler}   >
-               
-                    <option value="">어디서 산책하실건가요?</option>
-                    <option value="서울숲">서울숲</option>
-                    <option value="올림픽공원">올림픽공원</option>
-                    <option value="반포한강공원">반포 한강공원</option>
-                </MapDrop>
+            </IconDiv>
+            <Options>
+              <MapDrop onChange={checkHandler}>
+                <option value="">어디서 산책하실건가요?</option>
+                <option value="서울숲">서울숲</option>
+                <option value="올림픽공원">올림픽공원</option>
+                <option value="반포한강공원">반포 한강공원</option>
+              </MapDrop>
             </Options>
             <DropImage src={drop} />
-      </form>
-      {check == "올림픽공원" && (
-        <div>
-          <WalkArea>
-            <WalkBtn
-              name="산책로A"
-              value="list1"
-              checked={road === "list1"}
-              onClick={() => roadHandler("list1")}
-            >
-              산책로A
-            </WalkBtn>
-            <WalkBtn
-              name="산책로B"
-              value="list2"
-              checked={road === "list2"}
-              onClick={() => roadHandler("list2")}
-            >
-              산책로B
-            </WalkBtn>
-            <WalkBtn
-              name="산책로C"
-              value="list3"
-              checked={road === "list3"}
-              onClick={() => roadHandler("list3")}
-            >
-              산책로C
-            </WalkBtn>
-          </WalkArea>
-          {road == "list1" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {distance1.start}</Detail>
-                  <Detail>도착: {distance1.last}</Detail>
-                </Address>
-              </AdressWrap>
+          </form>
+          {check == "올림픽공원" && (
+            <div>
+              <WalkArea>
+                <WalkBtn
+                  name="산책로A"
+                  value="list1"
+                  checked={road === "list1"}
+                  onClick={() => roadHandler("list1")}
+                >
+                  산책로A
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로B"
+                  value="list2"
+                  checked={road === "list2"}
+                  onClick={() => roadHandler("list2")}
+                >
+                  산책로B
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로C"
+                  value="list3"
+                  checked={road === "list3"}
+                  onClick={() => roadHandler("list3")}
+                >
+                  산책로C
+                </WalkBtn>
+              </WalkArea>
+              {road == "list1" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {distance1.start}</Detail>
+                      <Detail>도착: {distance1.last}</Detail>
+                    </Address>
+                  </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>거리: {distance1.distance}</Detail>
-                  <Detail>시간: {distance1.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
-          {road == "list2" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {distance2.start}</Detail>
-                  <Detail>도착: {distance2.last}</Detail>
-                </Address>
-              </AdressWrap>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>거리: {distance1.distance}</Detail>
+                      <Detail>시간: {distance1.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "list2" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {distance2.start}</Detail>
+                      <Detail>도착: {distance2.last}</Detail>
+                    </Address>
+                  </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {distance2.distance}</Detail>
-                  <Detail>시간: {distance2.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
-          {road == "list3" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {distance3.start}</Detail>
-                  <Detail>도착: {distance3.last}</Detail>
-                </Address>
-              </AdressWrap>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {distance2.distance}</Detail>
+                      <Detail>시간: {distance2.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "list3" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {distance3.start}</Detail>
+                      <Detail>도착: {distance3.last}</Detail>
+                    </Address>
+                  </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {distance3.distance}</Detail>
-                  <Detail>시간: {distance3.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {distance3.distance}</Detail>
+                      <Detail>시간: {distance3.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
 
-          {is_modal ? (
-            <EditMarkerModal
-              close={closeModal}
-              road={road}
-              distance={distance}
-              check={check}
-              walk={walk}
-              editId={editId}
-            />
-          ) : null}
-        </div>
-      )}
-
-      {check == "서울숲" && (
-        <div>
-          <WalkArea>
-            <WalkBtn
-              name="산책로A"
-              value="seoul1"
-              checked={road === "seoul1"}
-              onClick={() => roadHandler("seoul1")}
-            >
-              산책로A
-            </WalkBtn>
-            <WalkBtn
-              name="산책로B"
-              value="seoul2"
-              checked={road === "seoul2"}
-              onClick={() => roadHandler("seoul2")}
-            >
-              산책로B
-            </WalkBtn>
-            <WalkBtn
-              name="산책로C"
-              value="seoul3"
-              checked={road === "seoul3"}
-              onClick={() => roadHandler("seoul3")}
-            >
-              산책로C
-            </WalkBtn>
-          </WalkArea>
-          {road == "seoul1" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {seoulDistance1.start}</Detail>
-                  <Detail>도착: {seoulDistance1.last}</Detail>
-                </Address>
-              </AdressWrap>
-
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>거리: {seoulDistance1.distance}</Detail>
-                  <Detail>시간: {seoulDistance1.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
-          {road == "seoul2" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {seoulDistance2.start}</Detail>
-                  <Detail>도착: {seoulDistance2.last}</Detail>
-                </Address>
-              </AdressWrap>
-
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {seoulDistance2.distance}</Detail>
-                  <Detail>시간: {seoulDistance2.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
-          {road == "seoul3" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {seoulDistance3.start}</Detail>
-                  <Detail>도착: {seoulDistance3.last}</Detail>
-                </Address>
-              </AdressWrap>
-
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {seoulDistance3.distance}</Detail>
-                  <Detail>시간: {seoulDistance3.time}</Detail>
-                </Address>
-              </AdressWrap>
+              {is_modal ? (
+                <EditMarkerModal
+                  close={closeModal}
+                  road={road}
+                  distance={distance}
+                  check={check}
+                  walk={walk}
+                  editId={editId}
+                />
+              ) : null}
             </div>
           )}
 
-          {is_modal ? (
-            <EditMarkerModal
-              close={closeModal}
-              road={road}
-              distance={distance}
-              check={check}
-              walk={walk}
-              editId={editId}
-            />
-          ) : null}
-        </div>
-      )}
-      {check == "반포한강공원" && (
-        <div>
-          <WalkArea>
-            <WalkBtn
-              name="산책로A"
-              value="hangang1"
-              checked={road === "hangang1"}
-              onClick={() => roadHandler("hangang1")}
-            >
-              산책로A
-            </WalkBtn>
-            <WalkBtn
-              name="산책로B"
-              value="hangang2"
-              checked={road === "hangang2"}
-              onClick={() => roadHandler("hangang2")}
-            >
-              산책로B
-            </WalkBtn>
-            <WalkBtn
-              name="산책로C"
-              value="hangang3"
-              checked={road === "hangang3"}
-              onClick={() => roadHandler("hangang3")}
-            >
-              산책로C
-            </WalkBtn>
-          </WalkArea>
-          {road == "hangang1" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {Han1.start}</Detail>
-                  <Detail>도착: {Han1.last}</Detail>
-                </Address>
-              </AdressWrap>
+          {check == "서울숲" && (
+            <div>
+              <WalkArea>
+                <WalkBtn
+                  name="산책로A"
+                  value="seoul1"
+                  checked={road === "seoul1"}
+                  onClick={() => roadHandler("seoul1")}
+                >
+                  산책로A
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로B"
+                  value="seoul2"
+                  checked={road === "seoul2"}
+                  onClick={() => roadHandler("seoul2")}
+                >
+                  산책로B
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로C"
+                  value="seoul3"
+                  checked={road === "seoul3"}
+                  onClick={() => roadHandler("seoul3")}
+                >
+                  산책로C
+                </WalkBtn>
+              </WalkArea>
+              {road == "seoul1" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {seoulDistance1.start}</Detail>
+                      <Detail>도착: {seoulDistance1.last}</Detail>
+                    </Address>
+                  </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>거리: {Han1.distance}</Detail>
-                  <Detail>시간: {Han1.time}</Detail>
-                </Address>
-              </AdressWrap>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>거리: {seoulDistance1.distance}</Detail>
+                      <Detail>시간: {seoulDistance1.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "seoul2" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {seoulDistance2.start}</Detail>
+                      <Detail>도착: {seoulDistance2.last}</Detail>
+                    </Address>
+                  </AdressWrap>
+
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {seoulDistance2.distance}</Detail>
+                      <Detail>시간: {seoulDistance2.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "seoul3" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {seoulDistance3.start}</Detail>
+                      <Detail>도착: {seoulDistance3.last}</Detail>
+                    </Address>
+                  </AdressWrap>
+
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {seoulDistance3.distance}</Detail>
+                      <Detail>시간: {seoulDistance3.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+
+              {is_modal ? (
+                <EditMarkerModal
+                  close={closeModal}
+                  road={road}
+                  distance={distance}
+                  check={check}
+                  walk={walk}
+                  editId={editId}
+                />
+              ) : null}
             </div>
           )}
-          {road == "hangang2" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {Han2.start}</Detail>
-                  <Detail>도착: {Han2.last}</Detail>
-                </Address>
-              </AdressWrap>
+          {check == "반포한강공원" && (
+            <div>
+              <WalkArea>
+                <WalkBtn
+                  name="산책로A"
+                  value="hangang1"
+                  checked={road === "hangang1"}
+                  onClick={() => roadHandler("hangang1")}
+                >
+                  산책로A
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로B"
+                  value="hangang2"
+                  checked={road === "hangang2"}
+                  onClick={() => roadHandler("hangang2")}
+                >
+                  산책로B
+                </WalkBtn>
+                <WalkBtn
+                  name="산책로C"
+                  value="hangang3"
+                  checked={road === "hangang3"}
+                  onClick={() => roadHandler("hangang3")}
+                >
+                  산책로C
+                </WalkBtn>
+              </WalkArea>
+              {road == "hangang1" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {Han1.start}</Detail>
+                      <Detail>도착: {Han1.last}</Detail>
+                    </Address>
+                  </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {Han2.distance}</Detail>
-                  <Detail>시간: {Han2.time}</Detail>
-                </Address>
-              </AdressWrap>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>거리: {Han1.distance}</Detail>
+                      <Detail>시간: {Han1.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "hangang2" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {Han2.start}</Detail>
+                      <Detail>도착: {Han2.last}</Detail>
+                    </Address>
+                  </AdressWrap>
+
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {Han2.distance}</Detail>
+                      <Detail>시간: {Han2.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+              {road == "hangang3" && (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailAddress} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>출발: {Han3.start}</Detail>
+                      <Detail>도착: {Han3.last}</Detail>
+                    </Address>
+                  </AdressWrap>
+
+                  <AdressWrap>
+                    <CircleDiv>
+                      <img src={detailFilter} />
+                    </CircleDiv>
+                    <Address>
+                      <Detail>총 {Han3.distance}</Detail>
+                      <Detail>시간: {Han3.time}</Detail>
+                    </Address>
+                  </AdressWrap>
+                </div>
+              )}
+
+              {is_modal ? (
+                <EditMarkerModal
+                  close={closeModal}
+                  road={road}
+                  distance={distance}
+                  check={check}
+                  walk={walk}
+                  editId={editId}
+                />
+              ) : null}
             </div>
           )}
-          {road == "hangang3" && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailAddress} />
-                </CircleDiv>
-                <Address>
-                  <Detail>출발: {Han3.start}</Detail>
-                  <Detail>도착: {Han3.last}</Detail>
-                </Address>
-              </AdressWrap>
 
-              <AdressWrap>
-                <CircleDiv>
-                  <img src={detailFilter} />
-                </CircleDiv>
-                <Address>
-                  <Detail>총 {Han3.distance}</Detail>
-                  <Detail>시간: {Han3.time}</Detail>
-                </Address>
-              </AdressWrap>
-            </div>
-          )}
-
-          {is_modal ? (
-            <EditMarkerModal
-              close={closeModal}
-              road={road}
-              distance={distance}
-              check={check}
-              walk={walk}
-              editId={editId}
-            />
-          ) : null}
-        </div>
-      )}
-
-      <Wrap id="map"></Wrap>
-      <Flex2>
-        <AddButton onClick={() => setModal(true)}>산책로 수정</AddButton>
-      </Flex2>
-      
-    </Crap>
-    </MapWrap>
-    <NavBar/>
+          <Wrap id="map"></Wrap>
+          <Flex2>
+            <AddButton onClick={() => setModal(true)}>산책로 수정</AddButton>
+          </Flex2>
+        </Crap>
+      </MapWrap>
+      <NavBar />
     </>
   );
 });
-const MapDrop = styled.select
-`
-z-index:20;
-postiton:relative;
-width: 100%;
-height: 48px;
-padding-left:10px;
-border: 1px solid lightGray;
-background-color:transparent;
--webkit-appearance:none;
-background-color:white;
-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-border-radius: 14px;
-cursor:pointer;
-img{
-  position:absolute;
-  width:30px;
-  height: 30px;
-  z-index:99;
-}
-&:focus {
-  outline: none;
-}
-`
-const DropImage = styled.img
-`
-  position:relative;
-  right:20px;
-  top:20px;
-  z-index:0;
-  width:14px;
-  height:7px;
-  
-`
+const MapDrop = styled.select`
+  z-index: 20;
+  postiton: relative;
+  width: 100%;
+  height: 48px;
+  padding-left: 10px;
+  border: 1px solid lightGray;
+  background-color: transparent;
+  -webkit-appearance: none;
+  background-color: white;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  cursor: pointer;
+  img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 99;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+const DropImage = styled.img`
+  position: relative;
+  right: 20px;
+  top: 20px;
+  z-index: 0;
+  width: 14px;
+  height: 7px;
+`;
 const MapWrap = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -855,7 +850,7 @@ const AddButton = styled.button`
   cursor: pointer;
   width: 164px;
   height: 48px;
-  font-size: 16px;
+
   border-radius: 12px;
   background-color: transparent;
   border: 1px gray;
@@ -867,8 +862,8 @@ const WalkArea = styled.div`
   margin: 20px 0;
 `;
 const WalkBtn = styled.div`
-  width:60%;
-  margin:0px 10px;
+  width: 60%;
+  margin: 0px 10px;
   height: 48px;
   border-radius: 24px;
   background-color: #f3f3f3;
@@ -899,7 +894,7 @@ const MapBox = styled(Box)`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   width: 280px;
   padding: 4px 12px;
-  border:none;
+  border: none;
 `;
 const Crap = styled.div`
   box-sizing: border-box;
@@ -943,6 +938,6 @@ const Detail = styled.div`
 const Options = styled.div`
   width: 100%;
   text-align: center;
-  border:none;
+  border: none;
 `;
 export default EditMapContainer;

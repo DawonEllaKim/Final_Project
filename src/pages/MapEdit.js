@@ -333,7 +333,7 @@ const WalkButton = styled.button`
   background: #ffffff;
   border-radius: 14px;
   text-align: left;
-  width: 80%;
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
@@ -399,7 +399,7 @@ const AddButton = styled.button`
   cursor: pointer;
   width: 164px;
   height: 48px;
-  font-size: 16px;
+
   border-radius: 12px;
   background-color: transparent;
   border: 1px gray;

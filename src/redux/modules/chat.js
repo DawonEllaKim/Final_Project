@@ -187,7 +187,6 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
       },
     })
       .then((res) => {
-        console.log(chatId);
         dispatch(deleteOutMessage(chatId));
         console.log("Outbox에서 쪽지 하나 DELETE 성공", res.data);
       })

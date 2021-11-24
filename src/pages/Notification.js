@@ -53,7 +53,7 @@ const Notification = (props) => {
     dispatch(chatActions.outBoxMD()); // 내가 보낸 모든 쪽지 불러오기
     dispatch(notiActions.getNotiMD(userId)); // 알람 불러오기
   }, []);
-  console.log(getNoti);
+
   return (
     <Wrap>
       <TopBar>{title}</TopBar>
@@ -120,11 +120,11 @@ const Notification = (props) => {
 };
 
 const Wrap = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 0 5%;
-margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5%;
+  margin: 0 auto;
 `;
 const Category = styled.div`
   display: flex;

@@ -31,7 +31,7 @@ const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
 const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 
 //모달
-const getModal = createAction(GET_MODAL,(modal)=>({modal}))
+const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const initialState = {
   mainList: [],
   mainLikeList: [],
@@ -40,7 +40,7 @@ const initialState = {
   likeCnt: [],
   likeExist: false,
   likeList: [],
-  modal:false,
+  modal: false,
 };
 const modalMD = () => {
   return function (dispatch, getState, { history }) {
@@ -142,7 +142,7 @@ const addPostMD = (formData) => {
       .then((res) => {
         dispatch(getAllPostMD());
         console.log("개스타그램 게시물 POST 성공", res);
-        dispatch(getModal(true))
+        dispatch(getModal(true));
       })
       .catch((err) => {
         console.log("개스타그램 게시물 POST 에러", err);
@@ -165,8 +165,8 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        dispatch(getModal(true))
-       
+        dispatch(getModal(true));
+
         console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
@@ -175,7 +175,7 @@ const editPostMD = (postId, post) => {
   };
 };
 
-const editPostImageMD = (post,dogPostId) => {
+const editPostImageMD = (post, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
@@ -191,14 +191,13 @@ const editPostImageMD = (post,dogPostId) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        dispatch(getModal(true))
-        setTimeout(()=>{
-          dispatch(getModal(false))
+        dispatch(getModal(true));
+        setTimeout(() => {
+          dispatch(getModal(false));
           history.goBack();
-        },1000)
-  
+        }, 1000);
+
         console.log("개스타그램 게시물 PATCH 완료", res);
-     
       })
       .catch((err) => {
         console.log("개스타그램 게시물 PATCH 오류", err);
@@ -221,11 +220,10 @@ const deletePostMD = (postId) => {
       },
     })
       .then((res) => {
-        
-        dispatch(deletePost(postId))
-      
-          history.goBack();
-       
+        dispatch(deletePost(postId));
+
+        history.goBack();
+
         console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
@@ -236,7 +234,7 @@ const deletePostMD = (postId) => {
 
 const toggleLikeMD = (dogPostId, liked) => {
   return (dispatch, getState, { history }) => {
-    console.log(liked);
+    // console.log(liked);
     if (!liked) {
       axios({
         method: "POST",
@@ -282,7 +280,7 @@ const toggleLikeMD = (dogPostId, liked) => {
 };
 
 const getLikesMD = (dogPostId) => {
-  console.log(dogPostId);
+  // console.log(dogPostId);
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
@@ -362,20 +360,20 @@ export default handleActions(
       }),
     [TOGGLE_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
+        // console.log(action);
         draft.liked = action.payload.liked;
       }),
     [GET_LIKES]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
+        // console.log(action);
         draft.likeCnt = action.payload.likeCnt;
       }),
     [GET_MY_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.likeExist = action.payload.likeExist;
       }),
-      [GET_MODAL] : (state, action) => 
-      produce(state, (draft)=> {
+    [GET_MODAL]: (state, action) =>
+      produce(state, (draft) => {
         draft.modal = action.payload.modal;
       }),
   },
@@ -409,4 +407,3 @@ const actionCreators = {
 };
 
 export { actionCreators };
-

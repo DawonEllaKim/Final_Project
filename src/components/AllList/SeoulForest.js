@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../../redux/modules/post";
-import Card from "../Card";
+
 import { history } from "../../redux/configureStore";
 import styled from "styled-components";
 import { IoMdMale } from "react-icons/io";
 import { IoMdFemale } from "react-icons/io";
 import { MdLocationPin } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
-import OlympicMap from "../../image/OlympicMap.png";
-import SeoulMap from "../../image/SeoulMap.png";
-import BanpoMap from "../../image/BanpoMap.png";
+
 function SeoulForest() {
   const dispatch = useDispatch();
-
   const postList = useSelector((state) => state.post.seoul);
 
   useEffect(() => {
@@ -150,20 +147,7 @@ const DogInfo = styled.div`
   justify-content: left;
   align-items: flex-start;
 `;
-const DogPhoto = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 50%;
-  object-fit: cover;
-`;
-const DogName = styled.p`
-  margin-right: 8px;
-`;
-const DogAge = styled.p`
-  margin-left: 25px;
-  font-size: 14px;
-`;
+
 const CardBottom = styled.div`
   display: flex;
   flex-direction: column;
@@ -175,14 +159,7 @@ const CardBottom = styled.div`
   padding: 8px 8px 0 0;
   box-sizing: border-box;
 `;
-const MeetingInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: Right;
-  text-align: center;
-  font-size: 14px;
-  margin: 5px 0;
-`;
+
 const DogImage = styled.div`
   position: relative;
   width: 40%;
@@ -229,5 +206,5 @@ const BoxDiv = styled.div`
 const MeetingTime = styled.div`
   font-size: 14px;
 `;
-const MeetingLocation = styled.div``;
+
 export default SeoulForest;

@@ -72,7 +72,7 @@ const Main = (props) => {
   const [banpoDogName, setBanpoDogName] = useState();
   const [banpoTime, setBanpoTime] = useState();
   const [banpoLocation, setBanpoLocation] = useState("");
-  console.log(seoulTime);
+
   // 날씨 + 주의사항 슬라이드 세팅
   const topSettings = {
     dots: true,

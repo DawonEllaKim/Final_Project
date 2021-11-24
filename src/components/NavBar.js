@@ -64,14 +64,13 @@ const NavBar = (props) => {
 
           {/* 개스타 업로드 버튼 */}
           <HomeArea>
-          <HomeBtn onClick={() => history.push("/dogStaWrite")}>
-            <img
-              src={plus}
-              style={{ display: "block", width: "58px", height: "58px" }}
-            />
-            
-          </HomeBtn>
-          <UploadText>업로드</UploadText>
+            <HomeBtn onClick={() => history.push("/dogStaWrite")}>
+              <img
+                src={plus}
+                style={{ display: "block", width: "58px", height: "58px" }}
+              />
+            </HomeBtn>
+            <UploadText>업로드</UploadText>
           </HomeArea>
         </Nav>
       </>
@@ -125,16 +124,13 @@ const NavBar = (props) => {
 
           {/* 산책 등록 버튼 */}
           <HomeArea>
-          <HomeBtn onClick={() => history.push("/map2")}>
-            <img
-              src={addBtn}
-              style={{ display: "block", width: "100%", height: "100%" }}
-            />
-          
-          </HomeBtn>
-          <Walk>
-          산책등록
-          </Walk>
+            <HomeBtn onClick={() => history.push("/map2")}>
+              <img
+                src={addBtn}
+                style={{ display: "block", width: "100%", height: "100%" }}
+              />
+            </HomeBtn>
+            <Walk>산책등록</Walk>
           </HomeArea>
         </Nav>
       </>
@@ -145,33 +141,32 @@ const NavBar = (props) => {
 NavBar.defaultProps = {
   add_dogsta: false,
 };
-const Walk = styled.div
-`
-position:absolute;
-bottom:17.7px;
-left:30%;
-font-size:11px;
-`
-const HomeArea = styled.div
-`
-border: none;
-  
-box-sizing: border-box;
-width: 100px;
-height: 100px;
-font-size:12px;
-cursor: pointer;
-position: absolute;
-left: 50%;
-top: -26px;
+const Walk = styled.div`
+  position: absolute;
+  bottom: 17.7px;
+  left: 30%;
+  font-size: 11px;
+`;
+const HomeArea = styled.div`
+  border: none;
 
-transform: translateX(-50%);
-`
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  font-size: 12px;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: -26px;
+
+  transform: translateX(-50%);
+`;
 const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
   left: 0;
+  min-width: 315px;
   width: 100%;
   height: 68px;
   z-index: 5;
@@ -197,7 +192,7 @@ const Button = styled.button`
 `;
 const HomeBtn = styled.button`
   border: none;
-  
+
   box-sizing: border-box;
   width: 52px;
   height: 52px;
@@ -205,7 +200,7 @@ const HomeBtn = styled.button`
   cursor: pointer;
   position: absolute;
   left: 50%;
-  background-color:transparent;
+  background-color: transparent;
 
   transform: translateX(-50%);
 `;
@@ -215,10 +210,10 @@ const Text = styled.div`
   padding-top: 6px;
 `;
 const UploadText = styled.div`
-position:absolute;
-bottom:17.7px;
-left:36%;
-font-size:11px;
+  position: absolute;
+  bottom: 17.7px;
+  left: 36%;
+  font-size: 11px;
 `;
 const HomeText = styled.div`
   font-size: 12px;

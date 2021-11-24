@@ -49,7 +49,7 @@ const EditUser = (props) => {
   const [modal, setModal] = useState();
   const [modal2, setModal2] = useState();
   const userModal = useSelector((state) => state.user.user_modal);
-  console.log(modal);
+
   // 뒤로가기 버튼 - 수정 취소
   const cancel = () => {
     // if (
@@ -72,10 +72,8 @@ const EditUser = (props) => {
   }, [_userGender, _userAge, _userImage, _userNickname, userModal]);
 
   // 수정하기 버튼 = 수정 완료
-  console.log(_userAge);
 
   const updateInfo = () => {
-    console.log(userNickname, user_gender, userAge, imgFile);
     const userInfo = {
       userNickname,
       userGender: user_gender,
@@ -134,7 +132,7 @@ const EditUser = (props) => {
                   onClick={() => genderChangeHandler("남")}
                   name="gender"
                 />
-                <Label for="male">남</Label>
+                <Label htmlFor="male">남</Label>
               </Flex>
               <Flex>
                 <input
@@ -144,7 +142,7 @@ const EditUser = (props) => {
                   onClick={() => genderChangeHandler("여")}
                   name="gender"
                 />
-                <Label for="female">여</Label>
+                <Label htmlFor="female">여</Label>
               </Flex>
             </FlexWrap>
           </Filter>
@@ -163,7 +161,7 @@ const EditUser = (props) => {
                     name="age"
                   />
                 </RadioWrap>
-                <Label for="10">10대</Label>
+                <Label htmlFor="10">10대</Label>
               </Flex>
               <Flex>
                 <RadioWrap>
@@ -176,7 +174,7 @@ const EditUser = (props) => {
                   />
                 </RadioWrap>
 
-                <Label for="20">20대</Label>
+                <Label htmlFor="20">20대</Label>
               </Flex>
               <Flex>
                 <RadioWrap>
@@ -189,7 +187,7 @@ const EditUser = (props) => {
                   />
                 </RadioWrap>
 
-                <Label for="30">30대</Label>
+                <Label htmlFor="30">30대</Label>
               </Flex>
               <Flex>
                 <RadioWrap>
@@ -202,7 +200,7 @@ const EditUser = (props) => {
                   />
                 </RadioWrap>
 
-                <Label for="40">40대 이상</Label>
+                <Label htmlFor="40">40대 이상</Label>
               </Flex>
             </FlexWrap>
           </Filter>
