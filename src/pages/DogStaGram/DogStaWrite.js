@@ -118,7 +118,7 @@ const DogStaWrite = (props) => {
 const Wrap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 
 const Write = styled.div`

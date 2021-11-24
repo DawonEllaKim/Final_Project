@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
 // 아이콘
-import walk from "../image/walk.png";
-import home from "../image/home.png";
-import dog from "../image/dog.png";
-import myPage from "../image/myPage.png";
 import addBtn from "../image/addBtn.png";
 import plus from "../image/plus.png";
+import { AiOutlineHome } from "react-icons/ai";
+import PetsIcon from "@mui/icons-material/Pets";
+import { FaDog } from "react-icons/fa";
+import { BiUser } from "react-icons/bi";
 
 const NavBar = (props) => {
   const { add_dogsta } = props;
@@ -16,6 +16,7 @@ const NavBar = (props) => {
   const [page, setPage] = useState();
 
   if (add_dogsta) {
+    // 개스타 업로드 navbar
     return (
       <>
         <Nav>
@@ -23,9 +24,9 @@ const NavBar = (props) => {
             {/* 홈 버튼 */}
             <Button
               onClick={() => history.push("/")}
-              style={{ marginRight: "28px" }}
+              style={{ marginRight: "20px" }}
             >
-              <img src={home} style={{ width: "20px", height: "20px" }} />
+              <AiOutlineHome style={{ width: "20px", height: "20px" }} />
               <Text>홈</Text>
             </Button>
 
@@ -37,9 +38,9 @@ const NavBar = (props) => {
               onClick={() => {
                 history.push("/alllist/all");
               }}
-              style={{ marginRight: "100px" }}
+              style={{ marginRight: "92px" }}
             >
-              <img src={walk} style={{ width: "20px", height: "20px" }} />
+              <PetsIcon style={{ width: "20px", height: "20px" }} />
               <Text>산책가자</Text>
             </Button>
 
@@ -48,15 +49,15 @@ const NavBar = (props) => {
               onClick={() => {
                 history.push("/dogStaMain");
               }}
-              style={{ marginRight: "28px" }}
+              style={{ marginRight: "20px" }}
             >
-              <img src={dog} style={{ width: "20px", height: "20px" }} />
+              <FaDog style={{ width: "20px", height: "20px" }} />
               <Text>개스타</Text>
             </Button>
 
             {/* 마이페이지 버튼 */}
             <Button onClick={() => history.push(`/mypage/${userId}`)}>
-              <img src={myPage} style={{ width: "20px", height: "20px" }} />
+              <BiUser style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
           </Box>
@@ -67,12 +68,13 @@ const NavBar = (props) => {
               src={plus}
               style={{ display: "block", width: "58px", height: "58px" }}
             />
-            <HomeText>업로드</HomeText>
+            <UploadText>업로드</UploadText>
           </HomeBtn>
         </Nav>
       </>
     );
   } else {
+    // 산책등록 navbar
     return (
       <>
         <Nav>
@@ -80,9 +82,9 @@ const NavBar = (props) => {
             {/* 홈 버튼 */}
             <Button
               onClick={() => history.push("/")}
-              style={{ marginRight: "28px" }}
+              style={{ marginRight: "8px" }}
             >
-              <img src={home} style={{ width: "20px", height: "20px" }} />
+              <AiOutlineHome style={{ width: "20px", height: "20px" }} />
               <Text>홈</Text>
             </Button>
 
@@ -94,9 +96,9 @@ const NavBar = (props) => {
               onClick={() => {
                 history.push(`/alllist/${page}`);
               }}
-              style={{ marginRight: "100px" }}
+              style={{ marginRight: "92px" }}
             >
-              <img src={walk} style={{ width: "20px", height: "20px" }} />
+              <PetsIcon style={{ width: "20px", height: "20px" }} />
               <Text>산책가자</Text>
             </Button>
 
@@ -105,15 +107,15 @@ const NavBar = (props) => {
               onClick={() => {
                 history.push("/dogStaMain");
               }}
-              style={{ marginRight: "28px" }}
+              style={{ marginRight: "8px" }}
             >
-              <img src={dog} style={{ width: "20px", height: "20px" }} />
+              <FaDog style={{ width: "20px", height: "20px" }} />
               <Text>개스타</Text>
             </Button>
 
             {/* 마이페이지 버튼 */}
             <Button onClick={() => history.push(`/mypage/${userId}`)}>
-              <img src={myPage} style={{ width: "20px", height: "20px" }} />
+              <BiUser style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
           </Box>
@@ -142,7 +144,7 @@ const Nav = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 68px;
   z-index: 5;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
 `;
@@ -155,7 +157,7 @@ const Box = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 68px;
   padding: 6px 30px;
   background-color: #fff;
 `;
@@ -168,8 +170,8 @@ const HomeBtn = styled.button`
   border: none;
   background-color: transparent;
   box-sizing: border-box;
-  width: 58px;
-  height: 58px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   cursor: pointer;
   position: absolute;
@@ -180,7 +182,11 @@ const HomeBtn = styled.button`
 
 const Text = styled.div`
   font-size: 12px;
-  padding-top: 6px; ;
+  padding-top: 6px;
+`;
+const UploadText = styled.div`
+  font-size: 12px;
+  padding-top: 8px;
 `;
 const HomeText = styled.div`
   font-size: 12px;

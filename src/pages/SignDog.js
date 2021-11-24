@@ -10,7 +10,7 @@ import { dogBreedCheck } from "../shared/check";
 import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 // 강아지 이미지 기본 값
-import defaultDog from "../image/default_dog.png";
+import defaultDog from "../image/defaultImage.png";
 import { ElectricScooterSharp } from "@mui/icons-material";
 import SignDogSuccessModal from "../components/Modal/SignDogSuccessModal";
 
@@ -20,9 +20,6 @@ const SignDog = (props) => {
   //jsonserver 데이터 맞추기 위한 코드
   const signUser = useSelector((state) => state.sign.user);
   console.log(signUser);
-  
-
-
   const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
   const [dogGender, setDogGender] = useState("");
@@ -397,25 +394,21 @@ const SignDog = (props) => {
     </>
   );
 };
-const Alert =styled.div
-`
+const Alert =styled.div`
 color: #FF5252;
 display:flex;
 justify-content:flex-start;
-
 `
-const ImageAlert =styled.div
-`
+const ImageAlert =styled.div`
 color: #FF5252;
 display:flex;
 justify-content:center;
-
 `
 const Wrap = styled.div`
   text-align: center;
 
-  padding: 0 20px;
-  margin: 30px auto;
+  padding: 0 5%;
+  margin: 0 auto;
   font-size: 14px;
 `;
 
@@ -430,9 +423,7 @@ const Input = styled.div`
   color: #888;
 `;
 
-const ImageWrap = styled.div`
- 
-`;
+const ImageWrap = styled.div``;
 const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
@@ -453,7 +444,6 @@ const InputText = styled.input`
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
-
   padding: 5px;
 
   cursor: pointer;

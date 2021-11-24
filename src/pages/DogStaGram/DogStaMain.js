@@ -203,7 +203,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-content: center;
   margin: auto;
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 const NoCard = styled.div`
   display: flex;

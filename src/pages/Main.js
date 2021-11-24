@@ -448,7 +448,7 @@ const Main = (props) => {
 const TopBarWrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
-  padding-top: 40px;
+  padding-top: 14px;
 `;
 const TopBarEdit = styled.div`
   position: absolute;
@@ -468,53 +468,6 @@ const TopBarEdit = styled.div`
 
   border-radius: 50%;
   background-color: red;
-`;
-const Left = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-const TopBarRight = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-const Both = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-  /* margin: 36px 0; */
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-
-const BtnLeft = styled.button`
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: none;
-  background-color: transparent;
-  width: 52px;
-  height: 52px;
-  cursor: pointer;
 `;
 const TopBarButtons = styled.div`
   display: flex;
@@ -546,7 +499,7 @@ const TopBarBtnRight = styled.button`
 `;
 
 const TopWrap = styled.div`
-  margin: 0 30px;
+  margin: 0 5%;
 `;
 const Wrap = styled.div`
   box-sizing: border-box;
@@ -560,7 +513,7 @@ const Wrap = styled.div`
 `;
 const Slide = styled.div`
   background-color: #fff;
-  padding: 0 30px 40px 30px;
+  padding: 0 5% 40px 5%;
   box-sizing: border-box;
 `;
 const StyledSlider = styled(Slider)`
@@ -779,7 +732,7 @@ width: 100%;
 
 const BodyWrap = styled.div`
 width: 100%;
-  padding: 20px 30px;
+  padding: 20px 5%;
   background-color: #fff;
   margin-bottom: 8px;
 `;

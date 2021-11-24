@@ -118,10 +118,10 @@ const Notification = (props) => {
 };
 
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 5%;
 `;
 const Category = styled.div`
   display: flex;

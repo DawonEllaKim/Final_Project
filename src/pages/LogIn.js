@@ -135,8 +135,7 @@ const LogIn = (props) => {
   );
 };
 
-const Alert =styled.div
-`
+const Alert =styled.div`
 color: #FF5252;
 display:flex;
 justify-content:center;
@@ -146,11 +145,8 @@ margin-top:8px;
 
 const Wrap = styled.div`
   text-align: center;
-
   font-size: 14px;
-  
-  padding-bottom: 55px;
-
+  padding: 0 5% 55px 5%;
 `;
 const Logo = styled.img`
   width: 132px;
