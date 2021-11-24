@@ -95,41 +95,40 @@ function Weather({ setCold }) {
       weather.id === 800 ? 0 : (parseInt(weather.id) / 100).toFixed(0);
     switch (iconId) {
       case "0":
-        return <TiWeatherSunny size="106px" color="red" />;
+        return <TiWeatherSunny size="80px" color="red" />;
       case "2":
-        return <TiWeatherStormy size="106px" color="black" />;
+        return <TiWeatherStormy size="80px" color="black" />;
       case "3":
-        return <TiWeatherShower size="106px" color="blue" />;
+        return <TiWeatherShower size="80px" color="blue" />;
       case "5":
-        return <TiWeatherDownpour size="106px" color="white" />;
+        return <TiWeatherDownpour size="80px" color="white" />;
       case "6":
-        return <TiWeatherSnow size="106px" color="white" />;
+        return <TiWeatherSnow size="80px" color="white" />;
       case "7":
-        return <BsCloudFog size="106px" color="white" />;
+        return <BsCloudFog size="80px" color="white" />;
       case "8":
-        return <TiWeatherCloudy size="106px" color="white" />;
+        return <TiWeatherCloudy size="80px" color="white" />;
     }
   };
 
   return (
     <Wrap>
+      <Top>
       <Left>
         <LeftTop>
           <MdLocationPin
-            style={{ color: "#FF5656", width: "30px", height: "30px" }}
+            style={{ color: "#FF5656", width: "24px", height: "24px" }}
           />
           <City>서울시</City>
         </LeftTop>
 
         <Temperature>{currentTemperature.toFixed(0)}℃</Temperature>
-        <p style={{ marginBottom: "15px" }}>{phrase}</p>
-
         <OtherTemp>
           <IoIosArrowDown
             style={{
               color: "#61C5B8",
-              width: "30px",
-              height: "30px",
+              width: "24px",
+              height: "24px",
               marginTop: "-5px",
             }}
           />
@@ -138,8 +137,8 @@ function Weather({ setCold }) {
           <IoIosArrowUp
             style={{
               color: "#FF5656",
-              width: "30px",
-              height: "30px",
+              width: "24px",
+              height: "24px",
               marginTop: "-7px",
             }}
           />
@@ -150,28 +149,32 @@ function Weather({ setCold }) {
       <Right>
         <WeatherIcon>{selectIcon()}</WeatherIcon>
       </Right>
-      <div></div>
+      </Top>
+      <Bottom>{phrase}</Bottom>
     </Wrap>
   );
 }
 export default Weather;
 
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 100%;
   /* aspect-ratio: 4 / 2; */
-  padding: 16px 30px;
+  padding: 16px 5% 16px 8%;
   background-color: #86d3ff;
   border-radius: 14px;
   /* position: absolute; */
   /* object-fit:cover; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
+const Top = styled.div`
+/* border: 1px solid orange; */
+display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
 const Left = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,8 +184,8 @@ const Left = styled.div`
 `;
 
 const Temperature = styled.div`
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 28px;
+  line-height: 36px;
   color: #fff;
   margin-left: 8px;
   margin-bottom: 12px;
@@ -197,12 +200,11 @@ const MinMaxTemp = styled.div`
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
-  margin-right: 14px;
+  margin-right: 8px;
 `;
 
 const City = styled.div`
   color: #fff;
-  font-size: 18px;
   margin-left: 10px;
 `;
 const LeftTop = styled.div`
@@ -210,7 +212,7 @@ const LeftTop = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 `;
 
 const DateDiv = styled.div`
@@ -221,21 +223,12 @@ const DateDiv = styled.div`
 
 const Right = styled.div`
   color: white;
-  font-size: 20px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  width: 100%;
 `;
 
 const WeatherIcon = styled.div`
-  display: flex;
-  width: 100%;
-
-  justify-content: right;
-  align-items: right;
-
-  /* width: 106px;
-  height: 106px; */
 `;
+
+const Bottom = styled.div`
+font-size: 16px;
+padding-top: 4px;
+`

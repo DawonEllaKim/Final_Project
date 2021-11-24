@@ -96,7 +96,7 @@ const LogIn = (props) => {
       modal? <LoginSuccessModal setModal={setModal}/>:""
     }
       <Wrap>
-        <TopBar only_left></TopBar>
+        {/* <TopBar only_left></TopBar> */}
         <div onClick={()=>{history.push("/")}}>
         <Logo src={logo} />
         </div>
@@ -146,7 +146,7 @@ margin-top:8px;
 const Wrap = styled.div`
   text-align: center;
   font-size: 14px;
-  padding: 0 5% 55px 5%;
+  padding: 60px 5% 0 5%;
 `;
 const Logo = styled.img`
   width: 132px;
@@ -203,7 +203,8 @@ const SignupBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
   span {
-    color:red;
+    color:#ff5656;
+    padding-left: 4px;
   }
 `;
 const KakaoLogin = styled.img`

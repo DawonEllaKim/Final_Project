@@ -89,7 +89,7 @@ const Main = (props) => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
@@ -188,7 +188,9 @@ const Main = (props) => {
         <Slide>
           {!userId ? (
             <StyledSlider {...topSettings}>
+              <LogoWrap>
               <Logo src={LoginLogoImg} onClick={() => history.push("/login")} />
+              </LogoWrap>
             </StyledSlider>
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
@@ -198,33 +200,45 @@ const Main = (props) => {
                   history.push("/caution1");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
-                <div>
-                  <h3>1. 목줄 착용</h3>
-                  <p>목줄 착용은 <br /> 선택이 아닌 필수입니다</p>
-                </div>
+                <ImageWrap>
+                  <CautionImage src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
+                </ImageWrap>
+                <CautionInfo>
+                  <span>1. 목줄 착용</span>
+                  <p>
+                    목줄 착용은 선택이 아닌 필수입니다
+                  </p>
+                </CautionInfo>
               </CautionCard>
               <CautionCard
                 onClick={() => {
                   history.push("/caution2");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
-                <div>
-                  <h3>2. 사람 주의</h3>
-                  <p>개를 무서워하는 사람들을<br/>주의 해야합니다.</p>
-                </div>
+                <ImageWrap>
+                  <CautionImage src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
+                </ImageWrap>
+                <CautionInfo>
+                  <span>2. 사람 주의</span>
+                  <p>
+                    개를 무서워하는 사람들을 주의 해야합니다.
+                  </p>
+                </CautionInfo>
               </CautionCard>
               <CautionCard
                 onClick={() => {
                   history.push("/caution3");
                 }}
               >
-                <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
-                <div>
-                  <h3>3. 식물 주의</h3>
-                  <p>상처가 날 수 있는 식물을<br />주의해야합니다.</p>
-                </div>
+                <ImageWrap>
+                  <CautionImage src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
+                </ImageWrap>
+                <CautionInfo>
+                  <span>3. 식물 주의</span>
+                  <p>
+                    상처가 날 수 있는 식물을 주의해야합니다.
+                  </p>
+                </CautionInfo>
               </CautionCard>
             </StyledSlider>
           )}
@@ -513,7 +527,7 @@ const Wrap = styled.div`
 `;
 const Slide = styled.div`
   background-color: #fff;
-  padding: 0 5% 40px 5%;
+  padding: 0 5% 20px 5%;
   box-sizing: border-box;
 `;
 const StyledSlider = styled(Slider)`
@@ -524,50 +538,63 @@ const StyledSlider = styled(Slider)`
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 `;
+const LogoWrap = styled.div`
+`
 const Logo = styled.img`
-  width: 80%;
-  padding: 10px 50px;
+  width: 50%;
+  margin: 30px auto;
 `;
 const CautionCard = styled.div`
-  /* display: flex;
-  flex-direction: row; */
-  /* display: grid;
-  grid-template-columns:48% 48% ;
-  justify-content: space-between; */
-  /* align-items: center; */
+  max-height: 160px;
   /* position: relative; */
-  /* aspect-ratio: 4 / 2; */
-  height: 100%;
-  border-radius: 14px;
-  /* padding: 10px 20px; */
-  img {
-    /* position: absolute;
-    top: 15%;
-    left: 7%; */
-    width: 50%;
-    padding: 12px; 
-    aspect-ratio: 1 / 1;
-    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
-    border-radius: 14px;
-    object-fit: cover;
-    float: left;
+  /* border-radius: 14px; */
+  border: 1px solid red;
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%); */
+  padding: 12px;
+  &::after{
+    content:'';
+    display: block;
+    clear:both;
   }
-  div {
-    /* position: absolute;
-    top: 15%;
-    right: 5%; */
-    width: 50%;
-    height: 100%;
-    padding: 12px;
-    float:right;
+  span {
+    /* font-size: 18px; */
+    font-weight: 600;
+    /* padding-top:12px; */
   }
-  h3{
-    padding-top:12px;
-  }
-  p{
-    padding: 12px 0;
+  p {
+    font-size: 14px;
+    word-break: keep-all;
+    /* padding: 12px 0; */
   }
 `;
+
+const ImageWrap = styled.div`
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 40%;
+  border-radius: 14px;
+  float: left;
+`;
+
+const CautionImage = styled.img`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25)); */
+    border-radius: 14px;
+    object-fit: cover;
+`
+const CautionInfo = styled.div`
+    /* width: 50%;
+    height: 100%;
+    padding: 12px; */
+    float:left;
+    width: 60%;
+    padding-left: 16px;
+`
 
 const WholeCardWrap = styled.div`
   width: 100%;
@@ -645,7 +672,6 @@ const SubLists = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 `;
 
 const MainCardWrap = styled.div`
@@ -658,7 +684,7 @@ const MainCard = styled.div`
   position: relative;
   padding-bottom: 100%;
   overflow: hidden;
-`
+`;
 const Image = styled.img`
   width: 100%;
   height: 100%;
@@ -666,7 +692,6 @@ const Image = styled.img`
   position: absolute;
   border-radius: 5px;
 `;
-
 
 const LoginImg = styled.div`
   position: relative;
@@ -693,7 +718,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 31px;
+  margin-bottom: 12px;
 `;
 const Text = styled.p`
   font-size: 16px;
@@ -715,7 +740,7 @@ const DogstaSlide = styled(Slider)`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   text-align: center;
   cursor: pointer;
   .slick-prev:before,
@@ -727,11 +752,11 @@ const DogstaSlide = styled(Slider)`
   }
 `;
 const Body = styled.div`
-width: 100%;
+  width: 100%;
 `;
 
 const BodyWrap = styled.div`
-width: 100%;
+  width: 100%;
   padding: 20px 5%;
   background-color: #fff;
   margin-bottom: 8px;
