@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
@@ -56,11 +55,11 @@ const MapPractice = React.memo(() => {
   const [distance, setDistance] = useState(distance1); //디스턴스정보
   const [walk, setWalk] = useState(list1); //산책로 좌표정보
   const [road, setRoad] = useState(); //산책로이름
-  const [focus, setFocus] = useState();
-  console.log(road);
+
   const closeModal = () => {
     setModal(false);
   };
+
   const closeErrorModal = () => {
     setErrorModal(false);
   };
@@ -133,6 +132,7 @@ const MapPractice = React.memo(() => {
       setStart(hangang[2]);
     }
   };
+
   const olympic = {
     La: 127.12205323267196,
     Ma: 37.51815414058323,
@@ -157,6 +157,7 @@ const MapPractice = React.memo(() => {
       Ma: 37.526191102348754,
     },
   ];
+
   const add = () => {
     if (road == undefined || distance == "" || check == "" || walk == "") {
       setErrorModal(true);
@@ -968,8 +969,6 @@ const MapBox = styled(Box)`
 const Crap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  /* width: 390px;
-  margin: 0 auto; */
 `;
 const Wrap = styled.div`
   width: 100%;
