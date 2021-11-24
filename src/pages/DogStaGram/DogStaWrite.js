@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../../redux/modules/dogsta";
+
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
@@ -115,6 +116,7 @@ const DogStaWrite = (props) => {
       <FlexButton>
         <AddBtn onClick={addPost}>작성하기</AddBtn>
       </FlexButton>
+      <NavBar />
     </Wrap>
   );
 };

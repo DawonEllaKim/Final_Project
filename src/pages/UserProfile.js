@@ -11,6 +11,7 @@ import TopBar from "../components/TopBar";
 import UserModal from "../components/UserModal";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import UserSuccessModal from "../components/Modal/UserSuccessModal";
+import NavBar from "../components/NavBar";
 
 const EditUser = (props) => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const EditUser = (props) => {
 
   const [modal, setModal] = useState();
   const [modal2, setModal2] = useState();
-  const userModal = useSelector((state)=>state.user.user_modal)
+  const userModal = useSelector((state) => state.user.user_modal);
   console.log(modal);
   // 뒤로가기 버튼 - 수정 취소
   const cancel = () => {
@@ -67,8 +68,8 @@ const EditUser = (props) => {
     setImgBase64(_userImage);
     setImgFile(_userImage);
     setUserLocation(_userLocation);
-    setModal2(userModal)
-  }, [_userGender, _userAge, _userImage, _userNickname,userModal]);
+    setModal2(userModal);
+  }, [_userGender, _userAge, _userImage, _userNickname, userModal]);
 
   // 수정하기 버튼 = 수정 완료
   console.log(_userAge);
@@ -83,16 +84,11 @@ const EditUser = (props) => {
     };
     dispatch(UserActions.updateUserMD(userInfo));
   };
-  
-
-
 
   return (
     <>
       <Wrap>
-        {
-          modal2? <UserSuccessModal/> : ""
-        }
+        {modal2 ? <UserSuccessModal /> : ""}
         {/* 뒤로가기 버튼 + 회원정보 텍스트  */}
         <TopBar only_left>회원 정보 수정</TopBar>
 
@@ -216,6 +212,7 @@ const EditUser = (props) => {
         <Footer>
           <Add onClick={updateInfo}>수정하기</Add>
         </Footer>
+        <NavBar />
       </Wrap>
     </>
   );

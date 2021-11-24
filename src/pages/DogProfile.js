@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import NavBar from "../components/NavBar";
 
 // 리덕스
 import { history } from "../redux/configureStore";
@@ -41,8 +42,7 @@ const EditDog = (props) => {
   const [modal, setModal] = useState();
   const [modal2, setModal2] = useState();
 
-
-  const dogModal = useSelector((state)=>state.user.dog_modal)
+  const dogModal = useSelector((state) => state.user.dog_modal);
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -113,7 +113,7 @@ const EditDog = (props) => {
     setNeutral(dog.neutral);
     setDogAge(dog.dogAge);
     setDogComment(dog.dogComment);
-    setModal2(dogModal)
+    setModal2(dogModal);
   }, [
     dog.dogImage,
     dog.dogName,
@@ -128,9 +128,7 @@ const EditDog = (props) => {
 
   return (
     <Wrap>
-      {
-        modal2? <DogSuccessModal/> : ""
-      }
+      {modal2 ? <DogSuccessModal /> : ""}
       <TopBar only_left> 반려견 정보 수정</TopBar>
 
       {/* 강아지 사진 */}
@@ -341,6 +339,7 @@ const EditDog = (props) => {
       <ButtonWrap>
         <Add onClick={update}>수정하기</Add>
       </ButtonWrap>
+      <NavBar />
     </Wrap>
   );
 };
