@@ -130,7 +130,7 @@ const SignUp = () => {
       if (confirmPassword == "") {
         setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
       } else {
-        setAlertPassword("false");
+        setAlertPassword("");
         setAlertConfirmPassword(false);
       }
     }
@@ -169,19 +169,22 @@ const SignUp = () => {
       setAlertUserAge("");
     }
     if (
-      !(
-        userAge ||
-        userGender ||
-        userLocation ||
-        userNickname ||
-        confirmPassword ||
-        password ||
-        userEmail ||
+      
+        !userAge ||
+        !userGender ||
+        !userLocation ||
+        !userNickname ||
+        !confirmPassword ||
+        !password ||
+        !userEmail ||
         password !== confirmPassword ||
         !passwordCheck(password)
-      )
+      
     )
+    {
       return;
+    }
+  
 
     const formData = new FormData();
     formData.append("userEmail", userEmail);

@@ -35,7 +35,7 @@ const Alert = ({noti}) => {
             <span>{noti.senderNickname}</span>
           </Left>
           <Right>
-          <Message>{noti.senderNickname}님이 회원님에게 쪽지를<br/> 보냈습니다!</Message>
+          <Message>{noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!</Message>
            
            <Info>
             <Time>{noti.AGOTIME}</Time>

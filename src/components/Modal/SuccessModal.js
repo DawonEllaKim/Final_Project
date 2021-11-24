@@ -66,7 +66,7 @@ const ModalComponent = styled.div`
   height: 150px;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 20;
+  z-index: 99;
   display: flex;
 
   align-items: center;

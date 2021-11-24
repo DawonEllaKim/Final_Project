@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 // 리덕스
@@ -8,22 +8,31 @@ import { actionCreators as postActions } from "../redux/modules/dogsta";
 
 // 아이콘
 import { Close } from "@mui/icons-material";
+import Spinner from "../shared/Spinner";
+import SuccessModal from "./Modal/SuccessModal";
 
 const DogStarEditModal = (props) => {
   const dispatch = useDispatch();
   const history =useHistory()
  
-  const editImage = () => {
-    const image = imgFile ? imgFile : props.dogStarImage;
-
-    const formData = new FormData();
-    formData.append("dogPostImage", imgFile);
-    dispatch(postActions.editPostImageMD(formData));
- };
  
+  const [modal,setModal] = useState();
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
-
+  const [loading,setLoading] = useState();
+  const getModal = useSelector((state)=>state.dogsta.modal)
+  const editImage = () => {
+    const image = imgFile ? imgFile : props.dogStarImage;
+    if(imgBase64==props.dogStarImage)
+    {
+      window.alert("이미지를 수정하지 않았습니다")
+      return;
+    }
+    const formData = new FormData();
+    formData.append("dogPostImage", imgFile);
+    setLoading(true)
+    dispatch(postActions.editPostImageMD(formData,props.dogPostId));
+ };
   const handleChangeFile = (event) => {
     // 이미지 파일
     event.preventDefault();
@@ -42,9 +51,19 @@ const DogStarEditModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
+  useEffect (()=> {
 
+ setModal(getModal)
+  },[getModal])
+ if(loading)
+ {
+   <Spinner/>
+ }
   return (
     <React.Fragment>
+      {
+        modal? <SuccessModal text={"이미지 수정완료"}/> : ""
+      }
       <Component  />
       <ModalComponent>
         <ModalExitBtn onClick={()=>props.setModal(false)} >
