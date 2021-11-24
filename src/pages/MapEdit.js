@@ -51,11 +51,6 @@ const MapEdit = (props) => {
   const locationCategory =post.locationCategory
   const routeName = post.routeName
   console.log(post);
-  
-
-
-
-
 
   let markerName = useSelector((state) => state.marker.marker);
   console.log(markerName)
@@ -184,7 +179,7 @@ const MapEdit = (props) => {
           <DatePicker
             selected={startDate}
             onChange={dateHandler}
-            timeInputLabel="Time:"
+            timeInputLabel="산책시간"
             showTimeInput
             inline
           />

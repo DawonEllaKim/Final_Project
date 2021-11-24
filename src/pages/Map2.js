@@ -196,7 +196,6 @@ const Wrap = styled.div`
 const Calendar = styled.div`
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
-  border: 1px solid red;
 `;
 const CustomSelect = styled(Select)`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
