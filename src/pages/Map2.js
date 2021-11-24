@@ -80,7 +80,7 @@ const Map2 = (props) => {
 
   useEffect(() => {
     setModal(get_modal);
-  }, [get_modal]);
+  }, []);
 
   return (
     <>

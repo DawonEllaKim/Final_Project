@@ -81,7 +81,7 @@ const DogStaDetail = (props) => {
       <Spinner/>
     )
   }
-
+  console.log(modal)
   return (
     <Wrap>
       {
