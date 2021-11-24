@@ -67,6 +67,7 @@ const Map2 = (props) => {
       markerName.startLocationAddress == "" ||
       markerName.endLocationAddress == "" ||
       markerName.locationCategory == "" ||
+      wishDesc == undefined ||
       wishDesc == "" ||
       dogCount == ""
     ) {
