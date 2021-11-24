@@ -6,11 +6,12 @@ import styled from "styled-components";
 import RedMessage from "../../image/RedMessage.png";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
-
+import NavBar from "../../components/NavBar";
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useHistory } from "react-router";
 import ChatSuccessModal from "../../components/Modal/ChatSuccessModal";
+import ChatFailModal from "../../components/Modal/ChatFailModal";
 const ChatDetail = (props) => {
   const [message, setMessage] = useState("");
   const history = useHistory();
@@ -23,6 +24,7 @@ const ChatDetail = (props) => {
   // const receivedMessage = list.message; // 받은 쪽지 내용
   // const receivedTime = list.createdAt; // 쪽지 받은 시간
   const [modal,setModal] = useState("");
+  const [failModal,setFailModal] = useState("")
   const getModal = useSelector((state)=>state.chat.modal)
   const messageChange = (e) => {
     setMessage(e.target.value);
@@ -30,6 +32,11 @@ const ChatDetail = (props) => {
 
   // 쪽지 보내기 액션 실행 버튼
   const sendChat = () => {
+    if(!message)
+    {
+        setFailModal(true)
+        return;
+    }
     dispatch(chatAction.sendMessageMD(list.senderId, message, 1));
   };
 
@@ -44,6 +51,9 @@ const ChatDetail = (props) => {
   return (
      <Wrap>
        {
+         failModal? <ChatFailModal setFailModal={setFailModal}/> : ""
+       }
+       {
          modal?<ChatSuccessModal/>:""
        }
        {
@@ -55,7 +65,7 @@ const ChatDetail = (props) => {
              <img src={list.senderImage}/>
              {list.senderNickname}
            </ImageWrap>
-            <div>
+            <div style={{fontSize:"12px"}}>
               {list.AGOTIME}
             </div>
            </Info>
@@ -87,6 +97,7 @@ const ChatDetail = (props) => {
            )}
          </MessageWrap>
          <SendBtn onClick={sendChat}>답장하기</SendBtn>
+         <NavBar></NavBar>
        </div> :
        <div> </div>
        }
@@ -110,9 +121,9 @@ const SendBtn = styled.div`
   margin: 30px auto;
 `;
 const Info = styled.div`
-  margin: 0 auto;
+
   display: flex;
-  width: 80%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -135,7 +146,7 @@ const ImageWrap = styled.div`
     object-fit: cover;
     margin-right: 10px;
   }
-  margin-right: 10px;
+  padding-right: 10px;
 `;
 const MessageWrap = styled.div`
   display: block;

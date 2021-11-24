@@ -25,9 +25,7 @@ const OutBox = ({ box }) => {
   };
    console.log(box)
   return (
-    <Wrap  onClick={() => {
-      history.push(`/chatsend/${chatId}`);
-    }}>
+    <Wrap  >
       <Left
         onClick={() => {
           history.push(`/chatdetail/${chatId}`);
@@ -38,7 +36,9 @@ const OutBox = ({ box }) => {
       </Left>
 
       <Right>
-      <Message>{message}</Message>
+      <Message onClick={() => {
+      history.push(`/chatsend/${chatId}`);
+    }}>{message}</Message>
  
       <Info>
     <Time>{box.AGOTIME}</Time>
