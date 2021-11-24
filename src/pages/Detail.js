@@ -30,6 +30,7 @@ import TopBar from "../components/TopBar";
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { RiPinDistanceFill } from "react-icons/ri";
+import { FaDog } from "react-icons/fa";
 
 const { kakao } = window;
 
@@ -104,7 +105,6 @@ const Detail = (props) => {
       polygonPath3[i] = new kakao.maps.LatLng(polygon3[i].Ma, polygon3[i].La);
     }
 
-    console.log(dott);
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
@@ -376,12 +376,8 @@ const Detail = (props) => {
 
   return (
     <>
-      {/* 헤더 */}
-      <TopWrap>
-        <TopBar>산책 정보</TopBar>
-      </TopWrap>
-
       <Wrap>
+        <TopBar>산책 정보</TopBar>
         {/* 게시물 올린 보호자의 정보 */}
         <UserWrap>
           {/* 보호자 사진, 닉네임, 나이대, 성별 */}
@@ -425,7 +421,6 @@ const Detail = (props) => {
               <div>{dogSize}</div>
               <div>{dogGender === "남" ? "남아" : "여아"}</div>
               <div>{neutral === true ? "중성화O" : "중성화X"}</div>
-              <div>{dogCo + "마리"}</div>
             </DogCategory>
           </DogWrap>
 
@@ -467,6 +462,23 @@ const Detail = (props) => {
                 <div>
                   총 {post.totalDistance}, {post.totalTime} 코스
                 </div>
+              </BoxDiv>
+            </Box>
+
+            <Box>
+              <RedIcon>
+                <FaDog
+                  style={{
+                    color: "#fff",
+                    width: "24px",
+                    height: "24px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </RedIcon>
+              <BoxDiv>
+                <Title>모집 강아지 수</Title>
+                <MeetingLocation>{dogCo + "마리"}</MeetingLocation>
               </BoxDiv>
             </Box>
 
@@ -525,9 +537,6 @@ const Detail = (props) => {
     </>
   );
 };
-const TopWrap = styled.div`
-  margin: 0 30px;
-`;
 const Wrap = styled.div`
   box-sizing: border-box;
 
@@ -536,7 +545,7 @@ const Wrap = styled.div`
   flex-direction: column;
   width: 100%;
 
-  padding: 0 30px;
+  padding: 0 5%;
 
   font-size: 14px;
   text-align: center;
@@ -639,7 +648,7 @@ const DogCategory = styled.div`
   height: 32px;
 
   div {
-    width: 21.5%;
+    width: 25%;
     height: 32px;
     /* margin: 0 10px; */
     line-height: 32px;
@@ -702,31 +711,32 @@ const MapWrap = styled.div`
 
 const FlexButton = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 90%;
+  justify-content: center;
+  width: 100%;
   height: 52px;
   margin: 30px auto 0 auto;
 
   button {
-    width: 160px;
+    width: 40%;
     height: 48px;
     background-color: #fff;
     border-radius: 14px;
     border: 1px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    margin: 0 10px;
   }
 `;
 const DeleteButton = styled.button`
   cursor: pointer;
-  width: 160px;
+  width: 25%px;
   height: 48px;
   border-radius: 10px;
   border: 1px gray;
 `;
 const EditButton = styled.button`
   cursor: pointer;
-  width: 160px;
+  width: 25%px;
   height: 48px;
   border-radius: 10px;
   border: 1px gray;

@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TopBar from "../../components/TopBar";
 import CommentList from "../../components/DogstaComment/CommentList";
 import CommentWrite from "../../components/DogstaComment/CommentWrite";
+import NavBar from "../../components/NavBar";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -27,6 +28,7 @@ const DogStaDetail = (props) => {
   const postId = props.match.params.dogPostId; // 현재 개스타그램 게시물의 아이디
   const currentPostUserId = props.match.params.userId; // 현재 게시물을 쓴 사람의 아이디
   const userId = localStorage.getItem("userId"); // 현재 로그인 한 사람의 아이디
+  const userImage = localStorage.getItem("image"); // 현재 로그인 한 사람 이미지
 
   const likeCnt = useSelector((state) => state.dogsta.likeCnt); // 게시물 좋아요 수
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
@@ -78,8 +80,8 @@ const DogStaDetail = (props) => {
           history.push(`/mypage/${post.userId}`);
         }}
       >
-          <UserImg src={post.userImage} />
-          <span>{post.userNickname}</span>
+        <UserImg src={post.userImage} />
+        <span>{post.userNickname}</span>
       </UserInfo>
 
       {/* 게시물 부분 */}
@@ -97,18 +99,18 @@ const DogStaDetail = (props) => {
               {liked ? (
                 <FavoriteIcon
                   onClick={toggleLike}
-                  sx={{ fontSize: 20 }}
+                  sx={{ fontSize: 24 }}
                   style={{
                     color: "red",
-                    verticalAlign: "bottom",
-                    marginRight: "2px",
+                    verticalAlign: "middle",
+                    marginRight: "4px",
                   }}
                 />
               ) : (
                 <FavoriteBorderIcon
                   onClick={toggleLike}
-                  sx={{ fontSize: 20 }}
-                  style={{ verticalAlign: "bottom", marginRight: "2px" }}
+                  sx={{ fontSize: 24 }}
+                  style={{ verticalAlign: "middle", marginRight: "4px" }}
                 />
               )}
               {likeCount}
@@ -117,8 +119,8 @@ const DogStaDetail = (props) => {
             {/* 댓글 */}
             <CommentCnt>
               <CommentOutlinedIcon
-                sx={{ fontSize: 20 }}
-                style={{ verticalAlign: "bottom", marginRight: "2px" }}
+                sx={{ fontSize: 24 }}
+                style={{ verticalAlign: "middle", marginRight: "4px" }}
               />
               {commentList.length}
             </CommentCnt>
@@ -126,7 +128,7 @@ const DogStaDetail = (props) => {
             {/* 현재 로그인한 유저가 작성한 게시물이 아닌 경우, 해당 게시물 유저에게 쪽지 보내기 */}
             {currentPostUserId !== userId && (
               <MailOutlineIcon
-                sx={{ fontSize: 20 }}
+                sx={{ fontSize: 24 }}
                 onClick={() => {
                   history.push(`/chatwrite/${currentPostUserId}`);
                 }}
@@ -166,15 +168,15 @@ const DogStaDetail = (props) => {
           <div>등록된 댓글이 없습니다.</div>
         )}
       </CommentWrap>
-      <CommentFix>
-      <CommentWrite userId={userId} postId={postId} />
-      </CommentFix>
+      <CommentWrite userId={userId} postId={postId} userImage={userImage} />
+
+      <NavBar add_dogsta />
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -190,7 +192,6 @@ const UserInfo = styled.div`
 const UserImg = styled.img`
   width: 48px;
   height: 48px;
-  padding: 2px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 16px;
@@ -239,6 +240,7 @@ const CommentCnt = styled.span`
 const BtnWrap = styled.div`
   display: flex;
   button {
+    font-size: 16px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -246,7 +248,7 @@ const BtnWrap = styled.div`
   span {
     font-size: 14px;
     color: #bdbdbd;
-    padding: 0 4px;
+    padding: 0 6px;
   }
 `;
 const PostDesc = styled.p``;
@@ -258,10 +260,5 @@ const CommentWrap = styled.div`
     font-size: 14px;
   }
 `;
-const CommentFix = styled.div`
-  position: fixed;
-  width: calc(100% - 60px);
-  bottom: 36px;
-`
 
 export default DogStaDetail;

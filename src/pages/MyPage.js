@@ -84,7 +84,7 @@ const MyPage = (props) => {
                 history.push("/userProfile");
               }}
             >
-              <ModeEditIcon />
+              <ModeEditIcon style={{width:"15px"}}/>
             </Edit>
           )}
         </UserInfoLeft>
@@ -93,7 +93,9 @@ const MyPage = (props) => {
         <UserRight>
           <div>
             <span style={{ fontWeight: "600" }}>{userInfo.userNickname}</span>
-            <span style={{ color: "#5F5F5F" }}>{userInfo.userLocation}</span>
+            <span style={{ color: "#5F5F5F", fontSize:"14px" }}>{userInfo.userLocation}</span>
+            <span style={{ color: "#5F5F5F", fontSize:"14px" }}>{userInfo.userGender}/{userInfo.userAge}</span>
+           
           </div>
 
           {currentPageUserId === userId ? (
@@ -107,10 +109,11 @@ const MyPage = (props) => {
                 history.push(`/chatwrite/${currentPageUserId}`);
               }}
             >
-              <MailOutlineIcon />
+              <MailOutlineIcon /><div>
               {userInfo.userNickname}님에게
               <br />
               쪽지 보내기
+              </div>
             </Message>
           )}
         </UserRight>
@@ -196,7 +199,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 20px;
+  padding: 0 5%;
 `;
 const UserInfo = styled.div`
   position: relative;
@@ -217,7 +220,7 @@ const UserInfoLeft = styled.div`
   width: 91px;
   height: 88px;
 
-  margin-right: 16px;
+ 
 `;
 const UserRight = styled.div`
   width: 100%;
@@ -242,8 +245,8 @@ const UserImg = styled.img`
 
 const Edit = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 3px;
+  right: 8px;
   cursor: pointer;
 
   display: flex;
@@ -251,8 +254,8 @@ const Edit = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
   padding: 6px;
   border-radius: 50%;
   background-color: #fff;
@@ -276,15 +279,14 @@ const LogOut = styled.button`
   color: #5f5f5f;
 `;
 const Message = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+  display:block;
   align-items: center;
 
   border: none;
   background-color: transparent;
   cursor: pointer;
-  margin-right: 20px;
+
   color: #5f5f5f;
 `;
 

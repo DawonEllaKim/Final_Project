@@ -59,16 +59,13 @@ const AllList = (props) => {
   } else {
     return (
       <div>
-        <div style={{ padding: "0 30px" }}>
+        <Wrap>
           <TopBar>
             <FaPaw
               style={{ width: "24px", height: "24px", margin: " -4px 10px" }}
             />
             <span>산책가자</span>
           </TopBar>
-        </div>
-
-        <Wrap>
           <Category>
             <button
               onClick={all}
@@ -130,7 +127,7 @@ const Wrap = styled.div`
   position: relative;
   width: 100%;
   /* margin: 0 auto; */
-  padding: 0 30px;
+  padding: 0 5%;
   box-sizing: border-box;
   /* border: 1px solid red; */
 `;
@@ -149,7 +146,7 @@ const Category = styled.div`
     box-sizing: border-box;
 
     margin: 0 5px 20px 5px;
-    padding: 0 10px;
+    padding: 0 5px;
     padding-bottom: 10px;
     background-color: transparent;
     border: none;

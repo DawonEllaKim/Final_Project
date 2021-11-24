@@ -14,6 +14,7 @@ import edit from "../image/edit.png";
 import TopBar from "../components/TopBar";
 import DogModal from "../components/DogModal";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DogSuccessModal from "../components/Modal/DogSuccessModal";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
@@ -38,6 +39,10 @@ const EditDog = (props) => {
     dog.dogComment ? dog.dogComment : ""
   );
   const [modal, setModal] = useState();
+  const [modal2, setModal2] = useState();
+
+
+  const dogModal = useSelector((state)=>state.user.dog_modal)
 
   const handleChangeFile = (e) => {
     e.preventDefault();
@@ -108,6 +113,7 @@ const EditDog = (props) => {
     setNeutral(dog.neutral);
     setDogAge(dog.dogAge);
     setDogComment(dog.dogComment);
+    setModal2(dogModal)
   }, [
     dog.dogImage,
     dog.dogName,
@@ -117,10 +123,14 @@ const EditDog = (props) => {
     dog.neutral,
     dog.dogAge,
     dog.dogComment,
+    dogModal,
   ]);
 
   return (
     <Wrap>
+      {
+        modal2? <DogSuccessModal/> : ""
+      }
       <TopBar only_left> 반려견 정보 수정</TopBar>
 
       {/* 강아지 사진 */}
@@ -381,7 +391,7 @@ const Edit = styled.div`
 `;
 const Wrap = styled.div`
   max-width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
   font-size: 14px;
   text-align: center;
 `;

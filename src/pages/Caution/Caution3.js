@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 // 리덕스
-import { history } from "../redux/configureStore";
+import { history } from "../../redux/configureStore";
 
 // 컴포넌츠
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 
 // 리액트 아이콘
-import backward from "../image/backward.png";
-import forward from "../image/forward.png";
-import caution from "../image/caution1.png";
+import backward from "../../image/backward.png";
+import forward from "../../image/forward.png";
+import caution from "../../image/caution3.png";
 
-const Caution1 = () => {
+const Caution3 = () => {
   return (
     <Wrap>
       {/* 헤더 */}
@@ -20,14 +20,14 @@ const Caution1 = () => {
         <img
           src={backward}
           onClick={() => {
-            history.push("/");
+            history.push("/caution2");
           }}
         />
-        <p>산책 시 유의할 점 1</p>
+        <p>산책 시 유의할 점 3</p>
         <img
           src={forward}
           onClick={() => {
-            history.push("/caution2");
+            history.push("/");
           }}
         />
       </Header>
@@ -39,26 +39,23 @@ const Caution1 = () => {
 
       {/* 주의 사항 */}
       <Paragraph>
-        <h3>상처가 날 수 있는 식물들을 주의해야 합니다.</h3>
+        <h3>목줄 착용은 선택이 아닌 필수입니다.</h3>
         <p>
-          가시가 있는 식품에 강아지의 몸이 쓸려 상처가 나지 않도록 주의가
-          필요해요.
+          목줄 착용은 다른 사람에게 피해를 주지 않기 위해서만 하는 것이
+          아니에요.
         </p>
         <br />
         <p>
-          독성 식물이나 식물에 제초제가 묻어있는 경우도 많으니 강아지가 풀을
-          먹지 않도록 신경 써주세요.
+          목줄착용의 가장 큰 장점은 위험한 상황에서 강아지를 컨트롤 할 수 있다는
+          것입니다.
         </p>
         <br />
         <p>
-          만약 강아지가 먹으면 안 되는 식물이나 열매를 먹어버렸다면 구토나 설사
-          등의 이상 증상이 없는지 잘 지켜봐 주셔야 해요.
+          목줄은 강아지가 갑자기 차도나 사람에게 달려드는 등의 위급한 상황에서
+          강아지를 제어할 수 있는 유일한 안전장치에요.
         </p>
         <br />
-        <p>
-          조치가 필요한 경우 빠르게 동물병원으로 내원해야하며 강아지가 먹은
-          식물을 수의사에게 알려주는 것이 좋습니다.
-        </p>
+        <p>우리 강아지를 위해서라도 목줄착용은 꼭 해주시길 부탁해요~!</p>
       </Paragraph>
 
       <NavBar />
@@ -124,4 +121,4 @@ const Paragraph = styled.div`
   }
 `;
 
-export default Caution1;
+export default Caution3;

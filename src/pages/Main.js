@@ -146,6 +146,11 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
+  const feedBack = () => {
+    window.open(
+      "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
+    );
+  };
 
   return (
     <>
@@ -153,16 +158,14 @@ const Main = (props) => {
       <TopWrap>
         <TopBarWrap>
           <TopBarButtons>
-            <TopBarBtnLeft>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link">
-                <RiFeedbackLine
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                    color: "#000",
-                  }}
-                />
-              </a>
+            <TopBarBtnLeft onClick={feedBack}>
+              <RiFeedbackLine
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  color: "#000",
+                }}
+              />
             </TopBarBtnLeft>
             <img src={MainPageLogo} style={{ height: "50px" }} />
             <TopBarBtnRight>
@@ -201,7 +204,9 @@ const Main = (props) => {
                 <img src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
                 <div>
                   <h3>1. 목줄 착용</h3>
-                  <p>목줄 착용은 <br /> 선택이 아닌 필수입니다</p>
+                  <p>
+                    목줄 착용은 <br /> 선택이 아닌 필수입니다
+                  </p>
                 </div>
               </CautionCard>
               <CautionCard
@@ -212,7 +217,11 @@ const Main = (props) => {
                 <img src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
                 <div>
                   <h3>2. 사람 주의</h3>
-                  <p>개를 무서워하는 사람들을<br/>주의 해야합니다.</p>
+                  <p>
+                    개를 무서워하는 사람들을
+                    <br />
+                    주의 해야합니다.
+                  </p>
                 </div>
               </CautionCard>
               <CautionCard
@@ -223,7 +232,11 @@ const Main = (props) => {
                 <img src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
                 <div>
                   <h3>3. 식물 주의</h3>
-                  <p>상처가 날 수 있는 식물을<br />주의해야합니다.</p>
+                  <p>
+                    상처가 날 수 있는 식물을
+                    <br />
+                    주의해야합니다.
+                  </p>
                 </div>
               </CautionCard>
             </StyledSlider>
@@ -448,7 +461,7 @@ const Main = (props) => {
 const TopBarWrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
-  padding-top: 40px;
+  padding-top: 14px;
 `;
 const TopBarEdit = styled.div`
   position: absolute;
@@ -468,53 +481,6 @@ const TopBarEdit = styled.div`
 
   border-radius: 50%;
   background-color: red;
-`;
-const Left = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-const TopBarRight = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-const Both = styled.div`
-  position: relative;
-  width: 100%;
-  height: 52px;
-  box-sizing: border-box;
-  line-height: 52px;
-  font-size: 18px;
-  font-weight: 500;
-  /* margin: 36px 0; */
-  text-align: center;
-  padding: ${(props) => props.padding};
-`;
-
-const BtnLeft = styled.button`
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: none;
-  background-color: transparent;
-  width: 52px;
-  height: 52px;
-  cursor: pointer;
 `;
 const TopBarButtons = styled.div`
   display: flex;
@@ -546,7 +512,7 @@ const TopBarBtnRight = styled.button`
 `;
 
 const TopWrap = styled.div`
-  margin: 0 30px;
+  margin: 0 5%;
 `;
 const Wrap = styled.div`
   box-sizing: border-box;
@@ -560,7 +526,7 @@ const Wrap = styled.div`
 `;
 const Slide = styled.div`
   background-color: #fff;
-  padding: 0 30px 40px 30px;
+  padding: 0 5% 40px 5%;
   box-sizing: border-box;
 `;
 const StyledSlider = styled(Slider)`
@@ -592,7 +558,7 @@ const CautionCard = styled.div`
     top: 15%;
     left: 7%; */
     width: 50%;
-    padding: 12px; 
+    padding: 12px;
     aspect-ratio: 1 / 1;
     filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
     border-radius: 14px;
@@ -606,12 +572,12 @@ const CautionCard = styled.div`
     width: 50%;
     height: 100%;
     padding: 12px;
-    float:right;
+    float: right;
   }
-  h3{
-    padding-top:12px;
+  h3 {
+    padding-top: 12px;
   }
-  p{
+  p {
     padding: 12px 0;
   }
 `;
@@ -692,7 +658,6 @@ const SubLists = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 `;
 
 const MainCardWrap = styled.div`
@@ -705,7 +670,7 @@ const MainCard = styled.div`
   position: relative;
   padding-bottom: 100%;
   overflow: hidden;
-`
+`;
 const Image = styled.img`
   width: 100%;
   height: 100%;
@@ -713,7 +678,6 @@ const Image = styled.img`
   position: absolute;
   border-radius: 5px;
 `;
-
 
 const LoginImg = styled.div`
   position: relative;
@@ -774,12 +738,12 @@ const DogstaSlide = styled(Slider)`
   }
 `;
 const Body = styled.div`
-width: 100%;
+  width: 100%;
 `;
 
 const BodyWrap = styled.div`
-width: 100%;
-  padding: 20px 30px;
+  width: 100%;
+  padding: 20px 5%;
   background-color: #fff;
   margin-bottom: 8px;
 `;

@@ -10,6 +10,7 @@ import edit from "../image/edit.png";
 import TopBar from "../components/TopBar";
 import UserModal from "../components/UserModal";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import UserSuccessModal from "../components/Modal/UserSuccessModal";
 
 const EditUser = (props) => {
   const dispatch = useDispatch();
@@ -45,7 +46,8 @@ const EditUser = (props) => {
   };
 
   const [modal, setModal] = useState();
-
+  const [modal2, setModal2] = useState();
+  const userModal = useSelector((state)=>state.user.user_modal)
   console.log(modal);
   // 뒤로가기 버튼 - 수정 취소
   const cancel = () => {
@@ -65,7 +67,8 @@ const EditUser = (props) => {
     setImgBase64(_userImage);
     setImgFile(_userImage);
     setUserLocation(_userLocation);
-  }, [_userGender, _userAge, _userImage, _userNickname]);
+    setModal2(userModal)
+  }, [_userGender, _userAge, _userImage, _userNickname,userModal]);
 
   // 수정하기 버튼 = 수정 완료
   console.log(_userAge);
@@ -80,10 +83,16 @@ const EditUser = (props) => {
     };
     dispatch(UserActions.updateUserMD(userInfo));
   };
+  
+
+
 
   return (
     <>
       <Wrap>
+        {
+          modal2? <UserSuccessModal/> : ""
+        }
         {/* 뒤로가기 버튼 + 회원정보 텍스트  */}
         <TopBar only_left>회원 정보 수정</TopBar>
 
@@ -257,7 +266,7 @@ const Edit = styled.div`
 `;
 const Wrap = styled.div`
   width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
   font-size: 14px;
   text-align: center;
 `;

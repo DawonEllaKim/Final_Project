@@ -25,7 +25,7 @@ const DogStaEdit = (props) => {
   const post = useSelector((state) => state.dogsta.eachList);
   const userId = localStorage.getItem("userId");
 
-  const [modal, setModal] = useState();
+  const [isModal, setIsModal] = useState();
 
   useEffect(() => {
     dispatch(postActions.getPostMD(currentPostUserId, postId));
@@ -52,7 +52,7 @@ const DogStaEdit = (props) => {
       <Write>
         {/* 이미지 클릭시 이미지 수정 모달창 생성 */}
         <ImageEditWrap>
-          <Modal onClick={() => setModal(true)}>
+          <Modal onClick={() => setIsModal(true)}>
             <PostImg src={post.dogPostImage} />
             <Edit>
               <ModeEditIcon />
@@ -60,9 +60,9 @@ const DogStaEdit = (props) => {
           </Modal>
         </ImageEditWrap>
 
-        {modal && (
+        {isModal && (
           <DogStarEditModal
-            setModal={setModal}
+            setIsModal={setIsModal}
             dogStarImage={post.dogPostImage}
           />
         )}
@@ -84,7 +84,7 @@ const DogStaEdit = (props) => {
 };
 
 const Wrap = styled.div`
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 
 const Write = styled.div`
@@ -100,11 +100,12 @@ const Write = styled.div`
   textarea {
     width: 100%;
     height: 100px;
+    font-size: 16px;
     padding: 12px;
     resize: none;
     scrollbar-width: none;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-    border: none;
+    border: 1px solid #bdbdbd;
     border-radius: 14px;
     &::-webkit-scrollbar {
       display: none;
@@ -130,7 +131,7 @@ const Edit = styled.div`
 
   width: 40px;
   height: 40px;
-  padding: 4px;
+  padding: 6px;
   text-align: center;
   border: 2px solid black;
   border-radius: 50%;

@@ -2,15 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 // 리덕스
-import { history } from "../redux/configureStore";
+import { history } from "../../redux/configureStore";
 
 // 컴포넌츠
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 
 // 리액트 아이콘
-import backward from "../image/backward.png";
-import forward from "../image/forward.png";
-import caution from "../image/caution2.png";
+import backward from "../../image/backward.png";
+import forward from "../../image/forward.png";
+import caution from "../../image/caution2.png";
 
 const Caution2 = () => {
   return (

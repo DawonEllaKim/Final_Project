@@ -18,9 +18,9 @@ import Weather from "./components/Weather";
 import CheckMain from "./pages/CheckMain";
 
 // 산책 유의사항
-import Caution1 from "./pages/Caution1";
-import Caution2 from "./pages/Caution2";
-import Caution3 from "./pages/Caution3";
+import Caution1 from "./pages/Caution/Caution1";
+import Caution2 from "./pages/Caution/Caution2";
+import Caution3 from "./pages/Caution/Caution3";
 
 //  산책 게시물 조회/등록/수정 페이지
 import Write from "./pages/Write";

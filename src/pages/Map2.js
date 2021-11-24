@@ -1,28 +1,25 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import "../components/react-datepicker.css";
+
+// 데이트 피커
 import DatePicker from "react-datepicker";
-import { actionCreators as PostActions } from "../redux/modules/post";
-import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
+import "../components/react-datepicker.css";
+
+// 컴포넌츠
+import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
+import ErrorModal from "../components/ErrorModal";
+import { actionCreators as PostActions } from "../redux/modules/post";
+
+// 이미지 + 아이콘
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import ErrorModal from "../components/ErrorModal";
-
-// 상단바
-import TopBar from "../components/TopBar";
-
-// 버튼 이미지
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
-import notification from "../image/Notification.png";
 import search from "../image/search.png";
-import map from "../image/map.png";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 import SuccessModal from "../components/Modal/SuccessModal";
@@ -31,25 +28,22 @@ const Map2 = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const markerName = useSelector((state) => state.marker.marker);
-
+  const moment = require("moment");
   const get_modal = useSelector((state) => state.chat.modal);
-  const [modal, setModal] = useState("");
 
-  const [startDate, setStartDate] = useState(); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
-  const [wishDesc, setWishDesc] = useState(); //desc설명
+  const [modal, setModal] = useState("");
+  const [startDate, setStartDate] = useState();
+  const [wishDesc, setWishDesc] = useState();
   const [dogCount, setDogCount] = React.useState("");
   const [is_modal, setIsModal] = useState(false);
+
   const closeModal = () => {
     setIsModal(false);
   };
-  useEffect(() => {
-    setModal(get_modal);
-  }, [get_modal]);
 
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
-  const moment = require("moment");
 
   const SubmitLocation = () => {
     const Info = {
@@ -64,6 +58,7 @@ const Map2 = (props) => {
       dogCount: dogCount,
       meetingDate: moment(startDate).add(9, "h")._d,
     };
+
     if (
       markerName.totalDistance == "" ||
       markerName.totalTime == "" ||
@@ -82,13 +77,16 @@ const Map2 = (props) => {
     }
   };
 
+  useEffect(() => {
+    setModal(get_modal);
+  }, [get_modal]);
+
   return (
     <>
       {modal ? <SuccessModal setModal={setModal} text="산책 등록 완료" /> : ""}
 
       <Wrap>
         {/* 헤더 */}
-        {/* {is_modal? <ErrorModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
         <TopBar>산책 등록</TopBar>
         {/* 산책로 */}
         <div>
@@ -149,7 +147,7 @@ const Map2 = (props) => {
           <CustomBox sx={{ minWidth: 120 }}>
             <CustomFormControl fullWidth>
               <CustomInputLabel id="demo-simple-select-label">
-                마리 수
+                모집 강아지 수
               </CustomInputLabel>
               <CustomSelect
                 labelId="demo-simple-select-label"
@@ -192,14 +190,14 @@ const Map2 = (props) => {
 const Wrap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  padding: 0 30px;
+  padding: 0 5%;
   text-align: center;
 `;
 const Calendar = styled.div`
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
+  border: 1px solid red;
 `;
-
 const CustomSelect = styled(Select)`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
@@ -210,7 +208,6 @@ const CustomInputLabel = styled(InputLabel)`
 `;
 const CustomFormControl = styled(FormControl)``;
 const CustomBox = styled(Box)``;
-
 const SearchWrap = styled.div`
   width: 100%;
   height: 45px;
@@ -219,7 +216,6 @@ const SearchWrap = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 const WalkButton = styled.button`
   cursor: pointer;
   background: #ffffff;
@@ -241,7 +237,6 @@ const WalkButton = styled.button`
     margin-left: 10px;
   }
 `;
-
 const AdressWrap = styled.div`
   width: 100%;
   height: 45px;
@@ -253,7 +248,6 @@ const AdressWrap = styled.div`
   color: #000000;
   margin: 40px 0px;
 `;
-
 const CircleDiv = styled.div`
   display: flex;
   width: 48px;
@@ -271,7 +265,6 @@ const Address = styled.div`
 const Detail = styled.div`
   padding-top: 4px;
 `;
-
 const Title = styled.div`
   box-sizing: border-box;
   height: 35px;
@@ -282,7 +275,6 @@ const Title = styled.div`
   font-weight: bold;
   margin: 30px 0;
 `;
-
 const TextArea = styled.textarea`
   width: 100%;
   height: 138px;
@@ -297,7 +289,6 @@ const TextArea = styled.textarea`
   box-sizing: border-box;
   background-color: #f9f5c2;
 `;
-
 const AddButton = styled.button`
   cursor: pointer;
   width: 164px;

@@ -9,7 +9,7 @@ import NavBar from "../../components/NavBar";
 import male from "../../image/male.png";
 import female from "../../image/female.png";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-
+import {FaPen} from "react-icons/fa"
 const InfoList = (props) => {
   const { post, userId, currentPageUserId } = props;
   const history = useHistory();
@@ -26,7 +26,7 @@ const InfoList = (props) => {
                 history.push("/dogProfile");
               }}
             >
-              <ModeEditIcon />
+              <FaPen size="60%" />
             </Edit>
           )}
         </DogImage>
@@ -88,17 +88,17 @@ const DogImage = styled.div`
 `;
 const Edit = styled.div`
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 5%;
+  right: 10%;
   cursor: pointer;
-
+  z-index:99;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
-  width: 36px;
-  height: 36px;
+  width:20%;
+  height: 20%;
   padding: 6px;
   border-radius: 50%;
   background-color: #fff;

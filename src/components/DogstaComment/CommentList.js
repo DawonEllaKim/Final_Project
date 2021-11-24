@@ -88,8 +88,11 @@ const CommentList = ({ comment }) => {
           <BtnWrap>
             {edit ? (
               <div>
-                <Edit onClick={completeEdit}>
-                  <DoneIcon sx={{ fontSize: 20 }} />
+                <Edit 
+                  onClick={completeEdit}
+                  size='80'  
+                >
+                  <DoneIcon sx={{ fontSize: 22 }} />
                 </Edit>
                 <Cancle onClick={cancleEdit}>
                   <CloseIcon sx={{ fontSize: 20 }} />
@@ -98,10 +101,10 @@ const CommentList = ({ comment }) => {
             ) : (
               <div>
                 <Edit onClick={editComment}>
-                  <ModeEditIcon sx={{ fontSize: 20 }} />
+                  <ModeEditIcon sx={{ fontSize: 22 }} />
                 </Edit>
                 <Delete onClick={delComment}>
-                  <CloseIcon sx={{ fontSize: 20 }} />
+                  <CloseIcon sx={{ fontSize: 22 }} />
                 </Delete>
               </div>
             )}
@@ -121,7 +124,7 @@ const Wrap = styled.div`
 const TextWrap = styled.div`
   display: flex;
   justify-content: left;
-  width: calc(100% - 64px);
+  width: calc(100% - 68px);
 `;
 const Left = styled.div`
   margin-right: 12px;
@@ -144,16 +147,17 @@ const Time = styled.span`
 const EditText = styled.input`
   display: block;
   width: 100%;
+  font-size: 16px;
   border: none;
   border-bottom: 1px solid #bdbdbd;
-  padding: 2px;
+  padding: 4px;
   &:focus {
     outline: none;
   }
 `;
 
 const BtnWrap = styled.div`
-  width: 50px;
+  width: 58px;
 `;
 const Edit = styled.button`
   border: none;

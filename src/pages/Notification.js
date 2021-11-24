@@ -14,6 +14,7 @@ import { actionCreators as notiActions } from "../redux/modules/notification";
 import WalkAlert from "../components/Notification/WalkAlert";
 import SubmitAlert from "../components/Notification/SubmitAlert";
 import CancelAlert from "../components/Notification/CancelAlert";
+import NavBar from "../components/NavBar";
 
 const Notification = (props) => {
   const notification = props.notification; // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄
@@ -113,15 +114,17 @@ const Notification = (props) => {
           })}
         </div>
       )}
+      <NavBar></NavBar>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 5%;
+margin: 0 auto;
 `;
 const Category = styled.div`
   display: flex;

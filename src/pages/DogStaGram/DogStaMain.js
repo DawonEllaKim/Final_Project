@@ -27,11 +27,13 @@ const DogStaMain = (props) => {
   // 최신 순 버튼을 누르면 status값을 최신 순으로 변경
   const newest = () => {
     setStatus("newest");
+    setFocus("newest");
   };
 
   // 추천 순 버튼을 누르면 status값을 추천 순으로 변경
   const mostLiked = () => {
     setStatus("mostLiked");
+    setFocus("mostLiked");
   };
 
   useEffect(() => {
@@ -201,7 +203,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-content: center;
   margin: auto;
-  padding: 0 30px;
+  padding: 0 5%;
 `;
 const NoCard = styled.div`
   display: flex;

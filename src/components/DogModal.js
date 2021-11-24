@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { useHistory } from "react-router";
 import { actionCreators as DogActions } from "../redux/modules/user";
+import Spinner from "../shared/Spinner";
 const DogModal = (props) => {
   const dispatch = useDispatch();
   const history =useHistory()
@@ -18,6 +19,8 @@ const DogModal = (props) => {
 
     const formData = new FormData();
     formData.append("dogImage", imgFile);
+      
+    setLoading(true)
     dispatch(DogActions.updateDogImageMD(formData));
   
 
@@ -45,7 +48,13 @@ const DogModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
-
+  const [loading,setLoading] = useState("")
+  if(loading)
+  {
+    return (
+      <Spinner/>
+    )
+  }
   return (
     <React.Fragment>
       <Component  />
@@ -112,7 +121,7 @@ const ModalButtonContainer = styled.div`
 `;
 const ModalSubmitBtn = styled.button`
   width: 100%;
-  background-color: #ffe812;
+  background-color: #FF5656;
   border: none;
   outline: none;
   padding: 10px 0;
