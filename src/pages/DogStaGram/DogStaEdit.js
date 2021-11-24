@@ -64,7 +64,7 @@ const DogStaEdit = (props) => {
           <DogStarEditModal
             setIsModal={setIsModal}
             dogStarImage={post.dogPostImage}
-            dogPostId = {post.dogPostId}
+            dogPostId={post.dogPostId}
           />
         )}
 
@@ -108,6 +108,8 @@ const Write = styled.div`
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     border: 1px solid #bdbdbd;
     border-radius: 14px;
+    font-family: "Noto Sans KR", sans-serif;
+
     &::-webkit-scrollbar {
       display: none;
     }

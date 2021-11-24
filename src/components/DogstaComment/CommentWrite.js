@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { history } from "../../redux/configureStore";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
@@ -9,15 +10,15 @@ const CommentWrite = (props) => {
   const userNickname = localStorage.getItem("userNickname");
   const [commentDesc, setCommentDesc] = useState("");
   // 댓글이 비었으면 경고문구
-  const [alertComment, setAlertComment] = useState('');
+  const [alertComment, setAlertComment] = useState("");
 
   const commentChange = (e) => {
     setCommentDesc(e.target.value);
   };
 
   const addComment = () => {
-    if(commentDesc == ''){
-      setAlertComment('댓글이 입력되지 않았습니다');
+    if (commentDesc == "") {
+      setAlertComment("댓글이 입력되지 않았습니다");
       return;
     }
     const comment = {
@@ -27,23 +28,28 @@ const CommentWrite = (props) => {
       userId,
     };
     dispatch(commentActions.addCommentMD(postId, comment));
-    setCommentDesc('');
-    setAlertComment('');
+    setCommentDesc("");
+    setAlertComment("");
   };
 
   return (
     <div>
       <Wrap>
         <WriteWrap>
-        <UserImage src={userImage}/>
-        <CommentInput
-          placeholder="댓글을 입력하세요"
-          onChange={commentChange}
-          value={commentDesc}
-        ></CommentInput>
-        <CommentAdd onClick={addComment}>등록</CommentAdd>
-      </WriteWrap>
-      <Alert>{alertComment?alertComment: ''}</Alert>
+          <UserImage
+            src={userImage}
+            onClick={() => {
+              history.push(`/mypage/${userId}`);
+            }}
+          />
+          <CommentInput
+            placeholder="댓글을 입력하세요"
+            onChange={commentChange}
+            value={commentDesc}
+          ></CommentInput>
+          <CommentAdd onClick={addComment}>등록</CommentAdd>
+        </WriteWrap>
+        <Alert>{alertComment ? alertComment : ""}</Alert>
       </Wrap>
     </div>
   );
@@ -56,14 +62,15 @@ const WriteWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-`
+`;
 const UserImage = styled.img`
   width: 48px;
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 12px;
-`
+  cursor: pointer;
+`;
 const CommentInput = styled.input`
   display: block;
   width: 100%;
@@ -81,7 +88,7 @@ const CommentAdd = styled.button`
   top: 14px;
   right: 20px;
   border: none;
-  background-color:transparent;
+  background-color: transparent;
   color: #ff5656;
   font-size: 18px;
   font-weight: 600;
@@ -93,6 +100,6 @@ const Alert = styled.div`
   color: #ff5656;
   font-size: 14px;
   margin-top: 4px;
-`
+`;
 
 export default CommentWrite;

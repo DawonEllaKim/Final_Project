@@ -39,9 +39,9 @@ const DogStaDetail = (props) => {
   // 좋아요 여부, 좋야요 갯수
   const [liked, setLiked] = useState(Boolean);
   const [likeCount, setLikeCount] = useState();
-   
-  const [modal,setModal] = useState();
-  const [loading,setLoading] = useState();
+
+  const [modal, setModal] = useState();
+  const [loading, setLoading] = useState();
   const toggleLike = () => {
     if (liked === true) {
       setLiked(false);
@@ -64,7 +64,7 @@ const DogStaDetail = (props) => {
     setLoading(true);
     dispatch(dogstaActions.deletePostMD(postId)); // 삭제하기 함수
   };
-  const getModal = useSelector((state)=>state.dogsta.modal)
+  const getModal = useSelector((state) => state.dogsta.modal);
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
@@ -72,21 +72,16 @@ const DogStaDetail = (props) => {
     dispatch(commentActions.getCommentMD(postId));
     setLiked(myLike);
     setLikeCount(likeCnt);
-    setModal(getModal)
-  }, [myLike, likeCnt, postId,getModal]);
- 
-  if(loading)
-  {
-    return (
-      <Spinner/>
-    )
+    setModal(getModal);
+  }, [myLike, likeCnt, postId, getModal]);
+
+  if (loading) {
+    return <Spinner />;
   }
 
   return (
     <Wrap>
-      {
-        modal?<SuccessModal text="게시글 삭제완료!"/>:""
-      }
+      {modal ? <SuccessModal text="게시글 삭제완료!" /> : ""}
       {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
       <TopBar>{post.userNickname}님의 게시물</TopBar>
 

@@ -132,6 +132,8 @@ const Input = styled.div`
     width: 100%;
     height: 25vh;
     border: none;
+    font-family: "Noto Sans KR", sans-serif;
+
     &:focus {
       outline: none;
     }

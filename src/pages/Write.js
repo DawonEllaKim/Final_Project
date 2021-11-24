@@ -165,7 +165,9 @@ const Location = styled.div``;
 const Date = styled.div``;
 const Count = styled.div``;
 const Desc = styled.div``;
-const Textarea = styled.textarea``;
+const Textarea = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
+`;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;

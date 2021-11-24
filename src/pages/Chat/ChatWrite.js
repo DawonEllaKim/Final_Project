@@ -54,7 +54,9 @@ const ChatWrite = (props) => {
           onChange={messageChange}
         />
       </Input>
-      <SendBtn onClick={sendChat}>쪽지하기</SendBtn>
+      <SendBtn onClick={sendChat}>
+        <button>쪽지하기</button>
+      </SendBtn>
     </Wrap>
   );
 };
@@ -98,6 +100,8 @@ const Input = styled.div`
     height: 100%;
     border: none;
     font-size: 16px;
+    font-family: "Noto Sans KR", sans-serif;
+
     &:focus {
       outline: none;
     }
@@ -111,14 +115,20 @@ const Input = styled.div`
 const SendBtn = styled.div`
   display: flex;
   justify-content: center;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid lightGray;
-  width: 30%;
-  height: 2.5em;
-  align-items: center;
-  border-radius: 15px;
-  margin: 30px auto;
-  cursor: pointer;
+  width: 100%;
+  height: 52px;
+  margin: 30px auto 0 auto;
+
+  button {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    width: 40%;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 1px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
 `;
 
 export default ChatWrite;
