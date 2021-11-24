@@ -78,8 +78,8 @@ const DogStaDetail = (props) => {
           history.push(`/mypage/${post.userId}`);
         }}
       >
-          <UserImg src={post.userImage} />
-          <span>{post.userNickname}</span>
+        <UserImg src={post.userImage} />
+        <span>{post.userNickname}</span>
       </UserInfo>
 
       {/* 게시물 부분 */}
@@ -167,7 +167,7 @@ const DogStaDetail = (props) => {
         )}
       </CommentWrap>
       <CommentFix>
-      <CommentWrite userId={userId} postId={postId} />
+        <CommentWrite userId={userId} postId={postId} />
       </CommentFix>
     </Wrap>
   );
@@ -262,6 +262,6 @@ const CommentFix = styled.div`
   position: fixed;
   width: calc(100% - 60px);
   bottom: 36px;
-`
+`;
 
 export default DogStaDetail;

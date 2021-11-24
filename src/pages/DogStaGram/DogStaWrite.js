@@ -1,19 +1,20 @@
 // DogStaWrite.js - 개스타그램 게시물 작성 페이지
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import SuccessModal from "../../components/Modal/SuccessModal";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
-import defaultImage from '../../image/defaultImage.png'
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import defaultImage from "../../image/defaultImage.png";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +24,12 @@ const DogStaWrite = (props) => {
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
 
+  const get_modal = useSelector((state) => state.chat.modal);
+  const [modal, setModal] = useState("");
+
+  useEffect(() => {
+    setModal(get_modal);
+  }, [get_modal]);
   // 이미지 파일
   const imageChange = (e) => {
     e.preventDefault();
@@ -57,11 +64,19 @@ const DogStaWrite = (props) => {
     formData.append("dogPostDesc", dogPostDesc);
 
     history.goBack();
+    setModal(true);
+
     dispatch(dogstaActions.addPostMD(formData));
   };
 
   return (
     <Wrap>
+      {modal ? (
+        <SuccessModal setModal={setModal} text="게시물 등록 완료" />
+      ) : (
+        ""
+      )}
+
       <TopBar>게시글 작성</TopBar>
 
       {/* 게시물 작성 부분 */}
@@ -69,8 +84,12 @@ const DogStaWrite = (props) => {
         <div>
           <img src={imgBase64} />
           <label for="input-file">
-            <UploadFileIcon 
-              style={{color:'#ff5656', verticalAlign:'bottom',marginRight:'4px'}}
+            <UploadFileIcon
+              style={{
+                color: "#ff5656",
+                verticalAlign: "bottom",
+                marginRight: "4px",
+              }}
             />
             이미지 업로드
           </label>
@@ -154,7 +173,7 @@ const Write = styled.div`
 `;
 const FlexButton = styled.div`
   width: 100%;
-  text-align:center ;
+  text-align: center;
   margin: 30px auto;
 `;
 const AddBtn = styled.button`

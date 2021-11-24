@@ -25,7 +25,7 @@ const DogStaEdit = (props) => {
   const post = useSelector((state) => state.dogsta.eachList);
   const userId = localStorage.getItem("userId");
 
-  const [modal, setModal] = useState();
+  const [isModal, setIsModal] = useState();
 
   useEffect(() => {
     dispatch(postActions.getPostMD(currentPostUserId, postId));
@@ -52,7 +52,7 @@ const DogStaEdit = (props) => {
       <Write>
         {/* 이미지 클릭시 이미지 수정 모달창 생성 */}
         <ImageEditWrap>
-          <Modal onClick={() => setModal(true)}>
+          <Modal onClick={() => setIsModal(true)}>
             <PostImg src={post.dogPostImage} />
             <Edit>
               <ModeEditIcon />
@@ -60,9 +60,9 @@ const DogStaEdit = (props) => {
           </Modal>
         </ImageEditWrap>
 
-        {modal && (
+        {isModal && (
           <DogStarEditModal
-            setModal={setModal}
+            setIsModal={setIsModal}
             dogStarImage={post.dogPostImage}
           />
         )}
