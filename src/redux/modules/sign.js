@@ -40,7 +40,12 @@ const initialState = {
   user_modal: "",
   dog_modal: "",
 };
-
+const modalMD = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(getModal(false));
+    history.push("/check");
+  };
+};
 const signDupAPI = (userEmail) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -261,4 +266,5 @@ export const actionCreators = {
   checkDogAPI,
   getIdAPI,
   getAlert,
+  modalMD,
 };
