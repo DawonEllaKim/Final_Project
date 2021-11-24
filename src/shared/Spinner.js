@@ -6,7 +6,7 @@ const Spinner = () => {
   return (
     <Wrap>
       <img src={spinner} />
-      <h4>로딩중입니다...</h4>
+      <h4>로딩중입니다.</h4>
     </Wrap>
   );
 };

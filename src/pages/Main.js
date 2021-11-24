@@ -10,16 +10,12 @@ import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
-// import MainCard from "../components/MainCard";
 import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
-// import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 이미지
-// import logo from "../image/loginLogo.png";
 import LoginLogoImg from "../image/Login.png";
-// import loginText from "../image/loginText.png";
 import Hangang from "../image/Hangang.jpeg";
 import Seoul from "../image/Seoul.png";
 import Banpo from "../image/Banpo.jpeg";
@@ -81,7 +77,7 @@ const Main = (props) => {
   const [banpoDogName, setBanpoDogName] = useState();
   const [banpoTime, setBanpoTime] = useState();
   const [banpoLocation, setBanpoLocation] = useState("");
-
+  console.log(seoulTime);
   // 날씨 + 주의사항 슬라이드 세팅
   const topSettings = {
     dots: true,
@@ -146,6 +142,7 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
+
   const feedBack = () => {
     window.open(
       "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
@@ -284,7 +281,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/olympic`);
+                  }
                 }}
               >
                 <PartImg src={olympicImage} />
@@ -295,10 +296,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{olympicTitle}</div>
                     <p>{olympicDogName}</p>
-                    <span>
-                      {olympicTime}
-                      {olympicLocation}
-                    </span>
+                    {olympicTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{olympicTime + "  |  " + olympicLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>
@@ -346,7 +348,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/seoul`);
+                  }
                 }}
               >
                 <PartImg src={seoulImage} />
@@ -357,10 +363,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{seoulTitle}</div>
                     <p>{seoulDogName}</p>
-                    <span>
-                      {seoulTime}
-                      {seoulLocation}
-                    </span>
+                    {seoulTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{seoulTime + "  |  " + seoulLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>
@@ -408,7 +415,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/banpo`);
+                  }
                 }}
               >
                 <PartImg src={banpoImage} />
@@ -419,10 +430,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{banpoTitle}</div>
                     <p>{banpoDogName}</p>
-                    <span>
-                      {banpoTime}
-                      {banpoLocation}
-                    </span>
+                    {banpoTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{banpoTime + "  |  " + banpoLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>

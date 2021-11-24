@@ -910,7 +910,7 @@ const MapPractice = React.memo(() => {
 const MapWrap = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 0 30px;
+  padding: 0 5%;
   margin: 0 auto;
 `;
 const Flex2 = styled.div`
@@ -971,11 +971,12 @@ const Crap = styled.div`
   width: 100%;
 `;
 const Wrap = styled.div`
-  width: 100%;
-  height: 500px;
+  width: 90%;
+  height: 350px;
   box-sizing: border-box;
   border-radius: 20px;
   margin-top: 10px;
+  margin: 10px auto;
 `;
 const AdressWrap = styled.div`
   width: 100%;
