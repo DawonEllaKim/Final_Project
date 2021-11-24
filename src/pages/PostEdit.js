@@ -9,33 +9,24 @@ import reactDom from "react-dom";
 const Write = (props) => {
   const dispatch = useDispatch();
   const postId = props.match.params.id;
-  console.log(postId);
+
   const update_post = useSelector((state) => state.post.list);
 
   const updatePost = update_post.filter(
     (updatePost) => updatePost.id === Number(postId)
   )[0];
-  console.log(updatePost);
-  // console.log(updatePost[0].locationCategory)
-
-  // useEffect(() => {
-  //   const a = dispatch(postActions.getUpdatePostMD(postId))
-
-  // },[])
 
   const [location, setLocation] = useState(updatePost.locationCategory);
 
   const locationChange = (e) => {
     if (e.target.value) {
-      console.log(e.target.value);
       setLocation(e.target.value);
     } else setLocation(updatePost.locationCategory);
   };
-  console.log(location);
+
   const [meetingDate, setMeetingDate] = useState(updatePost.meetingDate);
   const dateChange = (e) => {
     if (e.target.value) {
-      console.log(e.target.value);
       setMeetingDate(e.target.value);
     } else setMeetingDate(updatePost.meetingDate);
   };
@@ -43,7 +34,6 @@ const Write = (props) => {
   const [meetingTime, setMeetingTime] = useState(updatePost.meetingTime);
   const timeChange = (e) => {
     if (e.target.value) {
-      console.log(e.target.value);
       setMeetingTime(e.target.value);
     } else setMeetingTime(updatePost.meetingTime);
   };
@@ -51,13 +41,11 @@ const Write = (props) => {
   const [dogCount, setDogCount] = useState(updatePost.dogCount);
   const countChange = (e) => {
     if (e.target.value) {
-      console.log(e.target.value);
       setDogCount(e.target.value);
     } else setDogCount(updatePost.dogCount);
   };
   const [wishDesc, setWishDesc] = useState(updatePost.wishDesc);
   const descChange = (e) => {
-    console.log(e.target.value);
     setWishDesc(e.target.value);
     // else
     // setWishDesc(updatePost.wishDesc)
@@ -72,7 +60,6 @@ const Write = (props) => {
       wishDesc: wishDesc,
     };
 
-    console.log(post);
     dispatch(postActions.updatePostMD(postId, post));
   };
 
@@ -185,7 +172,9 @@ const Location = styled.div``;
 const Date = styled.div``;
 const Count = styled.div``;
 const Desc = styled.div``;
-const Textarea = styled.textarea``;
+const Textarea = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
+`;
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;

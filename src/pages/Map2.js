@@ -67,6 +67,7 @@ const Map2 = (props) => {
       markerName.startLocationAddress == "" ||
       markerName.endLocationAddress == "" ||
       markerName.locationCategory == "" ||
+      wishDesc == undefined ||
       wishDesc == "" ||
       dogCount == ""
     ) {
@@ -79,7 +80,7 @@ const Map2 = (props) => {
 
   useEffect(() => {
     setModal(get_modal);
-  }, [get_modal]);
+  }, []);
 
   return (
     <>
@@ -275,6 +276,7 @@ const Title = styled.div`
   margin: 30px 0;
 `;
 const TextArea = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 138px;
   font-size: 14px;

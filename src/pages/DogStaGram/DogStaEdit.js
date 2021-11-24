@@ -8,11 +8,12 @@ import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 
 // 리덕스
-import { actionCreators as postActions } from "../../redux/modules/dogsta";
+import dogsta, { actionCreators as postActions } from "../../redux/modules/dogsta";
 import DogStarEditModal from "../../components/DogStarEditModal";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import SuccessModal from "../../components/Modal/SuccessModal";
 
 const DogStaEdit = (props) => {
   const dispatch = useDispatch();
@@ -24,13 +25,14 @@ const DogStaEdit = (props) => {
   const currentPostUserId = props.match.params.userId;
   const post = useSelector((state) => state.dogsta.eachList);
   const userId = localStorage.getItem("userId");
-
+  const getModal = useSelector((state)=>state.dogsta.modal)
   const [isModal, setIsModal] = useState();
-
+  const  [modal,setModal] = useState();
   useEffect(() => {
     dispatch(postActions.getPostMD(currentPostUserId, postId));
     setDogPostDesc(post.dogPostDesc);
-  }, [post.dogPostImage, post.dogPostDesc]);
+    setModal(getModal)
+  }, [post.dogPostImage, post.dogPostDesc,getModal]);
 
   const dogPostDescChange = (e) => {
     setDogPostDesc(e.target.value);
@@ -41,11 +43,14 @@ const DogStaEdit = (props) => {
       dogPostDesc,
     };
     dispatch(postActions.editPostMD(postId, Info));
-    history.push(`/dogStaDetail/${userId}/${postId}`);
+   
   };
 
   return (
     <Wrap>
+      {
+        modal? <SuccessModal text={"게시글이 수정되었습니다"} /> : ""
+      }
       <TopBar>게시물 수정</TopBar>
 
       {/* 게시물 작성 부분 */}
@@ -64,7 +69,7 @@ const DogStaEdit = (props) => {
           <DogStarEditModal
             setIsModal={setIsModal}
             dogStarImage={post.dogPostImage}
-            dogPostId = {post.dogPostId}
+            dogPostId={post.dogPostId}
           />
         )}
 
@@ -108,6 +113,8 @@ const Write = styled.div`
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     border: 1px solid #bdbdbd;
     border-radius: 14px;
+    font-family: "Noto Sans KR", sans-serif;
+
     &::-webkit-scrollbar {
       display: none;
     }

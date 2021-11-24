@@ -10,10 +10,8 @@ import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
-// import MainCard from "../components/MainCard";
 import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
-// import TopBar from "../components/TopBar";
 import Spinner from "../shared/Spinner";
 
 // 이미지
@@ -74,7 +72,7 @@ const Main = (props) => {
   const [banpoDogName, setBanpoDogName] = useState();
   const [banpoTime, setBanpoTime] = useState();
   const [banpoLocation, setBanpoLocation] = useState("");
-
+  console.log(seoulTime);
   // 날씨 + 주의사항 슬라이드 세팅
   const topSettings = {
     dots: true,
@@ -82,7 +80,7 @@ const Main = (props) => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
   };
@@ -139,6 +137,7 @@ const Main = (props) => {
   if (is_loading) {
     return <Spinner />;
   }
+
   const feedBack = () => {
     window.open(
       "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
@@ -185,7 +184,10 @@ const Main = (props) => {
           {!userId ? (
             <StyledSlider {...topSettings}>
               <LogoWrap>
-              <Logo src={LoginLogoImg} onClick={() => history.push("/login")} />
+                <Logo
+                  src={LoginLogoImg}
+                  onClick={() => history.push("/login")}
+                />
               </LogoWrap>
             </StyledSlider>
           ) : (
@@ -201,9 +203,7 @@ const Main = (props) => {
                 </ImageWrap>
                 <CautionInfo>
                   <span>1. 목줄 착용</span>
-                  <p>
-                    목줄 착용은 선택이 아닌 필수입니다
-                  </p>
+                  <p>목줄 착용은 선택이 아닌 필수입니다</p>
                 </CautionInfo>
               </CautionCard>
               <CautionCard
@@ -216,9 +216,7 @@ const Main = (props) => {
                 </ImageWrap>
                 <CautionInfo>
                   <span>2. 사람 주의</span>
-                  <p>
-                    개를 무서워하는 사람들을 주의 해야합니다.
-                  </p>
+                  <p>개를 무서워하는 사람들을 주의 해야합니다.</p>
                 </CautionInfo>
               </CautionCard>
               <CautionCard
@@ -231,9 +229,7 @@ const Main = (props) => {
                 </ImageWrap>
                 <CautionInfo>
                   <span>3. 식물 주의</span>
-                  <p>
-                    상처가 날 수 있는 식물을 주의해야합니다.
-                  </p>
+                  <p>상처가 날 수 있는 식물을 주의해야합니다.</p>
                 </CautionInfo>
               </CautionCard>
             </StyledSlider>
@@ -281,7 +277,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/olympic`);
+                  }
                 }}
               >
                 <PartImg src={olympicImage} />
@@ -292,10 +292,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{olympicTitle}</div>
                     <p>{olympicDogName}</p>
-                    <span>
-                      {olympicTime}
-                      {olympicLocation}
-                    </span>
+                    {olympicTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{olympicTime + "  |  " + olympicLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>
@@ -343,7 +344,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/seoul`);
+                  }
                 }}
               >
                 <PartImg src={seoulImage} />
@@ -354,10 +359,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{seoulTitle}</div>
                     <p>{seoulDogName}</p>
-                    <span>
-                      {seoulTime}
-                      {seoulLocation}
-                    </span>
+                    {seoulTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{seoulTime + "  |  " + seoulLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>
@@ -405,7 +411,11 @@ const Main = (props) => {
             <WholeCardWrap>
               <Part
                 onClick={() => {
-                  history.push(`/posts/${postId}`);
+                  {
+                    postId
+                      ? history.push(`/posts/${postId}`)
+                      : history.push(`/alllist/banpo`);
+                  }
                 }}
               >
                 <PartImg src={banpoImage} />
@@ -416,10 +426,11 @@ const Main = (props) => {
                   <CardText>
                     <div>{banpoTitle}</div>
                     <p>{banpoDogName}</p>
-                    <span>
-                      {banpoTime}
-                      {banpoLocation}
-                    </span>
+                    {banpoTime === undefined ? (
+                      ""
+                    ) : (
+                      <span>{banpoTime + "  |  " + banpoLocation}</span>
+                    )}
                   </CardText>
                 </CardTextHere>
               </Part>
@@ -519,7 +530,7 @@ const Wrap = styled.div`
   width: 100%;
   background-color: #c4c4c4;
   position: relative;
-  margin-bottom: -40px;
+  margin-bottom: -50px;
 `;
 const Slide = styled.div`
   background-color: #fff;
@@ -534,8 +545,7 @@ const StyledSlider = styled(Slider)`
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 `;
-const LogoWrap = styled.div`
-`
+const LogoWrap = styled.div``;
 const Logo = styled.img`
   width: 50%;
   margin: 30px auto;
@@ -549,10 +559,10 @@ const CautionCard = styled.div`
   top: 50%;
   transform: translateY(-50%); */
   padding: 12px;
-  &::after{
-    content:'';
+  &::after {
+    content: "";
     display: block;
-    clear:both;
+    clear: both;
   }
   span {
     /* font-size: 18px; */
@@ -576,21 +586,21 @@ const ImageWrap = styled.div`
 `;
 
 const CautionImage = styled.img`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    /* filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25)); */
-    border-radius: 14px;
-    object-fit: cover;
-`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  /* filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25)); */
+  border-radius: 14px;
+  object-fit: cover;
+`;
 const CautionInfo = styled.div`
-    /* width: 50%;
+  /* width: 50%;
     height: 100%;
     padding: 12px; */
-    float:left;
-    width: 60%;
-    padding-left: 16px;
-`
+  float: left;
+  width: 60%;
+  padding-left: 16px;
+`;
 
 const WholeCardWrap = styled.div`
   width: 100%;

@@ -9,7 +9,7 @@ import NavBar from "../../components/NavBar";
 import male from "../../image/male.png";
 import female from "../../image/female.png";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import {FaPen} from "react-icons/fa"
+import { FaPen } from "react-icons/fa";
 const InfoList = (props) => {
   const { post, userId, currentPageUserId } = props;
   const history = useHistory();
@@ -44,20 +44,20 @@ const InfoList = (props) => {
             </DogGender>
             <DogName>{post.dogName}</DogName>
           </CardTop>
-        {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
-        <CardBottom>
-          <div>나이 : {post.dogAge}</div>
-          <div>견종 : {post.dogBreed}</div>
-          <div>크기 : {post.dogSize}</div>
-          <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
-        </CardBottom>
-      </CardInfo>
-    </CardWrap>
-    <DogInfo>
-      <Title>강아지 한 줄 소개</Title>
-      <div>{post.dogComment}</div>
-    </DogInfo>
-    <NavBar add_dogsta/>
+          {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
+          <CardBottom>
+            <div>나이 : {post.dogAge}</div>
+            <div>견종 : {post.dogBreed}</div>
+            <div>크기 : {post.dogSize}</div>
+            <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
+          </CardBottom>
+        </CardInfo>
+      </CardWrap>
+      <DogInfo>
+        <Title>강아지 한 줄 소개</Title>
+        <div>{post.dogComment}</div>
+      </DogInfo>
+      <NavBar add_dogsta />
     </Wrap>
   );
 };
@@ -91,13 +91,13 @@ const Edit = styled.div`
   bottom: 5%;
   right: 10%;
   cursor: pointer;
-  z-index:99;
+  z-index: 99;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
-  width:20%;
+  width: 20%;
   height: 20%;
   padding: 6px;
   border-radius: 50%;

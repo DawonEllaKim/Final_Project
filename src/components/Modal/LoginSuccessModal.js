@@ -4,7 +4,7 @@ import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png"
-
+import { actionCreators as signActions} from "../../redux/modules/sign";
 const LoginSuccessModal = (props) => {
   const dispatch = useDispatch();
   const history= useHistory();
@@ -13,8 +13,9 @@ const LoginSuccessModal = (props) => {
   };
 
   return (
-    <div  onClick={()=>{props.setModal(false)
-      history.push("/check")}}>
+    <div  onClick={()=>{
+      dispatch(signActions.modalMD())
+    }}>
       <Component />
 
       <ModalComponent >

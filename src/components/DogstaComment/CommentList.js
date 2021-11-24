@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // 리덕스
 import { actionCreators as commentActions } from "../../redux/modules/comment";
+import { history } from "../../redux/configureStore";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -21,11 +22,11 @@ const CommentList = ({ comment }) => {
   const desc = comment.commentDesc;
   const time = comment.AGOTIME;
   const dogPostId = comment.dogPostId;
+  const commentUserId = comment.userId;
 
   // 댓글 수정
   const editComment = () => {
     setEdit(true);
-    console.log(commentId);
   };
 
   const commentChangeHandler = (e) => {
@@ -60,7 +61,13 @@ const CommentList = ({ comment }) => {
       <Wrap>
         <TextWrap>
           <Left>
-            <User>{userNickname}</User>
+            <User
+              onClick={() => {
+                history.push(`/mypage/${commentUserId}`);
+              }}
+            >
+              {userNickname}
+            </User>
           </Left>
           <Right>
             {/* 댓글 수정시 input창으로 바뀜 */}
@@ -88,10 +95,7 @@ const CommentList = ({ comment }) => {
           <BtnWrap>
             {edit ? (
               <div>
-                <Edit 
-                  onClick={completeEdit}
-                  size='80'  
-                >
+                <Edit onClick={completeEdit} size="80">
                   <DoneIcon sx={{ fontSize: 22 }} />
                 </Edit>
                 <Cancle onClick={cancleEdit}>
@@ -131,6 +135,7 @@ const Left = styled.div`
 `;
 const User = styled.span`
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Right = styled.div`

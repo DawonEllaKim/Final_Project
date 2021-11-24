@@ -40,7 +40,7 @@ const initialState = {
   likeCnt: [],
   likeExist: false,
   likeList: [],
-  modal:"",
+  modal:false,
 };
 const modalMD = () => {
   return function (dispatch, getState, { history }) {
@@ -165,7 +165,8 @@ const editPostMD = (postId, post) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        window.alert("게시물이 수정되었습니다");
+        dispatch(getModal(true))
+       
         console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {

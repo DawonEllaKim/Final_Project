@@ -7,11 +7,11 @@ import DatePicker from "react-datepicker";
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+// import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Button from "../elements/Button";
 import backward from "../image/backward.png";
 import notification from "../image/Notification.png";
@@ -19,67 +19,73 @@ import search from "../image/search.png";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 import NavBar from "../components/NavBar";
+import TopBar from "../components/TopBar";
+import { BsCalendarCheck } from "react-icons/bs";
+import { BiEditAlt } from "react-icons/bi";
+import { RiPinDistanceFill } from "react-icons/ri";
+import { FaDog } from "react-icons/fa";
+
 const MapEdit = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-
   const post = useSelector((state) => state.post.list);
-  const count = post.dogCount
-  const wish = post.wishDesc
-  const moment = require('moment');
+  const count = post.dogCount;
+  const wish = post.wishDesc;
+  const moment = require("moment");
+  console.log(post);
 
   // const meetingdate = useSelector((state) => state.post.list);
   // console.log(meetingdate)
-  const newDate = localStorage.getItem("date")
-  const newCount = localStorage.getItem("dogCount")
-  console.log(newDate)
+  const newDate = localStorage.getItem("date");
+  const newCount = localStorage.getItem("dogCount");
 
-  const [startDate, setStartDate] = useState(new Date(moment(newDate).subtract(9,'h')._d)); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
-  console.log(new Date(startDate))
+  const [startDate, setStartDate] = useState(
+    new Date(moment(newDate).subtract(9, "h")._d)
+  ); //받는 날짜 날짜 시간으로 받는 것이 아직 안 되어있음
+
   const [wishDesc, setWishDesc] = useState(); //desc설명
   const [dogCount, setDogCount] = useState(newCount);
- 
+
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
-    setWishDesc(wish)
-    setDogCount(Number(count))
-  }, [wish,count]);
+    setWishDesc(wish);
+    setDogCount(Number(count));
+  }, [wish, count]);
 
   const postId = props.match.params.id;
-   
-  const locationCategory =post.locationCategory
-  const routeName = post.routeName
-  console.log(post);
+
+  const locationCategory = post.locationCategory;
+  const routeName = post.routeName;
 
   let markerName = useSelector((state) => state.marker.marker);
-  console.log(markerName)
 
   const handleChange = (event) => {
     setDogCount(event.target.value);
   };
 
-  console.log(dogCount)
+  const changedDate = moment(startDate, "YYYY.MM.DD").format("YYYY.MM.DD");
+  const changedTime = moment(startDate, "hh:mm").format("hh:mm");
 
   const editLocationCategory = markerName.locationCategory
     ? markerName.locationCategory
     : post.locationCategory;
-    const editTotalDistance = markerName.totalDistance
+  const editTotalDistance = markerName.totalDistance
     ? markerName.totalDistance
     : post.totalDistance;
-    const editTotalTime = markerName.totalTime
+  const editTotalTime = markerName.totalTime
     ? markerName.totalTime
     : post.totalTime;
-    const editRouteColor = markerName.routeColor
+  const editRouteColor = markerName.routeColor
     ? markerName.routeColor
     : post.routeColor;
-    const editRouteName = markerName.routeName
+  const editRouteName = markerName.routeName
     ? markerName.routeName
     : post.routeName;
-    const editStartLocationAddress = markerName.startLocationAddress
+  const editStartLocationAddress = markerName.startLocationAddress
     ? markerName.startLocationAddress
     : post.startLocationAddress;
-    const editEndLocationAddress = markerName.endLocationAddress
+  const editEndLocationAddress = markerName.endLocationAddress
     ? markerName.endLocationAddress
     : post.endLocationAddress;
 
@@ -93,9 +99,8 @@ const MapEdit = (props) => {
     editLocationCategory
   );
 
-
   const dateHandler = (date) => {
- setStartDate(date)
+    setStartDate(date);
   };
   const wishHandler = (e) => {
     setWishDesc(e.target.value);
@@ -103,164 +108,203 @@ const MapEdit = (props) => {
   };
   //지도 표시할 div
   console.log(post.mapedit_date);
-  console.log(moment(startDate).subtract(9,'hours')._d);
-  
-  const editLocation = () => {
+  console.log(moment(startDate).subtract(9, "hours")._d);
 
+  const editLocation = () => {
     const Info = {
-      
-     totalDistance: editTotalDistance,
-     totalTime: editTotalTime,
-     routeColor :editRouteColor,
-     routeName : editRouteName,
-     startLocationAddress: editStartLocationAddress,
-     endLocationAddress: editEndLocationAddress,
+      totalDistance: editTotalDistance,
+      totalTime: editTotalTime,
+      routeColor: editRouteColor,
+      routeName: editRouteName,
+      startLocationAddress: editStartLocationAddress,
+      endLocationAddress: editEndLocationAddress,
       locationCategory: editLocationCategory,
       wishDesc: wishDesc,
-      meetingDate: moment(startDate).add(9,'h')._d,
+      meetingDate: moment(startDate).add(9, "h")._d,
       completed: false,
       dogCount: dogCount,
     };
-    console.log(Info)
+    console.log(Info);
     dispatch(PostActions.updatePostMD(postId, Info));
   };
 
   return (
-    <Frame>
+    <Wrap>
       {/* {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} /> : null } */}
-      <InputArea>
-      <TopWrap>
-          <Button _onClick={() => history.goBack()}>
-            <img src={backward} style={{ width: "10px", height: "18px" }} />
-          </Button>
-          <TopTitle>산책등록</TopTitle>
-          <Button>
-            <img src={notification} style={{ width: "24px", height: "24px" }} />
-          </Button>
-        </TopWrap>
 
-        <SearchWrap>
-          <WalkButton
-            onClick={() => {
-              history.push(`/editMapContainer3/${postId}`);
-            }}
-          >
-            <img src={search} style={{ marginLeft: "4px" }} />
-            <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
-          </WalkButton>
-        </SearchWrap>
+      <TopBar>산책 수정</TopBar>
 
-        <div>
-        <AdressWrap>
-          <CircleDiv>
-            <img src={detailAddress} />
-          </CircleDiv>
-          <Address>
-       
-            <Detail>{markerName.locationCategory?markerName.locationCategory:post.locationCategory}</Detail>
-            <Detail>{markerName.routeName?markerName.routeName:post.routeName}</Detail>
-          </Address>
-        </AdressWrap>
-
-        <AdressWrap>
-          <CircleDiv>
-            <img src={detailFilter} />
-          </CircleDiv>
-          <Address>
-           
-            <Detail>총{" "}{markerName.totalDistance?markerName.totalDistance:post.totalDistance}</Detail>
-            <Detail>시간:{" "}{markerName.totalTime?markerName.totalTime:post.totalTime}</Detail>
-          </Address>
-        </AdressWrap>
-        </div>
-
-        <Title>산책 일시</Title>
-     
-          <DatePicker
-            selected={startDate}
-            onChange={dateHandler}
-            timeInputLabel="산책시간"
-            showTimeInput
-            inline
-          />
-        
-        <Title>
-        <CustomBox sx={{ minWidth: 120}}>
-      <CustomFormControl fullWidth>
-        <CustomInputLabel id="demo-simple-select-label">마리 수</CustomInputLabel>
-        <CustomSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={dogCount}
-          label="마리 수"
-          onChange={handleChange}
+      <SearchWrap>
+        <WalkButton
+          onClick={() => {
+            history.push(`/editMapContainer3/${postId}`);
+          }}
         >
-          <MenuItem value={2}>2마리</MenuItem>
-          <MenuItem value={3}>3마리</MenuItem>
-          <MenuItem value={4}>4마리</MenuItem>
-          <MenuItem value={5}>5마리</MenuItem>
-          <MenuItem value={6}>6마리</MenuItem>
-        </CustomSelect>
-      </CustomFormControl>
-    </CustomBox>
-    </Title>
-        <Title1>소개/유의사항</Title1>
-       
-          <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
-    
-       
-          <AddButton onClick={editLocation}>산책 수정</AddButton>
-   
-      </InputArea>
-      <NavBar/>
-    </Frame>
+          <img src={search} style={{ marginLeft: "4px" }} />
+          <div style={{ marginLeft: "10px" }}>어디서 산책하실건가요? </div>
+        </WalkButton>
+      </SearchWrap>
+
+      <TimeWrap>
+        {/* 날짜/시간, 장소이름, 산책로 코스 */}
+        <Box>
+          <RedIcon>
+            <BsCalendarCheck
+              style={{
+                color: "#fff",
+                width: "24px",
+                height: "24px",
+                fontWeight: "bold",
+              }}
+            />
+          </RedIcon>
+          <BoxDiv>
+            <MeetingTime>
+              약속 시간: {changedDate + " " + changedTime}
+            </MeetingTime>
+            <MeetingLocation>
+              약속 장소:
+              {editLocationCategory + " " + editRouteName}
+            </MeetingLocation>
+          </BoxDiv>
+        </Box>
+        {/* 출발, 도착, 거리, 시간 */}
+        <Box>
+          <RedIcon>
+            <RiPinDistanceFill
+              style={{
+                color: "#fff",
+                width: "24px",
+                height: "24px",
+                fontWeight: "bold",
+              }}
+            />
+          </RedIcon>
+          <BoxDiv>
+            <div>출발: {editStartLocationAddress}</div>
+            <div>도착: {editEndLocationAddress}</div>
+            <div>
+              총 {editTotalDistance}, {editTotalTime} 코스
+            </div>
+          </BoxDiv>
+        </Box>
+      </TimeWrap>
+
+      <Title>산책 일시</Title>
+
+      <DatePicker
+        selected={startDate}
+        onChange={dateHandler}
+        timeInputLabel="Time:"
+        showTimeInput
+        inline
+      />
+
+      <Title>
+        <CustomBox sx={{ minWidth: 120 }}>
+          <CustomFormControl fullWidth>
+            <CustomInputLabel id="demo-simple-select-label">
+              마리 수
+            </CustomInputLabel>
+            <CustomSelect
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={dogCount}
+              label="마리 수"
+              onChange={handleChange}
+            >
+              <MenuItem value={2}>2마리</MenuItem>
+              <MenuItem value={3}>3마리</MenuItem>
+              <MenuItem value={4}>4마리</MenuItem>
+              <MenuItem value={5}>5마리</MenuItem>
+              <MenuItem value={6}>6마리</MenuItem>
+            </CustomSelect>
+          </CustomFormControl>
+        </CustomBox>
+      </Title>
+      <Title1>소개/유의사항</Title1>
+
+      <TextArea defaultValue={wishDesc} onChange={wishHandler}></TextArea>
+
+      <AddButton onClick={editLocation}>산책 수정</AddButton>
+
+      <NavBar />
+    </Wrap>
   );
 };
 
+const TimeWrap = styled.div`
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+`;
+const Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 29px;
+`;
+
+const BoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  text-align: left;
+`;
+const RedIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #ff5656;
+  border-radius: 50%;
+  margin-right: 25px;
+`;
+const MeetingTime = styled.div`
+  font-size: 16px;
+`;
+const MeetingLocation = styled.div``;
 export default MapEdit;
-const Title1 = styled.div
-`
-box-sizing: border-box;
+const Title1 = styled.div`
+  box-sizing: border-box;
   height: 35px;
   font-size: 18px;
   line-height: 26px;
   margin: 80px 0 20px 0;
-`
-const CustomSelect =styled(Select)
-`
-border: 2px solid black;
-  border-radius: 14px;
-  display:flex;
-  align-items: center;
-  text-align:center;
-`
-const CustomInputLabel = styled(InputLabel)
-`
-display:flex;
-align-items: center;
 `;
-const CustomFormControl = styled(FormControl)
-`
-
-`
-const CustomBox = styled(Box)
-`
-
-`
-const Frame = styled.div`
-  max-width: 390px;
+const CategoryTitle = styled.div`
+  margin-bottom: 8px;
+  color: #5c5c5c;
+`;
+const CustomSelect = styled(Select)`
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+const CustomInputLabel = styled(InputLabel)`
+  display: flex;
+  align-items: center;
+`;
+const CustomFormControl = styled(FormControl)``;
+const CustomBox = styled(Box)``;
+const Wrap = styled.div`
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
-  padding-bottom:100px;
- 
-  justify-content:center;
+  justify-content: center;
+  padding: 0 5% 0 5%;
 `;
 
 const InputArea = styled.div`
   padding: 40px 20px;
   box-sizing: border-box;
-  
 `;
 
 const TopWrap = styled.div`
@@ -289,11 +333,11 @@ const WalkButton = styled.button`
   background: #ffffff;
   border-radius: 14px;
   text-align: left;
-  width: 350px;
+  width: 80%;
   height: 48px;
   display: flex;
   align-items: center;
-  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px gray;
 `;
 
@@ -317,7 +361,6 @@ const CircleDiv = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-
 `;
 const Address = styled.div`
   margin-left: 15px;
@@ -341,14 +384,15 @@ const TextArea = styled.textarea`
   height: 138px;
   font-size: 14px;
   line-height: 20px;
-  border:1px  gray;
-  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px gray;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   color: #5f5f5f;
   padding: 10px;
   margin-bottom: 30px;
   box-sizing: border-box;
-  background-color:#F9F5C2;
+  background-color: #f9f5c2;
+  font-family: "Noto Sans KR", sans-serif;
 `;
 
 const AddButton = styled.button`
@@ -358,7 +402,6 @@ const AddButton = styled.button`
   font-size: 16px;
   border-radius: 12px;
   background-color: transparent;
-  border:1px  gray;
-  box-shadow:0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px gray;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
-

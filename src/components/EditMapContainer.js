@@ -9,6 +9,10 @@ import BlackMarker from "../image/toilet.png";
 import trashMarker from "../image/trash.png";
 import waterMarker from "../image/water.png";
 import dogMarker from "../image/dog.png";
+import drop from "../image/dropdown.png";
+import NavBar from "./NavBar";
+// 상단바
+import TopBar from "./TopBar";
 import {
   distance1,
   distance2,
@@ -37,6 +41,7 @@ import EditMarkerModal from "../components/EditMarkerModal";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 import map from "../image/map.png";
+import {FaAngleDown} from "react-icons/fa"
 const { kakao } = window;
 const EditMapContainer = React.memo((props) => {
   // const dispatch =useDispatch();
@@ -424,51 +429,39 @@ const EditMapContainer = React.memo((props) => {
     });
   }, [start, kakao, check, walk, distance]);
   return (
+    <>
+    <MapWrap>
+    <TopBar>산책 수정</TopBar>
     <Crap>
       <form
         onsubmit="searchPlaces(); return false;"
         style={{
           display: "flex",
           justifyContent: "space-around",
-          width: "390px",
+          width: "100%",
           marginBottom: "15px",
         }}
       >
         <IconDiv>
-          <img
-            style={{
-              width: "20px",
-              height: "25px",
-              textAlign: "center",
-              alignItems: "center",
-              display: "flex",
-            }}
-            src={map}
-          />
+        <img
+                style={{
+                  width: "20px",
+                  height: "30px",
+                  paddingTop: "12px",
+                }}
+                src={map}
+              />
         </IconDiv>
-        <MapBox sx={{}}>
-          <FormControl sx={{ width: 285 }}>
-            <NativeSelect
-              sx={{}}
-              defaultValue=""
-              value={check}
-              onChange={checkHandler}
-              inputProps={{
-                name: "age",
-                id: "uncontrolled-native",
-              }}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <option value="">어디서 산책하실건가요?</option>
-              <option value="서울숲">서울숲</option>
-              <option value="올림픽공원">올림픽공원</option>
-              <option value="반포한강공원">반포 한강공원</option>
-            </NativeSelect>
-          </FormControl>
-        </MapBox>
+        <Options>
+            <MapDrop onChange={checkHandler}   >
+               
+                    <option value="">어디서 산책하실건가요?</option>
+                    <option value="서울숲">서울숲</option>
+                    <option value="올림픽공원">올림픽공원</option>
+                    <option value="반포한강공원">반포 한강공원</option>
+                </MapDrop>
+            </Options>
+            <DropImage src={drop} />
       </form>
       {check == "올림픽공원" && (
         <div>
@@ -804,95 +797,121 @@ const EditMapContainer = React.memo((props) => {
 
       <Wrap id="map"></Wrap>
       <Flex2>
-        <SubmitBtn onClick={() => setModal(true)}>산책로 등록</SubmitBtn>
+        <AddButton onClick={() => setModal(true)}>산책로 수정</AddButton>
       </Flex2>
+      
     </Crap>
+    </MapWrap>
+    <NavBar/>
+    </>
   );
 });
+const MapDrop = styled.select
+`
+z-index:20;
+postiton:relative;
+width: 100%;
+height: 48px;
+padding-left:10px;
+border: 1px solid lightGray;
+background-color:transparent;
+-webkit-appearance:none;
+background-color:white;
+box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+border-radius: 14px;
+cursor:pointer;
+img{
+  position:absolute;
+  width:30px;
+  height: 30px;
+  z-index:99;
+}
+&:focus {
+  outline: none;
+}
+`
+const DropImage = styled.img
+`
+  position:relative;
+  right:20px;
+  top:20px;
+  z-index:0;
+  width:14px;
+  height:7px;
+  
+`
+const MapWrap = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30px;
+  margin: 0 auto;
+`;
 const Flex2 = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0px;
+  margin: 40px 0px;
 `;
-const SubmitBtn = styled.button`
-  width: 350px;
-  height: 48px;
-  background: #c4c4c4;
-  border-radius: 10px;
+const AddButton = styled.button`
   cursor: pointer;
+  width: 164px;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px gray;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const WalkArea = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 20px 0;
 `;
 const WalkBtn = styled.div`
-  width: 100px;
+  width:60%;
+  margin:0px 10px;
   height: 48px;
   border-radius: 24px;
-  background-color: #F3F#F3;
+  background-color: #f3f3f3;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border: 1px gray;
   display: flex;
   justify-content: center;
   align-items: center;
+
   &:hover {
-    background-color: #9de8df;
     cursor: pointer;
+    background-color: #ff5656;
   }
 `;
 const IconDiv = styled.div`
   width: 48px;
-  border: 2px solid;
+  height: 48px;
+  border: 1px solid #dbdbdb;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   border-radius: 14px;
   margin-right: 15px;
-  align-items: center;
 `;
 const MapBox = styled(Box)`
-  border: 2px solid #000000;
+  border: none;
   box-sizing: border-box;
   border-radius: 14px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  width: 285px;
-  border: 1px solid;
+  width: 280px;
+  padding: 4px 12px;
+  border:none;
 `;
 const Crap = styled.div`
-  width: 390px;
-  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
 `;
 const Wrap = styled.div`
-  width: 390px;
+  width: 100%;
   height: 500px;
   box-sizing: border-box;
   border-radius: 20px;
   margin-top: 10px;
 `;
-const Filter = styled.div`
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 12px 24px;
-  margin-bottom: 20px;
-  text-align: left;
-`;
-const Title = styled.div`
-  margin-bottom: 15px;
-`;
-const RadioWrap = styled.div``;
-const Flex = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-`;
-const Label = styled.label`
-  padding-top: 5px;
-`;
-const FlexWrap = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-const UserAge = styled.input``;
-
 const AdressWrap = styled.div`
   width: 100%;
   height: 45px;
@@ -904,7 +923,6 @@ const AdressWrap = styled.div`
   color: #000000;
   margin: 20px 0px;
 `;
-
 const CircleDiv = styled.div`
   display: flex;
   width: 48px;
@@ -912,7 +930,7 @@ const CircleDiv = styled.div`
   border-radius: 50%;
   text-align: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 const Address = styled.div`
   margin-left: 15px;
@@ -921,5 +939,10 @@ const Address = styled.div`
 `;
 const Detail = styled.div`
   padding-top: 4px;
+`;
+const Options = styled.div`
+  width: 100%;
+  text-align: center;
+  border:none;
 `;
 export default EditMapContainer;

@@ -23,105 +23,98 @@ const ChatDetail = (props) => {
   // const receiverNickname = list.senderNickname; // 쪽지 받을 상대의 닉네임
   // const receivedMessage = list.message; // 받은 쪽지 내용
   // const receivedTime = list.createdAt; // 쪽지 받은 시간
-  const [modal,setModal] = useState("");
-  const [failModal,setFailModal] = useState("")
-  const getModal = useSelector((state)=>state.chat.modal)
+  const [modal, setModal] = useState("");
+  const [failModal, setFailModal] = useState("");
+  const getModal = useSelector((state) => state.chat.modal);
   const messageChange = (e) => {
     setMessage(e.target.value);
   };
 
   // 쪽지 보내기 액션 실행 버튼
   const sendChat = () => {
-    if(!message)
-    {
-        setFailModal(true)
-        return;
+    if (!message) {
+      setFailModal(true);
+      return;
     }
     dispatch(chatAction.sendMessageMD(list.senderId, message, 1));
   };
 
   // 해당 쪽지에 관한 정보만 불러오기
   useEffect(() => {
-    setModal(getModal)
+    setModal(getModal);
     dispatch(chatAction.getDetailMD(chatId));
   }, [getModal]);
-  
-
 
   return (
-     <Wrap>
-       {
-         failModal? <ChatFailModal setFailModal={setFailModal}/> : ""
-       }
-       {
-         modal?<ChatSuccessModal/>:""
-       }
-       {
-         list? <div>
-    
-         <TopBar>받은 쪽지</TopBar>
-         <Info onClick={()=>history.push(`/mypage/${list.senderId}`)}>
-           <ImageWrap>
-             <img src={list.senderImage}/>
-             {list.senderNickname}
-           </ImageWrap>
-            <div style={{fontSize:"12px"}}>
-              {list.AGOTIME}
-            </div>
-           </Info>
-         <MessageWrap>
-           <Message>
-          
-             <p>{list.message}</p>
-       
-           </Message>
-           <SendInfo>
-           <ImageWrap>
-             <img src={RedMessage}/>
-             {list.senderNickname}에게 답장하기
-           </ImageWrap>
-            <div>
-            
-            </div>
-           </SendInfo>
-           {/* 남이 보낸 쪽지의 상세페이지 들어갈때만 답장 할 수 있는 창이 열린다 */}
-           {list.receiverId !== myId && (
-             <Input>
-               <textarea
-                 type="text"
-                 placeholder="쪽지 내용을 입력해주세요"
-                 onChange={messageChange}
-               />
-             
-             </Input>
-           )}
-         </MessageWrap>
-         <SendBtn onClick={sendChat}>답장하기</SendBtn>
-         <NavBar></NavBar>
-       </div> :
-       <div> </div>
-       }
-     </Wrap>
-   
+    <Wrap>
+      {failModal ? <ChatFailModal setFailModal={setFailModal} /> : ""}
+      {modal ? <ChatSuccessModal /> : ""}
+      {list ? (
+        <div>
+          <TopBar>받은 쪽지</TopBar>
+          <Info onClick={() => history.push(`/mypage/${list.senderId}`)}>
+            <ImageWrap>
+              <img src={list.senderImage} />
+              {list.senderNickname}
+            </ImageWrap>
+            <div style={{ fontSize: "12px" }}>{list.AGOTIME}</div>
+          </Info>
+          <MessageWrap>
+            <Message>
+              <p>{list.message}</p>
+            </Message>
+            <SendInfo>
+              <ImageWrap>
+                <img src={RedMessage} />
+                {list.senderNickname}에게 답장하기
+              </ImageWrap>
+              <div></div>
+            </SendInfo>
+            {/* 남이 보낸 쪽지의 상세페이지 들어갈때만 답장 할 수 있는 창이 열린다 */}
+            {list.receiverId !== myId && (
+              <Input>
+                <textarea
+                  type="text"
+                  placeholder="쪽지 내용을 입력해주세요"
+                  onChange={messageChange}
+                />
+              </Input>
+            )}
+          </MessageWrap>
+          <SendBtn onClick={sendChat}>
+            <button>답장하기</button>
+          </SendBtn>
+          <NavBar></NavBar>
+        </div>
+      ) : (
+        <div> </div>
+      )}
+    </Wrap>
   );
 };
 
 const Wrap = styled.div`
   padding: 0 5%;
-`
+`;
 const SendBtn = styled.div`
   display: flex;
   justify-content: center;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid lightGray;
-  width: 30%;
-  height: 2.5em;
-  align-items: center;
-  border-radius: 15px;
-  margin: 30px auto;
+  width: 100%;
+  height: 52px;
+  margin: 30px auto 0 auto;
+
+  button {
+    width: 40%;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 14px;
+    border: 1px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    margin: 0 10px;
+  }
 `;
 const Info = styled.div`
-
   display: flex;
   width: 100%;
   align-items: center;
@@ -180,6 +173,8 @@ const Input = styled.div`
     width: 100%;
     height: 25vh;
     border: none;
+    font-family: "Noto Sans KR", sans-serif;
+
     &:focus {
       outline: none;
     }
