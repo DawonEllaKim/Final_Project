@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 import { actionCreators as notiActions } from "../redux/modules/notification";
 
 // 아이콘
-import {MdArrowBackIos} from 'react-icons/md';
+import { MdArrowBackIos } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
 
 const TopBar = (props) => {
@@ -55,10 +55,10 @@ const TopBar = (props) => {
       <Wrap>
         <Left {...styles}>
           <BtnLeft>
-            <MdArrowBackIos 
-            onClick={() => {
-              history.goBack();
-            }}
+            <MdArrowBackIos
+              onClick={() => {
+                history.goBack();
+              }}
               style={{
                 width: "24px",
                 height: "24px",
@@ -75,12 +75,12 @@ const TopBar = (props) => {
         <Right {...styles}>
           {text ? text : children}
           <BtnRight>
-            <IoNotificationsOutline 
-            onClick={() => history.push("/notification")}
-            style={{
-              width: "24px",
-              height: "24px",
-            }}
+            <IoNotificationsOutline
+              onClick={() => history.push("/notification")}
+              style={{
+                width: "24px",
+                height: "24px",
+              }}
             />
             <Edit>{noti.length}</Edit>
           </BtnRight>
@@ -92,26 +92,30 @@ const TopBar = (props) => {
     <Wrap>
       <Both {...styles}>
         <BtnLeft>
-        <MdArrowBackIos 
+          <MdArrowBackIos
             onClick={() => {
               history.goBack();
             }}
-              style={{
-                width: "24px",
-                height: "24px",
-              }}
-            />
-        </BtnLeft>
-        {text ? text : children}
-        <BtnRight> 
-        <IoNotificationsOutline 
-            onClick={() => history.push("/notification")}
             style={{
               width: "24px",
               height: "24px",
             }}
-            />
-          <Edit>{noti.length}</Edit>
+          />
+        </BtnLeft>
+        {text ? text : children}
+        <BtnRight>
+          {userId && (
+            <>
+              <IoNotificationsOutline
+                onClick={() => history.push("/notification")}
+                style={{
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
+              <Edit>{noti.length}</Edit>
+            </>
+          )}
         </BtnRight>
       </Both>
     </Wrap>
