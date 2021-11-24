@@ -9,6 +9,7 @@ import TopBar from "../../components/TopBar";
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useHistory } from "react-router";
+import NavBar from "../../components/NavBar";
 const ChatSend = (props) => {
   const [message, setMessage] = useState("");
   const history = useHistory();
@@ -52,6 +53,7 @@ const ChatSend = (props) => {
               <p>{list.message}</p>
             </Message>
           </Wrap>
+          <NavBar></NavBar>
         </div>
       ) : (
         <div> </div>
