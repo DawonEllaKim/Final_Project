@@ -21,7 +21,7 @@ const TopBar = (props) => {
   const [notification, setNotification] = useState([]);
 
   useEffect(() => {
-    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
   }, []);
 
   useEffect(() => {
@@ -47,8 +47,7 @@ const TopBar = (props) => {
     dispatch(notiActions.getNotiMD());
   }, []);
 
-  if (noti.length < 1) noti = getNoti;
-  else noti.length += getNoti.length;
+  
 
   if (only_left) {
     return (
@@ -82,7 +81,7 @@ const TopBar = (props) => {
                 height: "24px",
               }}
             />
-            <Edit>{noti.length}</Edit>
+            <Edit>{noti.length<1?getNoti.length:noti.length}</Edit>
           </BtnRight>
         </Right>
       </Wrap>
@@ -113,7 +112,7 @@ const TopBar = (props) => {
                   height: "24px",
                 }}
               />
-              <Edit>{noti.length}</Edit>
+              <Edit>{noti.length<1?getNoti.length:noti.length}</Edit>
             </>
           )}
         </BtnRight>

@@ -21,7 +21,7 @@ const CancelAlert = ({ noti }) => {
       setNotification((prev) => [...prev, data]);
     });
   }, [socket]);
-
+  const username = localStorage.getItem("userNickname")
   return (
     <div>
       <Wrap
@@ -36,7 +36,7 @@ const CancelAlert = ({ noti }) => {
         </Left>
         <Right>
           <Message>
-            {noti.senderNickname}님이 회원님의 산책요청을 거절했습니다!
+            {username}님이 회원님의 산책요청을 거절했습니다!
           </Message>
 
           <Info>
