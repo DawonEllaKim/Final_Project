@@ -22,7 +22,6 @@ const Comment = (props) => {
   // const postCommentList = commentList.filter((comment, index) => {
   //   return comment.dogPostId == dogPostId;
   // });
-  // console.log(postCommentList);
 
   useEffect(() => {
     dispatch(commentActions.getCommentMD(dogPostId));

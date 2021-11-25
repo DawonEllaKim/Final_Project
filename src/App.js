@@ -5,7 +5,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
 import GlobalStyle from "./GlobalStyle";
 import PrivateRoute from "./shared/PrivateRoute";
-import { useSelector } from "react-redux";
+
 //  로그인/회원가입
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
@@ -56,11 +56,6 @@ import Notification from "./pages/Notification";
 import ChatWrite from "./pages/Chat/ChatWrite";
 import ChatDetail from "./pages/Chat/ChatDetail";
 
-// 진행중
-// import Calendar from "./pages/Calendar";
-// import KakaoSignUp from "./pages/KakaoSignUp";
-// import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler";
-
 //웹소켓
 import { io } from "socket.io-client";
 import Toast from "./components/Toast/Toast";
@@ -68,7 +63,6 @@ import ChatSend from "./pages/Chat/ChatSend";
 import CommonModal from "./components/Modal/CommonModal";
 import DeleteModal from "./components/Modal/deleteModal";
 import ErrorModal from "./components/Modal/ErrorModal";
-
 
 function App() {
   //socket
@@ -124,8 +118,6 @@ function App() {
       }, 1500);
     }
   }, [ToastStatus]);
-  
-  
 
   return (
     <div className="App">
@@ -150,9 +142,9 @@ function App() {
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
         {/* 모달 */}
-        <Route exact path="/successmodal"  component={CommonModal} />
-        <Route exact path="/deletemodal"  component={DeleteModal} />
-        <Route exact path="/errormodal"  component={ErrorModal} />
+        <Route exact path="/successmodal" component={CommonModal} />
+        <Route exact path="/deletemodal" component={DeleteModal} />
+        <Route exact path="/errormodal" component={ErrorModal} />
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />
@@ -201,15 +193,6 @@ function App() {
           path="/chatwrite/:receiverId"
           component={ChatWrite}
         />
-
-        {/* 진행중... */}
-        {/* <Route exact path="/calendar" component={Calendar} />
-        <Route exact path="/kakaosignup" component={KakaoSignUp} />
-        <Route
-          exact
-          path="/oauth/kakao/callback"
-          component={OAuth2RedirectHandler}
-        /> */}
       </ConnectedRouter>
     </div>
   );
