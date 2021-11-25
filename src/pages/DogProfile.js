@@ -222,11 +222,13 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="남"
                 name="dogGender"
                 type="radio"
                 id="male"
                 checked={dogGender === "남"}
                 onClick={() => dogGenderChangeHandler("남")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
             <Label for="male">남</Label>
@@ -234,11 +236,13 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="여"
                 name="dogGender"
                 type="radio"
                 id="female"
                 checked={dogGender === "여"}
                 onClick={() => dogGenderChangeHandler("여")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
             <Label for="female">여</Label>
@@ -253,26 +257,30 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="Y"
                 name="neutral"
                 type="radio"
                 id="yes"
                 checked={neutral === "true"}
                 onClick={() => dogNeutralChangeHandler("true")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
-            <Label for="yes">Y</Label>
+            <Label htmlFor="yes">Y</Label>
           </Flex>
           <Flex>
             <RadioWrap>
               <Input
+                value="N"
                 name="neutral"
                 type="radio"
                 id="no"
                 checked={neutral === "false"}
                 onClick={() => dogNeutralChangeHandler("false")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
-            <Label for="no">N</Label>
+            <Label htmlFor="no">N</Label>
           </Flex>
         </FlexWrap>
       </Filter>
