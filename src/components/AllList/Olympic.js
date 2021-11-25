@@ -18,7 +18,7 @@ const Olympic = () => {
       {postList.length === 0 ? (
         "등록된 산책 목록이 없습니다."
       ) : (
-        <>
+        <>j
           {postList.map((post, index) => {
             const dogImage = post.dogImage;
             const dogName = post.dogName;
