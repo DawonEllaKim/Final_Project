@@ -1,13 +1,9 @@
+// SeoulForest.js - 산책가자 페이지에서 서울숲 산책목록이 모여있는 페이지
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../../redux/modules/post";
-
-import { history } from "../../redux/configureStore";
 import styled from "styled-components";
-import { IoMdMale } from "react-icons/io";
-import { IoMdFemale } from "react-icons/io";
-import { MdLocationPin } from "react-icons/md";
-import { FaRegClock } from "react-icons/fa";
+import Cards from "../AllList/Cards";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
 function SeoulForest() {
   const dispatch = useDispatch();
@@ -19,192 +15,35 @@ function SeoulForest() {
 
   return (
     <Wrap>
-      {postList.map((post, index) => {
-        const dogImage = post.dogImage;
-        const dogName = post.dogName;
-        const dogGender = post.dogGender;
-        const dogAge = post.dogAge;
-        const initialMeetingDate = post.meetingDate;
+      {postList.length === 0 ? (
+        "등록된 산책 목록이 없습니다."
+      ) : (
+        <>
+          {postList.map((post, index) => {
+            const dogImage = post.dogImage;
+            const dogName = post.dogName;
+            const dogGender = post.dogGender;
+            const dogAge = post.dogAge;
+            const meetingDate = post.meetingDate;
+            const Info = {
+              dogImage,
+              dogName,
+              dogGender,
+              dogAge,
+              meetingDate,
+              post,
+            };
 
-        return (
-          <CardWrap
-            post={post}
-            key={index}
-            onClick={() => history.push(`/posts/${post.postId}`)}
-          >
-            {/* 카드 왼쪽 */}
-            <DogImage>
-              <Map src={dogImage} alt="dog" />
-            </DogImage>
-
-            {/* 카드 오른쪽 */}
-            <Right>
-              <CardTop>
-                <h4 style={{ marginRight: "10px" }}>
-                  {dogGender === "남" ? (
-                    <IoMdMale
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        color: "#89B1FF",
-                      }}
-                    />
-                  ) : (
-                    <IoMdFemale
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        color: "#FF8989",
-                      }}
-                    />
-                  )}
-                </h4>
-                <DogInfo>
-                  <p>{dogName}</p>
-                  <p>{dogAge}</p>
-                </DogInfo>
-              </CardTop>
-
-              <CardBottom>
-                <Box>
-                  <RedIcon>
-                    <MdLocationPin
-                      style={{
-                        color: "#fff",
-                        width: "16px",
-                        height: "16px",
-                        fontWeight: "bold",
-                      }}
-                    />
-                  </RedIcon>
-                  <BoxDiv>
-                    <MeetingTime>{post.locationCategory}</MeetingTime>
-                  </BoxDiv>
-                </Box>
-
-                <Box>
-                  <RedIcon>
-                    <FaRegClock
-                      style={{
-                        color: "#fff",
-                        width: "16px",
-                        height: "16px",
-                        fontWeight: "bold",
-                      }}
-                    />
-                  </RedIcon>
-                  <BoxDiv>
-                    <MeetingTime>{initialMeetingDate}</MeetingTime>
-                  </BoxDiv>
-                </Box>
-              </CardBottom>
-            </Right>
-          </CardWrap>
-        );
-      })}
+            return <Cards Info={Info} key={index} />;
+          })}
+        </>
+      )}
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
   width: 100%;
-  /* height: 135px; */
-`;
-const CardWrap = styled.div`
-  font-size: 14px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 163px;
-  padding: 14px;
-  margin-bottom: 20px;
-  border-radius: 14px;
-  background-color: #fff;
-  cursor: pointer;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
-`;
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 55%;
-  height: 140px;
-`;
-const CardTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  font-size: 14px;
-  line-height: 23px;
-`;
-const DogInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
-`;
-
-const CardBottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: Right;
-  font-size: 14px;
-  line-height: 1.4;
-  width: 100%;
-  padding: 8px 8px 0 0;
-  box-sizing: border-box;
-`;
-
-const DogImage = styled.div`
-  position: relative;
-  width: 40%;
-  height: 140px;
-  /* width: 45%; */
-  /* padding-bottom: 50%; */
-  /* overflow: hidden; */
-`;
-const Map = styled.img`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  object-fit: cover;
-  border-radius: 14px;
-  left: 0;
-`;
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-  margin-bottom: 15px;
-`;
-
-const RedIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background-color: #ff5656;
-  border-radius: 100px;
-  margin-right: 10px;
-`;
-
-const BoxDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  text-align: left;
-`;
-const MeetingTime = styled.div`
-  font-size: 14px;
 `;
 
 export default SeoulForest;
