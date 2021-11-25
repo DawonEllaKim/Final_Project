@@ -153,7 +153,6 @@ const MessageWrap = styled.div`
   margin: 0 auto;
 `;
 const Message = styled.div`
-  height: 30vh;
   width: 100%;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;

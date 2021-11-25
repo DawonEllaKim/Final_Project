@@ -40,7 +40,7 @@ const ChatSend = (props) => {
   }, []);
 
   return (
-    <div>
+    <Wrap>
       {list ? (
         <div>
           <TopBar>보낸 쪽지</TopBar>
@@ -51,19 +51,23 @@ const ChatSend = (props) => {
             </ImageWrap>
             <div>{list.AGOTIME}</div>
           </Info>
-          <Wrap>
+          <MessageWrap>
             <Message>
               <p>{list.message}</p>
             </Message>
-          </Wrap>
+          </MessageWrap>
           <NavBar></NavBar>
         </div>
       ) : (
         <div> </div>
       )}
-    </div>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  padding: 0 5%;
+`
 const SendBtn = styled.div`
   display: flex;
   justify-content: center;
@@ -103,14 +107,11 @@ const ImageWrap = styled.div`
   }
   margin-right: 10px;
 `;
-const Wrap = styled.div`
+const MessageWrap = styled.div`
   display: block;
-
-  width: 80%;
-  margin: 0 auto;
+  width: 100%
 `;
 const Message = styled.div`
-  height: 30vh;
   width: 100%;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;
