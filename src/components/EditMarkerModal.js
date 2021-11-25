@@ -1,55 +1,52 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import { Close, ContactsTwoTone } from '@mui/icons-material';
-import {useDispatch} from "react-redux"
-import {actionCreators as markerActions} from "../redux/modules/marker"
+import { Close, ContactsTwoTone } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { actionCreators as markerActions } from "../redux/modules/marker";
 
 const EditMarkerModal = (props) => {
-    const dispatch = useDispatch();
-    const distance = props.distance;
+  const dispatch = useDispatch();
+  const distance = props.distance;
 
-    const check = props.check;
-    const walk = props.walk;
-    const editId = props.editId;
-    const editMarker= () => {
-         const marker = {
-          totalDistance: distance.distance,
-          totalTime: distance.time,
-          startLocationAddress: distance.start,
-          endLocationAddress: distance.last,
-          locationCategory: check,
-          routeColor: distance.color,
-          routeName: distance.name,
-          cooridnate: walk,
-        }
-        dispatch(markerActions.editMarkerAX(marker,editId))
-        props.close()
-    }
-    console.log(props.latitude,props.longitude,props.placename)
-    return (
-        
-            <React.Fragment>
-                 <Component onClick={props.close} />
-                  <ModalComponent> 
-                      <ModalExitBtn onClick={props.close} >
-                           <Close/>
-                            </ModalExitBtn> 
-                            <ModalHeader>산책로로 설정하겠습니까?</ModalHeader> 
-                            <ModalInput> 
-                               출발지:{distance.start}
-                               <br/>
-                               신첵로:{distance.name}
-                                </ModalInput> 
-                                <ModalButtonContainer> 
-                                    <ModalSubmitBtn onClick={editMarker}> 산책로 등록 </ModalSubmitBtn> 
-                                    </ModalButtonContainer>
-                                     </ModalComponent> 
-                                     </React.Fragment>
-
-        
-    )
-}
+  const check = props.check;
+  const walk = props.walk;
+  const editId = props.editId;
+  const editMarker = () => {
+    const marker = {
+      totalDistance: distance.distance,
+      totalTime: distance.time,
+      startLocationAddress: distance.start,
+      endLocationAddress: distance.last,
+      locationCategory: check,
+      routeColor: distance.color,
+      routeName: distance.name,
+      cooridnate: walk,
+    };
+    dispatch(markerActions.editMarkerAX(marker, editId));
+    props.close();
+  };
+  // console.log(props.latitude,props.longitude,props.placename)
+  return (
+    <React.Fragment>
+      <Component onClick={props.close} />
+      <ModalComponent>
+        <ModalExitBtn onClick={props.close}>
+          <Close />
+        </ModalExitBtn>
+        <ModalHeader>산책로로 설정하겠습니까?</ModalHeader>
+        <ModalInput>
+          출발지:{distance.start}
+          <br />
+          신첵로:{distance.name}
+        </ModalInput>
+        <ModalButtonContainer>
+          <ModalSubmitBtn onClick={editMarker}> 산책로 등록 </ModalSubmitBtn>
+        </ModalButtonContainer>
+      </ModalComponent>
+    </React.Fragment>
+  );
+};
 const Component = styled.div`
   position: fixed;
   top: 0;
@@ -113,6 +110,4 @@ const ModalExitBtn = styled.button`
   color: black;
 `;
 
-
-
-export default EditMarkerModal
+export default EditMarkerModal;

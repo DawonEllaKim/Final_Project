@@ -9,22 +9,19 @@ import { actionCreators as UserActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
 const UserModal = (props) => {
   const dispatch = useDispatch();
-  const history =useHistory()
- 
-  const addMarker = () => {
-  
+  const history = useHistory();
 
-    
+  const addMarker = () => {
     const image = imgFile ? imgFile : props.userImage;
 
     const formData = new FormData();
-     console.log(image)
-    formData.append("userImage", imgFile); 
-  
-    setLoading(true)
+    //  console.log(image)
+    formData.append("userImage", imgFile);
+
+    setLoading(true);
     dispatch(UserActions.updateUserImageMD(formData));
   };
- 
+
   const [imgBase64, setImgBase64] = useState(props.userImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
 
@@ -46,18 +43,15 @@ const UserModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
-  const [loading,setLoading] = useState("")
-   if(loading)
-   {
-     return (
-       <Spinner/>
-     )
-   }
+  const [loading, setLoading] = useState("");
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <React.Fragment>
-      <Component  />
+      <Component />
       <ModalComponent>
-        <ModalExitBtn onClick={()=>props.setModal(false)} >
+        <ModalExitBtn onClick={() => props.setModal(false)}>
           <Close />
         </ModalExitBtn>
         <ModalHeader>프로필이미지 수정하겠습니까?</ModalHeader>
@@ -119,7 +113,7 @@ const ModalButtonContainer = styled.div`
 `;
 const ModalSubmitBtn = styled.button`
   width: 100%;
-  background-color: #FF5656;
+  background-color: #ff5656;
   border: none;
   outline: none;
   padding: 10px 0;
