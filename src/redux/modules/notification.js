@@ -12,11 +12,11 @@ const deleteNoti = createAction(DELETE_NOTI, (noti) => ({ noti }));
 const initialState = {
   noti: [],
 };
-const postNotiMD = (notificationId,senderId,type) => {
+const postNotiMD = (notificationId,receiverId,type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/notification/${notificationId}/${senderId}`,
+      url: `https://www.walkadog.shop/notification/${notificationId}/${receiverId}`,
       data: {type:type},
       headers: {
         accept: "application/json",

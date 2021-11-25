@@ -13,7 +13,7 @@ import TopBar from "../components/TopBar";
 import SignUpSuccessModal from "../components/Modal/SignUpSuccessModal";
 // 유저 이미지 기본값
 import defaultUser from "../image/default_user.png";
-import e from "cors";
+
 
 const SignUp = () => {
   const dispatch = useDispatch();
