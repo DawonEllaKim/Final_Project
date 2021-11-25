@@ -2,7 +2,7 @@ import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
-
+import { actionCreators as modalActions } from "./modal";
 const GET_NOTI = "GET_NOTI";
 const DELETE_NOTI = "DELETE_NOTI";
 
@@ -27,10 +27,13 @@ const postNotiMD = (notificationId,senderId,type) => {
       .then((res) => {
         // console.log(res.data.notification)
         if(type==3)
-         window.alert("산책 수락하셨습니다")
+        {
+          dispatch(modalActions.setModal("산책 수락완료"))
+          history.push("/successModal")
+        }
          if(type==4)
-         window.alert("산책 거절하셨습니다")
-         dispatch(deleteNotiMD(notificationId))
+         dispatch(modalActions.setModal("산책 거절완료"))
+         history.push("/successModal")
       })
       .catch((err) => {
         console.log("POSTNOTI에서 오류발생", err);

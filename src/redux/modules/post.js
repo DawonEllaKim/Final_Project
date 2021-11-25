@@ -436,9 +436,9 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-        window.alert("수정완료");
+        dispatch(modalActions.setModal("게시물이 수정되었습니다"))
         dispatch(updatePost(post));
-        history.push(`/posts/${postId}`);
+     history.push("/successModal")
       })
       .catch((err) => {
         console.log(err);
@@ -452,7 +452,7 @@ const deletePostMD = (postId) => {
       .deletePostAX(postId)
       .then((res) => {
          dispatch(modalActions.setModal("게시물이 삭제되었습니다"))
-         history.push("/successModal")
+         history.push("/deleteModal")
       })
       .catch((err) => {
         console.log(err);

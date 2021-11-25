@@ -59,8 +59,7 @@ const DogStaWrite = (props) => {
 
   const addPost = () => {
     if (imgBase64 === "" || dogPostDesc === "") {
-      window.alert("입력하지 않은 값이 있습니다.");
-      return;
+      history.push("/errorModal")
     }
 
     const formData = new FormData();

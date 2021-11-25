@@ -81,7 +81,7 @@ const Main = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
   };
 
@@ -202,8 +202,10 @@ const Main = (props) => {
                   <CautionImage src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80" />
                 </ImageWrap>
                 <CautionInfo>
-                  <span>1. 목줄 착용</span>
-                  <p>목줄 착용은 선택이 아닌 필수입니다</p>
+                  <TextWrap>
+                    <span>1. 목줄 착용</span>
+                    <p>목줄 착용은 선택이 아닌 필수입니다</p>
+                  </TextWrap>
                 </CautionInfo>
               </CautionCard>
               <CautionCard
@@ -215,8 +217,10 @@ const Main = (props) => {
                   <CautionImage src="https://images.unsplash.com/photo-1544567708-827a79119a78?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80" />
                 </ImageWrap>
                 <CautionInfo>
-                  <span>2. 사람 주의</span>
-                  <p>개를 무서워하는 사람들을 주의 해야합니다.</p>
+                  <TextWrap>
+                    <span>2. 사람 주의</span>
+                    <p>개를 무서워하는 사람들을 주의해야합니다.</p>
+                  </TextWrap>
                 </CautionInfo>
               </CautionCard>
               <CautionCard
@@ -228,8 +232,10 @@ const Main = (props) => {
                   <CautionImage src="https://images.unsplash.com/photo-1560743173-567a3b5658b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" />
                 </ImageWrap>
                 <CautionInfo>
-                  <span>3. 식물 주의</span>
-                  <p>상처가 날 수 있는 식물을 주의해야합니다.</p>
+                  <TextWrap>
+                    <span>3. 식물 주의</span>
+                    <p>상처가 날 수 있는 식물을 주의해야합니다.</p>
+                  </TextWrap>
                 </CautionInfo>
               </CautionCard>
             </StyledSlider>
@@ -551,36 +557,27 @@ const Logo = styled.img`
   margin: 30px auto;
 `;
 const CautionCard = styled.div`
-  max-height: 160px;
-  /* position: relative; */
-  /* border-radius: 14px; */
-  border: 1px solid red;
-  /* position: absolute;
-  top: 50%;
-  transform: translateY(-50%); */
-  padding: 12px;
+  height: 154px;
+  padding: 17px;
   &::after {
     content: "";
     display: block;
     clear: both;
   }
   span {
-    /* font-size: 18px; */
     font-weight: 600;
-    /* padding-top:12px; */
   }
   p {
     font-size: 14px;
     word-break: keep-all;
-    /* padding: 12px 0; */
   }
 `;
 
 const ImageWrap = styled.div`
-  width: 40%;
+  width: 120px;
   position: relative;
   overflow: hidden;
-  padding-bottom: 40%;
+  padding-bottom: 120px;
   border-radius: 14px;
   float: left;
 `;
@@ -589,17 +586,21 @@ const CautionImage = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
-  /* filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25)); */
+  filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
   border-radius: 14px;
   object-fit: cover;
 `;
 const CautionInfo = styled.div`
-  /* width: 50%;
-    height: 100%;
-    padding: 12px; */
   float: left;
-  width: 60%;
-  padding-left: 16px;
+  position: relative;
+  width: 50%;
+  height: 100%;
+`;
+const TextWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
 `;
 
 const WholeCardWrap = styled.div`

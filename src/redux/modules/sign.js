@@ -5,7 +5,7 @@ import { apis } from "../../lib/axios";
 import { setCookie, deleteCookie, getCookie } from "../../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as UserActions } from "./user";
-
+import { actionCreators as modalActions } from "./modal";
 const SET_USER = "SET_USER";
 const SET_DOG = "SET_DOG";
 const LOG_IN = "LOG_IN";
@@ -98,6 +98,14 @@ const logInMD = (userEmail, password) => {
         dispatch(getAlert("아이디와 비밀번호가 맞지 않습니다!"))
     
       });
+  };
+};
+const logoutMD = () => {
+  return function (dispatch, getState, { history }) {
+    
+   dispatch(logOut());
+   dispatch(modalActions.setModal("로그아웃 되었습니다"))
+   history.push("/deleteModal")   
   };
 };
 const getIdAPI = () => {
@@ -267,4 +275,5 @@ export const actionCreators = {
   getIdAPI,
   getAlert,
   modalMD,
+  logoutMD,
 };
