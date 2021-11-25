@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Close } from "@mui/icons-material";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png";
-
 
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const modalText = useSelector((state)=>state.modal.modal)
-   const [modal,setModal] = useState("")
+  const modalText = useSelector((state) => state.modal.modal);
+  const [modal, setModal] = useState("");
   useEffect(() => {
-    setModal(modalText)
+    setModal(modalText);
   }, [modalText]);
-  console.log(modal)
+  // console.log(modal)
   const modalHandler = () => {
-     history.push("/");
+    history.push("/");
   };
- console.log(props)
+  // console.log(props);
   return (
     <div onClick={modalHandler}>
       <Component />

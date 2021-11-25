@@ -500,7 +500,7 @@ export default handleActions(
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.postId);
+        // console.log(action.payload.postId);
         draft.list = draft.list.filter(
           (post) => post.id !== action.payload.postId
         );

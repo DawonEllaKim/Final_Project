@@ -83,14 +83,14 @@ const MapContainer3 = () => {
           setLongitude(longitude);
           setPlacename(placename);
 
-          console.log(latitude, longitude);
+          // console.log(latitude, longitude);
           setModal(true);
         });
-        console.log(places[i]);
+        // console.log(places[i]);
         const latitude = places[i].y;
         const longitude = places[i].x;
         const placename = places[i].place_name; // 검색 결과 항목 생성
-        console.log(placePosition);
+        // console.log(placePosition);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
         bounds.extend(placePosition);

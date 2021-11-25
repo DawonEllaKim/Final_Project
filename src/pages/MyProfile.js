@@ -222,7 +222,7 @@ const MyProfile = () => {
                         onClick={(e) => {
                           setDogAgeSelected(dogAgeOption);
                           setDogAgeActive(false);
-                          console.log(dogAgeOption);
+                          // console.log(dogAgeOption);
                         }}
                       >
                         {dogAgeOption}

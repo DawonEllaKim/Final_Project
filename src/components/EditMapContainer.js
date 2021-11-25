@@ -47,7 +47,7 @@ const EditMapContainer = React.memo((props) => {
   // const dispatch =useDispatch();
   const [is_modal, setModal] = useState(false);
   const editId = props.match.params.id;
-  console.log(editId);
+  // console.log(editId);
   const closeModal = () => {
     setModal(false);
   };
@@ -93,13 +93,13 @@ const EditMapContainer = React.memo((props) => {
     }
     setRoad(name);
   };
-  console.log(distance);
+  // console.log(distance);
   const [check, setCheck] = useState(); //locationcategory
   const [start, setStart] = useState({
     La: 126.976826700157,
     Ma: 37.57712223243067,
   });
-  console.log(check);
+  // console.log(check);
   const checkHandler = (e) => {
     if (e.target.value == "서울숲") {
       setCheck(e.target.value);
@@ -171,7 +171,7 @@ const EditMapContainer = React.memo((props) => {
       polygonPath3[i] = new kakao.maps.LatLng(polygon3[i].Ma, polygon3[i].La);
     }
 
-    console.log(dott);
+    // console.log(dott);
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
