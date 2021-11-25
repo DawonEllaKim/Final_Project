@@ -5,7 +5,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore.js";
 import GlobalStyle from "./GlobalStyle";
 import PrivateRoute from "./shared/PrivateRoute";
-
+import { useSelector } from "react-redux";
 //  로그인/회원가입
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
@@ -65,6 +65,8 @@ import ChatDetail from "./pages/Chat/ChatDetail";
 import { io } from "socket.io-client";
 import Toast from "./components/Toast/Toast";
 import ChatSend from "./pages/Chat/ChatSend";
+import CommonModal from "./components/Modal/CommonModal";
+
 
 function App() {
   //socket
@@ -120,6 +122,8 @@ function App() {
       }, 1500);
     }
   }, [ToastStatus]);
+  
+  
 
   return (
     <div className="App">
@@ -143,6 +147,8 @@ function App() {
         <Route exact path="/caution1" component={Caution1} />
         <Route exact path="/caution2" component={Caution2} />
         <Route exact path="/caution3" component={Caution3} />
+        {/* 모달 */}
+        <Route exact path="/successmodal"  component={CommonModal} />
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />

@@ -11,6 +11,7 @@ import dogsta from "./modules/dogsta";
 import chat from "./modules/chat";
 import comment from "./modules/comment";
 import notification from "./modules/notification";
+import modal from "./modules/modal";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -22,7 +23,9 @@ const rootReducer = combineReducers({
   chat: chat,
   comment: comment,
   notification: notification,
+  modal: modal,
   router: connectRouter(history),
+ 
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })];

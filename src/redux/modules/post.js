@@ -11,6 +11,7 @@ import {
   hangang3,
 } from "../../components/MarkerList/HangangList";
 import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
+import { actionCreators as modalActions } from "./modal";
 // action
 //메인 페이지 GET 요청
 const GET_ALL = "GET_ALL"; // 모든 게시물 조회
@@ -92,7 +93,7 @@ const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts",
+      url: "https://www.walkadog.shop/posts",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -130,7 +131,7 @@ const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/olympicPark",
+      url: "https://www.walkadog.shop/posts/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -167,7 +168,7 @@ const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/seoulForest",
+      url: "https://www.walkadog.shop/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -204,7 +205,7 @@ const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/banpoPark",
+      url: "https://www.walkadog.shop/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -241,7 +242,7 @@ const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/posts/${postId}`,
+      url: `https://www.walkadog.shop/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -335,7 +336,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/mypage/myPost/${userId}`,
+      url: `https://www.walkadog.shop/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -372,7 +373,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/posts/${postId}`,
+      url: `https://www.walkadog.shop/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -450,9 +451,8 @@ const deletePostMD = (postId) => {
     apis
       .deletePostAX(postId)
       .then((res) => {
-        window.alert("삭제 완료");
-        // dispatch(deletePost(postId));
-        history.replace("/");
+         dispatch(modalActions.setModal("게시물이 삭제되었습니다"))
+         history.push("/successModal")
       })
       .catch((err) => {
         console.log(err);
