@@ -12,12 +12,12 @@ const deleteNoti = createAction(DELETE_NOTI, (noti) => ({ noti }));
 const initialState = {
   noti: [],
 };
-const postNotiMD = (notificationId,senderId,type) => {
+const postNotiMD = (notificationId, receiverId, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/notification/${notificationId}/${senderId}`,
-      data: {type:type},
+      url: `https://www.walkadog.shop/notification/${notificationId}/${receiverId}`,
+      data: { type: type },
       headers: {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -26,21 +26,22 @@ const postNotiMD = (notificationId,senderId,type) => {
     })
       .then((res) => {
         // console.log(res.data.notification)
-        if(type==3)
-        {
-          dispatch(modalActions.setModal("산책 수락완료"))
-          history.push("/successModal")
+        if (type == 3) {
+          dispatch(deleteNoti(notificationId));
+          dispatch(modalActions.setModal("산책 수락완료"));
+          history.push("/successModal");
         }
-         if(type==4)
-         dispatch(modalActions.setModal("산책 거절완료"))
-         history.push("/successModal")
+        if (type == 4) {
+          dispatch(deleteNoti(notificationId));
+          dispatch(modalActions.setModal("산책 거절완료"));
+          history.push("/successModal");
+        }
       })
       .catch((err) => {
-        console.log("POSTNOTI에서 오류발생", err);
-   
+        // console.log("POSTNOTI에서 오류발생", err);
       });
   };
-}
+};
 const getNotiMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -59,8 +60,8 @@ const getNotiMD = () => {
         dispatch(getNoti(notiList));
       })
       .catch((err) => {
-        console.log("GETNOTI에서 오류발생", err);
-   
+        dispatch(getNoti(0));
+        // console.log("GETNOTI에서 오류발생", err);
       });
   };
 };
@@ -80,10 +81,10 @@ const deleteNotiMD = (notificationId) => {
     })
       .then((res) => {
         dispatch(deleteNoti(notificationId));
-        console.log("알람DELETE성공");
+        // console.log("알람DELETE성공");
       })
       .catch((err) => {
-        console.log("deleteNotiMD에서 오류발생", err);
+        // console.log("deleteNotiMD에서 오류발생", err);
         window.alert("오류 발생");
       });
   };
@@ -100,7 +101,7 @@ export default handleActions(
           (n, idx) => n.notificationId !== action.payload.noti
         );
 
-        console.log(draft.noti);
+        // console.log(draft.noti);
       }),
   },
   initialState

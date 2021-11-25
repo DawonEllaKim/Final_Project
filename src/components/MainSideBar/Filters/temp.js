@@ -47,7 +47,7 @@ const completedOptions = ["전체", "마감", "진행중"];
                 onClick={(e) => {
                   setDogSizeSelected(dogSizeOption);
                   setDogSizeActive(false);
-                  console.log(dogSizeOption);
+                  // console.log(dogSizeOption);
                 }}
               >
                 {dogSizeOption}
@@ -72,7 +72,7 @@ const completedOptions = ["전체", "마감", "진행중"];
                 onClick={(e) => {
                   setDogGenderSizeSelected(dogGenderOption);
                   setDogGenderActive(false);
-                  console.log(dogGenderOption);
+                  // console.log(dogGenderOption);
                 }}
               >
                 {dogGenderOption}
@@ -97,7 +97,7 @@ const completedOptions = ["전체", "마감", "진행중"];
                 onClick={(e) => {
                   setDogAgeSelected(dogAgeOption);
                   setDogAgeActive(false);
-                  console.log(dogAgeOption);
+                  // console.log(dogAgeOption);
                 }}
               >
                 {dogAgeOption}
@@ -124,7 +124,7 @@ const completedOptions = ["전체", "마감", "진행중"];
                 onClick={(e) => {
                   setLocationCategorySelected(locationCategoryOption);
                   setLocationCategoryActive(false);
-                  console.log(locationCategoryOption);
+                  // console.log(locationCategoryOption);
                 }}
               >
                 {locationCategoryOption}
@@ -149,7 +149,7 @@ const completedOptions = ["전체", "마감", "진행중"];
                 onClick={(e) => {
                   setCompletedSelected(completedOption);
                   setCompletedActive(false);
-                  console.log(completedOption);
+                  // console.log(completedOption);
                 }}
               >
                 {completedOption}

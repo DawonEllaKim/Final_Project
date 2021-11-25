@@ -122,7 +122,7 @@ const getAllMD = () => {
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         // console.log("정보 불러오기 실패");
       });
   };
@@ -160,7 +160,7 @@ const getOlympicMD = () => {
         // console.log("getOlympicMD 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패", err);
+        // console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -197,7 +197,7 @@ const getSeoulMD = () => {
         // console.log("getseoul 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패", err);
+        // console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -234,7 +234,7 @@ const getBanpoMD = () => {
         // console.log("getOlympicMD 정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패");
+        // console.log("정보 불러오기 실패");
       });
   };
 };
@@ -328,7 +328,7 @@ const getPostMD = (postId) => {
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패", err);
+        // console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -364,7 +364,7 @@ const getMyPostMD = (userId) => {
         // console.log("정보 불러오기 완료", postList);
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패", err);
+        // console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -412,7 +412,7 @@ const getMapMD = (postId) => {
         // console.log("정보 불러오기 완료", res.data);
       })
       .catch((err) => {
-        console.log("정보 불러오기 실패", err);
+        // console.log("정보 불러오기 실패", err);
       });
   };
 };
@@ -426,7 +426,7 @@ const addPostMD = (post) => {
         dispatch(getModal(true));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
@@ -436,26 +436,26 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-        dispatch(modalActions.setModal("게시물이 수정되었습니다"))
+        dispatch(modalActions.setModal("게시물이 수정되었습니다"));
         dispatch(updatePost(post));
-     history.push("/successModal")
+        history.push("/successModal");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
 const deletePostMD = (postId) => {
   return function (dispatch, getState, { history }) {
-    console.log(postId);
+    // console.log(postId);
     apis
       .deletePostAX(postId)
       .then((res) => {
-         dispatch(modalActions.setModal("게시물이 삭제되었습니다"))
-         history.push("/deleteModal")
+        dispatch(modalActions.setModal("게시물이 삭제되었습니다"));
+        history.push("/deleteModal");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
@@ -500,7 +500,7 @@ export default handleActions(
       }),
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.postId);
+        // console.log(action.payload.postId);
         draft.list = draft.list.filter(
           (post) => post.id !== action.payload.postId
         );

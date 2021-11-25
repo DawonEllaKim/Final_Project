@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
+import NavBar from "../../components/NavBar";
 import CommentList from "../../components/DogstaComment/CommentList";
 import CommentWrite from "../../components/DogstaComment/CommentWrite";
-import NavBar from "../../components/NavBar";
+import SuccessModal from "../../components/Modal/SuccessModal";
+import Spinner from "../../shared/Spinner";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -19,8 +21,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import SuccessModal from "../../components/Modal/SuccessModal";
-import Spinner from "../../shared/Spinner";
 
 const DogStaDetail = (props) => {
   const dispatch = useDispatch();
@@ -78,7 +78,6 @@ const DogStaDetail = (props) => {
   if (loading) {
     return <Spinner />;
   }
-  console.log(modal)
   return (
     <Wrap>
       {modal ? <SuccessModal text="게시글 삭제완료!" /> : ""}

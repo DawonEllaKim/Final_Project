@@ -3,27 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 
+// 달력
 import DatePicker from "react-datepicker";
+
+// 리덕스
 import { actionCreators as PostActions } from "../redux/modules/post";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { FaSearch, FaMapMarkedAlt } from "react-icons/fa";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-// import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Button from "../elements/Button";
-import backward from "../image/backward.png";
-import notification from "../image/Notification.png";
-import search from "../image/search.png";
-import detailAddress from "../image/detailAddress.png";
-import detailFilter from "../image/detailFilter.png";
+
+// 컴포넌츠
 import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
+
+// 이미지+아이콘
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import search from "../image/search.png";
 import { BsCalendarCheck } from "react-icons/bs";
-import { BiEditAlt } from "react-icons/bi";
 import { RiPinDistanceFill } from "react-icons/ri";
-import { FaDog } from "react-icons/fa";
 
 const MapEdit = (props) => {
   const history = useHistory();
@@ -33,7 +31,6 @@ const MapEdit = (props) => {
   const count = post.dogCount;
   const wish = post.wishDesc;
   const moment = require("moment");
-  console.log(post);
 
   // const meetingdate = useSelector((state) => state.post.list);
   // console.log(meetingdate)
@@ -89,26 +86,25 @@ const MapEdit = (props) => {
     ? markerName.endLocationAddress
     : post.endLocationAddress;
 
-  console.log(
-    editTotalTime,
-    editTotalDistance,
-    editRouteName,
-    editRouteColor,
-    editStartLocationAddress,
-    editEndLocationAddress,
-    editLocationCategory
-  );
+  // console.log(
+  //   editTotalTime,
+  //   editTotalDistance,
+  //   editRouteName,
+  //   editRouteColor,
+  //   editStartLocationAddress,
+  //   editEndLocationAddress,
+  //   editLocationCategory
+  // );
 
   const dateHandler = (date) => {
     setStartDate(date);
   };
   const wishHandler = (e) => {
     setWishDesc(e.target.value);
-    console.log(e.target.value);
   };
   //지도 표시할 div
-  console.log(post.mapedit_date);
-  console.log(moment(startDate).subtract(9, "hours")._d);
+  // console.log(post.mapedit_date);
+  // console.log(moment(startDate).subtract(9, "hours")._d);
 
   const editLocation = () => {
     const Info = {
@@ -124,7 +120,6 @@ const MapEdit = (props) => {
       completed: false,
       dogCount: dogCount,
     };
-    console.log(Info);
     dispatch(PostActions.updatePostMD(postId, Info));
   };
 
@@ -301,23 +296,6 @@ const Wrap = styled.div`
   justify-content: center;
   padding: 0 5% 0 5%;
 `;
-
-const InputArea = styled.div`
-  padding: 40px 20px;
-  box-sizing: border-box;
-`;
-
-const TopWrap = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-`;
-const TopTitle = styled.div`
-  font-size: 18px;
-  line-height: 52px;
-`;
-
 const SearchWrap = styled.div`
   width: 100%;
   height: 45px;

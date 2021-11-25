@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
+
+// 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
-import reactDom from "react-dom";
 
 const Write = (props) => {
   const dispatch = useDispatch();

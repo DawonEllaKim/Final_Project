@@ -15,6 +15,7 @@ const Comment = (props) => {
   const dogPostId = post.dogPostId;
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.commentList);
+  // console.log(commentList);
 
   //   현재 게시물 페이지 id와 작성한 댓글 페이지 id가 같은 경우
   //   해당 페이지에서 작성한 댓글만 가져오기

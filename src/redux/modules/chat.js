@@ -1,10 +1,10 @@
 // chat.js - 쪽지함 불러오기, 쪽지 보내기, 쪽지 삭제하기
-
 import axios from "axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
 import { createAction, handleActions } from "redux-actions";
 import { actionCreators as modalActions } from "./modal";
+
 const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
 const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
 const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
@@ -12,6 +12,7 @@ const GET_DETAIL = "GET_DETAIL"; // 한 쪽지 GET
 const DELETE_IN_MESSAGE = "DELETE_IN_MESSAGE"; // 받은 쪽지함에서 하나 삭제
 const DELETE_OUT_MESSAGE = "DELETE_OUT_MESSAGE"; // 보낸 쪽지함에서 하나 삭제
 const GET_MODAL = "GET_MODAL";
+
 const inBox = createAction(IN_BOX, (inBoxList) => ({
   inBoxList,
 }));
@@ -59,10 +60,10 @@ const inBoxMD = () => {
       .then((res) => {
         const list = res.data.message;
         dispatch(inBox(list));
-        console.log("나한테 온 모든 쪽지 GET 성공", res.data.message);
+        // console.log("나한테 온 모든 쪽지 GET 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("나한테 온 모든 쪽지 GET 에러", err);
+        // console.log("나한테 온 모든 쪽지 GET 에러", err);
       });
   };
 };
@@ -81,10 +82,10 @@ const outBoxMD = () => {
       .then((res) => {
         const list = res.data.message;
         dispatch(outBox(list));
-        console.log("내가 보낸 모든 쪽지 GET 성공", res.data.message);
+        // console.log("내가 보낸 모든 쪽지 GET 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("내가 보낸 모든 쪽지 GET 에러", err);
+        // console.log("내가 보낸 모든 쪽지 GET 에러", err);
       });
   };
 };
@@ -104,11 +105,11 @@ const sendMessageMD = (receiverId, message, type) => {
         dispatch(sendMessage(message));
         dispatch(sendNotificationMD(receiverId, 1));
         dispatch(getModal(true));
-        console.log("쪽지 보내기 POST 성공", res.data);
+        // console.log("쪽지 보내기 POST 성공", res.data);
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
-        console.log("쪽지 보내기 POST 에러", err);
+        // console.log("쪽지 보내기 POST 에러", err);
       });
   };
 };
@@ -130,7 +131,7 @@ const sendNotificationMD = (receiverId, type) => {
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
-        console.log("쪽지 보내기 POST 에러", err);
+        // console.log("쪽지 보내기 POST 에러", err);
         history.push("/notification");
       });
   };
@@ -149,10 +150,10 @@ const getDetailMD = (chatId) => {
     })
       .then((res) => {
         dispatch(getDetail(res.data.message));
-        console.log("쪽지 하나 DELETE 성공", res.data.message);
+        // console.log("쪽지 하나 DELETE 성공", res.data.message);
       })
       .catch((err) => {
-        console.log("쪽지 하나 DELETE 오류", err);
+        // console.log("쪽지 하나 DELETE 오류", err);
       });
   };
 };
@@ -170,10 +171,10 @@ const deleteInMessageMD = (receiverId, senderId, chatId) => {
     })
       .then((res) => {
         dispatch(deleteInMessage(chatId));
-        console.log("Inbox에서 쪽지 하나 DELETE 성공", res.data);
+        // console.log("Inbox에서 쪽지 하나 DELETE 성공", res.data);
       })
       .catch((err) => {
-        console.log("Inbox에서 쪽지 하나 DELETE 오류", err);
+        // console.log("Inbox에서 쪽지 하나 DELETE 오류", err);
       });
   };
 };
@@ -191,10 +192,10 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
     })
       .then((res) => {
         dispatch(deleteOutMessage(chatId));
-        console.log("Outbox에서 쪽지 하나 DELETE 성공", res.data);
+        // console.log("Outbox에서 쪽지 하나 DELETE 성공", res.data);
       })
       .catch((err) => {
-        console.log("Outbox에서쪽지 하나 DELETE 오류", err);
+        // console.log("Outbox에서쪽지 하나 DELETE 오류", err);
       });
   };
 };

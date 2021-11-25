@@ -5,7 +5,6 @@ import { useHistory } from "react-router";
 
 // 컴포넌츠
 import TopBar from "../components/TopBar";
-import NavBar from "../components/NavBar";
 import DogStaList from "../components/MyPage/DogStaList";
 import InfoList from "../components/MyPage/InfoList";
 import WalkList from "../components/MyPage/WalkList";
@@ -22,8 +21,6 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import redHeart from "../image/redHeart.png";
-import grayHeart from "../image/grayHeart.png";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -50,9 +47,9 @@ const MyPage = (props) => {
       opposite: currentPageUserId,
     };
 
-    console.log("새로운 방을 생성합니다.");
+    // console.log("새로운 방을 생성합니다.");
     // dispatch(chatAction.createRoomMD(chatInfo));
-    console.log("룸 아이디", roomId, "챗 인포", chatInfo);
+    // console.log("룸 아이디", roomId, "챗 인포", chatInfo);
   };
 
   useEffect(() => {

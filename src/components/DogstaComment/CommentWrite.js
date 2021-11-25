@@ -85,12 +85,12 @@ const CommentInput = styled.input`
 `;
 const CommentAdd = styled.button`
   position: absolute;
-  top: 14px;
+  top: 15px;
   right: 20px;
   border: none;
   background-color: transparent;
   color: #ff5656;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
 `;

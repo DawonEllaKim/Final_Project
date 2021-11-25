@@ -9,6 +9,8 @@ const DetailPageMap = ({ post }) => {
   const latitude = post.latitude;
   const longitude = post.longitude;
 
+  // console.log(latitude)
+  // console.log(longitude)
   useEffect(() => {
     // 지도를 표시할 div
     var mapContainer = document.getElementById("map"),

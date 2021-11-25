@@ -11,7 +11,7 @@ const SubmitAlert = ({ noti }) => {
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
   useEffect(() => {
-    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
   }, []);
   useEffect(() => {
     socket?.emit("postUser", userId);
@@ -21,7 +21,7 @@ const SubmitAlert = ({ noti }) => {
       setNotification((prev) => [...prev, data]);
     });
   }, [socket]);
-
+  const username = localStorage.getItem("userNickname")
   return (
     <div>
       <Wrap

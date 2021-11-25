@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../../redux/modules/dogsta";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import DogStaSuccessModal from "../../components/Modal/DogStarSuccessModal";
+import Spinner from "../../shared/Spinner";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
@@ -15,9 +16,7 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 // 이미지 + 아이콘
 import defaultImage from "../../image/defaultImage.png";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import Spinner from "../../shared/Spinner";
 import { FaBullseye } from "react-icons/fa";
-import DogStaSuccessModal from "../../components/Modal/DogStarSuccessModal";
 
 const DogStaWrite = (props) => {
   const dispatch = useDispatch();

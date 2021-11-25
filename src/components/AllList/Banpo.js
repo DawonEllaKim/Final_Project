@@ -45,5 +45,4 @@ const Banpo = () => {
 const Wrap = styled.div`
   width: 100%;
 `;
-
 export default Banpo;

@@ -4,17 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../components/TopBar";
+import NavBar from "../components/NavBar";
 import Alert from "../components/Notification/Alert";
 import InBox from "../components/Notification/InBox";
 import OutBox from "../components/Notification/OutBox";
+import WalkAlert from "../components/Notification/WalkAlert";
+import SubmitAlert from "../components/Notification/SubmitAlert";
+import CancelAlert from "../components/Notification/CancelAlert";
 
 // 리덕스
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as notiActions } from "../redux/modules/notification";
-import WalkAlert from "../components/Notification/WalkAlert";
-import SubmitAlert from "../components/Notification/SubmitAlert";
-import CancelAlert from "../components/Notification/CancelAlert";
-import NavBar from "../components/NavBar";
+
 
 const Notification = (props) => {
   const notification = props.notification; // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄
@@ -92,26 +93,44 @@ const Notification = (props) => {
       {/* 상태값에 따라서 바뀌는 카드 */}
       {status === "alert" && (
         <div>
-          {getNoti.map((noti, index) => {
-            if (noti.type == 1) return <Alert noti={noti} />;
-            if (noti.type == 2) return <WalkAlert noti={noti} />;
-            if (noti.type == 3) return <SubmitAlert noti={noti} />;
-            if (noti.type == 4) return <CancelAlert noti={noti} />;
-          })}
+          {getNoti.length === 0 ? (
+            <EmptyMessage>받은 알림이 없습니다.</EmptyMessage>
+          ) : (
+            <div>
+              {getNoti.map((noti, index) => {
+                if (noti.type == 1) return <Alert noti={noti} />;
+                if (noti.type == 2) return <WalkAlert noti={noti} />;
+                if (noti.type == 3) return <SubmitAlert noti={noti} />;
+                if (noti.type == 4) return <CancelAlert noti={noti} />;
+              })}
+            </div>
+          )}
         </div>
       )}
       {status === "InBoxStatus" && (
         <div>
-          {inBoxList.map((box, index) => {
-            return <InBox key={index} box={box} />;
-          })}
+          {inBoxList.length === 0 ? (
+            <EmptyMessage>받은 쪽지가 없습니다.</EmptyMessage>
+          ) : (
+            <div>
+              {inBoxList.map((box, index) => {
+                return <InBox key={index} box={box} />;
+              })}
+            </div>
+          )}
         </div>
       )}
       {status === "OutBoxStatus" && (
         <div>
-          {outBoxList.map((box, index) => {
-            return <OutBox key={index} box={box} />;
-          })}
+          {outBoxList.length === 0 ? (
+            <EmptyMessage>보낸 쪽지가 없습니다.</EmptyMessage>
+          ) : (
+            <div>
+              {outBoxList.map((box, index) => {
+                return <OutBox key={index} box={box} />;
+              })}
+            </div>
+          )}
         </div>
       )}
       <NavBar></NavBar>
@@ -141,6 +160,9 @@ const Category = styled.div`
     text-align: center;
     cursor: pointer;
   }
+`;
+const EmptyMessage = styled.div`
+  padding: 20px;
 `;
 
 export default Notification;

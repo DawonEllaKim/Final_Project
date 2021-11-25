@@ -3,24 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 // 컴포넌츠
-// import Card from "../components/Card";
 import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
-import Spinner from "../shared/Spinner";
 import All from "../components/AllList/All";
 import Olympic from "../components/AllList/Olympic";
 import SeoulForest from "../components/AllList/SeoulForest";
 import Banpo from "../components/AllList/Banpo";
-
-// 이미지
-import MainPageLogo from "../image/MainPageLogo.png";
-
-import { FaPaw } from "react-icons/fa";
-import { IoPawOutline } from "react-icons/io5";
+import Spinner from "../shared/Spinner";
 
 // 리덕스
-import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
+
+// 이미지
+import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
@@ -66,6 +61,8 @@ const AllList = (props) => {
             />
             <span>산책가자</span>
           </TopBar>
+          
+          {/* 카테고리 선택 */}
           <Category>
             <button
               onClick={all}

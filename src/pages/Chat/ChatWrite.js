@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { io } from "socket.io-client";
+
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
-//모달
 import ChatSuccessModal from "../../components/Modal/ChatSuccessModal";
+
 // 리덕스
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as userActions } from "../../redux/modules/user";
+
 const ChatWrite = (props) => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const ChatWrite = (props) => {
   const sendChat = () => {
     dispatch(chatAction.sendMessageMD(receiverId, message, 1));
   };
-  console.log(modal);
+  // console.log(modal);
 
   return (
     <Wrap>

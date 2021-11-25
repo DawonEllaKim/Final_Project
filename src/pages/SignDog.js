@@ -1,25 +1,28 @@
 import React, { useState,useEffect } from "react";
 import styled from "styled-components";
-import { MdArrowBackIosNew } from "react-icons/md";
-
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as DogActions } from "../redux/modules/sign";
+
+// 컴포넌츠
+import TopBar from "../components/TopBar";
+import SignDogSuccessModal from "../components/Modal/SignDogSuccessModal";
+import Spinner from "../shared/Spinner";
+
+// 유효성 검사
 import { dogBreedCheck } from "../shared/check";
 
-import TopBar from "../components/TopBar";
-import Spinner from "../shared/Spinner";
-// 강아지 이미지 기본 값
+// 리덕스
+import { actionCreators as DogActions } from "../redux/modules/sign";
+
+// 아이콘 + 이미지
 import defaultDog from "../image/defaultImage.png";
-import { ElectricScooterSharp } from "@mui/icons-material";
-import SignDogSuccessModal from "../components/Modal/SignDogSuccessModal";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
 
   //jsonserver 데이터 맞추기 위한 코드
   const signUser = useSelector((state) => state.sign.user);
-  console.log(signUser);
+  // console.log(signUser);
   const [imgBase64, setImgBase64] = useState(defaultDog ? defaultDog : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
   const [dogGender, setDogGender] = useState("");
@@ -42,6 +45,7 @@ const SignDog = (props) => {
   const [modal,setModal] = useState();
   const is_loading = useSelector((state) => state.sign.is_loading);
   const dog_modal = useSelector((state) => state.sign.dog_modal);
+
   useEffect(() => {
     // dispatch(postActions.getAllMD());
 
@@ -101,7 +105,6 @@ const SignDog = (props) => {
       const base64 = reader.result;
       if (base64) {
         setImgBase64(base64.toString());
-        console.log(base64);
       }
     };
 
@@ -109,45 +112,36 @@ const SignDog = (props) => {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
-
-    console.log(event.target.files[0]);
   };
 
   const dogNameChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogName(newTitle);
   };
 
   const dogBreedChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogBreed(newTitle);
   };
 
   const dogSizeChangeHandler = (size) => {
-    console.log(size);
     setDogSize(size);
   };
 
   const dogGenderChangeHandler = (gender) => {
-    console.log(gender);
     setDogGender(gender);
   };
 
   const dogNeutralChangeHandler = (neutral) => {
-    console.log(neutral);
     setNeutral(neutral);
   };
 
   const dogAgeChangeHandler = (age) => {
-    console.log(age);
     setDogAge(age);
   };
 
   const dogCommentChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setDogComment(newTitle);
   };
   const submitDogInfo = () => {
@@ -197,6 +191,7 @@ const SignDog = (props) => {
     setLoading(false);
     dispatch(DogActions.signDogAPI(formData));
   };
+
   if (!loading) {
     return <Spinner />;
   }

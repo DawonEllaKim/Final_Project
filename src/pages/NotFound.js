@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+
 import spinner from "../image/spinner.gif";
 
 const NotFound = () => {

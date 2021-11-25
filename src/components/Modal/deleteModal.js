@@ -13,11 +13,11 @@ const DeleteModal = (props) => {
   useEffect(() => {
     setModal(modalText);
   }, [modalText]);
-
+  // console.log(modal)
   const modalHandler = () => {
     history.push("/");
   };
-
+  // console.log(props);
   return (
     <div onClick={modalHandler}>
       <Component />

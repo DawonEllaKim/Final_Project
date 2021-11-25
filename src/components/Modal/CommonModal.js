@@ -13,11 +13,11 @@ const CommonModal = (props) => {
   useEffect(() => {
     setModal(modalText);
   }, [modalText]);
-
+  // console.log(modal);
   const modalHandler = () => {
     history.goBack();
   };
-
+  //  console.log(props)
   return (
     <div onClick={modalHandler}>
       <Component />

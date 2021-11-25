@@ -1,19 +1,24 @@
 import React, { useState,useEffect } from "react";
 import styled from "styled-components";
-import { MdArrowBackIosNew } from "react-icons/md";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import { history } from "../redux/configureStore";
 import { useDispatch,useSelector } from "react-redux";
-import { actionCreators as UserActions } from "../redux/modules/sign";
-import { emailCheck, passwordCheck } from "../shared/check";
-import Spinner from "../shared/Spinner";
+import "react-toastify/dist/ReactToastify.css";
+import e from "cors";
+
+// 컴포넌츠
 import TopBar from "../components/TopBar";
 import SignUpSuccessModal from "../components/Modal/SignUpSuccessModal";
-// 유저 이미지 기본값
+import Spinner from "../shared/Spinner";
+
+// 유효성 검사
+import { emailCheck, passwordCheck } from "../shared/check";
+
+// 리덕스
+import { actionCreators as UserActions } from "../redux/modules/sign";
+
+// 아이콘+이미지
 import defaultUser from "../image/default_user.png";
-import e from "cors";
+
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -39,10 +44,10 @@ const SignUp = () => {
   const [modal,setModal] = useState("")
   const is_loading = useSelector((state) => state.sign.is_loading);
   const user_modal = useSelector((state) => state.sign.user_modal);
-  const [loading,setLoading] = useState()
+  const [loading,setLoading] = useState();
+
   useEffect(() => {
     // dispatch(postActions.getAllMD());
-
     setLoading(is_loading)
     setLoading(true)
     setModal(user_modal)
@@ -66,37 +71,30 @@ const SignUp = () => {
 
   const userEmailChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setUserEmail(newTitle);
   };
 
   const passwordChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setPassword(newTitle);
   };
   const confirmPasswordChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setConfirmPassword(newTitle);
   };
 
   const userNicknameChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setUserNickname(newTitle);
   };
   const userLocationChangeHandler = (e) => {
     const newTitle = e.target.value;
-    console.log(newTitle);
     setUserLocation(newTitle);
   };
   const userGenderChangeHandler = (name) => {
-    console.log(name);
     setUserGender(name);
   };
   const userAgeChangeHandler = (name) => {
-    console.log(name);
     setUserAge(name);
   };
 
@@ -205,6 +203,7 @@ const SignUp = () => {
     setLoading(false);
     dispatch(UserActions.signUserAPI(formData));
   };
+  
   if (!loading) {
     return <Spinner />;
   }

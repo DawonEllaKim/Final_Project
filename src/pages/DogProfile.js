@@ -1,21 +1,21 @@
 // DogProfile.js - 강아지 프로필 편집 페이지
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
 
 // 리덕스
-import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/user";
-// 리액트 아이콘
 
-import edit from "../image/edit.png";
-// 상단바
+// 컴포넌츠
+import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
 import DogModal from "../components/DogModal";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DogSuccessModal from "../components/Modal/DogSuccessModal";
+
+// 리액트 아이콘
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();
@@ -222,11 +222,13 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="남"
                 name="dogGender"
                 type="radio"
                 id="male"
                 checked={dogGender === "남"}
                 onClick={() => dogGenderChangeHandler("남")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
             <Label for="male">남</Label>
@@ -234,11 +236,13 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="여"
                 name="dogGender"
                 type="radio"
                 id="female"
                 checked={dogGender === "여"}
                 onClick={() => dogGenderChangeHandler("여")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
             <Label for="female">여</Label>
@@ -253,26 +257,30 @@ const EditDog = (props) => {
           <Flex>
             <RadioWrap>
               <Input
+                value="Y"
                 name="neutral"
                 type="radio"
                 id="yes"
                 checked={neutral === "true"}
                 onClick={() => dogNeutralChangeHandler("true")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
-            <Label for="yes">Y</Label>
+            <Label htmlFor="yes">Y</Label>
           </Flex>
           <Flex>
             <RadioWrap>
               <Input
+                value="N"
                 name="neutral"
                 type="radio"
                 id="no"
                 checked={neutral === "false"}
                 onClick={() => dogNeutralChangeHandler("false")}
+                style={{ width: "14px", height: "14px" }}
               />
             </RadioWrap>
-            <Label for="no">N</Label>
+            <Label htmlFor="no">N</Label>
           </Flex>
         </FlexWrap>
       </Filter>

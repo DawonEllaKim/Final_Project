@@ -2,36 +2,36 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { toilet, trash, water, dog } from "../components/MarkerList/MarkerList";
-import {
-  polygon1,
-  polygon2,
-  polygon3,
-} from "../components/MarkerList/PolygonList";
-import { olympic, seoul, hangang } from "../components/MarkerList/ParkList";
-//산책로리스트
-import BlackMarker from "../image/toil.png";
-import trashMarker from "../image/tra.png";
-import waterMarker from "../image/water-tap.png";
-import dogMarker from "../image/DogRun.png";
-import { list1, list2, list3 } from "../components/MarkerList/RoadList";
-// 컴포넌츠
-import NavBar from "../components/NavBar";
-import startMarker from "../image/end.png";
-import endMarker from "../image/start.png";
-// 리덕스
 import { useHistory } from "react-router";
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as chatActions } from "../redux/modules/chat";
+
+// 컴포넌츠
+import TopBar from "../components/TopBar";
+import NavBar from "../components/NavBar";
+import { toilet, trash, water, dog } from "../components/MarkerList/MarkerList";
+import {polygon1, polygon2, polygon3,} from "../components/MarkerList/PolygonList";
+import { olympic, seoul, hangang } from "../components/MarkerList/ParkList";
+import { list1, list2, list3 } from "../components/MarkerList/RoadList";
 import Spinner from "../shared/Spinner";
 
-// 리액트 아이콘
-import TopBar from "../components/TopBar";
+// 리덕스
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+
+// 아이콘 + 이미지
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { RiPinDistanceFill } from "react-icons/ri";
 import { FaDog } from "react-icons/fa";
+import startMarker from "../image/end.png";
+import endMarker from "../image/start.png";
 
+// 마커 이미지
+import BlackMarker from "../image/toil.png";
+import trashMarker from "../image/tra.png";
+import waterMarker from "../image/water-tap.png";
+import dogMarker from "../image/DogRun.png";
+
+// 카카오맵
 const { kakao } = window;
 
 const Detail = (props) => {
