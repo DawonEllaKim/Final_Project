@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
 import { io } from "socket.io-client";
+
+// 이미지
+import trash from "../../image/tra.png";
+
 const SubmitAlert = ({ noti }) => {
   const dispatch = useDispatch();
 
@@ -25,9 +29,7 @@ const SubmitAlert = ({ noti }) => {
   return (
     <div>
       <Wrap
-        onClick={() => {
-          dispatch(notiActions.deleteNotiMD(noti.notificationId));
-        }}
+ 
       >
         <Top>
           <Left>
@@ -43,6 +45,13 @@ const SubmitAlert = ({ noti }) => {
 
         <Bottom>
           <Time>{noti.AGOTIME}</Time>
+            <DeleteBtn
+              onClick={() => {
+                dispatch(notiActions.deleteNotiMD(noti.notificationId));
+              }}
+            >
+              <img src={trash} />
+            </DeleteBtn>
         </Bottom>
       </Wrap>
     </div>
@@ -95,6 +104,13 @@ const Time = styled.div`
   padding-right: 10px;
   padding-bottom: 2px;
   font-size: 12px;
+`;
+const DeleteBtn = styled.div`
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export default SubmitAlert;

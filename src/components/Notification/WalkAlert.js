@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
 import { actionCreators as chatActions } from "../../redux/modules/chat";
 import { io } from "socket.io-client";
+
+// 이미지
+import trash from "../../image/tra.png";
+
 const WalkAlert = ({ noti }) => {
   const dispatch = useDispatch();
 
@@ -61,12 +65,18 @@ const WalkAlert = ({ noti }) => {
 
         <Bottom>
         <Time>{noti.AGOTIME}</Time>
+            <DeleteBtn
+              onClick={() => {
+                dispatch(notiActions.deleteNotiMD(noti.notificationId));
+              }}
+            >
+              <img src={trash} />
+            </DeleteBtn>
         </Bottom>
       </Wrap>
     </div>
   );
 };
-
 
 const Wrap = styled.div`
   padding: 4px 0;
@@ -138,6 +148,13 @@ const Time = styled.div`
   padding-right: 10px;
   padding-bottom: 2px;
   font-size: 12px;
+`;
+const DeleteBtn = styled.div`
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export default WalkAlert;

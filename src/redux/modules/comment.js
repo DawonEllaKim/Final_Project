@@ -17,7 +17,8 @@ const getComment = createAction(GET_COMMENT, (commentList) => ({
   commentList,
 }));
 const editComment = createAction(EDIT_COMMENT, (commentList, commentId) => ({
-  commentList, commentId
+  commentList,
+  commentId,
 }));
 const deleteComment = createAction(DELETE_COMMENT, (commentList) => ({
   commentList,
@@ -44,10 +45,10 @@ const addCommentMD = (dogPostId, comment) => {
     })
       .then((res) => {
         dispatch(addComment(comment));
-        console.log("댓글 post", res);
+        // console.log("댓글 post", res);
       })
       .catch((err) => {
-        console.log("댓글 post 실패", err);
+        // console.log("댓글 post 실패", err);
       });
   };
 };
@@ -67,16 +68,16 @@ const getCommentMD = (dogPostId) => {
     })
       .then((res) => {
         const commentList = res.data.comment;
-        console.log("댓글 get", commentList);
+        // console.log("댓글 get", commentList);
         dispatch(getComment(commentList));
       })
       .catch((err) => {
-        console.log("댓글 get 에러", err);
+        // console.log("댓글 get 에러", err);
       });
   };
 };
 
-const editCommentMD = (dogPostId, commentId,commentList) => {
+const editCommentMD = (dogPostId, commentId, commentList) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
@@ -90,12 +91,11 @@ const editCommentMD = (dogPostId, commentId,commentList) => {
       },
     })
       .then((res) => {
-        
-        dispatch(editComment(commentList,commentId));
-        console.log("댓글 수정", res.data);
+        dispatch(editComment(commentList, commentId));
+        // console.log("댓글 수정", res.data);
       })
       .catch((err) => {
-        console.log("댓글 수정 에러", err);
+        // console.log("댓글 수정 에러", err);
       });
   };
 };
@@ -116,10 +116,10 @@ const deleteCommentMD = (dogPostId, commentId) => {
     })
       .then((res) => {
         dispatch(deleteComment(commentId));
-        console.log("댓글 삭제 성공", res);
+        // console.log("댓글 삭제 성공", res);
       })
       .catch((err) => {
-        console.log("댓글 삭제 에러", err);
+        // console.log("댓글 삭제 에러", err);
       });
   };
 };
@@ -139,9 +139,12 @@ export default handleActions(
       produce(state, (draft) => {
         let commentIdx = draft.commentList.findIndex(
           (comment) => comment.commentId == action.payload.commentId
-        )
-        console.log(commentIdx)
-        draft.commentList[commentIdx] = { ...draft.commentList[commentIdx], ...action.payload.commentList};
+        );
+        // console.log(commentIdx)
+        draft.commentList[commentIdx] = {
+          ...draft.commentList[commentIdx],
+          ...action.payload.commentList,
+        };
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {

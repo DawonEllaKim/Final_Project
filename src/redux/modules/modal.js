@@ -6,12 +6,10 @@ import { getCookie } from "../../shared/Cookie";
 // action
 const SET_MODAL = "SET_MODAL";
 
-
 // action creators
-const setModal= createAction(SET_MODAL, (modal) => ({
+const setModal = createAction(SET_MODAL, (modal) => ({
   modal,
 }));
-
 
 // initialState
 const initialState = {
@@ -20,20 +18,15 @@ const initialState = {
 
 // middleware
 const setModalMD = (dogPostId) => {
-  return function (dispatch, getState, { history }) {
-   
-    
-    
-  };
+  return function (dispatch, getState, { history }) {};
 };
-
 
 // reducer
 export default handleActions(
   {
     [SET_MODAL]: (state, action) =>
       produce(state, (draft) => {
-        draft.modal=action.payload.modal
+        draft.modal = action.payload.modal;
       }),
   },
   initialState
