@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as notiActions } from "../../redux/modules/notification";
 import { io } from "socket.io-client";
+import trash from "../../image/tra.png";
+
 const CancelAlert = ({ noti }) => {
   const dispatch = useDispatch();
 
@@ -25,9 +27,7 @@ const CancelAlert = ({ noti }) => {
   return (
     <div>
       <Wrap
-        onClick={() => {
-          dispatch(notiActions.deleteNotiMD(noti.notificationId));
-        }}
+     
       >
         <Left>
           <img src={noti.senderImage} />
@@ -41,6 +41,13 @@ const CancelAlert = ({ noti }) => {
 
           <Info>
             <Time>{noti.AGOTIME}</Time>
+            <DeleteBtn
+              onClick={() => {
+                dispatch(notiActions.deleteNotiMD(noti.notificationId));
+              }}
+            >
+              <img src={trash} />
+            </DeleteBtn>
           </Info>
         </Right>
       </Wrap>
@@ -69,9 +76,10 @@ const Time = styled.div`
   font-size: 12px;
 `;
 const DeleteBtn = styled.div`
+  cursor: pointer;
   img {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
   }
 `;
 const Wrap = styled.div`

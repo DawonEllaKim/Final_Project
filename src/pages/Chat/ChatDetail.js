@@ -46,14 +46,14 @@ const ChatDetail = (props) => {
 
   // 해당 쪽지에 관한 정보만 불러오기
   useEffect(() => {
-    setModal(getModal);
+ 
     dispatch(chatAction.getDetailMD(chatId));
-  }, [getModal]);
+  }, []);
 
   return (
     <Wrap>
       {failModal ? <ChatFailModal setFailModal={setFailModal} /> : ""}
-      {modal ? <ChatSuccessModal /> : ""}
+   
       {list ? (
         <div>
           <TopBar>받은 쪽지</TopBar>
