@@ -2,16 +2,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-//이미지
-import RedMessage from "../../image/RedMessage.png";
+import { useHistory } from "react-router";
+
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
-// 리덕스
-import { actionCreators as chatAction } from "../../redux/modules/chat";
-import { useHistory } from "react-router";
 import ChatSuccessModal from "../../components/Modal/ChatSuccessModal";
 import ChatFailModal from "../../components/Modal/ChatFailModal";
+
+// 리덕스
+import { actionCreators as chatAction } from "../../redux/modules/chat";
+
+//이미지
+import RedMessage from "../../image/RedMessage.png";
+
 const ChatDetail = (props) => {
   const [message, setMessage] = useState("");
   const history = useHistory();
@@ -26,6 +30,7 @@ const ChatDetail = (props) => {
   const [modal, setModal] = useState("");
   const [failModal, setFailModal] = useState("");
   const getModal = useSelector((state) => state.chat.modal);
+
   const messageChange = (e) => {
     setMessage(e.target.value);
   };
@@ -161,7 +166,6 @@ const Input = styled.div`
   display: flex;
 
   width: 100%;
-
   height: 30vh;
 
   padding: 20px;

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { MdArrowBackIosNew } from "react-icons/md";
 import AWS from "aws-sdk";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as UserActions } from "../redux/modules/user";
-import edit from "../image/edit.png";
-// 상단바
+
+// 컴포넌츠
 import TopBar from "../components/TopBar";
 import UserModal from "../components/UserModal";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import UserSuccessModal from "../components/Modal/UserSuccessModal";
 import NavBar from "../components/NavBar";
+
+// 리덕스
+import { actionCreators as UserActions } from "../redux/modules/user";
+
+// 아이콘+이미지
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
 
 const EditUser = (props) => {
   const dispatch = useDispatch();

@@ -6,16 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import SuccessModal from "../../components/Modal/SuccessModal";
 
 // 리덕스
-import dogsta, {
-  actionCreators as postActions,
-} from "../../redux/modules/dogsta";
+import dogsta, { actionCreators as postActions} from "../../redux/modules/dogsta";
 import DogStarEditModal from "../../components/DogStarEditModal";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import SuccessModal from "../../components/Modal/SuccessModal";
 
 const DogStaEdit = (props) => {
   const dispatch = useDispatch();
@@ -30,6 +28,7 @@ const DogStaEdit = (props) => {
   const getModal = useSelector((state) => state.dogsta.modal);
   const [isModal, setIsModal] = useState();
   const [modal, setModal] = useState();
+  
   useEffect(() => {
     dispatch(postActions.getPostMD(currentPostUserId, postId));
     setDogPostDesc(post.dogPostDesc);

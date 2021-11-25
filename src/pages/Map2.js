@@ -11,6 +11,9 @@ import "../components/react-datepicker.css";
 import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import ErrorModal from "../components/ErrorModal";
+import SuccessModal from "../components/Modal/SuccessModal";
+
+// 리덕스
 import { actionCreators as PostActions } from "../redux/modules/post";
 
 // 이미지 + 아이콘
@@ -22,7 +25,6 @@ import Select from "@mui/material/Select";
 import search from "../image/search.png";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
-import SuccessModal from "../components/Modal/SuccessModal";
 
 const Map2 = (props) => {
   const history = useHistory();

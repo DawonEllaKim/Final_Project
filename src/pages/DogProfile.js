@@ -1,21 +1,21 @@
 // DogProfile.js - 강아지 프로필 편집 페이지
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
 
 // 리덕스
-import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/user";
-// 리액트 아이콘
 
-import edit from "../image/edit.png";
-// 상단바
+// 컴포넌츠
+import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
 import DogModal from "../components/DogModal";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DogSuccessModal from "../components/Modal/DogSuccessModal";
+
+// 리액트 아이콘
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();

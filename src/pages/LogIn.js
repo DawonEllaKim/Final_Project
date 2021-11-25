@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { MdAlternateEmail } from "react-icons/md";
-import { AiOutlineLock } from "react-icons/ai";
-import kakaoPicture from "../image/kakao_login_medium_wide.png";
-import axios from "axios";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/sign";
-import Spinner from "../shared/Spinner";
-import logo from "../image/logo.png";
-// 상단바
+import axios from "axios";
+// const { Kakao } = window;
+
+// 컴포넌츠
 import TopBar from "../components/TopBar";
 import LoginSuccessModal from "../components/Modal/LoginSuccessModal";
 import { KAKAO_AUTH_URL } from "../components/OAuth";
-// const { Kakao } = window;
+import Spinner from "../shared/Spinner";
+
+// 리덕스
+import { actionCreators as userActions } from "../redux/modules/sign";
+
+// 아이콘 + 이미지
+import { MdAlternateEmail } from "react-icons/md";
+import { AiOutlineLock } from "react-icons/ai";
+import kakaoPicture from "../image/kakao_login_medium_wide.png";
+import logo from "../image/logo.png";
 
 const LogIn = (props) => {
   const dispatch = useDispatch();
@@ -87,6 +92,7 @@ const LogIn = (props) => {
   //     },
   //   });
   // };
+  
   if (!loading) {
     return <Spinner />;
   }

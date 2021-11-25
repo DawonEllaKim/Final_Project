@@ -1,12 +1,15 @@
 // Main.js - 메인 페이지
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import { io } from "socket.io-client";
+
 
 // 리덕스
-import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
+import { actionCreators as notiActions } from "../redux/modules/notification";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
@@ -27,9 +30,6 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import { io } from "socket.io-client";
-import { actionCreators as notiActions } from "../redux/modules/notification";
 
 const Main = (props) => {
   const [page, setPage] = useState();

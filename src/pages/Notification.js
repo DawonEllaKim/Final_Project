@@ -4,17 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../components/TopBar";
+import NavBar from "../components/NavBar";
 import Alert from "../components/Notification/Alert";
 import InBox from "../components/Notification/InBox";
 import OutBox from "../components/Notification/OutBox";
+import WalkAlert from "../components/Notification/WalkAlert";
+import SubmitAlert from "../components/Notification/SubmitAlert";
+import CancelAlert from "../components/Notification/CancelAlert";
 
 // 리덕스
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as notiActions } from "../redux/modules/notification";
-import WalkAlert from "../components/Notification/WalkAlert";
-import SubmitAlert from "../components/Notification/SubmitAlert";
-import CancelAlert from "../components/Notification/CancelAlert";
-import NavBar from "../components/NavBar";
+
 
 const Notification = (props) => {
   const notification = props.notification; // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄

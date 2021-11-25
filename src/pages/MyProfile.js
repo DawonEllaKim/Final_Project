@@ -27,7 +27,7 @@ const MyProfile = () => {
 
   // 강아지 정보
   const dogInfo = useSelector((state) => state.user.list[0]?.dog) || "";
-  console.log(useSelector((state) => state.user));
+  // console.log(useSelector((state) => state.user));
   const dogName = dogInfo.dogName;
   const dogGender = dogInfo.dogGender;
   const dogBreed = dogInfo.dogBreed;
@@ -39,12 +39,12 @@ const MyProfile = () => {
 
   // 보호자 정보
   const ownerInfo = useSelector((state) => state.user.list[0]?.owner) || "";
-  console.log(ownerInfo);
+  // console.log(ownerInfo);
   const ownerAge = ownerInfo.ownerAge;
   const ownerGender = ownerInfo.ownerGender;
   const ownerImage = ownerInfo.ownerImage;
   const ownerName = ownerInfo.ownerName;
-  console.log(ownerName);
+  // console.log(ownerName);
 
   // 강아지 크기 필터
   const [dogSizeActive, setDogSizeActive] = useState(false);
@@ -82,7 +82,7 @@ const MyProfile = () => {
     dispatch(userActions.getUserMD());
   }, []);
 
-  console.log(useSelector((state) => state));
+  // console.log(useSelector((state) => state));
 
   return editMode ? (
     // 편집 모드 edit === false

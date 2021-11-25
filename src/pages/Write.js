@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
+
+// 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
 
 const Write = (props) => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
   const postId = props.match.params.id;
-  console.log(postList);
-  console.log(postId);
-  console.log(props.match.params);
 
   let is_edit = postId ? true : false;
-  console.log(is_edit);
   const post = is_edit ? postList.find((p) => p.id === Number(postId)) : null;
-  console.log(post);
 
   const [location, setLocation] = useState(post ? post.locationCategory : "");
   const [meetingDate, setMeetingDate] = useState(post ? post.meetingDate : "");
