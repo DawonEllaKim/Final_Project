@@ -21,7 +21,7 @@ const SubmitAlert = ({ noti }) => {
       setNotification((prev) => [...prev, data]);
     });
   }, [socket]);
-
+  const username = localStorage.getItem("userNickname")
   return (
     <div>
       <Wrap
