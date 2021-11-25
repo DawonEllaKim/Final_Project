@@ -46,14 +46,14 @@ const ChatDetail = (props) => {
 
   // 해당 쪽지에 관한 정보만 불러오기
   useEffect(() => {
-    setModal(getModal);
+ 
     dispatch(chatAction.getDetailMD(chatId));
-  }, [getModal]);
+  }, []);
 
   return (
     <Wrap>
       {failModal ? <ChatFailModal setFailModal={setFailModal} /> : ""}
-      {modal ? <ChatSuccessModal /> : ""}
+   
       {list ? (
         <div>
           <TopBar>받은 쪽지</TopBar>
@@ -153,7 +153,6 @@ const MessageWrap = styled.div`
   margin: 0 auto;
 `;
 const Message = styled.div`
-  height: 30vh;
   width: 100%;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;

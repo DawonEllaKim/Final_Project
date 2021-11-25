@@ -219,7 +219,7 @@ const deletePostMD = (postId) => {
       .then((res) => {
         dispatch(deletePost(postId));
 
-        history.goBack();
+        history.push("")
 
         // console.log("개스타그램 게시물 DELETE 성공", res);
       })

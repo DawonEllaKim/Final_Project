@@ -29,18 +29,20 @@ const Alert = ({ noti }) => {
   return (
     <div>
       <Wrap>
+        <Top>
         <Left>
           <img src={noti.senderImage} />
-
-          <span>{noti.senderNickname}</span>
         </Left>
+
         <Right>
           <Message>
             {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
           </Message>
+        </Right>
+        </Top>
 
-          <Info>
-            <Time>{noti.AGOTIME}</Time>
+        <Bottom>
+        <Time>{noti.AGOTIME}</Time>
             <DeleteBtn
               onClick={() => {
                 dispatch(notiActions.deleteNotiMD(noti.notificationId));
@@ -48,48 +50,16 @@ const Alert = ({ noti }) => {
             >
               <img src={trash} />
             </DeleteBtn>
-          </Info>
-        </Right>
+        </Bottom>
       </Wrap>
     </div>
   );
 };
 
-const Message = styled.div`
-  display: flex;
-  width: 100%;
-  height: 80%;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 10px;
-`;
-const Info = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 1rem;
-`;
-const Time = styled.div`
-  padding-right: 10px;
-  padding-bottom: 3px;
-  font-size: 12px;
-`;
-const DeleteBtn = styled.div`
-  cursor: pointer;
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
 const Wrap = styled.div`
+  padding: 4px 0;
   margin: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  height: 6em;
+  cursor: pointer;
 
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid lightGray;
@@ -97,42 +67,47 @@ const Wrap = styled.div`
   position: relative;
 `;
 
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+`;
+
 const Left = styled.div`
-  display: block;
-
-  padding-left: 10px;
-  padding-top: 10px;
-
-  height: 100%;
   img {
-    display: flex;
-    justify-content: center;
-
     width: 3em;
     height: 3em;
     border-radius: 50%;
     object-fit: cover;
   }
-  span {
-    display: flex;
-    justify-content: center;
-
-    margin-bottom: 5px;
-  }
-  button {
-    display: flex;
-  }
 `;
 const Right = styled.div`
+  width: 80%;
+`;
+const Message = styled.div`
+  max-height: 2.8rem;
+  overflow: hidden;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
+
+const Bottom = styled.div`
   display: flex;
-  flex-direction: column;
-
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin-left: 10px;
+  justify-content: flex-end;
+  padding-right: 10px;
+`;
+const Time = styled.div`
+  padding-right: 10px;
+  padding-bottom: 2px;
+  font-size: 12px;
+`;
+const DeleteBtn = styled.div`
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export default Alert;
