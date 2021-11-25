@@ -28,13 +28,13 @@ const kakaoLogin = (code) => {
       url: `https://www.walkadog.shop/oauth/kakao/callback?code=${code}/`,
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         const ACCESS_TOKEN = res.data.accessToken;
         localStorage.setItem("token", ACCESS_TOKEN);
         history.replace("/kakaosignup");
       })
       .catch((err) => {
-        console.log("소셜로그인 에러", err);
+        // console.log("소셜로그인 에러", err);
         window.alert("소셜 로그인 실패");
         history.replace("/login");
       });
@@ -50,12 +50,12 @@ const kakaoUser = (user_gender, user_age) => {
       headers: {},
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(setUser(user_gender, user_age));
         history.push("/");
       })
       .catch((err) => {
-        console.log("카카오 유저 회원가입에서 오류발생", err);
+        // console.log("카카오 유저 회원가입에서 오류발생", err);
         window.alert("오류");
       });
   };
@@ -75,13 +75,13 @@ const kakaoDog = (formData) => {
       },
     })
       .then((res) => {
-        console.log(res); // signup 정보 확인
+        // console.log(res); // signup 정보 확인
         dispatch(setDog(formData));
         window.alert("축하합니다. 회원가입이 완료되었습니다");
         history.push("/");
       })
       .catch((err) => {
-        console.log("카카오 강아지 입력 오류발생", err);
+        // console.log("카카오 강아지 입력 오류발생", err);
         window.alert("오류 발생");
       });
   };

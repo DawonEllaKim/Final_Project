@@ -60,10 +60,10 @@ const getAllPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        console.log("개스타그램 모든 게시물 GET 성공", postList);
+        // console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
-        console.log("개스타그램 모든 게시물 GET 에러", err);
+        // console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
@@ -79,10 +79,10 @@ const getLikePostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getLikePost(postList));
-        console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
+        // console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
       })
       .catch((err) => {
-        console.log("개스타그램 좋아요순 게시물 GET 에러", err);
+        // console.log("개스타그램 좋아요순 게시물 GET 에러", err);
       });
   };
 };
@@ -98,10 +98,10 @@ const getPostMD = (userId, dogPostId) => {
       .then((res) => {
         const postList = res.data.posts[0];
         dispatch(getDogPost(postList));
-        console.log("개스타그램 게시물 하나 GET 성공", res);
+        // console.log("개스타그램 게시물 하나 GET 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 하나 GET 오류", err);
+        // console.log("개스타그램 게시물 하나 GET 오류", err);
       });
   };
 };
@@ -120,7 +120,7 @@ const getMyPostMD = (userId) => {
         // console.log("개스타그램 나의 게시물 GET 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 나의 게시물 GET 오류", err);
+        // console.log("개스타그램 나의 게시물 GET 오류", err);
       });
   };
 };
@@ -141,11 +141,11 @@ const addPostMD = (formData) => {
     })
       .then((res) => {
         dispatch(getAllPostMD());
-        console.log("개스타그램 게시물 POST 성공", res);
+        // console.log("개스타그램 게시물 POST 성공", res);
         dispatch(getModal(true));
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 POST 에러", err);
+        // console.log("개스타그램 게시물 POST 에러", err);
       });
   };
 };
@@ -167,10 +167,10 @@ const editPostMD = (postId, post) => {
         dispatch(editPost(post));
         dispatch(getModal(true));
 
-        console.log("개스타그램 게시물 PATCH 완료", res);
+        // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 PATCH 오류", err);
+        // console.log("개스타그램 게시물 PATCH 오류", err);
       });
   };
 };
@@ -192,12 +192,12 @@ const editPostImageMD = (post, dogPostId) => {
       .then((res) => {
         dispatch(editPost(post));
         dispatch(modalActions.setModal("이미지 수정완료"));
-        history.push("/successModal")
+        history.push("/successModal");
 
-        console.log("개스타그램 게시물 PATCH 완료", res);
+        // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 PATCH 오류", err);
+        // console.log("개스타그램 게시물 PATCH 오류", err);
         history.goBack();
       });
   };
@@ -221,10 +221,10 @@ const deletePostMD = (postId) => {
 
         history.goBack();
 
-        console.log("개스타그램 게시물 DELETE 성공", res);
+        // console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 DELETE 오류", err);
+        // console.log("개스타그램 게시물 DELETE 오류", err);
       });
   };
 };
@@ -247,10 +247,10 @@ const toggleLikeMD = (dogPostId, liked) => {
         .then((res) => {
           const likeStatus = res.data.existLike;
           dispatch(toggleLike(likeStatus));
-          console.log("좋아요 반영 성공", res.data);
+          // console.log("좋아요 반영 성공", res.data);
         })
         .catch((err) => {
-          console.log("좋아요 반영 오류", err);
+          // console.log("좋아요 반영 오류", err);
         });
     } else {
       axios({
@@ -267,10 +267,10 @@ const toggleLikeMD = (dogPostId, liked) => {
         .then((res) => {
           const likeStatus = res.data.existLike;
           dispatch(toggleLike(likeStatus));
-          console.log("좋아요 반영 성공", res.data);
+          // console.log("좋아요 반영 성공", res.data);
         })
         .catch((err) => {
-          console.log("좋아요 반영 오류", err);
+          // console.log("좋아요 반영 오류", err);
         });
     }
   };
@@ -292,10 +292,10 @@ const getLikesMD = (dogPostId) => {
     })
       .then((res) => {
         dispatch(getLikes(res.data.likeNum.count));
-        console.log("좋아요 카운트 get", res.data.likeNum.count);
+        // console.log("좋아요 카운트 get", res.data.likeNum.count);
       })
       .catch((err) => {
-        console.log("좋아요 카운트 get 에러", err);
+        // console.log("좋아요 카운트 get 에러", err);
       });
   };
 };
@@ -315,10 +315,10 @@ const getMyLikeMD = (dogPostId) => {
     })
       .then((res) => {
         dispatch(getMyLike(res.data));
-        console.log("좋아요 get", res.data);
+        // console.log("좋아요 get", res.data);
       })
       .catch((err) => {
-        console.log("좋아요 get 에러", err);
+        // console.log("좋아요 get 에러", err);
       });
   };
 };
