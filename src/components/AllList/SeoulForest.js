@@ -5,8 +5,6 @@ import styled from "styled-components";
 import Cards from "../AllList/Cards";
 import { actionCreators as postActions } from "../../redux/modules/post";
 
-import Cards from "../AllList/Cards";
-
 function SeoulForest() {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.seoul);
