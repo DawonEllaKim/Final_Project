@@ -4,7 +4,7 @@ import axios from "axios";
 import { produce } from "immer";
 import { getCookie } from "../../shared/Cookie";
 import { createAction, handleActions } from "redux-actions";
-
+import { actionCreators as modalActions } from "./modal";
 const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
 const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
 const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
@@ -124,7 +124,10 @@ const sendNotificationMD = (receiverId, type) => {
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+          dispatch(modalActions.setModal("산책 신청 성공"))
+          history.push('/successModal')
+      })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
         console.log("쪽지 보내기 POST 에러", err);

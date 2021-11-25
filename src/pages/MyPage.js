@@ -41,12 +41,7 @@ const MyPage = (props) => {
 
   // 로그아웃
   const logout = () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      dispatch(signActions.logOut());
-      history.replace("/");
-    } else {
-      console.log("로그인 유지");
-    }
+   dispatch(signActions.logoutMD())
   };
 
   const createRoom = () => {

@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import Check from "../../image/Check.png";
 
 
-const CommonModal = (props) => {
+const ErrorModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const modalText = useSelector((state)=>state.modal.modal)
@@ -32,7 +32,7 @@ const CommonModal = (props) => {
           <ImageWrap>
             <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>{modal}</ModalHeader>
+          <ModalHeader>입력되지 않은 값이 있습니다!</ModalHeader>
         </Info>
       </ModalComponent>
     </div>
@@ -101,4 +101,4 @@ const Img = styled.img`
   height: 15px;
 `;
 
-export default CommonModal;
+export default ErrorModal;

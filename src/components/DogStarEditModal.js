@@ -16,11 +16,11 @@ const DogStarEditModal = (props) => {
   const history =useHistory()
  
  
-  const [modal,setModal] = useState();
+  
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [loading,setLoading] = useState();
-  const getModal = useSelector((state)=>state.dogsta.modal)
+
   const editImage = () => {
     const image = imgFile ? imgFile : props.dogStarImage;
     if(imgBase64==props.dogStarImage)
@@ -51,19 +51,14 @@ const DogStarEditModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
-  useEffect (()=> {
-
- setModal(getModal)
-  },[getModal])
+ 
  if(loading)
  {
    <Spinner/>
  }
   return (
     <React.Fragment>
-      {
-        modal? <SuccessModal text={"이미지 수정완료"}/> : ""
-      }
+     
       <Component  />
       <ModalComponent>
         <ModalExitBtn onClick={()=>props.setModal(false)} >

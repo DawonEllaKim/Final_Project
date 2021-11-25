@@ -3,7 +3,7 @@ import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
-
+import { actionCreators as modalActions } from "./modal";
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
@@ -191,11 +191,8 @@ const editPostImageMD = (post, dogPostId) => {
     })
       .then((res) => {
         dispatch(editPost(post));
-        dispatch(getModal(true));
-        setTimeout(() => {
-          dispatch(getModal(false));
-          history.goBack();
-        }, 1000);
+        dispatch(modalActions.setModal("이미지 수정완료"));
+        history.push("/successModal")
 
         console.log("개스타그램 게시물 PATCH 완료", res);
       })

@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import Check from "../../image/Check.png";
 
 
-const CommonModal = (props) => {
+const DeleteModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const modalText = useSelector((state)=>state.modal.modal)
@@ -16,7 +16,7 @@ const CommonModal = (props) => {
   }, [modalText]);
   console.log(modal)
   const modalHandler = () => {
-     history.goBack()
+     history.push("/");
   };
  console.log(props)
   return (
@@ -101,4 +101,4 @@ const Img = styled.img`
   height: 15px;
 `;
 
-export default CommonModal;
+export default DeleteModal;
