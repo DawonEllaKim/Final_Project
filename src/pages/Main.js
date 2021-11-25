@@ -16,9 +16,10 @@ import Spinner from "../shared/Spinner";
 
 // 이미지
 import LoginLogoImg from "../image/Login.png";
-import Hangang from "../image/Hangang.jpeg";
-import Seoul from "../image/Seoul.png";
-import Banpo from "../image/Banpo.jpeg";
+import Hangang from "../image/MainOlympic.jpg";
+import Seoul from "../image/MainSeoul.jpg";
+import Banpo from "../image/MainHangang.jpg";
+
 import MainPageLogo from "../image/MainPageLogo.png";
 import { RiFeedbackLine } from "react-icons/ri";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -105,7 +106,7 @@ const Main = (props) => {
   }, []);
 
   useEffect(() => {
-    setSocket(io.connect(`http://13.209.70.209/notification/${userId}`));
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
   }, []);
 
   useEffect(() => {
@@ -131,8 +132,7 @@ const Main = (props) => {
     dispatch(notiActions.getNotiMD());
   }, []);
 
-  if (noti.length < 1) noti = getNoti;
-  else noti.length += getNoti.length;
+
 
   if (is_loading) {
     return <Spinner />;
@@ -170,7 +170,7 @@ const Main = (props) => {
                       height: "24px",
                     }}
                   />
-                  <TopBarEdit>{noti.length}</TopBarEdit>
+                  <TopBarEdit>{noti.length<1?noti.length+getNoti.length:getNoti.length}</TopBarEdit>
                 </div>
               )}
             </TopBarBtnRight>

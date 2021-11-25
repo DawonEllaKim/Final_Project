@@ -27,13 +27,17 @@ const postNotiMD = (notificationId,senderId,type) => {
       .then((res) => {
         // console.log(res.data.notification)
         if(type==3)
-        {
+        {   dispatch(deleteNoti(notificationId));
           dispatch(modalActions.setModal("산책 수락완료"))
           history.push("/successModal")
         }
          if(type==4)
-         dispatch(modalActions.setModal("산책 거절완료"))
-         history.push("/successModal")
+         {
+          dispatch(deleteNoti(notificationId));
+          dispatch(modalActions.setModal("산책 거절완료"))
+          history.push("/successModal")
+         }
+        
       })
       .catch((err) => {
         console.log("POSTNOTI에서 오류발생", err);
@@ -59,6 +63,7 @@ const getNotiMD = () => {
         dispatch(getNoti(notiList));
       })
       .catch((err) => {
+        dispatch(getNoti(0))
         console.log("GETNOTI에서 오류발생", err);
    
       });
