@@ -6,7 +6,7 @@ const instance = axios.create({
   // baseURL: "http://localhost:4000",
 
   // 백앤드 서버
-  baseURL: "http://13.209.70.209",
+  baseURL: "https://www.walkadog.shop",
 
   // 선희님 서버
   // baseURL: "http://52.78.120.187",

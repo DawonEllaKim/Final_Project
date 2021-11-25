@@ -25,7 +25,7 @@ const kakaoLogin = (code) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/oauth/kakao/callback?code=${code}/`,
+      url: `https://www.walkadog.shop/oauth/kakao/callback?code=${code}/`,
     })
       .then((res) => {
         console.log(res);
@@ -45,7 +45,7 @@ const kakaoUser = (user_gender, user_age) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/users/kakaoSignUp",
+      url: "https://www.walkadog.shop/users/kakaoSignUp",
       data: { user_gender, user_age },
       headers: {},
     })
@@ -65,7 +65,7 @@ const kakaoDog = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/users/kakaoSignUp",
+      url: "https://www.walkadog.shop/users/kakaoSignUp",
       data: formData,
       headers: {
         // "Content-Type": "multipart/form-data; ",

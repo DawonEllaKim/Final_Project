@@ -33,7 +33,7 @@ const addCommentMD = (dogPostId, comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `http://13.209.70.209/comment/${dogPostId}`,
+      url: `https://www.walkadog.shop/comment/${dogPostId}`,
       data: comment,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -56,7 +56,7 @@ const getCommentMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/comment/${dogPostId}`,
+      url: `https://www.walkadog.shop/comment/${dogPostId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -80,7 +80,7 @@ const editCommentMD = (dogPostId, commentId,commentList) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/comment/${dogPostId}/${commentId}`,
+      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
       data: commentList,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -105,7 +105,7 @@ const deleteCommentMD = (dogPostId, commentId) => {
     // console.log(id);
     axios({
       method: "DELETE",
-      url: `http://13.209.70.209/comment/${dogPostId}/${commentId}`,
+      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

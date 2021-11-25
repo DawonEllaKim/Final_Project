@@ -16,7 +16,7 @@ const postNotiMD = (notificationId,senderId,type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/notification/${notificationId}/${senderId}`,
+      url: `https://www.walkadog.shop/notification/${notificationId}/${senderId}`,
       data: {type:type},
       headers: {
         accept: "application/json",
@@ -42,7 +42,7 @@ const getNotiMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/notification`,
+      url: `https://www.walkadog.shop/notification`,
       data: {},
       headers: {
         accept: "application/json",
@@ -66,7 +66,7 @@ const deleteNotiMD = (notificationId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
-      url: `http://13.209.70.209/notification/${notificationId}`,
+      url: `https://www.walkadog.shop/notification/${notificationId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
