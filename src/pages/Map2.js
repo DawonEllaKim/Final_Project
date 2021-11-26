@@ -75,7 +75,7 @@ const Map2 = (props) => {
     ) {
       setIsModal(true);
     } else {
-      setModal(true);
+    
       dispatch(PostActions.addPostMD(Info));
     }
   };
@@ -86,7 +86,7 @@ const Map2 = (props) => {
 
   return (
     <>
-      {modal ? <SuccessModal setModal={setModal} text="산책 등록 완료" /> : ""}
+      
 
       <Wrap>
         {/* 헤더 */}

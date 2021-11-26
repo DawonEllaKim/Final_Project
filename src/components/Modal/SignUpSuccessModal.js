@@ -1,43 +1,48 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { Close } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+
 import { useHistory } from "react-router";
 import Check from "../../image/Check.png"
-
+import { useDispatch, useSelector } from "react-redux";
 const SignUpSuccessModal = (props) => {
   const dispatch = useDispatch();
-  const history= useHistory();
-  const addMarker = () => {
-    props.close();
+  const history = useHistory();
+  const modalText = useSelector((state) => state.modal.modal);
+  const [modal, setModal] = useState("");
+  useEffect(() => {
+    setModal(modalText);
+  }, [modalText]);
+  // console.log(modal);
+  const modalHandler = () => {
+    history.push("/login")
   };
-
+  //  console.log(props)
   return (
-    <div onClick={()=>{props.setModal(false)
-      history.push("/login")}}>
+    <div onClick={modalHandler}>
       <Component />
 
-      <ModalComponent  >
+      <ModalComponent>
         <ModalExitBtn onClick={props.close}>
           <Close />
         </ModalExitBtn>
+
         <Info>
-            <ImageWrap>
-          <Img src={Check} />
+          <ImageWrap>
+            <Img src={Check} />
           </ImageWrap>
-          <ModalHeader>회원가입 완료!</ModalHeader>
+          <ModalHeader>{modal}</ModalHeader>
         </Info>
       </ModalComponent>
     </div>
   );
 };
-const Info = styled.div
-`
-display:flex;
-align-items:center;
-width:80%;
-margin:0 auto;
-`
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+`;
 const Component = styled.div`
   position: fixed;
   top: 0;
@@ -49,17 +54,15 @@ const Component = styled.div`
   background-color: black;
   z-index: 10;
 `;
-const ImageWrap = styled.div
-`
-
-background-color:red;
-width:30px;
-height:30px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-`
+const ImageWrap = styled.div`
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const ModalComponent = styled.div`
   position: fixed;
   top: 50%;
@@ -68,18 +71,16 @@ const ModalComponent = styled.div`
   height: 150px;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 20;
+  z-index: 99;
   display: flex;
 
- 
   align-items: center;
   border-radius: 14px;
 `;
 const ModalHeader = styled.div`
-
   font-weight: 600;
   font-size: 18px;
-  margin-left:10px;
+  margin-left: 10px;
 `;
 
 const ModalExitBtn = styled.button`
@@ -97,7 +98,6 @@ const ModalExitBtn = styled.button`
 const Img = styled.img`
   width: 15px;
   height: 15px;
-
 `;
 
 export default SignUpSuccessModal;
