@@ -20,7 +20,7 @@ const DogStarEditModal = (props) => {
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [loading,setLoading] = useState();
-  console.log(props.dogPostId,props.currentPostUserId)
+
   const editImage = () => {
     const image = imgFile ? imgFile : props.dogStarImage;
     if(imgBase64==props.dogStarImage)

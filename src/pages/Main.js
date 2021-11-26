@@ -106,28 +106,28 @@ const Main = (props) => {
     dispatch(postActions.getBanpoMD());
   }, []);
 
-  useEffect(() => {
-    setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  }, []);
+  // useEffect(() => {
+  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
+  // }, []);
 
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
 
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
 
   const getNoti = useSelector((state) => state.notification.noti);
-  let arr = localStorage.getItem("noti");
-  let noti = JSON.parse(arr);
+  // let arr = localStorage.getItem("noti");
+  // let noti = JSON.parse(arr);
 
-  useEffect(() => {
-    localStorage.setItem("noti", JSON.stringify(notification));
-    arr = localStorage.getItem("noti");
-  }, [notification, noti]);
+  // useEffect(() => {
+  //   localStorage.setItem("noti", JSON.stringify(notification));
+  //   arr = localStorage.getItem("noti");
+  // }, [notification, noti]);
 
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
@@ -171,7 +171,7 @@ const Main = (props) => {
                       height: "24px",
                     }}
                   />
-                  <TopBarEdit>{noti.length<1?getNoti.length:getNoti.length+noti.length}</TopBarEdit>
+                  <TopBarEdit>{getNoti.length}</TopBarEdit>
                 </div>
               )}
             </TopBarBtnRight>

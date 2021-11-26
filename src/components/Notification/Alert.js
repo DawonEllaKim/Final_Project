@@ -10,21 +10,21 @@ const Alert = ({ noti }) => {
 
   const userId = localStorage.getItem("userId");
 
-  const [socket, setSocket] = useState(null);
-  const [notification, setNotification] = useState([]);
-  useEffect(() => {
-    setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  }, []);
+  // const [socket, setSocket] = useState(null);
+  // const [notification, setNotification] = useState([]);
+  // useEffect(() => {
+  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
+  // }, []);
 
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
 
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
 
   return (
     <div>
