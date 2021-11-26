@@ -426,7 +426,7 @@ const addPostMD = (post) => {
         history.push("/deleteModal")
       })
       .catch((err) => {
-        // console.log(err);
+        window.alert("에러")
       });
   };
 };
