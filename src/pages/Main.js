@@ -10,6 +10,7 @@ import { io } from "socket.io-client";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 import { actionCreators as notiActions } from "../redux/modules/notification";
+import { actionCreators as mainActions } from "../redux/modules/main";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
@@ -106,7 +107,7 @@ const Main = (props) => {
   }, []);
 
   useEffect(() => {
-    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+    setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
   }, []);
 
   useEffect(() => {
@@ -273,7 +274,7 @@ const Main = (props) => {
                   setPage("olympic");
                 }}
                 onClick={() => {
-                  history.push(`/alllist/${page}`);
+                 dispatch(mainActions.setMainMD("olympic"))
                 }}
               >
                 더보기
@@ -286,7 +287,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : history.push(`/alllist/olympic`);
+                      : dispatch(mainActions.setMainMD("olympic"))
                   }
                 }}
               >
@@ -340,7 +341,8 @@ const Main = (props) => {
                   setPage("seoul");
                 }}
                 onClick={() => {
-                  history.push(`/alllist/${page}`);
+                 
+                  dispatch(mainActions.setMainMD("seoul"))
                 }}
               >
                 더보기
@@ -353,7 +355,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : history.push(`/alllist/seoul`);
+                      :  dispatch(mainActions.setMainMD("seoul"))
                   }
                 }}
               >
@@ -407,7 +409,7 @@ const Main = (props) => {
                   setPage("banpo");
                 }}
                 onClick={() => {
-                  history.push(`/alllist/${page}`);
+                  dispatch(mainActions.setMainMD("banpo"))
                 }}
               >
                 더보기
@@ -420,7 +422,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : history.push(`/alllist/banpo`);
+                      :  dispatch(mainActions.setMainMD("banpo"))
                   }
                 }}
               >
