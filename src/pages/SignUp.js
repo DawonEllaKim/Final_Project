@@ -18,6 +18,7 @@ import { actionCreators as UserActions } from "../redux/modules/sign";
 
 // 아이콘+이미지
 import defaultUser from "../image/default_user.png";
+import { ElevatorSharp } from "@mui/icons-material";
 
 
 const SignUp = () => {
@@ -121,15 +122,23 @@ const SignUp = () => {
         );
       }
 
-      if (password !== confirmPassword) {
-        setAlertPassword("비밀번호가 일치하지 않습니다.");
-        setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
-      }
+    
       if (confirmPassword == "") {
         setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
       } else {
         setAlertPassword("");
         setAlertConfirmPassword(false);
+      }
+      if (password !== confirmPassword) {
+        if(!password)
+        setAlertPassword("비밀번호가 입력되지 않았습니다");
+        else if(!confirmPassword)
+        setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+        else{
+          setAlertPassword("비밀번호가 일치하지 않습니다.");
+          setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
+        }
+  
       }
     }
     if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
