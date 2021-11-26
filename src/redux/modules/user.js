@@ -2,7 +2,7 @@ import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
-
+import { actionCreators as modalActions } from "./modal";
 //액션
 //마이페이지
 const GET_MYPAGE = "GET_MYPAGE";
@@ -77,7 +77,8 @@ const getMypageMD = (userId) => {
       })
       .catch((err) => {
         // console.log("getMypageMD에서 오류발생", err);
-        window.alert("오류 발생");
+        dispatch(modalActions.setModal("로그인이 필요한 페이지입니다"))
+        history.push("/signUpSuccessModal")
       });
   };
 };
