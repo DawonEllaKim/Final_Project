@@ -72,15 +72,15 @@ const DogStaDetail = (props) => {
     dispatch(commentActions.getCommentMD(postId));
     setLiked(myLike);
     setLikeCount(likeCnt);
-    setModal(getModal);
-  }, [myLike, likeCnt, postId, getModal]);
+   
+  }, [myLike, likeCnt, postId]);
 
   if (loading) {
     return <Spinner />;
   }
   return (
     <Wrap>
-      {modal ? <SuccessModal text="게시글 삭제완료!" /> : ""}
+      
       {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
       <TopBar>{post.userNickname}님의 게시물</TopBar>
 

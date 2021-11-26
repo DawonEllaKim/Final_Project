@@ -23,6 +23,7 @@ const DogStaEdit = (props) => {
 
   const postId = props.match.params.dogPostId;
   const currentPostUserId = props.match.params.userId;
+  console.log(currentPostUserId,postId)
   const post = useSelector((state) => state.dogsta.eachList);
   const userId = localStorage.getItem("userId");
   const getModal = useSelector((state) => state.dogsta.modal);
@@ -67,7 +68,8 @@ const DogStaEdit = (props) => {
           <DogStarEditModal
             setIsModal={setIsModal}
             dogStarImage={post.dogPostImage}
-            dogPostId={post.dogPostId}
+            dogPostId={postId}
+            currentPostUserId={currentPostUserId}
           />
         )}
 
