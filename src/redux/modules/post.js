@@ -422,8 +422,8 @@ const addPostMD = (post) => {
       .createPostAX(post)
       .then((res) => {
         // dispatch(addPost(post));
-        window.location.replace("/allList/all");
-        dispatch(getModal(true));
+        dispatch(modalActions.setModal("산책 등록완료"))
+        history.push("/deleteModal")
       })
       .catch((err) => {
         // console.log(err);

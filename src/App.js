@@ -63,6 +63,7 @@ import ChatSend from "./pages/Chat/ChatSend";
 import CommonModal from "./components/Modal/CommonModal";
 import DeleteModal from "./components/Modal/deleteModal";
 import ErrorModal from "./components/Modal/ErrorModal";
+import SignUpSuccessModal from "./components/Modal/SignUpSuccessModal";
 
 function App() {
   //socket
@@ -92,7 +93,7 @@ function App() {
     localStorage.setItem("noti", JSON.stringify(notification));
     handleToast("letter");
   }, [notification]);
-
+  //  console.log(notification)
   //Toast
   const msgList = {
     letter: "새로운 쪽지가 왔습니다!",
@@ -145,6 +146,7 @@ function App() {
         <Route exact path="/successmodal" component={CommonModal} />
         <Route exact path="/deletemodal" component={DeleteModal} />
         <Route exact path="/errormodal" component={ErrorModal} />
+        <Route exact path="/signupmodal" component={SignUpSuccessModal} />
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />

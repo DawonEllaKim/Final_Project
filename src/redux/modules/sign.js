@@ -145,10 +145,8 @@ const signUserAPI = (formData) => {
       },
     })
       .then((res) => {
-        dispatch(loading(false));
-        // console.log(res); // signup 정보 확인
-        dispatch(setUser(formData));
-        dispatch(userModal(true));
+       dispatch(modalActions.setModal("회원가입 완료"))
+       history.push("/signupModal")
       })
       .catch((err) => {
         // console.log("signupAPI에서 오류발생", err);
@@ -198,7 +196,7 @@ const signDogAPI = (formData) => {
         dispatch(UserActions.getDogMD());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
 
-        dispatch(dogModal(true));
+        dispatch(dogModal(false));
       })
       .catch((err) => {
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));

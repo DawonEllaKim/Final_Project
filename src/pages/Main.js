@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import { io } from "socket.io-client";
 
+
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
@@ -132,6 +133,8 @@ const Main = (props) => {
     dispatch(notiActions.getNotiMD());
   }, []);
 
+
+
   if (is_loading) {
     return <Spinner />;
   }
@@ -168,11 +171,7 @@ const Main = (props) => {
                       height: "24px",
                     }}
                   />
-                  <TopBarEdit>
-                    {noti.length < 1
-                      ? noti.length + getNoti.length
-                      : getNoti.length}
-                  </TopBarEdit>
+                  <TopBarEdit>{noti.length<1?getNoti.length:getNoti.length+noti.length}</TopBarEdit>
                 </div>
               )}
             </TopBarBtnRight>
@@ -275,7 +274,7 @@ const Main = (props) => {
                   setPage("olympic");
                 }}
                 onClick={() => {
-                  dispatch(mainActions.setMainMD("olympic"));
+                 dispatch(mainActions.setMainMD("olympic"))
                 }}
               >
                 더보기
@@ -288,7 +287,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : dispatch(mainActions.setMainMD("olympic"));
+                      : dispatch(mainActions.setMainMD("olympic"))
                   }
                 }}
               >
@@ -342,7 +341,8 @@ const Main = (props) => {
                   setPage("seoul");
                 }}
                 onClick={() => {
-                  dispatch(mainActions.setMainMD("seoul"));
+                 
+                  dispatch(mainActions.setMainMD("seoul"))
                 }}
               >
                 더보기
@@ -355,7 +355,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : dispatch(mainActions.setMainMD("seoul"));
+                      :  dispatch(mainActions.setMainMD("seoul"))
                   }
                 }}
               >
@@ -409,7 +409,7 @@ const Main = (props) => {
                   setPage("banpo");
                 }}
                 onClick={() => {
-                  dispatch(mainActions.setMainMD("banpo"));
+                  dispatch(mainActions.setMainMD("banpo"))
                 }}
               >
                 더보기
@@ -422,7 +422,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : dispatch(mainActions.setMainMD("banpo"));
+                      :  dispatch(mainActions.setMainMD("banpo"))
                   }
                 }}
               >
@@ -772,3 +772,4 @@ const BodyWrap = styled.div`
 `;
 
 export default Main;
+

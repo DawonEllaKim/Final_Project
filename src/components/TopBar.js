@@ -46,8 +46,7 @@ const TopBar = (props) => {
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);
-
-  
+  // console.log(noti)
 
   if (only_left) {
     return (
@@ -81,7 +80,9 @@ const TopBar = (props) => {
                 height: "24px",
               }}
             />
-            <Edit>{noti.length<1?getNoti.length:noti.length}</Edit>
+            <Edit>
+              {noti.length < 1 ? getNoti.length : noti.length + getNoti.length}
+            </Edit>
           </BtnRight>
         </Right>
       </Wrap>
@@ -112,7 +113,11 @@ const TopBar = (props) => {
                   height: "24px",
                 }}
               />
-              <Edit>{noti.length<1?getNoti.length:noti.length}</Edit>
+              <Edit>
+                {noti.length < 1
+                  ? getNoti.length
+                  : noti.length + getNoti.length}
+              </Edit>
             </>
           )}
         </BtnRight>
