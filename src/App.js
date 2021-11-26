@@ -92,7 +92,7 @@ function App() {
     localStorage.setItem("noti", JSON.stringify(notification));
     handleToast("letter");
   }, [notification]);
-
+   console.log(notification)
   //Toast
   const msgList = {
     letter: "새로운 쪽지가 왔습니다!",
