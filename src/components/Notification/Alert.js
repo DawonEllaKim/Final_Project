@@ -13,7 +13,7 @@ const Alert = ({ noti }) => {
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
   useEffect(() => {
-    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+    setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
   }, []);
 
   useEffect(() => {
