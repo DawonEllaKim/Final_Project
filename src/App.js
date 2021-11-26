@@ -64,9 +64,10 @@ import CommonModal from "./components/Modal/CommonModal";
 import DeleteModal from "./components/Modal/deleteModal";
 import ErrorModal from "./components/Modal/ErrorModal";
 import SignUpSuccessModal from "./components/Modal/SignUpSuccessModal";
-
+import { getCookie } from "./shared/Cookie";
 function App() {
   //socket
+  console.log(getCookie("userLogin"))
   const userId = localStorage.getItem("userId");
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
