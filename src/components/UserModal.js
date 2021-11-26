@@ -79,7 +79,7 @@ const Component = styled.div`
   transform: translateX(-50%);
   opacity: 0.4;
   height: 100vh;
-  width: 390px;
+  width: 100%;
   background-color: black;
   z-index: 10;
 `;
