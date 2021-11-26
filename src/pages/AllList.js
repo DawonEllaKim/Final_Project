@@ -43,11 +43,13 @@ const AllList = (props) => {
     setFocus("banpo");
   };
 
+  const location = useSelector((state) => state.main.main);
+
   useEffect(() => {
-    setStatus(params);
+    setStatus(location);
     setFocus(params);
     dispatch(postActions.getAllMD());
-  }, []);
+  }, [location]);
 
   if (is_loading) {
     return <Spinner />;
@@ -107,7 +109,7 @@ const AllList = (props) => {
 
           {/* 각 게시물에 대한 카드들 */}
           <Body>
-            {status === "all" && <All postList={postList} />}
+            {(status === "all" || status === "") && <All postList={postList} />}
             {status === "olympic" && <Olympic />}
             {status === "seoul" && <SeoulForest />}
             {status === "banpo" && <Banpo />}

@@ -12,6 +12,7 @@ import chat from "./modules/chat";
 import comment from "./modules/comment";
 import notification from "./modules/notification";
 import modal from "./modules/modal";
+import main from "./modules/main";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   comment: comment,
   notification: notification,
   modal: modal,
+  main: main,
   router: connectRouter(history),
  
 });

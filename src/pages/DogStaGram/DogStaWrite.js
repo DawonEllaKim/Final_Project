@@ -57,8 +57,9 @@ const DogStaWrite = (props) => {
   }, [getModal]);
 
   const addPost = () => {
-    if (imgBase64 === "" || dogPostDesc === "") {
+    if (imgBase64 == "" || dogPostDesc =="") {
       history.push("/errorModal")
+      return;
     }
 
     const formData = new FormData();

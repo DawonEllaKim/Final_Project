@@ -129,8 +129,8 @@ const sendNotificationMD = (receiverId, type) => {
 
            if(type==1)
            {
-            dispatch(modalActions.setModal("답장보내기 성공"))
-            history.push('/successModal')
+            dispatch(modalActions.setModal("쪽지보내기 성공"))
+            history.push('/deleteModal')
            }
            else{
           dispatch(modalActions.setModal("산책 신청 성공"))

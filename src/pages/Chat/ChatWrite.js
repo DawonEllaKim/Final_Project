@@ -16,14 +16,14 @@ const ChatWrite = (props) => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
-  const get_modal = useSelector((state) => state.chat.modal);
+
   const [modal, setModal] = useState("");
 
   const userInfo = useSelector((state) => state.user.list);
   useEffect(() => {
     dispatch(userActions.getMypageMD(receiverId));
-    setModal(get_modal);
-  }, [get_modal]);
+
+  }, []);
 
   const messageChange = (e) => {
     setMessage(e.target.value);
@@ -37,11 +37,7 @@ const ChatWrite = (props) => {
 
   return (
     <Wrap>
-      {modal ? (
-        <ChatSuccessModal setModal={setModal} receiverId={receiverId} />
-      ) : (
-        ""
-      )}
+     
       <TopBar>쪽지하기</TopBar>
       <Info>
         <ImageWrap>
