@@ -68,7 +68,7 @@ import { getCookie } from "./shared/Cookie";
 import DogStarMainModal from "./components/Modal/DogStarMainModal";
 function App() {
   //socket
-  console.log(getCookie("userLogin"))
+  console.log(getCookie("userLogin"));
   const userId = localStorage.getItem("userId");
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);

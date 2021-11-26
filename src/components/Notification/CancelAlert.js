@@ -9,7 +9,7 @@ import trash from "../../image/tra.png";
 
 const CancelAlert = ({ noti }) => {
   const dispatch = useDispatch();
-  console.log(noti);
+  // console.log(noti);
   const userId = localStorage.getItem("userId");
 
   const [socket, setSocket] = useState(null);
@@ -28,27 +28,27 @@ const CancelAlert = ({ noti }) => {
   const username = localStorage.getItem("userNickname");
   return (
     <div>
-      <Wrap
-     
-      >
+      <Wrap>
         <Top>
           <Left>
             <img src={noti.senderImage} />
           </Left>
           <Right>
-            <Message>{noti.senderNickname}님이 회원님의 산책요청을 거절했습니다!</Message>
+            <Message>
+              {noti.senderNickname}님이 회원님의 산책요청을 거절했습니다!
+            </Message>
           </Right>
         </Top>
 
         <Bottom>
           <Time>{noti.AGOTIME}</Time>
-            <DeleteBtn
-              onClick={() => {
-                dispatch(notiActions.deleteNotiMD(noti.notificationId));
-              }}
-            >
-              <img src={trash} />
-            </DeleteBtn>
+          <DeleteBtn
+            onClick={() => {
+              dispatch(notiActions.deleteNotiMD(noti.notificationId));
+            }}
+          >
+            <img src={trash} />
+          </DeleteBtn>
         </Bottom>
       </Wrap>
     </div>

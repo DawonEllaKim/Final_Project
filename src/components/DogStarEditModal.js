@@ -1,6 +1,6 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 // 리덕스
@@ -13,26 +13,23 @@ import SuccessModal from "./Modal/SuccessModal";
 
 const DogStarEditModal = (props) => {
   const dispatch = useDispatch();
-  const history =useHistory()
- 
- 
-  
+  const history = useHistory();
+
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
-  const [loading,setLoading] = useState();
-  console.log(props.dogPostId,props.currentPostUserId)
+  const [loading, setLoading] = useState();
+  // console.log(props.dogPostId,props.currentPostUserId)
   const editImage = () => {
     const image = imgFile ? imgFile : props.dogStarImage;
-    if(imgBase64==props.dogStarImage)
-    {
-      window.alert("이미지를 수정하지 않았습니다")
+    if (imgBase64 == props.dogStarImage) {
+      window.alert("이미지를 수정하지 않았습니다");
       return;
     }
     const formData = new FormData();
     formData.append("dogPostImage", imgFile);
-    setLoading(true)
-    dispatch(postActions.editPostImageMD(formData,props.dogPostId));
- };
+    setLoading(true);
+    dispatch(postActions.editPostImageMD(formData, props.dogPostId));
+  };
   const handleChangeFile = (event) => {
     // 이미지 파일
     event.preventDefault();
@@ -51,17 +48,21 @@ const DogStarEditModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
- 
- if(loading)
- {
-   <Spinner/>
- }
+
+  if (loading) {
+    <Spinner />;
+  }
   return (
     <React.Fragment>
-     
-      <Component  />
+      <Component />
       <ModalComponent>
-        <ModalExitBtn onClick={()=>window.location.replace(`/dogstaEdit/${props.currentPostUserId}/${props.dogPostId}`)} >
+        <ModalExitBtn
+          onClick={() =>
+            window.location.replace(
+              `/dogstaEdit/${props.currentPostUserId}/${props.dogPostId}`
+            )
+          }
+        >
           <Close />
         </ModalExitBtn>
         <ModalHeader>개스타그램이미지를 수정하겠습니까?</ModalHeader>
