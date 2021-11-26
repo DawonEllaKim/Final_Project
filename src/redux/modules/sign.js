@@ -195,7 +195,7 @@ const signDogAPI = (formData) => {
         dispatch(setDog(formData));
         dispatch(UserActions.getDogMD());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-
+        window.location.replace("/")
         dispatch(dogModal(false));
       })
       .catch((err) => {
