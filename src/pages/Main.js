@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import { io } from "socket.io-client";
 
-
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
@@ -132,8 +131,6 @@ const Main = (props) => {
     dispatch(notiActions.getNotiMD());
   }, []);
 
-
-
   if (is_loading) {
     return <Spinner />;
   }
@@ -170,7 +167,11 @@ const Main = (props) => {
                       height: "24px",
                     }}
                   />
-                  <TopBarEdit>{noti.length<1?noti.length+getNoti.length:getNoti.length}</TopBarEdit>
+                  <TopBarEdit>
+                    {noti.length < 1
+                      ? noti.length + getNoti.length
+                      : getNoti.length}
+                  </TopBarEdit>
                 </div>
               )}
             </TopBarBtnRight>
@@ -340,6 +341,7 @@ const Main = (props) => {
                   setPage("seoul");
                 }}
                 onClick={() => {
+                  setPage("seoul");
                   history.push(`/alllist/${page}`);
                 }}
               >

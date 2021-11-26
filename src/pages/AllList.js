@@ -44,7 +44,7 @@ const AllList = (props) => {
   };
 
   useEffect(() => {
-    setStatus("all");
+    setStatus(params);
     setFocus(params);
     dispatch(postActions.getAllMD());
   }, []);
@@ -61,7 +61,7 @@ const AllList = (props) => {
             />
             <span>산책가자</span>
           </TopBar>
-          
+
           {/* 카테고리 선택 */}
           <Category>
             <button
