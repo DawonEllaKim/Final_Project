@@ -141,8 +141,8 @@ const addPostMD = (formData) => {
     })
       .then((res) => {
         dispatch(getAllPostMD());
-        // console.log("개스타그램 게시물 POST 성공", res);
-        dispatch(getModal(true));
+        dispatch(modalActions.setModal("개스타 등록완료!"))
+        history.push("/dogstarmainmodal")
       })
       .catch((err) => {
         // console.log("개스타그램 게시물 POST 에러", err);
@@ -218,8 +218,9 @@ const deletePostMD = (postId) => {
     })
       .then((res) => {
         dispatch(deletePost(postId));
-
-        history.push("")
+        dispatch(modalActions.setModal("게시글 삭제완료!"))
+        history.push("/dogstarmainmodal")
+ 
 
         // console.log("개스타그램 게시물 DELETE 성공", res);
       })

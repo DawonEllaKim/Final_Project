@@ -20,7 +20,7 @@ const DogStarEditModal = (props) => {
   const [imgBase64, setImgBase64] = useState(props.dogStarImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [loading,setLoading] = useState();
-
+  console.log(props.dogPostId,props.currentPostUserId)
   const editImage = () => {
     const image = imgFile ? imgFile : props.dogStarImage;
     if(imgBase64==props.dogStarImage)
@@ -61,7 +61,7 @@ const DogStarEditModal = (props) => {
      
       <Component  />
       <ModalComponent>
-        <ModalExitBtn onClick={()=>props.setModal(false)} >
+        <ModalExitBtn onClick={()=>window.location.replace(`/dogstaEdit/${props.currentPostUserId}/${props.dogPostId}`)} >
           <Close />
         </ModalExitBtn>
         <ModalHeader>개스타그램이미지를 수정하겠습니까?</ModalHeader>

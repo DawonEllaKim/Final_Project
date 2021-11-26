@@ -51,10 +51,7 @@ const DogStaWrite = (props) => {
     setDogPostDesc(e.target.value);
   };
 
-  useEffect(() => {
-    setModal(getModal);
-    setLoading(false);
-  }, [getModal]);
+
 
   const addPost = () => {
     if (imgBase64 == "" || dogPostDesc =="") {
@@ -75,7 +72,7 @@ const DogStaWrite = (props) => {
   }
   return (
     <Wrap>
-      {modal ? <DogStaSuccessModal /> : ""}
+   
       <TopBar>게시글 작성</TopBar>
 
       {/* 게시물 작성 부분 */}

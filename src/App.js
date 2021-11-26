@@ -65,6 +65,7 @@ import DeleteModal from "./components/Modal/deleteModal";
 import ErrorModal from "./components/Modal/ErrorModal";
 import SignUpSuccessModal from "./components/Modal/SignUpSuccessModal";
 import { getCookie } from "./shared/Cookie";
+import DogStarMainModal from "./components/Modal/DogStarMainModal";
 function App() {
   //socket
   console.log(getCookie("userLogin"))
@@ -148,6 +149,7 @@ function App() {
         <Route exact path="/deletemodal" component={DeleteModal} />
         <Route exact path="/errormodal" component={ErrorModal} />
         <Route exact path="/signupmodal" component={SignUpSuccessModal} />
+        <Route exact path="/dogstarmainmodal" component={DogStarMainModal} />
         {/* 산책 게시물 조회/등록/수정 페이지 */}
         <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />
