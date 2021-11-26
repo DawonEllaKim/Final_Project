@@ -15,17 +15,17 @@ const WalkAlert = ({ noti }) => {
 
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
-  useEffect(() => {
-    setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  }, []);
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
+  // }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
 
   return (
     <div>
