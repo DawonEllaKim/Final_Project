@@ -772,3 +772,4 @@ const BodyWrap = styled.div`
 `;
 
 export default Main;
+

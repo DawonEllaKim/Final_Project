@@ -126,17 +126,13 @@ const sendNotificationMD = (receiverId, type) => {
       },
     })
       .then((res) => {
-
-           if(type==1)
-           {
-            dispatch(modalActions.setModal("쪽지보내기 성공"))
-            history.push('/deleteModal')
-           }
-           else{
-          dispatch(modalActions.setModal("산책 신청 성공"))
-          history.push('/successModal')
-           }
-
+        if (type == 1) {
+          dispatch(modalActions.setModal("쪽지보내기 성공"));
+          history.push("/deleteModal");
+        } else {
+          dispatch(modalActions.setModal("산책 신청 성공"));
+          history.push("/successModal");
+        }
       })
       .catch((err) => {
         window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
