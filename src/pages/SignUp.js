@@ -134,68 +134,6 @@ const SignUp = () => {
       setConfirmPasswordColor("green");
     }
     console.log("checkEmail, checkEmailDup", checkEmail, checkEmailDup);
-
-    // if (
-    // !passwordCheck(password) ||
-    //   password !== confirmPassword ||
-    //   !confirmPassword
-    // ) {
-    //   if (confirmPassword == "") {
-    //     setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
-    //   } else {
-    //     setAlertPassword("");
-    //     setAlertConfirmPassword(false);
-    //   }
-    //   if (password !== confirmPassword) {
-    //     if (!password) setAlertPassword("비밀번호가 입력되지 않았습니다");
-    //     else if (!confirmPassword)
-    //       setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
-    //     else {
-    //       setAlertPassword("비밀번호가 일치하지 않습니다.");
-    //       setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
-    //     }
-    //   }
-    //   if (!passwordCheck(password)) {
-    //     setAlertPassword(
-    //       "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
-    //     );
-    //   }
-    // }
-
-    // if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
-    // else {
-    //   setAlertImage("");
-    // }
-
-    // if (userEmail == "" || !emailCheck(userEmail)) {
-    //   setAlertEmail("이메일형식이 아닙니다");
-    // } else {
-    //   setAlertEmail("");
-    // }
-
-    // if (userNickname == "") {
-    //   setAlertUserNickname("닉네임이 입력되지 않았습니다");
-    // } else {
-    //   setAlertUserNickname("");
-    // }
-
-    // if (userLocation == "") {
-    //   setAlertUserLocation("거주지가 입력되지 않았습니다");
-    // } else {
-    //   setAlertUserLocation("");
-    // }
-
-    // if (userGender == "") {
-    //   setAlertUserGender("성별이 체크되지 않았습니다");
-    // } else {
-    //   setAlertUserGender("");
-    // }
-
-    // if (userAge == "") {
-    //   setAlertUserAge("나이가 체크되지 않았습니다");
-    // } else {
-    //   setAlertUserAge("");
-    // }
   }, [
     is_loading,
     user_modal,

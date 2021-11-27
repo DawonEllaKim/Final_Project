@@ -239,7 +239,7 @@ const MyProfile = () => {
                 name="neutralization"
                 id="y"
                 value="y"
-                defaultChecked={neutral === true}
+                defaultChecked={neutral === "true"}
                 onChange={neutralY}
               />
               <label for="y">Yes</label>
@@ -248,7 +248,7 @@ const MyProfile = () => {
                 name="neutralization"
                 id="n"
                 value="n"
-                defaultChecked={neutral === false}
+                defaultChecked={neutral === "false"}
                 onChange={neutralN}
               />
               <label for="y">No</label>

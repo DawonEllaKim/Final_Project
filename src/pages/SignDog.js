@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,70 +32,55 @@ const SignDog = (props) => {
   const [dogAge, setDogAge] = useState("");
   const [neutral, setNeutral] = useState("1");
   const [dogComment, setDogComment] = useState("");
-  
-  const [alertDogGender,setAlertDogGender] = useState("")
-  const [alertDogName,setAlertDogName] = useState("")
-  const [alertDogSize,setAlertDogSize] = useState("")
-  const [alertDogBreed,setAlertDogBreed] = useState("")
-  const [alertDogAge,setAlertDogAge] = useState("")
-  const [alertNeutral,setAlertNeutral] = useState("")
-  const [alertDogComment,setAlertDogComment] = useState("")
-  const [alertDogImage, setAlertDogImage] = useState("")
-  const [loading,setLoading] = useState();
-  const [modal,setModal] = useState();
+
+  const [alertDogGender, setAlertDogGender] = useState("");
+  const [alertDogName, setAlertDogName] = useState("");
+  const [alertDogSize, setAlertDogSize] = useState("");
+  const [alertDogBreed, setAlertDogBreed] = useState("");
+  const [alertDogAge, setAlertDogAge] = useState("");
+  const [alertNeutral, setAlertNeutral] = useState("");
+  const [alertDogComment, setAlertDogComment] = useState("");
+  const [alertDogImage, setAlertDogImage] = useState("");
+  const [loading, setLoading] = useState();
+  const [modal, setModal] = useState();
   const is_loading = useSelector((state) => state.sign.is_loading);
   const dog_modal = useSelector((state) => state.sign.dog_modal);
 
   useEffect(() => {
     // dispatch(postActions.getAllMD());
 
-    setLoading(is_loading)
-    setLoading(true)
-    setModal(dog_modal)
-  }, [is_loading,dog_modal]);
+    setLoading(is_loading);
+    setLoading(true);
+    setModal(dog_modal);
+  }, [is_loading, dog_modal]);
   const alertHandlerDG = () => {
-    if(!dogGender)
-    setAlertDogGender("강아지 성별을 입력해주세요!")
-    else 
-    setAlertDogGender();
-  }
+    if (!dogGender) setAlertDogGender("강아지 성별을 입력해주세요!");
+    else setAlertDogGender();
+  };
   const alertHandlerDN = () => {
-    if(!dogName)
-    setAlertDogName("강아지 이름을 입력해주세요!")
-    else 
-    setAlertDogName();
-  }
+    if (!dogName) setAlertDogName("강아지 이름을 입력해주세요!");
+    else setAlertDogName();
+  };
   const alertHandlerDB = () => {
-    if(!dogBreed)
-    setAlertDogBreed("강아지 품종을 입력해주세요!")
-    else 
-    setAlertDogBreed();
-  }
+    if (!dogBreed) setAlertDogBreed("강아지 품종을 입력해주세요!");
+    else setAlertDogBreed();
+  };
   const alertHandlerDA = () => {
-    if(!dogAge)
-    setAlertDogAge("강아지 나이를 입력해주세요!")
-    else 
-    setAlertDogAge();
-  }
+    if (!dogAge) setAlertDogAge("강아지 나이를 입력해주세요!");
+    else setAlertDogAge();
+  };
   const alertHandlerN = () => {
-    if(neutral===true||neutral===false)
-    setAlertNeutral();
-    else 
-    setAlertNeutral("강아지 성을 입력해주세요!")
-  }
+    if (neutral === true || neutral === false) setAlertNeutral();
+    else setAlertNeutral("강아지 성을 입력해주세요!");
+  };
   const alertHandlerDC = () => {
-    if(!dogComment)
-    setAlertDogComment("강아지 소개를 써주세요!")
-    else 
-    setAlertDogComment();
-  }
+    if (!dogComment) setAlertDogComment("강아지 소개를 써주세요!");
+    else setAlertDogComment();
+  };
   const alertHandlerDS = () => {
-    if(!dogSize)
-    setAlertDogSize("강아지 크기를 입력해주세요!")
-    else
-    setAlertDogSize()
-  }
-
+    if (!dogSize) setAlertDogSize("강아지 크기를 입력해주세요!");
+    else setAlertDogSize();
+  };
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -145,15 +130,12 @@ const SignDog = (props) => {
     setDogComment(newTitle);
   };
   const submitDogInfo = () => {
-    if(imgBase64==defaultDog)
-    {
-      setAlertDogImage("강아지 이미지가 입력해주세요!")
+    if (imgBase64 == defaultDog) {
+      setAlertDogImage("강아지 이미지가 입력해주세요!");
+    } else {
+      setAlertDogImage("");
     }
-    else
-    {
-      setAlertDogImage("")
-    }
-   
+
     alertHandlerDA();
     alertHandlerDB();
     alertHandlerDC();
@@ -161,10 +143,9 @@ const SignDog = (props) => {
     alertHandlerDN();
     alertHandlerN();
     alertHandlerDS();
-  
+
     if (!dogBreedCheck(dogBreed)) {
       setAlertDogBreed("강아지 종은 한글만 입력 가능합니다");
-     
     }
     if (
       dogGender === "" ||
@@ -175,7 +156,6 @@ const SignDog = (props) => {
       neutral === "" ||
       dogComment === ""
     ) {
-     
       return;
     }
 
@@ -197,9 +177,7 @@ const SignDog = (props) => {
   }
   return (
     <>
-      {
-        modal?<SignDogSuccessModal setModal={setModal}/>:""
-      }
+      {modal ? <SignDogSuccessModal setModal={setModal} /> : ""}
       <Wrap>
         <TopBar only_left>반려견 등록</TopBar>
 
@@ -215,21 +193,21 @@ const SignDog = (props) => {
             ></AddImage>
           </AddWrap>
         </ImageWrap>
-        <ImageAlert>{alertDogImage?alertDogImage:""}</ImageAlert>
+        <ImageAlert>{alertDogImage ? alertDogImage : ""}</ImageAlert>
         <Input>
           <InputText
             placeholder="강아지 이름 입력 "
             onChange={dogNameChangeHandler}
           ></InputText>
         </Input>
-        <Alert>{alertDogName?alertDogName:""}</Alert>
+        <Alert>{alertDogName ? alertDogName : ""}</Alert>
         <Input>
           <InputText
             placeholder="강아지 종 입력 ex) 말티즈, 비숑..."
             onChange={dogBreedChangeHandler}
           ></InputText>
         </Input>
-        <Alert>{alertDogBreed?alertDogBreed:""}</Alert>
+        <Alert>{alertDogBreed ? alertDogBreed : ""}</Alert>
         <Input>
           <Title>크기</Title>
           <FlexWrap>
@@ -270,7 +248,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Alert>{alertDogSize?alertDogSize:""}</Alert>
+        <Alert>{alertDogSize ? alertDogSize : ""}</Alert>
         <Input>
           <Title>성별</Title>
           <FlexWrap>
@@ -300,7 +278,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Alert>{alertDogGender?alertDogGender:""}</Alert>
+        <Alert>{alertDogGender ? alertDogGender : ""}</Alert>
         <Input>
           <Title>중성화 여부</Title>
           <FlexWrap>
@@ -330,7 +308,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Alert>{alertNeutral?alertNeutral:""}</Alert>
+        <Alert>{alertNeutral ? alertNeutral : ""}</Alert>
         <Input>
           <Title>나이대</Title>
           <FlexWrap>
@@ -372,7 +350,7 @@ const SignDog = (props) => {
             </Flex>
           </FlexWrap>
         </Input>
-        <Alert>{alertDogAge?alertDogAge:""}</Alert>
+        <Alert>{alertDogAge ? alertDogAge : ""}</Alert>
         <Input style={{ backgroundColor: "#FAF7CE" }}>
           <Title> 강아지 한 줄 소개</Title>
           <InputText
@@ -381,7 +359,7 @@ const SignDog = (props) => {
             style={{ backgroundColor: "#FAF7CE" }}
           ></InputText>
         </Input>
-        <Alert>{alertDogComment?alertDogComment:""}</Alert>
+        <Alert>{alertDogComment ? alertDogComment : ""}</Alert>
         <ButtonWrap>
           <button onClick={submitDogInfo}>등록하기</button>
         </ButtonWrap>
@@ -389,16 +367,16 @@ const SignDog = (props) => {
     </>
   );
 };
-const Alert =styled.div`
-color: #FF5252;
-display:flex;
-justify-content:flex-start;
-`
-const ImageAlert =styled.div`
-color: #FF5252;
-display:flex;
-justify-content:center;
-`
+const Alert = styled.div`
+  color: #ff5252;
+  display: flex;
+  justify-content: flex-start;
+`;
+const ImageAlert = styled.div`
+  color: #ff5252;
+  display: flex;
+  justify-content: center;
+`;
 const Wrap = styled.div`
   text-align: center;
 

@@ -16,7 +16,6 @@ const InfoList = (props) => {
 
   return (
     <>
-      {" "}
       <Wrap>
         <CardWrap>
           <DogImage>
@@ -51,7 +50,7 @@ const InfoList = (props) => {
               <div>나이 : {post.dogAge}</div>
               <div>견종 : {post.dogBreed}</div>
               <div>크기 : {post.dogSize}</div>
-              <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
+              <div>중성화여부 : {post.neutral == "true" ? "O" : "X"}</div>
             </CardBottom>
           </CardInfo>
         </CardWrap>

@@ -8,7 +8,11 @@ import { useHistory } from "react-router";
 import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import { toilet, trash, water, dog } from "../components/MarkerList/MarkerList";
-import {polygon1, polygon2, polygon3,} from "../components/MarkerList/PolygonList";
+import {
+  polygon1,
+  polygon2,
+  polygon3,
+} from "../components/MarkerList/PolygonList";
 import { olympic, seoul, hangang } from "../components/MarkerList/ParkList";
 import { list1, list2, list3 } from "../components/MarkerList/RoadList";
 import Spinner from "../shared/Spinner";
@@ -420,7 +424,7 @@ const Detail = (props) => {
             <DogCategory>
               <div>{dogSize}</div>
               <div>{dogGender === "남" ? "남아" : "여아"}</div>
-              <div>{neutral === true ? "중성화O" : "중성화X"}</div>
+              <div>{neutral === "true" ? "중성화 O" : "중성화 X"}</div>
             </DogCategory>
           </DogWrap>
 
@@ -687,6 +691,7 @@ const BoxDiv = styled.div`
   align-items: left;
   justify-content: center;
   text-align: left;
+  width: calc(100% - 48px);
 `;
 const RedIcon = styled.div`
   display: flex;
@@ -701,7 +706,9 @@ const RedIcon = styled.div`
 const MeetingTime = styled.div`
   font-size: 16px;
 `;
-const MeetingLocation = styled.div``;
+const MeetingLocation = styled.div`
+  word-break: break-all;
+`;
 const MapWrap = styled.div`
   width: 100%;
   height: 500px;

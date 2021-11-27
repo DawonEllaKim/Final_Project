@@ -70,7 +70,6 @@ const DogStaWrite = (props) => {
   }
   return (
     <>
-      {" "}
       <Wrap>
         <TopBar>게시글 작성</TopBar>
 
