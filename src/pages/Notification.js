@@ -93,7 +93,7 @@ const Notification = (props) => {
       {/* 상태값에 따라서 바뀌는 카드 */}
       {status === "alert" && (
         <div>
-          {getNoti.length === 0 ? (
+          {getNoti == 0 ? (
             <EmptyMessage>받은 알림이 없습니다.</EmptyMessage>
           ) : (
             <div>
