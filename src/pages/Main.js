@@ -559,7 +559,7 @@ const Logo = styled.img`
 `;
 const CautionCard = styled.div`
   height: 154px;
-  padding: 17px;
+  padding: 18px;
   &::after {
     content: "";
     display: block;
