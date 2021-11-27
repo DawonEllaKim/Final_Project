@@ -72,116 +72,115 @@ const DogStaDetail = (props) => {
     dispatch(commentActions.getCommentMD(postId));
     setLiked(myLike);
     setLikeCount(likeCnt);
-   
   }, [myLike, likeCnt, postId]);
 
   if (loading) {
     return <Spinner />;
   }
   return (
-    <Wrap>
-      
-      {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
-      <TopBar>{post.userNickname}님의 게시물</TopBar>
+    <>
+      <Wrap>
+        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 */}
+        <TopBar>{post.userNickname}님의 게시물</TopBar>
 
-      {/* 유저 정보 - 사진,닉네임*/}
-      <UserInfo
-        onClick={() => {
-          history.push(`/mypage/${post.userId}`);
-        }}
-      >
-        <UserImg src={post.userImage} />
-        <span>{post.userNickname}</span>
-      </UserInfo>
+        {/* 유저 정보 - 사진,닉네임*/}
+        <UserInfo
+          onClick={() => {
+            history.push(`/mypage/${post.userId}`);
+          }}
+        >
+          <UserImg src={post.userImage} />
+          <span>{post.userNickname}</span>
+        </UserInfo>
 
-      {/* 게시물 부분 */}
-      <Write>
-        {/* 게시물 이미지 */}
-        <ImageWrap>
-          <PostImage src={post.dogPostImage} />
-        </ImageWrap>
+        {/* 게시물 부분 */}
+        <Write>
+          {/* 게시물 이미지 */}
+          <ImageWrap>
+            <PostImage src={post.dogPostImage} />
+          </ImageWrap>
 
-        {/* 게시물 정보 */}
-        <PostInfo>
-          <Left>
-            <LikeCnt>
-              {/* 좋아요 버튼 토글 */}
-              {liked ? (
-                <FavoriteIcon
-                  onClick={toggleLike}
-                  sx={{ fontSize: 24 }}
-                  style={{
-                    color: "red",
-                    verticalAlign: "middle",
-                    marginRight: "4px",
-                  }}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  onClick={toggleLike}
+          {/* 게시물 정보 */}
+          <PostInfo>
+            <Left>
+              <LikeCnt>
+                {/* 좋아요 버튼 토글 */}
+                {liked ? (
+                  <FavoriteIcon
+                    onClick={toggleLike}
+                    sx={{ fontSize: 24 }}
+                    style={{
+                      color: "red",
+                      verticalAlign: "middle",
+                      marginRight: "4px",
+                    }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    onClick={toggleLike}
+                    sx={{ fontSize: 24 }}
+                    style={{ verticalAlign: "middle", marginRight: "4px" }}
+                  />
+                )}
+                {likeCount}
+              </LikeCnt>
+
+              {/* 댓글 */}
+              <CommentCnt>
+                <CommentOutlinedIcon
                   sx={{ fontSize: 24 }}
                   style={{ verticalAlign: "middle", marginRight: "4px" }}
                 />
+                {commentList.length}
+              </CommentCnt>
+
+              {/* 현재 로그인한 유저가 작성한 게시물이 아닌 경우, 해당 게시물 유저에게 쪽지 보내기 */}
+              {currentPostUserId !== userId && (
+                <MailOutlineIcon
+                  sx={{ fontSize: 24 }}
+                  onClick={() => {
+                    history.push(`/chatwrite/${currentPostUserId}`);
+                  }}
+                  style={{ verticalAlign: "bottom", cursor: "pointer" }}
+                />
               )}
-              {likeCount}
-            </LikeCnt>
+            </Left>
 
-            {/* 댓글 */}
-            <CommentCnt>
-              <CommentOutlinedIcon
-                sx={{ fontSize: 24 }}
-                style={{ verticalAlign: "middle", marginRight: "4px" }}
-              />
-              {commentList.length}
-            </CommentCnt>
+            {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
+            <Right>
+              {currentPostUserId === userId && (
+                <BtnWrap>
+                  <button onClick={editPost}>수정</button>
+                  <span>|</span>
+                  <button onClick={deletePost}>삭제</button>
+                </BtnWrap>
+              )}
+            </Right>
+          </PostInfo>
+          <PostDesc>{post.dogPostDesc}</PostDesc>
+          <Time>{post.AGOTIME}</Time>
+        </Write>
 
-            {/* 현재 로그인한 유저가 작성한 게시물이 아닌 경우, 해당 게시물 유저에게 쪽지 보내기 */}
-            {currentPostUserId !== userId && (
-              <MailOutlineIcon
-                sx={{ fontSize: 24 }}
-                onClick={() => {
-                  history.push(`/chatwrite/${currentPostUserId}`);
-                }}
-                style={{ verticalAlign: "bottom", cursor: "pointer" }}
-              />
-            )}
-          </Left>
-
-          {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
-          <Right>
-            {currentPostUserId === userId && (
-              <BtnWrap>
-                <button onClick={editPost}>수정</button>
-                <span>|</span>
-                <button onClick={deletePost}>삭제</button>
-              </BtnWrap>
-            )}
-          </Right>
-        </PostInfo>
-        <PostDesc>{post.dogPostDesc}</PostDesc>
-        <Time>{post.AGOTIME}</Time>
-      </Write>
-
-      {/* 댓글 */}
-      <CommentWrap>
-        {commentList[0] ? (
-          <div>
-            {commentList.map((comment, index) => {
-              return (
-                <div>
-                  <CommentList comment={comment} key={index} />
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>등록된 댓글이 없습니다.</div>
-        )}
-      </CommentWrap>
-      <CommentWrite userId={userId} postId={postId} userImage={userImage} />
-
+        {/* 댓글 */}
+        <CommentWrap>
+          {commentList[0] ? (
+            <div>
+              {commentList.map((comment, index) => {
+                return (
+                  <div>
+                    <CommentList comment={comment} key={index} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>등록된 댓글이 없습니다.</div>
+          )}
+        </CommentWrap>
+        <CommentWrite userId={userId} postId={postId} userImage={userImage} />
+      </Wrap>
       <NavBar add_dogsta />
-    </Wrap>
+    </>
   );
 };
 

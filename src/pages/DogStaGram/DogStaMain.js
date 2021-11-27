@@ -44,154 +44,156 @@ const DogStaMain = (props) => {
   }, []);
 
   return (
-    <Wrap>
-      {/* 제일 상단 고정 버튼 */}
-      <TopBar>
-        <TopBarImg src={dog} />
-        <span>개스타그램</span>
-      </TopBar>
+    <>
+      {" "}
+      <Wrap>
+        {/* 제일 상단 고정 버튼 */}
+        <TopBar>
+          <TopBarImg src={dog} />
+          <span>개스타그램</span>
+        </TopBar>
 
-      {/* 추천, 최신 정렬 + 게시물 추가 버튼 */}
-      <Head>
-        <Category>
-          <button
-            onClick={newest}
-            onFocus={() => setFocus("newest")}
-            style={{
-              borderBottom: focus === "newest" ? "4px solid red" : "",
-              color: focus === "newest" ? "#ff5656" : "#000",
-            }}
-          >
-            최신
-          </button>
-          <button
-            onClick={mostLiked}
-            onFocus={() => setFocus("mostLiked")}
-            style={{
-              borderBottom: focus === "newest" ? "" : "4px solid red",
-              color: focus === "newest" ? "#000" : "#ff5656",
-            }}
-          >
-            추천
-          </button>
-        </Category>
-      </Head>
+        {/* 추천, 최신 정렬 + 게시물 추가 버튼 */}
+        <Head>
+          <Category>
+            <button
+              onClick={newest}
+              onFocus={() => setFocus("newest")}
+              style={{
+                borderBottom: focus === "newest" ? "4px solid red" : "",
+                color: focus === "newest" ? "#ff5656" : "#000",
+              }}
+            >
+              최신
+            </button>
+            <button
+              onClick={mostLiked}
+              onFocus={() => setFocus("mostLiked")}
+              style={{
+                borderBottom: focus === "newest" ? "" : "4px solid red",
+                color: focus === "newest" ? "#000" : "#ff5656",
+              }}
+            >
+              추천
+            </button>
+          </Category>
+        </Head>
 
-      {/* 게시물 목록 - 최신순, 추천순*/}
-      {status === "newest" ? (
-        // 최신순 정렬
-        <Body>
-          {/* 개스타그램 게시물의 유무 판단*/}
-          {postList.length == 0 ? (
-            <>
-              <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
-              <Button
-                onClick={() => {
-                  history.push("/dogStaWrite");
-                }}
-              >
-                게시물 작성하기
-              </Button>
-            </>
-          ) : (
-            <Posts>
-              {postList.map((post, index) => {
-                return (
-                  <Card key={index}>
-                    {/* 포스트 사진 */}
-                    <ImageWrap>
-                      <CardImage
-                        src={post.dogPostImage}
-                        onClick={() =>
-                          history.push(
-                            `/dogStaDetail/${post.userId}/${post.dogPostId}`
-                          )
-                        }
-                      />
-                    </ImageWrap>
+        {/* 게시물 목록 - 최신순, 추천순*/}
+        {status === "newest" ? (
+          // 최신순 정렬
+          <Body>
+            {/* 개스타그램 게시물의 유무 판단*/}
+            {postList.length == 0 ? (
+              <>
+                <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
+                <Button
+                  onClick={() => {
+                    history.push("/dogStaWrite");
+                  }}
+                >
+                  게시물 작성하기
+                </Button>
+              </>
+            ) : (
+              <Posts>
+                {postList.map((post, index) => {
+                  return (
+                    <Card key={index}>
+                      {/* 포스트 사진 */}
+                      <ImageWrap>
+                        <CardImage
+                          src={post.dogPostImage}
+                          onClick={() =>
+                            history.push(
+                              `/dogStaDetail/${post.userId}/${post.dogPostId}`
+                            )
+                          }
+                        />
+                      </ImageWrap>
 
-                    {/* 포스트 정보 */}
-                    <PostInfo>
-                      <WriterInfo
-                        onClick={() => {
-                          history.push(`/mypage/${post.userId}`);
-                        }}
-                      >
-                        <UserImage src={post.userImage} />
-                        <span>{post.userNickname}</span>
-                      </WriterInfo>
-                      <LikeInfo>
-                        <span>like</span>
-                        {post.count}
-                      </LikeInfo>
-                    </PostInfo>
-                  </Card>
-                );
-              })}
-            </Posts>
-          )}
+                      {/* 포스트 정보 */}
+                      <PostInfo>
+                        <WriterInfo
+                          onClick={() => {
+                            history.push(`/mypage/${post.userId}`);
+                          }}
+                        >
+                          <UserImage src={post.userImage} />
+                          <span>{post.userNickname}</span>
+                        </WriterInfo>
+                        <LikeInfo>
+                          <span>like</span>
+                          {post.count}
+                        </LikeInfo>
+                      </PostInfo>
+                    </Card>
+                  );
+                })}
+              </Posts>
+            )}
 
-          {/* 하단 고정 버튼  */}
-          <NavBar add_dogsta />
-        </Body>
-      ) : (
-        // 추천순 정렬
-        <Body>
-          {/* 개스타그램 게시물의 유무 판단*/}
-          {postList.length == 0 ? (
-            <>
-              <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
-              <Button
-                onClick={() => {
-                  history.push("/dogStaWrite");
-                }}
-              >
-                게시물 작성하기
-              </Button>
-            </>
-          ) : (
-            <Posts>
-              {postLike.map((post, index) => {
-                return (
-                  <Card key={index}>
-                    {/* 포스트 사진 */}
-                    <ImageWrap>
-                      <CardImage
-                        src={post.dogPostImage}
-                        onClick={() =>
-                          history.push(
-                            `/dogStaDetail/${post.userId}/${post.dogPostId}`
-                          )
-                        }
-                      />
-                    </ImageWrap>
+            {/* 하단 고정 버튼  */}
+          </Body>
+        ) : (
+          // 추천순 정렬
+          <Body>
+            {/* 개스타그램 게시물의 유무 판단*/}
+            {postList.length == 0 ? (
+              <>
+                <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
+                <Button
+                  onClick={() => {
+                    history.push("/dogStaWrite");
+                  }}
+                >
+                  게시물 작성하기
+                </Button>
+              </>
+            ) : (
+              <Posts>
+                {postLike.map((post, index) => {
+                  return (
+                    <Card key={index}>
+                      {/* 포스트 사진 */}
+                      <ImageWrap>
+                        <CardImage
+                          src={post.dogPostImage}
+                          onClick={() =>
+                            history.push(
+                              `/dogStaDetail/${post.userId}/${post.dogPostId}`
+                            )
+                          }
+                        />
+                      </ImageWrap>
 
-                    {/* 포스트 정보 */}
-                    <PostInfo>
-                      <WriterInfo
-                        onClick={() => {
-                          history.push(`/mypage/${post.userId}`);
-                        }}
-                      >
-                        <UserImage src={post.userImage} />
-                        <span>{post.userNickname}</span>
-                      </WriterInfo>
-                      <LikeInfo>
-                        <span>like</span>
-                        {post.count}
-                      </LikeInfo>
-                    </PostInfo>
-                  </Card>
-                );
-              })}
-            </Posts>
-          )}
+                      {/* 포스트 정보 */}
+                      <PostInfo>
+                        <WriterInfo
+                          onClick={() => {
+                            history.push(`/mypage/${post.userId}`);
+                          }}
+                        >
+                          <UserImage src={post.userImage} />
+                          <span>{post.userNickname}</span>
+                        </WriterInfo>
+                        <LikeInfo>
+                          <span>like</span>
+                          {post.count}
+                        </LikeInfo>
+                      </PostInfo>
+                    </Card>
+                  );
+                })}
+              </Posts>
+            )}
 
-          {/* 하단 고정 버튼  */}
-          <NavBar add_dogsta />
-        </Body>
-      )}
-    </Wrap>
+            {/* 하단 고정 버튼  */}
+          </Body>
+        )}
+      </Wrap>
+      <NavBar add_dogsta />
+    </>
   );
 };
 
@@ -202,7 +204,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin: auto;
+  /* margin: auto; */
   padding: 0 5%;
 `;
 const NoCard = styled.div`

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import { io } from "socket.io-client";
 
-
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
@@ -17,12 +16,14 @@ import Weather from "../components/Weather";
 import MainDogsta from "../components/MainDogsta";
 import NavBar from "../components/NavBar";
 import Spinner from "../shared/Spinner";
+import EventCard from "../components/EventCard";
 
 // 이미지
 import LoginLogoImg from "../image/Login.png";
 import Hangang from "../image/MainOlympic.jpg";
 import Seoul from "../image/MainSeoul.jpg";
 import Banpo from "../image/MainHangang.jpg";
+import Event from "../image/Event.png";
 
 import MainPageLogo from "../image/MainPageLogo.png";
 import { RiFeedbackLine } from "react-icons/ri";
@@ -133,8 +134,6 @@ const Main = (props) => {
     dispatch(notiActions.getNotiMD());
   }, []);
 
-
-
   if (is_loading) {
     return <Spinner />;
   }
@@ -146,7 +145,7 @@ const Main = (props) => {
   };
 
   return (
-    <>
+    <div style={{ margin: "0 auto" }}>
       {/* 로고 + 알람 버튼 */}
       <TopWrap>
         <TopBarWrap>
@@ -193,6 +192,7 @@ const Main = (props) => {
             </StyledSlider>
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
+              <EventCard onClick={feedBack} />
               <Weather />
               <CautionCard
                 onClick={() => {
@@ -274,7 +274,7 @@ const Main = (props) => {
                   setPage("olympic");
                 }}
                 onClick={() => {
-                 dispatch(mainActions.setMainMD("olympic"))
+                  dispatch(mainActions.setMainMD("olympic"));
                 }}
               >
                 더보기
@@ -287,7 +287,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      : dispatch(mainActions.setMainMD("olympic"))
+                      : dispatch(mainActions.setMainMD("olympic"));
                   }
                 }}
               >
@@ -341,8 +341,7 @@ const Main = (props) => {
                   setPage("seoul");
                 }}
                 onClick={() => {
-                 
-                  dispatch(mainActions.setMainMD("seoul"))
+                  dispatch(mainActions.setMainMD("seoul"));
                 }}
               >
                 더보기
@@ -355,7 +354,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      :  dispatch(mainActions.setMainMD("seoul"))
+                      : dispatch(mainActions.setMainMD("seoul"));
                   }
                 }}
               >
@@ -409,7 +408,7 @@ const Main = (props) => {
                   setPage("banpo");
                 }}
                 onClick={() => {
-                  dispatch(mainActions.setMainMD("banpo"))
+                  dispatch(mainActions.setMainMD("banpo"));
                 }}
               >
                 더보기
@@ -422,7 +421,7 @@ const Main = (props) => {
                   {
                     postId
                       ? history.push(`/posts/${postId}`)
-                      :  dispatch(mainActions.setMainMD("banpo"))
+                      : dispatch(mainActions.setMainMD("banpo"));
                   }
                 }}
               >
@@ -470,7 +469,7 @@ const Main = (props) => {
       </Wrap>
 
       <NavBar />
-    </>
+    </div>
   );
 };
 
@@ -574,6 +573,22 @@ const CautionCard = styled.div`
     word-break: keep-all;
   }
 `;
+// const EventCard = styled.div`
+//   height: 154px;
+//   padding: 17px;
+//   &::after {
+//     content: "";
+//     display: block;
+//     clear: both;
+//   }
+//   span {
+//     font-weight: 600;
+//   }
+//   p {
+//     font-size: 14px;
+//     word-break: keep-all;
+//   }
+// `;
 
 const ImageWrap = styled.div`
   width: 120px;
@@ -772,4 +787,3 @@ const BodyWrap = styled.div`
 `;
 
 export default Main;
-

@@ -5,14 +5,14 @@ import { history } from "../redux/configureStore";
 function MainDogsta({ post }) {
   return (
     <Wrap>
-    <ImageWrap
-      onClick={() =>
-        history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
-      }
-    >
-      <Dogsta src={post.dogPostImage} />
-    </ImageWrap>
-    <p>{post.dogName}</p>
+      <ImageWrap
+        onClick={() =>
+          history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
+        }
+      >
+        <Dogsta src={post.dogPostImage} />
+      </ImageWrap>
+      <p>{post.dogName}</p>
     </Wrap>
   );
 }
@@ -36,7 +36,7 @@ const ImageWrap = styled.div`
   padding-bottom: 85%;
   overflow: hidden;
   margin-left: 7.5%;
-`
+`;
 const Dogsta = styled.img`
   width: 85%;
   height: 95%;

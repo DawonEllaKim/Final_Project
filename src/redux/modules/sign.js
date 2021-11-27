@@ -145,8 +145,8 @@ const signUserAPI = (formData) => {
       },
     })
       .then((res) => {
-       dispatch(modalActions.setModal("회원가입 완료"))
-       history.push("/signupModal")
+        dispatch(modalActions.setModal("회원가입 완료"));
+        history.push("/signupModal");
       })
       .catch((err) => {
         // console.log("signupAPI에서 오류발생", err);
@@ -168,7 +168,7 @@ const checkDogAPI = (formData) => {
     })
       .then((res) => {
         // console.log(res.data); // signup 정보 확인
-        // localStorage.setItem("dog",res.data)
+        // localStorage.setItem("dog", res.data);
         dispatch(checkDog(res.data));
         dispatch(loading(false));
       })
@@ -195,7 +195,7 @@ const signDogAPI = (formData) => {
         dispatch(setDog(formData));
         dispatch(UserActions.getDogMD());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-        window.location.replace("/")
+        window.location.replace("/");
         dispatch(dogModal(false));
       })
       .catch((err) => {

@@ -51,11 +51,9 @@ const DogStaWrite = (props) => {
     setDogPostDesc(e.target.value);
   };
 
-
-
   const addPost = () => {
-    if (imgBase64 == "" || dogPostDesc =="") {
-      history.push("/errorModal")
+    if (imgBase64 == "" || dogPostDesc == "") {
+      history.push("/errorModal");
       return;
     }
 
@@ -71,49 +69,51 @@ const DogStaWrite = (props) => {
     return <Spinner />;
   }
   return (
-    <Wrap>
-   
-      <TopBar>게시글 작성</TopBar>
+    <>
+      {" "}
+      <Wrap>
+        <TopBar>게시글 작성</TopBar>
 
-      {/* 게시물 작성 부분 */}
-      <Write>
-        <div>
-          <img src={imgBase64} />
-          <label for="input-file">
-            <UploadFileIcon
-              style={{
-                color: "#ff5656",
-                verticalAlign: "bottom",
-                marginRight: "4px",
-              }}
+        {/* 게시물 작성 부분 */}
+        <Write>
+          <div>
+            <img src={imgBase64} />
+            <label for="input-file">
+              <UploadFileIcon
+                style={{
+                  color: "#ff5656",
+                  verticalAlign: "bottom",
+                  marginRight: "4px",
+                }}
+              />
+              이미지 업로드
+            </label>
+            <input
+              type="file"
+              id="input-file"
+              name="imageFile"
+              onChange={imageChange}
             />
-            이미지 업로드
-          </label>
-          <input
-            type="file"
-            id="input-file"
-            name="imageFile"
-            onChange={imageChange}
+          </div>
+          <textarea
+            placeholder={"강아지와의 일상을 기록하세요"}
+            onChange={dogPostDescChange}
+            style={{
+              height: "100px",
+              padding: "10px",
+              boxSizing: "border-box",
+              fontFamily: "'Noto Sans KR', sans-serif",
+            }}
           />
-        </div>
-        <textarea
-          placeholder={"강아지와의 일상을 기록하세요"}
-          onChange={dogPostDescChange}
-          style={{
-            height: "100px",
-            padding: "10px",
-            boxSizing: "border-box",
-            fontFamily: "'Noto Sans KR', sans-serif",
-          }}
-        />
-      </Write>
+        </Write>
 
-      {/* 글 작성 버튼들 */}
-      <FlexButton>
-        <AddBtn onClick={addPost}>작성하기</AddBtn>
-      </FlexButton>
+        {/* 글 작성 버튼들 */}
+        <FlexButton>
+          <AddBtn onClick={addPost}>작성하기</AddBtn>
+        </FlexButton>
+      </Wrap>
       <NavBar />
-    </Wrap>
+    </>
   );
 };
 

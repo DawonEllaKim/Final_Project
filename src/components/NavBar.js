@@ -18,7 +18,7 @@ const NavBar = (props) => {
   if (add_dogsta) {
     // 개스타 업로드 navbar
     return (
-      <>
+      <div>
         <Nav>
           <Box>
             {/* 홈 버튼 */}
@@ -73,12 +73,12 @@ const NavBar = (props) => {
             <UploadText>업로드</UploadText>
           </HomeArea>
         </Nav>
-      </>
+      </div>
     );
   } else {
     // 산책등록 navbar
     return (
-      <>
+      <div>
         <Nav>
           <Box>
             {/* 홈 버튼 */}
@@ -133,7 +133,7 @@ const NavBar = (props) => {
             <Walk>산책등록</Walk>
           </HomeArea>
         </Nav>
-      </>
+      </div>
     );
   }
 };
@@ -165,12 +165,14 @@ const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  left: 0;
+  /* left: 0; */
   min-width: 315px;
+  max-width: 500px;
   width: 100%;
   height: 68px;
   z-index: 5;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+  /* margin: 0 auto; */
 `;
 const Box = styled.div`
   box-sizing: border-box;
