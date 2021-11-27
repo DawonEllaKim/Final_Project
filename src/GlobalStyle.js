@@ -20,7 +20,7 @@ body{
   display: none;
 	}
 	margin:0 auto;
-	border:1px solid #c4c4c4;
+	/* border:1px solid #c4c4c4; */
 	
 }`;
 

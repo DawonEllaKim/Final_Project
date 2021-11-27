@@ -92,7 +92,7 @@ const LogIn = (props) => {
   //     },
   //   });
   // };
-  
+
   if (!loading) {
     return <Spinner />;
   }
@@ -104,6 +104,7 @@ const LogIn = (props) => {
         <div
           style={{
             margin: "-30px 0",
+            cursor: "pointer",
           }}
           onClick={() => {
             history.push("/");
@@ -214,7 +215,7 @@ const SignupBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
   span {
-    color:#ff5656;
+    color: #ff5656;
     padding-left: 4px;
   }
 `;
