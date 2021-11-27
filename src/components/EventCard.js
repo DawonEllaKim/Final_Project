@@ -18,7 +18,7 @@ function EventCard() {
 
 const Wrap = styled.div`
   width: 100%;
-  height: 154px;
+  height: 159px;
   background-size: cover;
   img {
     display: flex;
@@ -27,7 +27,7 @@ const Wrap = styled.div`
     align-items: center;
     width: 100%;
     object-fit: cover;
-    height: 154px;
+    height: 100%;
   }
 `;
 export default EventCard;
