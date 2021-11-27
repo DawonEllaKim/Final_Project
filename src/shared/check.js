@@ -7,7 +7,7 @@ export const emailCheck = (email) => {
 
 //  패스워드 검사
 export const passwordCheck = (password) => {
-  var regExp = /^[0-9a-zA-Z]{8,20}$/; //  8자 이상 영대소문자, 숫자 조합
+  var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/; //  8자 이상 영대소문자, 숫자 조합
   return regExp.test(password);
 };
 

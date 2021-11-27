@@ -116,11 +116,7 @@ const SignUp = () => {
       password !== confirmPassword ||
       !confirmPassword
     ) {
-      if (!passwordCheck(password)) {
-        setAlertPassword(
-          "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자로 입력해주세요"
-        );
-      }
+     
 
     
       if (confirmPassword == "") {
@@ -139,6 +135,11 @@ const SignUp = () => {
           setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
         }
   
+      }
+      if (!passwordCheck(password)) {
+        setAlertPassword(
+          "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
+        );
       }
     }
     if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");

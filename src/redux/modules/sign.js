@@ -150,7 +150,10 @@ const signUserAPI = (formData) => {
       })
       .catch((err) => {
         // console.log("signupAPI에서 오류발생", err);
-        dispatch(loading(false));
+        window.alert("회원가입오류")
+        window.location.reload(
+          "/signup"
+        )
       });
   };
 };
