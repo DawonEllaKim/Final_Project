@@ -20,6 +20,8 @@ import defaultUser from "../image/default_user.png";
 
 const SignUp = () => {
   const dispatch = useDispatch();
+
+  // 이미지
   const [imgBase64, setImgBase64] = useState(defaultUser ? defaultUser : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
 
@@ -35,6 +37,7 @@ const SignUp = () => {
   // 회원가입 오류시 알람 메세지
   const [alert, setAlert] = useState("");
   const [alertEmail, setAlertEmail] = useState("");
+  const [alertPasswordLength, setAlertPasswordLength] = useState("");
   const [alertPassword, setAlertPassword] = useState("");
   const [alertConfirmPassword, setAlertConfirmPassword] = useState("");
   const [alertUserNickname, setAlertUserNickname] = useState("");
@@ -43,18 +46,170 @@ const SignUp = () => {
   const [alertUserAge, setAlertUserAge] = useState("");
   const [alertImage, setAlertImage] = useState("");
 
+  // 회원가입 오류시 알람 색
+  const [imageColor, setImageColor] = useState("");
+  const [emailColor, setEmailColor] = useState("");
+  const [passwordLengthColor, setPasswordLengthColor] = useState("");
+  const [passwordColor, setPasswordColor] = useState("");
+  const [confirmPasswordColor, setConfirmPasswordColor] = useState("");
+
   // 모달
   const [modal, setModal] = useState("");
   const is_loading = useSelector((state) => state.sign.is_loading);
   const user_modal = useSelector((state) => state.sign.user_modal);
   const [loading, setLoading] = useState();
 
+  const [checkEmail, setCheckEmail] = useState("");
+  const checkEmailDup = useSelector((state) => state.sign.checkEmail);
+
   useEffect(() => {
+    dispatch(UserActions.checkEmail());
+    setCheckEmail(checkEmailDup);
+  }, []);
+
+  useEffect(() => {
+    // dispatch(UserActions.checkEmail());
     // dispatch(postActions.getAllMD());
     setLoading(is_loading);
     setLoading(true);
     setModal(user_modal);
-  }, [is_loading, user_modal]);
+
+    // 이미지확인
+    if (imgBase64 === defaultUser) {
+      setImageColor("red");
+      setAlertImage("✔︎ 유저이미지를 등록해주세요");
+    } else {
+      setImageColor("green");
+      setAlertImage("✔︎ 유저이미지를 등록해주세요");
+    }
+
+    // 이메일 확인
+    if (userEmail === "") {
+      setAlertEmail("");
+    } else if (emailCheck(userEmail) === false) {
+      setEmailColor("red");
+      setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
+    } else {
+      setEmailColor("green");
+    }
+    // 이메일 확인
+    if (userEmail === "") {
+      setAlertEmail("");
+    } else if (emailCheck(userEmail) === false) {
+      setEmailColor("red");
+      setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
+    } else if (checkEmail === false) {
+    }
+    // else {
+    //   setEmailColor("green");
+    // }
+
+    // 비밀번호 길이 확인
+    if (password === "") {
+      setAlertPasswordLength("");
+    } else if (password !== "" && password.length < 8) {
+      setPasswordLengthColor("red");
+      setAlertPasswordLength("✔︎ 8자 이상 입력");
+    } else {
+      setPasswordLengthColor("green");
+    }
+
+    // 비밀번호 형식 확인
+    if (password === "") {
+      setAlertPassword("");
+    } else if (password !== "" && passwordCheck(password) === false) {
+      setPasswordColor("red");
+      setAlertPassword("✔︎ 영대/소문자 + 숫자 + 특수문자 조합");
+    } else {
+      setPasswordColor("green");
+    }
+
+    // 비밀번호랑 비밀번호 확인이 같은지 체크
+    if (confirmPassword === "") {
+      setAlertConfirmPassword("");
+    } else if (confirmPassword !== password) {
+      setConfirmPasswordColor("red");
+      setAlertConfirmPassword("✔︎ 동일한 비밀번호를 입력해주세요.");
+    } else {
+      setConfirmPasswordColor("green");
+    }
+    console.log("checkEmail, checkEmailDup", checkEmail, checkEmailDup);
+
+    // if (
+    // !passwordCheck(password) ||
+    //   password !== confirmPassword ||
+    //   !confirmPassword
+    // ) {
+    //   if (confirmPassword == "") {
+    //     setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+    //   } else {
+    //     setAlertPassword("");
+    //     setAlertConfirmPassword(false);
+    //   }
+    //   if (password !== confirmPassword) {
+    //     if (!password) setAlertPassword("비밀번호가 입력되지 않았습니다");
+    //     else if (!confirmPassword)
+    //       setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+    //     else {
+    //       setAlertPassword("비밀번호가 일치하지 않습니다.");
+    //       setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
+    //     }
+    //   }
+    //   if (!passwordCheck(password)) {
+    //     setAlertPassword(
+    //       "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
+    //     );
+    //   }
+    // }
+
+    // if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
+    // else {
+    //   setAlertImage("");
+    // }
+
+    // if (userEmail == "" || !emailCheck(userEmail)) {
+    //   setAlertEmail("이메일형식이 아닙니다");
+    // } else {
+    //   setAlertEmail("");
+    // }
+
+    // if (userNickname == "") {
+    //   setAlertUserNickname("닉네임이 입력되지 않았습니다");
+    // } else {
+    //   setAlertUserNickname("");
+    // }
+
+    // if (userLocation == "") {
+    //   setAlertUserLocation("거주지가 입력되지 않았습니다");
+    // } else {
+    //   setAlertUserLocation("");
+    // }
+
+    // if (userGender == "") {
+    //   setAlertUserGender("성별이 체크되지 않았습니다");
+    // } else {
+    //   setAlertUserGender("");
+    // }
+
+    // if (userAge == "") {
+    //   setAlertUserAge("나이가 체크되지 않았습니다");
+    // } else {
+    //   setAlertUserAge("");
+    // }
+  }, [
+    is_loading,
+    user_modal,
+    emailCheck,
+    userEmail,
+    emailColor,
+    password,
+    passwordColor,
+    confirmPassword,
+    confirmPasswordColor,
+    passwordLengthColor,
+    imageColor,
+    imgBase64,
+  ]);
 
   const handleChangeFile = (event) => {
     event.preventDefault();
@@ -107,11 +262,17 @@ const SignUp = () => {
   };
 
   const checkDup = () => {
-    if (!emailCheck(userEmail)) {
-      setAlertEmail("이메일 형식이 아닙니다!");
+    if (checkEmail === false) {
+      setEmailColor("red");
+      setAlertEmail("no");
+      return;
+    } else if (checkEmail === undefined) {
+      setEmailColor("red");
+      setAlertEmail("no");
       return;
     } else {
-      setAlertEmail("");
+      setEmailColor("green");
+      setAlertEmail("yes");
     }
     dispatch(UserActions.signDupAPI(userEmail));
   };
@@ -123,58 +284,61 @@ const SignUp = () => {
       !confirmPassword
     ) {
       if (confirmPassword == "") {
-        setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+        setAlertConfirmPassword("✔︎ 비밀번호를 재확인하지 않았습니다");
       } else {
         setAlertPassword("");
         setAlertConfirmPassword(false);
       }
       if (password !== confirmPassword) {
-        if (!password) setAlertPassword("비밀번호가 입력되지 않았습니다");
+        if (!password) setAlertPassword("✔︎ 비밀번호가 입력되지 않았습니다");
         else if (!confirmPassword)
-          setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+          setAlertConfirmPassword("✔︎ 비밀번호를 재확인하지 않았습니다");
         else {
-          setAlertPassword("비밀번호가 일치하지 않습니다.");
-          setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
+          setAlertPassword("✔︎ 비밀번호가 일치하지 않습니다.");
+          setAlertConfirmPassword("✔︎ 비밀번호가 일치하지 않습니다.");
         }
       }
       if (!passwordCheck(password)) {
         setAlertPassword(
-          "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
+          "✔︎ 잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
         );
       }
     }
 
-    if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
-    else {
+    if (imgBase64 == defaultUser) {
+      setAlertImage("✔︎ 유저이미지를 등록해주세요");
+      window.alert("유저 이미지를 등록해주세요.");
+      return;
+    } else {
       setAlertImage("");
     }
 
     if (userEmail == "" || !emailCheck(userEmail)) {
-      setAlertEmail("이메일형식이 아닙니다");
+      setAlertEmail("✔︎ 이메일형식이 아닙니다");
     } else {
       setAlertEmail("");
     }
 
     if (userNickname == "") {
-      setAlertUserNickname("닉네임이 입력되지 않았습니다");
+      setAlertUserNickname("✔︎ 닉네임이 입력되지 않았습니다");
     } else {
       setAlertUserNickname("");
     }
 
     if (userLocation == "") {
-      setAlertUserLocation("거주지가 입력되지 않았습니다");
+      setAlertUserLocation("✔︎ 거주지가 입력되지 않았습니다");
     } else {
       setAlertUserLocation("");
     }
 
     if (userGender == "") {
-      setAlertUserGender("성별이 체크되지 않았습니다");
+      setAlertUserGender("✔︎ 성별이 체크되지 않았습니다");
     } else {
       setAlertUserGender("");
     }
 
     if (userAge == "") {
-      setAlertUserAge("나이가 체크되지 않았습니다");
+      setAlertUserAge("✔︎ 나이가 체크되지 않았습니다");
     } else {
       setAlertUserAge("");
     }
@@ -236,9 +400,11 @@ const SignUp = () => {
             />
           </AddWrap>
         </ImageWrap>
-        <ImageAlert>{alertImage ? alertImage : ""}</ImageAlert>
+        <ImageAlert style={{ color: imageColor === "red" ? "red" : "green" }}>
+          {alertImage ? alertImage : ""}
+        </ImageAlert>
 
-        {/* 회원 이메일 */}
+        {/* 이메일 */}
         <UserWrap>
           <Input>
             <InputText
@@ -248,8 +414,11 @@ const SignUp = () => {
           </Input>
           <IdCheck onClick={checkDup}>중복확인</IdCheck>
         </UserWrap>
-        <Alert>{alertEmail ? alertEmail : ""}</Alert>
+        <Alert style={{ color: emailColor === "red" ? "red" : "green" }}>
+          {alertEmail ? alertEmail : ""}
+        </Alert>
 
+        {/* 비밀번호 */}
         <Input>
           <InputText
             type="password"
@@ -257,7 +426,16 @@ const SignUp = () => {
             onChange={passwordChangeHandler}
           />
         </Input>
-        <Alert>{alertPassword ? alertPassword : ""}</Alert>
+        <Alert
+          style={{ color: passwordLengthColor === "red" ? "red" : "green" }}
+        >
+          {alertPasswordLength ? alertPasswordLength : ""}
+        </Alert>
+        <Alert style={{ color: passwordColor === "red" ? "red" : "green" }}>
+          {alertPassword ? alertPassword : ""}
+        </Alert>
+
+        {/* 비밀번호 확인 */}
         <Input>
           <InputText
             type="password"
@@ -265,7 +443,13 @@ const SignUp = () => {
             onChange={confirmPasswordChangeHandler}
           />
         </Input>
-        <Alert>{alertConfirmPassword ? alertConfirmPassword : ""}</Alert>
+        <Alert
+          style={{ color: confirmPasswordColor === "red" ? "red" : "green" }}
+        >
+          {alertConfirmPassword ? alertConfirmPassword : ""}
+        </Alert>
+
+        {/* 회원 닉네임 */}
         <Input>
           <InputText
             placeholder="닉네임 입력"
@@ -273,6 +457,8 @@ const SignUp = () => {
           />
         </Input>
         <Alert>{alertUserNickname ? alertUserNickname : ""}</Alert>
+
+        {/* 회원 거주지 */}
         <Input>
           <InputText
             placeholder="거주지 입력 (시/구/동 까지)"
@@ -280,6 +466,8 @@ const SignUp = () => {
           />
         </Input>
         <Alert>{alertUserLocation ? alertUserLocation : ""}</Alert>
+
+        {/* 회원 성별 */}
         <Input>
           <Title>성별</Title>
           <FlexWrap>
@@ -310,6 +498,8 @@ const SignUp = () => {
           </FlexWrap>
         </Input>
         <Alert>{alertUserGender ? alertUserGender : ""}</Alert>
+
+        {/* 회원 나이대 */}
         <Input>
           <Title>나이대</Title>
           <FlexWrap>
@@ -364,6 +554,8 @@ const SignUp = () => {
           </FlexWrap>
         </Input>
         <Alert>{alertUserAge ? alertUserAge : ""}</Alert>
+
+        {/* 회원가입 + 취소 버튼 */}
         <ButtonWrap>
           <button
             onClick={submitUserInfo}
@@ -391,24 +583,28 @@ const Alert = styled.div`
   color: #ff5252;
   display: flex;
   justify-content: flex-start;
+  font-size: 12px;
+
+  margin-left: 20px;
 `;
 const ImageAlert = styled.div`
   color: #ff5252;
   display: flex;
   justify-content: center;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 10px;
 `;
 const Wrap = styled.div`
   box-sizing: border-box;
   padding: 0 5%;
   font-size: 14px;
 `;
-
 const ImageWrap = styled.div`
   margin: 10px 0;
-  diplay: flex;
+  /* diplay: flex; */
   justify-content: center;
 `;
-
 const Preview = styled.img`
   box-sizing: border-box;
   width: 120px;
@@ -458,7 +654,6 @@ const IdCheck = styled.button`
   margin-left: 30px;
   margin-top: 10px;
 `;
-
 const Input = styled.div`
   box-sizing: border-box;
   margin: 10px 0px;
@@ -473,7 +668,6 @@ const Input = styled.div`
     border: 2px solid lightBlue;
   }
 `;
-
 const Title = styled.div`
   margin-bottom: 15px;
 `;
@@ -493,7 +687,6 @@ const Label = styled.label`
   padding-top: 4px;
   font-size: 14px;
 `;
-
 const Password = styled.input`
   width: 100%;
   border: 0;
@@ -503,14 +696,12 @@ const Password = styled.input`
     outline: none;
   }
 `;
-
 const UserGender = styled.input``;
 const UserAge = styled.input``;
-
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 40px 0;
+  /* margin: 40px 0; */
   button {
     width: 160px;
     height: 48px;
@@ -521,4 +712,5 @@ const ButtonWrap = styled.div`
     cursor: pointer;
   }
 `;
+
 export default SignUp;

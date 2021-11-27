@@ -18,6 +18,7 @@ const GET_ALERT = "GET_ALERT";
 const GET_MODAL = "GET_MODAL";
 const USER_MODAL = "USER_MODAL";
 const DOG_MODAL = "DOG_MODAL";
+const CHECK_EMAIL = "CHECK_EMAIL";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const setDog = createAction(SET_DOG, (dog) => ({ dog }));
@@ -30,6 +31,7 @@ const getAlert = createAction(GET_ALERT, (alert) => ({ alert }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const userModal = createAction(USER_MODAL, (user_modal) => ({ user_modal }));
 const dogModal = createAction(DOG_MODAL, (dog_modal) => ({ dog_modal }));
+const checkEmail = createAction(CHECK_EMAIL, (checkEmail) => ({ checkEmail }));
 
 const initialState = {
   user: [],
@@ -42,6 +44,7 @@ const initialState = {
   modal: "",
   user_modal: "",
   dog_modal: "",
+  checkEmail: false,
 };
 
 const modalMD = () => {
@@ -65,11 +68,14 @@ const signDupAPI = (userEmail) => {
       .then((res) => {
         // console.log(res); // signup 정보 확인
         dispatch(setUser(userEmail));
+        dispatch(checkEmail("정상적인 이메일입니다."));
+        // console.log(res);
         // history.push("/signDog");
         window.alert("정상적인 이메일입니다");
       })
       .catch((err) => {
-        // console.log("중복입니다", err);
+        dispatch(checkEmail(false));
+        console.log("중복입니다", err);
         window.alert("이메일중복입니다");
       });
   };
@@ -233,8 +239,10 @@ export default handleActions(
         draft.user = null;
         draft.is_login = false;
         localStorage.removeItem("userEmail");
+        localStorage.removeItem("userNickname");
         localStorage.removeItem("date");
         localStorage.removeItem("userId");
+        localStorage.removeItem("image");
         deleteCookie("token");
       }),
     [CHECK_DOG]: (state, action) =>
@@ -261,6 +269,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.dog_modal = action.payload.dog_modal;
       }),
+    [CHECK_EMAIL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.checkEmail = action.payload.checkEmail;
+      }),
   },
 
   initialState
@@ -278,4 +290,5 @@ export const actionCreators = {
   getAlert,
   modalMD,
   logoutMD,
+  checkEmail,
 };
