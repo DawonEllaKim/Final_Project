@@ -171,7 +171,7 @@ const Main = (props) => {
                       height: "24px",
                     }}
                   />
-                  <TopBarEdit>{getNoti.length}</TopBarEdit>
+                  <TopBarEdit>{getNoti==0?0:getNoti.length}</TopBarEdit>
                 </div>
               )}
             </TopBarBtnRight>
