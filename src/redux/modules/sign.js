@@ -31,7 +31,10 @@ const getAlert = createAction(GET_ALERT, (alert) => ({ alert }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const userModal = createAction(USER_MODAL, (user_modal) => ({ user_modal }));
 const dogModal = createAction(DOG_MODAL, (dog_modal) => ({ dog_modal }));
-const checkEmail = createAction(CHECK_EMAIL, (checkEmail) => ({ checkEmail }));
+const checkEmail = createAction(CHECK_EMAIL, (checkEmail, checkColor) => ({
+  checkEmail,
+  checkColor,
+}));
 
 const initialState = {
   user: [],
@@ -45,6 +48,7 @@ const initialState = {
   user_modal: "",
   dog_modal: "",
   checkEmail: false,
+  checkColor: "",
 };
 
 const modalMD = () => {
@@ -68,13 +72,13 @@ const signDupAPI = (userEmail) => {
       .then((res) => {
         // console.log(res); // signup 정보 확인
         dispatch(setUser(userEmail));
-        dispatch(checkEmail("정상적인 이메일입니다."));
+        dispatch(checkEmail("✔︎ 정상적인 이메일입니다.", "green"));
         // console.log(res);
         // history.push("/signDog");
         window.alert("정상적인 이메일입니다");
       })
       .catch((err) => {
-        dispatch(checkEmail(false));
+        dispatch(checkEmail("✔︎ 중복입니다", "red"));
         console.log("중복입니다", err);
         window.alert("이메일중복입니다");
       });
@@ -272,6 +276,7 @@ export default handleActions(
     [CHECK_EMAIL]: (state, action) =>
       produce(state, (draft) => {
         draft.checkEmail = action.payload.checkEmail;
+        draft.checkColor = action.payload.checkColor;
       }),
   },
 

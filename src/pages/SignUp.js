@@ -60,19 +60,29 @@ const SignUp = () => {
   const [loading, setLoading] = useState();
 
   const [checkEmail, setCheckEmail] = useState("");
+  const [checkColor, setCheckColor] = useState("");
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
+  const checkColorDup = useSelector((state) => state.sign.checkColor);
 
   useEffect(() => {
     dispatch(UserActions.checkEmail());
     setCheckEmail(checkEmailDup);
-  }, []);
-
+    setAlertEmail(checkEmail);
+    setCheckColor(checkColorDup);
+    setEmailColor(checkColor);
+    console.log(
+      "checkEmail, checkEmailDup",
+      checkEmail,
+      checkEmailDup,
+      checkColorDup,
+      checkColor
+    );
+  }, [checkEmailDup]);
   useEffect(() => {
     // dispatch(UserActions.checkEmail());
     // dispatch(postActions.getAllMD());
     setLoading(is_loading);
     setLoading(true);
-    setModal(user_modal);
 
     // 이미지확인
     if (imgBase64 === defaultUser) {
@@ -89,17 +99,19 @@ const SignUp = () => {
     } else if (emailCheck(userEmail) === false) {
       setEmailColor("red");
       setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
+    } else if (alertEmail == "✔︎ 중복입니다") {
+      setEmailColor("red");
     } else {
       setEmailColor("green");
     }
     // 이메일 확인
-    if (userEmail === "") {
-      setAlertEmail("");
-    } else if (emailCheck(userEmail) === false) {
-      setEmailColor("red");
-      setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
-    } else if (checkEmail === false) {
-    }
+    // if (userEmail === "") {
+    //   setAlertEmail("");
+    // } else if (emailCheck(userEmail) === false) {
+    //   setEmailColor("red");
+    //   setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
+    // } else if (checkEmail === false) {
+    // }
     // else {
     //   setEmailColor("green");
     // }
@@ -133,11 +145,69 @@ const SignUp = () => {
     } else {
       setConfirmPasswordColor("green");
     }
-    console.log("checkEmail, checkEmailDup", checkEmail, checkEmailDup);
+    // !passwordCheck(password) ||
+    //   password !== confirmPassword ||
+    //   !confirmPassword
+    // ) {
+    //   if (confirmPassword == "") {
+    //     setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+    //   } else {
+    //     setAlertPassword("");
+    //     setAlertConfirmPassword(false);
+    //   }
+    //   if (password !== confirmPassword) {
+    //     if (!password) setAlertPassword("비밀번호가 입력되지 않았습니다");
+    //     else if (!confirmPassword)
+    //       setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+    //     else {
+    //       setAlertPassword("비밀번호가 일치하지 않습니다.");
+    //       setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
+    //     }
+    //   }
+    //   if (!passwordCheck(password)) {
+    //     setAlertPassword(
+    //       "잘못된 비밀번호 형식입니다. \n8자 이상 영대/소문자, 숫자,특수문자로 입력해주세요"
+    //     );
+    //   }
+    // }
+
+    // if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
+    // else {
+    //   setAlertImage("");
+    // }
+
+    // if (userEmail == "" || !emailCheck(userEmail)) {
+    //   setAlertEmail("이메일형식이 아닙니다");
+    // } else {
+    //   setAlertEmail("");
+    // }
+
+    // if (userNickname == "") {
+    //   setAlertUserNickname("닉네임이 입력되지 않았습니다");
+    // } else {
+    //   setAlertUserNickname("");
+    // }
+
+    // if (userLocation == "") {
+    //   setAlertUserLocation("거주지가 입력되지 않았습니다");
+    // } else {
+    //   setAlertUserLocation("");
+    // }
+
+    // if (userGender == "") {
+    //   setAlertUserGender("성별이 체크되지 않았습니다");
+    // } else {
+    //   setAlertUserGender("");
+    // }
+
+    // if (userAge == "") {
+    //   setAlertUserAge("나이가 체크되지 않았습니다");
+    // } else {
+    //   setAlertUserAge("");
+    // }
   }, [
     is_loading,
-    user_modal,
-    emailCheck,
+
     userEmail,
     emailColor,
     password,
@@ -200,18 +270,18 @@ const SignUp = () => {
   };
 
   const checkDup = () => {
-    if (checkEmail === false) {
-      setEmailColor("red");
-      setAlertEmail("no");
-      return;
-    } else if (checkEmail === undefined) {
-      setEmailColor("red");
-      setAlertEmail("no");
-      return;
-    } else {
-      setEmailColor("green");
-      setAlertEmail("yes");
-    }
+    // if (checkEmail === false) {
+    //   setEmailColor("red");
+    //   setAlertEmail("no");
+    //   return;
+    // } else if (checkEmail === undefined) {
+    //   setEmailColor("red");
+    //   setAlertEmail("no");
+    //   return;
+    // } else {
+    //   setEmailColor("green");
+    //   setAlertEmail("yes");
+    // }
     dispatch(UserActions.signDupAPI(userEmail));
   };
 
@@ -280,7 +350,7 @@ const SignUp = () => {
     } else {
       setAlertUserAge("");
     }
-
+    console.log(alertEmail);
     if (
       !userAge ||
       !userGender ||
@@ -292,6 +362,10 @@ const SignUp = () => {
       password !== confirmPassword ||
       !passwordCheck(password)
     ) {
+      return;
+    }
+    if (alertEmail != "✔︎ 정상적인 이메일입니다.") {
+      window.alert("이메일 중복확인을 해주세요!");
       return;
     }
 
