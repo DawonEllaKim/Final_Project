@@ -119,7 +119,7 @@ const getIdAPI = () => {
         // "content-type": "application/json;charset=UTF-8",
 
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -163,7 +163,7 @@ const checkDogAPI = (formData) => {
       headers: {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -187,7 +187,7 @@ const signDogAPI = (formData) => {
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("user_login")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {

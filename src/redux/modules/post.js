@@ -99,7 +99,7 @@ const getAllMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -137,7 +137,7 @@ const getOlympicMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -174,7 +174,7 @@ const getSeoulMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -211,7 +211,7 @@ const getBanpoMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -379,7 +379,7 @@ const getMapMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -422,11 +422,11 @@ const addPostMD = (post) => {
       .createPostAX(post)
       .then((res) => {
         // dispatch(addPost(post));
-        dispatch(modalActions.setModal("산책 등록완료"))
-        history.push("/deleteModal")
+        dispatch(modalActions.setModal("산책 등록완료"));
+        history.push("/deleteModal");
       })
       .catch((err) => {
-        window.alert("에러")
+        window.alert("에러");
       });
   };
 };

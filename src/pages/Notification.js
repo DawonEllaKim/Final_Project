@@ -16,7 +16,6 @@ import CancelAlert from "../components/Notification/CancelAlert";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { actionCreators as notiActions } from "../redux/modules/notification";
 
-
 const Notification = (props) => {
   const notification = props.notification; // app.js에서 socket.io불러옴 Alert.js에 한 번 더 props로 보냄
 

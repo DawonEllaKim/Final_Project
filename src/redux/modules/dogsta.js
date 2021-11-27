@@ -136,13 +136,13 @@ const addPostMD = (formData) => {
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
         dispatch(getAllPostMD());
-        dispatch(modalActions.setModal("개스타 등록완료!"))
-        history.push("/dogstarmainmodal")
+        dispatch(modalActions.setModal("개스타 등록완료!"));
+        history.push("/dogstarmainmodal");
       })
       .catch((err) => {
         // console.log("개스타그램 게시물 POST 에러", err);
@@ -160,7 +160,7 @@ const editPostMD = (postId, post) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -185,7 +185,7 @@ const editPostImageMD = (post, dogPostId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -213,14 +213,13 @@ const deletePostMD = (postId) => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
-        dispatch(deletePost(postId));
-        dispatch(modalActions.setModal("게시글 삭제완료!"))
-        history.push("/dogstarmainmodal")
- 
+        // dispatch(deletePost(postId));
+        dispatch(modalActions.setModal("게시글 삭제완료!"));
+        history.push("/dogstarmainmodal");
 
         // console.log("개스타그램 게시물 DELETE 성공", res);
       })
@@ -288,7 +287,7 @@ const getLikesMD = (dogPostId) => {
         // "content-type": "application/json;charset=UTF-8",
         // accept: "application/json",
         // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
+        // authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {

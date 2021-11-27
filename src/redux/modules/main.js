@@ -19,8 +19,8 @@ const initialState = {
 // middleware
 const setMainMD = (location) => {
   return function (dispatch, getState, { history }) {
-      dispatch(setMain(location))
-      history.push(`/alllist/${location}`)
+    dispatch(setMain(location));
+    history.push(`/alllist/${location}`);
   };
 };
 

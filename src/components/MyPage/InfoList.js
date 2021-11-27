@@ -15,50 +15,53 @@ const InfoList = (props) => {
   const history = useHistory();
 
   return (
-    <Wrap>
-      <CardWrap>
-        <DogImage>
-          {/* 카드 왼쪽 - 강아지 이미지 */}
-          <img src={post.dogImage} />
-          {currentPageUserId === userId && (
-            <Edit
-              onClick={() => {
-                history.push("/dogProfile");
-              }}
-            >
-              <FaPen size="60%" />
-            </Edit>
-          )}
-        </DogImage>
+    <>
+      {" "}
+      <Wrap>
+        <CardWrap>
+          <DogImage>
+            {/* 카드 왼쪽 - 강아지 이미지 */}
+            <img src={post.dogImage} />
+            {currentPageUserId === userId && (
+              <Edit
+                onClick={() => {
+                  history.push("/dogProfile");
+                }}
+              >
+                <FaPen size="60%" />
+              </Edit>
+            )}
+          </DogImage>
 
-        {/* 카드 오른쪽 - 강아지 정보 */}
-        <CardInfo>
-          {/* 강아지 성별 + 이름 + 나이 */}
-          <CardTop>
-            <DogGender>
-              {post.dogGender === "남" ? (
-                <img src={male} />
-              ) : (
-                <img src={female} />
-              )}
-            </DogGender>
-            <DogName>{post.dogName}</DogName>
-          </CardTop>
-          {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
-          <CardBottom>
-            <div>나이 : {post.dogAge}</div>
-            <div>견종 : {post.dogBreed}</div>
-            <div>크기 : {post.dogSize}</div>
-            <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
-          </CardBottom>
-        </CardInfo>
-      </CardWrap>
-      <DogInfo>
-        <Title>강아지 한 줄 소개</Title>
-        <div>{post.dogComment}</div>
-      </DogInfo>
+          {/* 카드 오른쪽 - 강아지 정보 */}
+          <CardInfo>
+            {/* 강아지 성별 + 이름 + 나이 */}
+            <CardTop>
+              <DogGender>
+                {post.dogGender === "남" ? (
+                  <img src={male} />
+                ) : (
+                  <img src={female} />
+                )}
+              </DogGender>
+              <DogName>{post.dogName}</DogName>
+            </CardTop>
+            {/* 강어지 이름 + 중성화 여부 + 강아지소개 */}
+            <CardBottom>
+              <div>나이 : {post.dogAge}</div>
+              <div>견종 : {post.dogBreed}</div>
+              <div>크기 : {post.dogSize}</div>
+              <div>중성화여부 : {post.neutral == true ? "유" : "무"}</div>
+            </CardBottom>
+          </CardInfo>
+        </CardWrap>
+        <DogInfo>
+          <Title>강아지 한 줄 소개</Title>
+          <div>{post.dogComment}</div>
+        </DogInfo>
+      </Wrap>
       <NavBar add_dogsta />
-    </Wrap>
+    </>
   );
 };
 

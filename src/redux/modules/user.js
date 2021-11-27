@@ -67,7 +67,7 @@ const getMypageMD = (userId) => {
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -77,8 +77,8 @@ const getMypageMD = (userId) => {
       })
       .catch((err) => {
         // console.log("getMypageMD에서 오류발생", err);
-        dispatch(modalActions.setModal("로그인이 필요한 페이지입니다"))
-        history.push("/signUpSuccessModal")
+        dispatch(modalActions.setModal("로그인이 필요한 페이지입니다"));
+        history.push("/signUpSuccessModal");
       });
   };
 };
@@ -93,7 +93,7 @@ const getUserMD = () => {
         // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -122,7 +122,7 @@ const updateUserMD = (userInfo) => {
         // accept: "application/json",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
         // "Content-Type": "multipart/form-data; ",
       },
     })
@@ -149,7 +149,7 @@ const updateUserImageMD = (userInfo) => {
         // accept: "application/json",
         "Content-Type": "application/octet-stream",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -175,7 +175,7 @@ const getDogMD = () => {
       headers: {
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
         "Content-Type": "multipart/form-data; ",
       },
     })
@@ -203,7 +203,7 @@ const updateDogMD = (formData) => {
         accept: "application/json",
         // "Content-Type": "multipart/form-data; ",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -228,7 +228,7 @@ const updateDogImageMD = (formData) => {
         accept: "application/json",
         "Content-Type": "multipart/form-data; ",
         "Access-Control-Allow-Origin": "*",
-        authorization: `Bearer ${getCookie("userLogin")}`,
+        authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {

@@ -21,39 +21,41 @@ const GaeStaCard = (props) => {
   }, []);
 
   return (
-    <Wrap>
-      {/* 개스타그램 게시물의 유무 판단*/}
-      {postList.length == 0 ? (
-        <>
-          <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
-          <Button
-            onClick={() => {
-              history.push("/dogStaWrite");
-            }}
-          >
-            게시물 작성하기
-          </Button>
-        </>
-      ) : (
-        <Posts>
-          {postList.map((post, index) => {
-            return (
-              <Card
-                key={index}
-                onClick={() =>
-                  history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
-                }
-              >
-                {/* 포스트 사진 */}
-                <img src={post.dogPostImage} />
-              </Card>
-            );
-          })}
-        </Posts>
-      )}
-      {/* 고정 버튼 */}
+    <>
+      <Wrap>
+        {/* 개스타그램 게시물의 유무 판단*/}
+        {postList.length == 0 ? (
+          <>
+            <NoCard>게시물이 아직 없습니다. 작성해주세요.</NoCard>
+            <Button
+              onClick={() => {
+                history.push("/dogStaWrite");
+              }}
+            >
+              게시물 작성하기
+            </Button>
+          </>
+        ) : (
+          <Posts>
+            {postList.map((post, index) => {
+              return (
+                <Card
+                  key={index}
+                  onClick={() =>
+                    history.push(`/dogStaDetail/${userId}/${post.dogPostId}`)
+                  }
+                >
+                  {/* 포스트 사진 */}
+                  <img src={post.dogPostImage} />
+                </Card>
+              );
+            })}
+          </Posts>
+        )}
+        {/* 고정 버튼 */}
+      </Wrap>
       <NavBar add_dogsta />
-    </Wrap>
+    </>
   );
 };
 

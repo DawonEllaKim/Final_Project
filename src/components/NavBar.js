@@ -165,7 +165,9 @@ const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  left: 0;
+  /* left: 0; */
+  left: 50%;
+  transform: translateX(-50%);
   min-width: 315px;
   max-width: 500px;
   width: 100%;

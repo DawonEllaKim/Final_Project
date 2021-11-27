@@ -42,12 +42,11 @@ const TopBar = (props) => {
   //   localStorage.setItem("noti", JSON.stringify(notification));
   //   arr = localStorage.getItem("noti");
   // }, [notification, noti]);
- console.log(getNoti)
+  //  console.log(getNoti)
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);
   // console.log(noti)
-  
 
   if (only_left) {
     return (
@@ -81,7 +80,7 @@ const TopBar = (props) => {
                 height: "24px",
               }}
             />
-            <Edit>{getNoti==0?0:getNoti.length}</Edit>
+            <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
           </BtnRight>
         </Right>
       </Wrap>
@@ -112,7 +111,7 @@ const TopBar = (props) => {
                   height: "24px",
                 }}
               />
-              <Edit>{getNoti==0?0:getNoti.length}</Edit>
+              <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
             </>
           )}
         </BtnRight>
@@ -211,4 +210,3 @@ const BtnRight = styled.button`
 `;
 
 export default TopBar;
-
