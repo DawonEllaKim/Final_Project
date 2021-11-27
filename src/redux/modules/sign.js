@@ -142,6 +142,7 @@ const signUserAPI = (formData) => {
         // "content-type": "application/json;charset=UTF-8",
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
+        // authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
@@ -149,11 +150,9 @@ const signUserAPI = (formData) => {
         history.push("/signupModal");
       })
       .catch((err) => {
-        // console.log("signupAPI에서 오류발생", err);
-        window.alert("회원가입오류")
-        window.location.reload(
-          "/signup"
-        )
+        console.log("signupAPI에서 오류발생", err);
+        window.alert("회원가입오류");
+        window.location.reload("/signup");
       });
   };
 };

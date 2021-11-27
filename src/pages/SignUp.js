@@ -1,31 +1,29 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import e from "cors";
+// import e from "cors";
 
 // 컴포넌츠
 import TopBar from "../components/TopBar";
 import SignUpSuccessModal from "../components/Modal/SignUpSuccessModal";
 import Spinner from "../shared/Spinner";
-
-// 유효성 검사
 import { emailCheck, passwordCheck } from "../shared/check";
 
 // 리덕스
 import { actionCreators as UserActions } from "../redux/modules/sign";
+import { history } from "../redux/configureStore";
 
 // 아이콘+이미지
 import defaultUser from "../image/default_user.png";
-import { ElevatorSharp } from "@mui/icons-material";
-
+// import { ElevatorSharp } from "@mui/icons-material";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const [imgBase64, setImgBase64] = useState(defaultUser ? defaultUser : ""); // 파일 base64
   const [imgFile, setImgFile] = useState(null); //파일
-  
+
+  // 아이디, 비밀번호, 비밀번호 확인, 닉네임, 거주지, 성별 , 나이대
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,6 +31,8 @@ const SignUp = () => {
   const [userLocation, setUserLocation] = useState("");
   const [userGender, setUserGender] = useState("");
   const [userAge, setUserAge] = useState("");
+
+  // 회원가입 오류시 알람 메세지
   const [alert, setAlert] = useState("");
   const [alertEmail, setAlertEmail] = useState("");
   const [alertPassword, setAlertPassword] = useState("");
@@ -42,17 +42,20 @@ const SignUp = () => {
   const [alertUserGender, setAlertUserGender] = useState("");
   const [alertUserAge, setAlertUserAge] = useState("");
   const [alertImage, setAlertImage] = useState("");
-  const [modal,setModal] = useState("")
+
+  // 모달
+  const [modal, setModal] = useState("");
   const is_loading = useSelector((state) => state.sign.is_loading);
   const user_modal = useSelector((state) => state.sign.user_modal);
-  const [loading,setLoading] = useState();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
     // dispatch(postActions.getAllMD());
-    setLoading(is_loading)
-    setLoading(true)
-    setModal(user_modal)
-  }, [is_loading,user_modal]);
+    setLoading(is_loading);
+    setLoading(true);
+    setModal(user_modal);
+  }, [is_loading, user_modal]);
+
   const handleChangeFile = (event) => {
     event.preventDefault();
     let reader = new FileReader();
@@ -79,6 +82,7 @@ const SignUp = () => {
     const newTitle = e.target.value;
     setPassword(newTitle);
   };
+
   const confirmPasswordChangeHandler = (e) => {
     const newTitle = e.target.value;
     setConfirmPassword(newTitle);
@@ -88,13 +92,16 @@ const SignUp = () => {
     const newTitle = e.target.value;
     setUserNickname(newTitle);
   };
+
   const userLocationChangeHandler = (e) => {
     const newTitle = e.target.value;
     setUserLocation(newTitle);
   };
+
   const userGenderChangeHandler = (name) => {
     setUserGender(name);
   };
+
   const userAgeChangeHandler = (name) => {
     setUserAge(name);
   };
@@ -106,7 +113,6 @@ const SignUp = () => {
     } else {
       setAlertEmail("");
     }
-
     dispatch(UserActions.signDupAPI(userEmail));
   };
 
@@ -116,9 +122,6 @@ const SignUp = () => {
       password !== confirmPassword ||
       !confirmPassword
     ) {
-     
-
-    
       if (confirmPassword == "") {
         setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
       } else {
@@ -126,15 +129,13 @@ const SignUp = () => {
         setAlertConfirmPassword(false);
       }
       if (password !== confirmPassword) {
-        if(!password)
-        setAlertPassword("비밀번호가 입력되지 않았습니다");
-        else if(!confirmPassword)
-        setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
-        else{
+        if (!password) setAlertPassword("비밀번호가 입력되지 않았습니다");
+        else if (!confirmPassword)
+          setAlertConfirmPassword("비밀번호를 재확인하지 않았습니다");
+        else {
           setAlertPassword("비밀번호가 일치하지 않습니다.");
           setAlertConfirmPassword("비밀번호가 일치하지 않습니다.");
         }
-  
       }
       if (!passwordCheck(password)) {
         setAlertPassword(
@@ -142,6 +143,7 @@ const SignUp = () => {
         );
       }
     }
+
     if (imgBase64 == defaultUser) setAlertImage("유저이미지를 등록해주세요");
     else {
       setAlertImage("");
@@ -176,23 +178,20 @@ const SignUp = () => {
     } else {
       setAlertUserAge("");
     }
+
     if (
-      
-        !userAge ||
-        !userGender ||
-        !userLocation ||
-        !userNickname ||
-        !confirmPassword ||
-        !password ||
-        !userEmail ||
-        password !== confirmPassword ||
-        !passwordCheck(password)
-      
-    )
-    {
+      !userAge ||
+      !userGender ||
+      !userLocation ||
+      !userNickname ||
+      !confirmPassword ||
+      !password ||
+      !userEmail ||
+      password !== confirmPassword ||
+      !passwordCheck(password)
+    ) {
       return;
     }
-  
 
     const formData = new FormData();
     formData.append("userEmail", userEmail);
@@ -213,20 +212,18 @@ const SignUp = () => {
     setLoading(false);
     dispatch(UserActions.signUserAPI(formData));
   };
-  
+
   if (!loading) {
     return <Spinner />;
   }
+
   return (
     <>
-    {
-      modal? <SignUpSuccessModal setModal={setModal}/> : ""
-    }
       <Wrap>
         {/* 뒤로가기 버튼 + 회원가입 텍스트 */}
         <TopBar only_left>회원가입</TopBar>
 
-        {/* 유저 사진 */}
+        {/* 회원 사진 */}
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
@@ -240,6 +237,8 @@ const SignUp = () => {
           </AddWrap>
         </ImageWrap>
         <ImageAlert>{alertImage ? alertImage : ""}</ImageAlert>
+
+        {/* 회원 이메일 */}
         <UserWrap>
           <Input>
             <InputText
@@ -250,10 +249,11 @@ const SignUp = () => {
           <IdCheck onClick={checkDup}>중복확인</IdCheck>
         </UserWrap>
         <Alert>{alertEmail ? alertEmail : ""}</Alert>
+
         <Input>
           <InputText
             type="password"
-            placeholder="패스워드 입력 (8자이상 영대/소문자+숫자)"
+            placeholder="패스워드 입력 (8자이상 영대/소문자+숫자+특수문자 필수)"
             onChange={passwordChangeHandler}
           />
         </Input>
@@ -380,9 +380,13 @@ const SignUp = () => {
           </button>
         </ButtonWrap>
       </Wrap>
+
+      {/* 회원가입 성공시 뜨는 알람창 */}
+      {modal ? <SignUpSuccessModal setModal={setModal} /> : ""}
     </>
   );
 };
+
 const Alert = styled.div`
   color: #ff5252;
   display: flex;
