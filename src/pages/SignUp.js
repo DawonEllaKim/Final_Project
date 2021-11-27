@@ -60,19 +60,25 @@ const SignUp = () => {
   const [loading, setLoading] = useState();
 
   const [checkEmail, setCheckEmail] = useState("");
+  const [checkColor, setCheckColor] = useState("");
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
+  const checkColorDup = useSelector((state) => state.sign.checkColor);
 
+  
   useEffect(() => {
     dispatch(UserActions.checkEmail());
     setCheckEmail(checkEmailDup);
-  }, []);
-
+    setAlertEmail(checkEmail);
+    setCheckColor(checkColorDup);
+    setEmailColor(checkColor)
+    console.log("checkEmail, checkEmailDup", checkEmail, checkEmailDup,checkColorDup,checkColor);
+  }, [checkEmailDup]);
   useEffect(() => {
     // dispatch(UserActions.checkEmail());
     // dispatch(postActions.getAllMD());
     setLoading(is_loading);
     setLoading(true);
-    setModal(user_modal);
+ 
 
     // 이미지확인
     if (imgBase64 === defaultUser) {
@@ -89,17 +95,22 @@ const SignUp = () => {
     } else if (emailCheck(userEmail) === false) {
       setEmailColor("red");
       setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
-    } else {
+    } 
+    else if (alertEmail=="중복입니다")
+    {
+      setEmailColor("red");
+    }
+    else{
       setEmailColor("green");
     }
     // 이메일 확인
-    if (userEmail === "") {
-      setAlertEmail("");
-    } else if (emailCheck(userEmail) === false) {
-      setEmailColor("red");
-      setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
-    } else if (checkEmail === false) {
-    }
+    // if (userEmail === "") {
+    //   setAlertEmail("");
+    // } else if (emailCheck(userEmail) === false) {
+    //   setEmailColor("red");
+    //   setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예)togaether@gmail.com");
+    // } else if (checkEmail === false) {
+    // }
     // else {
     //   setEmailColor("green");
     // }
@@ -133,7 +144,7 @@ const SignUp = () => {
     } else {
       setConfirmPasswordColor("green");
     }
-    console.log("checkEmail, checkEmailDup", checkEmail, checkEmailDup);
+  
 
     // if (
     // !passwordCheck(password) ||
@@ -198,8 +209,8 @@ const SignUp = () => {
     // }
   }, [
     is_loading,
-    user_modal,
-    emailCheck,
+ 
+ 
     userEmail,
     emailColor,
     password,
@@ -262,18 +273,18 @@ const SignUp = () => {
   };
 
   const checkDup = () => {
-    if (checkEmail === false) {
-      setEmailColor("red");
-      setAlertEmail("no");
-      return;
-    } else if (checkEmail === undefined) {
-      setEmailColor("red");
-      setAlertEmail("no");
-      return;
-    } else {
-      setEmailColor("green");
-      setAlertEmail("yes");
-    }
+    // if (checkEmail === false) {
+    //   setEmailColor("red");
+    //   setAlertEmail("no");
+    //   return;
+    // } else if (checkEmail === undefined) {
+    //   setEmailColor("red");
+    //   setAlertEmail("no");
+    //   return;
+    // } else {
+    //   setEmailColor("green");
+    //   setAlertEmail("yes");
+    // }
     dispatch(UserActions.signDupAPI(userEmail));
   };
 
@@ -342,7 +353,7 @@ const SignUp = () => {
     } else {
       setAlertUserAge("");
     }
-
+    console.log(alertEmail)
     if (
       !userAge ||
       !userGender ||
@@ -353,7 +364,17 @@ const SignUp = () => {
       !userEmail ||
       password !== confirmPassword ||
       !passwordCheck(password)
+   
+
     ) {
+  
+      return;
+    }
+    if(
+      alertEmail !="정상적인 이메일입니다."
+    )
+    {
+      window.alert("이메일 중복확인을 해주세요!")
       return;
     }
 
