@@ -16,6 +16,7 @@ import DogSuccessModal from "../components/Modal/DogSuccessModal";
 
 // 리액트 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { MdCloudUpload } from "react-icons/md";
 
 const EditDog = (props) => {
   const dispatch = useDispatch();

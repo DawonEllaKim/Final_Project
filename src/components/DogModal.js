@@ -3,30 +3,25 @@ import styled from "styled-components";
 
 import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
+import { MdCloudUpload } from "react-icons/md";
 
 import { useHistory } from "react-router";
 import { actionCreators as DogActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
 const DogModal = (props) => {
   const dispatch = useDispatch();
-  const history =useHistory()
- 
+  const history = useHistory();
+
   const editImage = () => {
-  
-
-
     const image = imgFile ? imgFile : props.dogImage;
 
     const formData = new FormData();
     formData.append("dogImage", imgFile);
-      
-    setLoading(true)
+
+    setLoading(true);
     dispatch(DogActions.updateDogImageMD(formData));
-  
-
-
   };
- 
+
   const [imgBase64, setImgBase64] = useState(props.dogImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
 
@@ -48,24 +43,31 @@ const DogModal = (props) => {
     // reader.readAsDataURL(userImage);
     //   setImgFile(userImage)
   };
-  const [loading,setLoading] = useState("")
-  if(loading)
-  {
-    return (
-      <Spinner/>
-    )
+  const [loading, setLoading] = useState("");
+  if (loading) {
+    return <Spinner />;
   }
   return (
     <React.Fragment>
-      <Component  />
+      <Component />
       <ModalComponent>
-        <ModalExitBtn onClick={()=>props.setModal(false)} >
+        <ModalExitBtn onClick={() => props.setModal(false)}>
           <Close />
         </ModalExitBtn>
-        <ModalHeader>강아지이미지 수정하겠습니까?</ModalHeader>
+        <ModalHeader>강아지 이미지를 수정하시겠습니까?</ModalHeader>
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
-          <UploadLabel for="imgFile">사진 업로드</UploadLabel>
+          <UploadLabel for="imgFile">
+            <MdCloudUpload
+              style={{
+                width: "20px",
+                height: "20px",
+                marginRight: "5px",
+                color: "#404040",
+              }}
+            />
+            이미지 업로드
+          </UploadLabel>
           <AddImage
             type="file"
             name="imgFile"
@@ -121,7 +123,7 @@ const ModalButtonContainer = styled.div`
 `;
 const ModalSubmitBtn = styled.button`
   width: 100%;
-  background-color: #FF5656;
+  background-color: #ff5656;
   border: none;
   outline: none;
   padding: 10px 0;
@@ -161,10 +163,16 @@ const Preview = styled.img`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
-  padding: 10px 5px 5px 5px;
-  margin: 10px;
+  width: 150px;
+  padding: 5px 5px 5px 5px;
+  margin: 10px auto;
   cursor: pointer;
+  display: flex;
+  border-radius: 24px;
+  justify-content: center;
+  /* background-color: #9de8df; */
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddImage = styled.input`
   /* width: 180px;

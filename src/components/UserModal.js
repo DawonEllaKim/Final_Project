@@ -5,6 +5,8 @@ import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { actionCreators as markerActions } from "../redux/modules/marker";
 import { useHistory } from "react-router";
+import { MdCloudUpload } from "react-icons/md";
+
 import { actionCreators as UserActions } from "../redux/modules/user";
 import Spinner from "../shared/Spinner";
 const UserModal = (props) => {
@@ -54,10 +56,20 @@ const UserModal = (props) => {
         <ModalExitBtn onClick={() => props.setModal(false)}>
           <Close />
         </ModalExitBtn>
-        <ModalHeader>프로필이미지 수정하겠습니까?</ModalHeader>
+        <ModalHeader>프로필 이미지를 수정하시겠습니까?</ModalHeader>
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
-          <UploadLabel for="imgFile">사진 업로드</UploadLabel>
+          <UploadLabel for="imgFile">
+            <MdCloudUpload
+              style={{
+                width: "20px",
+                height: "20px",
+                marginRight: "5px",
+                color: "#404040",
+              }}
+            />
+            이미지 업로드
+          </UploadLabel>
           <AddImage
             type="file"
             name="imgFile"
@@ -153,10 +165,16 @@ const Preview = styled.img`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
-  padding: 10px 5px 5px 5px;
-  margin: 10px;
+  width: 150px;
+  padding: 5px 5px 5px 5px;
+  margin: 10px auto;
   cursor: pointer;
+  display: flex;
+  border-radius: 24px;
+  justify-content: center;
+  /* background-color: #9de8df; */
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddImage = styled.input`
   /* width: 180px;

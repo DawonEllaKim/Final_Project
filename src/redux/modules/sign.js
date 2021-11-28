@@ -109,7 +109,7 @@ const logInMD = (userEmail, password) => {
       })
       .catch((err) => {
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-        dispatch(getAlert("아이디와 비밀번호가 맞지 않습니다!"));
+        dispatch(getAlert("✔︎ 아이디 또는 비밀번호가 잘못 입력 되었습니다."));
       });
   };
 };

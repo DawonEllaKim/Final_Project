@@ -1,14 +1,11 @@
+// LogIn.js - 로그인 페이지
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-// const { Kakao } = window;
 
 // 컴포넌츠
-import TopBar from "../components/TopBar";
 import LoginSuccessModal from "../components/Modal/LoginSuccessModal";
-import { KAKAO_AUTH_URL } from "../components/OAuth";
 import Spinner from "../shared/Spinner";
 
 // 리덕스
@@ -17,8 +14,8 @@ import { actionCreators as userActions } from "../redux/modules/sign";
 // 아이콘 + 이미지
 import { MdAlternateEmail } from "react-icons/md";
 import { AiOutlineLock } from "react-icons/ai";
-import kakaoPicture from "../image/kakao_login_medium_wide.png";
 import logo from "../image/logo.png";
+import { MdArrowBackIos } from "react-icons/md";
 
 const LogIn = (props) => {
   const dispatch = useDispatch();
@@ -26,92 +23,81 @@ const LogIn = (props) => {
   const [password, setPassword] = useState("");
   const [modal, setModal] = useState("");
   const [alert, setAlert] = useState("");
-
-  const userEmailChangeHandler = (e) => {
-    // console.log(e.target.value);
-    setUserEmail(e.target.value);
-  };
-  const passwordChangeHandler = (e) => {
-    // console.log(e.target.value);
-    setPassword(e.target.value);
-  };
   const [loading, setLoading] = useState(true);
+
   const is_loading = useSelector((state) => state.sign.is_loading);
   const getModal = useSelector((state) => state.sign.modal);
   const message = useSelector((state) => state.sign.alert);
 
-  useEffect(() => {
-    // dispatch(postActions.getAllMD());
+  const userEmailChangeHandler = (e) => {
+    setUserEmail(e.target.value);
+  };
 
-    setLoading(is_loading);
-    setLoading(true);
-    setAlert(message);
-    setModal(getModal);
-  }, [message, is_loading]);
-  const onClickLogin = () => {
-    if ((userEmail === "") | (password === "")) {
-      setAlert("이메일 또는 비밀번호를 입력해주세요");
+  const passwordChangeHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const Login = () => {
+    // if ((userEmail === "") | (password === "")) {
+    //   setAlert("✔︎ 이메일 또는 비밀번호를 입력해주세요");
+    //   return;
+    // }
+    // setLoading(false);
+    // dispatch(userActions.logInMD(userEmail, password));
+    if (userEmail === "") {
+      setAlert("✔︎ 이메일을 입력해 주세요.");
+      return;
+    } else if (password === "") {
+      setAlert("✔︎ 비밀번호를 입력해 주세요.");
       return;
     }
     setLoading(false);
     dispatch(userActions.logInMD(userEmail, password));
   };
-  // const loginWithKakao = () => {
-  //   const scope = "profile_nickname,profile_image";
-  //   Kakao.Auth.login({
-  //     scope,
-  //     // success는 인증 정보를 응답(response)으로 받는다.
-  //     success: function (response) {
-  //       //카카오 SDK에 사용자 토큰을 설정한다.
-  //       window.Kakao.Auth.setAccessToken(response.access_token);
-  //       console.log(`is set?: ${window.Kakao.Auth.getAccessToken()}`);
 
-  //       var ACCESS_TOKEN = window.Kakao.Auth.getAccessToken();
-  //       localStorage.setItem("token", ACCESS_TOKEN);
-
-  //       window.Kakao.API.request({
-  //         url: "/v2/user/me",
-  //         success: function ({ kakao_account }) {
-  //           //어떤 정보 넘어오는지 확인
-  //           console.log(kakao_account);
-
-  //           const { profile } = kakao_account;
-  //           localStorage.setItem("nickname", profile.nickname);
-
-  //           console.log(`responsed img: ${profile.profile_image_url}`);
-  //           console.log(profile.nickname);
-  //           history.push("/");
-  //         },
-  //         fail: function (error) {
-  //           console.log(error);
-  //         },
-  //       });
-  //     },
-  //     fail: function (error) {
-  //       console.log(error);
-  //     },
-  //   });
-  // };
+  useEffect(() => {
+    setLoading(is_loading);
+    setLoading(true);
+    setAlert(message);
+    setModal(getModal);
+  }, [message, is_loading]);
 
   if (!loading) {
     return <Spinner />;
   }
+
   return (
     <>
       {modal ? <LoginSuccessModal setModal={setModal} /> : ""}
+
       <Wrap>
-        <TopBar only_left></TopBar>
-        <div
-          style={{
-            margin: "-30px 0",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            history.push("/");
-          }}
-        >
+        {/* 뒤로가기 버튼 */}
+        <TopWrap>
+          <TopBarWrap>
+            <TopBarButtons>
+              <TopBarBtnLeft
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                <MdArrowBackIos
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    color: "#000",
+                  }}
+                />
+              </TopBarBtnLeft>
+            </TopBarButtons>
+          </TopBarWrap>
+        </TopWrap>
+
+        {/* 로고 */}
+        <LogoWrap>
           <Logo src={logo} />
-        </div>
+        </LogoWrap>
+
+        {/* 이메일 */}
         <InputBox>
           <MdAlternateEmail
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -121,6 +107,8 @@ const LogIn = (props) => {
             onChange={userEmailChangeHandler}
           />
         </InputBox>
+
+        {/* 비밀번호 */}
         <InputBox>
           <AiOutlineLock
             style={{ width: "20px", height: "20px", marginTop: "8px" }}
@@ -132,34 +120,56 @@ const LogIn = (props) => {
           />
         </InputBox>
         <Alert>{alert ? alert : message}</Alert>
-        <LoginBtn onClick={onClickLogin}>로그인</LoginBtn>
+
+        {/* 로그인 버튼 */}
+        <LoginBtn onClick={Login}>로그인</LoginBtn>
+
+        {/* 회원가입 버튼 */}
         <SignupBtn onClick={() => history.push("/signup")}>
-          함께 산책시켜요~! <span>회원가입하러가기</span>
+          아직 회원이 아니신가요? <span>회원가입</span>
         </SignupBtn>
-        {/* <a
-          href={KAKAO_AUTH_URL}
-          //  onClick={loginWithKakao}
-        >
-          <KakaoLogin src={kakaoPicture} />
-        </a> */}
       </Wrap>
     </>
   );
 };
-
-const Alert = styled.div`
-  color: #ff5252;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 8px;
-  margin-top: 8px;
-`;
 
 const Wrap = styled.div`
   text-align: center;
   font-size: 14px;
   padding: 0 5% 55px 5%;
   height: 100%;
+`;
+const TopWrap = styled.div`
+  margin: 0 5%;
+
+  text-align: center;
+  height: 70px;
+`;
+const TopBarWrap = styled.div`
+  margin-bottom: 26px;
+  background-color: #fff;
+  padding-top: 14px;
+`;
+const TopBarButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+`;
+const TopBarBtnLeft = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  background-color: transparent;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+`;
+const LogoWrap = styled.div`
+  margin: 0 0 -30px 0;
 `;
 const Logo = styled.img`
   width: 132px;
@@ -181,7 +191,6 @@ const InputBox = styled.div`
     border: 2px solid lightBlue;
   }
 `;
-
 const InputText = styled.input`
   width: 100%;
   border: 0;
@@ -191,6 +200,14 @@ const InputText = styled.input`
   &:focus {
     outline: none;
   }
+`;
+const Alert = styled.div`
+  color: #ff5252;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  font-size: 12px;
 `;
 const LoginBtn = styled.button`
   box-sizing: border-box;
@@ -218,14 +235,6 @@ const SignupBtn = styled.button`
     color: #ff5656;
     padding-left: 4px;
   }
-`;
-const KakaoLogin = styled.img`
-  width: 100%;
-  margin: auto;
-  cursor: pointer;
-  border: 2px solid #000;
-  border-radius: 12px;
-  box-shadow: 0 4px 0px #000;
 `;
 
 export default LogIn;

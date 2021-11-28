@@ -1,3 +1,4 @@
+// SignUp.js - 회원가입 페이지 (보호자 정보 입력)
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,7 @@ import { history } from "../redux/configureStore";
 
 // 아이콘+이미지
 import defaultUser from "../image/default_user.png";
-// import { ElevatorSharp } from "@mui/icons-material";
+import { MdCloudUpload } from "react-icons/md";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const SignUp = () => {
   // 모달
   const [modal, setModal] = useState("");
   const is_loading = useSelector((state) => state.sign.is_loading);
-  const user_modal = useSelector((state) => state.sign.user_modal);
+  // const user_modal = useSelector((state) => state.sign.user_modal);
   const [loading, setLoading] = useState();
 
   const [checkEmail, setCheckEmail] = useState("");
@@ -70,13 +71,6 @@ const SignUp = () => {
     setAlertEmail(checkEmail);
     setCheckColor(checkColorDup);
     setEmailColor(checkColor);
-    console.log(
-      "checkEmail, checkEmailDup",
-      checkEmail,
-      checkEmailDup,
-      checkColorDup,
-      checkColor
-    );
   }, [checkEmailDup]);
   useEffect(() => {
     // dispatch(UserActions.checkEmail());
@@ -350,7 +344,7 @@ const SignUp = () => {
     } else {
       setAlertUserAge("");
     }
-    console.log(alertEmail);
+
     if (
       !userAge ||
       !userGender ||
@@ -364,6 +358,7 @@ const SignUp = () => {
     ) {
       return;
     }
+
     if (alertEmail != "✔︎ 정상적인 이메일입니다.") {
       window.alert("이메일 중복확인을 해주세요!");
       return;
@@ -403,7 +398,17 @@ const SignUp = () => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for="imgFile">이미지 등록하기</UploadLabel>
+            <UploadLabel for="imgFile">
+              <MdCloudUpload
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "5px",
+                  color: "#404040",
+                }}
+              />
+              이미지 업로드
+            </UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -411,10 +416,10 @@ const SignUp = () => {
               onChange={handleChangeFile}
             />
           </AddWrap>
+          <ImageAlert style={{ color: imageColor === "red" ? "red" : "green" }}>
+            {alertImage ? alertImage : ""}
+          </ImageAlert>
         </ImageWrap>
-        <ImageAlert style={{ color: imageColor === "red" ? "red" : "green" }}>
-          {alertImage ? alertImage : ""}
-        </ImageAlert>
 
         {/* 이메일 */}
         <UserWrap>
@@ -630,11 +635,16 @@ const Preview = styled.img`
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
-  padding: 10px 5px 5px 5px;
-  margin: 10px;
+  width: 150px;
+  padding: 5px 5px 5px 5px;
+  margin: 10px auto;
   cursor: pointer;
   display: flex;
+  border-radius: 24px;
   justify-content: center;
+  /* background-color: #9de8df; */
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddImage = styled.input`
   /* width: 180px;

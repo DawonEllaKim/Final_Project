@@ -16,6 +16,7 @@ import { actionCreators as DogActions } from "../redux/modules/sign";
 
 // 아이콘 + 이미지
 import defaultDog from "../image/defaultImage.png";
+import { MdCloudUpload } from "react-icons/md";
 
 const SignDog = (props) => {
   const dispatch = useDispatch();
@@ -54,31 +55,31 @@ const SignDog = (props) => {
     setModal(dog_modal);
   }, [is_loading, dog_modal]);
   const alertHandlerDG = () => {
-    if (!dogGender) setAlertDogGender("강아지 성별을 입력해주세요!");
+    if (!dogGender) setAlertDogGender("✔︎ 강아지 성별을 입력해주세요.");
     else setAlertDogGender();
   };
   const alertHandlerDN = () => {
-    if (!dogName) setAlertDogName("강아지 이름을 입력해주세요!");
+    if (!dogName) setAlertDogName("✔︎ 강아지 이름을 입력해주세요.");
     else setAlertDogName();
   };
   const alertHandlerDB = () => {
-    if (!dogBreed) setAlertDogBreed("강아지 품종을 입력해주세요!");
+    if (!dogBreed) setAlertDogBreed("✔︎ 강아지 품종을 입력해주세요.");
     else setAlertDogBreed();
   };
   const alertHandlerDA = () => {
-    if (!dogAge) setAlertDogAge("강아지 나이를 입력해주세요!");
+    if (!dogAge) setAlertDogAge("✔︎ 강아지 나이를 선택해주세요.");
     else setAlertDogAge();
   };
   const alertHandlerN = () => {
     if (neutral === true || neutral === false) setAlertNeutral();
-    else setAlertNeutral("강아지 성을 입력해주세요!");
+    else setAlertNeutral("✔︎ 강아지 중성화 여부를 선택해주세요.");
   };
   const alertHandlerDC = () => {
-    if (!dogComment) setAlertDogComment("강아지 소개를 써주세요!");
+    if (!dogComment) setAlertDogComment("✔︎ 강아지 소개를 써주세요.");
     else setAlertDogComment();
   };
   const alertHandlerDS = () => {
-    if (!dogSize) setAlertDogSize("강아지 크기를 입력해주세요!");
+    if (!dogSize) setAlertDogSize("✔︎ 강아지 크기를 선택해주세요.");
     else setAlertDogSize();
   };
 
@@ -131,7 +132,7 @@ const SignDog = (props) => {
   };
   const submitDogInfo = () => {
     if (imgBase64 == defaultDog) {
-      setAlertDogImage("강아지 이미지가 입력해주세요!");
+      setAlertDogImage("✔︎ 강아지 이미지를 등록해주세요.");
     } else {
       setAlertDogImage("");
     }
@@ -145,8 +146,9 @@ const SignDog = (props) => {
     alertHandlerDS();
 
     if (!dogBreedCheck(dogBreed)) {
-      setAlertDogBreed("강아지 종은 한글만 입력 가능합니다");
+      setAlertDogBreed("✔︎ 강아지 종은 한글만 입력 가능합니다");
     }
+
     if (
       dogGender === "" ||
       dogName === "" ||
@@ -184,7 +186,17 @@ const SignDog = (props) => {
         <ImageWrap>
           <Preview src={imgBase64}></Preview>
           <AddWrap>
-            <UploadLabel for="imgFile">사진 업로드</UploadLabel>
+            <UploadLabel for="imgFile">
+              <MdCloudUpload
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "5px",
+                  color: "#404040",
+                }}
+              />
+              이미지 업로드
+            </UploadLabel>
             <AddImage
               type="file"
               name="imgFile"
@@ -371,11 +383,16 @@ const Alert = styled.div`
   color: #ff5252;
   display: flex;
   justify-content: flex-start;
+  font-size: 12px;
+
+  margin-left: 20px;
 `;
 const ImageAlert = styled.div`
   color: #ff5252;
-  display: flex;
-  justify-content: center;
+
+  font-size: 12px;
+
+  margin-left: 20px;
 `;
 const Wrap = styled.div`
   text-align: center;
@@ -417,9 +434,16 @@ const InputText = styled.input`
 `;
 const AddWrap = styled.div``;
 const UploadLabel = styled.label`
-  padding: 5px;
-
+  width: 150px;
+  padding: 5px 5px 5px 5px;
+  margin: 10px auto;
   cursor: pointer;
+  display: flex;
+  border-radius: 24px;
+  justify-content: center;
+  /* background-color: #9de8df; */
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 const AddImage = styled.input`
   /* width: 180px;

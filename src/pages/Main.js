@@ -18,13 +18,11 @@ import NavBar from "../components/NavBar";
 import Spinner from "../shared/Spinner";
 import EventCard from "../components/EventCard";
 
-// 이미지
+// 이미지 + 아이콘
 import LoginLogoImg from "../image/Login.png";
 import Hangang from "../image/MainOlympic.jpg";
 import Seoul from "../image/MainSeoul.jpg";
 import Banpo from "../image/MainHangang.jpg";
-import Event from "../image/Event.png";
-
 import MainPageLogo from "../image/MainPageLogo.png";
 import { RiFeedbackLine } from "react-icons/ri";
 import { IoNotificationsOutline } from "react-icons/io5";
@@ -100,6 +98,13 @@ const Main = (props) => {
     pauseOnHover: true,
   };
 
+  // Google Form 피드백 링크
+  const feedBack = () => {
+    window.open(
+      "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
+    );
+  };
+
   useEffect(() => {
     dispatch(dogStaActions.getAllPostMD());
     dispatch(postActions.getOlympicMD());
@@ -107,6 +112,7 @@ const Main = (props) => {
     dispatch(postActions.getBanpoMD());
   }, []);
 
+  // 알람 소켓
   // useEffect(() => {
   //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
   // }, []);
@@ -138,14 +144,8 @@ const Main = (props) => {
     return <Spinner />;
   }
 
-  const feedBack = () => {
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
-    );
-  };
-
   return (
-    <div style={{ margin: "0 auto" }}>
+    <OutSideWrap>
       {/* 로고 + 알람 버튼 */}
       <TopWrap>
         <TopBarWrap>
@@ -469,10 +469,13 @@ const Main = (props) => {
       </Wrap>
 
       <NavBar />
-    </div>
+    </OutSideWrap>
   );
 };
 
+const OutSideWrap = styled.div`
+  margin: 0 auto;
+`;
 const TopBarWrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
