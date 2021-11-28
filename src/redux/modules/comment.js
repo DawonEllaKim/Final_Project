@@ -45,6 +45,7 @@ const addCommentMD = (dogPostId, comment) => {
     })
       .then((res) => {
         dispatch(addComment(comment));
+         dispatch(getCommentMD(dogPostId))
         // console.log("댓글 post", res);
       })
       .catch((err) => {

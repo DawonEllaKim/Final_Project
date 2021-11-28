@@ -213,7 +213,7 @@ const signDogAPI = (formData) => {
       .catch((err) => {
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
         // console.log("signupAPI에서 오류발생", err);
-        window.alert("오류 발생");
+        
       });
   };
 };
