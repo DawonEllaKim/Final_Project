@@ -24,7 +24,7 @@ const Wrap = styled.div`
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  height: 100vh;
+  height: 80vh;
   img {
     width: 90%;
   }
