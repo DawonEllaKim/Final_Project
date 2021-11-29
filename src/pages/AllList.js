@@ -16,6 +16,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 // 이미지
 import { FaPaw } from "react-icons/fa";
+import { setDefaultLocale } from "react-datepicker";
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
@@ -56,9 +57,11 @@ const AllList = (props) => {
    const [target, setTarget] = useState(null)
    const [isLoaded, setIsLoaded] = useState(false);
    const [itemLists, setItemLists] = useState([1]);
-
+   const [i,setI] = useState(10)
    const getMoreItem = async () => {
      setIsLoaded(true);
+     setI(i+10)
+     setTimeout(() => {     setIsLoaded(false);}, 1000);
 
    }  //아이템들 더 보여주는 함수
 
@@ -143,7 +146,7 @@ const AllList = (props) => {
 
           {/* 각 게시물에 대한 카드들 */}
           <Body>
-            {(status === "all" || status === "") && <All postList={postList} />}
+            {(status === "all" || status === "") && <All postList={postList} lastId={i}/>}
             {status === "olympic" && <Olympic />}
             {status === "seoul" && <SeoulForest />}
             {status === "banpo" && <Banpo />}

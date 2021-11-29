@@ -48,7 +48,7 @@ const DogStaMain = (props) => {
       {" "}
       <Wrap>
         {/* 제일 상단 고정 버튼 */}
-        <TopBar>
+        <TopBar home>
           <TopBarImg src={dog} />
           <span>개스타그램</span>
         </TopBar>
