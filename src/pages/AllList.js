@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -50,7 +50,41 @@ const AllList = (props) => {
     setFocus(params);
     dispatch(postActions.getAllMD());
   }, [location]);
+ 
 
+   //무한 스크롤
+   const [target, setTarget] = useState(null)
+   const [isLoaded, setIsLoaded] = useState(false);
+   const [itemLists, setItemLists] = useState([1]);
+
+   const getMoreItem = async () => {
+     setIsLoaded(true);
+
+   }  //아이템들 더 보여주는 함수
+
+   const onIntersect = async ([entry], observer) => {
+     if(entry.isIntersecting)
+     {
+       observer.unobserve(entry.target)
+       await getMoreItem();
+       observer.observe(entry.target)
+     }
+   }
+
+   useEffect (()=> {
+     let observer;
+     if (target) {
+       observer = new IntersectionObserver(onIntersect, {
+         threshold:0.4,
+       });
+       observer.observe(target);
+     }
+     return () => observer && observer.disconnect();
+   },[target])
+  if(isLoaded)
+  {
+    return <Spinner />
+  }
   if (is_loading) {
     return <Spinner />;
   } else {
@@ -115,6 +149,9 @@ const AllList = (props) => {
             {status === "banpo" && <Banpo />}
           </Body>
         </Wrap>
+        <div ref={setTarget}>
+              
+        </div>
         <NavBar />
       </div>
     );

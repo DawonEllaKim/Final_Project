@@ -1,5 +1,5 @@
 // All.js - 산책가자 페이지에서 산책목록 전체 모여있는 페이지
-import React from "react";
+
 import styled from "styled-components";
 import Cards from "../AllList/Cards";
 
@@ -24,7 +24,12 @@ const All = ({ postList }) => {
               meetingDate,
               post,
             };
-            return <Cards Info={Info} key={index} />;
+            // if(index<10)
+            if(index<10)
+            return  <Cards Info={Info} key={index} />;
+            
+            
+    
           })}
         </>
       )}
