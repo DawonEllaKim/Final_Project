@@ -12,9 +12,13 @@ import {
 } from "../../components/MarkerList/HangangList";
 import { hangang, seoul, olympic } from "../../components/MarkerList/ParkList";
 import { actionCreators as modalActions } from "./modal";
+
 // action
 //메인 페이지 GET 요청
 const GET_ALL = "GET_ALL"; // 모든 게시물 조회
+const GET_MAIN_OLYMPIC = "GET_MAIN_OLYMPIC"; // 모든 게시물 조회
+const GET_MAIN_SEOUL = "GET_MAIN_SEOUL"; // 모든 게시물 조회
+const GET_MAIN_BANPO = "GET_MAIN_BANPO"; // 모든 게시물 조회
 const GET_OLYMPIC = "GET_OLYMPIC"; // 모든 게시물 조회
 const GET_SEOUL = "GET_SEOUL"; // 모든 게시물 조회
 const GET_BANPO = "GET_BANPO"; // 모든 게시물 조회
@@ -27,12 +31,23 @@ const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const GET_MODAL = "GET_MODAL";
+
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
+const getMainOlympic = createAction(GET_MAIN_OLYMPIC, (mainOlympic) => ({
+  mainOlympic,
+}));
+const getMainSeoul = createAction(GET_MAIN_SEOUL, (mainSeoul) => ({
+  mainSeoul,
+}));
+const getMainBanpo = createAction(GET_MAIN_BANPO, (mainBanpo) => ({
+  mainBanpo,
+}));
 const getOlympic = createAction(GET_OLYMPIC, (olympic) => ({ olympic }));
 const getSeoul = createAction(GET_SEOUL, (seoul) => ({ seoul }));
 const getBanpo = createAction(GET_BANPO, (banpo) => ({ banpo }));
+
 const getMap = createAction(GET_MAP, (map) => ({ map }));
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
@@ -47,6 +62,9 @@ const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const initialState = {
   //메인 요청
   main: [],
+  mainOlympic: [],
+  mainSeoul: [],
+  mainBanpo: [],
   olympic: [],
   seoul: [],
   banpo: [],
@@ -123,6 +141,123 @@ const getAllMD = () => {
       })
       .catch((err) => {
         // console.log(err);
+        // console.log("정보 불러오기 실패");
+      });
+  };
+};
+const getMainOlympicMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "https://www.walkadog.shop/posts/main/olympicPark",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const yearTens = fullDate.split("-")[0].charAt(2);
+          const yearOnes = fullDate.split("-")[0].charAt(3);
+          const year = yearTens + yearOnes;
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
+        }
+        const postList = res.data.posts;
+        const totalCount = res.data.totalCount;
+        const postLists = [...postList, totalCount];
+        dispatch(getMainOlympic(postLists));
+        dispatch(loading(false));
+        // console.log("getOlympicMD 정보 불러오기 완료");
+      })
+      .catch((err) => {
+        // console.log("정보 불러오기 실패", err);
+      });
+  };
+};
+const getMainSeoulMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "https://www.walkadog.shop/posts/main/seoulForest",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const yearTens = fullDate.split("-")[0].charAt(2);
+          const yearOnes = fullDate.split("-")[0].charAt(3);
+          const year = yearTens + yearOnes;
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
+        }
+        const postList = res.data.posts;
+        const totalCount = res.data.totalCount;
+        const postLists = [...postList, totalCount];
+        dispatch(getMainSeoul(postLists));
+        dispatch(loading(false));
+        // console.log("getseoul 정보 불러오기 완료");
+      })
+      .catch((err) => {
+        // console.log("정보 불러오기 실패", err);
+      });
+  };
+};
+const getMainBanpoMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "https://www.walkadog.shop/posts/main/banpoPark",
+      data: {},
+      headers: {
+        // "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        authorization: `Bearer ${getCookie("token")}`,
+      },
+    })
+      .then((res) => {
+        for (let i = 0; i < res.data.posts.length; i++) {
+          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+          const yearTens = fullDate.split("-")[0].charAt(2);
+          const yearOnes = fullDate.split("-")[0].charAt(3);
+          const year = yearTens + yearOnes;
+          const month = fullDate.split("-")[1];
+          const day = fullDate.split("-")[2];
+          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const hour = fullTime.split(":")[0];
+          const minute = fullTime.split(":")[1];
+          res.data.posts[i].meetingDate =
+            year + "." + month + "." + day + ". " + hour + ":" + minute;
+        }
+        const postList = res.data.posts;
+        const totalCount = res.data.totalCount;
+        const postLists = [...postList, totalCount];
+        dispatch(getMainBanpo(postLists));
+        dispatch(loading(false));
+        // console.log("getOlympicMD 정보 불러오기 완료");
+      })
+      .catch((err) => {
         // console.log("정보 불러오기 실패");
       });
   };
@@ -231,7 +366,6 @@ const getBanpoMD = () => {
         const postList = res.data.posts;
         dispatch(getBanpo(postList));
         dispatch(loading(false));
-        // console.log("getOlympicMD 정보 불러오기 완료");
       })
       .catch((err) => {
         // console.log("정보 불러오기 실패");
@@ -466,6 +600,18 @@ export default handleActions(
       produce(state, (draft) => {
         draft.main = action.payload.main;
       }),
+    [GET_MAIN_OLYMPIC]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainOlympic = action.payload.mainOlympic;
+      }),
+    [GET_MAIN_SEOUL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainSeoul = action.payload.mainSeoul;
+      }),
+    [GET_MAIN_BANPO]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainBanpo = action.payload.mainBanpo;
+      }),
     [GET_OLYMPIC]: (state, action) =>
       produce(state, (draft) => {
         draft.olympic = action.payload.olympic;
@@ -518,6 +664,9 @@ export default handleActions(
 );
 const actionCreators = {
   getAll,
+  getMainOlympic,
+  getMainSeoul,
+  getMainBanpo,
   getOlympic,
   getSeoul,
   getBanpo,
@@ -529,6 +678,9 @@ const actionCreators = {
 
   modalMD,
   getAllMD,
+  getMainOlympicMD,
+  getMainSeoulMD,
+  getMainBanpoMD,
   getOlympicMD,
   getSeoulMD,
   getBanpoMD,

@@ -4,6 +4,8 @@ import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
 import { actionCreators as modalActions } from "./modal";
+
+const GET_MAIN_POST = "GET_MAIN_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
@@ -15,6 +17,10 @@ const TOGGLE_LIKE = "TOGGLE_LIKE"; // 좋아요 토글
 const GET_LIKES = "GET_LIKES"; // 해당 게시물 좋아요 불러오기
 const GET_MY_LIKE = "GET_MY_LIKE"; // 내가 좋아요 눌렀는지 여부
 const GET_MODAL = "GET_MODAL";
+
+const getMainPost = createAction(GET_MAIN_POST, (mainFourPosts) => ({
+  mainFourPosts,
+}));
 const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
   mainLikeList,
@@ -33,6 +39,7 @@ const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 //모달
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const initialState = {
+  mainFourPosts: [],
   mainList: [],
   mainLikeList: [],
   myList: [],
@@ -46,6 +53,25 @@ const modalMD = () => {
   return function (dispatch, getState, { history }) {
     dispatch(getModal(false));
     history.goBack();
+  };
+};
+
+const getMainPostMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: "https://www.walkadog.shop/dogsta/mainFilter",
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getMainPost(postList));
+        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+      })
+      .catch((err) => {
+        // console.log("개스타그램 모든 게시물 GET 에러", err);
+      });
   };
 };
 
@@ -325,6 +351,10 @@ const getMyLikeMD = (dogPostId) => {
 
 export default handleActions(
   {
+    [GET_MAIN_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainFourPosts = action.payload.mainFourPosts;
+      }),
     [GET_ALL_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainList = action.payload.mainList;
@@ -378,6 +408,8 @@ export default handleActions(
 );
 
 const actionCreators = {
+  getMainPost,
+  getMainPostMD,
   getAllPost,
   getLikePost,
   getDogPost,
