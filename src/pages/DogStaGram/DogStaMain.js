@@ -14,13 +14,15 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
 import dog from "../../image/dog.png";
-import Top from '../../image/top.png';
 
 const DogStaMain = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램의 모든 게시물 리스트
+  const postList = useSelector((state) => state.dogsta.mainList.contents); // 개스타그램의 모든 게시물 리스트
+  console.log(postList)
+  const pageNum = useSelector((state) => state.dogsta.mainList.pageNum);
+  console.log(pageNum)
   const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1

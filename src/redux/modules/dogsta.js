@@ -6,7 +6,8 @@ import { getCookie } from "../../shared/Cookie";
 import { actionCreators as modalActions } from "./modal";
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
-const GET_MORE_POST = "GET_MOTE_POST"; // 무한 스크롤
+const GET_MORE_RECENT = "GET_MOTE_RECENT"; // 무한 스크롤 최신순
+const GET_MORE_LIKE = "GET_MOTE_LIKE"; // 무한 스크롤 좋아요순
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
 const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오기
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
@@ -21,7 +22,8 @@ const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
   mainLikeList,
 }));
-const getMorePost = createAction(GET_MORE_POST,(mainList) => ({mainList}));
+const getMoreRecent = createAction(GET_MORE_RECENT,(mainList) => ({mainList}));
+const getMoreLike = createAction(GET_MORE_LIKE,(mainLikeList) => ({mainLikeList}));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
@@ -51,17 +53,17 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/dogsta/recentFilter",
+      url:"https://www.walkadog.shop/dogsta/recentFilter",
       data: {},
       headers: {},
     })
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+        console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
-        // console.log("개스타그램 모든 게시물 GET 에러", err);
+        console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
@@ -77,7 +79,7 @@ const getLikePostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getLikePost(postList));
-        // console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
+        console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
       })
       .catch((err) => {
         // console.log("개스타그램 좋아요순 게시물 GET 에러", err);
@@ -86,7 +88,7 @@ const getLikePostMD = () => {
 };
 
 // intersection observer
-const getMorePostMD = (pageNum) =>{
+const getMoreRecentMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
@@ -96,10 +98,27 @@ const getMorePostMD = (pageNum) =>{
     })
     .then((res) => {
       console.log('무한스크롤 성공', res.data);
-      dispatch(getMorePost(res.data));
+      dispatch(getMoreRecent(res.data));
     })
     .catch((err) =>{
-      console.log('무한스크롤 에러'. err);
+      console.log('무한스크롤 에러', err);
+    })
+  }
+}
+const getMoreLikeMD = (pageNum) =>{
+  return function(dispatch, useState, {history}){
+    axios({
+      method: "GET",
+      url: `https://www.walkadog.shop/dogsta/recentFilter?pageNum=${pageNum}`,
+      data: {},
+      headers: {},
+    })
+    .then((res) => {
+      console.log('무한스크롤 성공', res.data);
+      dispatch(getMoreLike(res.data));
+    })
+    .catch((err) =>{
+      console.log('무한스크롤 에러', err);
     })
   }
 }
@@ -351,15 +370,21 @@ export default handleActions(
   {
     [GET_ALL_POST]: (state, action) =>
       produce(state, (draft) => {
+        console.log(state)
+        console.log(action.payload)
         draft.mainList = action.payload.mainList;
       }),
     [GET_LIKE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainLikeList = action.payload.mainLikeList;
       }),
-    [GET_MORE_POST]: (state, action) =>
+    [GET_MORE_RECENT]: (state, action) =>
       produce(state,(draft) =>{
         draft.mainList.push(...action.payload.mainList);
+      }),
+    [GET_MORE_LIKE]: (state, action) =>
+      produce(state,(draft) =>{
+        draft.mainLikeList.push(...action.payload.mainLikeList);
       }),
     [GET_DOGPOST]: (state, action) =>
       produce(state, (draft) => {
@@ -408,7 +433,8 @@ export default handleActions(
 const actionCreators = {
   getAllPost,
   getLikePost,
-  getMorePost,
+  getMoreRecent,
+  getMoreLike,
   getDogPost,
   getMyPost,
   addPost,
@@ -420,7 +446,8 @@ const actionCreators = {
   modalMD,
   getAllPostMD,
   getLikePostMD,
-  getMorePostMD,
+  getMoreRecentMD,
+  getMoreLikeMD,
   getPostMD,
   getMyPostMD,
   addPostMD,
