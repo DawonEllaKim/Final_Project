@@ -12,7 +12,7 @@ import { MdArrowBackIos } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
 
 const TopBar = (props) => {
-  const { text, children, padding, only_left, only_right } = props;
+  const { text, children, padding, only_left, only_right,home } = props;
 
   const styles = { padding };
   const dispatch = useDispatch();
@@ -86,6 +86,40 @@ const TopBar = (props) => {
       </Wrap>
     );
   }
+  else if(home) {
+    return (
+      <Wrap>
+        <Both {...styles}>
+          <BtnLeft>
+            <MdArrowBackIos
+              onClick={() => {
+                history.push("/")
+              }}
+              style={{
+                width: "24px",
+                height: "24px",
+              }}
+            />
+          </BtnLeft>
+          {text ? text : children}
+          <BtnRight>
+            {userId && (
+              <>
+                <IoNotificationsOutline
+                  onClick={() => history.push("/notification")}
+                  style={{
+                    width: "24px",
+                    height: "24px",
+                  }}
+                />
+                <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
+              </>
+            )}
+          </BtnRight>
+        </Both>
+      </Wrap>
+    );
+  }
   return (
     <Wrap>
       <Both {...styles}>
@@ -125,6 +159,7 @@ TopBar.defaultProps = {
   padding: false,
   only_left: false,
   only_right: false,
+  home: false,
 };
 
 const Wrap = styled.div`

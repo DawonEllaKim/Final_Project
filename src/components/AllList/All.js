@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import Cards from "../AllList/Cards";
 
-const All = ({ postList }) => {
+const All = ({ postList,lastId }) => {
   return (
     <Wrap>
       {postList.length === 0 ? (
@@ -24,8 +24,8 @@ const All = ({ postList }) => {
               meetingDate,
               post,
             };
-            // if(index<10)
-            if(index<10)
+            
+            if(index<lastId)
             return  <Cards Info={Info} key={index} />;
             
             
