@@ -1,4 +1,4 @@
-import React, { useSelector, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
@@ -9,11 +9,46 @@ import { AiOutlineHome } from "react-icons/ai";
 import PetsIcon from "@mui/icons-material/Pets";
 import { FaDog } from "react-icons/fa";
 import { BiUser } from "react-icons/bi";
+import Top from '../image/top.png'
 
 const NavBar = (props) => {
   const { add_dogsta } = props;
   const userId = localStorage.getItem("userId");
   const [page, setPage] = useState();
+
+  // top 버튼
+  const [btnStatus, setBtnStatus] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  // 스크롤 300px 이상 일때 top 버튼 생성
+  const handleFollow = () =>{
+    setScrollY(window.pageYOffset);
+    if(scrollY > 200){
+      setBtnStatus(true);
+    } else {
+      setBtnStatus(false);
+    }
+  }
+
+  useEffect(() =>{
+    const watch = () =>{
+      window.addEventListener('scroll', handleFollow)
+    }
+    watch();
+    return () =>{
+      window.removeEventListener('scroll', handleFollow)
+    }
+  })
+
+  // top 버튼 클릭하면 페이지 상단으로 이동
+  const handleTop = () =>{
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+    setScrollY(0);
+    setBtnStatus(false);
+  }
 
   if (add_dogsta) {
     // 개스타 업로드 navbar
@@ -72,6 +107,16 @@ const NavBar = (props) => {
             </HomeBtn>
             <UploadText>업로드</UploadText>
           </HomeArea>
+
+              {/* top 버튼 */}
+              {btnStatus? (
+                <TopWrap onClick={handleTop}>
+                <TopBtn>
+                  <img src={Top} />
+                  <p>TOP</p>
+                </TopBtn>
+              </TopWrap>
+              ) : null}
         </Nav>
       </div>
     );
@@ -132,6 +177,16 @@ const NavBar = (props) => {
             </HomeBtn>
             <Walk>산책등록</Walk>
           </HomeArea>
+
+          {/* top 버튼 */}
+          {btnStatus? (
+                <TopWrap onClick={handleTop}>
+                <TopBtn>
+                  <img src={Top} />
+                  <p>TOP</p>
+                </TopBtn>
+              </TopWrap>
+              ) : null}
         </Nav>
       </div>
     );
@@ -158,7 +213,6 @@ const HomeArea = styled.div`
   position: absolute;
   left: 50%;
   top: -26px;
-
   transform: translateX(-50%);
 `;
 const Nav = styled.div`
@@ -224,4 +278,22 @@ const HomeText = styled.div`
   padding-top: 14px;
 `;
 
+const TopWrap = styled.div`
+  position: absolute;
+  top: -50px;
+  right: 0;
+`
+const TopBtn =styled.button`
+  width: 50px;
+  height: 44px;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 10px 0 4px;
+  cursor: pointer;
+  p{
+    font-size: 12px;
+    font-weight: 600;
+  }
+`
 export default NavBar;
