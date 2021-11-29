@@ -121,6 +121,7 @@ const MapEdit = (props) => {
       dogCount: dogCount,
     };
     dispatch(PostActions.updatePostMD(postId, Info));
+    history.goBack();
   };
 
   return (
