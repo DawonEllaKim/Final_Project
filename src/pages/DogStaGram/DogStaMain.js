@@ -7,12 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
+import Loading from "../../components/Loading";
 
 // 리덕스
 import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
 import dog from "../../image/dog.png";
+import Top from '../../image/top.png';
 
 const DogStaMain = (props) => {
   const dispatch = useDispatch();
@@ -24,13 +26,41 @@ const DogStaMain = (props) => {
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
 
-  // 페이지네이션
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [postsPerPage, setPostsPerPage] = useState(10);  // 페이지당 포스트 수
+  // 무한스크롤 intersection observer
+  const [target, setTarget] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [cardLists, setCardLists] = useState([]);
 
-  const indexOfLast = currentPage * postsPerPage; // 현재 페이지 마지막 포스트 인덱스
-  const indexOfFirst = indexOfLast - postsPerPage; // 현재 페이지 첫번째 포스트 인덱스
+  useEffect(() =>{
+    console.log(cardLists);
+  },[cardLists]);
 
+  const getMoreCard = async() =>{
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    let Cards = [1,2,3,4,5,6,7,8,9,10];
+    setCardLists((cardLists) => cardLists.concat(Cards));
+    setLoading(false);
+  }
+
+  const onIntersect = async ([entry], observer) =>{
+    if (entry.isIntersecting && !loading){
+      observer.unobserve(entry.target);
+      await getMoreCard();
+      observer.observe(entry.target);
+    }
+  }
+  useEffect(()=>{
+    let observer;
+    if(target) {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.5,
+      });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target])
+  
 
   // 최신 순 버튼을 누르면 status값을 최신 순으로 변경
   const newest = () => {
@@ -107,6 +137,7 @@ const DogStaMain = (props) => {
               <Posts>
                 {postList.map((post, index) => {
                   return (
+                    
                     <Card key={index}>
                       {/* 포스트 사진 */}
                       <ImageWrap>
@@ -136,12 +167,15 @@ const DogStaMain = (props) => {
                         </LikeInfo>
                       </PostInfo>
                     </Card>
+                    
                   );
                 })}
               </Posts>
             )}
-
-            {/* 하단 고정 버튼  */}
+                {/* intersection observer */}
+                <div ref={setTarget}>
+                  {loading && <Loading />}
+                </div>
           </Body>
         ) : (
           // 추천순 정렬
