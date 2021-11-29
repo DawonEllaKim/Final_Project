@@ -35,7 +35,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Main = (props) => {
   const [page, setPage] = useState();
 
-  const dogStaPostList = useSelector((state) => state.dogsta.mainList);
+  const dogStaPostList = useSelector((state) => state.dogsta.mainFourPosts);
   const is_loading = useSelector((state) => state.sign.is_loading);
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
@@ -44,20 +44,21 @@ const Main = (props) => {
   const [notification, setNotification] = useState([]);
 
   // 올림픽공원
-  const olympicList = useSelector((state) => state.post.olympic);
+  const olympicList = useSelector((state) => state.post.mainOlympic);
   const olympic = olympicList.slice(0, 4);
-  const olympicListLength = olympicList.length;
+  const olympicListLength = olympicList[4];
   const [olympicTitle, setOlympicTitle] = useState("올림픽공원");
   const [olympicImage, setOlympicImage] = useState(Hangang);
   const [olympicDogName, setOlympicDogName] = useState();
   const [olympicTime, setOlympicTime] = useState();
   const [olympicLocation, setOlympicLocation] = useState("");
+
   const [postId, setPostId] = useState();
 
   // 서울숲
-  const seoulList = useSelector((state) => state.post.seoul);
+  const seoulList = useSelector((state) => state.post.mainSeoul);
   const seoul = seoulList.slice(0, 4);
-  const seoulListLength = seoulList.length;
+  const seoulListLength = seoulList[4];
   const [seoulTitle, setSeoulTitle] = useState("서울숲");
   const [seoulImage, setSeoulImage] = useState(Seoul);
   const [seoulDogName, setSeoulDogName] = useState();
@@ -65,9 +66,10 @@ const Main = (props) => {
   const [seoulLocation, setSeoulLocation] = useState("");
 
   // 반포 한강공원
-  const banpoList = useSelector((state) => state.post.banpo);
+  const banpoList = useSelector((state) => state.post.mainBanpo);
   const banpo = banpoList.slice(0, 4);
-  const banpoListLength = banpoList.length;
+  const banpoListLength = banpoList[4];
+
   const [banpoTitle, setBanpoTitle] = useState("반포 한강공원");
   const [banpoImage, setBanpoImage] = useState(Banpo);
   const [banpoDogName, setBanpoDogName] = useState();
@@ -106,10 +108,10 @@ const Main = (props) => {
   };
 
   useEffect(() => {
-    dispatch(dogStaActions.getAllPostMD());
-    dispatch(postActions.getOlympicMD());
-    dispatch(postActions.getSeoulMD());
-    dispatch(postActions.getBanpoMD());
+    dispatch(dogStaActions.getMainPostMD());
+    dispatch(postActions.getMainOlympicMD());
+    dispatch(postActions.getMainSeoulMD());
+    dispatch(postActions.getMainBanpoMD());
   }, []);
 
   // 알람 소켓

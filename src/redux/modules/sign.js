@@ -72,15 +72,16 @@ const signDupAPI = (userEmail) => {
       .then((res) => {
         // console.log(res); // signup 정보 확인
         dispatch(setUser(userEmail));
-        dispatch(checkEmail("✔︎ 정상적인 이메일입니다.", "green"));
+        // dispatch(checkEmail("✔︎ 사용 가능한 이메일입니다.", "green"));
+        dispatch(checkEmail(true, "green"));
         // console.log(res);
         // history.push("/signDog");
-        window.alert("정상적인 이메일입니다");
+        // window.alert("사용 가능한 이메일입니다.");
       })
       .catch((err) => {
-        dispatch(checkEmail("✔︎ 중복입니다", "red"));
-        console.log("중복입니다", err);
-        window.alert("이메일중복입니다");
+        dispatch(checkEmail("used", "red"));
+        console.log("이미 사용 중인 이메일입니다.", err);
+        // window.alert("이미 사용 중인 이메일입니다.");
       });
   };
 };

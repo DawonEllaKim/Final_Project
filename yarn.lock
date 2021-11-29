@@ -7989,6 +7989,15 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+material-react-toastify@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/material-react-toastify/-/material-react-toastify-1.0.1.tgz#bd96369fc740236134830f4e7ead039280cdb986"
+  integrity sha512-v1uy18V+UeZUBeUUyBEufoYNFDdE0gsLM6e4MN6qts81zNpmqflzO65uBHqjXSWQUeT84b2QByAFBuRBg07SVQ==
+  dependencies:
+    clsx "^1.1.1"
+    prop-types "^15.7.2"
+    react-transition-group "^4.4.1"
+
 math-random@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-2.0.1.tgz#5604b16c6a9a4aee63aff13937fb909b27e46b3a"
@@ -10320,7 +10329,7 @@ react-toastify@^8.1.0:
   dependencies:
     clsx "^1.1.1"
 
-react-transition-group@^4.3.0, react-transition-group@^4.4.2:
+react-transition-group@^4.3.0, react-transition-group@^4.4.1, react-transition-group@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
   integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==
