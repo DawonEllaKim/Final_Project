@@ -77,8 +77,8 @@ const getMypageMD = (userId) => {
       })
       .catch((err) => {
         // console.log("getMypageMD에서 오류발생", err);
-        dispatch(modalActions.setModal("로그인이 필요한 페이지입니다"));
-        history.push("/signUpSuccessModal");
+       
+        history.push("/login");
       });
   };
 };

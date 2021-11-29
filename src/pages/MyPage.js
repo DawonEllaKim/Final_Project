@@ -57,11 +57,14 @@ const MyPage = (props) => {
     setStatus("sta");
     setFocus("sta");
   }, [currentPageUserId]);
-
+   if(!userInfo)
+   {
+     history.push("/login")
+   }
   return (
     <>
       {" "}
-      <Wrap>
+      {userInfo? <Wrap>
         {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 버튼 */}
         <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
 
@@ -189,7 +192,8 @@ const MyPage = (props) => {
             <WalkList post={userInfo} userId={currentPageUserId} />
           )}
         </Cards>
-      </Wrap>
+      </Wrap> : <div>로그인이 필요합니다</div>}
+     
     </>
   );
 };

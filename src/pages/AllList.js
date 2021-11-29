@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -16,6 +16,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 // 이미지
 import { FaPaw } from "react-icons/fa";
+import { setDefaultLocale } from "react-datepicker";
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
@@ -50,7 +51,43 @@ const AllList = (props) => {
     setFocus(params);
     dispatch(postActions.getAllMD());
   }, [location]);
+ 
 
+   //무한 스크롤
+   const [target, setTarget] = useState(null)
+   const [isLoaded, setIsLoaded] = useState(false);
+   const [itemLists, setItemLists] = useState([1]);
+   const [i,setI] = useState(10)
+   const getMoreItem = async () => {
+     setIsLoaded(true);
+     setI(i+10)
+     setTimeout(() => {     setIsLoaded(false);}, 1000);
+
+   }  //아이템들 더 보여주는 함수
+
+   const onIntersect = async ([entry], observer) => {
+     if(entry.isIntersecting)
+     {
+       observer.unobserve(entry.target)
+       await getMoreItem();
+       observer.observe(entry.target)
+     }
+   }
+
+   useEffect (()=> {
+     let observer;
+     if (target) {
+       observer = new IntersectionObserver(onIntersect, {
+         threshold:0.4,
+       });
+       observer.observe(target);
+     }
+     return () => observer && observer.disconnect();
+   },[target])
+  if(isLoaded)
+  {
+    return <Spinner />
+  }
   if (is_loading) {
     return <Spinner />;
   } else {
@@ -109,12 +146,15 @@ const AllList = (props) => {
 
           {/* 각 게시물에 대한 카드들 */}
           <Body>
-            {(status === "all" || status === "") && <All postList={postList} />}
+            {(status === "all" || status === "") && <All postList={postList} lastId={i}/>}
             {status === "olympic" && <Olympic />}
             {status === "seoul" && <SeoulForest />}
             {status === "banpo" && <Banpo />}
           </Body>
         </Wrap>
+        <div ref={setTarget}>
+              
+        </div>
         <NavBar />
       </div>
     );

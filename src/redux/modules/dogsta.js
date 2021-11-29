@@ -8,6 +8,7 @@ import { actionCreators as modalActions } from "./modal";
 const GET_MAIN_POST = "GET_MAIN_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
+const GET_MORE_POST = "GET_MOTE_POST"; // 무한 스크롤
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
 const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오기
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
@@ -25,6 +26,7 @@ const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
   mainLikeList,
 }));
+const getMorePost = createAction(GET_MORE_POST, (mainList) => ({ mainList }));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
@@ -38,6 +40,7 @@ const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
 
 //모달
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
+
 const initialState = {
   mainFourPosts: [],
   mainList: [],
@@ -48,12 +51,6 @@ const initialState = {
   likeExist: false,
   likeList: [],
   modal: false,
-};
-const modalMD = () => {
-  return function (dispatch, getState, { history }) {
-    dispatch(getModal(false));
-    history.goBack();
-  };
 };
 
 const getMainPostMD = () => {
@@ -109,6 +106,25 @@ const getLikePostMD = () => {
       })
       .catch((err) => {
         // console.log("개스타그램 좋아요순 게시물 GET 에러", err);
+      });
+  };
+};
+
+// intersection observer
+const getMorePostMD = (pageNum) => {
+  return function (dispatch, useState, { history }) {
+    axios({
+      method: "GET",
+      url: `https://www.walkadog.shop/dogsta/recentFilter?pageNum=${pageNum}`,
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        console.log("무한스크롤 성공", res.data);
+        dispatch(getMorePost(res.data));
+      })
+      .catch((err) => {
+        console.log("무한스크롤 에러".err);
       });
   };
 };
@@ -349,6 +365,13 @@ const getMyLikeMD = (dogPostId) => {
   };
 };
 
+const modalMD = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(getModal(false));
+    history.goBack();
+  };
+};
+
 export default handleActions(
   {
     [GET_MAIN_POST]: (state, action) =>
@@ -362,6 +385,10 @@ export default handleActions(
     [GET_LIKE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainLikeList = action.payload.mainLikeList;
+      }),
+    [GET_MORE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mainList.push(...action.payload.mainList);
       }),
     [GET_DOGPOST]: (state, action) =>
       produce(state, (draft) => {
@@ -412,6 +439,7 @@ const actionCreators = {
   getMainPostMD,
   getAllPost,
   getLikePost,
+  getMorePost,
   getDogPost,
   getMyPost,
   addPost,
@@ -423,6 +451,7 @@ const actionCreators = {
   modalMD,
   getAllPostMD,
   getLikePostMD,
+  getMorePostMD,
   getPostMD,
   getMyPostMD,
   addPostMD,
