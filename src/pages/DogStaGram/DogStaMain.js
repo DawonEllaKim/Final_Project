@@ -24,6 +24,14 @@ const DogStaMain = (props) => {
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
 
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [postsPerPage, setPostsPerPage] = useState(10);  // 페이지당 포스트 수
+
+  const indexOfLast = currentPage * postsPerPage; // 현재 페이지 마지막 포스트 인덱스
+  const indexOfFirst = indexOfLast - postsPerPage; // 현재 페이지 첫번째 포스트 인덱스
+
+
   // 최신 순 버튼을 누르면 status값을 최신 순으로 변경
   const newest = () => {
     setStatus("newest");

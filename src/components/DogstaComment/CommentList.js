@@ -95,7 +95,7 @@ const CommentList = ({ comment }) => {
           <BtnWrap>
             {edit ? (
               <div>
-                <Edit onClick={completeEdit} size="80">
+                <Edit onClick={completeEdit} size='120'>
                   <DoneIcon sx={{ fontSize: 22 }} />
                 </Edit>
                 <Cancle onClick={cancleEdit}>
