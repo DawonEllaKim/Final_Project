@@ -10,7 +10,7 @@ const All = ({ postList,lastId }) => {
         "등록된 산책 목록이 없습니다."
       ) : (
         <>
-          {postList.map((post, index) => {
+          {postList[0].map((post, index) => {
             const dogImage = post.dogImage;
             const dogName = post.dogName;
             const dogGender = post.dogGender;
@@ -25,7 +25,7 @@ const All = ({ postList,lastId }) => {
               post,
             };
             
-            if(index<lastId)
+   
             return  <Cards Info={Info} key={index} />;
             
             
