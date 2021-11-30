@@ -45,7 +45,7 @@ const Detail = (props) => {
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
   const postId = props.match.params.id;
-
+  const dog = localStorage.getItem("checkDog")
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -519,7 +519,10 @@ const Detail = (props) => {
           <MapWrap id="map"></MapWrap>
 
           {/* 버튼 */}
-          {get_id == post.userId ? (
+          {
+            
+               dog!="false"&&
+          (get_id == post.userId ? (
             <FlexButton>
               <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
               <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
@@ -551,7 +554,8 @@ const Detail = (props) => {
                 쪽지하기
               </DeleteButton>
             </FlexButton>
-          )}
+          ))
+              }
         </DetailWrap>
 
         {/* 고정 버튼들 */}

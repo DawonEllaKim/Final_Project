@@ -345,7 +345,7 @@ const SignDog = (props) => {
     <>
       {modal ? <SignDogSuccessModal setModal={setModal} /> : ""}
       <Wrap>
-        <TopBar only_left>반려견 등록</TopBar>
+        <TopBar dogSign>반려견 등록</TopBar>
 
         <ImageWrap>
           <Preview src={imgBase64}></Preview>

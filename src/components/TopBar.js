@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configureStore";
+import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
@@ -12,8 +12,8 @@ import { MdArrowBackIos } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
 
 const TopBar = (props) => {
-  const { text, children, padding, only_left, only_right, home } = props;
-
+  const { text, children, padding, only_left, only_right, home , dogSign } = props;
+  const history = useHistory();
   const styles = { padding };
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -119,6 +119,31 @@ const TopBar = (props) => {
       </Wrap>
     );
   }
+  else if (dogSign) {
+    return (
+      <Wrap>
+        <Both {...styles}>
+          <BtnLeft>
+            <MdArrowBackIos
+              onClick={() => {
+                history.push("/");
+              }}
+              style={{
+                width: "24px",
+                height: "24px",
+              }}
+            />
+          </BtnLeft>
+          {text ? text : children}
+       
+            <RedButton onClick={()=>history.push("/")}>
+              건너뛰기
+            </RedButton>
+         
+        </Both>
+      </Wrap>
+    );
+  }
   return (
     <Wrap>
       <Both {...styles}>
@@ -159,8 +184,24 @@ TopBar.defaultProps = {
   only_left: false,
   only_right: false,
   home: false,
+  dogSign: false,
 };
-
+const RedButton = styled.div
+`
+color: #ff5656;
+font-size:14px;
+height:25px;
+background-color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+padding-bottom:5px;
+position:absolute;
+top:15px;
+right:0px;
+border-bottom: 2px solid #ff5656;
+cursor:pointer;
+`
 const Wrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
