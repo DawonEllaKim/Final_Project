@@ -404,7 +404,7 @@ const Main = (props) => {
           {/* 반포 한강공원 */}
           <BodyWrap>
             <Header>
-              <Text>반포 한강공원</Text>
+              <Text>야경이 이쁜 반포한강공원</Text>
               <MoreBtn
                 onFocus={() => {
                   setPage("banpo");
