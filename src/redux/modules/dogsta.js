@@ -8,8 +8,9 @@ import { actionCreators as modalActions } from "./modal";
 const GET_MAIN_POST = "GET_MAIN_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
-const GET_MORE_RECENT = "GET_MOTE_RECENT"; // 무한 스크롤 최신순
-const GET_MORE_LIKE = "GET_MOTE_LIKE"; // 무한 스크롤 좋아요순
+const GET_FIRST_RECENT = "GET_FIRST_RECENT";
+const GET_MORE_RECENT = "GET_MORE_RECENT"; // 무한 스크롤 최신순
+const GET_MORE_LIKE = "GET_MORE_LIKE"; // 무한 스크롤 좋아요순
 const GET_DOGPOST = "GET_DOGPOST"; // 개스타그램 게시물 하나 불러오기
 const GET_MY_POST = "GET_MY_POST"; // 개스타그램 나의 게시물 불러오기
 const ADD_POST = "ADD_POST"; // 개스타그램 게시물 작성
@@ -27,8 +28,9 @@ const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
 const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
   mainLikeList,
 }));
-const getMoreRecent = createAction(GET_MORE_RECENT,(mainList) => ({mainList}));
-const getMoreLike = createAction(GET_MORE_LIKE,(mainLikeList) => ({mainLikeList}));c81bc739b7d0a68b731394183b56b22
+const getFirstRecent = createAction(GET_FIRST_RECENT,(mainListTest) => ({mainListTest}));
+const getMoreRecent = createAction(GET_MORE_RECENT,(mainListTest) => ({mainListTest}));
+const getMoreLike = createAction(GET_MORE_LIKE,(mainLikeListTest) => ({mainLikeListTest}));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
@@ -47,6 +49,8 @@ const initialState = {
   mainFourPosts: [],
   mainList: [],
   mainLikeList: [],
+  mainListTest:[],
+  mainLikeListTest:[],
   myList: [],
   eachList: [],
   likeCnt: [],
@@ -112,18 +116,38 @@ const getLikePostMD = () => {
   };
 };
 
-// intersection observer
-const getMoreRecentMD = (pageNum) =>{
-  return function(dispatch, useState, {history}){f70dd8f8c81bc739b7d0a68b731394183b56b22
+const getFirstRecentMD = (pageNum) =>{
+  return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/recentFilter?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
     .then((res) => {
-      console.log('무한스크롤 성공', res.data);
-      dispatch(getMoreRecent(res.data));
+      const postListTest = res.data.posts;
+      console.log('first get 성공', postListTest);
+      dispatch(getFirstRecent(postListTest));
+    })
+    .catch((err) =>{
+      console.log('first get 에러', err);
+    })
+  }
+}
+
+// intersection observer
+const getMoreRecentMD = (pageNum) =>{
+  return function(dispatch, useState, {history}){
+    axios({
+      method: "GET",
+      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
+      data: {},
+      headers: {},
+    })
+    .then((res) => {
+      const postListTest = res.data.posts;
+      console.log('무한스크롤 성공', postListTest);
+      dispatch(getMoreRecent(postListTest));
     })
     .catch((err) =>{
       console.log('무한스크롤 에러', err);
@@ -134,7 +158,7 @@ const getMoreLikeMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/recentFilter?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -399,21 +423,28 @@ export default handleActions(
       }),
     [GET_ALL_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
-        console.log(action.payload)
         draft.mainList = action.payload.mainList;
       }),
     [GET_LIKE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.mainLikeList = action.payload.mainLikeList;
       }),
+    [GET_FIRST_RECENT]: (state, action) =>
+      produce(state,(draft) =>{
+        console.log(state);
+        console.log(action.payload)
+        draft.mainListTest = action.payload.mainListTest;
+      }),
     [GET_MORE_RECENT]: (state, action) =>
       produce(state,(draft) =>{
+        console.log(state)
+        console.log(action.payload)
         draft.mainList.push(...action.payload.mainList);
       }),
     [GET_MORE_LIKE]: (state, action) =>
       produce(state,(draft) =>{
-        draft.mainLikeList.push(...action.payload.mainLikeList);
+        draft.mainLikeListTest = action.payload.mainLikeListTest;
+        // draft.mainLikeList.push(...action.payload.mainLikeList);
       }),
     [GET_DOGPOST]: (state, action) =>
       produce(state, (draft) => {
@@ -464,6 +495,7 @@ const actionCreators = {
   getMainPostMD,
   getAllPost,
   getLikePost,
+  getFirstRecent,
   getMoreRecent,
   getMoreLike,
   getDogPost,
@@ -477,6 +509,7 @@ const actionCreators = {
   modalMD,
   getAllPostMD,
   getLikePostMD,
+  getFirstRecentMD,
   getMoreRecentMD,
   getMoreLikeMD,
   getPostMD,

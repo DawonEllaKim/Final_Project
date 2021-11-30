@@ -19,36 +19,52 @@ const DogStaMain = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postList = useSelector((state) => state.dogsta.mainList.contents); // 개스타그램의 모든 게시물 리스트
-  console.log(postList)
-  const pageNum = useSelector((state) => state.dogsta.mainList.pageNum);
+  // const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램의 모든 게시물 리스트
+  
+  const postList = useSelector((state) => state.dogsta.mainListTest)
+  console.log(postList);
+  const pageNum = useSelector((state) => state.dogsta.mainListTest.pageNum);
   console.log(pageNum)
   const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
+  const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() =>{
+    dispatch(dogstaActions.getMoreRecentMD(pageNumber))
+  },[pageNumber])
 
   // 무한스크롤 intersection observer
   const [target, setTarget] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cardLists, setCardLists] = useState([]);
 
-  useEffect(() =>{
-    console.log(cardLists);
-  },[cardLists]);
+  // useEffect(() =>{
+  //   console.log(cardLists);
+  // },[cardLists]);
 
   const getMoreCard = async() =>{
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    let Cards = [1,2,3,4,5,6,7,8,9,10];
-    setCardLists((cardLists) => cardLists.concat(Cards));
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
+    // let Cards = [1,2,3,4,5,6,7,8,9,10];
+    // setCardLists((cardLists) => cardLists.concat(Cards));
+
+    setPageNumber(pageNumber + 1);
     setLoading(false);
+    // console.log(pageNumber, loading)
   }
+
+  //   useEffect(() =>{
+  //   console.log(pageNumber)
+  // },[pageNumber])
 
   const onIntersect = async ([entry], observer) =>{
     if (entry.isIntersecting && !loading){
       observer.unobserve(entry.target);
       await getMoreCard();
+      // setLoading(true);
+      // setLoading(false);
       observer.observe(entry.target);
     }
   }
@@ -76,11 +92,19 @@ const DogStaMain = (props) => {
     setFocus("mostLiked");
   };
 
+
+
   useEffect(() => {
     setStatus("newest");
     setFocus("newest");
+    
     dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
     dispatch(dogstaActions.getLikePostMD()); // 개스타그램 게시물 좋아요순
+
+
+    // dispatch(dogstaActions.getFirstRecentMD(1))
+    // dispatch(dogstaActions.getMoreRecentMD(pageNumber))
+
   }, []);
 
   return (

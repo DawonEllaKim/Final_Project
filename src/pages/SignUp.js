@@ -366,6 +366,7 @@ const SignUp = () => {
         autoClose: 3000,
         draggable: true,
         closeOnClick: true,
+        hideProgressBar:true,
       });
       return;
     }
