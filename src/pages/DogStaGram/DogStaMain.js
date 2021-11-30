@@ -20,8 +20,9 @@ const DogStaMain = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램 최신순 리스트
-  const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
+  const allList = useSelector((state) => state.dogsta.allList); // 개스타그램 총 게시물 수
+  const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램 최신순 상단 리스트
+  const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 상단 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
@@ -84,17 +85,16 @@ const DogStaMain = (props) => {
   useEffect(() => {
     setStatus("newest");
     setFocus("newest");
+
+    dispatch(dogstaActions.getAllPostMD());
   }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-  console.log(inView);
-  console.log(likeView)
+  // 무한스크롤 페이지 인식 true, false
+  // console.log(inView);
+  // console.log(likeView);
 
   return (
     <>
-      {" "}
       <Wrap>
         {/* 제일 상단 고정 버튼 */}
         <TopBar home>
@@ -180,9 +180,15 @@ const DogStaMain = (props) => {
                   );
                 })}
                 {/* 무한스크롤 페이지 인식 */}
-                <div ref={ref}> {loading && <Loading />}</div>
+                <div ref={ref}></div>
               </Posts>
             )}
+            {/* 로딩 */}
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              {inView && postList.length !== allList.length ? (
+                <Loading />
+              ) : null}
+            </div>
           </Body>
         ) : (
           // 추천순 정렬
@@ -235,12 +241,15 @@ const DogStaMain = (props) => {
                   );
                 })}
                 {/* 무한스크롤 페이지 인식 */}
-
-                <div ref={likeRef}>{loading && <Loading />}</div>
+                <div ref={likeRef}></div>
               </Posts>
             )}
-
-            {/* 하단 고정 버튼  */}
+            {/* 로딩 */}
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              {likeView && postLike.length !== allList.length ? (
+                <Loading />
+              ) : null}
+            </div>
           </Body>
         )}
       </Wrap>

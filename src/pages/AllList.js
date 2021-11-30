@@ -16,13 +16,9 @@ import Spinner from "../shared/Spinner";
 // 이미지
 import { FaPaw } from "react-icons/fa";
 
-
 const AllList = (props) => {
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
-
-
-
   const params = props.match.params.page;
 
   const all = () => {
@@ -47,83 +43,72 @@ const AllList = (props) => {
   useEffect(() => {
     setStatus(location);
     setFocus(params);
-    
   }, [location]);
-  
 
+  return (
+    <div>
+      <Wrap>
+        <TopBar>
+          <FaPaw
+            style={{ width: "24px", height: "24px", margin: " -4px 10px" }}
+          />
+          <span>산책가자</span>
+        </TopBar>
 
+        {/* 카테고리 선택 */}
+        <Category>
+          <button
+            onClick={all}
+            onFocus={() => setFocus("all")}
+            style={{
+              borderBottom: focus === "all" ? "4px solid red" : "",
+            }}
+          >
+            전체
+          </button>
 
+          <button
+            onClick={olympic}
+            onFocus={() => setFocus("olympic")}
+            style={{
+              borderBottom: focus === "olympic" ? "4px solid red" : "",
+            }}
+          >
+            올림픽공원
+          </button>
 
- 
-  
-    return (
-      <div>
-        <Wrap>
-          <TopBar>
-            <FaPaw
-              style={{ width: "24px", height: "24px", margin: " -4px 10px" }}
-            />
-            <span>산책가자</span>
-          </TopBar>
+          <button
+            onClick={seoul}
+            onFocus={() => setFocus("seoul")}
+            style={{
+              borderBottom: focus === "seoul" ? "4px solid red" : "",
+            }}
+          >
+            서울숲
+          </button>
 
-          {/* 카테고리 선택 */}
-          <Category>
-            <button
-              onClick={all}
-              onFocus={() => setFocus("all")}
-              style={{
-                borderBottom: focus === "all" ? "4px solid red" : "",
-              }}
-            >
-              전체
-            </button>
+          <button
+            onClick={banpo}
+            onFocus={() => setFocus("banpo")}
+            style={{
+              borderBottom: focus === "banpo" ? "4px solid red" : "",
+            }}
+          >
+            반포 한강공원
+          </button>
+        </Category>
 
-            <button
-              onClick={olympic}
-              onFocus={() => setFocus("olympic")}
-              style={{
-                borderBottom: focus === "olympic" ? "4px solid red" : "",
-              }}
-            >
-              올림픽공원
-            </button>
-
-            <button
-              onClick={seoul}
-              onFocus={() => setFocus("seoul")}
-              style={{
-                borderBottom: focus === "seoul" ? "4px solid red" : "",
-              }}
-            >
-              서울숲
-            </button>
-
-            <button
-              onClick={banpo}
-              onFocus={() => setFocus("banpo")}
-              style={{
-                borderBottom: focus === "banpo" ? "4px solid red" : "",
-              }}
-            >
-              반포 한강공원
-            </button>
-          </Category>
-
-          {/* 각 게시물에 대한 카드들 */}
-          <Body>
-            {(status === "all" || status === "") && <All />}
-            {status === "olympic" && <Olympic />}
-            {status === "seoul" && <SeoulForest />}
-            {status === "banpo" && <Banpo />}
-          </Body>
-       
-        </Wrap>
-        
-        <NavBar />
-   
-      </div>
-    );
-  
+        {/* 각 게시물에 대한 카드들 */}
+        <Body>
+          {(status === "all" || status === "") && <All />}
+          {status === "olympic" && <Olympic />}
+          {status === "seoul" && <SeoulForest />}
+          {status === "banpo" && <Banpo />}
+        </Body>
+      </Wrap>
+      <NavBar />
+    </div>
+  );
 };
 
 const Wrap = styled.div`
@@ -136,9 +121,6 @@ const Wrap = styled.div`
   /* border: 1px solid red; */
 `;
 
-const TopBarImg = styled.img`
-  height: 22px;
-`;
 const Category = styled.div`
   display: flex;
   flex-direction: row;
@@ -164,13 +146,6 @@ const Body = styled.div`
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-`;
-const Text = styled.p`
-  width: 152px;
-  height: 16px;
-  margin: 12px 0 24px 0;
-  font-size: 16px;
-  font-weight: 700;
 `;
 
 export default AllList;

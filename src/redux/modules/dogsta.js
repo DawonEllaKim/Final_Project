@@ -6,7 +6,7 @@ import { getCookie } from "../../shared/Cookie";
 import { actionCreators as modalActions } from "./modal";
 
 const GET_MAIN_POST = "GET_MAIN_POST"; // 메인 페이지 개스타그램 (최신순) 게시물 불러오기
-// const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
+const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 // const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
 const GET_FIRST_RECENT = "GET_FIRST_RECENT"; // 개스타그램 최신순
 const GET_MORE_RECENT = "GET_MORE_RECENT"; // 무한 스크롤 최신순
@@ -25,7 +25,7 @@ const GET_MODAL = "GET_MODAL";
 const getMainPost = createAction(GET_MAIN_POST, (mainFourPosts) => ({
   mainFourPosts,
 }));
-// const getAllPost = createAction(GET_ALL_POST, (mainList) => ({ mainList }));
+const getAllPost = createAction(GET_ALL_POST, (allList) => ({ allList }));
 // const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
 //   mainLikeList,
 // }));
@@ -49,6 +49,7 @@ const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 
 const initialState = {
   mainFourPosts: [],
+  allList:[],
   mainList: [],
   mainLikeList: [],
   myList: [],
@@ -78,24 +79,24 @@ const getMainPostMD = () => {
   };
 };
 
-// const getAllPostMD = () => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url:"https://www.walkadog.shop/dogsta/recentFilter",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         const postList = res.data.posts;
-//         dispatch(getAllPost(postList));
-//         console.log("개스타그램 모든 게시물 GET 성공", postList);
-//       })
-//       .catch((err) => {
-//         console.log("개스타그램 모든 게시물 GET 에러", err);
-//       });
-//   };
-// };
+const getAllPostMD = () => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url:"https://www.walkadog.shop/dogsta/recentFilter",
+      data: {},
+      headers: {},
+    })
+      .then((res) => {
+        const postList = res.data.posts;
+        dispatch(getAllPost(postList));
+        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+      })
+      .catch((err) => {
+        // console.log("개스타그램 모든 게시물 GET 에러", err);
+      });
+  };
+};
 
 // const getLikePostMD = () => {
 //   return function (dispatch, getState, { history }) {
@@ -422,10 +423,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.mainFourPosts = action.payload.mainFourPosts;
       }),
-    // [GET_ALL_POST]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.mainList = action.payload.mainList;
-    //   }),
+    [GET_ALL_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.allList = action.payload.allList;
+      }),
     // [GET_LIKE_POST]: (state, action) =>
     //   produce(state, (draft) => {
     //     draft.mainLikeList = action.payload.mainLikeList;
@@ -493,7 +494,7 @@ export default handleActions(
 const actionCreators = {
   getMainPost,
   getMainPostMD,
-  // getAllPost,
+  getAllPost,
   // getLikePost,
   getFirstRecent,
   getMoreRecent,
@@ -507,7 +508,7 @@ const actionCreators = {
   getLikes,
   getMyLike,
   modalMD,
-  // getAllPostMD,
+  getAllPostMD,
   // getLikePostMD,
   getFirstRecentMD,
   getFirstLikeMD,

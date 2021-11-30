@@ -10128,6 +10128,11 @@ react-kakao-maps-sdk@^1.0.3:
   dependencies:
     kakao.maps.d.ts "^0.1.24"
 
+react-loading@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
+  integrity sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==
+
 react-moment-proptypes@^1.6.0:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/react-moment-proptypes/-/react-moment-proptypes-1.8.1.tgz#7ba4076147f6b5998f0d4f51d302d6d8c62049fd"

@@ -366,6 +366,7 @@ const getBanpoMD = () => {
         const postList = res.data.posts;
         dispatch(getBanpo(postList));
         dispatch(loading(false));
+        // console.log('반포', postList)
       })
       .catch((err) => {
         // console.log("정보 불러오기 실패");

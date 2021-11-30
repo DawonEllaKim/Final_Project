@@ -33,6 +33,7 @@
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^8.32.5",
     "react-kakao-maps-sdk": "^1.0.3",
+    "react-loading": "^2.0.3",
     "react-multilevel-dropdown": "^2.0.0",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",

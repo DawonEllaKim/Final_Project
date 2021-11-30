@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactLoading from 'react-loading';
 
-function Loading() {
+function Loading({type, color}) {
     return (
         <IsLoading>
-            로딩중...
+            <ReactLoading type={'bars'} color={'#ff5656'} weight={'20px'} height={'20px'}/>
         </IsLoading>
     )
 }
 
 const IsLoading = styled.div`
-    border: 1px solid red;
     width: 100%;
-    height: 30px;
+    text-align: center;
 `
-
-export default Loading
+export default Loading;
