@@ -13,7 +13,7 @@ import Spinner from "../shared/Spinner";
 
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
-
+import { actionCreators as walkActions } from "../redux/modules/walk";
 // 이미지
 import { FaPaw } from "react-icons/fa";
 import { setDefaultLocale } from "react-datepicker";
@@ -23,8 +23,9 @@ const AllList = (props) => {
   const [focus, setFocus] = useState();
 
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.main);
-  const is_loading = useSelector((state) => state.sign.is_loading);
+  const postList = useSelector((state) => state.walk.page_all);
+  console.log(postList)
+  // const is_loading = useSelector((state) => state.sign.is_loading);
   const params = props.match.params.page;
 
   const all = () => {
@@ -49,48 +50,18 @@ const AllList = (props) => {
   useEffect(() => {
     setStatus(location);
     setFocus(params);
-    dispatch(postActions.getAllMD());
+    
   }, [location]);
+  
+  useEffect(() => {
+
+    dispatch(walkActions.pageAllMD())
+    
+  }, []);
+  
+
  
-
-   //무한 스크롤
-   const [target, setTarget] = useState(null)
-   const [isLoaded, setIsLoaded] = useState(false);
-   const [itemLists, setItemLists] = useState([1]);
-   const [i,setI] = useState(10)
-   const getMoreItem = async () => {
-     setIsLoaded(true);
-     setI(i+10)
-     setTimeout(() => {     setIsLoaded(false);}, 1000);
-
-   }  //아이템들 더 보여주는 함수
-
-   const onIntersect = async ([entry], observer) => {
-     if(entry.isIntersecting)
-     {
-       observer.unobserve(entry.target)
-       await getMoreItem();
-       observer.observe(entry.target)
-     }
-   }
-
-   useEffect (()=> {
-     let observer;
-     if (target) {
-       observer = new IntersectionObserver(onIntersect, {
-         threshold:0.4,
-       });
-       observer.observe(target);
-     }
-     return () => observer && observer.disconnect();
-   },[target])
-  if(isLoaded)
-  {
-    return <Spinner />
-  }
-  if (is_loading) {
-    return <Spinner />;
-  } else {
+  
     return (
       <div>
         <Wrap>
@@ -146,19 +117,19 @@ const AllList = (props) => {
 
           {/* 각 게시물에 대한 카드들 */}
           <Body>
-            {(status === "all" || status === "") && <All postList={postList} lastId={i}/>}
+            {(status === "all" || status === "") && <All postList={postList}/>}
             {status === "olympic" && <Olympic />}
             {status === "seoul" && <SeoulForest />}
             {status === "banpo" && <Banpo />}
           </Body>
+       
         </Wrap>
-        <div ref={setTarget}>
-              
-        </div>
+
         <NavBar />
+   
       </div>
     );
-  }
+  
 };
 
 const Wrap = styled.div`

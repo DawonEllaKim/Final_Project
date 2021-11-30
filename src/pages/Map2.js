@@ -75,7 +75,6 @@ const Map2 = (props) => {
     ) {
       setIsModal(true);
     } else {
-    
       dispatch(PostActions.addPostMD(Info));
     }
   };
@@ -86,8 +85,6 @@ const Map2 = (props) => {
 
   return (
     <>
-      
-
       <Wrap>
         {/* 헤더 */}
         <TopBar>산책 등록</TopBar>

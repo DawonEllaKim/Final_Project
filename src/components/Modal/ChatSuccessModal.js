@@ -8,12 +8,13 @@ import { actionCreators as chatActions } from "../../redux/modules/chat";
 const ChatSuccessModal = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const modalHandler = () => {
     dispatch(chatActions.modalMD());
   };
 
   return (
-    <div onClick={modalHandler}>
+    <div onClick={modalHandler} style={{ cursor: "pointer" }}>
       <Component />
 
       <ModalComponent>
@@ -35,6 +36,7 @@ const Info = styled.div`
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  cursor: pointer;
 `;
 const Component = styled.div`
   position: fixed;
@@ -46,6 +48,7 @@ const Component = styled.div`
   width: 100%;
   background-color: black;
   z-index: 10;
+  cursor: pointer;
 `;
 const ImageWrap = styled.div`
   background-color: red;
@@ -55,6 +58,7 @@ const ImageWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const ModalComponent = styled.div`
   position: fixed;
@@ -69,11 +73,13 @@ const ModalComponent = styled.div`
 
   align-items: center;
   border-radius: 14px;
+  cursor: pointer;
 `;
 const ModalHeader = styled.div`
   font-weight: 600;
   font-size: 18px;
   margin-left: 10px;
+  cursor: pointer;
 `;
 
 const ModalExitBtn = styled.button`
@@ -91,6 +97,7 @@ const ModalExitBtn = styled.button`
 const Img = styled.img`
   width: 15px;
   height: 15px;
+  cursor: pointer;
 `;
 
 export default ChatSuccessModal;

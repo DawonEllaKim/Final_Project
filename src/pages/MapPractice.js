@@ -200,7 +200,7 @@ const MapPractice = React.memo(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
-        level: 5, // 지도의 확대 레벨
+        level: 6, // 지도의 확대 레벨
       };
 
     var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
@@ -1013,6 +1013,7 @@ const Crap = styled.div`
 const Wrap = styled.div`
   width: 90%;
   height: 350px;
+  margin: auto;
   box-sizing: border-box;
   border-radius: 20px;
   margin-top: 10px;

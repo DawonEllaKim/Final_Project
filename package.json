@@ -31,6 +31,7 @@
     "react-emoji": "^0.5.0",
     "react-flatpickr": "^3.10.7",
     "react-icons": "^4.3.1",
+    "react-intersection-observer": "^8.32.5",
     "react-kakao-maps-sdk": "^1.0.3",
     "react-multilevel-dropdown": "^2.0.0",
     "react-redux": "^7.2.5",

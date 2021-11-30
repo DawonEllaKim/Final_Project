@@ -43,7 +43,7 @@ const Detail = (props) => {
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
   const postId = props.match.params.id;
-
+  console.log(post);
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
     setWalk(post.walk ? post.walk : list1);
@@ -112,7 +112,7 @@ const Detail = (props) => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
-        level: 5, // 지도의 확대 레벨
+        level: 6, // 지도의 확대 레벨
       };
 
     var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
@@ -519,7 +519,7 @@ const Detail = (props) => {
             <FlexButton>
               <EditButton
                 onClick={() => {
-                  dispatch(chatActions.sendNotificationMD(userId, 2));
+                  dispatch(chatActions.sendNotificationMD(userId, 2, postId));
                 }}
               >
                 산책 신청하기
@@ -710,8 +710,9 @@ const MeetingLocation = styled.div`
   word-break: break-all;
 `;
 const MapWrap = styled.div`
-  width: 100%;
-  height: 500px;
+  width: 90%;
+  height: 300px;
+  margin: auto;
   box-sizing: border-box;
   border-radius: 20px;
 `;
