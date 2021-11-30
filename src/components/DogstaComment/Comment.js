@@ -26,7 +26,7 @@ const Comment = (props) => {
   useEffect(() => {
     dispatch(commentActions.getCommentMD(dogPostId));
   }, [dogPostId]);
-  console.log(commentList)
+  // console.log(commentList)
   return (
     <div>
       <Wrap>

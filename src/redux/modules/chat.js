@@ -137,7 +137,7 @@ const sendNotificationMD = (receiverId, type, postId) => {
         } else {
           dispatch(modalActions.setModal("산책 신청 성공"));
 
-          console.log("res.data", res.data);
+          // console.log("res.data", res.data);
           history.push("/successModal");
         }
       })
@@ -147,7 +147,6 @@ const sendNotificationMD = (receiverId, type, postId) => {
           // console.log("쪽지 보내기 POST 에러", err);
           history.push("/notification");
         } else {
-
           dispatch(alreadySubmit(true));
           dispatch(modalActions.setModal(err.response.data.msg));
           history.push("/successModal");

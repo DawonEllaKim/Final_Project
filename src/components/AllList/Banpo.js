@@ -16,9 +16,9 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const Banpo = () => {
   const dispatch = useDispatch();
   const banpoList = useSelector((state) => state.post.banpo);
-  console.log(banpoList.length);
+  // console.log(banpoList.length);
   const postList = useSelector((state) => state.walk.page_banpo);
-  console.log(postList.length);
+  // console.log(postList.length);
 
   const [pageNum, setPageNum] = useState(1);
 
@@ -45,7 +45,7 @@ const Banpo = () => {
 
   useEffect(() => {
     dispatch(postActions.getBanpoMD());
-  });
+  }, []);
 
   return (
     <>

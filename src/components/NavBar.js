@@ -9,12 +9,12 @@ import { AiOutlineHome } from "react-icons/ai";
 import PetsIcon from "@mui/icons-material/Pets";
 import { FaDog } from "react-icons/fa";
 import { BiUser } from "react-icons/bi";
-import Top from '../image/top.png'
+import Top from "../image/top.png";
 import { actionCreators as SignActions } from "../redux/modules/sign";
 import { useSelector, useDispatch } from "react-redux";
 
 const NavBar = (props) => {
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const { add_dogsta } = props;
   const userId = localStorage.getItem("userId");
   const [page, setPage] = useState();
@@ -24,57 +24,53 @@ const NavBar = (props) => {
   const [scrollY, setScrollY] = useState(0);
   const dog = useSelector((state) => state.sign.check_dog);
   const postHandler = () => {
-    dispatch(SignActions.checkDogAPI())
-    if(!dog)
-    {
-      window.alert("강아지등록이 필요한 서비스입니다")
-      history.push(("/signDog"))
+    dispatch(SignActions.checkDogAPI());
+    if (!dog) {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
       return;
     }
-    history.push("/map2")
-   
-  }
+    history.push("/map2");
+  };
   const dogStarHandler = () => {
-    dispatch(SignActions.checkDogAPI())
-    if(!dog)
-    {
-      window.alert("강아지등록이 필요한 서비스입니다")
-      history.push(("/signDog"))
+    dispatch(SignActions.checkDogAPI());
+    if (!dog) {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
       return;
     }
-    history.push("/dogStaWrite")
-  }
+    history.push("/dogStaWrite");
+  };
   // 스크롤 300px 이상 일때 top 버튼 생성
-  const handleFollow = () =>{
+  const handleFollow = () => {
     setScrollY(window.pageYOffset);
-    if(scrollY > 200){
+    if (scrollY > 200) {
       setBtnStatus(true);
     } else {
       setBtnStatus(false);
     }
-  }
+  };
 
-  useEffect(() =>{
-    const watch = () =>{
-      window.addEventListener('scroll', handleFollow)
-    }
+  useEffect(() => {
+    const watch = () => {
+      window.addEventListener("scroll", handleFollow);
+    };
     watch();
-    return () =>{
-      window.removeEventListener('scroll', handleFollow)
-    }
-  })
-  
+    return () => {
+      window.removeEventListener("scroll", handleFollow);
+    };
+  });
 
-  console.log(dog)
+  // console.log(dog)
   // top 버튼 클릭하면 페이지 상단으로 이동
-  const handleTop = () =>{
+  const handleTop = () => {
     window.scrollTo({
-      top:0,
-      behavior:'smooth'
+      top: 0,
+      behavior: "smooth",
     });
     setScrollY(0);
     setBtnStatus(false);
-  }
+  };
 
   if (add_dogsta) {
     // 개스타 업로드 navbar
@@ -125,7 +121,7 @@ const NavBar = (props) => {
 
           {/* 개스타 업로드 버튼 */}
           <HomeArea>
-            <HomeBtn onClick={dogStarHandler }>
+            <HomeBtn onClick={dogStarHandler}>
               <img
                 src={plus}
                 style={{ display: "block", width: "58px", height: "58px" }}
@@ -134,15 +130,15 @@ const NavBar = (props) => {
             <UploadText>업로드</UploadText>
           </HomeArea>
 
-              {/* top 버튼 */}
-              {btnStatus? (
-                <TopWrap onClick={handleTop}>
-                <TopBtn>
-                  <img src={Top} />
-                  <p>TOP</p>
-                </TopBtn>
-              </TopWrap>
-              ) : null}
+          {/* top 버튼 */}
+          {btnStatus ? (
+            <TopWrap onClick={handleTop}>
+              <TopBtn>
+                <img src={Top} />
+                <p>TOP</p>
+              </TopBtn>
+            </TopWrap>
+          ) : null}
         </Nav>
       </div>
     );
@@ -205,14 +201,14 @@ const NavBar = (props) => {
           </HomeArea>
 
           {/* top 버튼 */}
-          {btnStatus? (
-                <TopWrap onClick={handleTop}>
-                <TopBtn>
-                  <img src={Top} />
-                  <p>TOP</p>
-                </TopBtn>
-              </TopWrap>
-              ) : null}
+          {btnStatus ? (
+            <TopWrap onClick={handleTop}>
+              <TopBtn>
+                <img src={Top} />
+                <p>TOP</p>
+              </TopBtn>
+            </TopWrap>
+          ) : null}
         </Nav>
       </div>
     );
@@ -308,8 +304,8 @@ const TopWrap = styled.div`
   position: absolute;
   top: -50px;
   right: 0;
-`
-const TopBtn =styled.button`
+`;
+const TopBtn = styled.button`
   width: 50px;
   height: 44px;
   background-color: #fff;
@@ -317,9 +313,9 @@ const TopBtn =styled.button`
   border-radius: 4px;
   padding: 2px 10px 0 4px;
   cursor: pointer;
-  p{
+  p {
     font-size: 12px;
     font-weight: 600;
   }
-`
+`;
 export default NavBar;

@@ -92,7 +92,7 @@ const Detail = (props) => {
   };
 
   const repeat = useSelector((state) => state.chat.alreadySubmit);
-  console.log(repeat);
+  // console.log(repeat);
   useEffect(() => {
     let dott = [];
     for (let i = 0; i < walk.length; i++) {
@@ -387,8 +387,8 @@ const Detail = (props) => {
     dispatch(chatActions.alreadySubmit());
     setAlreadySubmit(repeat);
   }, [walk, start]);
-  console.log(alreadySubmit);
-  console.log(useSelector((state) => state));
+  // console.log(alreadySubmit);
+  // console.log(useSelector((state) => state));
   return (
     <>
       <Wrap>
@@ -529,9 +529,12 @@ const Detail = (props) => {
           ) : (
             <FlexButton>
               {alreadySubmit === true || repeat == "already" ? (
-                <EditButton  onClick={() => {
-                  dispatch(chatActions.sendNotificationMD(userId, 2, postId));
-                }} style={{ color: "black" }}>
+                <EditButton
+                  onClick={() => {
+                    dispatch(chatActions.sendNotificationMD(userId, 2, postId));
+                  }}
+                  style={{ color: "black" }}
+                >
                   이미 신청되었습니다.
                 </EditButton>
               ) : (
