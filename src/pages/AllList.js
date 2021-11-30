@@ -12,20 +12,17 @@ import Banpo from "../components/AllList/Banpo";
 import Spinner from "../shared/Spinner";
 
 // 리덕스
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as walkActions } from "../redux/modules/walk";
+
 // 이미지
 import { FaPaw } from "react-icons/fa";
-import { setDefaultLocale } from "react-datepicker";
+
 
 const AllList = (props) => {
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
 
-  const dispatch = useDispatch();
-  const postList = useSelector((state) => state.walk.page_all);
-  console.log(postList)
-  // const is_loading = useSelector((state) => state.sign.is_loading);
+
+
   const params = props.match.params.page;
 
   const all = () => {
@@ -53,12 +50,9 @@ const AllList = (props) => {
     
   }, [location]);
   
-  useEffect(() => {
 
-    dispatch(walkActions.pageAllMD())
-    
-  }, []);
-  
+
+
 
  
   
@@ -117,14 +111,14 @@ const AllList = (props) => {
 
           {/* 각 게시물에 대한 카드들 */}
           <Body>
-            {(status === "all" || status === "") && <All postList={postList}/>}
+            {(status === "all" || status === "") && <All />}
             {status === "olympic" && <Olympic />}
             {status === "seoul" && <SeoulForest />}
             {status === "banpo" && <Banpo />}
           </Body>
        
         </Wrap>
-
+        
         <NavBar />
    
       </div>

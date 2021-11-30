@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Cards from "../AllList/Cards";
 import { actionCreators as walkActions } from "../../redux/modules/walk";
 import Spinner from "../../shared/Spinner";
-import { el } from "date-fns/locale";
+
 import { useInView } from "react-intersection-observer"
-import axios from "axios"
+
 const Banpo = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.walk.page_banpo);
@@ -16,11 +16,11 @@ const Banpo = () => {
     dispatch(walkActions.pageBanpoMD(pageNum));
   }, [pageNum]);
       //무한 스크롤
-   
+
    const [target, setTarget] = useState(null)
    const [isLoaded, setIsLoaded] = useState(false);
    const [ref, inView] = useInView()
-   console.log(postList)
+
    const getMoreItem = async () => {
     setIsLoaded(true)
      setPageNum(pageNum+1)
@@ -42,14 +42,11 @@ const Banpo = () => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView ) {
      getMoreItem();
-    console.log("보여요")
+
     }
   }, [inView])
-  if(isLoaded)
-  {
-    return <Spinner />
-  }
-  console.log(inView)
+
+
   return (<>
     <Wrap>
       {postList.length === 0 ? (
