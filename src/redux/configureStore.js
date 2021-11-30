@@ -13,6 +13,7 @@ import comment from "./modules/comment";
 import notification from "./modules/notification";
 import modal from "./modules/modal";
 import main from "./modules/main";
+import walk from "./modules/walk";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   notification: notification,
   modal: modal,
   main: main,
+  walk: walk,
   router: connectRouter(history),
  
 });
