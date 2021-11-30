@@ -601,13 +601,13 @@ const SignUp = () => {
           >
             가입하기
           </button>
-          <button
+          {/* <button
             onClick={() => {
               history.goBack();
             }}
           >
             취소하기
-          </button>
+          </button> */}
         </ButtonWrap>
       </Wrap>
 
@@ -728,7 +728,7 @@ const UserGender = styled.input``;
 const UserAge = styled.input``;
 const ButtonWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 30px 0 0 0;
   button {
     width: 160px;

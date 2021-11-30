@@ -114,12 +114,12 @@ const sendMessageMD = (receiverId, message, type) => {
   };
 };
 
-const sendNotificationMD = (receiverId, type) => {
+const sendNotificationMD = (receiverId, type, postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: `https://www.walkadog.shop/notification/${receiverId}`,
-      data: { type: type },
+      data: { type: type, postId: postId },
       headers: {
         Accept: "application/json",
         authorization: `Bearer ${getCookie("token")}`,

@@ -270,7 +270,7 @@ const Main = (props) => {
           {/* 올림픽공원 */}
           <BodyWrap>
             <Header>
-              <Text>올림픽 공원</Text>
+              <Text>나홀로 나무 보러 가실 분</Text>
               <MoreBtn
                 onFocus={() => {
                   setPage("olympic");
@@ -337,7 +337,7 @@ const Main = (props) => {
           {/* 서울숲 */}
           <BodyWrap>
             <Header>
-              <Text>서울숲</Text>
+              <Text>한국의 센트럴파크에서 산책</Text>
               <MoreBtn
                 onFocus={() => {
                   setPage("seoul");

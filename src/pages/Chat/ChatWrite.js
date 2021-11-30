@@ -22,7 +22,6 @@ const ChatWrite = (props) => {
   const userInfo = useSelector((state) => state.user.list);
   useEffect(() => {
     dispatch(userActions.getMypageMD(receiverId));
-
   }, []);
 
   const messageChange = (e) => {
@@ -37,7 +36,6 @@ const ChatWrite = (props) => {
 
   return (
     <Wrap>
-     
       <TopBar>쪽지하기</TopBar>
       <Info>
         <ImageWrap>
