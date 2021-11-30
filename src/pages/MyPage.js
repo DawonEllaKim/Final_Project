@@ -23,6 +23,10 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 const MyPage = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
 

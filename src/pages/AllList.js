@@ -17,6 +17,10 @@ import Spinner from "../shared/Spinner";
 import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
   const params = props.match.params.page;

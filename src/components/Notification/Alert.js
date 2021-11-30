@@ -10,46 +10,46 @@ const Alert = ({ noti }) => {
 
   const userId = localStorage.getItem("userId");
 
-  // const [socket, setSocket] = useState(null);
-  // const [notification, setNotification] = useState([]);
-  // useEffect(() => {
-  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  // }, []);
+  const [socket, setSocket] = useState(null);
+  const [notification, setNotification] = useState([]);
+  useEffect(() => {
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.emit("postUser", userId);
-  // }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.on("getNotification", (data) => {
-  //     setNotification((prev) => [...prev, data]);
-  //   });
-  // }, [socket]);
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      setNotification((prev) => [...prev, data]);
+    });
+  }, [socket]);
 
   return (
     <div>
       <Wrap>
         <Top>
-        <Left>
-          <img src={noti.senderImage} />
-        </Left>
+          <Left>
+            <img src={noti.senderImage} />
+          </Left>
 
-        <Right>
-          <Message>
-            {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
-          </Message>
-        </Right>
+          <Right>
+            <Message>
+              {noti.senderNickname}님이 회원님에게 쪽지를 보냈습니다!
+            </Message>
+          </Right>
         </Top>
 
         <Bottom>
-        <Time>{noti.AGOTIME}</Time>
-            <DeleteBtn
-              onClick={() => {
-                dispatch(notiActions.deleteNotiMD(noti.notificationId));
-              }}
-            >
-              <img src={trash} />
-            </DeleteBtn>
+          <Time>{noti.AGOTIME}</Time>
+          <DeleteBtn
+            onClick={() => {
+              dispatch(notiActions.deleteNotiMD(noti.notificationId));
+            }}
+          >
+            <img src={trash} />
+          </DeleteBtn>
         </Bottom>
       </Wrap>
     </div>

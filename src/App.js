@@ -67,69 +67,69 @@ import SignUpSuccessModal from "./components/Modal/SignUpSuccessModal";
 import { getCookie } from "./shared/Cookie";
 import DogStarMainModal from "./components/Modal/DogStarMainModal";
 function App() {
-  //socket
-  // console.log(getCookie("userLogin"))
-  // const userId = localStorage.getItem("userId");
-  // const [socket, setSocket] = useState(null);
-  // const [notification, setNotification] = useState([]);
+  // socket;
+  console.log(getCookie("userLogin"));
+  const userId = localStorage.getItem("userId");
+  const [socket, setSocket] = useState(null);
+  const [notification, setNotification] = useState([]);
 
-  // useEffect(() => {
-  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  // }, []);
+  useEffect(() => {
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.emit("postUser", userId);
-  // }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.on(
-  //     "getNotification",
-  //     (data) => {
-  //       setNotification((prev) => [...prev, data]);
-  //     },
-  //     [socket]
-  //   );
-  // }, [socket]);
+  useEffect(() => {
+    socket?.on(
+      "getNotification",
+      (data) => {
+        setNotification((prev) => [...prev, data]);
+      },
+      [socket]
+    );
+  }, [socket]);
 
-  // useEffect(() => {
-  //   localStorage.setItem("noti", JSON.stringify(notification));
-  //   handleToast("letter");
-  // }, [notification]);
-  //  console.log(notification)
-  //Toast
-  // const msgList = {
-  //   letter: "새로운 쪽지가 왔습니다!",
-  //   like: "내 게시글에 좋아요를 했습니다",
-  //   comment: "내 게시글에 댓글을 남겼습니다",
-  // };
+  useEffect(() => {
+    localStorage.setItem("noti", JSON.stringify(notification));
+    handleToast("letter");
+  }, [notification]);
+  console.log(notification);
+  // Toast;
+  const msgList = {
+    letter: "새로운 쪽지가 왔습니다!",
+    like: "내 게시글에 좋아요를 했습니다",
+    comment: "내 게시글에 댓글을 남겼습니다",
+  };
 
-  // const [ToastStatus, setToastStatus] = useState(false);
-  // const [ToastMsg, setToastMsg] = useState("");
+  const [ToastStatus, setToastStatus] = useState(false);
+  const [ToastMsg, setToastMsg] = useState("");
 
-  // const handleToast = (type) => {
-  //   if (!ToastStatus && notification.length > 0) {
-  //     setToastStatus(true);
-  //     setToastMsg(msgList[type]);
-  //   }
-  // };
+  const handleToast = (type) => {
+    if (!ToastStatus && notification.length > 0) {
+      setToastStatus(true);
+      setToastMsg(msgList[type]);
+    }
+  };
 
-  // useEffect(() => {
-  //   if (ToastStatus) {
-  //     setTimeout(() => {
-  //       setToastStatus(false);
-  //       setToastMsg("");
-  //     }, 1500);
-  //   }
-  // }, [ToastStatus]);
+  useEffect(() => {
+    if (ToastStatus) {
+      setTimeout(() => {
+        setToastStatus(false);
+        setToastMsg("");
+      }, 1500);
+    }
+  }, [ToastStatus]);
 
   return (
     <div className="App">
       <GlobalStyle />
-      {/* {ToastStatus && (
+      {ToastStatus && (
         <>
           <Toast msg={ToastMsg} />
         </>
-      )} */}
+      )}
       <ConnectedRouter history={history}>
         {/* 로그인/회원가입 */}
         <Route exact path="/logIn" component={LogIn} />

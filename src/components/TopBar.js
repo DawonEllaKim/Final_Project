@@ -17,32 +17,32 @@ const TopBar = (props) => {
   const styles = { padding };
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
-  // const [socket, setSocket] = useState(null);
-  // const [notification, setNotification] = useState([]);
+  const [socket, setSocket] = useState(null);
+  const [notification, setNotification] = useState([]);
 
-  // useEffect(() => {
-  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  // }, []);
+  useEffect(() => {
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.emit("postUser", userId);
-  // }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+  }, []);
 
-  // useEffect(() => {
-  //   socket?.on("getNotification", (data) => {
-  //     setNotification((prev) => [...prev, data]);
-  //   });
-  // }, [socket]);
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      setNotification((prev) => [...prev, data]);
+    });
+  }, [socket]);
 
   const getNoti = useSelector((state) => state.notification.noti);
-  // let arr = localStorage.getItem("noti");
-  // let noti = JSON.parse(arr);
+  let arr = localStorage.getItem("noti");
+  let noti = JSON.parse(arr);
 
-  // useEffect(() => {
-  //   localStorage.setItem("noti", JSON.stringify(notification));
-  //   arr = localStorage.getItem("noti");
-  // }, [notification, noti]);
-  //  console.log(getNoti)
+  useEffect(() => {
+    localStorage.setItem("noti", JSON.stringify(notification));
+    arr = localStorage.getItem("noti");
+  }, [notification, noti]);
+  console.log(getNoti);
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);
