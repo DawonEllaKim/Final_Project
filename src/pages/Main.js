@@ -158,15 +158,21 @@ const Main = (props) => {
       <TopWrap>
         <TopBarWrap>
           <TopBarButtons>
-            <TopBarBtnLeft onClick={()=>{dispatch(signActions.logoutMD())}}>
-              <FiLogOut
-                style={{
-                  width: "25px",
-                  height: "25px",
-                  color: "#000",
+            {userId && (
+              <TopBarBtnLeft
+                onClick={() => {
+                  dispatch(signActions.logoutMD());
                 }}
-              />
-            </TopBarBtnLeft>
+              >
+                <FiLogOut
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    color: "#000",
+                  }}
+                />
+              </TopBarBtnLeft>
+            )}
             <img src={MainPageLogo} style={{ height: "50px" }} />
             <TopBarBtnRight>
               {userId && (
