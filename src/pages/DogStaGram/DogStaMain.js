@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { useInView } from "react-intersection-observer";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
@@ -14,53 +15,59 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 이미지 + 아이콘
 import dog from "../../image/dog.png";
-import Top from '../../image/top.png';
 
 const DogStaMain = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램의 모든 게시물 리스트
+  const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램 최신순 리스트
   const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
 
-  // 무한스크롤 intersection observer
-  const [target, setTarget] = useState(null);
+  // 무한스크롤
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageLikeNumber, setPageLikeNumber] = useState(1);
+
+  useEffect(() => {
+    dispatch(dogstaActions.getFirstRecentMD(pageNumber));
+  }, [pageNumber]);
+
+  useEffect(() => {
+    dispatch(dogstaActions.getFirstLikeMD(pageLikeNumber));
+  }, [pageLikeNumber]);
+
   const [loading, setLoading] = useState(false);
-  const [cardLists, setCardLists] = useState([]);
+  const [ref, inView] = useInView();
+  const [likeRef, likeView] = useInView();
 
-  useEffect(() =>{
-    console.log(cardLists);
-  },[cardLists]);
-
-  const getMoreCard = async() =>{
+  const getMoreCard = async () => {
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    let Cards = [1,2,3,4,5,6,7,8,9,10];
-    setCardLists((cardLists) => cardLists.concat(Cards));
+    setPageNumber(pageNumber + 1);
     setLoading(false);
-  }
+    console.log(pageNumber);
+  };
+  const getMoreLikeCard = async () => {
+    setLoading(true);
+    setPageLikeNumber(pageLikeNumber + 1);
+    setLoading(false);
+    console.log(pageLikeNumber);
+  };
 
-  const onIntersect = async ([entry], observer) =>{
-    if (entry.isIntersecting && !loading){
-      observer.unobserve(entry.target);
-      await getMoreCard();
-      observer.observe(entry.target);
+  useEffect(() => {
+    if (inView) {
+      getMoreCard();
+      // console.log("최신순 로딩중");
     }
-  }
-  useEffect(()=>{
-    let observer;
-    if(target) {
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.5,
-      });
-      observer.observe(target);
+  }, [inView]);
+
+  useEffect(() => {
+    if (likeView) {
+      getMoreLikeCard();
+      // console.log("좋아요순 로딩중");
     }
-    return () => observer && observer.disconnect();
-  }, [target])
-  
+  }, [likeView]);
 
   // 최신 순 버튼을 누르면 status값을 최신 순으로 변경
   const newest = () => {
@@ -77,9 +84,13 @@ const DogStaMain = (props) => {
   useEffect(() => {
     setStatus("newest");
     setFocus("newest");
-    dispatch(dogstaActions.getAllPostMD()); // 개스타그램의 모든 게시물 불러오기
-    dispatch(dogstaActions.getLikePostMD()); // 개스타그램 게시물 좋아요순
   }, []);
+
+  // if (loading) {
+  //   return <Loading />;
+  // }
+  console.log(inView);
+  console.log(likeView)
 
   return (
     <>
@@ -137,7 +148,6 @@ const DogStaMain = (props) => {
               <Posts>
                 {postList.map((post, index) => {
                   return (
-                    
                     <Card key={index}>
                       {/* 포스트 사진 */}
                       <ImageWrap>
@@ -167,15 +177,12 @@ const DogStaMain = (props) => {
                         </LikeInfo>
                       </PostInfo>
                     </Card>
-                    
                   );
                 })}
+                {/* 무한스크롤 페이지 인식 */}
+                <div ref={ref}> {loading && <Loading />}</div>
               </Posts>
             )}
-                {/* intersection observer */}
-                <div ref={setTarget}>
-                  {loading && <Loading />}
-                </div>
           </Body>
         ) : (
           // 추천순 정렬
@@ -227,6 +234,9 @@ const DogStaMain = (props) => {
                     </Card>
                   );
                 })}
+                {/* 무한스크롤 페이지 인식 */}
+
+                <div ref={likeRef}>{loading && <Loading />}</div>
               </Posts>
             )}
 
