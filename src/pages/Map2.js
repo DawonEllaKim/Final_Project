@@ -27,6 +27,10 @@ import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 
 const Map2 = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const markerName = useSelector((state) => state.marker.marker);

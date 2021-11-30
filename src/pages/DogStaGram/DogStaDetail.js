@@ -23,6 +23,10 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 const DogStaDetail = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
 

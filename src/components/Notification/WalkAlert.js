@@ -15,63 +15,71 @@ const WalkAlert = ({ noti }) => {
 
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
-  // useEffect(() => {
-  //   setSocket(io.connect(`http://3.35.235.62/notification/${userId}`));
-  // }, []);
-  // useEffect(() => {
-  //   socket?.emit("postUser", userId);
-  // }, []);
-  // useEffect(() => {
-  //   socket?.on("getNotification", (data) => {
-  //     setNotification((prev) => [...prev, data]);
-  //   });
-  // }, [socket]);
+  useEffect(() => {
+    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  }, []);
+  useEffect(() => {
+    socket?.emit("postUser", userId);
+  }, []);
+  useEffect(() => {
+    socket?.on("getNotification", (data) => {
+      setNotification((prev) => [...prev, data]);
+    });
+  }, [socket]);
 
   return (
     <div>
       <Wrap>
         <Top>
-        <Left>
-          <img src={noti.senderImage} />
-        </Left>
-        <Right>
-          <Message>
-            {noti.senderNickname}님이 산책요청하셨습니다.
-            <br />
-            수락하시겠습니까?
-          </Message>
-          <BtnArea>
-            <SubmitBtn
-              onClick={() =>
-                dispatch(
-                  notiActions.postNotiMD(noti.notificationId, noti.senderId, 3)
-                )
-              }
-            >
-              수락하기
-            </SubmitBtn>
-            <CancelBtn
-              onClick={() =>
-                dispatch(
-                  notiActions.postNotiMD(noti.notificationId, noti.senderId, 4)
-                )
-              }
-            >
-              거절하기
-            </CancelBtn>
-          </BtnArea>
-        </Right>
+          <Left>
+            <img src={noti.senderImage} />
+          </Left>
+          <Right>
+            <Message>
+              {noti.senderNickname}님이 산책요청하셨습니다.
+              <br />
+              수락하시겠습니까?
+            </Message>
+            <BtnArea>
+              <SubmitBtn
+                onClick={() =>
+                  dispatch(
+                    notiActions.postNotiMD(
+                      noti.notificationId,
+                      noti.senderId,
+                      3
+                    )
+                  )
+                }
+              >
+                수락하기
+              </SubmitBtn>
+              <CancelBtn
+                onClick={() =>
+                  dispatch(
+                    notiActions.postNotiMD(
+                      noti.notificationId,
+                      noti.senderId,
+                      4
+                    )
+                  )
+                }
+              >
+                거절하기
+              </CancelBtn>
+            </BtnArea>
+          </Right>
         </Top>
 
         <Bottom>
-        <Time>{noti.AGOTIME}</Time>
-            <DeleteBtn
-              onClick={() => {
-                dispatch(notiActions.deleteNotiMD(noti.notificationId));
-              }}
-            >
-              <img src={trash} />
-            </DeleteBtn>
+          <Time>{noti.AGOTIME}</Time>
+          <DeleteBtn
+            onClick={() => {
+              dispatch(notiActions.deleteNotiMD(noti.notificationId));
+            }}
+          >
+            <img src={trash} />
+          </DeleteBtn>
         </Bottom>
       </Wrap>
     </div>
@@ -125,7 +133,7 @@ const CancelBtn = styled.div`
   border-radius: 20px;
   width: 5.5rem;
   padding: 6px 0;
-  text-align:center;
+  text-align: center;
   border: 0.01rem solid lightGray;
 `;
 const SubmitBtn = styled.div`
@@ -134,7 +142,7 @@ const SubmitBtn = styled.div`
   border-radius: 20px;
   width: 5.5rem;
   padding: 6px 0;
-  text-align:center;
+  text-align: center;
   border: 0.01rem solid #ff5656;
   margin-right: 10px;
 `;

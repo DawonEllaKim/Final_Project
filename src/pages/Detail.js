@@ -47,6 +47,10 @@ const Detail = (props) => {
   const postId = props.match.params.id;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     dispatch(postActions.getPostMD(postId));
     setWalk(post.walk ? post.walk : list1);
     setStart(post.start ? post.start : olympic);
