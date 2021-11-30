@@ -5,6 +5,7 @@ import { getCookie } from "../../shared/Cookie";
 import { createAction, handleActions } from "redux-actions";
 import { actionCreators as modalActions } from "./modal";
 
+const ALREADY_SUBMIT = "ALREADY_SUBMIT";
 const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
 const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
 const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
@@ -13,6 +14,9 @@ const DELETE_IN_MESSAGE = "DELETE_IN_MESSAGE"; // 받은 쪽지함에서 하나 
 const DELETE_OUT_MESSAGE = "DELETE_OUT_MESSAGE"; // 보낸 쪽지함에서 하나 삭제
 const GET_MODAL = "GET_MODAL";
 
+const alreadySubmit = createAction(ALREADY_SUBMIT, (alreadySubmit) => ({
+  alreadySubmit,
+}));
 const inBox = createAction(IN_BOX, (inBoxList) => ({
   inBoxList,
 }));
@@ -37,6 +41,7 @@ const initialState = {
   outBoxList: [],
   list: [],
   modal: "",
+  alreadySubmit: false,
 };
 
 const modalMD = () => {
@@ -131,13 +136,20 @@ const sendNotificationMD = (receiverId, type, postId) => {
           history.push("/deleteModal");
         } else {
           dispatch(modalActions.setModal("산책 신청 성공"));
+          dispatch(alreadySubmit(true));
+          console.log("res.data", res.data);
           history.push("/successModal");
         }
       })
       .catch((err) => {
-        window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
-        // console.log("쪽지 보내기 POST 에러", err);
-        history.push("/notification");
+        if (type == 1) {
+          window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
+          // console.log("쪽지 보내기 POST 에러", err);
+          history.push("/notification");
+        } else {
+          console.log(err);
+          dispatch(alreadySubmit("already"));
+        }
       });
   };
 };
@@ -246,6 +258,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.modal = action.payload.modal;
       }),
+    [ALREADY_SUBMIT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.alreadySubmit = action.payload.alreadySubmit;
+      }),
   },
   initialState
 );
@@ -254,6 +270,7 @@ export const actionCreators = {
   inBox,
   outBox,
   sendMessage,
+  alreadySubmit,
 
   getDetail,
   deleteInMessage,
