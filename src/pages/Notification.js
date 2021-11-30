@@ -28,6 +28,10 @@ const Notification = (props) => {
   const outBoxList = useSelector((state) => state.chat.outBoxList); // 내가 보낸 모든 쪽지 리스트
   const getNoti = useSelector((state) => state.notification.noti); //알람가지고오기
   const userId = localStorage.getItem("userId");
+
+  console.log("getNoti", getNoti);
+  console.log("inBoxList", inBoxList);
+
   // alert = 알람, InBoxStatus = 받은 쪽지함, OutBoxStatus = 보낸 쪽지함
   const alert = () => {
     setStatus("alert");

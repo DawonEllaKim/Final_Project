@@ -589,7 +589,7 @@ const deletePostMD = (postId) => {
         history.push("/deleteModal");
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   };
 };

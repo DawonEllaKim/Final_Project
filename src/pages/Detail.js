@@ -39,11 +39,13 @@ import dogMarker from "../image/DogRun.png";
 const { kakao } = window;
 
 const Detail = (props) => {
+  const [alreadySubmit, setAlreadySubmit] = useState();
+
   const dispatch = useDispatch();
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
   const postId = props.match.params.id;
-  console.log(post);
+
   useEffect(() => {
     dispatch(postActions.getPostMD(postId));
     setWalk(post.walk ? post.walk : list1);
@@ -85,6 +87,8 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId));
   };
 
+  const repeat = useSelector((state) => state.chat.alreadySubmit);
+  console.log(repeat);
   useEffect(() => {
     let dott = [];
     for (let i = 0; i < walk.length; i++) {
@@ -376,8 +380,11 @@ const Detail = (props) => {
       fillOpacity: 0.7, // 채우기 불투명도 입니다
       map: map,
     });
+    dispatch(chatActions.alreadySubmit());
+    setAlreadySubmit(repeat);
   }, [walk, start]);
-
+  console.log(alreadySubmit);
+  console.log(useSelector((state) => state));
   return (
     <>
       <Wrap>
@@ -517,13 +524,19 @@ const Detail = (props) => {
             </FlexButton>
           ) : (
             <FlexButton>
-              <EditButton
-                onClick={() => {
-                  dispatch(chatActions.sendNotificationMD(userId, 2, postId));
-                }}
-              >
-                산책 신청하기
-              </EditButton>
+              {alreadySubmit === true || repeat == "already" ? (
+                <EditButton disabled style={{ color: "black" }}>
+                  이미 신청되었습니다.
+                </EditButton>
+              ) : (
+                <EditButton
+                  onClick={() => {
+                    dispatch(chatActions.sendNotificationMD(userId, 2, postId));
+                  }}
+                >
+                  산책 신청하기
+                </EditButton>
+              )}
               <DeleteButton
                 onClick={() => {
                   history.push(`/chatwrite/${post.userId}`);

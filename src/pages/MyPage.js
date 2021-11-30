@@ -57,71 +57,74 @@ const MyPage = (props) => {
     setStatus("sta");
     setFocus("sta");
   }, [currentPageUserId]);
-   if(!userInfo)
-   {
-     history.push("/login")
-   }
+
+  if (!userInfo) {
+    console.log("강아지 정보 없음");
+    history.push("/login");
+  }
   return (
     <>
-      {" "}
-      {userInfo? <Wrap>
-        {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 버튼 */}
-        <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
+      {userInfo ? (
+        <Wrap>
+          {/* 뒤로가기 버튼 + 누구의 페이지 + 알람 버튼 */}
+          <TopBar>{userInfo.userNickname}님의 페이지</TopBar>
 
-        {/* 현재 페이지의 유저 정보 */}
-        <UserInfo>
-          {/* 유저 사진 + 유저 편집 버튼 */}
-          <UserInfoLeft>
-            <UserImg src={userInfo.userImage} />
+          {/* 현재 페이지의 유저 정보 */}
+          <UserInfo>
+            {/* 유저 사진 + 유저 편집 버튼 */}
+            <UserInfoLeft>
+              <UserImg src={userInfo.userImage} />
 
-            {/* 현재 페이지의 userId 와 현재 로그인된 userId가 같을때에는 편집 버튼을 보여주고 아니면 안 보여준다. */}
-            {currentPageUserId === userId && (
-              <Edit
-                onClick={() => {
-                  history.push("/userProfile");
-                }}
-              >
-                <ModeEditIcon style={{ width: "15px" }} />
-              </Edit>
-            )}
-          </UserInfoLeft>
+              {/* 현재 페이지의 userId 와 현재 로그인된 userId가 같을때에는 편집 버튼을 보여주고 아니면 안 보여준다. */}
+              {currentPageUserId === userId && (
+                <Edit
+                  onClick={() => {
+                    history.push("/userProfile");
+                  }}
+                >
+                  <ModeEditIcon style={{ width: "15px" }} />
+                </Edit>
+              )}
+            </UserInfoLeft>
 
-          {/* 유저 닉네임 + 주소 + 로그아웃버튼 */}
-          <UserRight>
-            <div>
-              <span style={{ fontWeight: "600" }}>{userInfo.userNickname}</span>
-              <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
-                {userInfo.userLocation}
-              </span>
-              <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
-                {userInfo.userGender}/{userInfo.userAge}
-              </span>
-            </div>
+            {/* 유저 닉네임 + 주소 + 로그아웃버튼 */}
+            <UserRight>
+              <div>
+                <span style={{ fontWeight: "600" }}>
+                  {userInfo.userNickname}
+                </span>
+                <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
+                  {userInfo.userLocation}
+                </span>
+                <span style={{ color: "#5F5F5F", fontSize: "14px" }}>
+                  {userInfo.userGender}/{userInfo.userAge}
+                </span>
+              </div>
 
-            {currentPageUserId === userId ? (
-              <LogOut onClick={logout}>
-                <FiLogOut size="16" />
-                <span>로그아웃</span>
-              </LogOut>
-            ) : (
-              <Message
-                onClick={() => {
-                  history.push(`/chatwrite/${currentPageUserId}`);
-                }}
-              >
-                <MailOutlineIcon />
-                <div>
-                  {userInfo.userNickname}님에게
-                  <br />
-                  쪽지 보내기
-                </div>
-              </Message>
-            )}
-          </UserRight>
-        </UserInfo>
+              {currentPageUserId === userId ? (
+                <LogOut onClick={logout}>
+                  <FiLogOut size="16" />
+                  <span>로그아웃</span>
+                </LogOut>
+              ) : (
+                <Message
+                  onClick={() => {
+                    history.push(`/chatwrite/${currentPageUserId}`);
+                  }}
+                >
+                  <MailOutlineIcon />
+                  <div>
+                    {userInfo.userNickname}님에게
+                    <br />
+                    쪽지 보내기
+                  </div>
+                </Message>
+              )}
+            </UserRight>
+          </UserInfo>
 
-        {/* 별점/리뷰 */}
-        {/* <Review>
+          {/* 별점/리뷰 */}
+          {/* <Review>
 		 <ReviewLeft>
 			 <div>
 				 <img src={redHeart} />
@@ -135,65 +138,67 @@ const MyPage = (props) => {
 		 <ReviewRight>리뷰보기</ReviewRight>
 	 </Review> */}
 
-        {/* 다른 페이지로 이동 버튼들 */}
-        <Buttons>
-          {/* DogStaList 버튼 - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
-          <div
-            onClick={() => {
-              setStatus("sta");
-              setFocus("sta");
-            }}
-            style={{ color: focus === "sta" ? "#ff5656" : "#000" }}
-          >
-            <FaDog size="22" />
-            <span>개스타그램</span>
-          </div>
+          {/* 다른 페이지로 이동 버튼들 */}
+          <Buttons>
+            {/* DogStaList 버튼 - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
+            <div
+              onClick={() => {
+                setStatus("sta");
+                setFocus("sta");
+              }}
+              style={{ color: focus === "sta" ? "#ff5656" : "#000" }}
+            >
+              <FaDog size="22" />
+              <span>개스타그램</span>
+            </div>
 
-          {/* InfoList 버튼 - 현재 페이지 유저의 강아지 정보*/}
-          <div
-            onClick={() => {
-              setStatus("dog");
-              setFocus("dog");
-            }}
-            style={{ color: focus === "dog" ? "#ff5656" : "#000" }}
-          >
-            <ContactsIcon />
-            <span>강아지 정보</span>
-          </div>
-          {/* WalkList 버튼 - 현재 페이지 유저가 쓴 산책 게시물*/}
-          <div
-            onClick={() => {
-              setStatus("list");
-              setFocus("list");
-            }}
-            style={{ color: focus === "list" ? "#ff5656" : "#000" }}
-          >
-            <ListAltIcon />
-            <span>산책 목록</span>
-          </div>
-        </Buttons>
+            {/* InfoList 버튼 - 현재 페이지 유저의 강아지 정보*/}
+            <div
+              onClick={() => {
+                setStatus("dog");
+                setFocus("dog");
+              }}
+              style={{ color: focus === "dog" ? "#ff5656" : "#000" }}
+            >
+              <ContactsIcon />
+              <span>강아지 정보</span>
+            </div>
+            {/* WalkList 버튼 - 현재 페이지 유저가 쓴 산책 게시물*/}
+            <div
+              onClick={() => {
+                setStatus("list");
+                setFocus("list");
+              }}
+              style={{ color: focus === "list" ? "#ff5656" : "#000" }}
+            >
+              <ListAltIcon />
+              <span>산책 목록</span>
+            </div>
+          </Buttons>
 
-        {/* 개스타그램, 강아지 정보, 산책목록 카드들 */}
-        <Cards>
-          {/* DogStaList - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
-          {status === "sta" && <DogStaList userId={currentPageUserId} />}
+          {/* 개스타그램, 강아지 정보, 산책목록 카드들 */}
+          <Cards>
+            {/* DogStaList - 현재 페이지 유저가 쓴 개스타그램 게시물 */}
+            {status === "sta" && <DogStaList userId={currentPageUserId} />}
 
-          {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
-          {status === "dog" && (
-            <InfoList
-              post={userInfo}
-              userId={userId}
-              currentPageUserId={currentPageUserId}
-            />
-          )}
+            {/* InfoList - 현재 페이지 유저의 강아지 정보*/}
+            {status === "dog" && (
+              <InfoList
+                post={userInfo}
+                userId={userId}
+                currentPageUserId={currentPageUserId}
+              />
+            )}
 
-          {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}
-          {status === "list" && (
-            <WalkList post={userInfo} userId={currentPageUserId} />
-          )}
-        </Cards>
-      </Wrap> : <div>로그인이 필요합니다</div>}
-     
+            {/* WalkList 현재 페이지 유저가 쓴 산책 게시물*/}
+            {status === "list" && (
+              <WalkList post={userInfo} userId={currentPageUserId} />
+            )}
+          </Cards>
+        </Wrap>
+      ) : (
+        <div>로그인이 필요합니다</div>
+      )}
     </>
   );
 };
