@@ -525,7 +525,9 @@ const Detail = (props) => {
           ) : (
             <FlexButton>
               {alreadySubmit === true || repeat == "already" ? (
-                <EditButton disabled style={{ color: "black" }}>
+                <EditButton  onClick={() => {
+                  dispatch(chatActions.sendNotificationMD(userId, 2, postId));
+                }} style={{ color: "black" }}>
                   이미 신청되었습니다.
                 </EditButton>
               ) : (

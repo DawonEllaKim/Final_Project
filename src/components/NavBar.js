@@ -10,8 +10,11 @@ import PetsIcon from "@mui/icons-material/Pets";
 import { FaDog } from "react-icons/fa";
 import { BiUser } from "react-icons/bi";
 import Top from '../image/top.png'
+import { actionCreators as SignActions } from "../redux/modules/sign";
+import { useSelector, useDispatch } from "react-redux";
 
 const NavBar = (props) => {
+  const dispatch =useDispatch();
   const { add_dogsta } = props;
   const userId = localStorage.getItem("userId");
   const [page, setPage] = useState();
@@ -19,7 +22,28 @@ const NavBar = (props) => {
   // top 버튼
   const [btnStatus, setBtnStatus] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-
+  const dog = useSelector((state) => state.sign.check_dog);
+  const postHandler = () => {
+    dispatch(SignActions.checkDogAPI())
+    if(!dog)
+    {
+      window.alert("강아지등록이 필요한 서비스입니다")
+      history.push(("/signDog"))
+      return;
+    }
+    history.push("/map2")
+   
+  }
+  const dogStarHandler = () => {
+    dispatch(SignActions.checkDogAPI())
+    if(!dog)
+    {
+      window.alert("강아지등록이 필요한 서비스입니다")
+      history.push(("/signDog"))
+      return;
+    }
+    history.push("/dogStaWrite")
+  }
   // 스크롤 300px 이상 일때 top 버튼 생성
   const handleFollow = () =>{
     setScrollY(window.pageYOffset);
@@ -39,7 +63,9 @@ const NavBar = (props) => {
       window.removeEventListener('scroll', handleFollow)
     }
   })
+  
 
+  console.log(dog)
   // top 버튼 클릭하면 페이지 상단으로 이동
   const handleTop = () =>{
     window.scrollTo({
@@ -99,7 +125,7 @@ const NavBar = (props) => {
 
           {/* 개스타 업로드 버튼 */}
           <HomeArea>
-            <HomeBtn onClick={() => history.push("/dogStaWrite")}>
+            <HomeBtn onClick={dogStarHandler }>
               <img
                 src={plus}
                 style={{ display: "block", width: "58px", height: "58px" }}
@@ -169,7 +195,7 @@ const NavBar = (props) => {
 
           {/* 산책 등록 버튼 */}
           <HomeArea>
-            <HomeBtn onClick={() => history.push("/map2")}>
+            <HomeBtn onClick={postHandler}>
               <img
                 src={addBtn}
                 style={{ display: "block", width: "100%", height: "100%" }}
