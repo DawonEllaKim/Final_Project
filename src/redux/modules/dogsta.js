@@ -5,7 +5,7 @@ import { createAction, handleActions } from "redux-actions";
 import { getCookie } from "../../shared/Cookie";
 import { actionCreators as modalActions } from "./modal";
 
-const GET_MAIN_POST = "GET_MAIN_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
+const GET_MAIN_POST = "GET_MAIN_POST"; // 메인 페이지 개스타그램 (최신순) 게시물 불러오기
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
 const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
 const GET_FIRST_RECENT = "GET_FIRST_RECENT";
@@ -125,9 +125,21 @@ const getFirstRecentMD = (pageNum) =>{
       headers: {},
     })
     .then((res) => {
-      const postListTest = res.data.posts;
-      console.log('first get 성공', postListTest);
-      dispatch(getFirstRecent(postListTest));
+      if(pageNum ==1){
+        const postListTest = res.data.posts.contents;
+        console.log('first get 성공', postListTest);
+        dispatch(getFirstRecent(postListTest));        
+      } else{
+        let postListTest=[];
+        for(let i=0;i<res.data.posts.contents.length; i++){
+          postListTest.push(res.data.posts.contents[i]);
+          console.log('무한스크롤 성공', postListTest);
+          // dispatch(getMoreRecent(postListTest));
+        }
+        dispatch(getMoreRecent(postListTest));
+
+      }
+
     })
     .catch((err) =>{
       console.log('first get 에러', err);
@@ -136,24 +148,24 @@ const getFirstRecentMD = (pageNum) =>{
 }
 
 // intersection observer
-const getMoreRecentMD = (pageNum) =>{
-  return function(dispatch, useState, {history}){
-    axios({
-      method: "GET",
-      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
-      data: {},
-      headers: {},
-    })
-    .then((res) => {
-      const postListTest = res.data.posts;
-      console.log('무한스크롤 성공', postListTest);
-      dispatch(getMoreRecent(postListTest));
-    })
-    .catch((err) =>{
-      console.log('무한스크롤 에러', err);
-    })
-  }
-}
+// const getMoreRecentMD = (pageNum) =>{
+//   return function(dispatch, useState, {history}){
+//     axios({
+//       method: "GET",
+//       url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
+//       data: {},
+//       headers: {},
+//     })
+//     .then((res) => {
+//       const postListTest = res.data.posts.contents;
+//       console.log('무한스크롤 성공', postListTest);
+//       dispatch(getMoreRecent(postListTest));
+//     })
+//     .catch((err) =>{
+//       console.log('무한스크롤 에러', err);
+//     })
+//   }
+// }
 const getMoreLikeMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
@@ -439,7 +451,7 @@ export default handleActions(
       produce(state,(draft) =>{
         console.log(state)
         console.log(action.payload)
-        draft.mainList.push(...action.payload.mainList);
+        draft.mainListTest.push(...action.payload.mainListTest);
       }),
     [GET_MORE_LIKE]: (state, action) =>
       produce(state,(draft) =>{
@@ -510,7 +522,7 @@ const actionCreators = {
   getAllPostMD,
   getLikePostMD,
   getFirstRecentMD,
-  getMoreRecentMD,
+  // getMoreRecentMD,
   getMoreLikeMD,
   getPostMD,
   getMyPostMD,

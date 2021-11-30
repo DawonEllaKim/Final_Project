@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { useInView } from 'react-intersection-observer'
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
@@ -23,8 +24,6 @@ const DogStaMain = (props) => {
   
   const postList = useSelector((state) => state.dogsta.mainListTest)
   console.log(postList);
-  const pageNum = useSelector((state) => state.dogsta.mainListTest.pageNum);
-  console.log(pageNum)
   const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 리스트
 
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
@@ -32,13 +31,20 @@ const DogStaMain = (props) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() =>{
-    dispatch(dogstaActions.getMoreRecentMD(pageNumber))
-  },[pageNumber])
+    dispatch(dogstaActions.getFirstRecentMD(pageNumber));
+    // dispatch(dogstaActions.getMoreRecentMD(pageNumber));
+  },[])
+
+  // useEffect(() =>{
+  //   // dispatch(dogstaActions.getFirstRecentMD(pageNumber));
+  //   dispatch(dogstaActions.getMoreRecentMD(pageNumber));
+  // },[pageNumber])
 
   // 무한스크롤 intersection observer
   const [target, setTarget] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cardLists, setCardLists] = useState([]);
+  // const [cardLists, setCardLists] = useState([]);
+  const [ref, inView] = useInView();
 
   // useEffect(() =>{
   //   console.log(cardLists);
@@ -52,33 +58,41 @@ const DogStaMain = (props) => {
 
     setPageNumber(pageNumber + 1);
     setLoading(false);
-    // console.log(pageNumber, loading)
+    console.log(pageNumber)
   }
 
   //   useEffect(() =>{
   //   console.log(pageNumber)
   // },[pageNumber])
 
-  const onIntersect = async ([entry], observer) =>{
-    if (entry.isIntersecting && !loading){
-      observer.unobserve(entry.target);
-      await getMoreCard();
-      // setLoading(true);
-      // setLoading(false);
-      observer.observe(entry.target);
-    }
-  }
-  useEffect(()=>{
-    let observer;
-    if(target) {
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.5,
-      });
-      observer.observe(target);
-    }
-    return () => observer && observer.disconnect();
-  }, [target])
+  // const onIntersect = async ([entry], observer) =>{
+  //   if (entry.isIntersecting && !loading){
+  //     observer.unobserve(entry.target);
+  //     await getMoreCard();
+  //     // setLoading(true);
+  //     // setLoading(false);
+  //     observer.observe(entry.target);
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   let observer;
+  //   if(target) {
+  //     observer = new IntersectionObserver(onIntersect, {
+  //       threshold: 0.5,
+  //     });
+  //     observer.observe(target);
+  //   }
+  //   return () => observer && observer.disconnect();
+  // }, [target])
   
+  useEffect(() =>{
+    if(inView) {
+      getMoreCard();
+      console.log('로딩중')
+    }
+  },[inView])
+
 
   // 최신 순 버튼을 누르면 status값을 최신 순으로 변경
   const newest = () => {
@@ -106,6 +120,12 @@ const DogStaMain = (props) => {
     // dispatch(dogstaActions.getMoreRecentMD(pageNumber))
 
   }, []);
+
+  if(loading){
+    return <Loading />
+  }
+  console.log(inView)
+
 
   return (
     <>
@@ -199,7 +219,7 @@ const DogStaMain = (props) => {
               </Posts>
             )}
                 {/* intersection observer */}
-                <div ref={setTarget}>
+                <div ref={ref}>
                   {loading && <Loading />}
                 </div>
           </Body>
