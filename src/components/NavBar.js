@@ -22,25 +22,45 @@ const NavBar = (props) => {
   // top 버튼
   const [btnStatus, setBtnStatus] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const dog = useSelector((state) => state.sign.check_dog);
+  const dog = localStorage.getItem("checkDog")
+
+   console.log(dog)
   const postHandler = () => {
-    dispatch(SignActions.checkDogAPI());
-    if (!dog) {
-      window.alert("강아지등록이 필요한 서비스입니다");
-      history.push("/signDog");
+   
+    if(dog=="false")
+    {
+      window.alert("강아지등록이 필요한 서비스입니다")
+      history.push(("/signDog"))
       return;
     }
     history.push("/map2");
   };
   const dogStarHandler = () => {
-    dispatch(SignActions.checkDogAPI());
-    if (!dog) {
-      window.alert("강아지등록이 필요한 서비스입니다");
-      history.push("/signDog");
+    
+    if(dog=="false")
+    {
+      window.alert("강아지등록이 필요한 서비스입니다")
+      history.push(("/signDog"))
       return;
     }
-    history.push("/dogStaWrite");
-  };
+    history.push("/dogStaWrite")
+  }
+
+  const myPageHandler = () => {
+    if(!userId)
+    {
+      window.alert("로그인이 필요한 서비스입니다")
+      history.push("/login")
+      return;
+    }
+    else if(dog=="false")
+    {
+      window.alert("강아지등록이 필요한 서비스입니다")
+      history.push(("/signDog"))
+      return;
+    }
+    history.push(`/mypage/${userId}`)
+  }
   // 스크롤 300px 이상 일때 top 버튼 생성
   const handleFollow = () => {
     setScrollY(window.pageYOffset);
@@ -61,7 +81,6 @@ const NavBar = (props) => {
     };
   });
 
-  // console.log(dog)
   // top 버튼 클릭하면 페이지 상단으로 이동
   const handleTop = () => {
     window.scrollTo({
@@ -113,7 +132,7 @@ const NavBar = (props) => {
             </Button>
 
             {/* 마이페이지 버튼 */}
-            <Button onClick={() => history.push(`/mypage/${userId}`)}>
+            <Button onClick={myPageHandler}>
               <BiUser style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
@@ -183,7 +202,7 @@ const NavBar = (props) => {
             </Button>
 
             {/* 마이페이지 버튼 */}
-            <Button onClick={() => history.push(`/mypage/${userId}`)}>
+            <Button onClick={myPageHandler}>
               <BiUser style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
@@ -319,3 +338,4 @@ const TopBtn = styled.button`
   }
 `;
 export default NavBar;
+

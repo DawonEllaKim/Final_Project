@@ -10,6 +10,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
 import { actionCreators as notiActions } from "../redux/modules/notification";
 import { actionCreators as mainActions } from "../redux/modules/main";
+import { actionCreators as signActions } from "../redux/modules/sign";
 
 // 컴포넌츠
 import Weather from "../components/Weather";
@@ -26,11 +27,12 @@ import Banpo from "../image/MainHangang.jpg";
 import MainPageLogo from "../image/MainPageLogo.png";
 import { RiFeedbackLine } from "react-icons/ri";
 import { IoNotificationsOutline } from "react-icons/io5";
-
+import { FiLogOut } from "react-icons/fi";
 // 슬라이드
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { actionCreators } from "../redux/modules/modal";
 
 const Main = (props) => {
   useEffect(() => {
@@ -156,8 +158,8 @@ const Main = (props) => {
       <TopWrap>
         <TopBarWrap>
           <TopBarButtons>
-            <TopBarBtnLeft onClick={feedBack}>
-              <RiFeedbackLine
+            <TopBarBtnLeft onClick={()=>{dispatch(signActions.logoutMD())}}>
+              <FiLogOut
                 style={{
                   width: "25px",
                   height: "25px",

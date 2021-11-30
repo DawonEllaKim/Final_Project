@@ -183,6 +183,7 @@ const checkDogAPI = (formData) => {
         // console.log(res.data); // signup 정보 확인
         // localStorage.setItem("dog", res.data);
         dispatch(checkDog(res.data));
+        localStorage.setItem("checkDog",res.data)
         dispatch(loading(false));
       })
       .catch((err) => {
