@@ -42,7 +42,7 @@ const TopBar = (props) => {
     localStorage.setItem("noti", JSON.stringify(notification));
     arr = localStorage.getItem("noti");
   }, [notification, noti]);
-  console.log(getNoti);
+  // console.log(getNoti);
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);

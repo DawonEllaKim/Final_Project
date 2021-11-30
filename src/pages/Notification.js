@@ -29,8 +29,8 @@ const Notification = (props) => {
   const getNoti = useSelector((state) => state.notification.noti); //알람가지고오기
   const userId = localStorage.getItem("userId");
 
-  console.log("getNoti", getNoti);
-  console.log("inBoxList", inBoxList);
+  // console.log("getNoti", getNoti);
+  // console.log("inBoxList", inBoxList);
 
   // alert = 알람, InBoxStatus = 받은 쪽지함, OutBoxStatus = 보낸 쪽지함
   const alert = () => {

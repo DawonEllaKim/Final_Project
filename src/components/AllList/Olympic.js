@@ -16,9 +16,9 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const Olympic = () => {
   const dispatch = useDispatch();
   const olympicList = useSelector((state) => state.post.olympic);
-  console.log(olympicList.length);
+  // console.log(olympicList.length);
   const postList = useSelector((state) => state.walk.page_olympic);
-  console.log(postList.length);
+  // console.log(postList.length);
 
   const [pageNum, setPageNum] = useState(1);
 
@@ -45,7 +45,7 @@ const Olympic = () => {
 
   useEffect(() => {
     dispatch(postActions.getOlympicMD());
-  });
+  }, []);
 
   return (
     <>

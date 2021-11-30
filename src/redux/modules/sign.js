@@ -80,7 +80,7 @@ const signDupAPI = (userEmail) => {
       })
       .catch((err) => {
         dispatch(checkEmail("used", "red"));
-        console.log("이미 사용 중인 이메일입니다.", err);
+        // console.log("이미 사용 중인 이메일입니다.", err);
         // window.alert("이미 사용 중인 이메일입니다.");
       });
   };
@@ -161,7 +161,7 @@ const signUserAPI = (formData) => {
         history.push("/signupModal");
       })
       .catch((err) => {
-        console.log("signupAPI에서 오류발생", err);
+        // console.log("signupAPI에서 오류발생", err);
         window.alert("회원가입오류");
         window.location.reload("/signup");
       });

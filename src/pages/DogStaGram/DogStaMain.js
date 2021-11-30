@@ -47,13 +47,13 @@ const DogStaMain = (props) => {
     setLoading(true);
     setPageNumber(pageNumber + 1);
     setLoading(false);
-    console.log(pageNumber);
+    // console.log(pageNumber);
   };
   const getMoreLikeCard = async () => {
     setLoading(true);
     setPageLikeNumber(pageLikeNumber + 1);
     setLoading(false);
-    console.log(pageLikeNumber);
+    // console.log(pageLikeNumber);
   };
 
   useEffect(() => {

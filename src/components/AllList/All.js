@@ -45,7 +45,7 @@ const All = () => {
 
   useEffect(() => {
     dispatch(postActions.getAllMD());
-  });
+  }, []);
 
   // 무한스크롤 페이지 인식 true, false
   // console.log(inView);
@@ -80,8 +80,7 @@ const All = () => {
         )}
         {/* 로딩 */}
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
-          {inView && postList.length !== allList.length ? <Loading /> 
-          : null}
+          {inView && postList.length !== allList.length ? <Loading /> : null}
         </div>
       </Wrap>
     </>
