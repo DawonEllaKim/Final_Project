@@ -39,21 +39,14 @@ const DogStaMain = (props) => {
     dispatch(dogstaActions.getFirstLikeMD(pageLikeNumber));
   }, [pageLikeNumber]);
 
-  const [loading, setLoading] = useState(false);
   const [ref, inView] = useInView();
   const [likeRef, likeView] = useInView();
 
   const getMoreCard = async () => {
-    setLoading(true);
     setPageNumber(pageNumber + 1);
-    setLoading(false);
-    // console.log(pageNumber);
   };
   const getMoreLikeCard = async () => {
-    setLoading(true);
     setPageLikeNumber(pageLikeNumber + 1);
-    setLoading(false);
-    // console.log(pageLikeNumber);
   };
 
   useEffect(() => {
