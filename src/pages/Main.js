@@ -109,7 +109,7 @@ const Main = (props) => {
   // Google Form 피드백 링크
   const feedBack = () => {
     window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLScMsuyFnjIBvpUhGdVY6QBfGMiMRecj9soXN61oa4VFzhHVSA/viewform?usp=sf_link"
+      "https://docs.google.com/forms/d/e/1FAIpQLSc_ZbOzE97WEYnPjQn6O_By5OJmoBfU1vpg37mx5sBOMnY5WQ/viewform?usp=sf_link"
     );
   };
 

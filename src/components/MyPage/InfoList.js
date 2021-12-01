@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 
@@ -11,6 +11,9 @@ import female from "../../image/female.png";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { FaPen } from "react-icons/fa";
 const InfoList = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { post, userId, currentPageUserId } = props;
   const history = useHistory();
 

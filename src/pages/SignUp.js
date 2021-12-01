@@ -25,6 +25,9 @@ import { SliderTrack } from "@mui/material";
 toast.configure();
 
 const SignUp = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
 
   // 이미지

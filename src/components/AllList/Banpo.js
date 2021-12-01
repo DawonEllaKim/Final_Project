@@ -35,7 +35,9 @@ const Banpo = () => {
     setPageNum(pageNum + 1);
     setIsLoaded(false);
   }; //아이템들 더 보여주는 함수
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView) {

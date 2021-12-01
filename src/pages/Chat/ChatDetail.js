@@ -17,6 +17,9 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 import RedMessage from "../../image/RedMessage.png";
 
 const ChatDetail = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [message, setMessage] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,14 +49,13 @@ const ChatDetail = (props) => {
 
   // 해당 쪽지에 관한 정보만 불러오기
   useEffect(() => {
- 
     dispatch(chatAction.getDetailMD(chatId));
   }, []);
 
   return (
     <Wrap>
       {failModal ? <ChatFailModal setFailModal={setFailModal} /> : ""}
-   
+
       {list ? (
         <div>
           <TopBar>받은 쪽지</TopBar>

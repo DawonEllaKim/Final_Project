@@ -23,6 +23,9 @@ import { MdCloudUpload } from "react-icons/md";
 toast.configure();
 
 const SignDog = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
 
   //jsonserver 데이터 맞추기 위한 코드

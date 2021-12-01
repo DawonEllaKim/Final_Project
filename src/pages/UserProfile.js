@@ -17,6 +17,9 @@ import { actionCreators as UserActions } from "../redux/modules/user";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditUser = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
 
   // 현재 접속한 유저(보호자) 정보

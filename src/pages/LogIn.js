@@ -18,6 +18,9 @@ import logo from "../image/logo.png";
 import { MdArrowBackIos } from "react-icons/md";
 
 const LogIn = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");

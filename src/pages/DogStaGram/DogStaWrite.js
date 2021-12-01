@@ -19,6 +19,9 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { FaBullseye } from "react-icons/fa";
 
 const DogStaWrite = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const history = useHistory();
 

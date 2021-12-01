@@ -18,7 +18,9 @@ const ChatWrite = (props) => {
   const receiverId = props.match.params.receiverId; // 쪽지 받는 사람 아이디
 
   const [modal, setModal] = useState("");
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const userInfo = useSelector((state) => state.user.list);
   useEffect(() => {
     dispatch(userActions.getMypageMD(receiverId));

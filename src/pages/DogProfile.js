@@ -19,6 +19,9 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { MdCloudUpload } from "react-icons/md";
 
 const EditDog = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
   const dogId = dog.dogId;

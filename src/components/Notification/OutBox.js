@@ -29,32 +29,30 @@ const OutBox = ({ box }) => {
   return (
     <Wrap>
       <Top>
-      <Left
-        onClick={() => {
-          history.push(`/chatdetail/${chatId}`);
-        }}
-      >
-        <img src={receiverImage} />
+        <Left
+          onClick={() => {
+            history.push(`/chatdetail/${chatId}`);
+          }}
+        >
+          <img src={receiverImage} />
         </Left>
 
         <Right>
-        <div>{receiverNickname}님 에게</div>
-        <Message
-          onClick={() => {
-            history.push(`/chatsend/${chatId}`);
-          }}
-        >
-          {message}
-        </Message>
-
+          <div>{receiverNickname}님 에게</div>
+          <Message
+            onClick={() => {
+              history.push(`/chatsend/${chatId}`);
+            }}
+          >
+            {message}
+          </Message>
         </Right>
-
       </Top>
       <Bottom>
-          <Time>{box.AGOTIME}</Time>
-          <DeleteBtn onClick={deleteBtn}>
-            <img src={trash} />
-          </DeleteBtn>
+        <Time>{box.AGOTIME}</Time>
+        <DeleteBtn onClick={deleteBtn}>
+          <img src={trash} />
+        </DeleteBtn>
       </Bottom>
     </Wrap>
   );

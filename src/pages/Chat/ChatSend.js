@@ -14,6 +14,9 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 import RedMessage from "../../image/RedMessage.png";
 
 const ChatSend = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [message, setMessage] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
@@ -67,7 +70,7 @@ const ChatSend = (props) => {
 
 const Wrap = styled.div`
   padding: 0 5%;
-`
+`;
 const SendBtn = styled.div`
   display: flex;
   justify-content: center;
@@ -109,7 +112,7 @@ const ImageWrap = styled.div`
 `;
 const MessageWrap = styled.div`
   display: block;
-  width: 100%
+  width: 100%;
 `;
 const Message = styled.div`
   width: 100%;

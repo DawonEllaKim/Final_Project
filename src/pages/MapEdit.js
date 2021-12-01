@@ -24,6 +24,9 @@ import { BsCalendarCheck } from "react-icons/bs";
 import { RiPinDistanceFill } from "react-icons/ri";
 
 const MapEdit = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const dispatch = useDispatch();
 

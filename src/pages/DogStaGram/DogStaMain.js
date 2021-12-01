@@ -17,6 +17,9 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 import dog from "../../image/dog.png";
 
 const DogStaMain = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const history = useHistory();
 
