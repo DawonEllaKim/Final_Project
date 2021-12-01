@@ -22,45 +22,38 @@ const NavBar = (props) => {
   // top 버튼
   const [btnStatus, setBtnStatus] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const dog = localStorage.getItem("checkDog")
+  const dog = localStorage.getItem("checkDog");
 
-   console.log(dog)
+  //  console.log(dog)
   const postHandler = () => {
-   
-    if(dog=="false")
-    {
-      window.alert("강아지등록이 필요한 서비스입니다")
-      history.push(("/signDog"))
+    if (dog == "false") {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
       return;
     }
     history.push("/map2");
   };
   const dogStarHandler = () => {
-    
-    if(dog=="false")
-    {
-      window.alert("강아지등록이 필요한 서비스입니다")
-      history.push(("/signDog"))
+    if (dog == "false") {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
       return;
     }
-    history.push("/dogStaWrite")
-  }
+    history.push("/dogStaWrite");
+  };
 
   const myPageHandler = () => {
-    if(!userId)
-    {
-      window.alert("로그인이 필요한 서비스입니다")
-      history.push("/login")
+    if (!userId) {
+      window.alert("로그인이 필요한 서비스입니다");
+      history.push("/login");
+      return;
+    } else if (dog == "false") {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
       return;
     }
-    else if(dog=="false")
-    {
-      window.alert("강아지등록이 필요한 서비스입니다")
-      history.push(("/signDog"))
-      return;
-    }
-    history.push(`/mypage/${userId}`)
-  }
+    history.push(`/mypage/${userId}`);
+  };
   // 스크롤 300px 이상 일때 top 버튼 생성
   const handleFollow = () => {
     setScrollY(window.pageYOffset);
@@ -338,4 +331,3 @@ const TopBtn = styled.button`
   }
 `;
 export default NavBar;
-

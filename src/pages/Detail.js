@@ -45,7 +45,7 @@ const Detail = (props) => {
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
   const postId = props.match.params.id;
-  const dog = localStorage.getItem("checkDog")
+  const dog = localStorage.getItem("checkDog");
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -519,46 +519,47 @@ const Detail = (props) => {
           <MapWrap id="map"></MapWrap>
 
           {/* 버튼 */}
-          {
-            
-               dog!="false"&&
-          (get_id == post.userId ? (
-            <FlexButton>
-              <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
-              <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
-                수정하기
-              </EditButton>
-            </FlexButton>
-          ) : (
-            <FlexButton>
-              {alreadySubmit === true || repeat == "already" ? (
-                <EditButton
-                  onClick={() => {
-                    dispatch(chatActions.sendNotificationMD(userId, 2, postId));
-                  }}
-                  style={{ color: "black" }}
-                >
-                  이미 신청되었습니다.
+          {dog != "false" &&
+            (get_id == post.userId ? (
+              <FlexButton>
+                <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
+                <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
+                  수정하기
                 </EditButton>
-              ) : (
-                <EditButton
+              </FlexButton>
+            ) : (
+              <FlexButton>
+                {alreadySubmit === true || repeat == "already" ? (
+                  <EditButton
+                    onClick={() => {
+                      dispatch(
+                        chatActions.sendNotificationMD(userId, 2, postId)
+                      );
+                    }}
+                    style={{ color: "black" }}
+                  >
+                    이미 신청되었습니다.
+                  </EditButton>
+                ) : (
+                  <EditButton
+                    onClick={() => {
+                      dispatch(
+                        chatActions.sendNotificationMD(userId, 2, postId)
+                      );
+                    }}
+                  >
+                    산책 신청하기
+                  </EditButton>
+                )}
+                <DeleteButton
                   onClick={() => {
-                    dispatch(chatActions.sendNotificationMD(userId, 2, postId));
+                    history.push(`/chatwrite/${post.userId}`);
                   }}
                 >
-                  산책 신청하기
-                </EditButton>
-              )}
-              <DeleteButton
-                onClick={() => {
-                  history.push(`/chatwrite/${post.userId}`);
-                }}
-              >
-                쪽지하기
-              </DeleteButton>
-            </FlexButton>
-          ))
-              }
+                  쪽지하기
+                </DeleteButton>
+              </FlexButton>
+            ))}
         </DetailWrap>
 
         {/* 고정 버튼들 */}

@@ -1,5 +1,5 @@
 // SignUp.js - 회원가입 페이지 (보호자 정보 입력)
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,6 +28,7 @@ const SignUp = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const dispatch = useDispatch();
 
   // 이미지
@@ -86,7 +87,7 @@ const SignUp = () => {
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
   const checkColorDup = useSelector((state) => state.sign.checkColor);
 
-  useEffect(() => {
+  const memorizedCallback = useCallback(() => {
     dispatch(UserActions.checkEmail());
     setCheckEmail(checkEmailDup);
     setAlertEmail(checkEmail);
@@ -94,6 +95,15 @@ const SignUp = () => {
     setCheckColor(checkColorDup);
     setEmailColor(checkColor);
   }, [checkEmailDup]);
+
+  // useEffect(() => {
+  //   dispatch(UserActions.checkEmail());
+  //   setCheckEmail(checkEmailDup);
+  //   setAlertEmail(checkEmail);
+  //   setEmailStatus(checkEmail);
+  //   setCheckColor(checkColorDup);
+  //   setEmailColor(checkColor);
+  // }, [checkEmailDup]);
 
   useEffect(() => {
     // dispatch(UserActions.checkEmail());

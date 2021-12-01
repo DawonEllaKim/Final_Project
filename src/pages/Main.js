@@ -1,5 +1,5 @@
 // Main.js - 메인 페이지
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
@@ -113,11 +113,22 @@ const Main = (props) => {
     );
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   dispatch(dogStaActions.getMainPostMD());
+  //   dispatch(postActions.getMainOlympicMD());
+  //   dispatch(postActions.getMainSeoulMD());
+  //   dispatch(postActions.getMainBanpoMD());
+  // }, []);
+
+  const memorizedCallback = useCallback(() => {
     dispatch(dogStaActions.getMainPostMD());
     dispatch(postActions.getMainOlympicMD());
     dispatch(postActions.getMainSeoulMD());
     dispatch(postActions.getMainBanpoMD());
+  }, []);
+
+  useEffect(() => {
+    memorizedCallback();
   }, []);
 
   // 알람 소켓
