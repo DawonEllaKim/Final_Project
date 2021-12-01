@@ -571,9 +571,9 @@ const updatePostMD = (postId, post) => {
       .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
-        dispatch(modalActions.setModal("게시물이 수정되었습니다"));
+        dispatch(modalActions.editModal(postId));
         dispatch(updatePost(post));
-        history.push("/successModal");
+        history.push("/postEditModal");
       })
       .catch((err) => {
         // console.log(err);

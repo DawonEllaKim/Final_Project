@@ -88,7 +88,7 @@ const MapEdit = (props) => {
   const editEndLocationAddress = markerName.endLocationAddress
     ? markerName.endLocationAddress
     : post.endLocationAddress;
-
+console.log(editLocationCategory,editRouteName,editTotalTime)
   // console.log(
   //   editTotalTime,
   //   editTotalDistance,
@@ -123,6 +123,7 @@ const MapEdit = (props) => {
       completed: false,
       dogCount: dogCount,
     };
+    console.log(editTotalDistance,editLocationCategory)
     dispatch(PostActions.updatePostMD(postId, Info));
     history.goBack();
   };

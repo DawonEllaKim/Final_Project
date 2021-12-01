@@ -208,8 +208,9 @@ const signDogAPI = (formData) => {
         // console.log(res); // signup 정보 확인
         dispatch(setDog(formData));
         dispatch(UserActions.getDogMD());
+        dispatch(checkDogAPI());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-        window.location.replace("/");
+      history.push("/")
         dispatch(dogModal(false));
       })
       .catch((err) => {

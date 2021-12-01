@@ -24,7 +24,6 @@ const NavBar = (props) => {
   const [scrollY, setScrollY] = useState(0);
   const dog = localStorage.getItem("checkDog")
 
-   console.log(dog)
   const postHandler = () => {
    
     if(dog=="false")
