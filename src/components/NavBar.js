@@ -24,7 +24,6 @@ const NavBar = (props) => {
   const [scrollY, setScrollY] = useState(0);
   const dog = localStorage.getItem("checkDog");
 
-  //  console.log(dog)
   const postHandler = () => {
     if (dog == "false") {
       window.alert("강아지등록이 필요한 서비스입니다");

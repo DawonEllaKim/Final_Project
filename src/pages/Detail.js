@@ -117,42 +117,42 @@ const Detail = (props) => {
       polygonPath3[i] = new kakao.maps.LatLng(polygon3[i].Ma, polygon3[i].La);
     }
 
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+    let mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(start.Ma, start.La), // 지도의 중심좌표
         level: 6, // 지도의 확대 레벨
       };
 
-    var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
-    var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
+    let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
+    let map = new kakao.maps.Map(mapContainer, mapOption);
 
-    var imageSrc5 = startMarker;
-    var imageSize5 = new kakao.maps.Size(30, 30);
+    let imageSrc5 = startMarker;
+    let imageSize5 = new kakao.maps.Size(30, 30);
 
     // 마커 이미지를 생성합니다
-    var markerImage5 = new kakao.maps.MarkerImage(imageSrc5, imageSize5);
+    let markerImage5 = new kakao.maps.MarkerImage(imageSrc5, imageSize5);
     let sp = new kakao.maps.Marker({
       map: map, // 마커를 표시할 지도
       position: new kakao.maps.LatLng(walk[0].Ma, walk[0].La),
       image: markerImage5, // 마커를 표시할 위치
       // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
     });
-    var iwContent = `<div style="padding:5px;">출발점 :${post.startLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    let iwContent = `<div style="padding:5px;">출발점 :${post.startLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
       iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 
     // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
+    let infowindow = new kakao.maps.InfoWindow({
       position: iwPosition,
       content: iwContent,
     });
 
     // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-    var imageSrc6 = endMarker;
-    var imageSize6 = new kakao.maps.Size(30, 30);
+    let imageSrc6 = endMarker;
+    let imageSize6 = new kakao.maps.Size(30, 30);
 
     // 마커 이미지를 생성합니다
-    var markerImage6 = new kakao.maps.MarkerImage(imageSrc6, imageSize6);
+    let markerImage6 = new kakao.maps.MarkerImage(imageSrc6, imageSize6);
 
     let lp = new kakao.maps.Marker({
       map: map, // 마커를 표시할 지도
@@ -163,11 +163,11 @@ const Detail = (props) => {
       // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
       image: markerImage6,
     });
-    var iwContent2 = `<div style="padding:5px;">종점 :${post.endLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    let iwContent2 = `<div style="padding:5px;">종점 :${post.endLocationAddress}<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
       iwPosition2 = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 
     // 인포윈도우를 생성합니다1
-    var infowindow2 = new kakao.maps.InfoWindow({
+    let infowindow2 = new kakao.maps.InfoWindow({
       content: iwContent2,
     });
     kakao.maps.event.addListener(
@@ -195,14 +195,14 @@ const Detail = (props) => {
       };
     }
     //쓰레기통
-    var imageSrc = trashMarker;
+    let imageSrc = trashMarker;
 
     for (let i = 0; i < trash.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(14, 14);
+      let imageSize = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       // 마커를 생성합니다
       const marker = new kakao.maps.Marker({
@@ -211,10 +211,10 @@ const Detail = (props) => {
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image: markerImage, // 마커 이미지
       });
-      var iwContent =
+      let iwContent =
           '<div style="font-size:3px;">쓰레기통:쓰레기는 쓰레기통에!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-      var infowindow = new kakao.maps.InfoWindow({
+      let infowindow = new kakao.maps.InfoWindow({
         content: iwContent,
         removable: iwRemoveable,
       });
@@ -230,14 +230,14 @@ const Detail = (props) => {
       });
     }
 
-    var imageSrc2 = waterMarker;
+    let imageSrc2 = waterMarker;
 
     for (let i = 0; i < water.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize2 = new kakao.maps.Size(14, 14);
+      let imageSize2 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc2, imageSize2);
 
       // 마커를 생성합니다
       const marker = new kakao.maps.Marker({
@@ -247,12 +247,12 @@ const Detail = (props) => {
         image: markerImage, // 마커 이미지
       });
 
-      var iwContent2 =
+      let iwContent2 =
           '<div style="font-size:3px;">식수대:강아지에게 물을 주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
       // 인포윈도우를 생성합니다
-      var infowindow2 = new kakao.maps.InfoWindow({
+      let infowindow2 = new kakao.maps.InfoWindow({
         content: iwContent2,
         removable: iwRemoveable,
       });
@@ -268,14 +268,14 @@ const Detail = (props) => {
       });
     }
 
-    var imageSrc3 = BlackMarker;
+    let imageSrc3 = BlackMarker;
 
     for (let i = 0; i < toilet.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize3 = new kakao.maps.Size(14, 14);
+      let imageSize3 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc3, imageSize3);
 
       // 마커를 생성합니다
       const marker = new kakao.maps.Marker({
@@ -285,12 +285,12 @@ const Detail = (props) => {
         image: markerImage, // 마커 이미지
       });
 
-      var iwContent3 =
+      let iwContent3 =
           '<div style="font-size:3px;">화장실: 강아지의 발을 닦아주세요!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
       // 인포윈도우를 생성합니다
-      var infowindow3 = new kakao.maps.InfoWindow({
+      let infowindow3 = new kakao.maps.InfoWindow({
         content: iwContent3,
         removable: iwRemoveable,
       });
@@ -306,14 +306,14 @@ const Detail = (props) => {
       });
     }
 
-    var imageSrc4 = dogMarker;
+    let imageSrc4 = dogMarker;
 
     for (let i = 0; i < dog.length; i++) {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize4 = new kakao.maps.Size(14, 14);
+      let imageSize4 = new kakao.maps.Size(14, 14);
 
       // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4);
+      let markerImage = new kakao.maps.MarkerImage(imageSrc4, imageSize4);
 
       // 마커를 생성합니다
       const marker = new kakao.maps.Marker({
@@ -322,12 +322,12 @@ const Detail = (props) => {
         // title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image: markerImage, // 마커 이미지
       });
-      var iwContent4 =
+      let iwContent4 =
           '<div style="font-size:3px;">들판:강아지가 달리게 목줄을 풀어주세요! </div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
       // 인포윈도우를 생성합니다
-      var infowindow4 = new kakao.maps.InfoWindow({
+      let infowindow4 = new kakao.maps.InfoWindow({
         content: iwContent4,
         removable: iwRemoveable,
       });
