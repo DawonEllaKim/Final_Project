@@ -28,6 +28,7 @@ const Wrap = styled.div`
     width: 100%;
     object-fit: cover;
     height: 100%;
+    border-radius: 14px;
   }
 `;
 export default EventCard;

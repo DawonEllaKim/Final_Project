@@ -96,7 +96,7 @@ const Edit = styled.div`
   bottom: 5%;
   right: 10%;
   cursor: pointer;
-  z-index: 99;
+  z-index: 3;
   display: flex;
   flex-direction: row;
   justify-content: center;
