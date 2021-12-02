@@ -36,7 +36,7 @@ const Map2 = (props) => {
   const markerName = useSelector((state) => state.marker.marker);
   const moment = require("moment");
   const get_modal = useSelector((state) => state.chat.modal);
-
+  const userId = localStorage.getItem("userId")
   const [modal, setModal] = useState("");
   const [startDate, setStartDate] = useState();
   const [wishDesc, setWishDesc] = useState();
@@ -79,7 +79,7 @@ const Map2 = (props) => {
     ) {
       setIsModal(true);
     } else {
-      dispatch(PostActions.addPostMD(Info));
+      dispatch(PostActions.addPostMD(Info,userId));
     }
   };
 

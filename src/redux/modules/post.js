@@ -112,7 +112,7 @@ const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts",
+      url: "https://www.walkadog.shop/posts",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -150,7 +150,7 @@ const getMainOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/main/olympicPark",
+      url: "https://www.walkadog.shop/posts/main/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -189,7 +189,7 @@ const getMainSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/main/seoulForest",
+      url: "https://www.walkadog.shop/posts/main/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -228,7 +228,7 @@ const getMainBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/main/banpoPark",
+      url: "https://www.walkadog.shop/posts/main/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -267,7 +267,7 @@ const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/olympicPark",
+      url: "https://www.walkadog.shop/posts/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -304,7 +304,7 @@ const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/seoulForest",
+      url: "https://www.walkadog.shop/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -341,7 +341,7 @@ const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/posts/banpoPark",
+      url: "https://www.walkadog.shop/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -378,7 +378,7 @@ const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/${postId}`,
+      url: `https://www.walkadog.shop/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -475,7 +475,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/mypage/myPost/${userId}`,
+      url: `https://www.walkadog.shop/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -512,7 +512,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/${postId}`,
+      url: `https://www.walkadog.shop/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -555,14 +555,14 @@ const getMapMD = (postId) => {
       });
   };
 };
-const addPostMD = (post) => {
+const addPostMD = (post,postId) => {
   return function (dispatch, getState, { history }) {
     apis
-      .createPostAX(post)
+      .createPostAX(post,postId)
       .then((res) => {
         // dispatch(addPost(post));
         dispatch(modalActions.setModal("산책 등록완료"));
-        history.push("/deleteModal");
+        history.push("/mainModal");
       })
       .catch((err) => {
         window.alert("에러");
