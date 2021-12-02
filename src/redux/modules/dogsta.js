@@ -64,7 +64,7 @@ const getMainPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/dogsta/mainFilter",
+      url: "http://52.78.6.138/dogsta/mainFilter",
       data: {},
       headers: {},
     })
@@ -83,7 +83,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url:"http://13.209.70.209/dogsta/recentFilter",
+      url:"http://52.78.6.138/dogsta/recentFilter",
       data: {},
       headers: {},
     })
@@ -102,7 +102,7 @@ const getAllPostMD = () => {
 //   return function (dispatch, getState, { history }) {
 //     axios({
 //       method: "GET",
-//       url: "http://13.209.70.209/dogsta/likeFilter",
+//       url: "http://52.78.6.138/dogsta/likeFilter",
 //       data: {},
 //       headers: {},
 //     })
@@ -122,7 +122,7 @@ const getFirstRecentMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `http://13.209.70.209/dogsta/test/recentFilter?pageNum=${pageNum}`,
+      url: `http://52.78.6.138/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -150,7 +150,7 @@ const getFirstLikeMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `http://13.209.70.209/dogsta/test/likeFilter?pageNum=${pageNum}`,
+      url: `http://52.78.6.138/dogsta/test/likeFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -178,7 +178,7 @@ const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/dogsta/${userId}/${dogPostId}`,
+      url: `http://52.78.6.138/dogsta/${userId}/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -197,7 +197,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/dogsta/${userId}`,
+      url: `http://52.78.6.138/dogsta/${userId}`,
       data: {},
       headers: {},
     })
@@ -216,7 +216,7 @@ const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/dogsta/write",
+      url: "http://52.78.6.138/dogsta/write",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -241,7 +241,7 @@ const editPostMD = (postId, post) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/dogsta/${postId}`,
+      url: `http://52.78.6.138/dogsta/${postId}`,
       data: post,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -266,7 +266,7 @@ const editPostImageMD = (post, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/dogsta/changeImage/${dogPostId}`,
+      url: `http://52.78.6.138/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -294,7 +294,7 @@ const deletePostMD = (postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "DELETE",
-      url: `http://13.209.70.209/dogsta/${postId}`,
+      url: `http://52.78.6.138/dogsta/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -322,7 +322,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     if (!liked) {
       axios({
         method: "POST",
-        url: `http://13.209.70.209/likes/${dogPostId}`,
+        url: `http://52.78.6.138/likes/${dogPostId}`,
         data: {},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
@@ -342,7 +342,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     } else {
       axios({
         method: "DELETE",
-        url: `http://13.209.70.209/likes/${dogPostId}`,
+        url: `http://52.78.6.138/likes/${dogPostId}`,
         data: {},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
@@ -368,7 +368,7 @@ const getLikesMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/likes/${dogPostId}`,
+      url: `http://52.78.6.138/likes/${dogPostId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -391,7 +391,7 @@ const getMyLikeMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/likes/${dogPostId}/likeExist`,
+      url: `http://52.78.6.138/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
