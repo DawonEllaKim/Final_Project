@@ -58,10 +58,10 @@ const Detail = (props) => {
 
   const [walk, setWalk] = useState(post.walk ? post.walk : list1);
   const [start, setStart] = useState(post.start ? post.start : olympic);
-  const is_loading = useSelector((state) => state.post.is_loading);
+
 
   const get_id = localStorage.getItem("userId");
-
+ 
   // 유저 정보
   const userImage = post.userImage;
   const userNickname = post.userNickname;
@@ -92,7 +92,8 @@ const Detail = (props) => {
   };
 
   const repeat = useSelector((state) => state.chat.alreadySubmit);
-  // console.log(repeat);
+  const request = useSelector((state)=>state.post.request)
+
   useEffect(() => {
     let dott = [];
     for (let i = 0; i < walk.length; i++) {
@@ -529,7 +530,7 @@ const Detail = (props) => {
               </FlexButton>
             ) : (
               <FlexButton>
-                {alreadySubmit === true || repeat == "already" ? (
+                {request ? (
                   <EditButton
                     onClick={() => {
                       dispatch(

@@ -12,19 +12,19 @@ const Alert = ({ noti }) => {
 
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
-  useEffect(() => {
-    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
-  }, []);
+  // useEffect(() => {
+  //   setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  // }, []);
 
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
 
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
 
   return (
     <div>
