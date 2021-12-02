@@ -34,22 +34,19 @@ const addCommentMD = (dogPostId, comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/comment/${dogPostId}`,
+      url: `http://52.78.6.138/comment/${dogPostId}`,
       data: comment,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
         dispatch(addComment(comment));
          dispatch(getCommentMD(dogPostId))
-        // console.log("댓글 post", res);
+      
       })
       .catch((err) => {
-        // console.log("댓글 post 실패", err);
+        console.log("댓글 post 실패", err);
       });
   };
 };
@@ -58,22 +55,14 @@ const getCommentMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/comment/${dogPostId}`,
-      data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("userLogin")}`,
-      },
+      url: `http://52.78.6.138/comment/${dogPostId}`,
     })
       .then((res) => {
         const commentList = res.data.comment;
-        // console.log("댓글 get", commentList);
         dispatch(getComment(commentList));
       })
       .catch((err) => {
-        // console.log("댓글 get 에러", err);
+        console.log("댓글 get 에러", err);
       });
   };
 };
@@ -82,7 +71,7 @@ const editCommentMD = (dogPostId, commentId, commentList) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
+      url: `http://52.78.6.138/comment/${dogPostId}/${commentId}`,
       data: commentList,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -106,21 +95,17 @@ const deleteCommentMD = (dogPostId, commentId) => {
     // console.log(id);
     axios({
       method: "DELETE",
-      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
+      url: `http://52.78.6.138/comment/${dogPostId}/${commentId}`,
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
       .then((res) => {
         dispatch(deleteComment(commentId));
-        // console.log("댓글 삭제 성공", res);
       })
       .catch((err) => {
-        // console.log("댓글 삭제 에러", err);
       });
   };
 };
@@ -131,10 +116,6 @@ export default handleActions(
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.commentList.push(action.payload.commentList);
-      }),
-    [GET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.commentList = action.payload.commentList;
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -152,6 +133,10 @@ export default handleActions(
         draft.commentList = draft.commentList.filter(
           (comment) => comment.commentId !== action.payload.commentList
         );
+      }),
+      [GET_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.commentList = action.payload.commentList;
       }),
   },
   initialState

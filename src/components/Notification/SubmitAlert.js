@@ -14,17 +14,17 @@ const SubmitAlert = ({ noti }) => {
 
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
-  useEffect(() => {
-    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
-  }, []);
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  // }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
   const username = localStorage.getItem("userNickname");
   return (
     <div>
