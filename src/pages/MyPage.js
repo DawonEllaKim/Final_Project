@@ -66,6 +66,7 @@ const MyPage = (props) => {
     // console.log("강아지 정보 없음");
     history.push("/login");
   }
+
   return (
     <>
       {userInfo ? (
