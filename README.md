@@ -1,21 +1,22 @@
-## 🐶 산책할개
+# 🐶 산책할개
 
 >#### 나도 강아지도 혼자였던 산책에서 벗어나, 산책 메이트와 일상을 공유하고 같이 산책하는 서비스 '산책할개'입니다.
 
-[산책할개 사이트](https://togaether.shop/)
-시연 영상
+- [산책할개 사이트](https://togaether.shop/)
+- 시연 영상
 
-#### 👩‍👧‍👦 멤버 구성
+## 👩‍👧‍👦 멤버 구성
 - Front-end : 김다원, 김효진, 이수창
 - Back-end : 탁정규, 허선희, 황유정
 - Designer : 서연수, 이성원
 
-#### 🗓 개발기간
+## 🗓 개발기간
 2021.10.25 - 2021.12.03 (총 6주)
 
-#### 📱 아키텍쳐
+## 📱 아키텍쳐
+![아키텍쳐](https://user-images.githubusercontent.com/50295043/144430878-966d1638-cca3-4cce-b3a0-6a730e47035e.png)
 
-#### 🛠 기술 스택
+## 🛠 기술 스택
 - React
 - 상태관리 : redux, redux-actions, redux-thunk, redux-logger, immer
 - 통신 : axios, socket.io
@@ -25,10 +26,10 @@
 
 - 라이브러리 : react-slick, react-intersection-observer, react-icons, material-ui, react-datepicker, react-loading
 
-#### 🎨 와이어프레임
+## 🎨 와이어프레임
 
 
-#### 💻 주요 기능
+## 💻 주요 기능
 - 로그인 / 회원가입 / 강아지 정보 등록 (jwt 인증)
 - 메인페이지
     - 현재 날씨 조회
@@ -58,10 +59,7 @@
     - 받은 산책 신청 수락/거절 
     - 쪽지 보내기, 답장하기
 
-
-
-
-#### 📝 개발 일지
-[Team Notion](https://www.notion.so/dawon-ella-kim/1b368fc04ee9406695fc28435dd57097) 
-[Front-end github](https://github.com/O-K-O-K-O-K/Front-end)
-[Back-end github](https://github.com/O-K-O-K-O-K/Back_End)
+## 📝 개발 일지
+- [Team Notion](https://www.notion.so/dawon-ella-kim/1b368fc04ee9406695fc28435dd57097) 
+- [Front-end github](https://github.com/O-K-O-K-O-K/Front-end)
+- [Back-end github](https://github.com/O-K-O-K-O-K/Back_End)
