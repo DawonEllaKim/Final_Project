@@ -126,7 +126,7 @@ const MapEdit = (props) => {
     };
     console.log(editTotalDistance, editLocationCategory);
     dispatch(PostActions.updatePostMD(postId, Info, get_id));
-    history.goBack();
+    history.push(`/posts/${post.postId}`);
   };
 
   return (
