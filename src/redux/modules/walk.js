@@ -49,7 +49,7 @@ const pageAllMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/test?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/posts/test?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -108,7 +108,7 @@ const pageOlympicMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/test/olympicPark?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/posts/test/olympicPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -165,7 +165,7 @@ const pageSeoulMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/test/seoulForest?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/posts/test/seoulForest?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -223,7 +223,7 @@ const pageBanpoMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/posts/test/banpoPark?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/posts/test/banpoPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",

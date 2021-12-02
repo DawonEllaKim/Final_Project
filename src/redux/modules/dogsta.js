@@ -64,7 +64,7 @@ const getMainPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/dogsta/mainFilter",
+      url: "https://www.walkadog.shop/dogsta/mainFilter",
       data: {},
       headers: {},
     })
@@ -83,7 +83,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url:"http://52.78.6.138/dogsta/recentFilter",
+      url:"https://www.walkadog.shop/dogsta/recentFilter",
       data: {},
       headers: {},
     })
@@ -102,7 +102,7 @@ const getAllPostMD = () => {
 //   return function (dispatch, getState, { history }) {
 //     axios({
 //       method: "GET",
-//       url: "http://52.78.6.138/dogsta/likeFilter",
+//       url: "https://www.walkadog.shop/dogsta/likeFilter",
 //       data: {},
 //       headers: {},
 //     })
@@ -122,7 +122,7 @@ const getFirstRecentMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `http://52.78.6.138/dogsta/test/recentFilter?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -150,7 +150,7 @@ const getFirstLikeMD = (pageNum) =>{
   return function(dispatch, useState, {history}){
     axios({
       method: "GET",
-      url: `http://52.78.6.138/dogsta/test/likeFilter?pageNum=${pageNum}`,
+      url: `https://www.walkadog.shop/dogsta/test/likeFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -178,7 +178,7 @@ const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/dogsta/${userId}/${dogPostId}`,
+      url: `https://www.walkadog.shop/dogsta/${userId}/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -197,7 +197,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/dogsta/${userId}`,
+      url: `https://www.walkadog.shop/dogsta/${userId}`,
       data: {},
       headers: {},
     })
@@ -216,7 +216,7 @@ const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://52.78.6.138/dogsta/write",
+      url: "https://www.walkadog.shop/dogsta/write",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -241,7 +241,7 @@ const editPostMD = (postId, post) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://52.78.6.138/dogsta/${postId}`,
+      url: `https://www.walkadog.shop/dogsta/${postId}`,
       data: post,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -266,7 +266,7 @@ const editPostImageMD = (post, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://52.78.6.138/dogsta/changeImage/${dogPostId}`,
+      url: `https://www.walkadog.shop/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -294,7 +294,7 @@ const deletePostMD = (postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "DELETE",
-      url: `http://52.78.6.138/dogsta/${postId}`,
+      url: `https://www.walkadog.shop/dogsta/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -322,7 +322,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     if (!liked) {
       axios({
         method: "POST",
-        url: `http://52.78.6.138/likes/${dogPostId}`,
+        url: `https://www.walkadog.shop/likes/${dogPostId}`,
         data: {},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
@@ -342,7 +342,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     } else {
       axios({
         method: "DELETE",
-        url: `http://52.78.6.138/likes/${dogPostId}`,
+        url: `https://www.walkadog.shop/likes/${dogPostId}`,
         data: {},
         headers: {
           // "content-type": "application/json;charset=UTF-8",
@@ -368,7 +368,7 @@ const getLikesMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/likes/${dogPostId}`,
+      url: `https://www.walkadog.shop/likes/${dogPostId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -391,7 +391,7 @@ const getMyLikeMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/likes/${dogPostId}/likeExist`,
+      url: `https://www.walkadog.shop/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

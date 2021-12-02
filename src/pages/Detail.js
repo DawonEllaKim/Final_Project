@@ -88,6 +88,7 @@ const Detail = (props) => {
 
   //산책로 찾기
   const deletePost = () => {
+    console.log(postId)
     dispatch(postActions.deletePostMD(postId));
   };
 

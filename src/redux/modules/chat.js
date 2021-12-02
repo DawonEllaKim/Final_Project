@@ -55,7 +55,7 @@ const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/chat/inbox",
+      url: "https://www.walkadog.shop/chat/inbox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -77,7 +77,7 @@ const outBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://52.78.6.138/chat/outBox",
+      url: "https://www.walkadog.shop/chat/outBox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ const sendMessageMD = (receiverId, message, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `http://52.78.6.138/chat/${receiverId}`,
+      url: `https://www.walkadog.shop/chat/${receiverId}`,
       data: { message },
       headers: {
         Accept: "application/json",
@@ -123,7 +123,7 @@ const sendNotificationMD = (receiverId, type, postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `http://52.78.6.138/notification/${receiverId}`,
+      url: `https://www.walkadog.shop/notification/${receiverId}`,
       data: { type: type, postId: postId },
       headers: {
         Accept: "application/json",
@@ -157,7 +157,7 @@ const getDetailMD = (chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `http://52.78.6.138/chat/${chatId}`,
+      url: `https://www.walkadog.shop/chat/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -178,7 +178,7 @@ const deleteInMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `http://52.78.6.138/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `https://www.walkadog.shop/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -199,7 +199,7 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `http://52.78.6.138/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `https://www.walkadog.shop/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
