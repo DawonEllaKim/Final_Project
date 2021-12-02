@@ -64,24 +64,16 @@ const signDupAPI = (userEmail) => {
       url: "https://www.walkadog.shop/users/checkDup",
       data: { userEmail },
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => {
-        // console.log(res); // signup 정보 확인
         dispatch(setUser(userEmail));
-        // dispatch(checkEmail("✔︎ 사용 가능한 이메일입니다.", "green"));
         dispatch(checkEmail(true, "green"));
-        // console.log(res);
-        // history.push("/signDog");
-        // window.alert("사용 가능한 이메일입니다.");
       })
       .catch((err) => {
         dispatch(checkEmail("used", "red"));
-        // console.log("이미 사용 중인 이메일입니다.", err);
-        // window.alert("이미 사용 중인 이메일입니다.");
       });
   };
 };
@@ -183,7 +175,7 @@ const checkDogAPI = (formData) => {
         // console.log(res.data); // signup 정보 확인
         // localStorage.setItem("dog", res.data);
         dispatch(checkDog(res.data));
-        localStorage.setItem("checkDog",res.data)
+        localStorage.setItem("checkDog", res.data);
         dispatch(loading(false));
       })
       .catch((err) => {
@@ -210,7 +202,7 @@ const signDogAPI = (formData) => {
         dispatch(UserActions.getDogMD());
         dispatch(checkDogAPI());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-      history.push("/")
+        history.push("/");
         dispatch(dogModal(false));
       })
       .catch((err) => {

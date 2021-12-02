@@ -87,15 +87,6 @@ const SignUp = () => {
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
   const checkColorDup = useSelector((state) => state.sign.checkColor);
 
-  // const memorizedCallback = useCallback(() => {
-  //   dispatch(UserActions.checkEmail());
-  //   setCheckEmail(checkEmailDup);
-  //   setAlertEmail(checkEmail);
-  //   setEmailStatus(checkEmail);
-  //   setCheckColor(checkColorDup);
-  //   setEmailColor(checkColor);
-  // }, [checkEmailDup]);
-
   useEffect(() => {
     dispatch(UserActions.checkEmail());
     setCheckEmail(checkEmailDup);
@@ -130,10 +121,13 @@ const SignUp = () => {
     } else if (emailStatus === "used") {
       setEmailColor("red");
       setAlertEmail("✔︎ 이미 사용 중인 이메일입니다.");
+      console.log("emailStatus", emailStatus);
     } else if (emailStatus === true) {
+      console.log("emailStatus", emailStatus);
       setEmailColor("green");
       setAlertEmail("✔︎ 사용 가능한 이메일입니다.");
     } else {
+      console.log("emailStatus", emailStatus);
       setEmailColor("green");
     }
 
@@ -297,18 +291,22 @@ const SignUp = () => {
     if (!userEmail) {
       setEmailColor("red");
       setEmailStatus("empty");
+      console.log("emailStatus", emailStatus);
       return;
     } else if (userEmail && emailCheck(userEmail) === false) {
       setEmailColor("red");
       setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예) abc@gmail.com");
+      console.log("emailStatus", emailStatus);
       return;
     } else if (emailCheck(userEmail) === true && emailStatus === false) {
       setEmailColor("red");
       setEmailStatus("used");
+      console.log("emailStatus", emailStatus);
       return;
     } else if (emailStatus === true) {
       setEmailColor("green");
       setAlertEmail("✔︎ 사용 가능한 이메일입니다.");
+      console.log("emailStatus", emailStatus);
     }
   };
 
