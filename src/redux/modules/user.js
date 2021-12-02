@@ -77,7 +77,7 @@ const getMypageMD = (userId) => {
       })
       .catch((err) => {
         // console.log("getMypageMD에서 오류발생", err);
-       
+
         history.push("/login");
       });
   };

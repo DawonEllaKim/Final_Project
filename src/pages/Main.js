@@ -28,11 +28,12 @@ import MainPageLogo from "../image/MainPageLogo.png";
 import { RiFeedbackLine } from "react-icons/ri";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
+import { actionCreators } from "../redux/modules/modal";
 // 슬라이드
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { actionCreators } from "../redux/modules/modal";
 
 const Main = (props) => {
   useEffect(() => {
@@ -336,7 +337,7 @@ const Main = (props) => {
               <SubLists>
                 {olympic.map((post, index) => {
                   const dogImage = post.dogImage;
-                  const hover = () => {
+                  const cardClicked = () => {
                     setOlympicTitle();
                     setOlympicImage(post.dogImage);
                     setOlympicDogName(post.dogName + "와 함께 산책하기");
@@ -344,9 +345,8 @@ const Main = (props) => {
                     setOlympicLocation(post.locationCategory);
                     setPostId(post.postId);
                   };
-
                   return (
-                    <MainCardWrap onClick={hover}>
+                    <MainCardWrap onClick={cardClicked}>
                       <MainCard post={post} key={index}>
                         <Image src={dogImage} />
                       </MainCard>

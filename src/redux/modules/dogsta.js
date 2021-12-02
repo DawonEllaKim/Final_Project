@@ -1,4 +1,5 @@
 // dogsta.js - 개스타그램 게시물 GET,POST,PATCH,DELETE 액션들
+
 import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
@@ -7,7 +8,6 @@ import { actionCreators as modalActions } from "./modal";
 
 const GET_MAIN_POST = "GET_MAIN_POST"; // 메인 페이지 개스타그램 (최신순) 게시물 불러오기
 const GET_ALL_POST = "GET_ALL_POST"; // 개스타그램 모든(최신순) 게시물 불러오기
-// const GET_LIKE_POST = "GET_LIKE_POST"; // 개스타그램 좋아요순 게시물 불러오기
 const GET_FIRST_RECENT = "GET_FIRST_RECENT"; // 개스타그램 최신순
 const GET_MORE_RECENT = "GET_MORE_RECENT"; // 무한 스크롤 최신순
 const GET_FIRST_LIKE = "GET_FIRST_LIKE"; // 개스타그램 좋아요순
@@ -26,30 +26,31 @@ const getMainPost = createAction(GET_MAIN_POST, (mainFourPosts) => ({
   mainFourPosts,
 }));
 const getAllPost = createAction(GET_ALL_POST, (allList) => ({ allList }));
-// const getLikePost = createAction(GET_LIKE_POST, (mainLikeList) => ({
-//   mainLikeList,
-// }));
-const getFirstRecent = createAction(GET_FIRST_RECENT,(mainList) => ({mainList}));
-const getMoreRecent = createAction(GET_MORE_RECENT,(mainList) => ({mainList}));
-const getFirstLike = createAction(GET_FIRST_LIKE,(mainLikeList) => ({mainLikeList}));
-const getMoreLike = createAction(GET_MORE_LIKE,(mainLikeList) => ({mainLikeList}));
+const getFirstRecent = createAction(GET_FIRST_RECENT, (mainList) => ({
+  mainList,
+}));
+const getMoreRecent = createAction(GET_MORE_RECENT, (mainList) => ({
+  mainList,
+}));
+const getFirstLike = createAction(GET_FIRST_LIKE, (mainLikeList) => ({
+  mainLikeList,
+}));
+const getMoreLike = createAction(GET_MORE_LIKE, (mainLikeList) => ({
+  mainLikeList,
+}));
 const getDogPost = createAction(GET_DOGPOST, (eachList) => ({ eachList }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
 const addPost = createAction(ADD_POST, (mainList) => ({ mainList }));
 const editPost = createAction(EDIT_POST, (eachList) => ({ eachList }));
 const deletePost = createAction(DELETE_POST, (mainList) => ({ mainList }));
-
-// 좋아요
 const toggleLike = createAction(TOGGLE_LIKE, (liked) => ({ liked }));
 const getLikes = createAction(GET_LIKES, (likeCnt) => ({ likeCnt }));
 const getMyLike = createAction(GET_MY_LIKE, (likeExist) => ({ likeExist }));
-
-//모달
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 
 const initialState = {
   mainFourPosts: [],
-  allList:[],
+  allList: [],
   mainList: [],
   mainLikeList: [],
   myList: [],
@@ -118,61 +119,61 @@ const getAllPostMD = () => {
 // };
 
 // 개스타그램 무한 스크롤 적용
-const getFirstRecentMD = (pageNum) =>{
-  return function(dispatch, useState, {history}){
+const getFirstRecentMD = (pageNum) => {
+  return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
       url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
-    .then((res) => {
-      if(pageNum ==1){
-        const postList = res.data.posts.contents;
-        // console.log('first get 성공', postList);
-        dispatch(getFirstRecent(postList));        
-      } else{
-        let postList=[];
-        for(let i=0;i<res.data.posts.contents.length; i++){
-          postList.push(res.data.posts.contents[i]);
-          // console.log('무한스크롤 성공', postList);
+      .then((res) => {
+        if (pageNum == 1) {
+          const postList = res.data.posts.contents;
+          // console.log('first get 성공', postList);
+          dispatch(getFirstRecent(postList));
+        } else {
+          let postList = [];
+          for (let i = 0; i < res.data.posts.contents.length; i++) {
+            postList.push(res.data.posts.contents[i]);
+            // console.log('무한스크롤 성공', postList);
+          }
+          dispatch(getMoreRecent(postList));
         }
-        dispatch(getMoreRecent(postList));
-      }
-    })
-    .catch((err) =>{
-      // console.log('first get 에러', err);
-    })
-  }
-}
+      })
+      .catch((err) => {
+        // console.log('first get 에러', err);
+      });
+  };
+};
 
-const getFirstLikeMD = (pageNum) =>{
-  return function(dispatch, useState, {history}){
+const getFirstLikeMD = (pageNum) => {
+  return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
       url: `https://www.walkadog.shop/dogsta/test/likeFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
-    .then((res) => {
-      if(pageNum ==1){
-        const postList = res.data.posts.contents;
-        // console.log('first get 성공', postList);
-        dispatch(getFirstLike(postList));        
-      } else{
-        let postList=[];
-        for(let i=0;i<res.data.posts.contents.length; i++){
-          postList.push(res.data.posts.contents[i]);
-          // console.log('무한스크롤 성공', postList);
+      .then((res) => {
+        if (pageNum == 1) {
+          const postList = res.data.posts.contents;
+          // console.log('first get 성공', postList);
+          dispatch(getFirstLike(postList));
+        } else {
+          let postList = [];
+          for (let i = 0; i < res.data.posts.contents.length; i++) {
+            postList.push(res.data.posts.contents[i]);
+            // console.log('무한스크롤 성공', postList);
+          }
+          dispatch(getMoreLike(postList));
         }
-        dispatch(getMoreLike(postList));
-      }
-    })
-    .catch((err) =>{
-      // console.log('first get 에러', err);
-    })
-  }
-}
+      })
+      .catch((err) => {
+        // console.log('first get 에러', err);
+      });
+  };
+};
 
 const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
@@ -432,19 +433,19 @@ export default handleActions(
     //     draft.mainLikeList = action.payload.mainLikeList;
     //   }),
     [GET_FIRST_RECENT]: (state, action) =>
-      produce(state,(draft) =>{
+      produce(state, (draft) => {
         draft.mainList = action.payload.mainList;
       }),
     [GET_MORE_RECENT]: (state, action) =>
-      produce(state,(draft) =>{
+      produce(state, (draft) => {
         draft.mainList.push(...action.payload.mainList);
       }),
     [GET_FIRST_LIKE]: (state, action) =>
-      produce(state,(draft) =>{
+      produce(state, (draft) => {
         draft.mainLikeList = action.payload.mainLikeList;
       }),
     [GET_MORE_LIKE]: (state, action) =>
-      produce(state,(draft) =>{
+      produce(state, (draft) => {
         draft.mainLikeList.push(...action.payload.mainLikeList);
       }),
     [GET_DOGPOST]: (state, action) =>
@@ -495,7 +496,6 @@ const actionCreators = {
   getMainPost,
   getMainPostMD,
   getAllPost,
-  // getLikePost,
   getFirstRecent,
   getMoreRecent,
   getMoreLike,
@@ -509,7 +509,6 @@ const actionCreators = {
   getMyLike,
   modalMD,
   getAllPostMD,
-  // getLikePostMD,
   getFirstRecentMD,
   getFirstLikeMD,
   getPostMD,

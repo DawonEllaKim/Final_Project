@@ -26,7 +26,7 @@ const DogStaDetail = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const dog = localStorage.getItem("checkDog")
+  const dog = localStorage.getItem("checkDog");
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -181,7 +181,7 @@ const DogStaDetail = (props) => {
             <div>등록된 댓글이 없습니다.</div>
           )}
         </CommentWrap>
-       { <CommentWrite userId={userId} postId={postId} userImage={userImage} />} 
+        {<CommentWrite userId={userId} postId={postId} userImage={userImage} />}
       </Wrap>
       <NavBar add_dogsta />
     </>
