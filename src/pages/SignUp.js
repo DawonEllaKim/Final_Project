@@ -87,16 +87,7 @@ const SignUp = () => {
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
   const checkColorDup = useSelector((state) => state.sign.checkColor);
 
-  const memorizedCallback = useCallback(() => {
-    dispatch(UserActions.checkEmail());
-    setCheckEmail(checkEmailDup);
-    setAlertEmail(checkEmail);
-    setEmailStatus(checkEmail);
-    setCheckColor(checkColorDup);
-    setEmailColor(checkColor);
-  }, [checkEmailDup]);
-
-  // useEffect(() => {
+  // const memorizedCallback = useCallback(() => {
   //   dispatch(UserActions.checkEmail());
   //   setCheckEmail(checkEmailDup);
   //   setAlertEmail(checkEmail);
@@ -104,6 +95,15 @@ const SignUp = () => {
   //   setCheckColor(checkColorDup);
   //   setEmailColor(checkColor);
   // }, [checkEmailDup]);
+
+  useEffect(() => {
+    dispatch(UserActions.checkEmail());
+    setCheckEmail(checkEmailDup);
+    setAlertEmail(checkEmail);
+    setEmailStatus(checkEmail);
+    setCheckColor(checkColorDup);
+    setEmailColor(checkColor);
+  }, [checkEmailDup]);
 
   useEffect(() => {
     // dispatch(UserActions.checkEmail());
