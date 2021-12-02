@@ -59,9 +59,8 @@ const Detail = (props) => {
   const [walk, setWalk] = useState(post.walk ? post.walk : list1);
   const [start, setStart] = useState(post.start ? post.start : olympic);
 
-
   const get_id = localStorage.getItem("userId");
- 
+
   // 유저 정보
   const userImage = post.userImage;
   const userNickname = post.userNickname;
@@ -88,12 +87,12 @@ const Detail = (props) => {
 
   //산책로 찾기
   const deletePost = () => {
-    console.log(postId)
-    dispatch(postActions.deletePostMD(postId));
+    console.log(postId);
+    dispatch(postActions.deletePostMD(postId, get_id));
   };
 
   const repeat = useSelector((state) => state.chat.alreadySubmit);
-  const request = useSelector((state)=>state.post.request)
+  const request = useSelector((state) => state.post.request);
 
   useEffect(() => {
     let dott = [];

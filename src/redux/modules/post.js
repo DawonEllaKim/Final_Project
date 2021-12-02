@@ -31,7 +31,7 @@ const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const GET_MODAL = "GET_MODAL";
-const CHECK_REQUEST= "CHECK_REQUEST";
+const CHECK_REQUEST = "CHECK_REQUEST";
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -57,7 +57,7 @@ const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
-const checkRequest = createAction(CHECK_REQUEST,(request)=>({request}))
+const checkRequest = createAction(CHECK_REQUEST, (request) => ({ request }));
 // initialState
 const initialState = {
   //메인 요청
@@ -388,7 +388,7 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
         const fullDate = res.data.posts.meetingDate.split("T")[0];
@@ -462,7 +462,7 @@ const getPostMD = (postId) => {
           res.data.posts.start = hangang[0];
         const postList = res.data.posts;
         const requestData = res.data.existRequest;
-        dispatch(checkRequest(requestData))
+        dispatch(checkRequest(requestData));
         dispatch(getPost(postList));
         // console.log("정보 불러오기 완료");
       })
@@ -555,10 +555,10 @@ const getMapMD = (postId) => {
       });
   };
 };
-const addPostMD = (post,postId) => {
+const addPostMD = (post, postId) => {
   return function (dispatch, getState, { history }) {
     apis
-      .createPostAX(post,postId)
+      .createPostAX(post, postId)
       .then((res) => {
         // dispatch(addPost(post));
         dispatch(modalActions.setModal("산책 등록완료"));
@@ -569,10 +569,10 @@ const addPostMD = (post,postId) => {
       });
   };
 };
-const updatePostMD = (postId, post) => {
+const updatePostMD = (postId, post, get_id) => {
   return function (dispatch, getState, { history }) {
     apis
-      .updatePostAX(postId, post)
+      .updatePostAX(postId, post, get_id)
       .then((res) => {
         // dispatch(updatePost(postId));
         dispatch(modalActions.editModal(postId));
@@ -584,11 +584,11 @@ const updatePostMD = (postId, post) => {
       });
   };
 };
-const deletePostMD = (postId) => {
+const deletePostMD = (postId, get_id) => {
   return function (dispatch, getState, { history }) {
     // console.log(postId);
     apis
-      .deletePostAX(postId)
+      .deletePostAX(postId, get_id)
       .then((res) => {
         dispatch(modalActions.setModal("게시물이 삭제되었습니다"));
         history.push("/deleteModal");
@@ -664,9 +664,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.modal = action.payload.modal;
       }),
-      [CHECK_REQUEST]: (state, action) =>
+    [CHECK_REQUEST]: (state, action) =>
       produce(state, (draft) => {
-        draft.request= action.payload.request;
+        draft.request = action.payload.request;
       }),
   },
   initialState

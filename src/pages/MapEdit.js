@@ -27,6 +27,7 @@ const MapEdit = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const get_id = localStorage.getItem("userId");
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -88,7 +89,7 @@ const MapEdit = (props) => {
   const editEndLocationAddress = markerName.endLocationAddress
     ? markerName.endLocationAddress
     : post.endLocationAddress;
-console.log(editLocationCategory,editRouteName,editTotalTime)
+  console.log(editLocationCategory, editRouteName, editTotalTime);
   // console.log(
   //   editTotalTime,
   //   editTotalDistance,
@@ -123,8 +124,8 @@ console.log(editLocationCategory,editRouteName,editTotalTime)
       completed: false,
       dogCount: dogCount,
     };
-    console.log(editTotalDistance,editLocationCategory)
-    dispatch(PostActions.updatePostMD(postId, Info));
+    console.log(editTotalDistance, editLocationCategory);
+    dispatch(PostActions.updatePostMD(postId, Info, get_id));
     history.goBack();
   };
 

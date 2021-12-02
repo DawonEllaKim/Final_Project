@@ -30,14 +30,15 @@ export const apis = {
     instance.post("/users/login", { user_email, password }),
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
-  updateUserAX: (user) => instance.put("/users", user),
+  updateUserAX: (user, get_id) => instance.put("/users", user, get_id),
 
   // 산책 등록하기
-  createPostAX: (post,postId) => instance.post(`/posts/write/${postId}`, post),
+  createPostAX: (post, postId) => instance.post(`/posts/write/${postId}`, post),
   // 산책 수정하기
   updatePostAX: (postId, post) => instance.patch(`/posts/${postId}`, post),
   // 산책 가져오기
   getPostAX: (postId) => instance.get(`/posts/${postId}`),
   // 산책 약속 삭제하기
-  deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
+  deletePostAX: (postId, get_id) =>
+    instance.delete(`/posts/${postId}/${get_id}`),
 };

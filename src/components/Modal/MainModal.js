@@ -15,7 +15,8 @@ const MainModal = (props) => {
   }, [modalText]);
   // console.log(modal)
   const modalHandler = () => {
-    window.location.replace("/")
+    // window.location.replace("/")
+    history.push("/");
   };
   // console.log(props);
   return (
