@@ -2,8 +2,8 @@
 
 >#### 나도 강아지도 혼자였던 산책에서 벗어나, 산책 메이트와 일상을 공유하고 같이 산책하는 서비스 '산책할개'입니다.
 
-- [산책할개 사이트](https://togaether.shop/)
-- 시연 영상
+- 산책할개 사이트
+- [시연 영상](https://www.youtube.com/watch?v=dKcawThqUME&t=16s)
 
 ## 👩‍👧‍👦 멤버 구성
 - Front-end : 김다원, 김효진, 이수창
@@ -14,7 +14,7 @@
 2021.10.25 - 2021.12.03 (총 6주)
 
 ## 📱 아키텍쳐
-![아키텍쳐](https://user-images.githubusercontent.com/50295043/144430878-966d1638-cca3-4cce-b3a0-6a730e47035e.png)
+<img width="772" alt="architecture" src="https://user-images.githubusercontent.com/50295043/144492184-4cfb43dd-011f-4aad-ac8b-a1e3f710a78d.png">
 
 ## 🛠 기술 스택
 - React
@@ -23,11 +23,7 @@
 - 배포 : Amazon s3, cloudfront
 - API : kakao map API, OpenWeatherMap API
 - 모니터링 : sentry
-
 - 라이브러리 : react-slick, react-intersection-observer, react-icons, material-ui, react-datepicker, react-loading
-
-## 🎨 와이어프레임
-
 
 ## 💻 주요 기능
 - 로그인 / 회원가입 / 강아지 정보 등록 (jwt 인증)
