@@ -113,38 +113,38 @@ const Main = (props) => {
     );
   };
 
-  // useEffect(() => {
-  //   dispatch(dogStaActions.getMainPostMD());
-  //   dispatch(postActions.getMainOlympicMD());
-  //   dispatch(postActions.getMainSeoulMD());
-  //   dispatch(postActions.getMainBanpoMD());
-  // }, []);
-
-  const memorizedCallback = useCallback(() => {
+  useEffect(() => {
     dispatch(dogStaActions.getMainPostMD());
     dispatch(postActions.getMainOlympicMD());
     dispatch(postActions.getMainSeoulMD());
     dispatch(postActions.getMainBanpoMD());
   }, []);
 
-  useEffect(() => {
-    memorizedCallback();
-  }, []);
+  // const memorizedCallback = useCallback(() => {
+  //   dispatch(dogStaActions.getMainPostMD());
+  //   dispatch(postActions.getMainOlympicMD());
+  //   dispatch(postActions.getMainSeoulMD());
+  //   dispatch(postActions.getMainBanpoMD());
+  // }, []);
+
+  // useEffect(() => {
+  //   memorizedCallback();
+  // }, []);
 
   // 알람 소켓
-  useEffect(() => {
-    setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
-  }, []);
+  // useEffect(() => {
+  //   setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
+  // }, []);
 
-  useEffect(() => {
-    socket?.emit("postUser", userId);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("postUser", userId);
+  // }, []);
 
-  useEffect(() => {
-    socket?.on("getNotification", (data) => {
-      setNotification((prev) => [...prev, data]);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket?.on("getNotification", (data) => {
+  //     setNotification((prev) => [...prev, data]);
+  //   });
+  // }, [socket]);
 
   const getNoti = useSelector((state) => state.notification.noti);
   let arr = localStorage.getItem("noti");

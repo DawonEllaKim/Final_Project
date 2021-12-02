@@ -61,7 +61,7 @@ const signDupAPI = (userEmail) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/checkDup",
+      url: "http://13.209.70.209/users/checkDup",
       data: { userEmail },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -82,6 +82,7 @@ const signDupAPI = (userEmail) => {
         dispatch(checkEmail("used", "red"));
         // console.log("이미 사용 중인 이메일입니다.", err);
         // window.alert("이미 사용 중인 이메일입니다.");
+        throw new Error("회원가입오류")
       });
   };
 };
@@ -89,7 +90,7 @@ const logInMD = (userEmail, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/login",
+      url: "http://13.209.70.209/users/login",
       data: { userEmail, password },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -125,7 +126,7 @@ const getIdAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/users/giveUserId",
+      url: "http://13.209.70.209/users/giveUserId",
       headers: {
         // "content-type": "application/json;charset=UTF-8",
 
@@ -147,7 +148,7 @@ const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/signUp",
+      url: "http://13.209.70.209/users/signUp",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -161,7 +162,7 @@ const signUserAPI = (formData) => {
         history.push("/signupModal");
       })
       .catch((err) => {
-        // console.log("signupAPI에서 오류발생", err);
+      
         window.alert("회원가입오류");
         window.location.reload("/signup");
       });
@@ -171,7 +172,7 @@ const checkDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/users/dogExist",
+      url: "http://13.209.70.209/users/dogExist",
       data: {},
       headers: {
         accept: "application/json",
@@ -195,7 +196,7 @@ const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/dogs/dogInfo",
+      url: "http://13.209.70.209/dogs/dogInfo",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",

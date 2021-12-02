@@ -31,7 +31,7 @@ const UPDATE_POST = "UPDATE_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const GET_MODAL = "GET_MODAL";
-
+const CHECK_REQUEST= "CHECK_REQUEST";
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -57,7 +57,7 @@ const updatePost = createAction(UPDATE_POST, (list) => ({ list }));
 const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
-
+const checkRequest = createAction(CHECK_REQUEST,(request)=>({request}))
 // initialState
 const initialState = {
   //메인 요청
@@ -72,6 +72,7 @@ const initialState = {
   //산책 요청
   list: [],
   modal: "",
+  request: "",
   myList: [
     {
       dogAge: "4~7세",
@@ -80,7 +81,7 @@ const initialState = {
       dogGender: "남",
       dogId: 19,
       dogImage:
-        "https://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/08ebac7d6d399be48695097eaa0846ac",
+        "http://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/08ebac7d6d399be48695097eaa0846ac",
       dogName: "골든",
       dogSize: "중형견",
       meetingDate: "2021-11-15T12:42:33.096Z",
@@ -90,7 +91,7 @@ const initialState = {
       userGender: "남",
       userId: 24,
       userImage:
-        "https://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/fb6d84033fc5fb08e60c699cb42ce2b8",
+        "http://doggy-project-bucket.s3.ap-northeast-2.amazonaws.com/fb6d84033fc5fb08e60c699cb42ce2b8",
       userLocation: "서울시 강동구",
       userNickname: "monmon",
       wishDesc: "하하하",
@@ -111,7 +112,7 @@ const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts",
+      url: "http://13.209.70.209/posts",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -149,7 +150,7 @@ const getMainOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/olympicPark",
+      url: "http://13.209.70.209/posts/main/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -188,7 +189,7 @@ const getMainSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/seoulForest",
+      url: "http://13.209.70.209/posts/main/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -227,7 +228,7 @@ const getMainBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/banpoPark",
+      url: "http://13.209.70.209/posts/main/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -266,7 +267,7 @@ const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/olympicPark",
+      url: "http://13.209.70.209/posts/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -303,7 +304,7 @@ const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/seoulForest",
+      url: "http://13.209.70.209/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -340,7 +341,7 @@ const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/banpoPark",
+      url: "http://13.209.70.209/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -377,7 +378,7 @@ const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/posts/${postId}`,
+      url: `http://13.209.70.209/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -387,6 +388,7 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
+        console.log(res.data)
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
         const fullDate = res.data.posts.meetingDate.split("T")[0];
@@ -459,6 +461,8 @@ const getPostMD = (postId) => {
         if (res.data.posts.locationCategory == "반포한강공원")
           res.data.posts.start = hangang[0];
         const postList = res.data.posts;
+        const requestData = res.data.existRequest;
+        dispatch(checkRequest(requestData))
         dispatch(getPost(postList));
         // console.log("정보 불러오기 완료");
       })
@@ -471,7 +475,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/mypage/myPost/${userId}`,
+      url: `http://13.209.70.209/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -508,7 +512,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/posts/${postId}`,
+      url: `http://13.209.70.209/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -659,6 +663,10 @@ export default handleActions(
     [GET_MODAL]: (state, action) =>
       produce(state, (draft) => {
         draft.modal = action.payload.modal;
+      }),
+      [CHECK_REQUEST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.request= action.payload.request;
       }),
   },
   initialState

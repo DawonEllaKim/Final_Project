@@ -66,7 +66,7 @@ const SignUp = () => {
   const [userLocationColor, setUserLocationColor] = useState("");
   const [userGenderColor, setUserGenderColor] = useState("");
   const [userAgeColor, setUserAgeColor] = useState("");
-
+  
   // submit 이후 상태
   const [emailStatus, setEmailStatus] = useState("");
   const [passwordStatus, setPasswordStatus] = useState("");

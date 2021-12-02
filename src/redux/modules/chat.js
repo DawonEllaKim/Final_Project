@@ -55,7 +55,7 @@ const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/chat/inbox",
+      url: "http://13.209.70.209/chat/inbox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -77,7 +77,7 @@ const outBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/chat/outBox",
+      url: "http://13.209.70.209/chat/outBox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ const sendMessageMD = (receiverId, message, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/chat/${receiverId}`,
+      url: `http://13.209.70.209/chat/${receiverId}`,
       data: { message },
       headers: {
         Accept: "application/json",
@@ -123,7 +123,7 @@ const sendNotificationMD = (receiverId, type, postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/notification/${receiverId}`,
+      url: `http://13.209.70.209/notification/${receiverId}`,
       data: { type: type, postId: postId },
       headers: {
         Accept: "application/json",
@@ -136,15 +136,13 @@ const sendNotificationMD = (receiverId, type, postId) => {
           history.push("/deleteModal");
         } else {
           dispatch(modalActions.setModal("산책 신청 성공"));
-
-          // console.log("res.data", res.data);
           history.push("/successModal");
         }
       })
       .catch((err) => {
         if (type == 1) {
           window.alert("쪽지 보내기에 실패했습니다. 잠시후 다시 시도해주세요");
-          // console.log("쪽지 보내기 POST 에러", err);
+
           history.push("/notification");
         } else {
           dispatch(alreadySubmit(true));
@@ -159,7 +157,7 @@ const getDetailMD = (chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/chat/${chatId}`,
+      url: `http://13.209.70.209/chat/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -180,7 +178,7 @@ const deleteInMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -201,7 +199,7 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
