@@ -61,7 +61,7 @@ const signDupAPI = (userEmail) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/users/checkDup",
+      url: "http://52.78.6.138/users/checkDup",
       data: { userEmail },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -90,7 +90,7 @@ const logInMD = (userEmail, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/users/login",
+      url: "http://52.78.6.138/users/login",
       data: { userEmail, password },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -126,7 +126,7 @@ const getIdAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/users/giveUserId",
+      url: "http://52.78.6.138/users/giveUserId",
       headers: {
         // "content-type": "application/json;charset=UTF-8",
 
@@ -148,7 +148,7 @@ const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/users/signUp",
+      url: "http://52.78.6.138/users/signUp",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -172,7 +172,7 @@ const checkDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/users/dogExist",
+      url: "http://52.78.6.138/users/dogExist",
       data: {},
       headers: {
         accept: "application/json",
@@ -196,7 +196,7 @@ const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "http://13.209.70.209/dogs/dogInfo",
+      url: "http://52.78.6.138/dogs/dogInfo",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",

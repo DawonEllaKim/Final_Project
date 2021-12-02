@@ -16,7 +16,7 @@ const postNotiMD = (notificationId, receiverId, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: `http://13.209.70.209/notification/${notificationId}/${receiverId}`,
+      url: `http://52.78.6.138/notification/${notificationId}/${receiverId}`,
       data: { type: type },
       headers: {
         accept: "application/json",
@@ -46,7 +46,7 @@ const getNotiMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/notification`,
+      url: `http://52.78.6.138/notification`,
       data: {},
       headers: {
         accept: "application/json",
@@ -70,7 +70,7 @@ const deleteNotiMD = (notificationId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "DELETE",
-      url: `http://13.209.70.209/notification/${notificationId}`,
+      url: `http://52.78.6.138/notification/${notificationId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

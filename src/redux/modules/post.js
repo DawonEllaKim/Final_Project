@@ -112,7 +112,7 @@ const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts",
+      url: "http://52.78.6.138/posts",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -150,7 +150,7 @@ const getMainOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/main/olympicPark",
+      url: "http://52.78.6.138/posts/main/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -189,7 +189,7 @@ const getMainSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/main/seoulForest",
+      url: "http://52.78.6.138/posts/main/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -228,7 +228,7 @@ const getMainBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/main/banpoPark",
+      url: "http://52.78.6.138/posts/main/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -267,7 +267,7 @@ const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/olympicPark",
+      url: "http://52.78.6.138/posts/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -304,7 +304,7 @@ const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/seoulForest",
+      url: "http://52.78.6.138/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -341,7 +341,7 @@ const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/posts/banpoPark",
+      url: "http://52.78.6.138/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -378,7 +378,7 @@ const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/posts/${postId}`,
+      url: `http://52.78.6.138/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -475,7 +475,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/mypage/myPost/${userId}`,
+      url: `http://52.78.6.138/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -512,7 +512,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/posts/${postId}`,
+      url: `http://52.78.6.138/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

@@ -61,7 +61,7 @@ const getMypageMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `http://13.209.70.209/mypage/myInfo/${userId}`,
+      url: `http://52.78.6.138/mypage/myInfo/${userId}`,
       data: {},
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -87,7 +87,7 @@ const getUserMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/users/me",
+      url: "http://52.78.6.138/users/me",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -115,7 +115,7 @@ const updateUserMD = (userInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "http://13.209.70.209/users/me",
+      url: "http://52.78.6.138/users/me",
       data: userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -142,7 +142,7 @@ const updateUserImageMD = (userInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "http://13.209.70.209/users/changeImage",
+      url: "http://52.78.6.138/users/changeImage",
       data: userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -170,7 +170,7 @@ const getDogMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "http://13.209.70.209/dogs",
+      url: "http://52.78.6.138/dogs",
       data: {},
       headers: {
         accept: "application/json",
@@ -197,7 +197,7 @@ const updateDogMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "http://13.209.70.209/dogs",
+      url: "http://52.78.6.138/dogs",
       data: formData,
       headers: {
         accept: "application/json",
@@ -222,7 +222,7 @@ const updateDogImageMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "http://13.209.70.209/dogs/changeImage",
+      url: "http://52.78.6.138/dogs/changeImage",
       data: formData,
       headers: {
         accept: "application/json",
