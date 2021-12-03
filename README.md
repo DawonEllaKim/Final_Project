@@ -2,7 +2,9 @@
 
 >#### 나도 강아지도 혼자였던 산책에서 벗어나, 산책 메이트와 일상을 공유하고 같이 산책하는 서비스 '산책할개'입니다.
 
-- 산책할개 사이트
+![logo](https://user-images.githubusercontent.com/50295043/144535569-91be75fa-2955-4b7d-8957-3af99c34645d.png)
+
+- [산책할개 사이트](https://togaether.shop/)
 - [시연 영상](https://www.youtube.com/watch?v=dKcawThqUME&t=16s)
 
 ## 👩‍👧‍👦 멤버 구성
