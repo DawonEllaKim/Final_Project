@@ -95,6 +95,7 @@ const Detail = (props) => {
   const request = useSelector((state) => state.post.request);
 
   useEffect(() => {
+    console.log(post);
     let dott = [];
     for (let i = 0; i < walk.length; i++) {
       dott[i] = new kakao.maps.LatLng(walk[i].Ma, walk[i].La);
