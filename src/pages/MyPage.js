@@ -57,10 +57,10 @@ const MyPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getMypageMD(currentPageUserId)); // 현재 마이페이지 유저 ID로 정보 불러오기
+    dispatch(userActions.getMypageMD(userId)); // 현재 마이페이지 유저 ID로 정보 불러오기
     setStatus("sta");
     setFocus("sta");
-  }, [currentPageUserId]);
+  }, [userId]);
 
   if (!userInfo) {
     // console.log("강아지 정보 없음");
