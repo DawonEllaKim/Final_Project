@@ -9,7 +9,6 @@ import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 import CommentList from "../../components/DogstaComment/CommentList";
 import CommentWrite from "../../components/DogstaComment/CommentWrite";
-import SuccessModal from "../../components/Modal/SuccessModal";
 import Spinner from "../../shared/Spinner";
 
 // 리덕스
@@ -26,7 +25,7 @@ const DogStaDetail = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const dog = localStorage.getItem("checkDog");
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -40,12 +39,11 @@ const DogStaDetail = (props) => {
   const myLike = useSelector((state) => state.dogsta.likeExist); // 게시물 좋아요 여부
   const commentList = useSelector((state) => state.comment.commentList); // 댓글 전체
 
-  // 좋아요 여부, 좋야요 갯수
+  // 좋아요 여부, 좋아요 갯수
   const [liked, setLiked] = useState(Boolean);
   const [likeCount, setLikeCount] = useState();
-
-  const [modal, setModal] = useState();
   const [loading, setLoading] = useState();
+
   const toggleLike = () => {
     if (liked === true) {
       setLiked(false);
@@ -68,12 +66,13 @@ const DogStaDetail = (props) => {
     setLoading(true);
     dispatch(dogstaActions.deletePostMD(postId)); // 삭제하기 함수
   };
-  const getModal = useSelector((state) => state.dogsta.modal);
+
   useEffect(() => {
     dispatch(dogstaActions.getPostMD(currentPostUserId, postId)); // 현재 개스타그램 게시물 정보 불러오기
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
-    dispatch(dogstaActions.getMyLikeMD(postId));
-    dispatch(commentActions.getCommentMD(postId));
+    dispatch(dogstaActions.getMyLikeMD(postId)); // 내가 좋아요 눌렀는지 여부
+    dispatch(commentActions.getCommentMD(postId)); // 댓글
+    
     setLiked(myLike);
     setLikeCount(likeCnt);
   }, [myLike, likeCnt, postId]);
@@ -150,7 +149,7 @@ const DogStaDetail = (props) => {
               )}
             </Left>
 
-            {/* 현재 게시물을 적은 유저 = 현재 로그인 한 유저가 같을때에는 수정하기 삭제하기 버튼 보여주기 */}
+            {/* 현재 로그인 한 유저가 작성한 게시물 일 때 수정, 삭제 버튼 보여주기 */}
             <Right>
               {currentPostUserId === userId && (
                 <BtnWrap>
@@ -165,7 +164,7 @@ const DogStaDetail = (props) => {
           <Time>{post.AGOTIME}</Time>
         </Write>
 
-        {/* 댓글 */}
+        {/* 댓글 리스트 */}
         <CommentWrap>
           {commentList[0] ? (
             <div>
@@ -181,8 +180,12 @@ const DogStaDetail = (props) => {
             <div>등록된 댓글이 없습니다.</div>
           )}
         </CommentWrap>
-        {<CommentWrite userId={userId} postId={postId} userImage={userImage} />}
+
+        {/* 댓글 작성 */}
+        <CommentWrite userId={userId} postId={postId} userImage={userImage} />
       </Wrap>
+
+      {/* 하단 고정 */}
       <NavBar add_dogsta />
     </>
   );
@@ -236,11 +239,6 @@ const PostInfo = styled.div`
 const Left = styled.div``;
 const Right = styled.div``;
 
-const Time = styled.div`
-  font-size: 14px;
-  color: #bdbdbd;
-  margin: 12px 0;
-`;
 const LikeCnt = styled.span`
   font-size: 14px;
   margin-right: 12px;
@@ -264,7 +262,13 @@ const BtnWrap = styled.div`
     padding: 0 6px;
   }
 `;
+
 const PostDesc = styled.p``;
+const Time = styled.div`
+  font-size: 14px;
+  color: #bdbdbd;
+  margin: 12px 0;
+`;
 
 const CommentWrap = styled.div`
   border-top: 1px solid #dbdbdb;
@@ -273,5 +277,6 @@ const CommentWrap = styled.div`
     font-size: 14px;
   }
 `;
+
 
 export default DogStaDetail;

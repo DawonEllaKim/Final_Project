@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
-import DogStaSuccessModal from "../../components/Modal/DogStarSuccessModal";
 import Spinner from "../../shared/Spinner";
 
 // 리덕스
@@ -16,12 +15,12 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 // 이미지 + 아이콘
 import defaultImage from "../../image/defaultImage.png";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { FaBullseye } from "react-icons/fa";
 
 const DogStaWrite = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -29,8 +28,7 @@ const DogStaWrite = (props) => {
   const [imgFile, setImgFile] = useState(null);
   const [dogPostDesc, setDogPostDesc] = useState("");
   const [loading, setLoading] = useState("");
-  const [modal, setModal] = useState("");
-  const getModal = useSelector((state) => state.dogsta.modal);
+
   // 이미지 파일
   const imageChange = (e) => {
     e.preventDefault();
@@ -79,6 +77,7 @@ const DogStaWrite = (props) => {
         {/* 게시물 작성 부분 */}
         <Write>
           <div>
+            {/* 이미지 등록 */}
             <img src={imgBase64} />
             <label for="input-file">
               <UploadFileIcon
@@ -97,6 +96,7 @@ const DogStaWrite = (props) => {
               onChange={imageChange}
             />
           </div>
+          {/* 내용 등록 */}
           <textarea
             placeholder={"강아지와의 일상을 기록하세요"}
             onChange={dogPostDescChange}
@@ -109,7 +109,7 @@ const DogStaWrite = (props) => {
           />
         </Write>
 
-        {/* 글 작성 버튼들 */}
+        {/* 버튼 */}
         <FlexButton>
           <AddBtn onClick={addPost}>작성하기</AddBtn>
         </FlexButton>
@@ -124,17 +124,14 @@ const Wrap = styled.div`
   width: 100%;
   padding: 0 5%;
 `;
-
 const Write = styled.div`
   width: 100%;
-
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
   img {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -142,7 +139,6 @@ const Write = styled.div`
     border: 1px solid #ebebeb;
     border-radius: 45px;
   }
-
   label {
     width: 100%;
     text-align: center;
@@ -154,13 +150,11 @@ const Write = styled.div`
     border-radius: 4px;
     cursor: pointer;
   }
-
   input {
     width: 100%;
     margin-bottom: 50px;
     display: none;
   }
-
   textarea {
     width: 100%;
     height: 100px;
@@ -171,7 +165,6 @@ const Write = styled.div`
     border: none;
     border-radius: 14px;
     font-family: "Noto Sans KR", sans-serif;
-
     &::-webkit-scrollbar {
       display: none;
     }

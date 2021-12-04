@@ -20,6 +20,7 @@ const DogStaMain = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -31,8 +32,8 @@ const DogStaMain = (props) => {
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
 
   // 무한스크롤
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageLikeNumber, setPageLikeNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1); // 최신순
+  const [pageLikeNumber, setPageLikeNumber] = useState(1); // 좋아요순
 
   useEffect(() => {
     dispatch(dogstaActions.getFirstRecentMD(pageNumber));
@@ -52,17 +53,16 @@ const DogStaMain = (props) => {
     setPageLikeNumber(pageLikeNumber + 1);
   };
 
+  // 무한스크롤 페이지 인식 true, false
   useEffect(() => {
     if (inView) {
       getMoreCard();
-      // console.log("최신순 로딩중");
     }
   }, [inView]);
 
   useEffect(() => {
     if (likeView) {
       getMoreLikeCard();
-      // console.log("좋아요순 로딩중");
     }
   }, [likeView]);
 
@@ -82,12 +82,8 @@ const DogStaMain = (props) => {
     setStatus("newest");
     setFocus("newest");
 
-    dispatch(dogstaActions.getAllPostMD());
+    dispatch(dogstaActions.getAllPostMD()); // 전체 게시물 수
   }, []);
-
-  // 무한스크롤 페이지 인식 true, false
-  // console.log(inView);
-  // console.log(likeView);
 
   return (
     <>
@@ -249,6 +245,7 @@ const DogStaMain = (props) => {
           </Body>
         )}
       </Wrap>
+      {/* 하단 고정 */}
       <NavBar add_dogsta />
     </>
   );
@@ -263,27 +260,6 @@ const Wrap = styled.div`
   align-content: center;
   /* margin: auto; */
   padding: 0 5%;
-`;
-const NoCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 60px;
-  border-radius: 20px;
-`;
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  width: 160px;
-  padding: 16px 0;
-  margin: 30px auto;
-  background-color: #fff;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  border-radius: 10px;
-  border: 1px gray;
 `;
 const TopBarImg = styled.img`
   width: 24px;
@@ -315,6 +291,27 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+const NoCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
+`;
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 160px;
+  padding: 16px 0;
+  margin: 30px auto;
+  background-color: #fff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px gray;
 `;
 const Posts = styled.div`
   box-sizing: border-box;
@@ -356,7 +353,6 @@ const WriterInfo = styled.div`
     font-size: 14px;
   }
 `;
-
 const UserImage = styled.img`
   box-sizing: border-box;
   background-position: center;
@@ -367,7 +363,6 @@ const UserImage = styled.img`
   border-radius: 50%;
   margin-right: 4px;
 `;
-
 const LikeInfo = styled.div`
   margin-right: 4px;
   span {
