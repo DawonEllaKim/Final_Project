@@ -1,16 +1,14 @@
+// NotFound.js - "페이지를 찾을수 없습니다" 페이지
 import React, { useEffect } from "react";
 import styled from "styled-components";
+
+// 리덕스
 import { history } from "../redux/configureStore";
 
+// 이미지
 import spinner from "../image/spinner.gif";
 
 const NotFound = () => {
-  useEffect(() => {
-    setTimeout(() => {
-      history.push("/login");
-    }, 1700);
-  }, []);
-
   return (
     <Wrap>
       <img src={spinner} />
@@ -18,6 +16,13 @@ const NotFound = () => {
     </Wrap>
   );
 };
+
+useEffect(() => {
+  setTimeout(() => {
+    history.push("/login");
+  }, 1700);
+}, []);
+
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,4 +34,5 @@ const Wrap = styled.div`
     margin-top: -100px;
   }
 `;
+
 export default NotFound;

@@ -1,3 +1,4 @@
+// Caution2.js - 산책 주의사항 페이지2
 import React from "react";
 import styled from "styled-components";
 
@@ -7,7 +8,7 @@ import { history } from "../../redux/configureStore";
 // 컴포넌츠
 import NavBar from "../../components/NavBar";
 
-// 리액트 아이콘
+// 이미지 + 아이콘
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
 import caution from "../../image/caution2.png";
@@ -54,6 +55,7 @@ const Caution2 = () => {
         </p>
       </Paragraph>
 
+      {/* 네브바 */}
       <NavBar />
     </Wrap>
   );
@@ -61,16 +63,13 @@ const Caution2 = () => {
 
 const Wrap = styled.div`
   box-sizing: border-box;
-
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   padding: 14px 5% 0 5%;
-
   font-size: 14px;
   text-align: center;
 `;
@@ -81,7 +80,6 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   height: 52px;
-
   margin-bottom: 26px;
   font-size: 18px;
 `;
