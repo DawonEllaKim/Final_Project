@@ -8,7 +8,7 @@
 - [시연 영상](https://www.youtube.com/watch?v=dKcawThqUME&t=16s)
 
 ## 👩‍👧‍👦 멤버 구성
-- Front-end : 김다원, 김효진, 이수창
+- Front-end : 김다원, 김효진, 이수창(팀장)
 - Back-end : 탁정규, 허선희, 황유정
 - Designer : 서연수, 이성원
 
