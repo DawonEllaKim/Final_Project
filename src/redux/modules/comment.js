@@ -42,11 +42,10 @@ const addCommentMD = (dogPostId, comment) => {
     })
       .then((res) => {
         dispatch(addComment(comment));
-         dispatch(getCommentMD(dogPostId))
-      
+        dispatch(getCommentMD(dogPostId));
       })
       .catch((err) => {
-        console.log("댓글 post 실패", err);
+        // console.log("댓글 post 실패", err);
       });
   };
 };
@@ -62,7 +61,7 @@ const getCommentMD = (dogPostId) => {
         dispatch(getComment(commentList));
       })
       .catch((err) => {
-        console.log("댓글 get 에러", err);
+        // console.log("댓글 get 에러", err);
       });
   };
 };
@@ -105,8 +104,7 @@ const deleteCommentMD = (dogPostId, commentId) => {
       .then((res) => {
         dispatch(deleteComment(commentId));
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 };
 
@@ -134,7 +132,7 @@ export default handleActions(
           (comment) => comment.commentId !== action.payload.commentList
         );
       }),
-      [GET_COMMENT]: (state, action) =>
+    [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.commentList = action.payload.commentList;
       }),

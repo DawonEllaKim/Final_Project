@@ -28,7 +28,6 @@ import AddDate from "./components/AddDate";
 
 // 지도
 import RegisterWalk from "./pages/RegisterWalk";
-import MapContainer3 from "./components/MapContainer3";
 import EditWalk from "./pages/EditWalk";
 import EditMapContainer3 from "./components/EditMapContainer";
 import RegisterRoad from "./pages/RegisterRoad";
@@ -155,7 +154,6 @@ function App() {
         {/* 지도 */}
         <PrivateRoute exact path="/RegisterWalk" component={RegisterWalk} />
         <PrivateRoute exact path="/EditWalk/:id" component={EditWalk} />
-        <PrivateRoute exact path="/MapContainer3" component={MapContainer3} />
         <PrivateRoute
           exact
           path="/editMapContainer3/:id"

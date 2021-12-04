@@ -1,14 +1,14 @@
 // Main.js - 메인 페이지
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import { io } from "socket.io-client";
 
 // 리덕스
-import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as dogStaActions } from "../redux/modules/dogsta";
-import { actionCreators as notiActions } from "../redux/modules/notification";
+import { actionCreators as walkPostActions } from "../redux/modules/post";
+import { actionCreators as dogStaPostActions } from "../redux/modules/dogsta";
+import { actionCreators as notificationActions } from "../redux/modules/notification";
 import { actionCreators as mainActions } from "../redux/modules/main";
 import { actionCreators as signActions } from "../redux/modules/sign";
 
@@ -25,21 +25,17 @@ import Hangang from "../image/MainOlympic.jpg";
 import Seoul from "../image/MainSeoul.jpg";
 import Banpo from "../image/MainHangang.jpg";
 import MainPageLogo from "../image/MainPageLogo.png";
-import { RiFeedbackLine } from "react-icons/ri";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import { actionCreators } from "../redux/modules/modal";
-// 슬라이드
 
+import { actionCreators } from "../redux/modules/modal";
+
+// 슬라이드
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Main = (props) => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const [page, setPage] = useState();
 
   const dogStaPostList = useSelector((state) => state.dogsta.mainFourPosts);
@@ -115,22 +111,15 @@ const Main = (props) => {
   };
 
   useEffect(() => {
-    dispatch(dogStaActions.getMainPostMD());
-    dispatch(postActions.getMainOlympicMD());
-    dispatch(postActions.getMainSeoulMD());
-    dispatch(postActions.getMainBanpoMD());
+    dispatch(dogStaPostActions.getMainPostMD());
+    dispatch(walkPostActions.getMainOlympicMD());
+    dispatch(walkPostActions.getMainSeoulMD());
+    dispatch(walkPostActions.getMainBanpoMD());
   }, []);
 
-  // const memorizedCallback = useCallback(() => {
-  //   dispatch(dogStaActions.getMainPostMD());
-  //   dispatch(postActions.getMainOlympicMD());
-  //   dispatch(postActions.getMainSeoulMD());
-  //   dispatch(postActions.getMainBanpoMD());
-  // }, []);
-
-  // useEffect(() => {
-  //   memorizedCallback();
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // 알람 소켓
   // useEffect(() => {
@@ -157,7 +146,7 @@ const Main = (props) => {
   }, [notification, noti]);
 
   useEffect(() => {
-    dispatch(notiActions.getNotiMD());
+    dispatch(notificationActions.getNotiMD());
   }, []);
 
   if (is_loading) {
@@ -553,7 +542,6 @@ const TopBarBtnRight = styled.button`
   height: 52px;
   cursor: pointer;
 `;
-
 const TopWrap = styled.div`
   margin: 0 5%;
 `;
@@ -601,23 +589,6 @@ const CautionCard = styled.div`
     word-break: keep-all;
   }
 `;
-// const EventCard = styled.div`
-//   height: 154px;
-//   padding: 17px;
-//   &::after {
-//     content: "";
-//     display: block;
-//     clear: both;
-//   }
-//   span {
-//     font-weight: 600;
-//   }
-//   p {
-//     font-size: 14px;
-//     word-break: keep-all;
-//   }
-// `;
-
 const ImageWrap = styled.div`
   width: 120px;
   position: relative;
@@ -626,7 +597,6 @@ const ImageWrap = styled.div`
   border-radius: 14px;
   float: left;
 `;
-
 const CautionImage = styled.img`
   width: 100%;
   height: 100%;
@@ -647,7 +617,6 @@ const TextWrap = styled.div`
   left: 16px;
   transform: translateY(-50%);
 `;
-
 const WholeCardWrap = styled.div`
   width: 100%;
 `;
@@ -674,17 +643,13 @@ const Number = styled.span`
   position: absolute;
   top: 14px;
   left: 14px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 68px;
   height: 27px;
   background-color: #fff;
   color: #000;
-  /* opacity: 0.6; */
-
   border-radius: 14px;
   font-size: 14px;
 `;
@@ -692,20 +657,16 @@ const CardText = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   margin-bottom: 16px;
-
   font-weight: 500;
   font-size: 20px;
   line-height: 29px;
   color: #fff;
-
   span {
     margin-top: 8px;
     font-size: 14px;
@@ -713,24 +674,16 @@ const CardText = styled.div`
     line-height: 20.27px;
   }
 `;
-
-const CardTitle = styled.p`
-  position: absolute;
-  bottom: 120px;
-  font-size: 30px;
-`;
 const SubLists = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
-
 const MainCardWrap = styled.div`
   width: 23%;
   cursor: pointer;
 `;
-
 const MainCard = styled.div`
   width: 100%;
   position: relative;
@@ -744,16 +697,6 @@ const Image = styled.img`
   position: absolute;
   border-radius: 5px;
 `;
-
-const LoginImg = styled.div`
-  position: relative;
-  width: 100%;
-  height: 172px;
-  border-radius: 25px;
-  cursor: pointer;
-  object-fit: cover;
-`;
-
 const DogSta = styled.div`
   display: flex;
   flex-direction: column;
@@ -785,7 +728,6 @@ const MoreBtn = styled.button`
   opacity: 0.6;
   cursor: pointer;
 `;
-
 const DogstaSlide = styled(Slider)`
   display: flex;
   flex-direction: row;
@@ -806,7 +748,6 @@ const DogstaSlide = styled(Slider)`
 const Body = styled.div`
   width: 100%;
 `;
-
 const BodyWrap = styled.div`
   width: 100%;
   padding: 20px 5%;

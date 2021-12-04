@@ -388,7 +388,7 @@ const getPostMD = (postId) => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
         const fullDate = res.data.posts.meetingDate.split("T")[0];

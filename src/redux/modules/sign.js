@@ -95,13 +95,14 @@ const logInMD = (userEmail, password) => {
       .then((res) => {
         dispatch(loading(false));
         const token = res.data.token;
+
         setCookie("token", token);
         localStorage.setItem("userEmail", userEmail);
         dispatch(checkDogAPI());
         dispatch(UserActions.getUserMD());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
         // dispatch(getModal(true));
-        history.push("/check")
+        history.push("/check");
       })
       .catch((err) => {
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
@@ -205,7 +206,7 @@ const signDogAPI = (formData) => {
         dispatch(checkDogAPI());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
 
-        history.push("/")
+        history.push("/");
 
         dispatch(dogModal(false));
       })

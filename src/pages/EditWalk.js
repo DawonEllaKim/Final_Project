@@ -89,7 +89,7 @@ const EditWalk = (props) => {
   const editEndLocationAddress = markerName.endLocationAddress
     ? markerName.endLocationAddress
     : post.endLocationAddress;
-  console.log(editLocationCategory, editRouteName, editTotalTime);
+  // console.log(editLocationCategory, editRouteName, editTotalTime);
   // console.log(
   //   editTotalTime,
   //   editTotalDistance,
@@ -124,7 +124,7 @@ const EditWalk = (props) => {
       completed: false,
       dogCount: dogCount,
     };
-    console.log(editTotalDistance, editLocationCategory);
+    // console.log(editTotalDistance, editLocationCategory);
     dispatch(PostActions.updatePostMD(postId, Info, get_id));
     history.push(`/posts/${post.postId}`);
   };
