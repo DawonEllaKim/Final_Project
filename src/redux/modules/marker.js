@@ -20,7 +20,7 @@ const initialState = {
 const addMarkerAX = (marker) => {
   return function (dispatch, getState, { history }) {
     dispatch(addMarker(marker));
-    history.push("/map2");
+    history.push("/registerwalk");
   };
 };
 const addRoadAX = (marker, distance) => {
