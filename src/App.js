@@ -30,11 +30,9 @@ import AddDate from "./components/AddDate";
 
 // 지도
 import Map2 from "./pages/Map2";
-import MapContainer3 from "./components/MapContainer3";
+
 import MapEdit from "./pages/MapEdit";
-import Map from "./pages/Map";
 import EditMapContainer3 from "./components/EditMapContainer";
-import FindLocation from "./components/FindLocation";
 import Road from "./pages/Road";
 import MapPractice from "./pages/MapPractice";
 
@@ -163,14 +161,11 @@ function App() {
         <PrivateRoute exact path="/map2" component={Map2} />
         <PrivateRoute exact path="/write" component={Write} />
         <PrivateRoute exact path="/mapEdit/:id" component={MapEdit} />
-        <PrivateRoute exact path="/MapContainer3" component={MapContainer3} />
         <PrivateRoute
           exact
           path="/editMapContainer3/:id"
           component={EditMapContainer3}
         />
-        <PrivateRoute exact path="/findLocation" component={FindLocation} />
-        <PrivateRoute exact path="/map" component={Map} />
         <PrivateRoute exact path="/road" component={Road} />
         <PrivateRoute exact path="/mapPractice" component={MapPractice} />
         {/* 마이페이지 */}
