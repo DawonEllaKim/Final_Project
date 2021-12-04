@@ -49,7 +49,7 @@ import ErrorModal from "../components/ErrorModal";
 import TopBar from "../components/TopBar";
 
 const { kakao } = window;
-const MapPractice = React.memo(() => {
+const RegisterRoad = React.memo(() => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -1056,4 +1056,4 @@ const Options = styled.div`
   border: none;
 `;
 
-export default MapPractice;
+export default RegisterRoad;

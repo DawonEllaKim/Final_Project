@@ -23,18 +23,14 @@ import Caution2 from "./pages/Caution/Caution2";
 import Caution3 from "./pages/Caution/Caution3";
 
 //  산책 게시물 조회/등록/수정 페이지
-import Write from "./pages/Write";
 import Detail from "./pages/Detail";
-import PostEdit from "./pages/PostEdit";
 import AddDate from "./components/AddDate";
 
 // 지도
-import Map2 from "./pages/Map2";
-
-import MapEdit from "./pages/MapEdit";
+import RegisterWalk from "./pages/RegisterWalk";
+import EditWalk from "./pages/EditWalk";
 import EditMapContainer3 from "./components/EditMapContainer";
-import Road from "./pages/Road";
-import MapPractice from "./pages/MapPractice";
+import RegisterRoad from "./pages/RegisterRoad";
 
 // 마이페이지
 import MyPage from "./pages/MyPage";
@@ -62,7 +58,6 @@ import CommonModal from "./components/Modal/CommonModal";
 import DeleteModal from "./components/Modal/deleteModal";
 import ErrorModal from "./components/Modal/ErrorModal";
 import SignUpSuccessModal from "./components/Modal/SignUpSuccessModal";
-import { getCookie } from "./shared/Cookie";
 import DogStarMainModal from "./components/Modal/DogStarMainModal";
 import PostEditModal from "./components/Modal/PostEditModal";
 import MainModal from "./components/Modal/MainModal";
@@ -153,21 +148,19 @@ function App() {
         <Route exact path="/postEditmodal" component={PostEditModal} />
         <Route exact path="/mainmodal" component={MainModal} />
         {/* 산책 게시물 조회/등록/수정 페이지 */}
-        <PrivateRoute exact path="/write/:id" component={Write} />
         <PrivateRoute exact path="/posts/:id" component={Detail} />
-        <PrivateRoute exact path="/postEdit/:id" component={PostEdit} />
+
         <PrivateRoute exact path="/addDate" component={AddDate} />
         {/* 지도 */}
-        <PrivateRoute exact path="/map2" component={Map2} />
-        <PrivateRoute exact path="/write" component={Write} />
-        <PrivateRoute exact path="/mapEdit/:id" component={MapEdit} />
+        <PrivateRoute exact path="/RegisterWalk" component={RegisterWalk} />
+        <PrivateRoute exact path="/EditWalk/:id" component={EditWalk} />
         <PrivateRoute
           exact
           path="/editMapContainer3/:id"
           component={EditMapContainer3}
         />
-        <PrivateRoute exact path="/road" component={Road} />
-        <PrivateRoute exact path="/mapPractice" component={MapPractice} />
+
+        <PrivateRoute exact path="/RegisterRoad" component={RegisterRoad} />
         {/* 마이페이지 */}
         <PrivateRoute exact path="/mypage/:userId" component={MyPage} />
         <PrivateRoute exact path="/dogProfile" component={DogProfile} />

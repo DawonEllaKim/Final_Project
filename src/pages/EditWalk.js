@@ -23,7 +23,7 @@ import search from "../image/search.png";
 import { BsCalendarCheck } from "react-icons/bs";
 import { RiPinDistanceFill } from "react-icons/ri";
 
-const MapEdit = (props) => {
+const EditWalk = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -107,7 +107,7 @@ const MapEdit = (props) => {
     setWishDesc(e.target.value);
   };
   //지도 표시할 div
-  // console.log(post.mapedit_date);
+  // console.log(post.EditWalk_date);
   // console.log(moment(startDate).subtract(9, "hours")._d);
 
   const editLocation = () => {
@@ -270,7 +270,7 @@ const MeetingTime = styled.div`
   font-size: 16px;
 `;
 const MeetingLocation = styled.div``;
-export default MapEdit;
+export default EditWalk;
 const Title1 = styled.div`
   box-sizing: border-box;
   height: 35px;

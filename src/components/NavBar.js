@@ -30,7 +30,7 @@ const NavBar = (props) => {
       history.push("/signDog");
       return;
     }
-    history.push("/map2");
+    history.push("/registerwalk");
   };
   const dogStarHandler = () => {
     if (dog == "false") {

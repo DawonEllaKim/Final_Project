@@ -11,7 +11,7 @@ import "../components/react-datepicker.css";
 import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import ErrorModal from "../components/ErrorModal";
-import SuccessModal from "../components/Modal/SuccessModal";
+
 
 // 리덕스
 import { actionCreators as PostActions } from "../redux/modules/post";
@@ -26,7 +26,7 @@ import search from "../image/search.png";
 import detailAddress from "../image/detailAddress.png";
 import detailFilter from "../image/detailFilter.png";
 
-const Map2 = (props) => {
+const RegisterWalk = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -98,7 +98,7 @@ const Map2 = (props) => {
           <SearchWrap>
             <WalkButton
               onClick={() => {
-                history.push("/MapPractice");
+                history.push("/registerRoad");
               }}
             >
               <img src={search} />
@@ -304,4 +304,4 @@ const AddButton = styled.button`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
 
-export default Map2;
+export default RegisterWalk;
