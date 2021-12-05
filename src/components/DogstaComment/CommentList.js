@@ -1,10 +1,11 @@
+// CommentList.js - 개스타그램 댓글 각 리스트 컴포넌트
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { history } from "../../redux/configureStore";
 
 // 리덕스
 import { actionCreators as commentActions } from "../../redux/modules/comment";
-import { history } from "../../redux/configureStore";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -15,9 +16,9 @@ const CommentList = ({ comment }) => {
   const dispatch = useDispatch();
   const [commentDesc, setCommentDesc] = useState("");
   const [edit, setEdit] = useState(false);
+
   const userId = localStorage.getItem("userId"); // 로그인한 유저 id
   const commentId = comment.commentId; // 댓글 id
-
   const userNickname = comment.userNickname;
   const desc = comment.commentDesc;
   const time = comment.AGOTIME;
@@ -60,6 +61,7 @@ const CommentList = ({ comment }) => {
     <div>
       <Wrap>
         <TextWrap>
+          {/* 댓글 작성한 유저 아이디 */}
           <Left>
             <User
               onClick={() => {
@@ -87,13 +89,13 @@ const CommentList = ({ comment }) => {
               </div>
             )}
           </Right>
-          {/* <Comment>댓글 달기</Comment> */}
         </TextWrap>
 
         {/* 댓글 작성한 본인만 수정/삭제 가능 */}
         {comment.userId == userId ? (
           <BtnWrap>
             {edit ? (
+              // 수정 상태 시 완료/취소 버튼
               <div>
                 <Edit onClick={completeEdit} size='120'>
                   <DoneIcon sx={{ fontSize: 22 }} />
@@ -103,6 +105,7 @@ const CommentList = ({ comment }) => {
                 </Cancle>
               </div>
             ) : (
+              // 수정 상태 아닐 시 수정/삭제 버튼
               <div>
                 <Edit onClick={editComment}>
                   <ModeEditIcon sx={{ fontSize: 22 }} />
