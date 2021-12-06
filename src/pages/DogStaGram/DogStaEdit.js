@@ -1,18 +1,16 @@
+// DogStaEdit.js - 개스타그램 게시물 수정 페이지
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 // 컴포넌츠
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 import SuccessModal from "../../components/Modal/SuccessModal";
+import DogStarEditModal from "../../components/DogStarEditModal";
 
 // 리덕스
-import dogsta, {
-  actionCreators as postActions,
-} from "../../redux/modules/dogsta";
-import DogStarEditModal from "../../components/DogStarEditModal";
+import {actionCreators as dogstaActions} from "../../redux/modules/dogsta";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -21,22 +19,21 @@ const DogStaEdit = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
+  const dispatch = useDispatch();
   const [dogPostDesc, setDogPostDesc] = useState("");
 
-  const postId = props.match.params.dogPostId;
-  const currentPostUserId = props.match.params.userId;
+  const postId = props.match.params.dogPostId; // 게시물 아이디
+  const currentPostUserId = props.match.params.userId; // 게시물 작성한 유저 아이디
 
   const post = useSelector((state) => state.dogsta.eachList);
-  const userId = localStorage.getItem("userId");
   const getModal = useSelector((state) => state.dogsta.modal);
+
   const [isModal, setIsModal] = useState();
   const [modal, setModal] = useState();
 
   useEffect(() => {
-    dispatch(postActions.getPostMD(currentPostUserId, postId));
+    dispatch(dogstaActions.getPostMD(currentPostUserId, postId));
     setDogPostDesc(post.dogPostDesc);
     setModal(getModal);
   }, [post.dogPostImage, post.dogPostDesc, getModal]);
@@ -49,7 +46,7 @@ const DogStaEdit = (props) => {
     const Info = {
       dogPostDesc,
     };
-    dispatch(postActions.editPostMD(postId, Info));
+    dispatch(dogstaActions.editPostMD(postId, Info));
   };
 
   return (
@@ -69,6 +66,7 @@ const DogStaEdit = (props) => {
           </Modal>
         </ImageEditWrap>
 
+        {/* 이미지 수정 모달 */}
         {isModal && (
           <DogStarEditModal
             setIsModal={setIsModal}
@@ -142,7 +140,6 @@ const Edit = styled.div`
   bottom: 0;
   right: 0;
   cursor: pointer;
-
   width: 40px;
   height: 40px;
   padding: 6px;

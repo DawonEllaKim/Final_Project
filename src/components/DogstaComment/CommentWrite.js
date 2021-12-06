@@ -1,7 +1,10 @@
+// CommentWrite.js - 개스타그램 댓글 작성 컴포넌트
 import React, { useState } from "react";
 import { history } from "../../redux/configureStore";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+
+// 리덕스
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentWrite = (props) => {
@@ -36,12 +39,14 @@ const CommentWrite = (props) => {
     <div>
       <Wrap>
         <WriteWrap>
+          {/* 유저 이미지 */}
           <UserImage
             src={userImage}
             onClick={() => {
               history.push(`/mypage/${userId}`);
             }}
           />
+          {/* 댓글 작성 input */}
           <CommentInput
             placeholder="댓글을 입력하세요"
             onChange={commentChange}
