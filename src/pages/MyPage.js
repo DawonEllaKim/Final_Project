@@ -37,9 +37,9 @@ const MyPage = (props) => {
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
   const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
 
-  console.log("userInfo", userInfo);
-  console.log("currentPageUserId", currentPageUserId);
-  console.log("currentLogInUserId", userId);
+  // console.log("userInfo", userInfo);
+  // console.log("currentPageUserId", currentPageUserId);
+  // console.log("currentLogInUserId", userId);
 
   const rawRoomId = [userId, currentPageUserId].sort();
   const roomId = rawRoomId[0] + "-" + rawRoomId[1];

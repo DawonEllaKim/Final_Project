@@ -15,7 +15,7 @@ const GaeStaCard = (props) => {
 
   const userId = props.userId; // 현재 페이지의 유저아이디
   const postList = useSelector((state) => state.dogsta.myList); //현재 페이지 유저의 모든 개스타그램 게시물
-  console.log("postList", postList);
+  // console.log("postList", postList);
 
   useEffect(() => {
     window.scrollTo(0, 0);
