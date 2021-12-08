@@ -32,6 +32,7 @@ const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const GET_MODAL = "GET_MODAL";
 const CHECK_REQUEST = "CHECK_REQUEST";
+const JUST_ADDED = "JUST_ADDED";
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -58,6 +59,7 @@ const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const checkRequest = createAction(CHECK_REQUEST, (request) => ({ request }));
+const justAdded = createAction(JUST_ADDED, (justAdded) => ({ justAdded }));
 // initialState
 const initialState = {
   //메인 요청
@@ -98,6 +100,7 @@ const initialState = {
     },
   ],
   is_loading: true,
+  justAdded: false,
 };
 
 const modalMD = () => {
@@ -561,8 +564,9 @@ const addPostMD = (post, postId) => {
       .createPostAX(post, postId)
       .then((res) => {
         // dispatch(addPost(post));
-        dispatch(modalActions.setModal("산책 등록완료"));
-        history.push("/mainModal");
+        // dispatch(modalActions.setModal("산책 등록완료"));
+        history.push("/alllist/all");
+        dispatch(justAdded(postId, true));
       })
       .catch((err) => {
         window.alert("에러");
@@ -590,8 +594,8 @@ const deletePostMD = (postId, get_id) => {
     apis
       .deletePostAX(postId, get_id)
       .then((res) => {
-        dispatch(modalActions.setModal("게시물이 삭제되었습니다"));
         history.push("/deleteModal");
+        dispatch(modalActions.setModal("게시물이 삭제되었습니다"));
       })
       .catch((err) => {
         // console.log(err);
@@ -668,6 +672,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.request = action.payload.request;
       }),
+    [JUST_ADDED]: (state, action) =>
+      produce(state, (draft) => {
+        draft.justAdded = action.payload.justAdded;
+      }),
   },
   initialState
 );
@@ -684,6 +692,7 @@ const actionCreators = {
   addPost,
   updatePost,
   deletePost,
+  justAdded,
 
   modalMD,
   getAllMD,

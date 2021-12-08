@@ -84,7 +84,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url:"https://www.walkadog.shop/dogsta/recentFilter",
+      url: "https://www.walkadog.shop/dogsta/recentFilter",
       data: {},
       headers: {},
     })

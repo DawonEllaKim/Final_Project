@@ -17,6 +17,12 @@ import Spinner from "../shared/Spinner";
 import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
+  const justAddedPostId = useSelector((state) => state.post.justAdded);
+  console.log("justAddedPostId", justAddedPostId);
+  useEffect(() => {
+    console.log("justAddedPostId");
+  }, [justAddedPostId]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

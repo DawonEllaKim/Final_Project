@@ -57,11 +57,11 @@ const dogModalMD = () => {
     history.goBack();
   };
 };
-const getMypageMD = (userId) => {
+const getMypageMD = (currentPageUserId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/mypage/myInfo/${userId}`,
+      url: `https://www.walkadog.shop/mypage/myInfo/${currentPageUserId}`,
       data: {},
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -73,11 +73,9 @@ const getMypageMD = (userId) => {
       .then((res) => {
         const userInfo = res.data.posts[0];
         dispatch(getList(userInfo));
-     
       })
       .catch((err) => {
         // console.log("getMypageMD에서 오류발생", err);
-
         history.push("/login");
       });
   };
