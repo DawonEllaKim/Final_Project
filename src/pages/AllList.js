@@ -18,9 +18,9 @@ import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
   const justAddedPostId = useSelector((state) => state.post.justAdded);
-  console.log("justAddedPostId", justAddedPostId);
+  // console.log("justAddedPostId", justAddedPostId);
   useEffect(() => {
-    console.log("justAddedPostId");
+    // console.log("justAddedPostId");
   }, [justAddedPostId]);
 
   useEffect(() => {
