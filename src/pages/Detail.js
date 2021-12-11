@@ -50,12 +50,6 @@ const Detail = (props) => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    dispatch(postActions.getPostMD(postId));
-    setWalk(post.walk ? post.walk : list1);
-    setStart(post.start ? post.start : olympic);
-  }, [post.walk, post.start]);
-
   const [walk, setWalk] = useState(post.walk ? post.walk : list1);
   const [start, setStart] = useState(post.start ? post.start : olympic);
 
@@ -82,7 +76,19 @@ const Detail = (props) => {
 
   // 산책 정보
   const meetingDate = post.meetingDate;
+  // const companies = useSelector((state) => state.post.companies);
+  // console.log("신청자수", companies.length);
+  // console.log("같이 산책할 수 있는 인원", dogCo);
   const completed = post.completed;
+
+  // if (companies.length < dogCo) {
+  //   const completed = post.completed;
+  //   console.log("강아지는 더 모집", completed);
+  // } else {
+  //   const completed = "마감";
+  //   console.log("모집 상황", completed);
+  // }
+
   const locationCategory = post.locationCategory;
 
   //산책로 찾기
@@ -93,6 +99,12 @@ const Detail = (props) => {
 
   const repeat = useSelector((state) => state.chat.alreadySubmit);
   const request = useSelector((state) => state.post.request);
+
+  useEffect(() => {
+    dispatch(postActions.getPostMD(postId));
+    setWalk(post.walk ? post.walk : list1);
+    setStart(post.start ? post.start : olympic);
+  }, [post.walk, post.start]);
 
   useEffect(() => {
     // console.log(post);
@@ -413,7 +425,13 @@ const Detail = (props) => {
           </UserLeft>
 
           <UserRight>
-            <button>{completed ? "마감" : "진행중"}</button>
+            <button
+              style={{
+                backgroundColor: completed === "마감" ? "#ff5656" : "#e5e5e5",
+              }}
+            >
+              {completed === "마감" ? "마감" : "진행중"}
+            </button>
           </UserRight>
         </UserWrap>
 
@@ -531,27 +549,33 @@ const Detail = (props) => {
               </FlexButton>
             ) : (
               <FlexButton>
-                {request ? (
-                  <EditButton
-                    onClick={() => {
-                      dispatch(
-                        chatActions.sendNotificationMD(userId, 2, postId)
-                      );
-                    }}
-                    style={{ color: "black" }}
-                  >
-                    이미 신청되었습니다.
-                  </EditButton>
+                {completed === "마감" ? (
+                  ""
                 ) : (
-                  <EditButton
-                    onClick={() => {
-                      dispatch(
-                        chatActions.sendNotificationMD(userId, 2, postId)
-                      );
-                    }}
-                  >
-                    산책 신청하기
-                  </EditButton>
+                  <div>
+                    {request ? (
+                      <EditButton
+                        onClick={() => {
+                          dispatch(
+                            chatActions.sendNotificationMD(userId, 2, postId)
+                          );
+                        }}
+                        style={{ color: "black" }}
+                      >
+                        이미 신청되었습니다.
+                      </EditButton>
+                    ) : (
+                      <EditButton
+                        onClick={() => {
+                          dispatch(
+                            chatActions.sendNotificationMD(userId, 2, postId)
+                          );
+                        }}
+                      >
+                        산책 신청하기
+                      </EditButton>
+                    )}
+                  </div>
                 )}
                 <DeleteButton
                   onClick={() => {
@@ -626,7 +650,7 @@ const UserRight = styled.div`
   button {
     width: 76px;
     height: 40px;
-    background-color: #ff5656;
+
     border: 1px gray;
     border-radius: 20px;
     font-size: 14px;

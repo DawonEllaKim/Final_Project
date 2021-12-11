@@ -76,7 +76,7 @@ const signDupAPI = (userEmail) => {
         dispatch(checkEmail("used", "red"));
         // console.log("이미 사용 중인 이메일입니다.", err);
         // window.alert("이미 사용 중인 이메일입니다.");
-        throw new Error("회원가입오류");
+        // throw new Error("회원가입오류");
       });
   };
 };

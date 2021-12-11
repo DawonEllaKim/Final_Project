@@ -32,6 +32,7 @@ const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const GET_MODAL = "GET_MODAL";
 const CHECK_REQUEST = "CHECK_REQUEST";
+const COMPANIES = "COMPANIES";
 const JUST_ADDED = "JUST_ADDED";
 // action creators
 //메인 페이지 GET 요청
@@ -59,6 +60,7 @@ const deletePost = createAction(DELETE_POST, (list) => ({ list }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const getModal = createAction(GET_MODAL, (modal) => ({ modal }));
 const checkRequest = createAction(CHECK_REQUEST, (request) => ({ request }));
+const companies = createAction(COMPANIES, (companies) => ({ companies }));
 const justAdded = createAction(JUST_ADDED, (justAdded) => ({ justAdded }));
 // initialState
 const initialState = {
@@ -75,6 +77,7 @@ const initialState = {
   list: [],
   modal: "",
   request: "",
+  companies: "",
   myList: [
     {
       dogAge: "4~7세",
@@ -394,6 +397,11 @@ const getPostMD = (postId) => {
         // console.log(res.data);
         localStorage.setItem("date", res.data.posts.meetingDate);
         localStorage.setItem("dogCount", res.data.posts.dogCount);
+        const whenTheMeeting = res.data.posts.meetingDate;
+        const todayOriginal = new Date().toISOString();
+        res.data.posts.completed =
+          whenTheMeeting < todayOriginal ? "마감" : "진행중";
+
         const fullDate = res.data.posts.meetingDate.split("T")[0];
         const year = fullDate.split("-")[0];
         const month = fullDate.split("-")[1];
@@ -465,8 +473,10 @@ const getPostMD = (postId) => {
           res.data.posts.start = hangang[0];
         const postList = res.data.posts;
         const requestData = res.data.existRequest;
+        // console.log("companies", res.data);
         dispatch(checkRequest(requestData));
         dispatch(getPost(postList));
+        dispatch(companies(res.data.companyName));
         // console.log("정보 불러오기 완료");
       })
       .catch((err) => {
@@ -672,6 +682,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.request = action.payload.request;
       }),
+    [COMPANIES]: (state, action) =>
+      produce(state, (draft) => {
+        draft.companies = action.payload.companies;
+      }),
     [JUST_ADDED]: (state, action) =>
       produce(state, (draft) => {
         draft.justAdded = action.payload.justAdded;
@@ -693,6 +707,7 @@ const actionCreators = {
   updatePost,
   deletePost,
   justAdded,
+  companies,
 
   modalMD,
   getAllMD,
