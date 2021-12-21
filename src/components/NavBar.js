@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
-// 아이콘
+// 리덕스
+import { actionCreators as SignActions } from "../redux/modules/sign";
+
+// 아이콘 + 이미지
 import addBtn from "../image/addBtn.png";
 import plus from "../image/plus.png";
 import { AiOutlineHome } from "react-icons/ai";
@@ -10,50 +13,19 @@ import PetsIcon from "@mui/icons-material/Pets";
 import { FaDog } from "react-icons/fa";
 import { BiUser } from "react-icons/bi";
 import Top from "../image/top.png";
-import { actionCreators as SignActions } from "../redux/modules/sign";
-import { useSelector, useDispatch } from "react-redux";
 
 const NavBar = (props) => {
-  const dispatch = useDispatch();
   const { add_dogsta } = props;
+
   const userId = localStorage.getItem("userId");
+  const dog = localStorage.getItem("checkDog");
   const [page, setPage] = useState();
 
   // top 버튼
   const [btnStatus, setBtnStatus] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const dog = localStorage.getItem("checkDog");
 
-  const postHandler = () => {
-    if (dog == "false") {
-      window.alert("강아지등록이 필요한 서비스입니다");
-      history.push("/signDog");
-      return;
-    }
-    history.push("/registerwalk");
-  };
-  const dogStarHandler = () => {
-    if (dog == "false") {
-      window.alert("강아지등록이 필요한 서비스입니다");
-      history.push("/signDog");
-      return;
-    }
-    history.push("/dogStaWrite");
-  };
-
-  const myPageHandler = () => {
-    if (!userId) {
-      window.alert("로그인이 필요한 서비스입니다");
-      history.push("/login");
-      return;
-    } else if (dog == "false") {
-      window.alert("강아지등록이 필요한 서비스입니다");
-      history.push("/signDog");
-      return;
-    }
-    history.push(`/mypage/${userId}`);
-  };
-  // 스크롤 300px 이상 일때 top 버튼 생성
+  // 스크롤 200px 이상 일때 top 버튼 생성
   const handleFollow = () => {
     setScrollY(window.pageYOffset);
     if (scrollY > 200) {
@@ -81,6 +53,41 @@ const NavBar = (props) => {
     });
     setScrollY(0);
     setBtnStatus(false);
+  };
+
+  // 산책등록, 개스타 등록 시 강아지 등록 유무 판단 후 페이지 이동
+  const postHandler = () => {
+    if (dog == "false") {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
+      return;
+    }
+    history.push("/registerwalk");
+  };
+  const dogStarHandler = () => {
+    if (dog == "false") {
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
+      return;
+    }
+    history.push("/dogStaWrite");
+  };
+
+  // 마이메이지 클릭시 로그인, 강아지 등록 유무 판단
+  const myPageHandler = () => {
+    if (!userId) {
+      // 로그인 안했으면 로그인 페이지로 이동
+      window.alert("로그인이 필요한 서비스입니다");
+      history.push("/login");
+      return;
+    } else if (dog == "false") {
+      // 강아지 등록 안했으면 강아지 등록 페이지로 이동
+      window.alert("강아지등록이 필요한 서비스입니다");
+      history.push("/signDog");
+      return;
+    }
+    // 로그인, 강아지 등록 되어 있으면 마이페이지로 이동
+    history.push(`/mypage/${userId}`);
   };
 
   if (add_dogsta) {
@@ -237,7 +244,6 @@ const Walk = styled.div`
 `;
 const HomeArea = styled.div`
   border: none;
-
   box-sizing: border-box;
   width: 100px;
   height: 100px;
@@ -252,7 +258,6 @@ const Nav = styled.div`
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  /* left: 0; */
   left: 50%;
   transform: translateX(-50%);
   min-width: 315px;
@@ -261,7 +266,6 @@ const Nav = styled.div`
   height: 68px;
   z-index: 5;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
-  /* margin: 0 auto; */
 `;
 const Box = styled.div`
   box-sizing: border-box;
@@ -305,10 +309,6 @@ const UploadText = styled.div`
   bottom: 17.7px;
   left: 36%;
   font-size: 11px;
-`;
-const HomeText = styled.div`
-  font-size: 12px;
-  padding-top: 14px;
 `;
 
 const TopWrap = styled.div`
