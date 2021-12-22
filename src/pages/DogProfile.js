@@ -14,17 +14,10 @@ import DogSuccessModal from "../components/Modal/DogSuccessModal";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { MdCloudUpload } from "react-icons/md";
 
-const EditDog = (props) => {
-  // 페이지 상단 고정
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+const DogProfile = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
-  const dogId = dog.dogId;
 
   // 이미지
   const [imgBase64, setImgBase64] = useState(dog.dogImage && dog.dogImage); // 파일 base64
@@ -38,27 +31,11 @@ const EditDog = (props) => {
   const [dogComment, setDogComment] = useState(
     dog.dogComment ? dog.dogComment : ""
   );
+
   const [modal, setModal] = useState();
   const [modal2, setModal2] = useState();
 
   const dogModal = useSelector((state) => state.user.dog_modal);
-
-  const handleChangeFile = (e) => {
-    e.preventDefault();
-    let reader = new FileReader();
-
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setImgBase64(base64.toString());
-      }
-    };
-
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-      setImgFile(e.target.files[0]);
-    }
-  };
 
   const dogNameChangeHandler = (e) => {
     setDogName(e.target.value);
@@ -95,12 +72,6 @@ const EditDog = (props) => {
     dispatch(DogActions.updateDogMD(dogInfo));
   };
 
-  const updateImage = () => {
-    const formData = new FormData();
-    formData.append("dogImage", imgFile);
-    dispatch(DogActions.updateDogImageMD(formData));
-  };
-
   useEffect(() => {
     dispatch(DogActions.getDogMD());
     setImgFile(dog.dogImage);
@@ -125,22 +96,17 @@ const EditDog = (props) => {
     dogModal,
   ]);
 
+  // 페이지 상단 고정
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Wrap>
       {modal2 ? <DogSuccessModal /> : ""}
       <TopBar only_left> 반려견 정보 수정</TopBar>
 
-      {/* 강아지 사진 */}
-      {/* <ImageWrap>
-        <Preview src={imgBase64}></Preview>
-        <UploadLabel for="imgFile">사진 업로드</UploadLabel>
-        <AddImage
-          type="file"
-          name="imgFile"
-          id="imgFile"
-          onChange={handleChangeFile}
-        />
-      </ImageWrap> */}
+    {/* 이미지 클릭시 수정 모달 생성 */}
       <UserWrap>
         <UserInfoLeft onClick={() => setModal(true)}>
           <UserImg src={dog.dogImage} />
@@ -434,9 +400,7 @@ const Input = styled.input`
     outline: none;
   }
 `;
-const ButtonWrap = styled.div`
-  /* margin: 40px 0; */
-`;
+const ButtonWrap = styled.div``;
 const Add = styled.button`
   width: 160px;
   height: 48px;
@@ -448,4 +412,4 @@ const Add = styled.button`
   cursor: pointer;
 `;
 
-export default EditDog;
+export default DogProfile;
