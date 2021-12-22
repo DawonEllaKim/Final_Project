@@ -1,3 +1,4 @@
+// UserProfile.js - 사용자의 정보를 수정 할 수 있는 페이지
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AWS from "aws-sdk";
@@ -17,19 +18,14 @@ import { actionCreators as UserActions } from "../redux/modules/user";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const EditUser = (props) => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   const dispatch = useDispatch();
-
-  // 현재 접속한 유저(보호자) 정보
-  // const user = useSelector((state) => state.user?.list[0]) || "";
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user); // 현재 접속한 유저 정보
   const _userAge = user.userAge;
   const _userGender = user.userGender;
   const _userImage = user.userImage;
   const _userNickname = user.userNickname;
   const _userLocation = user.userLocation;
+
   const [imgBase64, setImgBase64] = useState(_userImage); // 파일 base64
   const [imgFile, setImgFile] = useState(); //파일
   const [userNickname, setUserNickname] = useState(
@@ -38,6 +34,10 @@ const EditUser = (props) => {
   const [user_gender, setUserGender] = useState("");
   const [userAge, setUserAge] = useState("");
   const [userLocation, setUserLocation] = useState();
+
+  const [modal, setModal] = useState();
+  const [modal2, setModal2] = useState();
+  const userModal = useSelector((state) => state.user.user_modal);
 
   const userNicknameChangeHandler = (e) => {
     setUserNickname(e.target.value);
@@ -52,20 +52,16 @@ const EditUser = (props) => {
     setUserLocation(e.target.value);
   };
 
-  const [modal, setModal] = useState();
-  const [modal2, setModal2] = useState();
-  const userModal = useSelector((state) => state.user.user_modal);
-
-  // 뒤로가기 버튼 - 수정 취소
-  const cancel = () => {
-    // if (
-    //   window.confirm("회원 정보 수정이 끝나지 않았습니다. 정말로 취소하십니까?")
-    // ) {
-    history.goBack();
-    // }
+  const updateInfo = () => {
+    const userInfo = {
+      userNickname,
+      userGender: user_gender,
+      userAge,
+      userLocation,
+    };
+    dispatch(UserActions.updateUserMD(userInfo));
   };
 
-  // 현재 접속한 보호자의 정보 불러오기
   useEffect(() => {
     dispatch(UserActions.getUserMD());
     setUserNickname(_userNickname);
@@ -77,17 +73,9 @@ const EditUser = (props) => {
     setModal2(userModal);
   }, [_userGender, _userAge, _userImage, _userNickname, userModal]);
 
-  // 수정하기 버튼 = 수정 완료
-
-  const updateInfo = () => {
-    const userInfo = {
-      userNickname,
-      userGender: user_gender,
-      userAge,
-      userLocation,
-    };
-    dispatch(UserActions.updateUserMD(userInfo));
-  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -97,7 +85,6 @@ const EditUser = (props) => {
         <TopBar only_left>회원 정보 수정</TopBar>
 
         {/* 보호자 이미지 */}
-
         <UserWrap>
           <UserInfoLeft onClick={() => setModal(true)}>
             <UserImg src={_userImage} />
@@ -221,6 +208,7 @@ const EditUser = (props) => {
     </>
   );
 };
+
 const UserWrap = styled.div`
   display: flex;
   justify-content: center;
@@ -271,34 +259,6 @@ const Wrap = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-
-const ImageWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-`;
-const Preview = styled.img`
-  width: 120px;
-  height: 120px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  margin: 0 auto;
-  object-fit: cover;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-`;
-const UploadLabel = styled.label`
-  border-bottom: 1px solid black;
-  padding: 10px 5px 5px 5px;
-  margin: 10px;
-  cursor: pointer;
-`;
-const AddImage = styled.input`
-  /* width: 180px;
-  margin: 10px 0; */
-  display: none;
-`;
 const Body = styled.div``;
 const Filter = styled.div`
   border-radius: 10px;
@@ -333,11 +293,7 @@ const Nickname = styled.input`
   }
 `;
 const UserAge = styled.input``;
-const Footer = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
-  /* margin: 40px 0; */
-`;
+const Footer = styled.div``;
 const Add = styled.button`
   width: 160px;
   height: 48px;
