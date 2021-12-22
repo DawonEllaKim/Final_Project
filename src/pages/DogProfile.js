@@ -1,11 +1,9 @@
 // DogProfile.js - 강아지 프로필 편집 페이지
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 // 리덕스
-import { useDispatch } from "react-redux";
 import { actionCreators as DogActions } from "../redux/modules/user";
 
 // 컴포넌츠
@@ -14,14 +12,16 @@ import TopBar from "../components/TopBar";
 import DogModal from "../components/DogModal";
 import DogSuccessModal from "../components/Modal/DogSuccessModal";
 
-// 리액트 아이콘
+// 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { MdCloudUpload } from "react-icons/md";
 
 const EditDog = (props) => {
+  // 페이지 상단 고정
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.user.dog);
   const dogId = dog.dogId;
@@ -349,7 +349,7 @@ const EditDog = (props) => {
       <NavBar />
     </Wrap>
   );
-};
+}; 
 
 const UserWrap = styled.div`
   display: flex;
