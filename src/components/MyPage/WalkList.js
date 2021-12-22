@@ -1,3 +1,4 @@
+// WalkList.js - 내가 등록한 산책 약속 목록 모음
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,10 +10,12 @@ import { actionCreators as postActions } from "../../redux/modules/post";
 
 const WalkList = ({ post, userId }) => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.myList); // 나의 산책 게시물 리스트
+  const postList = useSelector((state) => state.post.myList);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   useEffect(() => {
     dispatch(postActions.getMyPostMD(userId)); // 나의 산책 게시물 불러오기
   }, []);

@@ -270,17 +270,12 @@ const MeetingTime = styled.div`
   font-size: 16px;
 `;
 const MeetingLocation = styled.div``;
-export default EditWalk;
 const Title1 = styled.div`
   box-sizing: border-box;
   height: 35px;
   font-size: 18px;
   line-height: 26px;
   margin: 80px 0 20px 0;
-`;
-const CategoryTitle = styled.div`
-  margin-bottom: 8px;
-  color: #5c5c5c;
 `;
 const CustomSelect = styled(Select)`
   border-radius: 14px;
@@ -325,36 +320,6 @@ const WalkButton = styled.button`
   border: 1px gray;
 `;
 
-const AdressWrap = styled.div`
-  width: 100%;
-  height: 45px;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: flex-start;
-  color: #000000;
-  margin: 40px 0px;
-`;
-
-const CircleDiv = styled.div`
-  display: flex;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-`;
-const Address = styled.div`
-  margin-left: 15px;
-  text-align: left;
-  font-size: 12px;
-`;
-const Detail = styled.div`
-  padding-top: 4px;
-`;
-
 const Title = styled.div`
   box-sizing: border-box;
   height: 35px;
@@ -389,3 +354,4 @@ const AddButton = styled.button`
   border: 1px gray;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
 `;
+export default EditWalk;

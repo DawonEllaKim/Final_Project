@@ -7,7 +7,6 @@ import { useInView } from "react-intersection-observer";
 // 컴포넌츠
 import Cards from "../AllList/Cards";
 import Loading from "../Loading";
-import Spinner from "../../shared/Spinner";
 
 // 리덕스
 import { actionCreators as postActions } from "../../redux/modules/post";
@@ -16,14 +15,9 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const Olympic = () => {
   const dispatch = useDispatch();
   const olympicList = useSelector((state) => state.post.olympic);
-  // console.log(olympicList.length);
   const postList = useSelector((state) => state.walk.page_olympic);
-  // console.log(postList.length);
-
   const [pageNum, setPageNum] = useState(1);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   useEffect(() => {
     dispatch(walkActions.pageOlympicMD(pageNum));
   }, [pageNum]);
@@ -47,6 +41,7 @@ const Olympic = () => {
 
   useEffect(() => {
     dispatch(postActions.getOlympicMD());
+    window.scrollTo(0, 0);
   }, []);
 
   return (

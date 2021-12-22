@@ -7,7 +7,6 @@ import { useInView } from "react-intersection-observer";
 // 컴포넌츠
 import Cards from "../AllList/Cards";
 import Loading from "../Loading";
-import Spinner from "../../shared/Spinner";
 
 // 리덕스
 import { actionCreators as postActions } from "../../redux/modules/post";
@@ -16,10 +15,7 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const Banpo = () => {
   const dispatch = useDispatch();
   const banpoList = useSelector((state) => state.post.banpo);
-  // console.log(banpoList.length);
   const postList = useSelector((state) => state.walk.page_banpo);
-  // console.log(postList.length);
-
   const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
@@ -35,9 +31,7 @@ const Banpo = () => {
     setPageNum(pageNum + 1);
     setIsLoaded(false);
   }; //아이템들 더 보여주는 함수
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView) {
@@ -47,6 +41,7 @@ const Banpo = () => {
 
   useEffect(() => {
     dispatch(postActions.getBanpoMD());
+    window.scrollTo(0, 0);
   }, []);
 
   return (

@@ -18,9 +18,6 @@ import logo from "../image/logo.png";
 import { MdArrowBackIos } from "react-icons/md";
 
 const LogIn = (props) => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   const dispatch = useDispatch();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,12 +38,6 @@ const LogIn = (props) => {
   };
 
   const Login = () => {
-    // if ((userEmail === "") | (password === "")) {
-    //   setAlert("✔︎ 이메일 또는 비밀번호를 입력해주세요");
-    //   return;
-    // }
-    // setLoading(false);
-    // dispatch(userActions.logInMD(userEmail, password));
     if (userEmail === "") {
       setAlert("✔︎ 이메일을 입력해 주세요.");
       return;
@@ -64,6 +55,10 @@ const LogIn = (props) => {
     setAlert(message);
     setModal(getModal);
   }, [message, is_loading]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!loading) {
     return <Spinner />;

@@ -25,6 +25,7 @@ const GET_BANPO = "GET_BANPO"; // 모든 게시물 조회
 const GET_POST = "GET_POST"; // 특정 게시물 조회
 const GET_MY_POST = "GET_MY_POST"; // 내 게시물 조회
 const GET_MAP = "GET_MAP";
+
 //산책 페이지 GET,POST,FETCH,DELETE
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
@@ -34,6 +35,7 @@ const GET_MODAL = "GET_MODAL";
 const CHECK_REQUEST = "CHECK_REQUEST";
 const COMPANIES = "COMPANIES";
 const JUST_ADDED = "JUST_ADDED";
+
 // action creators
 //메인 페이지 GET 요청
 const getAll = createAction(GET_ALL, (main) => ({ main }));
@@ -49,8 +51,8 @@ const getMainBanpo = createAction(GET_MAIN_BANPO, (mainBanpo) => ({
 const getOlympic = createAction(GET_OLYMPIC, (olympic) => ({ olympic }));
 const getSeoul = createAction(GET_SEOUL, (seoul) => ({ seoul }));
 const getBanpo = createAction(GET_BANPO, (banpo) => ({ banpo }));
-
 const getMap = createAction(GET_MAP, (map) => ({ map }));
+
 //산책 페이지 GET,POST,FETCH,DELETE
 const getPost = createAction(GET_POST, (list) => ({ list }));
 const getMyPost = createAction(GET_MY_POST, (myList) => ({ myList }));
@@ -112,8 +114,7 @@ const modalMD = () => {
     history.goBack();
   };
 };
-//받는 데이터 dog_size,dog_gender,dog_age,location_category,completed
-//dog_name,meeting_date
+//받는 데이터 dog_size,dog_gender,dog_age,location_category,completed, dog_name,meeting_date
 const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -276,7 +277,6 @@ const getOlympicMD = () => {
       url: "https://www.walkadog.shop/posts/olympicPark",
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
@@ -612,6 +612,7 @@ const deletePostMD = (postId, get_id) => {
       });
   };
 };
+
 // reducer
 export default handleActions(
   {

@@ -1,3 +1,4 @@
+// InfoList.js - 내가 등록한 산책 약속 목록 모음
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
@@ -8,14 +9,15 @@ import NavBar from "../../components/NavBar";
 // 이미지 + 아이콘
 import male from "../../image/male.png";
 import female from "../../image/female.png";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { FaPen } from "react-icons/fa";
+
 const InfoList = (props) => {
+  const { post, userId, currentPageUserId } = props;
+  const history = useHistory();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const { post, userId, currentPageUserId } = props;
-  const history = useHistory();
 
   return (
     <>
@@ -122,7 +124,6 @@ const CardInfo = styled.div`
   align-items: flex-start;
   padding: 8px 0 0 32px;
 `;
-
 const CardTop = styled.div`
   margin-bottom: 12px;
   img {
@@ -143,7 +144,6 @@ const CardBottom = styled.div`
     color: #747474;
   }
 `;
-
 const DogInfo = styled.div`
   text-align: center;
   margin-top: 30px;

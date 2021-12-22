@@ -1,3 +1,4 @@
+// SeoulForest.js - 산책가자 페이지에서 서울숲 산책목록이 모여있는 페이지
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -6,7 +7,6 @@ import { useInView } from "react-intersection-observer";
 // 컴포넌츠
 import Cards from "../AllList/Cards";
 import Loading from "../Loading";
-import Spinner from "../../shared/Spinner";
 
 // 리덕스
 import { actionCreators as postActions } from "../../redux/modules/post";
@@ -15,11 +15,9 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const SeoulForest = () => {
   const dispatch = useDispatch();
   const seoulList = useSelector((state) => state.post.seoul);
-  // console.log(seoulList.length);
   const postList = useSelector((state) => state.walk.page_seoul);
-  // console.log(postList.length);
-
   const [pageNum, setPageNum] = useState(1);
+
   useEffect(() => {
     dispatch(walkActions.pageSeoulMD(pageNum));
   }, [pageNum]);
@@ -33,9 +31,7 @@ const SeoulForest = () => {
     setPageNum(pageNum + 1);
     setIsLoaded(false);
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView) {
@@ -45,6 +41,7 @@ const SeoulForest = () => {
 
   useEffect(() => {
     dispatch(postActions.getSeoulMD());
+    window.scrollTo(0, 0);
   }, []);
 
   return (

@@ -1,3 +1,4 @@
+// Cards.js - 산책가자 페이지에서의 카드 한개에 대한 컴포넌트
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configureStore";

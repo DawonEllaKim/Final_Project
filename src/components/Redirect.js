@@ -1,3 +1,4 @@
+// Redirect.js - 로그인 되어 있지 않은 사용자가 권한이 없는 페이지에 들어 갔을때 우회시키는 페이지
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -17,6 +18,7 @@ const Redirect = () => {
     </Wrap>
   );
 };
+
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,4 +33,5 @@ const Wrap = styled.div`
   h4 {
   }
 `;
+
 export default Redirect;
