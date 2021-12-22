@@ -1,9 +1,7 @@
+// NavBar.js - 전체 네비게이션바 모음
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
-
-// 리덕스
-import { actionCreators as SignActions } from "../redux/modules/sign";
 
 // 아이콘 + 이미지
 import addBtn from "../image/addBtn.png";

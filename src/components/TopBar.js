@@ -1,3 +1,4 @@
+// TopBar.js - 페이지 상단 탑 모음 (웹소켓)
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
