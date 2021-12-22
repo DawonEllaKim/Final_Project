@@ -10,7 +10,7 @@ import SuccessModal from "../../components/Modal/SuccessModal";
 import DogStarEditModal from "../../components/DogStarEditModal";
 
 // 리덕스
-import {actionCreators as dogstaActions} from "../../redux/modules/dogsta";
+import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 
 // 아이콘
 import ModeEditIcon from "@mui/icons-material/ModeEdit";

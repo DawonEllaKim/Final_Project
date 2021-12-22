@@ -76,18 +76,14 @@ const Detail = (props) => {
 
   // 산책 정보
   const meetingDate = post.meetingDate;
-  // const companies = useSelector((state) => state.post.companies);
-  // console.log("신청자수", companies.length);
-  // console.log("같이 산책할 수 있는 인원", dogCo);
-  const completed = post.completed;
+  const companies = useSelector((state) => state.post.companies);
+  let completed = post.completed;
 
-  // if (companies.length < dogCo) {
-  //   const completed = post.completed;
-  //   console.log("강아지는 더 모집", completed);
-  // } else {
-  //   const completed = "마감";
-  //   console.log("모집 상황", completed);
-  // }
+  if (companies.length < dogCo - 1) {
+    completed = post.completed;
+  } else {
+    completed = "마감";
+  }
 
   const locationCategory = post.locationCategory;
 
@@ -552,7 +548,7 @@ const Detail = (props) => {
                 {completed === "마감" ? (
                   ""
                 ) : (
-                  <div>
+                  <>
                     {request ? (
                       <EditButton
                         onClick={() => {
@@ -575,7 +571,7 @@ const Detail = (props) => {
                         산책 신청하기
                       </EditButton>
                     )}
-                  </div>
+                  </>
                 )}
                 <DeleteButton
                   onClick={() => {

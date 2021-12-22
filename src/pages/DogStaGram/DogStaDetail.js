@@ -72,7 +72,7 @@ const DogStaDetail = (props) => {
     dispatch(dogstaActions.getLikesMD(postId)); // 현재 게시물 좋아요 갯수
     dispatch(dogstaActions.getMyLikeMD(postId)); // 내가 좋아요 눌렀는지 여부
     dispatch(commentActions.getCommentMD(postId)); // 댓글
-    
+
     setLiked(myLike);
     setLikeCount(likeCnt);
   }, [myLike, likeCnt, postId]);
@@ -80,6 +80,7 @@ const DogStaDetail = (props) => {
   if (loading) {
     return <Spinner />;
   }
+
   return (
     <>
       <Wrap>
@@ -277,6 +278,5 @@ const CommentWrap = styled.div`
     font-size: 14px;
   }
 `;
-
 
 export default DogStaDetail;

@@ -16,8 +16,10 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 
 const All = () => {
   const dispatch = useDispatch();
+
   const allList = useSelector((state) => state.post.main); // 총 게시물 수
   const postList = useSelector((state) => state.walk.page_all); // 전체 상단 리스트
+  console.log("postList.completed", postList.length);
 
   const [pageNum, setPageNum] = useState(1);
 
@@ -67,6 +69,7 @@ const All = () => {
               const dogGender = post.dogGender;
               const dogAge = post.dogAge;
               const meetingDate = post.meetingDate;
+              const completed = post.completed;
               const Info = {
                 dogImage,
                 dogName,
@@ -74,8 +77,9 @@ const All = () => {
                 dogAge,
                 meetingDate,
                 post,
+                completed,
               };
-
+              console.log("Info", Info);
               return <Cards Info={Info} key={index} />;
             })}
             {/* 무한스크롤 페이지 인식 */}
