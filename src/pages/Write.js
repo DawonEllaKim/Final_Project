@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-
+//산책등록 페이지
 // 리덕스
 import { actionCreators as postActions } from "../redux/modules/post";
 
@@ -66,6 +66,7 @@ const Write = (props) => {
           <Map />
         </Left>
         <Right>
+          {/* 위치 */}
           <Location>
             <Title>위치</Title>
             <select value={location} onChange={locationChange}>

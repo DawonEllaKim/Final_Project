@@ -15,9 +15,7 @@ import { actionCreators as walkActions } from "../../redux/modules/walk";
 const SeoulForest = () => {
   const dispatch = useDispatch();
   const seoulList = useSelector((state) => state.post.seoul);
-  // console.log(seoulList.length);
-  const postList = useSelector((state) => state.walk.page_seoul);
-  // console.log(postList.length);
+  const postList = useSelector((state) => state.walk.page_seoul)
 
   const [pageNum, setPageNum] = useState(1);
   useEffect(() => {

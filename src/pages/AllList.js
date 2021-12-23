@@ -1,3 +1,4 @@
+// 산책가자 페이지
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -18,9 +19,7 @@ import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
   const justAddedPostId = useSelector((state) => state.post.justAdded);
-  // console.log("justAddedPostId", justAddedPostId);
   useEffect(() => {
-    // console.log("justAddedPostId");
   }, [justAddedPostId]);
 
   useEffect(() => {
