@@ -1,6 +1,6 @@
-// 산책가자 페이지
-import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// AllList.js - 모든 산책 약속 목록을 조회하는 페이지
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 // 컴포넌츠
@@ -10,25 +10,15 @@ import All from "../components/AllList/All";
 import Olympic from "../components/AllList/Olympic";
 import SeoulForest from "../components/AllList/SeoulForest";
 import Banpo from "../components/AllList/Banpo";
-import Spinner from "../shared/Spinner";
-
-// 리덕스
 
 // 이미지
 import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
-  const justAddedPostId = useSelector((state) => state.post.justAdded);
-  useEffect(() => {
-  }, [justAddedPostId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  const params = props.match.params.page;
+  const location = useSelector((state) => state.main.main);
   const [status, setStatus] = useState();
   const [focus, setFocus] = useState();
-  const params = props.match.params.page;
 
   const all = () => {
     setStatus("all");
@@ -47,16 +37,19 @@ const AllList = (props) => {
     setFocus("banpo");
   };
 
-  const location = useSelector((state) => state.main.main);
-
   useEffect(() => {
     setStatus(location);
     setFocus(params);
   }, [location]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Wrap>
+        {/* 위에 네브바 */}
         <TopBar>
           <FaPaw
             style={{ width: "24px", height: "24px", margin: " -4px 10px" }}
@@ -124,12 +117,9 @@ const Wrap = styled.div`
   text-align: center;
   position: relative;
   width: 100%;
-  /* margin: 0 auto; */
   padding: 0 5%;
   box-sizing: border-box;
-  /* border: 1px solid red; */
 `;
-
 const Category = styled.div`
   display: flex;
   flex-direction: row;
@@ -139,7 +129,6 @@ const Category = styled.div`
 
   button {
     box-sizing: border-box;
-
     margin: 0 5px 20px 5px;
     padding: 0 5px;
     padding-bottom: 10px;

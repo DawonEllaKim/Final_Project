@@ -1,11 +1,10 @@
 // SignUp.js - 회원가입 페이지 (보호자 정보 입력)
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 // import e from "cors";
 import { toast } from "react-toastify";
-import { style } from "react-toastify";
 
 // 컴포넌츠
 import TopBar from "../components/TopBar";
@@ -79,9 +78,7 @@ const SignUp = () => {
   // 모달
   const [modal, setModal] = useState("");
   const is_loading = useSelector((state) => state.sign.is_loading);
-  // const user_modal = useSelector((state) => state.sign.user_modal);
   const [loading, setLoading] = useState();
-
   const [checkEmail, setCheckEmail] = useState("");
   const [checkColor, setCheckColor] = useState("");
   const checkEmailDup = useSelector((state) => state.sign.checkEmail);
@@ -97,8 +94,6 @@ const SignUp = () => {
   }, [checkEmailDup]);
 
   useEffect(() => {
-    // dispatch(UserActions.checkEmail());
-    // dispatch(postActions.getAllMD());
     setLoading(is_loading);
     setLoading(true);
 
@@ -121,13 +116,10 @@ const SignUp = () => {
     } else if (emailStatus === "used") {
       setEmailColor("red");
       setAlertEmail("✔︎ 이미 사용 중인 이메일입니다.");
-      // console.log("emailStatus", emailStatus);
     } else if (emailStatus === true) {
-      // console.log("emailStatus", emailStatus);
       setEmailColor("green");
       setAlertEmail("✔︎ 사용 가능한 이메일입니다.");
     } else {
-      // console.log("emailStatus", emailStatus);
       setEmailColor("green");
     }
 
@@ -291,22 +283,18 @@ const SignUp = () => {
     if (!userEmail) {
       setEmailColor("red");
       setEmailStatus("empty");
-      // console.log("emailStatus", emailStatus);
       return;
     } else if (userEmail && emailCheck(userEmail) === false) {
       setEmailColor("red");
       setAlertEmail("✔︎ 이메일 형식을 지켜주세요. 예) abc@gmail.com");
-      // console.log("emailStatus", emailStatus);
       return;
     } else if (emailCheck(userEmail) === true && emailStatus === false) {
       setEmailColor("red");
       setEmailStatus("used");
-      // console.log("emailStatus", emailStatus);
       return;
     } else if (emailStatus === true) {
       setEmailColor("green");
       setAlertEmail("✔︎ 사용 가능한 이메일입니다.");
-      // console.log("emailStatus", emailStatus);
     }
   };
 
@@ -378,7 +366,6 @@ const SignUp = () => {
         autoClose: 3000,
         draggable: true,
         closeOnClick: true,
-        // hideProgressBar: true,
       });
       return;
     }
@@ -390,7 +377,6 @@ const SignUp = () => {
         autoClose: 3000,
         draggable: true,
         closeOnClick: true,
-        // hideProgressBar: true,
       });
       return;
     }
@@ -604,7 +590,7 @@ const SignUp = () => {
           {alertUserAge ? alertUserAge : ""}
         </Alert>
 
-        {/* 회원가입 + 취소 버튼 */}
+        {/* 회원가입 버튼 */}
         <ButtonWrap>
           <button
             onClick={submitUserInfo}
@@ -612,13 +598,6 @@ const SignUp = () => {
           >
             가입하기
           </button>
-          {/* <button
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            취소하기
-          </button> */}
         </ButtonWrap>
       </Wrap>
 

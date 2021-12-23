@@ -1,3 +1,4 @@
+// MyPage.js - 나의 정보, 내 반려견 정보, 내가 올린 게시물 모음
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,10 +38,6 @@ const MyPage = (props) => {
   const userId = localStorage.getItem("userId"); // 현재 로그인된 유저의 ID
   const currentPageUserId = props.match.params.userId; // 현재  마이페이지 유저의 ID
 
-  // console.log("userInfo", userInfo);
-  // console.log("currentPageUserId", currentPageUserId);
-  // console.log("currentLogInUserId", userId);
-
   const rawRoomId = [userId, currentPageUserId].sort();
   const roomId = rawRoomId[0] + "-" + rawRoomId[1];
 
@@ -54,10 +51,6 @@ const MyPage = (props) => {
       senderId: userId,
       opposite: currentPageUserId,
     };
-
-    // console.log("새로운 방을 생성합니다.");
-    // dispatch(chatAction.createRoomMD(chatInfo));
-    // console.log("룸 아이디", roomId, "챗 인포", chatInfo);
   };
 
   useEffect(() => {
@@ -67,7 +60,6 @@ const MyPage = (props) => {
   }, [currentPageUserId]);
 
   if (!userInfo) {
-    // console.log("강아지 정보 없음");
     history.push("/login");
   }
 
@@ -220,20 +212,16 @@ const Wrap = styled.div`
 `;
 const UserInfo = styled.div`
   position: relative;
-
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-
   width: 100%;
   height: 88px;
-
   margin-bottom: 24px;
 `;
 const UserInfoLeft = styled.div`
   position: relative;
-
   width: 91px;
   height: 88px;
 `;
@@ -252,30 +240,25 @@ const UserImg = styled.img`
   width: 83px;
   height: 83px;
   padding: 2px;
-
   margin-right: 14.5px;
   border-radius: 50%;
   object-fit: cover;
 `;
-
 const Edit = styled.div`
   position: absolute;
   bottom: 3px;
   right: 8px;
   cursor: pointer;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   width: 24px;
   height: 24px;
   padding: 6px;
   border-radius: 50%;
   background-color: #fff;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
-
   img {
     width: 22px;
     height: 22px;
@@ -286,7 +269,6 @@ const LogOut = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -296,14 +278,11 @@ const LogOut = styled.button`
 const Message = styled.button`
   display: block;
   align-items: center;
-
   border: none;
   background-color: transparent;
   cursor: pointer;
-
   color: #5f5f5f;
 `;
-
 // const Review = styled.div`
 //   display: flex;
 //   flex-direction: row;
@@ -350,7 +329,6 @@ const Buttons = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
   height: 48px;
   padding: 40px 24px;
@@ -365,6 +343,7 @@ const Buttons = styled.div`
 
     cursor: pointer;
   }
+
   img {
     width: 24px;
     height: 24px;

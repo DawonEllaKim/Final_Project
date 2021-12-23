@@ -1,14 +1,13 @@
+// MyProfile.js - 사용자의 정보를 수정 할 수 있는 페이지
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
-  // 편집모드인 지 아닌지?
   const [editMode, setEditMode] = useState(false);
-
   const [gender, setGender] = useState("");
   const [neutralized, setNeutralized] = useState("");
 
@@ -27,7 +26,6 @@ const MyProfile = () => {
 
   // 강아지 정보
   const dogInfo = useSelector((state) => state.user.list[0]?.dog) || "";
-  // console.log(useSelector((state) => state.user));
   const dogName = dogInfo.dogName;
   const dogGender = dogInfo.dogGender;
   const dogBreed = dogInfo.dogBreed;
@@ -39,12 +37,10 @@ const MyProfile = () => {
 
   // 보호자 정보
   const ownerInfo = useSelector((state) => state.user.list[0]?.owner) || "";
-  // console.log(ownerInfo);
   const ownerAge = ownerInfo.ownerAge;
   const ownerGender = ownerInfo.ownerGender;
   const ownerImage = ownerInfo.ownerImage;
   const ownerName = ownerInfo.ownerName;
-  // console.log(ownerName);
 
   // 강아지 크기 필터
   const [dogSizeActive, setDogSizeActive] = useState(false);

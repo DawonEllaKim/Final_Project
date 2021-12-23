@@ -1,9 +1,7 @@
 // All.js - 산책가자 페이지에서 산책목록 전체 모여있는 페이지
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
 import { useInView } from "react-intersection-observer";
 
 // 컴포넌츠
@@ -18,7 +16,6 @@ const All = () => {
   const dispatch = useDispatch();
   const allList = useSelector((state) => state.post.main); // 총 게시물 수
   const postList = useSelector((state) => state.walk.page_all); // 전체 상단 리스트
-
   const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
@@ -36,23 +33,16 @@ const All = () => {
   }; //아이템들 더 보여주는 함수
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView) {
       getMoreItem();
-      // console.log("보여요");
     }
   }, [inView]);
 
   useEffect(() => {
     dispatch(postActions.getAllMD());
+    window.scrollTo(0, 0);
   }, []);
-
-  // 무한스크롤 페이지 인식 true, false
-  // console.log(inView);
 
   return (
     <>
@@ -67,6 +57,7 @@ const All = () => {
               const dogGender = post.dogGender;
               const dogAge = post.dogAge;
               const meetingDate = post.meetingDate;
+              const completed = post.completed;
               const Info = {
                 dogImage,
                 dogName,
@@ -74,8 +65,9 @@ const All = () => {
                 dogAge,
                 meetingDate,
                 post,
+                completed,
               };
-
+              console.log("Info", Info);
               return <Cards Info={Info} key={index} />;
             })}
             {/* 무한스크롤 페이지 인식 */}

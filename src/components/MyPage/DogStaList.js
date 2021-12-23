@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// DogStaList.js - 내가 등록한 개스타그램 게시물 모음
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,10 +13,8 @@ import { actionCreators as dogstaActions } from "../../redux/modules/dogsta";
 const GaeStaCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const userId = props.userId; // 현재 페이지의 유저아이디
   const postList = useSelector((state) => state.dogsta.myList); //현재 페이지 유저의 모든 개스타그램 게시물
-  // console.log("postList", postList);
 
   useEffect(() => {
     window.scrollTo(0, 0);

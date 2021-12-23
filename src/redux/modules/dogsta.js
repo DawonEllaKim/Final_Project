@@ -1,5 +1,4 @@
-// dogsta.js - 개스타그램 게시물 GET,POST,PATCH,DELETE 액션들
-
+// dogsta.js - 개스타그램(반려견 일상 공유) 관련
 import axios from "axios";
 import { produce } from "immer";
 import { createAction, handleActions } from "redux-actions";
@@ -98,25 +97,6 @@ const getAllPostMD = () => {
       });
   };
 };
-
-// const getLikePostMD = () => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "GET",
-//       url: "https://www.walkadog.shop/dogsta/likeFilter",
-//       data: {},
-//       headers: {},
-//     })
-//       .then((res) => {
-//         const postList = res.data.posts;
-//         dispatch(getLikePost(postList));
-//         console.log("개스타그램 좋아요순 게시물 GET 성공", postList);
-//       })
-//       .catch((err) => {
-//         // console.log("개스타그램 좋아요순 게시물 GET 에러", err);
-//       });
-//   };
-// };
 
 // 개스타그램 무한 스크롤 적용
 const getFirstRecentMD = (pageNum) => {
@@ -220,7 +200,6 @@ const addPostMD = (formData) => {
       url: "https://www.walkadog.shop/dogsta/write",
       data: formData,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         "Content-Type": "multipart/form-data; ",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -245,7 +224,6 @@ const editPostMD = (postId, post) => {
       url: `https://www.walkadog.shop/dogsta/${postId}`,
       data: post,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
@@ -254,7 +232,6 @@ const editPostMD = (postId, post) => {
       .then((res) => {
         dispatch(editPost(post));
         dispatch(getModal(true));
-
         // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
@@ -270,7 +247,6 @@ const editPostImageMD = (post, dogPostId) => {
       url: `https://www.walkadog.shop/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
@@ -281,7 +257,6 @@ const editPostImageMD = (post, dogPostId) => {
         dispatch(editPost(post));
         dispatch(modalActions.setModal("이미지 수정완료"));
         history.push("/successModal");
-
         // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
@@ -298,7 +273,6 @@ const deletePostMD = (postId) => {
       url: `https://www.walkadog.shop/dogsta/${postId}`,
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
         "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
@@ -308,7 +282,6 @@ const deletePostMD = (postId) => {
         // dispatch(deletePost(postId));
         dispatch(modalActions.setModal("게시글 삭제완료!"));
         history.push("/dogstarmainmodal");
-
         // console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
@@ -319,14 +292,12 @@ const deletePostMD = (postId) => {
 
 const toggleLikeMD = (dogPostId, liked) => {
   return (dispatch, getState, { history }) => {
-    // console.log(liked);
     if (!liked) {
       axios({
         method: "POST",
         url: `https://www.walkadog.shop/likes/${dogPostId}`,
         data: {},
         headers: {
-          // "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
           "Access-Control-Allow-Origin": "*",
           authorization: `Bearer ${getCookie("token")}`,
@@ -346,7 +317,6 @@ const toggleLikeMD = (dogPostId, liked) => {
         url: `https://www.walkadog.shop/likes/${dogPostId}`,
         data: {},
         headers: {
-          // "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
           "Access-Control-Allow-Origin": "*",
           authorization: `Bearer ${getCookie("token")}`,
@@ -365,18 +335,12 @@ const toggleLikeMD = (dogPostId, liked) => {
 };
 
 const getLikesMD = (dogPostId) => {
-  // console.log(dogPostId);
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
       url: `https://www.walkadog.shop/likes/${dogPostId}`,
       data: {},
-      headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
-        // authorization: `Bearer ${getCookie("token")}`,
-      },
+      headers: {},
     })
       .then((res) => {
         dispatch(getLikes(res.data.likeNum.count));
@@ -395,9 +359,6 @@ const getMyLikeMD = (dogPostId) => {
       url: `https://www.walkadog.shop/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
-        // "content-type": "application/json;charset=UTF-8",
-        // accept: "application/json",
-        // "Access-Control-Allow-Origin": "*",
         authorization: `Bearer ${getCookie("token")}`,
       },
     })
@@ -428,10 +389,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.allList = action.payload.allList;
       }),
-    // [GET_LIKE_POST]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.mainLikeList = action.payload.mainLikeList;
-    //   }),
     [GET_FIRST_RECENT]: (state, action) =>
       produce(state, (draft) => {
         draft.mainList = action.payload.mainList;

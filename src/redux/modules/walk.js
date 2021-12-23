@@ -60,6 +60,16 @@ const pageAllMD = (pageNum) => {
         // console.log(res.data)
         if (pageNum == 1) {
           for (let i = 0; i < res.data.posts.contents.length; i++) {
+            const whenTheMeeting = res.data.posts.contents[i].meetingDate;
+            const todayOriginal = new Date().toISOString();
+
+            console.log(
+              "whenTheMeeting",
+              whenTheMeeting,
+              "todayOriginal",
+              todayOriginal
+            );
+
             const fullDate =
               res.data.posts.contents[i].meetingDate.split("T")[0];
             const yearTens = fullDate.split("-")[0].charAt(2);
@@ -71,10 +81,15 @@ const pageAllMD = (pageNum) => {
               res.data.posts.contents[i].meetingDate.split("T")[1];
             const hour = fullTime.split(":")[0];
             const minute = fullTime.split(":")[1];
+
             res.data.posts.contents[i].meetingDate =
               year + "." + month + "." + day + ". " + hour + ":" + minute;
+
+            res.data.posts.contents[i].completed =
+              whenTheMeeting < todayOriginal ? "마감" : "진행중";
           }
           const postList = res.data.posts.contents;
+
           dispatch(pageAll(postList));
         } else {
           for (let i = 0; i < res.data.posts.contents.length; i++) {

@@ -1,3 +1,4 @@
+// Cards.js - 산책가자 페이지에서의 카드 한개에 대한 컴포넌트
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configureStore";
@@ -45,6 +46,21 @@ const Cards = ({ Info }) => {
             <p>{Info.dogName}</p>
             <p>{Info.dogAge}</p>
           </DogInfo>
+          <>
+            {Info.completed === "마감" ? (
+              <h3
+                style={{
+                  backgroundColor: "#ff5656",
+                  padding: "5px",
+                  color: "#fff",
+                }}
+              >
+                마감
+              </h3>
+            ) : (
+              <h3 style={{ backgroundColor: "#e5e5e5" }}>진행중</h3>
+            )}
+          </>
         </CardTop>
         <CardBottom>
           <Box>
@@ -97,6 +113,7 @@ const EachCardWrap = styled.div`
   background-color: #fff;
   cursor: pointer;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
 `;
 const Left = styled.div`
   position: relative;
@@ -128,6 +145,14 @@ const CardTop = styled.div`
   line-height: 23px;
   h4 {
     margin-right: 10px;
+  }
+  h3 {
+    padding: 5px;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+    font-weight: normal;
+    font-size: 14px;
   }
 `;
 const DogInfo = styled.div`

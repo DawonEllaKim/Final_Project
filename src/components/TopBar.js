@@ -1,3 +1,4 @@
+// TopBar.js - 페이지 상단 탑 모음 (웹소켓)
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
@@ -13,13 +14,16 @@ import { IoNotificationsOutline } from "react-icons/io5";
 
 const TopBar = (props) => {
   const { text, children, padding, only_left, only_right, home , dogSign } = props;
-  const history = useHistory();
   const styles = { padding };
+
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const userId = localStorage.getItem("userId");
   const [socket, setSocket] = useState(null);
   const [notification, setNotification] = useState([]);
 
+  // 웹소켓 알람
   // useEffect(() => {
   //   setSocket(io.connect(`https://www.walkadog.shop/notification/${userId}`));
   // }, []);
@@ -42,13 +46,13 @@ const TopBar = (props) => {
     localStorage.setItem("noti", JSON.stringify(notification));
     arr = localStorage.getItem("noti");
   }, [notification, noti]);
-  // console.log(getNoti);
+
   useEffect(() => {
     dispatch(notiActions.getNotiMD());
   }, []);
-  // console.log(noti)
 
   if (only_left) {
+    // 왼쪽 버튼만 있는 경우
     return (
       <Wrap>
         <Left {...styles}>
@@ -68,6 +72,7 @@ const TopBar = (props) => {
       </Wrap>
     );
   } else if (only_right) {
+    // 오른쪽 버튼만 있는 경우
     return (
       <Wrap>
         <Right {...styles}>
@@ -80,12 +85,13 @@ const TopBar = (props) => {
                 height: "24px",
               }}
             />
-            <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
+            <Noti>{getNoti == 0 ? 0 : getNoti.length}</Noti>
           </BtnRight>
         </Right>
       </Wrap>
     );
   } else if (home) {
+    // 메인 페이지 top
     return (
       <Wrap>
         <Both {...styles}>
@@ -111,15 +117,15 @@ const TopBar = (props) => {
                     height: "24px",
                   }}
                 />
-                <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
+                <Noti>{getNoti == 0 ? 0 : getNoti.length}</Noti>
               </>
             )}
           </BtnRight>
         </Both>
       </Wrap>
     );
-  }
-  else if (dogSign) {
+  } else if (dogSign) {
+    // 강아지 등록 페이지 top
     return (
       <Wrap>
         <Both {...styles}>
@@ -135,16 +141,15 @@ const TopBar = (props) => {
             />
           </BtnLeft>
           {text ? text : children}
-       
             <RedButton onClick={()=>history.push("/")}>
               건너뛰기
             </RedButton>
-         
         </Both>
       </Wrap>
     );
   }
   return (
+    // 기본 top
     <Wrap>
       <Both {...styles}>
         <BtnLeft>
@@ -169,7 +174,7 @@ const TopBar = (props) => {
                   height: "24px",
                 }}
               />
-              <Edit>{getNoti == 0 ? 0 : getNoti.length}</Edit>
+              <Noti>{getNoti == 0 ? 0 : getNoti.length}</Noti>
             </>
           )}
         </BtnRight>
@@ -177,6 +182,7 @@ const TopBar = (props) => {
     </Wrap>
   );
 };
+
 TopBar.defaultProps = {
   text: false,
   children: null,
@@ -186,28 +192,14 @@ TopBar.defaultProps = {
   home: false,
   dogSign: false,
 };
-const RedButton = styled.div
-`
-color: #ff5656;
-font-size:14px;
-height:25px;
-background-color:#fff;
-display:flex;
-justify-content:center;
-align-items:center;
-padding-bottom:5px;
-position:absolute;
-top:15px;
-right:0px;
-border-bottom: 2px solid #ff5656;
-cursor:pointer;
-`
+
 const Wrap = styled.div`
   margin-bottom: 26px;
   background-color: #fff;
   padding-top: 14px;
 `;
-const Edit = styled.div`
+
+const Noti = styled.div`
   position: absolute;
   top: 0px;
   right: 0px;
@@ -234,7 +226,6 @@ const Left = styled.div`
   line-height: 52px;
   font-size: 18px;
   font-weight: 500;
-
   text-align: center;
   padding: ${(props) => props.padding};
 `;
@@ -246,7 +237,6 @@ const Right = styled.div`
   line-height: 52px;
   font-size: 18px;
   font-weight: 500;
-
   text-align: center;
   padding: ${(props) => props.padding};
 `;
@@ -258,7 +248,6 @@ const Both = styled.div`
   line-height: 52px;
   font-size: 18px;
   font-weight: 500;
-  /* margin: 36px 0; */
   text-align: center;
   padding: ${(props) => props.padding};
 `;
@@ -282,6 +271,22 @@ const BtnRight = styled.button`
   width: 52px;
   height: 52px;
   cursor: pointer;
+`;
+
+const RedButton = styled.div`
+color: #ff5656;
+font-size:14px;
+height:25px;
+background-color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+padding-bottom:5px;
+position:absolute;
+top:15px;
+right:0px;
+border-bottom: 2px solid #ff5656;
+cursor:pointer;
 `;
 
 export default TopBar;
