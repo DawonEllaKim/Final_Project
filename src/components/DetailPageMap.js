@@ -11,17 +11,17 @@ const DetailPageMap = ({ post }) => {
 
   useEffect(() => {
     // 지도를 표시할 div
-    var mapContainer = document.getElementById("map"),
+    let mapContainer = document.getElementById("map"),
       mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도를 열면 보이는 중심 좌표
         level: 3, // 지도 확대 레벨
       };
 
     // 지도 생성
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    let map = new kakao.maps.Map(mapContainer, mapOption);
 
     // 마커 생성
-    var marker = new kakao.maps.Marker({
+    let marker = new kakao.maps.Marker({
       position: new kakao.maps.LatLng(longitude, latitude), // 마커 위치
     });
 
@@ -29,14 +29,14 @@ const DetailPageMap = ({ post }) => {
     marker.setMap(map);
 
     // 상세 위치명이 들어 있는 인포윈도우
-    var iwContent =
+    let iwContent =
         '<div style="padding:5px; width:200px; line-height: 30px; border-radius: 20px">' +
         post.location_address +
         "</div>",
       iwPosition = new kakao.maps.LatLng(longitude, latitude); //인포윈도우 표시 위치입니다
 
     // 인포윈도우 생성
-    var infowindow = new kakao.maps.InfoWindow({
+    let infowindow = new kakao.maps.InfoWindow({
       position: iwPosition,
       content: iwContent,
     });

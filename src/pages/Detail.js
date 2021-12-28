@@ -79,11 +79,11 @@ const Detail = (props) => {
   const companies = useSelector((state) => state.post.companies);
   let completed = post.completed;
 
-  if (companies.length < dogCo - 1) {
-    completed = post.completed;
-  } else {
-    completed = "마감";
-  }
+  // if (companies.length < dogCo - 1) {
+  //   completed = post.completed;
+  // } else {
+  //   completed = "마감";
+  // }
 
   const locationCategory = post.locationCategory;
 

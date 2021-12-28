@@ -67,7 +67,7 @@ const All = () => {
                 post,
                 completed,
               };
-              console.log("Info", Info);
+              // console.log("Info", Info);
               return <Cards Info={Info} key={index} />;
             })}
             {/* 무한스크롤 페이지 인식 */}
