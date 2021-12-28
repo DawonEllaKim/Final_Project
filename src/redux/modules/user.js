@@ -61,7 +61,7 @@ const getMypageMD = (currentPageUserId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/mypage/myInfo/${currentPageUserId}`,
+      url: `https://www.togather1.com/mypage/myInfo/${currentPageUserId}`,
       data: {},
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -85,7 +85,7 @@ const getUserMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/users/me",
+      url: "https://www.togather1.com/users/me",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -113,7 +113,7 @@ const updateUserMD = (userInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "https://www.walkadog.shop/users/me",
+      url: "https://www.togather1.com/users/me",
       data: userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -140,7 +140,7 @@ const updateUserImageMD = (userInfo) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "https://www.walkadog.shop/users/changeImage",
+      url: "https://www.togather1.com/users/changeImage",
       data: userInfo,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -168,7 +168,7 @@ const getDogMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/dogs",
+      url: "https://www.togather1.com/dogs",
       data: {},
       headers: {
         accept: "application/json",
@@ -195,7 +195,7 @@ const updateDogMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "https://www.walkadog.shop/dogs",
+      url: "https://www.togather1.com/dogs",
       data: formData,
       headers: {
         accept: "application/json",
@@ -220,7 +220,7 @@ const updateDogImageMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "PATCH",
-      url: "https://www.walkadog.shop/dogs/changeImage",
+      url: "https://www.togather1.com/dogs/changeImage",
       data: formData,
       headers: {
         accept: "application/json",

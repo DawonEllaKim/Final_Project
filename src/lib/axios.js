@@ -6,7 +6,7 @@ const instance = axios.create({
   // baseURL: "http://localhost:4000",
 
   // 백앤드 서버
-  baseURL: "https://www.walkadog.shop",
+  baseURL: "https://www.togather1.com",
 
   // 선희님 서버
   // baseURL: "http://52.78.120.187",
@@ -33,7 +33,7 @@ export const apis = {
   updateUserAX: (user, get_id) => instance.put("/users", user, get_id),
 
   // 산책 등록하기
-  createPostAX: (post, postId) => instance.post(`/posts/write/${postId}`, post),
+  createPostAX: (post) => instance.post(`/posts/write`, post),
   // 산책 수정하기
   updatePostAX: (postId, post , get_id) => instance.patch(`/posts/${postId}/${get_id}`, post),
   // 산책 가져오기

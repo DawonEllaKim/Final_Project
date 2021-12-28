@@ -119,7 +119,7 @@ const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts",
+      url: "https://www.togather1.com/posts/test",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -142,7 +142,7 @@ const getAllMD = () => {
           res.data.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
-        const postList = res.data.posts;
+        const postList = res.data.posts.posts;
         dispatch(getAll(postList));
         dispatch(loading(false));
         // console.log("정보 불러오기 완료");
@@ -157,7 +157,7 @@ const getMainOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/olympicPark",
+      url: "https://www.togather1.com/posts/main/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -180,8 +180,8 @@ const getMainOlympicMD = () => {
           res.data.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
-        const postList = res.data.posts;
-        const totalCount = res.data.totalCount;
+        const postList = res.data.posts.posts;
+        const totalCount = res.data.posts.totalCount;
         const postLists = [...postList, totalCount];
         dispatch(getMainOlympic(postLists));
         dispatch(loading(false));
@@ -196,7 +196,7 @@ const getMainSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/seoulForest",
+      url: "https://www.togather1.com/posts/main/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -219,8 +219,8 @@ const getMainSeoulMD = () => {
           res.data.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
-        const postList = res.data.posts;
-        const totalCount = res.data.totalCount;
+        const postList = res.data.posts.posts;
+        const totalCount = res.data.posts.totalCount;
         const postLists = [...postList, totalCount];
         dispatch(getMainSeoul(postLists));
         dispatch(loading(false));
@@ -235,7 +235,7 @@ const getMainBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/main/banpoPark",
+      url: "https://www.togather1.com/posts/main/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -258,8 +258,8 @@ const getMainBanpoMD = () => {
           res.data.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
-        const postList = res.data.posts;
-        const totalCount = res.data.totalCount;
+        const postList = res.data.posts.posts;
+        const totalCount = res.data.posts.totalCount;
         const postLists = [...postList, totalCount];
         dispatch(getMainBanpo(postLists));
         dispatch(loading(false));
@@ -274,7 +274,7 @@ const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/olympicPark",
+      url: "https://www.togather1.com/posts/olympicPark",
       data: {},
       headers: {
         accept: "application/json",
@@ -310,7 +310,7 @@ const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/seoulForest",
+      url: "https://www.togather1.com/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -347,7 +347,7 @@ const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/posts/banpoPark",
+      url: "https://www.togather1.com/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -384,7 +384,7 @@ const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/posts/${postId}`,
+      url: `https://www.togather1.com/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -488,7 +488,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/mypage/myPost/${userId}`,
+      url: `https://www.togather1.com/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -525,7 +525,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/posts/${postId}`,
+      url: `https://www.togather1.com/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",

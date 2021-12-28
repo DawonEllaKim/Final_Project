@@ -64,7 +64,7 @@ const getMainPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/dogsta/mainFilter",
+      url: "https://www.togather1.com/dogsta/mainFilter",
       data: {},
       headers: {},
     })
@@ -83,7 +83,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/dogsta/recentFilter",
+      url: "https://www.togather1.com/dogsta/recentFilter",
       data: {},
       headers: {},
     })
@@ -103,7 +103,7 @@ const getFirstRecentMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/test/recentFilter?pageNum=${pageNum}`,
+      url: `https://www.togather1.com/dogsta/test/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -131,7 +131,7 @@ const getFirstLikeMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/test/likeFilter?pageNum=${pageNum}`,
+      url: `https://www.togather1.com/dogsta/test/likeFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -159,7 +159,7 @@ const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/${userId}/${dogPostId}`,
+      url: `https://www.togather1.com/dogsta/${userId}/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -178,7 +178,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/dogsta/${userId}`,
+      url: `https://www.togather1.com/dogsta/${userId}`,
       data: {},
       headers: {},
     })
@@ -197,7 +197,7 @@ const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/dogsta/write",
+      url: "https://www.togather1.com/dogsta/write",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -221,7 +221,7 @@ const editPostMD = (postId, post) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/dogsta/${postId}`,
+      url: `https://www.togather1.com/dogsta/${postId}`,
       data: post,
       headers: {
         accept: "application/json",
@@ -244,7 +244,7 @@ const editPostImageMD = (post, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/dogsta/changeImage/${dogPostId}`,
+      url: `https://www.togather1.com/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
         accept: "application/json",
@@ -270,7 +270,7 @@ const deletePostMD = (postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "DELETE",
-      url: `https://www.walkadog.shop/dogsta/${postId}`,
+      url: `https://www.togather1.com/dogsta/${postId}`,
       data: {},
       headers: {
         accept: "application/json",
@@ -295,7 +295,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     if (!liked) {
       axios({
         method: "POST",
-        url: `https://www.walkadog.shop/likes/${dogPostId}`,
+        url: `https://www.togather1.com/likes/${dogPostId}`,
         data: {},
         headers: {
           accept: "application/json",
@@ -314,7 +314,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     } else {
       axios({
         method: "DELETE",
-        url: `https://www.walkadog.shop/likes/${dogPostId}`,
+        url: `https://www.togather1.com/likes/${dogPostId}`,
         data: {},
         headers: {
           accept: "application/json",
@@ -338,7 +338,7 @@ const getLikesMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/likes/${dogPostId}`,
+      url: `https://www.togather1.com/likes/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -356,7 +356,7 @@ const getMyLikeMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/likes/${dogPostId}/likeExist`,
+      url: `https://www.togather1.com/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
         authorization: `Bearer ${getCookie("token")}`,

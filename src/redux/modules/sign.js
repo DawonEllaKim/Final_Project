@@ -61,7 +61,7 @@ const signDupAPI = (userEmail) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/checkDup",
+      url: "https://www.togather1.com/users/checkDup",
       data: { userEmail },
       headers: {
         Accept: "application/json",
@@ -84,7 +84,7 @@ const logInMD = (userEmail, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/login",
+      url: "https://www.togather1.com/users/login",
       data: { userEmail, password },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -121,7 +121,7 @@ const getIdAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/users/giveUserId",
+      url: "https://www.togather1.com/users/giveUserId",
       headers: {
         // "content-type": "application/json;charset=UTF-8",
 
@@ -143,7 +143,7 @@ const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/users/signUp",
+      url: "https://www.togather1.com/users/signUp",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -166,7 +166,7 @@ const checkDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.walkadog.shop/users/dogExist",
+      url: "https://www.togather1.com/users/dogExist",
       data: {},
       headers: {
         accept: "application/json",
@@ -190,7 +190,7 @@ const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.walkadog.shop/dogs/dogInfo",
+      url: "https://www.togather1.com/dogs/dogInfo",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",

@@ -34,7 +34,7 @@ const addCommentMD = (dogPostId, comment) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.walkadog.shop/comment/${dogPostId}`,
+      url: `https://www.togather1.com/comment/${dogPostId}`,
       data: comment,
       headers: {
         authorization: `Bearer ${getCookie("token")}`,
@@ -54,7 +54,7 @@ const getCommentMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.walkadog.shop/comment/${dogPostId}`,
+      url: `https://www.togather1.com/comment/${dogPostId}`,
     })
       .then((res) => {
         const commentList = res.data.comment;
@@ -70,7 +70,7 @@ const editCommentMD = (dogPostId, commentId, commentList) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
+      url: `https://www.togather1.com/comment/${dogPostId}/${commentId}`,
       data: commentList,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -94,7 +94,7 @@ const deleteCommentMD = (dogPostId, commentId) => {
     // console.log(id);
     axios({
       method: "DELETE",
-      url: `https://www.walkadog.shop/comment/${dogPostId}/${commentId}`,
+      url: `https://www.togather1.com/comment/${dogPostId}/${commentId}`,
       data: {},
       headers: {
         accept: "application/json",
