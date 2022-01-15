@@ -7,7 +7,7 @@ function MainDogsta({ post }) {
     <Wrap>
       <ImageWrap
         onClick={() =>
-          history.push(`/dogStaDetail/${post.userId}}/${post.dogPostId}`)
+          history.push(`/dogStaDetail/${post.userId}/${post.dogPostId}`)
         }
       >
         <Dogsta src={post.dogPostImage} />

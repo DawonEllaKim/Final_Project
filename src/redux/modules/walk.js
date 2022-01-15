@@ -45,11 +45,12 @@ const initialState = {
   page_seoul: [],
   page_all: [],
 };
+
 const pageAllMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test`,
+      url: `https://www.togather1.com/posts/test?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -123,7 +124,7 @@ const pageOlympicMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test/olympicPark`,
+      url: `https://www.togather1.com/posts/(test)/olympicPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -180,7 +181,7 @@ const pageSeoulMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test/seoulForest`,
+      url: `https://www.togather1.com/posts/test/seoulForest?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -238,7 +239,7 @@ const pageBanpoMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test/banpoPark`,
+      url: `https://www.togather1.com/posts/test/banpoPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",

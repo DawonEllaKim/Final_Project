@@ -60,21 +60,22 @@ const initialState = {
   modal: false,
 };
 
+// 메인 페이지 (오늘의 개스타 부분) 개스타그램 10개 불러오기
 const getMainPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/dogsta/mainFilter",
+      url: "https://www.togather1.com/dogstaFilter/mainFilter",
       data: {},
       headers: {},
     })
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMainPost(postList));
-        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+        console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
-        // console.log("개스타그램 모든 게시물 GET 에러", err);
+        console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
@@ -90,71 +91,73 @@ const getAllPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        // console.log("개스타그램 모든 게시물 GET 성공", postList);
+        console.log("개스타그램 모든 게시물 GET 성공", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 모든 게시물 GET 에러", err);
+        console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
 
-// 개스타그램 무한 스크롤 적용
+// (개스타그램 무한 스크롤) 최신순
 const getFirstRecentMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogsta/test/recentFilter?pageNum=${pageNum}`,
+      url: `https://www.togather1.com/dogstaFilter/recentFilter/${pageNum}`,
       data: {},
       headers: {},
     })
       .then((res) => {
         if (pageNum == 1) {
           const postList = res.data.posts.contents;
-          // console.log('first get 성공', postList);
+          console.log("first get 성공", postList);
           dispatch(getFirstRecent(postList));
         } else {
           let postList = [];
           for (let i = 0; i < res.data.posts.contents.length; i++) {
             postList.push(res.data.posts.contents[i]);
-            // console.log('무한스크롤 성공', postList);
+            console.log("무한스크롤 성공", postList);
           }
           dispatch(getMoreRecent(postList));
         }
       })
       .catch((err) => {
-        // console.log('first get 에러', err);
+        console.log("first get 에러", err);
       });
   };
 };
 
+// (개스타그램 무한 스크롤) 라이크순
 const getFirstLikeMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogsta/test/likeFilter?pageNum=${pageNum}`,
+      url: `https://www.togather1.com/dogstaFilter/likeFilter/${pageNum}`,
       data: {},
       headers: {},
     })
       .then((res) => {
         if (pageNum == 1) {
           const postList = res.data.posts.contents;
-          // console.log('first get 성공', postList);
+          console.log("first get 성공", postList);
           dispatch(getFirstLike(postList));
         } else {
           let postList = [];
           for (let i = 0; i < res.data.posts.contents.length; i++) {
             postList.push(res.data.posts.contents[i]);
-            // console.log('무한스크롤 성공', postList);
+            console.log("무한스크롤 성공", postList);
           }
           dispatch(getMoreLike(postList));
         }
       })
       .catch((err) => {
-        // console.log('first get 에러', err);
+        console.log("first get 에러", err);
       });
   };
 };
 
+// 개스타그램 상세 페이지
 const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
@@ -166,14 +169,15 @@ const getPostMD = (userId, dogPostId) => {
       .then((res) => {
         const postList = res.data.posts[0];
         dispatch(getDogPost(postList));
-        // console.log("개스타그램 게시물 하나 GET 성공", res);
+        console.log("개스타그램 게시물 하나 GET 성공", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 게시물 하나 GET 오류", err);
+        console.log("개스타그램 게시물 하나 GET 오류", err);
       });
   };
 };
 
+// 마이페이지에서 개스타그램 조회
 const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
@@ -185,14 +189,15 @@ const getMyPostMD = (userId) => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMyPost(postList));
-        // console.log("개스타그램 나의 게시물 GET 성공", res);
+        console.log("개스타그램 나의 게시물 GET 성공", res.data.posts);
       })
       .catch((err) => {
-        // console.log("개스타그램 나의 게시물 GET 오류", err);
+        console.log("개스타그램 나의 게시물 GET 오류", err);
       });
   };
 };
 
+// 개스타그램 게시물 등록
 const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
@@ -210,9 +215,10 @@ const addPostMD = (formData) => {
         dispatch(getFirstRecentMD());
         dispatch(modalActions.setModal("개스타 등록완료!"));
         history.push("/dogstarmainmodal");
+        console.log("개스타그램 등록 성공", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 게시물 POST 에러", err);
+        console.log("개스타그램 게시물 POST 에러", err);
       });
   };
 };
@@ -232,10 +238,10 @@ const editPostMD = (postId, post) => {
       .then((res) => {
         dispatch(editPost(post));
         dispatch(getModal(true));
-        // console.log("개스타그램 게시물 PATCH 완료", res);
+        console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 게시물 PATCH 오류", err);
+        console.log("개스타그램 게시물 PATCH 오류", err);
       });
   };
 };
@@ -257,10 +263,10 @@ const editPostImageMD = (post, dogPostId) => {
         dispatch(editPost(post));
         dispatch(modalActions.setModal("이미지 수정완료"));
         history.push("/successModal");
-        // console.log("개스타그램 게시물 PATCH 완료", res);
+        console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 게시물 PATCH 오류", err);
+        console.log("개스타그램 게시물 PATCH 오류", err);
         history.goBack();
       });
   };
@@ -279,13 +285,13 @@ const deletePostMD = (postId) => {
       },
     })
       .then((res) => {
-        // dispatch(deletePost(postId));
+        dispatch(deletePost(postId));
         dispatch(modalActions.setModal("게시글 삭제완료!"));
         history.push("/dogstarmainmodal");
-        // console.log("개스타그램 게시물 DELETE 성공", res);
+        console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
-        // console.log("개스타그램 게시물 DELETE 오류", err);
+        console.log("개스타그램 게시물 DELETE 오류", err);
       });
   };
 };
