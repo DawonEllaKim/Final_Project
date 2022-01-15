@@ -23,11 +23,9 @@ const DogStaMain = (props) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-
   const allList = useSelector((state) => state.dogsta.allList); // 개스타그램 총 게시물 수
   const postList = useSelector((state) => state.dogsta.mainList); // 개스타그램 최신순 상단 리스트
   const postLike = useSelector((state) => state.dogsta.mainLikeList); // 개스타그램 좋아요 순 상단 리스트
-
   const [status, setStatus] = useState(); // 최신순, 추천순 중 택1
   const [focus, setFocus] = useState(); // 최신, 추천 중 택1 해서 글자 밑에 빨간 밑줄
 

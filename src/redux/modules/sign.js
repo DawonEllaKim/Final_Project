@@ -61,7 +61,7 @@ const signDupAPI = (userEmail) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.togather1.com/users/checkDup",
+      url: "http://13.209.70.209/users/checkDup",
       data: { userEmail },
       headers: {
         Accept: "application/json",
@@ -84,7 +84,7 @@ const logInMD = (userEmail, password) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.togather1.com/users/login",
+      url: "http://13.209.70.209/users/login",
       data: { userEmail, password },
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -114,6 +114,7 @@ const logoutMD = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
     dispatch(modalActions.setModal("로그아웃 되었습니다"));
+    localStorage.removeItem("checkDog");
     history.push("/deleteModal");
   };
 };
@@ -121,7 +122,7 @@ const getIdAPI = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/users/giveUserId",
+      url: "http://13.209.70.209/users/giveUserId",
       headers: {
         // "content-type": "application/json;charset=UTF-8",
 
@@ -143,7 +144,7 @@ const signUserAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.togather1.com/users/signUp",
+      url: "http://13.209.70.209/users/signUp",
       data: formData,
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -166,7 +167,7 @@ const checkDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/users/dogExist",
+      url: "http://13.209.70.209/users/dogExist",
       data: {},
       headers: {
         accept: "application/json",
@@ -180,6 +181,7 @@ const checkDogAPI = (formData) => {
         dispatch(checkDog(res.data));
         localStorage.setItem("checkDog", res.data);
         dispatch(loading(false));
+        console.log("체크독", res.data);
       })
       .catch((err) => {
         // console.log("checkDog에서 오류발생", err);
@@ -190,7 +192,7 @@ const signDogAPI = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.togather1.com/dogs/dogInfo",
+      url: "http://13.209.70.209/dogs/dogInfo",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -205,7 +207,7 @@ const signDogAPI = (formData) => {
         dispatch(UserActions.getDogMD());
         dispatch(checkDogAPI());
         dispatch(loading(Math.floor(Math.random() * 10 + 1)));
-
+        // localStorage.setItem("checkDog", true);
         history.push("/");
 
         dispatch(dogModal(false));

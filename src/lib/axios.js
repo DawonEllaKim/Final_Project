@@ -6,10 +6,10 @@ const instance = axios.create({
   // baseURL: "http://localhost:4000",
 
   // 백앤드 서버
-  baseURL: "https://www.togather1.com",
+  // baseURL: "https://www.togather1.com",
 
   // 선희님 서버
-  // baseURL: "http://52.78.120.187",
+  baseURL: "http://13.209.70.209",
 
   headers: {
     // "content-type": "application/json;charset=UTF-8",
@@ -30,15 +30,17 @@ export const apis = {
     instance.post("/users/login", { user_email, password }),
 
   // 마이 프로필에서 강아지, 보호자 정보 업데이트
-  updateUserAX: (user, get_id) => instance.put("/users", user, get_id),
+  // updateUserAX: (user, get_id) => instance.put("/users", user, get_id),
+  updateUserAX: (user) => instance.put("/users", user),
 
   // 산책 등록하기
   createPostAX: (post) => instance.post(`/posts/write`, post),
   // 산책 수정하기
-  updatePostAX: (postId, post , get_id) => instance.patch(`/posts/${postId}/${get_id}`, post),
+  // updatePostAX: (postId, post, get_id) =>
+  // instance.patch(`/posts/${postId}/${get_id}`, post),
+  updatePostAX: (postId, post) => instance.patch(`/posts/${postId}`, post),
   // 산책 가져오기
   getPostAX: (postId) => instance.get(`/posts/${postId}`),
   // 산책 약속 삭제하기
-  deletePostAX: (postId, get_id) =>
-    instance.delete(`/posts/${postId}/${get_id}`),
+  deletePostAX: (postId) => instance.delete(`/posts/${postId}`),
 };

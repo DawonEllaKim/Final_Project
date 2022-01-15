@@ -65,7 +65,7 @@ const getMainPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/dogstaFilter/mainFilter",
+      url: "http://13.209.70.209/dogstaFilter/mainFilter",
       data: {},
       headers: {},
     })
@@ -84,7 +84,7 @@ const getAllPostMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/dogsta/recentFilter",
+      url: "http://13.209.70.209/dogstaFilter/allFilter",
       data: {},
       headers: {},
     })
@@ -104,7 +104,7 @@ const getFirstRecentMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogstaFilter/recentFilter/${pageNum}`,
+      url: `http://13.209.70.209/dogstaFilter/recentFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -133,7 +133,7 @@ const getFirstLikeMD = (pageNum) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogstaFilter/likeFilter/${pageNum}`,
+      url: `http://13.209.70.209/dogstaFilter/likeFilter?pageNum=${pageNum}`,
       data: {},
       headers: {},
     })
@@ -162,7 +162,7 @@ const getPostMD = (userId, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogsta/${userId}/${dogPostId}`,
+      url: `http://13.209.70.209/dogsta/${userId}/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -182,7 +182,7 @@ const getMyPostMD = (userId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/dogsta/${userId}`,
+      url: `http://13.209.70.209/dogsta/${userId}`,
       data: {},
       headers: {},
     })
@@ -202,7 +202,7 @@ const addPostMD = (formData) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: "https://www.togather1.com/dogsta/write",
+      url: "http://13.209.70.209/dogsta/write",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data; ",
@@ -227,7 +227,7 @@ const editPostMD = (postId, post) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.togather1.com/dogsta/${postId}`,
+      url: `http://13.209.70.209/dogsta/${postId}`,
       data: post,
       headers: {
         accept: "application/json",
@@ -250,7 +250,7 @@ const editPostImageMD = (post, dogPostId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "PATCH",
-      url: `https://www.togather1.com/dogsta/changeImage/${dogPostId}`,
+      url: `http://13.209.70.209/dogsta/changeImage/${dogPostId}`,
       data: post,
       headers: {
         accept: "application/json",
@@ -276,7 +276,7 @@ const deletePostMD = (postId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "DELETE",
-      url: `https://www.togather1.com/dogsta/${postId}`,
+      url: `http://13.209.70.209/dogsta/${postId}`,
       data: {},
       headers: {
         accept: "application/json",
@@ -301,7 +301,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     if (!liked) {
       axios({
         method: "POST",
-        url: `https://www.togather1.com/likes/${dogPostId}`,
+        url: `http://13.209.70.209/likes/${dogPostId}`,
         data: {},
         headers: {
           accept: "application/json",
@@ -320,7 +320,7 @@ const toggleLikeMD = (dogPostId, liked) => {
     } else {
       axios({
         method: "DELETE",
-        url: `https://www.togather1.com/likes/${dogPostId}`,
+        url: `http://13.209.70.209/likes/${dogPostId}`,
         data: {},
         headers: {
           accept: "application/json",
@@ -344,7 +344,7 @@ const getLikesMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/likes/${dogPostId}`,
+      url: `http://13.209.70.209/likes/${dogPostId}`,
       data: {},
       headers: {},
     })
@@ -362,7 +362,7 @@ const getMyLikeMD = (dogPostId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/likes/${dogPostId}/likeExist`,
+      url: `http://13.209.70.209/likes/${dogPostId}/likeExist`,
       data: {},
       headers: {
         authorization: `Bearer ${getCookie("token")}`,

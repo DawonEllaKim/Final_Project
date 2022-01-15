@@ -17,6 +17,7 @@ const All = () => {
   const allList = useSelector((state) => state.post.main); // 총 게시물 수
   const postList = useSelector((state) => state.walk.page_all); // 전체 상단 리스트
   const [pageNum, setPageNum] = useState(1);
+  // console.log(useSelector((state) => state));
 
   useEffect(() => {
     dispatch(walkActions.pageAllMD(pageNum));

@@ -539,7 +539,7 @@ const Detail = (props) => {
             (get_id == post.userId ? (
               <FlexButton>
                 <DeleteButton onClick={deletePost}>삭제하기</DeleteButton>
-                <EditButton onClick={() => history.push(`/mapEdit/${postId}`)}>
+                <EditButton onClick={() => history.push(`/EditWalk/${postId}`)}>
                   수정하기
                 </EditButton>
               </FlexButton>

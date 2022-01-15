@@ -13,6 +13,7 @@ const ADD_ALL = "ADD_ALL";
 const ADD_BANPO = "ADD_BANPO";
 const ADD_OLYMPIC = "ADD_OLYMPIC";
 const ADD_SEOUL = "ADD_SEOUL";
+
 const pageBanpo = createAction(PAGE_BANPO, (page_banpo) => ({
   page_banpo,
 }));
@@ -25,7 +26,6 @@ const pageSeoul = createAction(PAGE_SEOUL, (page_seoul) => ({
 const pageAll = createAction(PAGE_ALL, (page_all) => ({
   page_all,
 }));
-
 const addAll = createAction(ADD_ALL, (page_all) => ({
   page_all,
 }));
@@ -46,11 +46,12 @@ const initialState = {
   page_all: [],
 };
 
+// 산책가자 페이지 (전체) 무한 스크롤
 const pageAllMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test?pageNum=${pageNum}`,
+      url: `http://13.209.70.209/posts/test?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -119,12 +120,12 @@ const pageAllMD = (pageNum) => {
       });
   };
 };
-
+// 산책가자 페이지 (전체) 무한 스크롤
 const pageOlympicMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/(test)/olympicPark?pageNum=${pageNum}`,
+      url: `http://13.209.70.209/posts/test/olympicPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -177,11 +178,12 @@ const pageOlympicMD = (pageNum) => {
       });
   };
 };
+// 산책가자 페이지 (전체) 무한 스크롤
 const pageSeoulMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test/seoulForest?pageNum=${pageNum}`,
+      url: `http://13.209.70.209/posts/test/seoulForest?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -234,12 +236,12 @@ const pageSeoulMD = (pageNum) => {
       });
   };
 };
-
+// 산책가자 페이지 (전체) 무한 스크롤
 const pageBanpoMD = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/test/banpoPark?pageNum=${pageNum}`,
+      url: `http://13.209.70.209/posts/test/banpoPark?pageNum=${pageNum}`,
       data: {},
       headers: {
         Accept: "application/json",

@@ -106,7 +106,7 @@ const DogProfile = (props) => {
       {modal2 ? <DogSuccessModal /> : ""}
       <TopBar only_left> 반려견 정보 수정</TopBar>
 
-    {/* 이미지 클릭시 수정 모달 생성 */}
+      {/* 이미지 클릭시 수정 모달 생성 */}
       <UserWrap>
         <UserInfoLeft onClick={() => setModal(true)}>
           <UserImg src={dog.dogImage} />
@@ -315,7 +315,7 @@ const DogProfile = (props) => {
       <NavBar />
     </Wrap>
   );
-}; 
+};
 
 const UserWrap = styled.div`
   display: flex;

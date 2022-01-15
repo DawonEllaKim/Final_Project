@@ -69,7 +69,7 @@ const editMarkerAX = (marker, editId) => {
 
     // 액션 함수에 마커 정보를 담아서 보냅니다.
     dispatch(addMarker(marker));
-    history.push(`/mapEdit/${editId}`);
+    history.push(`/EditWalk/${editId}`);
   };
 };
 

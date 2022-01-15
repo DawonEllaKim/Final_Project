@@ -55,7 +55,7 @@ const inBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/chat/inbox",
+      url: "http://13.209.70.209/chat/inbox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -77,7 +77,7 @@ const outBoxMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/chat/outBox",
+      url: "http://13.209.70.209/chat/outBox",
       data: {},
       headers: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ const sendMessageMD = (receiverId, message, type) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.togather1.com/chat/${receiverId}`,
+      url: `http://13.209.70.209/chat/${receiverId}`,
       data: { message },
       headers: {
         Accept: "application/json",
@@ -123,7 +123,7 @@ const sendNotificationMD = (receiverId, type, postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.togather1.com/notification/${receiverId}`,
+      url: `http://13.209.70.209/notification/${receiverId}`,
       data: { type: type, postId: postId },
       headers: {
         Accept: "application/json",
@@ -157,7 +157,7 @@ const getDetailMD = (chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/chat/${chatId}`,
+      url: `http://13.209.70.209/chat/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -178,7 +178,7 @@ const deleteInMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.togather1.com/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",
@@ -199,7 +199,7 @@ const deleteOutMessageMD = (receiverId, senderId, chatId) => {
   return function (dispatch, useState, { history }) {
     axios({
       method: "POST",
-      url: `https://www.togather1.com/chat/${receiverId}/${senderId}/${chatId}`,
+      url: `http://13.209.70.209/chat/${receiverId}/${senderId}/${chatId}`,
       data: {},
       headers: {
         Accept: "application/json",

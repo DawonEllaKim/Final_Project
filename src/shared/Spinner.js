@@ -5,7 +5,7 @@ import spinner from "../image/spinner.gif";
 const Spinner = () => {
   return (
     <Wrap>
-      <img src={spinner} />
+      <img src={spinner} alt="spinner" />
       <h4>로딩중입니다.</h4>
     </Wrap>
   );

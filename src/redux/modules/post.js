@@ -115,11 +115,12 @@ const modalMD = () => {
   };
 };
 //받는 데이터 dog_size,dog_gender,dog_age,location_category,completed, dog_name,meeting_date
+// 산책 약속 모든 게시물 받아오는것
 const getAllMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/test",
+      url: "http://13.209.70.209/posts/",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -145,7 +146,7 @@ const getAllMD = () => {
         const postList = res.data.posts.posts;
         dispatch(getAll(postList));
         dispatch(loading(false));
-        // console.log("정보 불러오기 완료");
+        console.log("산책가자 전체 정보 불러오기 완료", res.data.posts);
       })
       .catch((err) => {
         // console.log(err);
@@ -153,11 +154,12 @@ const getAllMD = () => {
       });
   };
 };
+// 메인 페이지 - 올림픽 게시물 4개 받아오는것
 const getMainOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/main/olympicPark",
+      url: "http://13.209.70.209/posts/main/olympicPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -192,11 +194,12 @@ const getMainOlympicMD = () => {
       });
   };
 };
+// 메인 페이지 - 서울숲 게시물 4개 받아오는것
 const getMainSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/main/seoulForest",
+      url: "http://13.209.70.209/posts/main/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -231,11 +234,12 @@ const getMainSeoulMD = () => {
       });
   };
 };
+// 메인 페이지 - 반포 게시물 4개 받아오는것
 const getMainBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/main/banpoPark",
+      url: "http://13.209.70.209/posts/main/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -270,11 +274,12 @@ const getMainBanpoMD = () => {
       });
   };
 };
+// 산책가자 페이지 - 전체 올림픽 게시물 받아오기
 const getOlympicMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/olympicPark",
+      url: "http://13.209.70.209/posts/olympicPark",
       data: {},
       headers: {
         accept: "application/json",
@@ -306,11 +311,12 @@ const getOlympicMD = () => {
       });
   };
 };
+// 산책가자 페이지 - 전체 서울숲 게시물 받아오기
 const getSeoulMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/seoulForest",
+      url: "http://13.209.70.209/posts/seoulForest",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -343,11 +349,12 @@ const getSeoulMD = () => {
       });
   };
 };
+// 산책가자 페이지 - 전체 반포 게시물 받아오기
 const getBanpoMD = () => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: "https://www.togather1.com/posts/banpoPark",
+      url: "http://13.209.70.209/posts/banpoPark",
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -380,11 +387,12 @@ const getBanpoMD = () => {
       });
   };
 };
+// 산책 약속 상세페이지
 const getPostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/${postId}`,
+      url: `http://13.209.70.209/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -484,11 +492,12 @@ const getPostMD = (postId) => {
       });
   };
 };
+// 마이페이지 - 산책 약속 내가 쓴 게시물 모음
 const getMyPostMD = (userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/mypage/myPost/${userId}`,
+      url: `http://13.209.70.209/mypage/myPost/${userId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -525,7 +534,7 @@ const getMapMD = (postId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "GET",
-      url: `https://www.togather1.com/posts/${postId}`,
+      url: `http://13.209.70.209/posts/${postId}`,
       data: {},
       headers: {
         // "content-type": "application/json;charset=UTF-8",
@@ -583,26 +592,27 @@ const addPostMD = (post, postId) => {
       });
   };
 };
-const updatePostMD = (postId, post, get_id) => {
+const updatePostMD = (postId, post) => {
   return function (dispatch, getState, { history }) {
     apis
-      .updatePostAX(postId, post, get_id)
+      .updatePostAX(postId, post)
       .then((res) => {
         // dispatch(updatePost(postId));
         dispatch(modalActions.editModal(postId));
         dispatch(updatePost(post));
         history.push("/postEditModal");
+        console.log(res);
       })
       .catch((err) => {
         // console.log(err);
       });
   };
 };
-const deletePostMD = (postId, get_id) => {
+const deletePostMD = (postId) => {
   return function (dispatch, getState, { history }) {
     // console.log(postId);
     apis
-      .deletePostAX(postId, get_id)
+      .deletePostAX(postId)
       .then((res) => {
         history.push("/deleteModal");
         dispatch(modalActions.setModal("게시물이 삭제되었습니다"));
