@@ -181,7 +181,7 @@ const checkDogAPI = (formData) => {
         dispatch(checkDog(res.data));
         localStorage.setItem("checkDog", res.data);
         dispatch(loading(false));
-        console.log("체크독", res.data);
+        // console.log("체크독", res.data);
       })
       .catch((err) => {
         // console.log("checkDog에서 오류발생", err);

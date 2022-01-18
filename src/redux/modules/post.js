@@ -146,7 +146,7 @@ const getAllMD = () => {
         const postList = res.data.posts.posts;
         dispatch(getAll(postList));
         dispatch(loading(false));
-        console.log("산책가자 전체 정보 불러오기 완료", res.data.posts);
+        // console.log("산책가자 전체 정보 불러오기 완료", res.data.posts);
       })
       .catch((err) => {
         // console.log(err);
@@ -601,7 +601,7 @@ const updatePostMD = (postId, post) => {
         dispatch(modalActions.editModal(postId));
         dispatch(updatePost(post));
         history.push("/postEditModal");
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         // console.log(err);

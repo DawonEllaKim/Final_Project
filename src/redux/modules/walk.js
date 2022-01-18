@@ -65,12 +65,12 @@ const pageAllMD = (pageNum) => {
             const whenTheMeeting = res.data.posts.contents[i].meetingDate;
             const todayOriginal = new Date().toISOString();
 
-            console.log(
-              "whenTheMeeting",
-              whenTheMeeting,
-              "todayOriginal",
-              todayOriginal
-            );
+            // console.log(
+            //   "whenTheMeeting",
+            //   whenTheMeeting,
+            //   "todayOriginal",
+            //   todayOriginal
+            // );
 
             const fullDate =
               res.data.posts.contents[i].meetingDate.split("T")[0];

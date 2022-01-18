@@ -72,10 +72,10 @@ const getMainPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMainPost(postList));
-        console.log("개스타그램 모든 게시물 GET 성공", postList);
+        // console.log("개스타그램 모든 게시물 GET 성공", postList);
       })
       .catch((err) => {
-        console.log("개스타그램 모든 게시물 GET 에러", err);
+        // console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
@@ -91,10 +91,10 @@ const getAllPostMD = () => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getAllPost(postList));
-        console.log("개스타그램 모든 게시물 GET 성공", res);
+        // console.log("개스타그램 모든 게시물 GET 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 모든 게시물 GET 에러", err);
+        // console.log("개스타그램 모든 게시물 GET 에러", err);
       });
   };
 };
@@ -111,19 +111,19 @@ const getFirstRecentMD = (pageNum) => {
       .then((res) => {
         if (pageNum == 1) {
           const postList = res.data.posts.contents;
-          console.log("first get 성공", postList);
+          // console.log("first get 성공", postList);
           dispatch(getFirstRecent(postList));
         } else {
           let postList = [];
           for (let i = 0; i < res.data.posts.contents.length; i++) {
             postList.push(res.data.posts.contents[i]);
-            console.log("무한스크롤 성공", postList);
+            // console.log("무한스크롤 성공", postList);
           }
           dispatch(getMoreRecent(postList));
         }
       })
       .catch((err) => {
-        console.log("first get 에러", err);
+        // console.log("first get 에러", err);
       });
   };
 };
@@ -140,19 +140,19 @@ const getFirstLikeMD = (pageNum) => {
       .then((res) => {
         if (pageNum == 1) {
           const postList = res.data.posts.contents;
-          console.log("first get 성공", postList);
+          // console.log("first get 성공", postList);
           dispatch(getFirstLike(postList));
         } else {
           let postList = [];
           for (let i = 0; i < res.data.posts.contents.length; i++) {
             postList.push(res.data.posts.contents[i]);
-            console.log("무한스크롤 성공", postList);
+            // console.log("무한스크롤 성공", postList);
           }
           dispatch(getMoreLike(postList));
         }
       })
       .catch((err) => {
-        console.log("first get 에러", err);
+        // console.log("first get 에러", err);
       });
   };
 };
@@ -169,10 +169,10 @@ const getPostMD = (userId, dogPostId) => {
       .then((res) => {
         const postList = res.data.posts[0];
         dispatch(getDogPost(postList));
-        console.log("개스타그램 게시물 하나 GET 성공", res);
+        // console.log("개스타그램 게시물 하나 GET 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 하나 GET 오류", err);
+        // console.log("개스타그램 게시물 하나 GET 오류", err);
       });
   };
 };
@@ -189,10 +189,10 @@ const getMyPostMD = (userId) => {
       .then((res) => {
         const postList = res.data.posts;
         dispatch(getMyPost(postList));
-        console.log("개스타그램 나의 게시물 GET 성공", res.data.posts);
+        // console.log("개스타그램 나의 게시물 GET 성공", res.data.posts);
       })
       .catch((err) => {
-        console.log("개스타그램 나의 게시물 GET 오류", err);
+        // console.log("개스타그램 나의 게시물 GET 오류", err);
       });
   };
 };
@@ -215,10 +215,10 @@ const addPostMD = (formData) => {
         dispatch(getFirstRecentMD());
         dispatch(modalActions.setModal("개스타 등록완료!"));
         history.push("/dogstarmainmodal");
-        console.log("개스타그램 등록 성공", res);
+        // console.log("개스타그램 등록 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 POST 에러", err);
+        // console.log("개스타그램 게시물 POST 에러", err);
       });
   };
 };
@@ -238,10 +238,10 @@ const editPostMD = (postId, post) => {
       .then((res) => {
         dispatch(editPost(post));
         dispatch(getModal(true));
-        console.log("개스타그램 게시물 PATCH 완료", res);
+        // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 PATCH 오류", err);
+        // console.log("개스타그램 게시물 PATCH 오류", err);
       });
   };
 };
@@ -263,10 +263,10 @@ const editPostImageMD = (post, dogPostId) => {
         dispatch(editPost(post));
         dispatch(modalActions.setModal("이미지 수정완료"));
         history.push("/successModal");
-        console.log("개스타그램 게시물 PATCH 완료", res);
+        // console.log("개스타그램 게시물 PATCH 완료", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 PATCH 오류", err);
+        // console.log("개스타그램 게시물 PATCH 오류", err);
         history.goBack();
       });
   };
@@ -288,10 +288,10 @@ const deletePostMD = (postId) => {
         dispatch(deletePost(postId));
         dispatch(modalActions.setModal("게시글 삭제완료!"));
         history.push("/dogstarmainmodal");
-        console.log("개스타그램 게시물 DELETE 성공", res);
+        // console.log("개스타그램 게시물 DELETE 성공", res);
       })
       .catch((err) => {
-        console.log("개스타그램 게시물 DELETE 오류", err);
+        // console.log("개스타그램 게시물 DELETE 오류", err);
       });
   };
 };
