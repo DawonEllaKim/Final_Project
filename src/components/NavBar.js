@@ -6,11 +6,11 @@ import { history } from "../redux/configureStore";
 // 아이콘 + 이미지
 import addBtn from "../image/addBtn.png";
 import plus from "../image/plus.png";
-import { AiOutlineHome } from "react-icons/ai";
-import PetsIcon from "@mui/icons-material/Pets";
-import { FaDog } from "react-icons/fa";
-import { BiUser } from "react-icons/bi";
 import Top from "../image/top.png";
+import HomeIcon from "../image/NavBar_Home.png";
+import WalkIcon from "../image/NavBar_Walk.png";
+import DogstagramIcon from "../image/NavBar_Dogstagram.png";
+import MyPageIcon from "../image/NavBar_MyPage.png";
 
 const NavBar = (props) => {
   const { add_dogsta } = props;
@@ -62,6 +62,7 @@ const NavBar = (props) => {
     }
     history.push("/registerwalk");
   };
+
   const dogStarHandler = () => {
     if (dog == "false") {
       window.alert("강아지등록이 필요한 서비스입니다");
@@ -99,7 +100,7 @@ const NavBar = (props) => {
               onClick={() => history.push("/")}
               style={{ marginRight: "20px" }}
             >
-              <AiOutlineHome style={{ width: "20px", height: "20px" }} />
+              <img src={HomeIcon} style={{ width: "20px", height: "20px" }} />
               <Text>홈</Text>
             </Button>
 
@@ -113,7 +114,7 @@ const NavBar = (props) => {
               }}
               style={{ marginRight: "92px" }}
             >
-              <PetsIcon style={{ width: "20px", height: "20px" }} />
+              <img src={WalkIcon} style={{ width: "20px", height: "20px" }} />
               <Text>산책가자</Text>
             </Button>
 
@@ -124,13 +125,16 @@ const NavBar = (props) => {
               }}
               style={{ marginRight: "20px" }}
             >
-              <FaDog style={{ width: "20px", height: "20px" }} />
+              <img
+                src={DogstagramIcon}
+                style={{ width: "20px", height: "20px" }}
+              />
               <Text>개스타</Text>
             </Button>
 
             {/* 마이페이지 버튼 */}
             <Button onClick={myPageHandler}>
-              <BiUser style={{ width: "20px", height: "20px" }} />
+              <img src={MyPageIcon} style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
           </Box>
@@ -169,7 +173,7 @@ const NavBar = (props) => {
               onClick={() => history.push("/")}
               style={{ marginRight: "8px" }}
             >
-              <AiOutlineHome style={{ width: "20px", height: "20px" }} />
+              <img src={HomeIcon} style={{ width: "20px", height: "20px" }} />
               <Text>홈</Text>
             </Button>
 
@@ -183,7 +187,7 @@ const NavBar = (props) => {
               }}
               style={{ marginRight: "92px" }}
             >
-              <PetsIcon style={{ width: "20px", height: "20px" }} />
+              <img src={WalkIcon} style={{ width: "20px", height: "20px" }} />
               <Text>산책가자</Text>
             </Button>
 
@@ -194,13 +198,16 @@ const NavBar = (props) => {
               }}
               style={{ marginRight: "8px" }}
             >
-              <FaDog style={{ width: "20px", height: "20px" }} />
+              <img
+                src={DogstagramIcon}
+                style={{ width: "20px", height: "20px" }}
+              />
               <Text>개스타</Text>
             </Button>
 
             {/* 마이페이지 버튼 */}
             <Button onClick={myPageHandler}>
-              <BiUser style={{ width: "20px", height: "20px" }} />
+              <img src={MyPageIcon} style={{ width: "20px", height: "20px" }} />
               <Text>My</Text>
             </Button>
           </Box>

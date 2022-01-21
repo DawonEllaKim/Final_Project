@@ -23,6 +23,13 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
+import DogstagramIcon from "../image/NavBar_Dogstagram.png";
+import Dogstagram_red from "../image/dog_red.png";
+import DogInfoIcon_black from "../image/dogInfo_black.png";
+import DogInfoIcon_red from "../image/dogInfo_red.png";
+import WalkListIcon_black from "../image/walkList_black.png";
+import WalkListIcon_red from "../image/walkList_red.png";
+
 const MyPage = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -149,7 +156,19 @@ const MyPage = (props) => {
               }}
               style={{ color: focus === "sta" ? "#ff5656" : "#000" }}
             >
-              <FaDog size="22" />
+              {/* <FaDog size="22" /> */}
+              {focus === "sta" ? (
+                <img
+                  src={Dogstagram_red}
+                  style={{ width: "22px", height: "22px" }}
+                />
+              ) : (
+                <img
+                  src={DogstagramIcon}
+                  style={{ width: "22px", height: "22px" }}
+                />
+              )}
+
               <span>개스타그램</span>
             </div>
 
@@ -159,11 +178,18 @@ const MyPage = (props) => {
                 setStatus("dog");
                 setFocus("dog");
               }}
-              style={{ color: focus === "dog" ? "#ff5656" : "#000" }}
+              style={{
+                color: focus === "dog" ? "#ff5656" : "#000",
+              }}
             >
-              <ContactsIcon />
-              <span>강아지 정보</span>
+              {focus === "dog" ? (
+                <img src={DogInfoIcon_red} />
+              ) : (
+                <img src={DogInfoIcon_black} />
+              )}
+              <span>반려견 정보</span>
             </div>
+
             {/* WalkList 버튼 - 현재 페이지 유저가 쓴 산책 게시물*/}
             <div
               onClick={() => {
@@ -172,7 +198,12 @@ const MyPage = (props) => {
               }}
               style={{ color: focus === "list" ? "#ff5656" : "#000" }}
             >
-              <ListAltIcon />
+              {/* <ListAltIcon /> */}
+              {focus === "list" ? (
+                <img src={WalkListIcon_red} />
+              ) : (
+                <img src={WalkListIcon_black} />
+              )}
               <span>산책 목록</span>
             </div>
           </Buttons>

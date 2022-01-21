@@ -12,6 +12,7 @@ import SeoulForest from "../components/AllList/SeoulForest";
 import Banpo from "../components/AllList/Banpo";
 
 // 이미지
+import WalkIcon from "../image/NavBar_Walk.png";
 import { FaPaw } from "react-icons/fa";
 
 const AllList = (props) => {
@@ -51,7 +52,8 @@ const AllList = (props) => {
       <Wrap>
         {/* 위에 네브바 */}
         <TopBar>
-          <FaPaw
+          <img
+            src={WalkIcon}
             style={{ width: "24px", height: "24px", margin: " -4px 10px" }}
           />
           <span>산책가자</span>

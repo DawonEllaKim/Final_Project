@@ -97,17 +97,11 @@ const Main = (props) => {
     infinite: true,
     speed: 1000,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     autoplay: false,
     autoplaySpeed: 1000,
     pauseOnHover: true,
-  };
-
-  // Google Form 피드백 링크
-  const feedBack = () => {
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSc_ZbOzE97WEYnPjQn6O_By5OJmoBfU1vpg37mx5sBOMnY5WQ/viewform?usp=sf_link"
-    );
+    arrows: false,
   };
 
   useEffect(() => {
@@ -207,7 +201,6 @@ const Main = (props) => {
             </StyledSlider>
           ) : (
             <StyledSlider {...topSettings} style={{ cursor: "pointer" }}>
-              <EventCard onClick={feedBack} />
               <Weather />
               <CautionCard
                 onClick={() => {
@@ -695,7 +688,7 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   position: absolute;
-  border-radius: 5px;
+  border-radius: 14px;
 `;
 const DogSta = styled.div`
   display: flex;
