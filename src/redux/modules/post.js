@@ -169,7 +169,7 @@ const getMainOlympicMD = () => {
       },
     })
       .then((res) => {
-        console.log("res.data.posts", res.data.posts.posts);
+        // console.log("res.data.posts", res.data.posts.posts);
         for (let i = 0; i < res.data.posts.posts.length; i++) {
           const fullDate = res.data.posts.posts[i].meetingDate.split("T")[0];
           const yearTens = fullDate.split("-")[0].charAt(2);

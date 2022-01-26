@@ -20,7 +20,7 @@ const CheckMain = () => {
   }, []);
 
   const dog = useSelector((state) => state.sign.check_dog);
-  console.log("dog", dog);
+  // console.log("dog", dog);
 
   if (is_loading) {
     return <Spinner />;
