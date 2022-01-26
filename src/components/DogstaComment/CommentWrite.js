@@ -79,11 +79,12 @@ const UserImage = styled.img`
 const CommentInput = styled.input`
   display: block;
   width: calc(100% - 60px);
+  height: 45px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 33.5px;
-  padding: 16px 100px 16px 20px;
+  padding: 0px 100px 0px 20px;
   &:focus {
     outline: none;
   }

@@ -169,17 +169,18 @@ const getMainOlympicMD = () => {
       },
     })
       .then((res) => {
-        for (let i = 0; i < res.data.posts.length; i++) {
-          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+        console.log("res.data.posts", res.data.posts.posts);
+        for (let i = 0; i < res.data.posts.posts.length; i++) {
+          const fullDate = res.data.posts.posts[i].meetingDate.split("T")[0];
           const yearTens = fullDate.split("-")[0].charAt(2);
           const yearOnes = fullDate.split("-")[0].charAt(3);
           const year = yearTens + yearOnes;
           const month = fullDate.split("-")[1];
           const day = fullDate.split("-")[2];
-          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const fullTime = res.data.posts.posts[i].meetingDate.split("T")[1];
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
-          res.data.posts[i].meetingDate =
+          res.data.posts.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts.posts;
@@ -209,17 +210,17 @@ const getMainSeoulMD = () => {
       },
     })
       .then((res) => {
-        for (let i = 0; i < res.data.posts.length; i++) {
-          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+        for (let i = 0; i < res.data.posts.posts.length; i++) {
+          const fullDate = res.data.posts.posts[i].meetingDate.split("T")[0];
           const yearTens = fullDate.split("-")[0].charAt(2);
           const yearOnes = fullDate.split("-")[0].charAt(3);
           const year = yearTens + yearOnes;
           const month = fullDate.split("-")[1];
           const day = fullDate.split("-")[2];
-          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const fullTime = res.data.posts.posts[i].meetingDate.split("T")[1];
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
-          res.data.posts[i].meetingDate =
+          res.data.posts.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts.posts;
@@ -249,17 +250,17 @@ const getMainBanpoMD = () => {
       },
     })
       .then((res) => {
-        for (let i = 0; i < res.data.posts.length; i++) {
-          const fullDate = res.data.posts[i].meetingDate.split("T")[0];
+        for (let i = 0; i < res.data.posts.posts.length; i++) {
+          const fullDate = res.data.posts.posts[i].meetingDate.split("T")[0];
           const yearTens = fullDate.split("-")[0].charAt(2);
           const yearOnes = fullDate.split("-")[0].charAt(3);
           const year = yearTens + yearOnes;
           const month = fullDate.split("-")[1];
           const day = fullDate.split("-")[2];
-          const fullTime = res.data.posts[i].meetingDate.split("T")[1];
+          const fullTime = res.data.posts.posts[i].meetingDate.split("T")[1];
           const hour = fullTime.split(":")[0];
           const minute = fullTime.split(":")[1];
-          res.data.posts[i].meetingDate =
+          res.data.posts.posts[i].meetingDate =
             year + "." + month + "." + day + ". " + hour + ":" + minute;
         }
         const postList = res.data.posts.posts;

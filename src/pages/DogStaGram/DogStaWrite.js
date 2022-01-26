@@ -137,7 +137,7 @@ const Write = styled.div`
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border: 1px solid #ebebeb;
-    border-radius: 45px;
+    border-radius: 55px;
   }
   label {
     width: 100%;

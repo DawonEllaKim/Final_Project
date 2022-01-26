@@ -50,7 +50,8 @@ const Main = (props) => {
   const olympicList = useSelector((state) => state.post.mainOlympic);
   const olympic = olympicList.slice(0, 4);
   const olympicListLength = olympicList[4];
-  const [olympicTitle, setOlympicTitle] = useState("올림픽공원");
+  const [olympicBigTitle, setOlympicBigTitle] = useState("올림픽공원");
+  const [olympicTitle, setOlympicTitle] = useState("");
   const [olympicImage, setOlympicImage] = useState(Hangang);
   const [olympicDogName, setOlympicDogName] = useState();
   const [olympicTime, setOlympicTime] = useState();
@@ -62,7 +63,8 @@ const Main = (props) => {
   const seoulList = useSelector((state) => state.post.mainSeoul);
   const seoul = seoulList.slice(0, 4);
   const seoulListLength = seoulList[4];
-  const [seoulTitle, setSeoulTitle] = useState("서울숲");
+  const [seoulBigTitle, setSeoulBigTitle] = useState("서울숲");
+  const [seoulTitle, setSeoulTitle] = useState("");
   const [seoulImage, setSeoulImage] = useState(Seoul);
   const [seoulDogName, setSeoulDogName] = useState();
   const [seoulTime, setSeoulTime] = useState();
@@ -72,8 +74,8 @@ const Main = (props) => {
   const banpoList = useSelector((state) => state.post.mainBanpo);
   const banpo = banpoList.slice(0, 4);
   const banpoListLength = banpoList[4];
-
-  const [banpoTitle, setBanpoTitle] = useState("반포 한강공원");
+  const [banpoBigTitle, setBanpoBigTitle] = useState("반포 한강공원");
+  const [banpoTitle, setBanpoTitle] = useState("");
   const [banpoImage, setBanpoImage] = useState(Banpo);
   const [banpoDogName, setBanpoDogName] = useState();
   const [banpoTime, setBanpoTime] = useState();
@@ -303,7 +305,7 @@ const Main = (props) => {
 
                 <CardTextHere>
                   <Number>+{olympicListLength}</Number>
-
+                  <h1>{olympicBigTitle}</h1>
                   <CardText>
                     <div>{olympicTitle}</div>
                     <p>{olympicDogName}</p>
@@ -320,6 +322,7 @@ const Main = (props) => {
                 {olympic.map((post, index) => {
                   const dogImage = post.dogImage;
                   const cardClicked = () => {
+                    setOlympicBigTitle();
                     setOlympicTitle();
                     setOlympicImage(post.dogImage);
                     setOlympicDogName(post.dogName + "와 함께 산책하기");
@@ -369,7 +372,7 @@ const Main = (props) => {
 
                 <CardTextHere>
                   <Number>+{seoulListLength}</Number>
-
+                  <h1>{seoulBigTitle}</h1>
                   <CardText>
                     <div>{seoulTitle}</div>
                     <p>{seoulDogName}</p>
@@ -386,6 +389,7 @@ const Main = (props) => {
                 {seoul.map((post, index) => {
                   const dogImage = post.dogImage;
                   const hover = () => {
+                    setSeoulBigTitle();
                     setSeoulTitle();
                     setSeoulImage(post.dogImage);
                     setSeoulDogName(post.dogName + "와 함께 산책하기");
@@ -436,7 +440,7 @@ const Main = (props) => {
 
                 <CardTextHere>
                   <Number>+{banpoListLength}</Number>
-
+                  <h1>{banpoBigTitle}</h1>
                   <CardText>
                     <div>{banpoTitle}</div>
                     <p>{banpoDogName}</p>
@@ -453,6 +457,7 @@ const Main = (props) => {
                 {banpo.map((post, index) => {
                   const dogImage = post.dogImage;
                   const hover = () => {
+                    setBanpoBigTitle();
                     setBanpoTitle();
                     setBanpoImage(post.dogImage);
                     setBanpoDogName(post.dogName + "와 함께 산책하기");
@@ -544,7 +549,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  background-color: #c4c4c4;
+  background-color: #dfe0e1;
   position: relative;
   margin-bottom: -50px;
 `;
@@ -631,7 +636,17 @@ const PartImg = styled.img`
   opacity: 0.6;
   position: absolute;
 `;
-const CardTextHere = styled.div``;
+const CardTextHere = styled.div`
+  h1 {
+    width: 100%;
+    position: absolute;
+    top: 45%;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+  }
+`;
 const Number = styled.span`
   position: absolute;
   top: 14px;
