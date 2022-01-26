@@ -49,10 +49,12 @@ import ErrorModal from "../components/ErrorModal";
 import TopBar from "../components/TopBar";
 
 const { kakao } = window;
+
 const RegisterRoad = React.memo(() => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   // const dispatch =useDispatch();
   const [is_modal, setModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);

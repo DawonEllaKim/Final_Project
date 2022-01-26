@@ -11,18 +11,21 @@ const addMarker = createAction(ADD_MARKER, (marker) => ({ marker }));
 const addRoad = createAction(ADD_ROAD, (road) => ({ road }));
 const addDistance = createAction(ADD_DISTANCE, (distance) => ({ distance }));
 const editMarker = createAction(ADD_DISTANCE, (list) => ({ list }));
+
 //새로운 marker 정보를 redux store에 저장
 const initialState = {
   marker: [],
   distance: [],
   list: [],
 };
+
 const addMarkerAX = (marker) => {
   return function (dispatch, getState, { history }) {
     dispatch(addMarker(marker));
     history.push("/registerwalk");
   };
 };
+
 const addRoadAX = (marker, distance) => {
   return function (dispatch, getState, { history }) {
     // 로그인을 했을 때만 마커를 생성할 수 있기 때문에 token 값을 서버에 넘겨줍니다.
@@ -42,6 +45,7 @@ const addRoadAX = (marker, distance) => {
     });
   };
 };
+
 const getRoadAX = () => {
   return function (dispatch, getState, { history }) {
     // 로그인을 했을 때만 마커를 생성할 수 있기 때문에 token 값을 서버에 넘겨줍니다.

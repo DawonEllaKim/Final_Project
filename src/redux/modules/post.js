@@ -404,7 +404,8 @@ const getPostMD = (postId) => {
       .then((res) => {
         // console.log(res.data);
         localStorage.setItem("date", res.data.posts.meetingDate);
-        localStorage.setItem("dogCount", res.data.posts.dogCount);
+        // console.log(res.data);
+        // localStorage.setItem("dogCount", res.data.posts.dogCount);
         const whenTheMeeting = res.data.posts.meetingDate;
         const todayOriginal = new Date().toISOString();
         res.data.posts.completed =
@@ -585,10 +586,11 @@ const addPostMD = (post, postId) => {
         // dispatch(addPost(post));
         // dispatch(modalActions.setModal("산책 등록완료"));
         history.push("/alllist/all");
-        dispatch(justAdded(postId, true));
+        window.location.reload();
+        // dispatch(justAdded(postId, true));
       })
       .catch((err) => {
-        window.alert("에러");
+        window.alert("산책등록 오류");
       });
   };
 };

@@ -12,7 +12,6 @@ import TopBar from "../components/TopBar";
 import NavBar from "../components/NavBar";
 import ErrorModal from "../components/ErrorModal";
 
-
 // 리덕스
 import { actionCreators as PostActions } from "../redux/modules/post";
 
@@ -36,7 +35,7 @@ const RegisterWalk = (props) => {
   const markerName = useSelector((state) => state.marker.marker);
   const moment = require("moment");
   const get_modal = useSelector((state) => state.chat.modal);
-  const userId = localStorage.getItem("userId")
+  const userId = localStorage.getItem("userId");
   const [modal, setModal] = useState("");
   const [startDate, setStartDate] = useState();
   const [wishDesc, setWishDesc] = useState();
@@ -79,7 +78,7 @@ const RegisterWalk = (props) => {
     ) {
       setIsModal(true);
     } else {
-      dispatch(PostActions.addPostMD(Info,userId));
+      dispatch(PostActions.addPostMD(Info, userId));
     }
   };
 

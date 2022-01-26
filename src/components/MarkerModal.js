@@ -11,6 +11,7 @@ const MarkerModal = (props) => {
   const road = props.road;
   const check = props.check;
   const walk = props.walk;
+
   const addMarker = () => {
     let marker = {
       totalDistance: distance.distance,
