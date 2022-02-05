@@ -5,7 +5,6 @@ import { getCookie } from "../../shared/Cookie";
 import { createAction, handleActions } from "redux-actions";
 import { actionCreators as modalActions } from "./modal";
 
-const ALREADY_SUBMIT = "ALREADY_SUBMIT";
 const IN_BOX = "IN_BOX"; // 내가 받은 모든 쪽지 GET
 const OUT_BOX = "OUT_BOX"; // 내가 보낸 모든 쪽지 GET
 const SEND_MESSAGE = "SEND_MESSAGE"; // 쪽지 POST
@@ -14,9 +13,6 @@ const DELETE_IN_MESSAGE = "DELETE_IN_MESSAGE"; // 받은 쪽지함에서 하나 
 const DELETE_OUT_MESSAGE = "DELETE_OUT_MESSAGE"; // 보낸 쪽지함에서 하나 삭제
 const GET_MODAL = "GET_MODAL";
 
-const alreadySubmit = createAction(ALREADY_SUBMIT, (alreadySubmit) => ({
-  alreadySubmit,
-}));
 const inBox = createAction(IN_BOX, (inBoxList) => ({
   inBoxList,
 }));
@@ -41,7 +37,6 @@ const initialState = {
   outBoxList: [],
   list: [],
   modal: "",
-  alreadySubmit: false,
 };
 
 const modalMD = () => {
@@ -145,7 +140,6 @@ const sendNotificationMD = (receiverId, type, postId) => {
 
           history.push("/notification");
         } else {
-          dispatch(alreadySubmit(true));
           dispatch(modalActions.setModal(err.response.data.msg));
           history.push("/successModal");
         }
@@ -257,10 +251,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.modal = action.payload.modal;
       }),
-    [ALREADY_SUBMIT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.alreadySubmit = action.payload.alreadySubmit;
-      }),
   },
   initialState
 );
@@ -269,7 +259,6 @@ export const actionCreators = {
   inBox,
   outBox,
   sendMessage,
-  alreadySubmit,
 
   getDetail,
   deleteInMessage,

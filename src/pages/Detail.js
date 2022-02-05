@@ -39,8 +39,6 @@ import dogMarker from "../image/DogRun.png";
 const { kakao } = window;
 
 const Detail = (props) => {
-  const [alreadySubmit, setAlreadySubmit] = useState();
-
   const dispatch = useDispatch();
   const history = useHistory();
   const post = useSelector((state) => state.post.list);
@@ -93,7 +91,6 @@ const Detail = (props) => {
     dispatch(postActions.deletePostMD(postId, get_id));
   };
 
-  const repeat = useSelector((state) => state.chat.alreadySubmit);
   const request = useSelector((state) => state.post.request);
 
   useEffect(() => {
@@ -394,11 +391,8 @@ const Detail = (props) => {
       fillOpacity: 0.7, // 채우기 불투명도 입니다
       map: map,
     });
-    dispatch(chatActions.alreadySubmit());
-    setAlreadySubmit(repeat);
   }, [walk, start]);
-  // console.log(alreadySubmit);
-  // console.log(useSelector((state) => state));
+
   return (
     <>
       <Wrap>
